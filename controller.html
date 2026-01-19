@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controller Vision | Northampton County</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --primary: #1e3a5f;
+        --primary-light: #2d5a87;
+        --accent: #c9a227;
+        --bg: #fafafa;
+        --bg-alt: #ffffff;
+        --text: #1a1a2e;
+        --text-light: #4a4a5a;
+        --text-muted: #6b7280;
+        --border: #e5e7eb;
+        --success: #059669;
+        --radius: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+    /* Header */
+    header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo { font-weight: 700; font-size: 1.25rem; }
+    .logo span { color: var(--accent); }
+    nav a {
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        margin-left: 2rem;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    nav a:hover { color: white; }
+
+    /* Hero */
+    .hero {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+    }
+    .hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    .hero .subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+    .hero .tagline {
+        font-size: 1.1rem;
+        opacity: 0.8;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+        padding: 1rem 2rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+    .btn-primary { background: var(--accent); color: var(--primary); }
+    .btn-primary:hover { background: #d4af37; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: white; border: 2px solid white; }
+    .btn-outline:hover { background: white; color: var(--primary); }
+
+    /* Sections */
+    .section {
+        padding: 5rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .section-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    .section-header p {
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+    .section-alt { background: var(--bg-alt); }
+
+    /* Mission Statement */
+    .mission {
+        background: var(--bg-alt);
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    .mission-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .mission blockquote {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.75rem;
+        color: var(--primary);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+    .mission cite {
+        color: var(--text-muted);
+        font-style: normal;
+    }
+
+    /* Core Values Grid */
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    .value-card {
+        background: var(--bg-alt);
+        padding: 2rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .value-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .value-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .value-card h3 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    .value-card p {
+        color: var(--text-light);
+        font-size: 0.95rem;
+    }
+
+    /* Priorities */
+    .priorities-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .priority-item {
+        display: flex;
+        gap: 1.5rem;
+        background: var(--bg-alt);
+        padding: 2rem;
+        border-radius: var(--radius);
+        border-left: 4px solid var(--accent);
+    }
+    .priority-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: var(--accent);
+        font-weight: 700;
+        line-height: 1;
+    }
+    .priority-content h3 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    .priority-content p {
+        color: var(--text-light);
+    }
+
+    /* Statutory Duties */
+    .duties-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+    .duty-card {
+        background: var(--bg-alt);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+    }
+    .duty-header {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .duty-section {
+        background: var(--accent);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.875rem;
+    }
+    .duty-body {
+        padding: 1.5rem;
+    }
+    .duty-body p {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+    }
+    .duty-body ul {
+        list-style: none;
+    }
+    .duty-body li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--text);
+        font-size: 0.95rem;
+    }
+    .duty-body li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success);
+        font-weight: bold;
+    }
+
+    /* Experience Timeline */
+    .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background: var(--border);
+    }
+    .timeline-item {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: calc(50% + 2rem);
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-right: 0;
+        padding-left: calc(50% + 2rem);
+    }
+    .timeline-content {
+        background: var(--bg-alt);
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        max-width: 350px;
+    }
+    .timeline-content h4 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    .timeline-content p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 16px;
+        height: 16px;
+        background: var(--accent);
+        border-radius: 50%;
+        border: 3px solid var(--bg);
+    }
+
+    /* Commitment Section */
+    .commitment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    .commitment-item {
+        text-align: center;
+        padding: 2rem;
+    }
+    .commitment-stat {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        color: var(--primary);
+        font-weight: 700;
+    }
+    .commitment-label {
+        color: var(--text-light);
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Tech Section */
+    .tech-showcase {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+    .tech-content h3 {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .tech-content p {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+    }
+    .tech-list {
+        list-style: none;
+    }
+    .tech-list li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .tech-list li::before {
+        content: "→";
+        color: var(--accent);
+        font-weight: bold;
+    }
+    .tech-visual {
+        background: var(--primary);
+        color: white;
+        padding: 2rem;
+        border-radius: var(--radius);
+        font-family: monospace;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+    .tech-visual .comment { color: #6b9080; }
+    .tech-visual .keyword { color: var(--accent); }
+    .tech-visual .string { color: #98c379; }
+
+    /* Contact CTA */
+    .cta-section {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 5rem 2rem;
+        text-align: center;
+    }
+    .cta-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .cta-section p {
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    /* Footer */
+    footer {
+        background: var(--text);
+        color: white;
+        padding: 3rem 2rem;
+        text-align: center;
+    }
+    footer p { opacity: 0.7; font-size: 0.9rem; }
+    footer a { color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 2.5rem; }
+        .tech-showcase { grid-template-columns: 1fr; }
+        .commitment-grid { grid-template-columns: 1fr; }
+        .timeline::before { left: 0; }
+        .timeline-item, .timeline-item:nth-child(even) {
+            padding-left: 2rem;
+            padding-right: 0;
+            justify-content: flex-start;
+        }
+        .timeline-dot { left: 0; }
+        nav { display: none; }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Northampton County <span>Controller</span></div>
+            <nav>
+                <a href="#mission">Mission</a>
+                <a href="#priorities">Priorities</a>
+                <a href="#duties">Duties</a>
+                <a href="#approach">Approach</a>
+                <a href="index.html">NAC Platform</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Serving Northampton County<br>with Integrity & Innovation</h1>
+        <p class="subtitle">A Vision for the Controller's Office</p>
+        <p class="tagline">
+            The County Controller is the independent fiscal watchdog, ensuring every dollar
+            serves the citizens of Northampton County with transparency and accountability.
+        </p>
+        <div class="cta-buttons">
+            <a href="#priorities" class="btn btn-primary">View Priorities</a>
+            <a href="index.html" class="btn btn-outline">Explore NAC Platform</a>
+        </div>
+    </section>
+
+    <section class="mission" id="mission">
+        <div class="mission-content">
+            <blockquote>
+                "The Controller shall supervise the fiscal affairs of the county, including the accounts
+                and official acts relating thereto of all officers or other persons who shall collect,
+                receive, hold, or disburse the public monies of the county."
+            </blockquote>
+            <cite>— Pennsylvania County Code, 16 Pa.C.S. § 1705</cite>
+        </div>
+    </section>
+
+    <section class="section" id="values">
+        <div class="section-header">
+            <h2>Core Values</h2>
+            <p>Principles that guide effective fiscal oversight</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🔍</div>
+                <h3>Independence</h3>
+                <p>The Controller operates independently from the executive, legislative, and judicial branches,
+                ensuring objective oversight without political influence or pressure.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">📊</div>
+                <h3>Transparency</h3>
+                <p>Every audit report, financial statement, and finding should be accessible to the public.
+                Citizens have a right to know how their tax dollars are spent.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">⚖️</div>
+                <h3>Accountability</h3>
+                <p>Hold all county offices to the same high standards. No exceptions, no special treatment.
+                Public trust requires consistent application of rules.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🛡️</div>
+                <h3>Stewardship</h3>
+                <p>Protect taxpayer resources through proactive risk assessment, strong internal controls,
+                and early detection of waste, fraud, and abuse.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Collaboration</h3>
+                <p>Work constructively with departments to improve processes, not just identify problems.
+                The goal is better government, not gotcha audits.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💡</div>
+                <h3>Innovation</h3>
+                <p>Embrace technology to enhance audit capabilities, improve efficiency, and provide
+                better service to the county and its citizens.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="priorities">
+        <div class="section-header">
+            <h2>Top Priorities</h2>
+            <p>Focus areas for the Controller's Office</p>
+        </div>
+        <div class="priorities-list">
+            <div class="priority-item">
+                <div class="priority-number">01</div>
+                <div class="priority-content">
+                    <h3>Comprehensive Audit Coverage</h3>
+                    <p>Ensure every county office and department receives appropriate audit attention on a risk-based
+                    rotation. Row offices, MDJs, tax collectors, and major departments will all be covered systematically.
+                    No corner of county government should operate without oversight.</p>
+                </div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-number">02</div>
+                <div class="priority-content">
+                    <h3>Strengthen Internal Controls</h3>
+                    <p>Work proactively with departments to identify control weaknesses before they become problems.
+                    Implement continuous monitoring where possible. A strong control environment prevents issues
+                    rather than just detecting them after the fact.</p>
+                </div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-number">03</div>
+                <div class="priority-content">
+                    <h3>Timely & Accessible Reporting</h3>
+                    <p>Publish audit reports promptly and in formats accessible to the public. Create an online
+                    dashboard for county finances. Citizens shouldn't need a FOIA request to see how their
+                    government is spending money.</p>
+                </div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-number">04</div>
+                <div class="priority-content">
+                    <h3>Fraud Prevention & Detection</h3>
+                    <p>Establish a confidential tip line for reporting suspected fraud or waste. Use data analytics
+                    to identify anomalies in transactions. Create a culture where fraud is difficult to commit
+                    and impossible to hide.</p>
+                </div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-number">05</div>
+                <div class="priority-content">
+                    <h3>Professional Development</h3>
+                    <p>Invest in the Controller's Office staff through training and certification. Maintain
+                    compliance with Government Auditing Standards. A well-trained team delivers better audits
+                    and better service to the county.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="duties">
+        <div class="section-header">
+            <h2>Statutory Duties</h2>
+            <p>Responsibilities under Pennsylvania County Code, Title 16</p>
+        </div>
+        <div class="duties-grid">
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">§1720</span>
+                    <span>Audit & Settlement</span>
+                </div>
+                <div class="duty-body">
+                    <p>"Audit, settle, and adjust the accounts of all county offices"</p>
+                    <ul>
+                        <li>Annual audits of row offices</li>
+                        <li>MDJ office financial reviews</li>
+                        <li>Tax collector oversight</li>
+                        <li>Department compliance audits</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">§1750</span>
+                    <span>Claims Review</span>
+                </div>
+                <div class="duty-body">
+                    <p>"Scrutinize, audit, and decide on all claims against the county"</p>
+                    <ul>
+                        <li>Pre-audit all invoices before payment</li>
+                        <li>Verify proper authorization</li>
+                        <li>Confirm budget availability</li>
+                        <li>Check procurement compliance</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">§1705</span>
+                    <span>Fiscal Supervision</span>
+                </div>
+                <div class="duty-body">
+                    <p>"Supervise the fiscal affairs of the county"</p>
+                    <ul>
+                        <li>Prescribe accounting systems</li>
+                        <li>Monitor all fiscal operations</li>
+                        <li>Ensure proper record-keeping</li>
+                        <li>Report to Council and public</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">§1760</span>
+                    <span>Disbursements</span>
+                </div>
+                <div class="duty-body">
+                    <p>"No money shall be paid from the county treasury except upon warrant of the Controller"</p>
+                    <ul>
+                        <li>Authorize all payments</li>
+                        <li>Issue warrants on treasury</li>
+                        <li>Process payroll</li>
+                        <li>Ensure proper fund coding</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">§1704</span>
+                    <span>Document Custody</span>
+                </div>
+                <div class="duty-body">
+                    <p>"Custody of all contracts, deeds, and other documents"</p>
+                    <ul>
+                        <li>Maintain contract files</li>
+                        <li>Secure property records</li>
+                        <li>Archive official documents</li>
+                        <li>Control access appropriately</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="duty-card">
+                <div class="duty-header">
+                    <span class="duty-section">Boards</span>
+                    <span>Board Memberships</span>
+                </div>
+                <div class="duty-body">
+                    <p>The Controller serves on multiple county boards</p>
+                    <ul>
+                        <li>Retirement Board (Secretary)</li>
+                        <li>Salary Board (Member)</li>
+                        <li>Prison Board (Member)</li>
+                        <li>Constable Review Board (Member)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="approach">
+        <div class="section-header">
+            <h2>Modern Approach</h2>
+            <p>Leveraging technology for better oversight</p>
+        </div>
+        <div class="tech-showcase">
+            <div class="tech-content">
+                <h3>Technology-Enhanced Auditing</h3>
+                <p>The NAC (Northampton County Legal Code Intelligence) platform demonstrates how modern
+                technology can enhance government transparency and efficiency.</p>
+                <ul class="tech-list">
+                    <li>Data analytics for transaction monitoring</li>
+                    <li>Automated anomaly detection</li>
+                    <li>Digital audit workpapers</li>
+                    <li>Public-facing financial dashboards</li>
+                    <li>AI-assisted document review</li>
+                    <li>Real-time budget tracking</li>
+                </ul>
+                <p style="margin-top: 1.5rem;">
+                    <a href="index.html" class="btn btn-primary">Explore NAC Platform →</a>
+                </p>
+            </div>
+            <div class="tech-visual">
+                <span class="comment">// NAC ISA-95 Enterprise Structure</span><br><br>
+                <span class="keyword">L4_Enterprise</span>: Policy, Strategy, Reporting<br>
+                <span class="keyword">L3_Operations</span>: Controller, Fiscal, Governance<br>
+                <span class="keyword">L2_Control</span>: Audit, Payroll, Budget, Procurement<br>
+                <span class="keyword">L1_Transactions</span>: Claims, Payments, Findings<br>
+                <span class="keyword">L0_Data</span>: Types, Enums, Schemas<br><br>
+                <span class="comment">// 41 modular components</span><br>
+                <span class="comment">// Auto-loading architecture</span><br>
+                <span class="comment">// Local AI analysis (WebLLM)</span><br><br>
+                <span class="string">"Built before hired—<br>
+                &nbsp;ready to serve on day one."</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Commitment to Excellence</h2>
+            <p>Measurable goals for the Controller's Office</p>
+        </div>
+        <div class="commitment-grid">
+            <div class="commitment-item">
+                <div class="commitment-stat">100%</div>
+                <div class="commitment-label">Audit coverage of row offices annually</div>
+            </div>
+            <div class="commitment-item">
+                <div class="commitment-stat">30 days</div>
+                <div class="commitment-label">Target for report publication after fieldwork</div>
+            </div>
+            <div class="commitment-item">
+                <div class="commitment-stat">24/7</div>
+                <div class="commitment-label">Public access to financial dashboards</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Serve Northampton County</h2>
+        <p>The Controller's Office is the guardian of public trust. With independence, integrity,
+        and innovation, we can ensure every taxpayer dollar is spent wisely and accounted for properly.</p>
+        <div class="cta-buttons">
+            <a href="index.html" class="btn btn-primary">Explore the NAC Platform</a>
+            <a href="#duties" class="btn btn-outline">Review Statutory Duties</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Northampton County Controller Vision | <a href="index.html">NAC Platform</a> |
+        <a href="https://github.com/teslasolar/NAC">GitHub</a></p>
+        <p style="margin-top: 1rem;">Built with transparency in mind.</p>
+    </footer>
+
+    <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Intersection observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.value-card, .priority-item, .duty-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s, transform 0.5s';
+        observer.observe(el);
+    });
+    </script>
+</body>
+</html>

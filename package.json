@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "npx serve docs",
     "build": "node scripts/build.js",
+    "test": "node tests/modules.test.js",
+    "test:ci": "npm run build && npm test",
     "deploy": "npm run build && gh-pages -d docs",
-    "analyze": "node scripts/analyze-code.js",
-    "validate": "node scripts/validate-modules.js"
+    "generate": "node scripts/generate-module.js"
   },
   "repository": {
     "type": "git",

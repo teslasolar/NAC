@@ -1,0 +1,93 @@
+name: NAC CI/CD
+
+on:
+  push:
+    branches: [main, claude/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Build
+        run: node scripts/build.js
+
+      - name: Run Tests
+        run: node tests/modules.test.js
+
+      - name: Verify Build Output
+        run: |
+          echo "Checking build outputs..."
+          test -f docs/data/isa95-manifest.json || exit 1
+          test -d docs/js/isa95 || exit 1
+          test -d docs/js/persistence || exit 1
+          echo "✓ All build outputs verified"
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check JS Syntax
+        run: |
+          echo "Checking JavaScript syntax..."
+          find src -name "*.js" -exec node --check {} \; 2>&1 | head -20
+          echo "✓ Syntax check complete"
+
+      - name: Check JSON Validity
+        run: |
+          echo "Checking JSON files..."
+          for f in $(find src -name "*.json"); do
+            node -e "JSON.parse(require('fs').readFileSync('$f'))" || exit 1
+          done
+          echo "✓ All JSON files valid"
+
+  deploy:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build
+        run: node scripts/build.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

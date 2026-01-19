@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-19T22:33:44.326Z",
+  "structure": "ISA-95 Enterprise UDT",
+  "levels": {
+    "L0": {
+      "name": "Data",
+      "description": "Base types and enumerations",
+      "modules": [
+        "types",
+        "enums",
+        "schemas"
+      ]
+    },
+    "L1": {
+      "name": "Transactions",
+      "description": "Individual transaction records",
+      "modules": [
+        "claims",
+        "payments",
+        "audits"
+      ]
+    },
+    "L2": {
+      "name": "Control",
+      "description": "Process control and workflows",
+      "modules": [
+        "audit",
+        "payroll",
+        "budget",
+        "procurement"
+      ]
+    },
+    "L3": {
+      "name": "Operations",
+      "description": "Department-level operations",
+      "modules": [
+        "controller",
+        "fiscal",
+        "governance",
+        "admin"
+      ]
+    },
+    "L4": {
+      "name": "Enterprise",
+      "description": "Policy and strategy",
+      "modules": [
+        "policy",
+        "strategy",
+        "reporting"
+      ]
+    }
+  },
+  "mapping": {
+    "countyGovernment": {
+      "L4": "County Policy/Charter",
+      "L3": "Departments/Offices",
+      "L2": "Processes/Workflows",
+      "L1": "Individual Transactions",
+      "L0": "Data Records"
+    }
+  }
+}

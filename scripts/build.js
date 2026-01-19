@@ -3,8 +3,8 @@
 /**
  * NAC Build Script
  *
- * Builds the static site for GitHub Pages deployment
- * Includes ISA-95 enterprise UDT structure
+ * Auto-discovers and builds ISA-95 modules for GitHub Pages
+ * Generates structure manifest for auto-loading UI
  */
 
 const fs = require('fs');
@@ -17,145 +17,124 @@ const srcDir = path.join(__dirname, '..', 'src');
 const docsDir = path.join(__dirname, '..', 'docs');
 const jsDir = path.join(docsDir, 'js');
 const isa95JsDir = path.join(jsDir, 'isa95');
+const dataDir = path.join(docsDir, 'data');
 
-// Ensure directories exist
-[jsDir, isa95JsDir].forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+// Ensure directories
+[jsDir, isa95JsDir, dataDir].forEach(dir => {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-// Copy legacy module files
-const modulesToCopy = [
-  { src: 'controller/index.js', dest: 'controller.js' },
-  { src: 'modules/fiscal/audit.js', dest: 'audit.js' },
-  { src: 'modules/fiscal/payroll.js', dest: 'payroll.js' },
-  { src: 'ai/webllm-engine.js', dest: 'webllm-engine.js' },
-  { src: 'templates/prompts.js', dest: 'prompts.js' }
+// Copy legacy modules
+const legacy = [
+  ['controller/index.js', 'controller.js'],
+  ['modules/fiscal/audit.js', 'audit.js'],
+  ['modules/fiscal/payroll.js', 'payroll.js'],
+  ['ai/webllm-engine.js', 'webllm-engine.js'],
+  ['templates/prompts.js', 'prompts.js']
 ];
 
-console.log('Copying legacy modules...\n');
-
-modulesToCopy.forEach(({ src, dest }) => {
+console.log('Legacy modules:');
+legacy.forEach(([src, dest]) => {
   const srcPath = path.join(srcDir, src);
-  const destPath = path.join(jsDir, dest);
   if (fs.existsSync(srcPath)) {
-    fs.copyFileSync(srcPath, destPath);
-    console.log(`  ✓ ${src} -> js/${dest}`);
+    fs.copyFileSync(srcPath, path.join(jsDir, dest));
+    console.log(`  ✓ ${dest}`);
   }
 });
 
-// Copy ISA-95 modules
-console.log('\nCopying ISA-95 modules...\n');
+// Auto-discover ISA-95 structure
+console.log('\nDiscovering ISA-95 structure...\n');
 
 const isa95Src = path.join(srcDir, 'isa95');
+const structure = {};
+let totalModules = 0;
 
-function copyDir(src, dest, prefix = '') {
-  if (!fs.existsSync(src)) return;
+function scanLevel(levelDir, levelName) {
+  if (!fs.existsSync(levelDir)) return;
 
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-  }
+  structure[levelName] = {};
+  const groups = fs.readdirSync(levelDir);
 
-  const items = fs.readdirSync(src);
-  items.forEach(item => {
-    const srcPath = path.join(src, item);
-    const destPath = path.join(dest, item);
-    const stat = fs.statSync(srcPath);
+  groups.forEach(group => {
+    const groupPath = path.join(levelDir, group);
+    if (!fs.statSync(groupPath).isDirectory()) return;
 
-    if (stat.isDirectory()) {
-      copyDir(srcPath, destPath, prefix + item + '/');
-    } else if (item.endsWith('.js')) {
-      fs.copyFileSync(srcPath, destPath);
-      console.log(`  ✓ isa95/${prefix}${item}`);
+    structure[levelName][group] = [];
+    const files = fs.readdirSync(groupPath);
+
+    files.forEach(file => {
+      if (file.endsWith('.js')) {
+        structure[levelName][group].push(file);
+        totalModules++;
+
+        // Copy to docs
+        const destDir = path.join(isa95JsDir, levelName, group);
+        if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
+        fs.copyFileSync(path.join(groupPath, file), path.join(destDir, file));
+      }
+    });
+
+    if (structure[levelName][group].length > 0) {
+      console.log(`  ${levelName}/${group}: ${structure[levelName][group].length} modules`);
     }
   });
 }
 
-copyDir(isa95Src, isa95JsDir);
+// Scan all levels
+['L0_Data', 'L1_Transactions', 'L2_Control', 'L3_Operations', 'L4_Enterprise'].forEach(level => {
+  scanLevel(path.join(isa95Src, level), level);
+});
 
-// Copy data files
-const dataDir = path.join(docsDir, 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+// Copy index.js if exists
+const indexSrc = path.join(isa95Src, 'index.js');
+if (fs.existsSync(indexSrc)) {
+  fs.copyFileSync(indexSrc, path.join(isa95JsDir, 'index.js'));
 }
 
-const srcDataDir = path.join(srcDir, 'data');
-if (fs.existsSync(srcDataDir)) {
-  console.log('\nCopying data files...\n');
-  fs.readdirSync(srcDataDir).forEach(file => {
-    fs.copyFileSync(
-      path.join(srcDataDir, file),
-      path.join(dataDir, file)
-    );
-    console.log(`  ✓ data/${file}`);
-  });
-}
+// Generate structure manifest for auto-loading UI
+console.log('\nGenerating manifests...\n');
 
-// Generate ISA-95 module index
-console.log('\nGenerating ISA-95 index...\n');
-
-const isa95Index = {
+const manifest = {
   version: '1.0.0',
   generated: new Date().toISOString(),
-  structure: 'ISA-95 Enterprise UDT',
-  levels: {
-    L0: {
-      name: 'Data',
-      description: 'Base types and enumerations',
-      modules: ['types', 'enums', 'schemas']
-    },
-    L1: {
-      name: 'Transactions',
-      description: 'Individual transaction records',
-      modules: ['claims', 'payments', 'audits']
-    },
-    L2: {
-      name: 'Control',
-      description: 'Process control and workflows',
-      modules: ['audit', 'payroll', 'budget', 'procurement']
-    },
-    L3: {
-      name: 'Operations',
-      description: 'Department-level operations',
-      modules: ['controller', 'fiscal', 'governance', 'admin']
-    },
-    L4: {
-      name: 'Enterprise',
-      description: 'Policy and strategy',
-      modules: ['policy', 'strategy', 'reporting']
-    }
-  },
-  mapping: {
-    countyGovernment: {
-      L4: 'County Policy/Charter',
-      L3: 'Departments/Offices',
-      L2: 'Processes/Workflows',
-      L1: 'Individual Transactions',
-      L0: 'Data Records'
-    }
-  }
+  totalModules,
+  structure
 };
 
 fs.writeFileSync(
-  path.join(dataDir, 'isa95-index.json'),
-  JSON.stringify(isa95Index, null, 2)
+  path.join(dataDir, 'isa95-manifest.json'),
+  JSON.stringify(manifest, null, 2)
 );
-console.log('  ✓ data/isa95-index.json');
+console.log('  ✓ data/isa95-manifest.json');
 
-// Count files
-let fileCount = 0;
-function countFiles(dir) {
-  if (!fs.existsSync(dir)) return;
-  fs.readdirSync(dir).forEach(item => {
-    const p = path.join(dir, item);
-    if (fs.statSync(p).isDirectory()) countFiles(p);
-    else if (item.endsWith('.js')) fileCount++;
+// Generate JS module for direct import
+const structureJS = `// Auto-generated ISA-95 structure manifest
+// Generated: ${new Date().toISOString()}
+export const STRUCTURE = ${JSON.stringify(structure, null, 2)};
+export const TOTAL_MODULES = ${totalModules};
+`;
+
+fs.writeFileSync(path.join(isa95JsDir, 'manifest.js'), structureJS);
+console.log('  ✓ js/isa95/manifest.js');
+
+// Copy data files
+const srcDataDir = path.join(srcDir, 'data');
+if (fs.existsSync(srcDataDir)) {
+  fs.readdirSync(srcDataDir).forEach(file => {
+    fs.copyFileSync(path.join(srcDataDir, file), path.join(dataDir, file));
   });
+  console.log('  ✓ data/*.json');
 }
-countFiles(isa95Src);
 
 console.log('\n================');
-console.log(`Build complete! ${fileCount} ISA-95 modules\n`);
-console.log('To preview: npx serve docs');
-console.log('To deploy: git push to GitHub with Pages enabled on /docs\n');
+console.log(`Build complete! ${totalModules} ISA-95 modules\n`);
+
+// Print structure summary
+console.log('Structure:');
+Object.entries(structure).forEach(([level, groups]) => {
+  const count = Object.values(groups).flat().length;
+  console.log(`  ${level}: ${count} modules`);
+});
+
+console.log('\nTo preview: npx serve docs');
+console.log('To deploy:  git push (GitHub Pages on /docs)\n');

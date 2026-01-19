@@ -13,449 +13,88 @@
         <div class="nav-brand">
             <span class="brand-icon">⚖️</span>
             <span class="brand-text">NAC</span>
-            <span class="brand-subtitle">Legal Code Intelligence</span>
+            <span class="brand-subtitle">ISA-95 Legal Intelligence</span>
         </div>
         <div class="nav-links">
-            <a href="#controller" class="nav-link active">Controller</a>
-            <a href="#modules" class="nav-link">Modules</a>
-            <a href="#ai-assistant" class="nav-link">AI Assistant</a>
-            <a href="#about" class="nav-link">About</a>
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="#isa95" class="nav-link">ISA-95</a>
+            <a href="#ai-assistant" class="nav-link">AI</a>
         </div>
         <div class="nav-status">
+            <span id="module-count" class="status-indicator loading">Loading...</span>
             <span id="ai-status" class="status-indicator offline">AI: Offline</span>
         </div>
     </nav>
 
     <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
+        <!-- Hero -->
+        <section class="hero" id="hero">
             <div class="hero-content">
                 <h1>Northampton County<br>Legal Code Intelligence</h1>
-                <p class="hero-subtitle">
-                    AI-powered analysis of Pennsylvania County Code, Home Rule Charter,
-                    and County Controller statutory responsibilities
-                </p>
+                <p class="hero-subtitle">ISA-95 Enterprise UDT Architecture for PA County Code</p>
                 <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">12</span>
-                        <span class="stat-label">Dimensional Modules</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">7</span>
-                        <span class="stat-label">Controller Duties</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Local AI (WebLLM)</span>
-                    </div>
+                    <div class="stat"><span class="stat-number" id="stat-modules">-</span><span class="stat-label">Modules</span></div>
+                    <div class="stat"><span class="stat-number">5</span><span class="stat-label">ISA-95 Levels</span></div>
+                    <div class="stat"><span class="stat-number">100%</span><span class="stat-label">Local AI</span></div>
                 </div>
                 <div class="hero-actions">
-                    <button id="load-ai-btn" class="btn btn-primary">
-                        <span class="btn-icon">🤖</span>
-                        Load AI Engine
-                    </button>
-                    <a href="#controller" class="btn btn-secondary">
-                        Explore Controller Duties
-                    </a>
+                    <button id="load-ai-btn" class="btn btn-primary">🤖 Load AI Engine</button>
+                    <a href="#isa95" class="btn btn-secondary">Explore Modules</a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="dimension-cube">
-                    <div class="cube-face front">Fiscal [0-2]</div>
-                    <div class="cube-face back">Admin [6-8]</div>
-                    <div class="cube-face left">Governance [3-5]</div>
-                    <div class="cube-face right">Extended [9+]</div>
-                    <div class="cube-face top">Controller</div>
-                    <div class="cube-face bottom">NAC</div>
-                </div>
+                <div class="isa95-pyramid" id="isa95-pyramid"></div>
             </div>
         </section>
 
-        <!-- Controller Section -->
-        <section id="controller" class="section">
+        <!-- ISA-95 Auto-Discovery Section -->
+        <section id="isa95" class="section">
             <div class="section-header">
-                <h2>County Controller</h2>
-                <p>Independent fiscal watchdog - PA County Code Title 16</p>
+                <h2>ISA-95 Enterprise Structure</h2>
+                <p>Auto-discovered modules • Click any module to inspect</p>
             </div>
-
-            <div class="controller-grid">
-                <!-- Statutory Duties Card -->
-                <div class="card statutory-duties">
-                    <h3>Statutory Duties</h3>
-                    <div class="duties-list">
-                        <div class="duty-item" data-section="1602">
-                            <span class="section-badge">§1602</span>
-                            <div class="duty-content">
-                                <strong>System of Accounts</strong>
-                                <p>Prescribe the accounting system for all county offices</p>
-                            </div>
-                        </div>
-                        <div class="duty-item" data-section="1704">
-                            <span class="section-badge">§1704</span>
-                            <div class="duty-content">
-                                <strong>Document Custody</strong>
-                                <p>Maintain custody of contracts, titles, and deeds</p>
-                            </div>
-                        </div>
-                        <div class="duty-item" data-section="1705">
-                            <span class="section-badge">§1705</span>
-                            <div class="duty-content">
-                                <strong>Official Books</strong>
-                                <p>Prescribe form and manner of keeping fiscal records</p>
-                            </div>
-                        </div>
-                        <div class="duty-item" data-section="1720">
-                            <span class="section-badge">§1720</span>
-                            <div class="duty-content">
-                                <strong>Audit & Settlement</strong>
-                                <p>Audit, settle, and adjust all county office accounts</p>
-                            </div>
-                        </div>
-                        <div class="duty-item" data-section="1750">
-                            <span class="section-badge">§1750</span>
-                            <div class="duty-content">
-                                <strong>Claims Review</strong>
-                                <p>Scrutinize, audit, and decide on all claims against county</p>
-                            </div>
-                        </div>
-                        <div class="duty-item" data-section="1760">
-                            <span class="section-badge">§1760</span>
-                            <div class="duty-content">
-                                <strong>Disbursements</strong>
-                                <p>Oversee all disbursements of county funds</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Board Memberships Card -->
-                <div class="card board-memberships">
-                    <h3>Board Memberships</h3>
-                    <div class="boards-grid">
-                        <div class="board-item">
-                            <span class="board-role">Secretary</span>
-                            <strong>Retirement Board</strong>
-                            <p>Oversee pension fund accounting</p>
-                        </div>
-                        <div class="board-item">
-                            <span class="board-role">Member</span>
-                            <strong>Salary Board</strong>
-                            <p>Vote on employee compensation</p>
-                        </div>
-                        <div class="board-item">
-                            <span class="board-role">Member</span>
-                            <strong>Prison Board</strong>
-                            <p>Oversee corrections fiscal ops</p>
-                        </div>
-                        <div class="board-item">
-                            <span class="board-role">Member</span>
-                            <strong>Constable Review</strong>
-                            <p>Approve constable fee claims</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Independence Card -->
-                <div class="card independence">
-                    <h3>Independence</h3>
-                    <div class="independence-visual">
-                        <div class="branch executive">Executive</div>
-                        <div class="branch legislative">Legislative</div>
-                        <div class="branch judicial">Judicial</div>
-                        <div class="controller-position">
-                            <span>CONTROLLER</span>
-                            <small>Independent Oversight</small>
-                        </div>
-                    </div>
-                    <p class="independence-note">
-                        The Controller is an independently elected official, separate from all three branches,
-                        ensuring objective fiscal oversight and public accountability.
-                    </p>
-                </div>
-
-                <!-- Audit Targets Card -->
-                <div class="card audit-targets">
-                    <h3>Audit Jurisdiction</h3>
-                    <div class="targets-grid">
-                        <div class="target-group">
-                            <h4>Row Offices</h4>
-                            <ul>
-                                <li>Recorder of Deeds</li>
-                                <li>Register of Wills</li>
-                                <li>Prothonotary</li>
-                                <li>Clerk of Courts</li>
-                                <li>Sheriff</li>
-                            </ul>
-                        </div>
-                        <div class="target-group">
-                            <h4>Tax Collectors</h4>
-                            <ul>
-                                <li>All municipal collectors</li>
-                                <li>Annual review cycle</li>
-                            </ul>
-                        </div>
-                        <div class="target-group">
-                            <h4>District Judges</h4>
-                            <ul>
-                                <li>All MDJ offices</li>
-                                <li>Fines & bail audits</li>
-                            </ul>
-                        </div>
-                        <div class="target-group">
-                            <h4>Departments</h4>
-                            <ul>
-                                <li>Human Services</li>
-                                <li>Public Works</li>
-                                <li>Corrections</li>
-                                <li>Administration</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div id="isa95-container" class="isa95-container">
+                <div class="loading-spinner">Discovering modules...</div>
             </div>
         </section>
 
-        <!-- Modules Section -->
-        <section id="modules" class="section">
-            <div class="section-header">
-                <h2>Dimensional Modules</h2>
-                <p>Modular legal code organization system</p>
-            </div>
-
-            <div class="modules-grid">
-                <!-- Fiscal Dimensions -->
-                <div class="dimension-group fiscal">
-                    <h3>Fiscal [0-2]</h3>
-                    <div class="module-cards">
-                        <div class="module-card" data-module="budget">
-                            <span class="dim-badge">0</span>
-                            <h4>Budget & Appropriations</h4>
-                            <p>Annual budget process, fund accounting, revenue projection</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="audit">
-                            <span class="dim-badge">1</span>
-                            <h4>Audit & Compliance</h4>
-                            <p>Internal audit, compliance testing, fraud detection</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="payroll">
-                            <span class="dim-badge">2</span>
-                            <h4>Payroll & Disbursements</h4>
-                            <p>Employee compensation, AP processing, tax compliance</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Governance Dimensions -->
-                <div class="dimension-group governance">
-                    <h3>Governance [3-5]</h3>
-                    <div class="module-cards">
-                        <div class="module-card" data-module="council">
-                            <span class="dim-badge">3</span>
-                            <h4>County Council</h4>
-                            <p>Legislative process, ordinances, budget adoption</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="executive">
-                            <span class="dim-badge">4</span>
-                            <h4>Executive Branch</h4>
-                            <p>County Executive, departments, row offices</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="judicial">
-                            <span class="dim-badge">5</span>
-                            <h4>Judicial Interface</h4>
-                            <p>Court reporting, MDJ audits, constable board</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Administrative Dimensions -->
-                <div class="dimension-group admin">
-                    <h3>Administrative [6-8]</h3>
-                    <div class="module-cards">
-                        <div class="module-card" data-module="personnel">
-                            <span class="dim-badge">6</span>
-                            <h4>Personnel & HR</h4>
-                            <p>Employee management, benefits, unions</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="procurement">
-                            <span class="dim-badge">7</span>
-                            <h4>Procurement & Contracts</h4>
-                            <p>Bidding, contracts, vendor management</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="records">
-                            <span class="dim-badge">8</span>
-                            <h4>Records & Archives</h4>
-                            <p>Document retention, RTKL, public access</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Extended Dimensions -->
-                <div class="dimension-group extended">
-                    <h3>Extended [9+]</h3>
-                    <div class="module-cards">
-                        <div class="module-card" data-module="interagency">
-                            <span class="dim-badge">9</span>
-                            <h4>Inter-agency Relations</h4>
-                            <p>State reporting, federal grants, municipal cooperation</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="transparency">
-                            <span class="dim-badge">10</span>
-                            <h4>Public Transparency</h4>
-                            <p>Open data, public reporting, citizen engagement</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                        <div class="module-card" data-module="emergency">
-                            <span class="dim-badge">11</span>
-                            <h4>Emergency Operations</h4>
-                            <p>Disaster finance, emergency procurement, FEMA</p>
-                            <button class="explore-btn">Explore</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI Assistant Section -->
+        <!-- AI Assistant -->
         <section id="ai-assistant" class="section">
             <div class="section-header">
                 <h2>AI Assistant</h2>
-                <p>Local, private analysis powered by WebLLM</p>
+                <p>WebLLM local analysis • All loaded modules available as context</p>
             </div>
-
             <div class="ai-container">
                 <div class="ai-sidebar">
-                    <h3>Analysis Tools</h3>
-                    <div class="tool-buttons">
-                        <button class="tool-btn" data-tool="legal-analysis">
-                            <span>📜</span> Legal Code Analysis
-                        </button>
-                        <button class="tool-btn" data-tool="audit-risk">
-                            <span>🔍</span> Audit Risk Assessment
-                        </button>
-                        <button class="tool-btn" data-tool="budget-variance">
-                            <span>📊</span> Budget Variance
-                        </button>
-                        <button class="tool-btn" data-tool="compliance-check">
-                            <span>✅</span> Compliance Check
-                        </button>
-                        <button class="tool-btn" data-tool="claims-review">
-                            <span>📋</span> Claims Review
-                        </button>
-                    </div>
-
-                    <h3>Quick Lookups</h3>
-                    <div class="quick-lookups">
-                        <select id="section-lookup">
-                            <option value="">Select PA Code Section...</option>
-                            <option value="1602">§1602 - System of Accounts</option>
-                            <option value="1704">§1704 - Document Custody</option>
-                            <option value="1705">§1705 - Official Books</option>
-                            <option value="1720">§1720 - Audit & Settlement</option>
-                            <option value="1750">§1750 - Claims Review</option>
-                            <option value="1760">§1760 - Disbursements</option>
-                        </select>
-                        <button id="lookup-btn" class="btn btn-small">Explain</button>
-                    </div>
-
-                    <div class="ai-status-panel">
-                        <h3>AI Status</h3>
-                        <div id="ai-status-detail">
-                            <p><strong>Model:</strong> <span id="model-name">Not loaded</span></p>
-                            <p><strong>Status:</strong> <span id="model-status">Offline</span></p>
-                            <div id="load-progress" class="progress-bar" style="display:none;">
-                                <div class="progress-fill"></div>
-                            </div>
-                        </div>
+                    <h3>Loaded Modules</h3>
+                    <div id="module-list" class="module-list"></div>
+                    <div id="load-progress" class="progress-bar" style="display:none;margin-top:1rem;">
+                        <div class="progress-fill"></div>
                     </div>
                 </div>
-
                 <div class="ai-main">
                     <div class="chat-container" id="chat-container">
                         <div class="chat-message system">
                             <div class="message-content">
                                 <p><strong>NAC AI Assistant</strong></p>
-                                <p>I can help you analyze PA County Code, understand Controller duties,
-                                assess audit risks, and review compliance. Load the AI engine to begin.</p>
-                                <p><em>All processing happens locally in your browser - no data sent to external servers.</em></p>
+                                <p>Modules auto-load from ISA-95 structure. Load AI engine to query.</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="chat-input-container">
-                        <textarea id="chat-input" placeholder="Ask about Controller duties, audit procedures, PA County Code..." rows="2"></textarea>
-                        <button id="send-btn" class="btn btn-primary" disabled>
-                            <span>Send</span>
-                        </button>
+                        <textarea id="chat-input" placeholder="Ask about PA County Code, Controller duties..." rows="2"></textarea>
+                        <button id="send-btn" class="btn btn-primary" disabled>Send</button>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="section-header">
-                <h2>About This Project</h2>
-                <p>Demonstrating AI-powered government transparency</p>
-            </div>
-
-            <div class="about-content">
-                <div class="about-card">
-                    <h3>Purpose</h3>
-                    <p>This project demonstrates how AI can be used to make county government
-                    more transparent, efficient, and accessible. By modularizing legal code
-                    and providing AI-assisted analysis, we can help citizens and officials
-                    better understand their government.</p>
-                </div>
-
-                <div class="about-card">
-                    <h3>Technology</h3>
-                    <ul>
-                        <li><strong>WebLLM:</strong> In-browser AI inference via WebGPU</li>
-                        <li><strong>Modular Architecture:</strong> Dimensional organization of legal code</li>
-                        <li><strong>Privacy-First:</strong> All AI processing happens locally</li>
-                        <li><strong>Open Source:</strong> MIT licensed for government use</li>
-                    </ul>
-                </div>
-
-                <div class="about-card">
-                    <h3>Sources</h3>
-                    <ul>
-                        <li><a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16" target="_blank">PA County Code (Title 16)</a></li>
-                        <li><a href="https://norcopa.gov/executive-resources" target="_blank">Northampton County Home Rule Charter</a></li>
-                        <li><a href="https://psacc.org/about" target="_blank">PA State Association of County Controllers</a></li>
-                        <li><a href="https://norcopa.gov/controllers-office" target="_blank">Northampton County Controller's Office</a></li>
-                    </ul>
-                </div>
-
-                <div class="about-card">
-                    <h3>Controller Interview Demo</h3>
-                    <p>This project was built as a demonstration of capabilities for the
-                    Northampton County Controller position, showcasing deep understanding
-                    of statutory duties, audit functions, and modern approaches to
-                    government financial oversight.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="footer-content">
-            <p>NAC - Northampton County Legal Code Intelligence System</p>
-            <p>Built with WebLLM | MIT License | <a href="https://github.com/teslasolar/NAC">GitHub</a></p>
-        </div>
+        <p>NAC ISA-95 • Auto-loading Architecture • <a href="https://github.com/teslasolar/NAC">GitHub</a></p>
     </footer>
 
-    <!-- Module Detail Modal -->
+    <!-- Modal -->
     <div id="module-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
@@ -463,6 +102,322 @@
         </div>
     </div>
 
-    <script type="module" src="js/app.js"></script>
+    <script type="module">
+    //===============================================
+    // NAC Auto-Loading System
+    // Discovers & loads ISA-95 modules dynamically
+    //===============================================
+
+    const NAC = { modules: {}, structure: {}, ai: { engine: null, loaded: false } };
+    window.NAC = NAC;
+
+    const LEVELS = {
+        L0_Data:         { name: 'L0: Data',         color: '#64748b', icon: '📊', desc: 'Types & Enums' },
+        L1_Transactions: { name: 'L1: Transactions', color: '#3b82f6', icon: '📝', desc: 'Records' },
+        L2_Control:      { name: 'L2: Control',      color: '#10b981', icon: '⚙️', desc: 'Processes' },
+        L3_Operations:   { name: 'L3: Operations',   color: '#f59e0b', icon: '🏢', desc: 'Departments' },
+        L4_Enterprise:   { name: 'L4: Enterprise',   color: '#8b5cf6', icon: '🏛️', desc: 'Policy' }
+    };
+
+    // Known structure (build script generates this)
+    const STRUCTURE = {
+        L0_Data: {
+            types: ['Money.js','Account.js','Person.js','DateRange.js','CodeSection.js'],
+            enums: ['ClaimStatus.js','AuditType.js','FundType.js','Department.js']
+        },
+        L1_Transactions: {
+            claims: ['Claim.js','ClaimApproval.js'],
+            payments: ['Warrant.js','DirectDeposit.js'],
+            audits: ['Finding.js','AuditEngagement.js','WorkPaper.js']
+        },
+        L2_Control: {
+            audit: ['RiskAssessment.js','AuditPlan.js','SamplingMethod.js'],
+            payroll: ['PayCycle.js','TaxWithholding.js','Deductions.js'],
+            budget: ['Appropriation.js','BudgetCycle.js'],
+            procurement: ['BidThresholds.js','ContractReview.js']
+        },
+        L3_Operations: {
+            controller: ['StatutoryDuties.js','BoardMemberships.js','AuditJurisdiction.js'],
+            fiscal: ['AccountsPayable.js','PayrollOps.js'],
+            governance: ['CouncilInterface.js','JudicialReporting.js'],
+            admin: ['RecordsCustody.js']
+        },
+        L4_Enterprise: {
+            policy: ['FiscalPolicy.js','InternalControl.js','Ethics.js'],
+            strategy: ['AuditStrategy.js','Transparency.js'],
+            reporting: ['AnnualReport.js','ACFR.js']
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    async function init() {
+        renderPyramid();
+        await discoverAndRender();
+        setupEvents();
+    }
+
+    function renderPyramid() {
+        const el = document.getElementById('isa95-pyramid');
+        el.innerHTML = Object.entries(LEVELS).reverse().map(([k,v]) => `
+            <div class="pyramid-level" style="--c:${v.color}" data-level="${k}">
+                <span>${v.icon}</span><span>${v.name}</span>
+            </div>
+        `).join('');
+    }
+
+    async function discoverAndRender() {
+        const container = document.getElementById('isa95-container');
+        container.innerHTML = '';
+        let total = 0;
+
+        for (const [levelKey, levelMeta] of Object.entries(LEVELS)) {
+            const groups = STRUCTURE[levelKey] || {};
+            const count = Object.values(groups).flat().length;
+            if (!count) continue;
+            total += count;
+
+            const levelEl = document.createElement('div');
+            levelEl.className = 'isa95-level';
+            levelEl.innerHTML = `
+                <div class="level-header" style="--c:${levelMeta.color}">
+                    <span class="lh-icon">${levelMeta.icon}</span>
+                    <h3>${levelMeta.name}</h3>
+                    <span class="lh-desc">${levelMeta.desc}</span>
+                    <span class="lh-count">${count}</span>
+                </div>
+                <div class="level-groups"></div>
+            `;
+            container.appendChild(levelEl);
+
+            const groupsEl = levelEl.querySelector('.level-groups');
+
+            for (const [groupName, files] of Object.entries(groups)) {
+                const groupEl = document.createElement('div');
+                groupEl.className = 'module-group';
+                groupEl.innerHTML = `<h4>${fmt(groupName)}</h4><div class="mcards"></div>`;
+                const cardsEl = groupEl.querySelector('.mcards');
+
+                for (const file of files) {
+                    const path = `js/isa95/${levelKey}/${groupName}/${file}`;
+                    const card = document.createElement('div');
+                    card.className = 'mcard';
+                    card.dataset.path = path;
+                    card.dataset.name = file.replace('.js','');
+                    card.innerHTML = `<span class="mname">${fmt(file.replace('.js',''))}</span><span class="mstat">○</span>`;
+                    card.onclick = () => showModule(path);
+                    cardsEl.appendChild(card);
+                }
+                groupsEl.appendChild(groupEl);
+            }
+        }
+
+        document.getElementById('stat-modules').textContent = total;
+        document.getElementById('module-count').textContent = `${total} modules`;
+        document.getElementById('module-count').className = 'status-indicator online';
+
+        // Auto-load all
+        await loadAllModules();
+    }
+
+    async function loadAllModules() {
+        const list = document.getElementById('module-list');
+        list.innerHTML = '';
+
+        for (const [level, groups] of Object.entries(STRUCTURE)) {
+            for (const [group, files] of Object.entries(groups)) {
+                for (const file of files) {
+                    const path = `js/isa95/${level}/${group}/${file}`;
+                    const name = file.replace('.js','');
+                    try {
+                        const mod = await import(`./${path}`);
+                        NAC.modules[name] = Object.values(mod)[0] || mod.default || mod;
+
+                        // Update card
+                        const card = document.querySelector(`[data-path="${path}"]`);
+                        if (card) {
+                            card.querySelector('.mstat').textContent = '●';
+                            card.querySelector('.mstat').style.color = '#22c55e';
+                        }
+
+                        // Add to sidebar
+                        const item = document.createElement('div');
+                        item.className = 'mitem';
+                        item.textContent = name;
+                        item.onclick = () => showModule(path);
+                        list.appendChild(item);
+                    } catch (e) {
+                        console.warn(`Skip ${path}:`, e.message);
+                    }
+                }
+            }
+        }
+    }
+
+    async function showModule(path) {
+        const modal = document.getElementById('module-modal');
+        const body = document.getElementById('modal-body');
+        const name = path.split('/').pop().replace('.js','');
+
+        try {
+            const mod = await import(`./${path}`);
+            const obj = Object.values(mod)[0] || mod.default || mod;
+            body.innerHTML = `
+                <div class="mod-detail">
+                    <h2>${fmt(name)}</h2>
+                    <code class="mod-path">${path}</code>
+                    ${obj.authority ? `<p class="mod-auth">Authority: ${obj.authority}</p>` : ''}
+                    <pre class="mod-json">${JSON.stringify(obj, null, 2)}</pre>
+                    <button class="btn btn-primary" onclick="askAI('${name}')">Ask AI</button>
+                </div>
+            `;
+            modal.classList.add('active');
+        } catch (e) {
+            body.innerHTML = `<p>Error: ${e.message}</p>`;
+            modal.classList.add('active');
+        }
+    }
+
+    function fmt(s) {
+        return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim().replace(/^./, c => c.toUpperCase());
+    }
+
+    function setupEvents() {
+        // Modal
+        document.querySelector('.modal-close').onclick = () => document.getElementById('module-modal').classList.remove('active');
+        document.getElementById('module-modal').onclick = e => { if (e.target.id === 'module-modal') e.target.classList.remove('active'); };
+
+        // AI
+        document.getElementById('load-ai-btn').onclick = loadAI;
+        document.getElementById('send-btn').onclick = sendMsg;
+        document.getElementById('chat-input').onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } };
+
+        // Nav
+        document.querySelectorAll('.nav-link').forEach(a => a.onclick = () => {
+            document.querySelectorAll('.nav-link').forEach(x => x.classList.remove('active'));
+            a.classList.add('active');
+        });
+    }
+
+    async function loadAI() {
+        const btn = document.getElementById('load-ai-btn');
+        const status = document.getElementById('ai-status');
+        const prog = document.getElementById('load-progress');
+
+        btn.disabled = true;
+        status.textContent = 'AI: Loading...';
+        status.className = 'status-indicator loading';
+        prog.style.display = 'block';
+        addChat('system', 'Loading WebLLM model...');
+
+        try {
+            const webllm = await import('https://esm.run/@mlc-ai/web-llm');
+            NAC.ai.engine = await webllm.CreateMLCEngine('Phi-3.5-mini-instruct-q4f16_1-MLC', {
+                initProgressCallback: p => prog.querySelector('.progress-fill').style.width = `${Math.round(p.progress*100)}%`
+            });
+            NAC.ai.loaded = true;
+            status.textContent = 'AI: Online';
+            status.className = 'status-indicator online';
+            prog.style.display = 'none';
+            document.getElementById('send-btn').disabled = false;
+            addChat('system', `AI ready! ${Object.keys(NAC.modules).length} modules loaded as context.`);
+        } catch (e) {
+            status.textContent = 'AI: Error';
+            status.className = 'status-indicator offline';
+            addChat('system', `Error: ${e.message}`);
+            btn.disabled = false;
+        }
+    }
+
+    async function sendMsg() {
+        const input = document.getElementById('chat-input');
+        const msg = input.value.trim();
+        if (!msg || !NAC.ai.loaded) return;
+        input.value = '';
+        addChat('user', msg);
+
+        const ctx = Object.entries(NAC.modules).slice(0,12)
+            .map(([n,m]) => `${n}: ${JSON.stringify(m,null,0).slice(0,150)}`).join('\n');
+
+        const sys = `You are a PA County Code analyst. Modules:\n${ctx}\nBe concise.`;
+
+        try {
+            document.getElementById('send-btn').disabled = true;
+            const div = addChat('assistant', '');
+            const content = div.querySelector('.message-content');
+            let resp = '';
+
+            const stream = await NAC.ai.engine.chat.completions.create({
+                messages: [{ role: 'system', content: sys }, { role: 'user', content: msg }],
+                stream: true, max_tokens: 600
+            });
+
+            for await (const chunk of stream) {
+                resp += chunk.choices[0]?.delta?.content || '';
+                content.innerHTML = `<p>${resp.replace(/\n/g,'<br>')}</p>`;
+            }
+        } catch (e) {
+            addChat('system', `Error: ${e.message}`);
+        } finally {
+            document.getElementById('send-btn').disabled = false;
+        }
+    }
+
+    function addChat(role, text) {
+        const c = document.getElementById('chat-container');
+        const d = document.createElement('div');
+        d.className = `chat-message ${role}`;
+        d.innerHTML = `<div class="message-content"><p>${text}</p></div>`;
+        c.appendChild(d);
+        c.scrollTop = c.scrollHeight;
+        return d;
+    }
+
+    window.askAI = name => {
+        document.getElementById('module-modal').classList.remove('active');
+        document.getElementById('chat-input').value = `Explain ${fmt(name)} and its role in county government.`;
+        document.getElementById('chat-input').focus();
+    };
+    </script>
+
+    <style>
+    /* Auto-load specific styles */
+    .isa95-container { display: flex; flex-direction: column; gap: 1.5rem; }
+    .isa95-level { background: var(--bg-medium); border-radius: var(--border-radius); overflow: hidden; }
+    .level-header {
+        display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem;
+        background: linear-gradient(90deg, var(--c) 0%, transparent 100%);
+        border-left: 4px solid var(--c);
+    }
+    .level-header h3 { margin: 0; font-size: 1rem; }
+    .lh-icon { font-size: 1.25rem; }
+    .lh-desc { color: var(--text-secondary); font-size: 0.8rem; }
+    .lh-count { margin-left: auto; background: var(--bg-dark); padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; }
+    .level-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; padding: 1rem; }
+    .module-group h4 { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .mcards { display: flex; flex-direction: column; gap: 0.2rem; }
+    .mcard {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 0.4rem 0.6rem; background: var(--bg-dark); border-radius: 4px;
+        cursor: pointer; font-size: 0.75rem; transition: background 0.2s;
+    }
+    .mcard:hover { background: var(--bg-light); }
+    .mstat { font-size: 0.5rem; color: var(--text-muted); }
+    .isa95-pyramid { display: flex; flex-direction: column; gap: 0.4rem; width: 260px; }
+    .pyramid-level {
+        display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1rem;
+        background: var(--bg-medium); border-left: 4px solid var(--c); border-radius: 4px;
+        transition: transform 0.2s;
+    }
+    .pyramid-level:hover { transform: translateX(8px); background: var(--bg-light); }
+    .module-list { display: flex; flex-direction: column; gap: 0.2rem; max-height: 280px; overflow-y: auto; }
+    .mitem { padding: 0.35rem 0.5rem; background: var(--bg-dark); border-radius: 4px; font-size: 0.7rem; cursor: pointer; }
+    .mitem:hover { background: var(--bg-light); }
+    .mod-detail h2 { margin-bottom: 0.5rem; }
+    .mod-path { display: block; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .mod-auth { color: var(--primary-light); font-size: 0.8rem; }
+    .mod-json { background: var(--bg-dark); padding: 1rem; border-radius: var(--border-radius); overflow: auto; font-size: 0.7rem; max-height: 350px; }
+    .loading-spinner { text-align: center; padding: 2rem; color: var(--text-secondary); }
+    </style>
 </body>
 </html>

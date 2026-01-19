@@ -1,0 +1,89 @@
+// Auto-generated ISA-95 structure manifest
+// Generated: 2026-01-19T22:38:17.402Z
+export const STRUCTURE = {
+  "L0_Data": {
+    "enums": [
+      "AuditType.js",
+      "ClaimStatus.js",
+      "Department.js",
+      "FundType.js"
+    ],
+    "schemas": [],
+    "types": [
+      "Account.js",
+      "CodeSection.js",
+      "DateRange.js",
+      "Money.js",
+      "Person.js"
+    ]
+  },
+  "L1_Transactions": {
+    "audits": [
+      "AuditEngagement.js",
+      "Finding.js",
+      "WorkPaper.js"
+    ],
+    "claims": [
+      "Claim.js",
+      "ClaimApproval.js"
+    ],
+    "payments": [
+      "DirectDeposit.js",
+      "Warrant.js"
+    ]
+  },
+  "L2_Control": {
+    "audit": [
+      "AuditPlan.js",
+      "RiskAssessment.js",
+      "SamplingMethod.js"
+    ],
+    "budget": [
+      "Appropriation.js",
+      "BudgetCycle.js"
+    ],
+    "payroll": [
+      "Deductions.js",
+      "PayCycle.js",
+      "TaxWithholding.js"
+    ],
+    "procurement": [
+      "BidThresholds.js",
+      "ContractReview.js"
+    ]
+  },
+  "L3_Operations": {
+    "admin": [
+      "RecordsCustody.js"
+    ],
+    "controller": [
+      "AuditJurisdiction.js",
+      "BoardMemberships.js",
+      "StatutoryDuties.js"
+    ],
+    "fiscal": [
+      "AccountsPayable.js",
+      "PayrollOps.js"
+    ],
+    "governance": [
+      "CouncilInterface.js",
+      "JudicialReporting.js"
+    ]
+  },
+  "L4_Enterprise": {
+    "policy": [
+      "Ethics.js",
+      "FiscalPolicy.js",
+      "InternalControl.js"
+    ],
+    "reporting": [
+      "ACFR.js",
+      "AnnualReport.js"
+    ],
+    "strategy": [
+      "AuditStrategy.js",
+      "Transparency.js"
+    ]
+  }
+};
+export const TOTAL_MODULES = 41;

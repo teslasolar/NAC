@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-19T21:54:41.986Z",
+  "modules": {
+    "fiscal": [
+      "budget",
+      "audit",
+      "payroll"
+    ],
+    "governance": [
+      "council",
+      "executive",
+      "judicial"
+    ],
+    "admin": [
+      "personnel",
+      "procurement",
+      "records"
+    ],
+    "extended": [
+      "interagency",
+      "transparency",
+      "emergency"
+    ]
+  },
+  "dimensions": {
+    "0": "Budget & Appropriations",
+    "1": "Audit & Compliance",
+    "2": "Payroll & Disbursements",
+    "3": "County Council",
+    "4": "Executive Branch",
+    "5": "Judicial Interface",
+    "6": "Personnel & HR",
+    "7": "Procurement & Contracts",
+    "8": "Records & Archives",
+    "9": "Inter-agency Relations",
+    "10": "Public Transparency",
+    "11": "Emergency Operations"
+  }
+}

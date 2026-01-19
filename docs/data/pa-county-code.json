@@ -1,0 +1,102 @@
+{
+  "title": "Pennsylvania County Code - Title 16",
+  "source": "PA General Assembly",
+  "url": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16",
+  "sections": {
+    "controller": {
+      "1602": {
+        "title": "System of Accounts",
+        "text": "The controller shall prescribe the system of accounts to be maintained in connection with the fiscal affairs of the county by all county officers and in all county offices and departments.",
+        "category": "accounting",
+        "keywords": ["accounts", "accounting system", "fiscal affairs"]
+      },
+      "1704": {
+        "title": "Custody of Contracts and Other Documents",
+        "text": "The controller shall have custody of all contracts to which the county is a party, all deeds and other instruments of conveyance, all bonds and obligations, titles to real estate, and all other documents and papers of the county.",
+        "category": "records",
+        "keywords": ["contracts", "custody", "documents", "deeds"]
+      },
+      "1705": {
+        "title": "Supervision of Fiscal Affairs",
+        "text": "The controller shall supervise the fiscal affairs of the county, including the accounts and official acts relating thereto of all officers or other persons who shall collect, receive, hold, or disburse the public monies of the county. He shall prescribe and administer the form and the manner of keeping of the official books and papers in connection with the fiscal affairs of the county.",
+        "category": "supervision",
+        "keywords": ["supervision", "fiscal affairs", "public monies", "books"]
+      },
+      "1720": {
+        "title": "Audit and Settlement of Accounts",
+        "text": "The controller shall audit, settle, and adjust the accounts of all county officers who are authorized by law to receive or disburse public moneys and shall do the same with respect to all persons having the collection of moneys or other property of the county.",
+        "category": "audit",
+        "keywords": ["audit", "settle", "adjust", "accounts"]
+      },
+      "1721": {
+        "title": "Examination of Accounts",
+        "text": "The controller shall examine the accounts and vouchers of all county officers handling public moneys at least once each year, and oftener if he deems it necessary or advisable.",
+        "category": "audit",
+        "keywords": ["examine", "accounts", "vouchers", "annual"]
+      },
+      "1722": {
+        "title": "Annual Report",
+        "text": "The controller shall make an annual report to the county commissioners showing the financial condition of the county.",
+        "category": "reporting",
+        "keywords": ["annual report", "financial condition", "commissioners"]
+      },
+      "1723": {
+        "title": "Treasurer's Accounts",
+        "text": "The controller shall audit the county treasurer's accounts of all moneys paid to the State Treasurer and shall make a separate report thereof to the court of common pleas.",
+        "category": "audit",
+        "keywords": ["treasurer", "state treasurer", "court", "common pleas"]
+      },
+      "1730": {
+        "title": "Pre-Audit of Claims",
+        "text": "No claim against the county shall be paid unless it has been first audited and approved by the controller.",
+        "category": "claims",
+        "keywords": ["claims", "pre-audit", "approval", "payment"]
+      },
+      "1750": {
+        "title": "Scrutiny of Claims",
+        "text": "The controller shall scrutinize, audit, and decide on all bills, claims, and demands whatsoever against the county, and no claim against the county shall be paid unless first authorized by the controller.",
+        "category": "claims",
+        "keywords": ["scrutinize", "bills", "claims", "demands", "authorize"]
+      },
+      "1751": {
+        "title": "Warrants for Payment",
+        "text": "The controller shall issue warrants or orders on the county treasurer for the payment of money out of the county treasury for all claims audited and allowed by him.",
+        "category": "disbursements",
+        "keywords": ["warrants", "orders", "treasury", "payment"]
+      },
+      "1760": {
+        "title": "Disbursement of County Moneys",
+        "text": "No money shall be paid from the county treasury except upon warrant or order of the controller.",
+        "category": "disbursements",
+        "keywords": ["disbursement", "treasury", "warrant", "order"]
+      },
+      "1761": {
+        "title": "Form of Warrants",
+        "text": "Every warrant or order for the payment of money drawn by the controller on the county treasurer shall specify the particular appropriation or fund out of which the same is to be paid and shall describe briefly the nature of the claim or demand for which payment is made.",
+        "category": "disbursements",
+        "keywords": ["warrant form", "appropriation", "fund", "description"]
+      }
+    },
+    "salary_board": {
+      "1601": {
+        "title": "Salary Board",
+        "text": "There shall be a salary board in each county consisting of the county commissioners and the controller.",
+        "category": "board",
+        "keywords": ["salary board", "commissioners", "controller"]
+      }
+    },
+    "retirement": {
+      "1653": {
+        "title": "Retirement Board",
+        "text": "The retirement board shall consist of the county commissioners, the controller, who shall be secretary, and two members elected by the county employees who are members of the retirement system.",
+        "category": "board",
+        "keywords": ["retirement board", "secretary", "employees"]
+      }
+    }
+  },
+  "relatedStatutes": {
+    "countyAuditorsAct": "Replaced by Controller provisions in 1913",
+    "municipalPensionAct": "Act 205 - Pension funding requirements",
+    "rightToKnowLaw": "65 P.S. § 67.101 - Public records access"
+  }
+}

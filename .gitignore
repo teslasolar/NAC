@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build outputs (keep docs/ for GitHub Pages)
+dist/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAC - Northampton County Legal Code Intelligence</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">⚖️</span>
+            <span class="brand-text">NAC</span>
+            <span class="brand-subtitle">Legal Code Intelligence</span>
+        </div>
+        <div class="nav-links">
+            <a href="#controller" class="nav-link active">Controller</a>
+            <a href="#modules" class="nav-link">Modules</a>
+            <a href="#ai-assistant" class="nav-link">AI Assistant</a>
+            <a href="#about" class="nav-link">About</a>
+        </div>
+        <div class="nav-status">
+            <span id="ai-status" class="status-indicator offline">AI: Offline</span>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Northampton County<br>Legal Code Intelligence</h1>
+                <p class="hero-subtitle">
+                    AI-powered analysis of Pennsylvania County Code, Home Rule Charter,
+                    and County Controller statutory responsibilities
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Dimensional Modules</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Controller Duties</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Local AI (WebLLM)</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button id="load-ai-btn" class="btn btn-primary">
+                        <span class="btn-icon">🤖</span>
+                        Load AI Engine
+                    </button>
+                    <a href="#controller" class="btn btn-secondary">
+                        Explore Controller Duties
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="dimension-cube">
+                    <div class="cube-face front">Fiscal [0-2]</div>
+                    <div class="cube-face back">Admin [6-8]</div>
+                    <div class="cube-face left">Governance [3-5]</div>
+                    <div class="cube-face right">Extended [9+]</div>
+                    <div class="cube-face top">Controller</div>
+                    <div class="cube-face bottom">NAC</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controller Section -->
+        <section id="controller" class="section">
+            <div class="section-header">
+                <h2>County Controller</h2>
+                <p>Independent fiscal watchdog - PA County Code Title 16</p>
+            </div>
+
+            <div class="controller-grid">
+                <!-- Statutory Duties Card -->
+                <div class="card statutory-duties">
+                    <h3>Statutory Duties</h3>
+                    <div class="duties-list">
+                        <div class="duty-item" data-section="1602">
+                            <span class="section-badge">§1602</span>
+                            <div class="duty-content">
+                                <strong>System of Accounts</strong>
+                                <p>Prescribe the accounting system for all county offices</p>
+                            </div>
+                        </div>
+                        <div class="duty-item" data-section="1704">
+                            <span class="section-badge">§1704</span>
+                            <div class="duty-content">
+                                <strong>Document Custody</strong>
+                                <p>Maintain custody of contracts, titles, and deeds</p>
+                            </div>
+                        </div>
+                        <div class="duty-item" data-section="1705">
+                            <span class="section-badge">§1705</span>
+                            <div class="duty-content">
+                                <strong>Official Books</strong>
+                                <p>Prescribe form and manner of keeping fiscal records</p>
+                            </div>
+                        </div>
+                        <div class="duty-item" data-section="1720">
+                            <span class="section-badge">§1720</span>
+                            <div class="duty-content">
+                                <strong>Audit & Settlement</strong>
+                                <p>Audit, settle, and adjust all county office accounts</p>
+                            </div>
+                        </div>
+                        <div class="duty-item" data-section="1750">
+                            <span class="section-badge">§1750</span>
+                            <div class="duty-content">
+                                <strong>Claims Review</strong>
+                                <p>Scrutinize, audit, and decide on all claims against county</p>
+                            </div>
+                        </div>
+                        <div class="duty-item" data-section="1760">
+                            <span class="section-badge">§1760</span>
+                            <div class="duty-content">
+                                <strong>Disbursements</strong>
+                                <p>Oversee all disbursements of county funds</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Board Memberships Card -->
+                <div class="card board-memberships">
+                    <h3>Board Memberships</h3>
+                    <div class="boards-grid">
+                        <div class="board-item">
+                            <span class="board-role">Secretary</span>
+                            <strong>Retirement Board</strong>
+                            <p>Oversee pension fund accounting</p>
+                        </div>
+                        <div class="board-item">
+                            <span class="board-role">Member</span>
+                            <strong>Salary Board</strong>
+                            <p>Vote on employee compensation</p>
+                        </div>
+                        <div class="board-item">
+                            <span class="board-role">Member</span>
+                            <strong>Prison Board</strong>
+                            <p>Oversee corrections fiscal ops</p>
+                        </div>
+                        <div class="board-item">
+                            <span class="board-role">Member</span>
+                            <strong>Constable Review</strong>
+                            <p>Approve constable fee claims</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Independence Card -->
+                <div class="card independence">
+                    <h3>Independence</h3>
+                    <div class="independence-visual">
+                        <div class="branch executive">Executive</div>
+                        <div class="branch legislative">Legislative</div>
+                        <div class="branch judicial">Judicial</div>
+                        <div class="controller-position">
+                            <span>CONTROLLER</span>
+                            <small>Independent Oversight</small>
+                        </div>
+                    </div>
+                    <p class="independence-note">
+                        The Controller is an independently elected official, separate from all three branches,
+                        ensuring objective fiscal oversight and public accountability.
+                    </p>
+                </div>
+
+                <!-- Audit Targets Card -->
+                <div class="card audit-targets">
+                    <h3>Audit Jurisdiction</h3>
+                    <div class="targets-grid">
+                        <div class="target-group">
+                            <h4>Row Offices</h4>
+                            <ul>
+                                <li>Recorder of Deeds</li>
+                                <li>Register of Wills</li>
+                                <li>Prothonotary</li>
+                                <li>Clerk of Courts</li>
+                                <li>Sheriff</li>
+                            </ul>
+                        </div>
+                        <div class="target-group">
+                            <h4>Tax Collectors</h4>
+                            <ul>
+                                <li>All municipal collectors</li>
+                                <li>Annual review cycle</li>
+                            </ul>
+                        </div>
+                        <div class="target-group">
+                            <h4>District Judges</h4>
+                            <ul>
+                                <li>All MDJ offices</li>
+                                <li>Fines & bail audits</li>
+                            </ul>
+                        </div>
+                        <div class="target-group">
+                            <h4>Departments</h4>
+                            <ul>
+                                <li>Human Services</li>
+                                <li>Public Works</li>
+                                <li>Corrections</li>
+                                <li>Administration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modules Section -->
+        <section id="modules" class="section">
+            <div class="section-header">
+                <h2>Dimensional Modules</h2>
+                <p>Modular legal code organization system</p>
+            </div>
+
+            <div class="modules-grid">
+                <!-- Fiscal Dimensions -->
+                <div class="dimension-group fiscal">
+                    <h3>Fiscal [0-2]</h3>
+                    <div class="module-cards">
+                        <div class="module-card" data-module="budget">
+                            <span class="dim-badge">0</span>
+                            <h4>Budget & Appropriations</h4>
+                            <p>Annual budget process, fund accounting, revenue projection</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="audit">
+                            <span class="dim-badge">1</span>
+                            <h4>Audit & Compliance</h4>
+                            <p>Internal audit, compliance testing, fraud detection</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="payroll">
+                            <span class="dim-badge">2</span>
+                            <h4>Payroll & Disbursements</h4>
+                            <p>Employee compensation, AP processing, tax compliance</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Governance Dimensions -->
+                <div class="dimension-group governance">
+                    <h3>Governance [3-5]</h3>
+                    <div class="module-cards">
+                        <div class="module-card" data-module="council">
+                            <span class="dim-badge">3</span>
+                            <h4>County Council</h4>
+                            <p>Legislative process, ordinances, budget adoption</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="executive">
+                            <span class="dim-badge">4</span>
+                            <h4>Executive Branch</h4>
+                            <p>County Executive, departments, row offices</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="judicial">
+                            <span class="dim-badge">5</span>
+                            <h4>Judicial Interface</h4>
+                            <p>Court reporting, MDJ audits, constable board</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Administrative Dimensions -->
+                <div class="dimension-group admin">
+                    <h3>Administrative [6-8]</h3>
+                    <div class="module-cards">
+                        <div class="module-card" data-module="personnel">
+                            <span class="dim-badge">6</span>
+                            <h4>Personnel & HR</h4>
+                            <p>Employee management, benefits, unions</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="procurement">
+                            <span class="dim-badge">7</span>
+                            <h4>Procurement & Contracts</h4>
+                            <p>Bidding, contracts, vendor management</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="records">
+                            <span class="dim-badge">8</span>
+                            <h4>Records & Archives</h4>
+                            <p>Document retention, RTKL, public access</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extended Dimensions -->
+                <div class="dimension-group extended">
+                    <h3>Extended [9+]</h3>
+                    <div class="module-cards">
+                        <div class="module-card" data-module="interagency">
+                            <span class="dim-badge">9</span>
+                            <h4>Inter-agency Relations</h4>
+                            <p>State reporting, federal grants, municipal cooperation</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="transparency">
+                            <span class="dim-badge">10</span>
+                            <h4>Public Transparency</h4>
+                            <p>Open data, public reporting, citizen engagement</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                        <div class="module-card" data-module="emergency">
+                            <span class="dim-badge">11</span>
+                            <h4>Emergency Operations</h4>
+                            <p>Disaster finance, emergency procurement, FEMA</p>
+                            <button class="explore-btn">Explore</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section id="ai-assistant" class="section">
+            <div class="section-header">
+                <h2>AI Assistant</h2>
+                <p>Local, private analysis powered by WebLLM</p>
+            </div>
+
+            <div class="ai-container">
+                <div class="ai-sidebar">
+                    <h3>Analysis Tools</h3>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" data-tool="legal-analysis">
+                            <span>📜</span> Legal Code Analysis
+                        </button>
+                        <button class="tool-btn" data-tool="audit-risk">
+                            <span>🔍</span> Audit Risk Assessment
+                        </button>
+                        <button class="tool-btn" data-tool="budget-variance">
+                            <span>📊</span> Budget Variance
+                        </button>
+                        <button class="tool-btn" data-tool="compliance-check">
+                            <span>✅</span> Compliance Check
+                        </button>
+                        <button class="tool-btn" data-tool="claims-review">
+                            <span>📋</span> Claims Review
+                        </button>
+                    </div>
+
+                    <h3>Quick Lookups</h3>
+                    <div class="quick-lookups">
+                        <select id="section-lookup">
+                            <option value="">Select PA Code Section...</option>
+                            <option value="1602">§1602 - System of Accounts</option>
+                            <option value="1704">§1704 - Document Custody</option>
+                            <option value="1705">§1705 - Official Books</option>
+                            <option value="1720">§1720 - Audit & Settlement</option>
+                            <option value="1750">§1750 - Claims Review</option>
+                            <option value="1760">§1760 - Disbursements</option>
+                        </select>
+                        <button id="lookup-btn" class="btn btn-small">Explain</button>
+                    </div>
+
+                    <div class="ai-status-panel">
+                        <h3>AI Status</h3>
+                        <div id="ai-status-detail">
+                            <p><strong>Model:</strong> <span id="model-name">Not loaded</span></p>
+                            <p><strong>Status:</strong> <span id="model-status">Offline</span></p>
+                            <div id="load-progress" class="progress-bar" style="display:none;">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-main">
+                    <div class="chat-container" id="chat-container">
+                        <div class="chat-message system">
+                            <div class="message-content">
+                                <p><strong>NAC AI Assistant</strong></p>
+                                <p>I can help you analyze PA County Code, understand Controller duties,
+                                assess audit risks, and review compliance. Load the AI engine to begin.</p>
+                                <p><em>All processing happens locally in your browser - no data sent to external servers.</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <textarea id="chat-input" placeholder="Ask about Controller duties, audit procedures, PA County Code..." rows="2"></textarea>
+                        <button id="send-btn" class="btn btn-primary" disabled>
+                            <span>Send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-header">
+                <h2>About This Project</h2>
+                <p>Demonstrating AI-powered government transparency</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>Purpose</h3>
+                    <p>This project demonstrates how AI can be used to make county government
+                    more transparent, efficient, and accessible. By modularizing legal code
+                    and providing AI-assisted analysis, we can help citizens and officials
+                    better understand their government.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><strong>WebLLM:</strong> In-browser AI inference via WebGPU</li>
+                        <li><strong>Modular Architecture:</strong> Dimensional organization of legal code</li>
+                        <li><strong>Privacy-First:</strong> All AI processing happens locally</li>
+                        <li><strong>Open Source:</strong> MIT licensed for government use</li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <h3>Sources</h3>
+                    <ul>
+                        <li><a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16" target="_blank">PA County Code (Title 16)</a></li>
+                        <li><a href="https://norcopa.gov/executive-resources" target="_blank">Northampton County Home Rule Charter</a></li>
+                        <li><a href="https://psacc.org/about" target="_blank">PA State Association of County Controllers</a></li>
+                        <li><a href="https://norcopa.gov/controllers-office" target="_blank">Northampton County Controller's Office</a></li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <h3>Controller Interview Demo</h3>
+                    <p>This project was built as a demonstration of capabilities for the
+                    Northampton County Controller position, showcasing deep understanding
+                    of statutory duties, audit functions, and modern approaches to
+                    government financial oversight.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>NAC - Northampton County Legal Code Intelligence System</p>
+            <p>Built with WebLLM | MIT License | <a href="https://github.com/teslasolar/NAC">GitHub</a></p>
+        </div>
+    </footer>
+
+    <!-- Module Detail Modal -->
+    <div id="module-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

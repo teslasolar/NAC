@@ -1,0 +1,31 @@
+{
+  "name": "nac-legal-intelligence",
+  "version": "1.0.0",
+  "description": "Northampton County Legal Code Intelligence System",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "npx serve docs",
+    "build": "node scripts/build.js",
+    "deploy": "npm run build && gh-pages -d docs",
+    "analyze": "node scripts/analyze-code.js",
+    "validate": "node scripts/validate-modules.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teslasolar/NAC"
+  },
+  "keywords": [
+    "northampton-county",
+    "pennsylvania",
+    "legal-code",
+    "controller",
+    "government",
+    "transparency"
+  ],
+  "author": "NAC Project",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.1.0"
+  },
+  "homepage": "https://teslasolar.github.io/NAC"
+}

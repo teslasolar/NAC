@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nac.northamptoncounty.gov/schemas/Finding",
+  "title": "Finding",
+  "description": "Audit finding per Government Auditing Standards",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^FND-[0-9]{4}-[0-9]{3}-[0-9]{2}$",
+      "description": "Finding ID (FND-YYYY-AUD-NN)"
+    },
+    "auditId": { "type": "string" },
+    "title": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "condition": {
+      "type": "string",
+      "description": "What we found (the problem)"
+    },
+    "criteria": {
+      "type": "string",
+      "description": "What should be (the standard)"
+    },
+    "cause": {
+      "type": "string",
+      "description": "Why it happened"
+    },
+    "effect": {
+      "type": "string",
+      "description": "Impact of the condition"
+    },
+    "recommendation": {
+      "type": "string",
+      "description": "What should be done"
+    },
+    "managementResponse": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "in_progress", "resolved", "closed"]
+    },
+    "dueDate": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": ["id", "auditId", "title", "severity", "condition", "criteria", "recommendation", "status"],
+  "additionalProperties": false
+}

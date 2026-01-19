@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nac.northamptoncounty.gov/schemas/Money",
+  "title": "Money",
+  "description": "Monetary amount with currency",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Dollar amount (2 decimal precision)"
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD",
+      "enum": ["USD"]
+    }
+  },
+  "required": ["amount"],
+  "additionalProperties": false
+}

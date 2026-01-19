@@ -1,0 +1,127 @@
+{
+  "$schema": "./pa-code-coverage.schema.json",
+  "title": "PA County Code Title 16 Coverage Tracker",
+  "source": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16",
+  "lastUpdated": "2026-01-19",
+  "coverage": {
+    "implemented": 18,
+    "planned": 50,
+    "total": 200
+  },
+  "articles": {
+    "I": {
+      "title": "Preliminary Provisions",
+      "sections": {
+        "101": { "title": "Short title", "status": "not_started" },
+        "102": { "title": "Definitions", "status": "not_started" }
+      }
+    },
+    "III": {
+      "title": "County Officers Generally",
+      "sections": {
+        "301": { "title": "Elected officers", "status": "not_started" },
+        "302": { "title": "Appointed officers", "status": "not_started" }
+      }
+    },
+    "XV": {
+      "title": "Salary Board",
+      "sections": {
+        "1501": { "title": "Salary board composition", "status": "partial", "module": "L3/controller/BoardMemberships" },
+        "1502": { "title": "Powers and duties", "status": "not_started" }
+      }
+    },
+    "XVI": {
+      "title": "Controller",
+      "sections": {
+        "1601": { "title": "Election and term", "status": "partial", "module": "L3/controller/StatutoryDuties" },
+        "1602": { "title": "System of accounts", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
+        "1603": { "title": "Deputy controller", "status": "not_started" },
+        "1604": { "title": "Controller's clerks", "status": "not_started" },
+        "1605": { "title": "Controller's solicitor", "status": "not_started" }
+      }
+    },
+    "XVII": {
+      "title": "Fiscal Affairs",
+      "subchapters": {
+        "A": {
+          "title": "General Provisions",
+          "sections": {
+            "1701": { "title": "Fiscal year", "status": "not_started" },
+            "1702": { "title": "Depositories", "status": "not_started" },
+            "1703": { "title": "Interest on deposits", "status": "not_started" },
+            "1704": { "title": "Custody of documents", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
+            "1705": { "title": "Supervision of fiscal affairs", "status": "implemented", "module": "L3/controller/StatutoryDuties" }
+          }
+        },
+        "B": {
+          "title": "Accounts and Audits",
+          "sections": {
+            "1720": { "title": "Audit and settlement", "status": "implemented", "module": "L3/controller/AuditJurisdiction" },
+            "1721": { "title": "Examination of accounts", "status": "implemented", "module": "L2/audit/AuditPlan" },
+            "1722": { "title": "Annual report", "status": "implemented", "module": "L4/reporting/AnnualReport" },
+            "1723": { "title": "Treasurer's accounts", "status": "partial", "module": "L3/governance/JudicialReporting" },
+            "1724": { "title": "Probation officer accounts", "status": "partial", "module": "L3/governance/JudicialReporting" },
+            "1725": { "title": "Statements to municipalities", "status": "not_started" },
+            "1726": { "title": "Tax collector audits", "status": "partial", "module": "L3/controller/AuditJurisdiction" }
+          }
+        },
+        "C": {
+          "title": "Claims",
+          "sections": {
+            "1730": { "title": "Pre-audit of claims", "status": "implemented", "module": "L1/claims/ClaimApproval" },
+            "1731": { "title": "Presentation of claims", "status": "partial", "module": "L1/claims/Claim" },
+            "1750": { "title": "Scrutiny of claims", "status": "implemented", "module": "L1/claims/Claim" },
+            "1751": { "title": "Warrants for payment", "status": "implemented", "module": "L1/payments/Warrant" },
+            "1752": { "title": "Form of warrants", "status": "partial", "module": "L1/payments/Warrant" }
+          }
+        },
+        "D": {
+          "title": "Disbursements",
+          "sections": {
+            "1760": { "title": "Disbursement authority", "status": "implemented", "module": "L2/payroll/PayCycle" },
+            "1761": { "title": "Warrant requirements", "status": "implemented", "module": "L1/payments/Warrant" },
+            "1762": { "title": "Payment records", "status": "partial", "module": "L3/fiscal/AccountsPayable" }
+          }
+        }
+      }
+    },
+    "XIX": {
+      "title": "Retirement",
+      "sections": {
+        "1901": { "title": "Establishment", "status": "not_started" },
+        "1902": { "title": "Retirement board", "status": "partial", "module": "L3/controller/BoardMemberships" },
+        "1903": { "title": "Retirement fund", "status": "not_started" }
+      }
+    },
+    "XXI": {
+      "title": "Procurement",
+      "sections": {
+        "2101": { "title": "Definitions", "status": "not_started" },
+        "2102": { "title": "Bid requirements", "status": "partial", "module": "L2/procurement/BidThresholds" },
+        "2103": { "title": "Competitive bidding", "status": "partial", "module": "L2/procurement/BidThresholds" },
+        "2104": { "title": "Exceptions", "status": "not_started" },
+        "2105": { "title": "Contract execution", "status": "partial", "module": "L2/procurement/ContractReview" }
+      }
+    },
+    "XXIII": {
+      "title": "Records",
+      "sections": {
+        "2301": { "title": "Public records", "status": "partial", "module": "L3/admin/RecordsCustody" },
+        "2302": { "title": "Retention schedules", "status": "not_started" },
+        "2303": { "title": "Destruction procedures", "status": "not_started" }
+      }
+    }
+  },
+  "statusCounts": {
+    "implemented": 13,
+    "partial": 12,
+    "not_started": 25
+  },
+  "moduleMapping": {
+    "L0_Data": [],
+    "L1_Transactions": ["1730", "1731", "1750", "1751", "1752", "1761"],
+    "L2_Control": ["1721", "1760", "2102", "2103", "2105"],
+    "L3_Operations": ["1501", "1601", "1602", "1704", "1705", "1720", "1723", "1724", "1726", "1762", "1902", "2301"],
+    "L4_Enterprise": ["1722"]
+  }
+}

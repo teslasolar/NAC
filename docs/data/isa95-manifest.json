@@ -1,7 +1,15 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-01-19T22:38:17.400Z",
-  "totalModules": 41,
+  "version": "2.0.0",
+  "generated": "2026-01-19T22:53:00.955Z",
+  "stats": {
+    "modules": 41,
+    "schemas": 5,
+    "paCodeCoverage": {
+      "implemented": 13,
+      "partial": 12,
+      "not_started": 25
+    }
+  },
   "structure": {
     "L0_Data": {
       "enums": [

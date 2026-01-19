@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nac.northamptoncounty.gov/schemas/AuditEngagement",
+  "title": "AuditEngagement",
+  "description": "Audit engagement per 16 Pa.C.S. §1720",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^AUD-[0-9]{4}-[0-9]{3}$",
+      "description": "Audit ID (AUD-YYYY-NNN)"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["financial", "compliance", "operational", "forensic", "special"]
+    },
+    "entity": {
+      "type": "string",
+      "description": "Entity being audited"
+    },
+    "period": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "date" },
+        "end": { "type": "string", "format": "date" }
+      },
+      "required": ["start", "end"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "fieldwork", "reporting", "closed"]
+    },
+    "leadAuditor": { "type": "string" },
+    "team": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "riskScore": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "Finding" }
+    },
+    "hoursPlanned": { "type": "number" },
+    "hoursActual": { "type": "number" }
+  },
+  "required": ["id", "type", "entity", "period", "status"],
+  "additionalProperties": false
+}

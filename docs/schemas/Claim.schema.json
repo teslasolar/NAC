@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nac.northamptoncounty.gov/schemas/Claim",
+  "title": "Claim",
+  "description": "Claim against county per 16 Pa.C.S. §1750",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^CLM-[0-9]{4}-[0-9]{6}$",
+      "description": "Claim ID (CLM-YYYY-NNNNNN)"
+    },
+    "vendor": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "taxId": { "type": "string", "pattern": "^[0-9]{2}-[0-9]{7}$" }
+      },
+      "required": ["id", "name"]
+    },
+    "amount": { "$ref": "Money" },
+    "account": { "$ref": "Account" },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "invoiceNumber": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "invoiceDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["submitted", "pending_review", "approved", "rejected", "paid", "voided"]
+    },
+    "submittedBy": { "type": "string" },
+    "submittedDate": { "type": "string", "format": "date-time" },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "approver": { "type": "string" },
+          "action": { "enum": ["approve", "reject", "hold"] },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  },
+  "required": ["id", "vendor", "amount", "account", "status"],
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nac.northamptoncounty.gov/schemas/Account",
+  "title": "Account",
+  "description": "Fund/Department/Object account code",
+  "type": "object",
+  "properties": {
+    "fund": {
+      "type": "string",
+      "pattern": "^[0-9]{2}$",
+      "description": "2-digit fund code (01=General, 02=Special Revenue, etc.)"
+    },
+    "department": {
+      "type": "string",
+      "pattern": "^[0-9]{3}$",
+      "description": "3-digit department code"
+    },
+    "object": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$",
+      "description": "4-digit object/expense code"
+    },
+    "project": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$",
+      "description": "Optional 4-digit project code"
+    }
+  },
+  "required": ["fund", "department", "object"],
+  "additionalProperties": false
+}

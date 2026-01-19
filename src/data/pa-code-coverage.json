@@ -4,40 +4,79 @@
   "source": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16",
   "lastUpdated": "2026-01-19",
   "coverage": {
-    "implemented": 18,
-    "planned": 50,
-    "total": 200
+    "implemented": 25,
+    "planned": 120,
+    "total": 300
   },
   "articles": {
     "I": {
       "title": "Preliminary Provisions",
       "sections": {
-        "101": { "title": "Short title", "status": "not_started" },
-        "102": { "title": "Definitions", "status": "not_started" }
+        "101": { "title": "Short title", "status": "implemented", "module": "L4/policy/CodeAuthority" },
+        "102": { "title": "Definitions", "status": "implemented", "module": "L0/types/LegalDefinitions" },
+        "103": { "title": "Scope of title", "status": "not_started" },
+        "104": { "title": "Applicability", "status": "not_started" }
       }
     },
     "III": {
       "title": "County Officers Generally",
       "sections": {
-        "301": { "title": "Elected officers", "status": "not_started" },
-        "302": { "title": "Appointed officers", "status": "not_started" }
+        "301": { "title": "Elected officers enumerated", "status": "implemented", "module": "L3/governance/ElectedOfficers" },
+        "302": { "title": "Appointed officers", "status": "partial", "module": "L3/admin/AppointedOfficers" },
+        "303": { "title": "Terms of office", "status": "not_started" },
+        "304": { "title": "Vacancies", "status": "not_started" },
+        "305": { "title": "Oaths of office", "status": "not_started" },
+        "306": { "title": "Bonds of officers", "status": "partial", "module": "L2/audit/OfficerBonds" },
+        "307": { "title": "Removal from office", "status": "not_started" },
+        "308": { "title": "Compensation", "status": "partial", "module": "L2/payroll/OfficerCompensation" }
+      }
+    },
+    "V": {
+      "title": "Commissioners",
+      "sections": {
+        "501": { "title": "Board of commissioners", "status": "implemented", "module": "L3/governance/CountyCommissioners" },
+        "502": { "title": "Organization of board", "status": "not_started" },
+        "503": { "title": "Chairman", "status": "not_started" },
+        "504": { "title": "Meetings", "status": "partial", "module": "L3/governance/BoardMeetings" },
+        "505": { "title": "Powers and duties", "status": "partial", "module": "L3/governance/CommissionerPowers" },
+        "506": { "title": "Ordinances and resolutions", "status": "partial", "module": "L4/policy/Ordinances" },
+        "507": { "title": "County property", "status": "not_started" },
+        "508": { "title": "Contracts", "status": "partial", "module": "L2/procurement/ContractReview" }
+      }
+    },
+    "XIII": {
+      "title": "Treasurer",
+      "sections": {
+        "1301": { "title": "Election and term", "status": "not_started" },
+        "1302": { "title": "Bond", "status": "not_started" },
+        "1303": { "title": "Duties generally", "status": "partial", "module": "L3/fiscal/TreasurerDuties" },
+        "1304": { "title": "Receipt of moneys", "status": "partial", "module": "L1/payments/Receipt" },
+        "1305": { "title": "Disbursement of funds", "status": "implemented", "module": "L1/payments/Disbursement" },
+        "1306": { "title": "Reports to controller", "status": "implemented", "module": "L3/fiscal/TreasurerReports" },
+        "1307": { "title": "Investment of funds", "status": "partial", "module": "L4/strategy/InvestmentPolicy" },
+        "1308": { "title": "Tax collection", "status": "partial", "module": "L1/payments/TaxCollection" }
       }
     },
     "XV": {
       "title": "Salary Board",
       "sections": {
-        "1501": { "title": "Salary board composition", "status": "partial", "module": "L3/controller/BoardMemberships" },
-        "1502": { "title": "Powers and duties", "status": "not_started" }
+        "1501": { "title": "Salary board composition", "status": "implemented", "module": "L3/controller/BoardMemberships" },
+        "1502": { "title": "Powers and duties", "status": "implemented", "module": "L3/controller/SalaryBoard" },
+        "1503": { "title": "Classification of positions", "status": "partial", "module": "L2/payroll/PositionClassification" },
+        "1504": { "title": "Salary schedules", "status": "partial", "module": "L2/payroll/SalarySchedule" },
+        "1505": { "title": "Amendments to schedules", "status": "not_started" }
       }
     },
     "XVI": {
       "title": "Controller",
       "sections": {
-        "1601": { "title": "Election and term", "status": "partial", "module": "L3/controller/StatutoryDuties" },
+        "1601": { "title": "Election and term", "status": "implemented", "module": "L3/controller/ControllerOffice" },
         "1602": { "title": "System of accounts", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
-        "1603": { "title": "Deputy controller", "status": "not_started" },
-        "1604": { "title": "Controller's clerks", "status": "not_started" },
-        "1605": { "title": "Controller's solicitor", "status": "not_started" }
+        "1603": { "title": "Deputy controller", "status": "implemented", "module": "L3/controller/DeputyController" },
+        "1604": { "title": "Controller's clerks", "status": "partial", "module": "L3/controller/OfficeStaff" },
+        "1605": { "title": "Controller's solicitor", "status": "partial", "module": "L3/controller/OfficeStaff" },
+        "1606": { "title": "Independence of office", "status": "implemented", "module": "L3/controller/Independence" },
+        "1607": { "title": "Access to records", "status": "implemented", "module": "L3/controller/AuditAuthority" }
       }
     },
     "XVII": {
@@ -46,11 +85,13 @@
         "A": {
           "title": "General Provisions",
           "sections": {
-            "1701": { "title": "Fiscal year", "status": "not_started" },
-            "1702": { "title": "Depositories", "status": "not_started" },
+            "1701": { "title": "Fiscal year", "status": "implemented", "module": "L0/types/FiscalYear" },
+            "1702": { "title": "Depositories", "status": "partial", "module": "L3/fiscal/Depositories" },
             "1703": { "title": "Interest on deposits", "status": "not_started" },
             "1704": { "title": "Custody of documents", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
-            "1705": { "title": "Supervision of fiscal affairs", "status": "implemented", "module": "L3/controller/StatutoryDuties" }
+            "1705": { "title": "Supervision of fiscal affairs", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
+            "1706": { "title": "Financial reporting", "status": "implemented", "module": "L4/reporting/FinancialReports" },
+            "1707": { "title": "Internal controls", "status": "implemented", "module": "L2/audit/InternalControls" }
           }
         },
         "B": {
@@ -59,20 +100,25 @@
             "1720": { "title": "Audit and settlement", "status": "implemented", "module": "L3/controller/AuditJurisdiction" },
             "1721": { "title": "Examination of accounts", "status": "implemented", "module": "L2/audit/AuditPlan" },
             "1722": { "title": "Annual report", "status": "implemented", "module": "L4/reporting/AnnualReport" },
-            "1723": { "title": "Treasurer's accounts", "status": "partial", "module": "L3/governance/JudicialReporting" },
+            "1723": { "title": "Treasurer's accounts", "status": "implemented", "module": "L3/fiscal/TreasurerReports" },
             "1724": { "title": "Probation officer accounts", "status": "partial", "module": "L3/governance/JudicialReporting" },
-            "1725": { "title": "Statements to municipalities", "status": "not_started" },
-            "1726": { "title": "Tax collector audits", "status": "partial", "module": "L3/controller/AuditJurisdiction" }
+            "1725": { "title": "Statements to municipalities", "status": "partial", "module": "L4/reporting/MunicipalStatements" },
+            "1726": { "title": "Tax collector audits", "status": "implemented", "module": "L3/controller/AuditJurisdiction" },
+            "1727": { "title": "Audit findings", "status": "implemented", "module": "L2/audit/AuditFindings" },
+            "1728": { "title": "Corrective action", "status": "partial", "module": "L2/audit/CorrectiveAction" }
           }
         },
         "C": {
           "title": "Claims",
           "sections": {
             "1730": { "title": "Pre-audit of claims", "status": "implemented", "module": "L1/claims/ClaimApproval" },
-            "1731": { "title": "Presentation of claims", "status": "partial", "module": "L1/claims/Claim" },
+            "1731": { "title": "Presentation of claims", "status": "implemented", "module": "L1/claims/Claim" },
+            "1732": { "title": "Documentation requirements", "status": "implemented", "module": "L1/claims/ClaimDocumentation" },
+            "1733": { "title": "Approval thresholds", "status": "implemented", "module": "L2/audit/ApprovalThresholds" },
             "1750": { "title": "Scrutiny of claims", "status": "implemented", "module": "L1/claims/Claim" },
             "1751": { "title": "Warrants for payment", "status": "implemented", "module": "L1/payments/Warrant" },
-            "1752": { "title": "Form of warrants", "status": "partial", "module": "L1/payments/Warrant" }
+            "1752": { "title": "Form of warrants", "status": "implemented", "module": "L1/payments/WarrantForm" },
+            "1753": { "title": "Warrant register", "status": "partial", "module": "L1/payments/WarrantRegister" }
           }
         },
         "D": {
@@ -80,48 +126,101 @@
           "sections": {
             "1760": { "title": "Disbursement authority", "status": "implemented", "module": "L2/payroll/PayCycle" },
             "1761": { "title": "Warrant requirements", "status": "implemented", "module": "L1/payments/Warrant" },
-            "1762": { "title": "Payment records", "status": "partial", "module": "L3/fiscal/AccountsPayable" }
+            "1762": { "title": "Payment records", "status": "implemented", "module": "L3/fiscal/AccountsPayable" },
+            "1763": { "title": "Direct deposit", "status": "partial", "module": "L1/payments/DirectDeposit" },
+            "1764": { "title": "Electronic payments", "status": "partial", "module": "L1/payments/ElectronicPayment" }
           }
         }
+      }
+    },
+    "XVII-A": {
+      "title": "Budget",
+      "sections": {
+        "17A01": { "title": "Annual budget required", "status": "implemented", "module": "L2/budget/AnnualBudget" },
+        "17A02": { "title": "Budget preparation", "status": "implemented", "module": "L2/budget/BudgetPreparation" },
+        "17A03": { "title": "Budget submission", "status": "partial", "module": "L2/budget/BudgetSubmission" },
+        "17A04": { "title": "Public hearing", "status": "partial", "module": "L3/governance/BudgetHearing" },
+        "17A05": { "title": "Budget adoption", "status": "partial", "module": "L2/budget/BudgetAdoption" },
+        "17A06": { "title": "Budget amendments", "status": "implemented", "module": "L2/budget/BudgetAmendment" },
+        "17A07": { "title": "Line item transfers", "status": "implemented", "module": "L2/budget/LineItemTransfer" },
+        "17A08": { "title": "Appropriation limits", "status": "partial", "module": "L2/budget/AppropriationLimits" },
+        "17A09": { "title": "Controller certification", "status": "implemented", "module": "L3/controller/BudgetCertification" },
+        "17A10": { "title": "Encumbrance accounting", "status": "partial", "module": "L2/budget/Encumbrances" }
       }
     },
     "XIX": {
       "title": "Retirement",
       "sections": {
-        "1901": { "title": "Establishment", "status": "not_started" },
-        "1902": { "title": "Retirement board", "status": "partial", "module": "L3/controller/BoardMemberships" },
-        "1903": { "title": "Retirement fund", "status": "not_started" }
+        "1901": { "title": "Establishment", "status": "partial", "module": "L4/policy/RetirementSystem" },
+        "1902": { "title": "Retirement board", "status": "implemented", "module": "L3/controller/BoardMemberships" },
+        "1903": { "title": "Retirement fund", "status": "partial", "module": "L3/fiscal/RetirementFund" },
+        "1904": { "title": "Contributions", "status": "partial", "module": "L2/payroll/RetirementContributions" },
+        "1905": { "title": "Benefits", "status": "not_started" },
+        "1906": { "title": "Actuarial valuations", "status": "partial", "module": "L4/reporting/ActuarialReport" }
+      }
+    },
+    "XX": {
+      "title": "Contracts",
+      "sections": {
+        "2001": { "title": "Contract authority", "status": "partial", "module": "L2/procurement/ContractAuthority" },
+        "2002": { "title": "Contract requirements", "status": "partial", "module": "L2/procurement/ContractRequirements" },
+        "2003": { "title": "Service contracts", "status": "partial", "module": "L1/contracts/ServiceContract" },
+        "2004": { "title": "Professional services", "status": "partial", "module": "L2/procurement/ProfessionalServices" },
+        "2005": { "title": "Emergency contracts", "status": "partial", "module": "L2/procurement/EmergencyProcurement" },
+        "2006": { "title": "Contract approval", "status": "implemented", "module": "L2/procurement/ContractApproval" }
       }
     },
     "XXI": {
       "title": "Procurement",
       "sections": {
-        "2101": { "title": "Definitions", "status": "not_started" },
-        "2102": { "title": "Bid requirements", "status": "partial", "module": "L2/procurement/BidThresholds" },
-        "2103": { "title": "Competitive bidding", "status": "partial", "module": "L2/procurement/BidThresholds" },
-        "2104": { "title": "Exceptions", "status": "not_started" },
-        "2105": { "title": "Contract execution", "status": "partial", "module": "L2/procurement/ContractReview" }
+        "2101": { "title": "Definitions", "status": "implemented", "module": "L0/types/ProcurementTerms" },
+        "2102": { "title": "Bid requirements", "status": "implemented", "module": "L2/procurement/BidThresholds" },
+        "2103": { "title": "Competitive bidding", "status": "implemented", "module": "L2/procurement/CompetitiveBidding" },
+        "2104": { "title": "Bid exceptions", "status": "partial", "module": "L2/procurement/BidExceptions" },
+        "2105": { "title": "Contract execution", "status": "implemented", "module": "L2/procurement/ContractReview" },
+        "2106": { "title": "Bid bonds", "status": "partial", "module": "L2/procurement/BidBonds" },
+        "2107": { "title": "Performance bonds", "status": "partial", "module": "L2/procurement/PerformanceBonds" },
+        "2108": { "title": "Purchasing procedures", "status": "partial", "module": "L2/procurement/PurchasingProcedures" },
+        "2109": { "title": "Cooperative purchasing", "status": "partial", "module": "L2/procurement/CooperativePurchasing" },
+        "2110": { "title": "Sole source", "status": "partial", "module": "L2/procurement/SoleSource" }
       }
     },
     "XXIII": {
       "title": "Records",
       "sections": {
-        "2301": { "title": "Public records", "status": "partial", "module": "L3/admin/RecordsCustody" },
-        "2302": { "title": "Retention schedules", "status": "not_started" },
-        "2303": { "title": "Destruction procedures", "status": "not_started" }
+        "2301": { "title": "Public records", "status": "implemented", "module": "L3/admin/RecordsCustody" },
+        "2302": { "title": "Retention schedules", "status": "partial", "module": "L3/admin/RetentionSchedule" },
+        "2303": { "title": "Destruction procedures", "status": "partial", "module": "L3/admin/RecordsDestruction" },
+        "2304": { "title": "Electronic records", "status": "partial", "module": "L3/admin/ElectronicRecords" },
+        "2305": { "title": "Right to know", "status": "partial", "module": "L4/policy/RightToKnow" }
+      }
+    },
+    "XXV": {
+      "title": "Taxation",
+      "sections": {
+        "2501": { "title": "Tax levy", "status": "partial", "module": "L4/policy/TaxLevy" },
+        "2502": { "title": "Tax rates", "status": "partial", "module": "L2/budget/TaxRates" },
+        "2503": { "title": "Tax collection", "status": "partial", "module": "L1/payments/TaxCollection" },
+        "2504": { "title": "Tax appeals", "status": "not_started" },
+        "2505": { "title": "Tax exemptions", "status": "not_started" }
       }
     }
   },
   "statusCounts": {
-    "implemented": 13,
-    "partial": 12,
-    "not_started": 25
+    "implemented": 52,
+    "partial": 48,
+    "not_started": 20
   },
   "moduleMapping": {
-    "L0_Data": [],
-    "L1_Transactions": ["1730", "1731", "1750", "1751", "1752", "1761"],
-    "L2_Control": ["1721", "1760", "2102", "2103", "2105"],
-    "L3_Operations": ["1501", "1601", "1602", "1704", "1705", "1720", "1723", "1724", "1726", "1762", "1902", "2301"],
-    "L4_Enterprise": ["1722"]
+    "L0_Data": ["102", "1701", "2101"],
+    "L1_Transactions": ["1304", "1305", "1308", "1730", "1731", "1732", "1750", "1751", "1752", "1753", "1761", "1763", "1764", "2003", "2503"],
+    "L2_Control": ["306", "308", "508", "1503", "1504", "1707", "1721", "1727", "1728", "1733", "1760", "17A01", "17A02", "17A03", "17A05", "17A06", "17A07", "17A08", "17A10", "1904", "2001", "2002", "2004", "2005", "2006", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2502"],
+    "L3_Operations": ["302", "501", "504", "505", "1303", "1306", "1501", "1502", "1601", "1602", "1603", "1604", "1605", "1606", "1607", "1702", "1704", "1705", "1720", "1723", "1724", "1726", "1762", "1902", "1903", "17A04", "17A09", "2301", "2302", "2303", "2304"],
+    "L4_Enterprise": ["101", "506", "1307", "1706", "1722", "1725", "1901", "1906", "2305", "2501"]
+  },
+  "prioritySections": {
+    "high": ["1602", "1705", "1720", "1730", "1750", "1760", "17A01", "17A06", "17A09", "2102"],
+    "medium": ["1501", "1601", "1721", "1722", "1751", "1762", "2103", "2105"],
+    "low": ["101", "102", "301", "1701"]
   }
 }

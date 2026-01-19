@@ -1,6 +1,6 @@
 // Auto-generated ISA-95 structure manifest
-// Generated: 2026-01-19T22:53:00.956Z
-// Modules: 41 | Schemas: 5
+// Generated: 2026-01-19T22:56:54.271Z
+// Modules: 56 | Schemas: 5
 
 export const STRUCTURE = {
   "L0_Data": {
@@ -15,6 +15,8 @@ export const STRUCTURE = {
       "Account.js",
       "CodeSection.js",
       "DateRange.js",
+      "FiscalYear.js",
+      "LegalDefinitions.js",
       "Money.js",
       "Person.js"
     ]
@@ -31,18 +33,25 @@ export const STRUCTURE = {
     ],
     "payments": [
       "DirectDeposit.js",
+      "Disbursement.js",
+      "Receipt.js",
       "Warrant.js"
     ]
   },
   "L2_Control": {
     "audit": [
+      "AuditFindings.js",
       "AuditPlan.js",
+      "InternalControls.js",
       "RiskAssessment.js",
       "SamplingMethod.js"
     ],
     "budget": [
+      "AnnualBudget.js",
       "Appropriation.js",
-      "BudgetCycle.js"
+      "BudgetAmendment.js",
+      "BudgetCycle.js",
+      "LineItemTransfer.js"
     ],
     "payroll": [
       "Deductions.js",
@@ -59,8 +68,13 @@ export const STRUCTURE = {
       "RecordsCustody.js"
     ],
     "controller": [
+      "AuditAuthority.js",
       "AuditJurisdiction.js",
       "BoardMemberships.js",
+      "BudgetCertification.js",
+      "DeputyController.js",
+      "Independence.js",
+      "SalaryBoard.js",
       "StatutoryDuties.js"
     ],
     "fiscal": [
@@ -69,6 +83,7 @@ export const STRUCTURE = {
     ],
     "governance": [
       "CouncilInterface.js",
+      "ElectedOfficers.js",
       "JudicialReporting.js"
     ]
   },
@@ -90,9 +105,9 @@ export const STRUCTURE = {
 };
 
 export const STATS = {
-  modules: 41,
+  modules: 56,
   schemas: 5,
-  paCodeCoverage: {"implemented":13,"partial":12,"not_started":25}
+  paCodeCoverage: {"implemented":52,"partial":48,"not_started":20}
 };
 
 export const LEVELS = {

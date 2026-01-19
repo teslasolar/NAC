@@ -1,5 +1,5 @@
 // Auto-generated ISA-95 structure manifest
-// Generated: 2026-01-19T22:56:54.271Z
+// Generated: 2026-01-19T23:16:47.311Z
 // Modules: 56 | Schemas: 5
 
 export const STRUCTURE = {

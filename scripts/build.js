@@ -44,6 +44,19 @@ supporting.forEach(([src, dest]) => {
   }
 });
 
+// Copy persistence layer
+const persistenceDir = path.join(srcDir, 'persistence');
+const destPersistenceDir = path.join(jsDir, 'persistence');
+if (fs.existsSync(persistenceDir)) {
+  if (!fs.existsSync(destPersistenceDir)) fs.mkdirSync(destPersistenceDir, { recursive: true });
+  fs.readdirSync(persistenceDir).forEach(file => {
+    if (file.endsWith('.js')) {
+      fs.copyFileSync(path.join(persistenceDir, file), path.join(destPersistenceDir, file));
+    }
+  });
+  console.log('  ✓ persistence/*.js');
+}
+
 // Auto-discover ISA-95 structure
 console.log('\nDiscovering ISA-95 modules...\n');
 

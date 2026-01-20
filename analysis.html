@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controller Budget Analysis - Northampton County</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --green: #10b981;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2rem; border-bottom: 3px solid var(--accent); }
+    .header h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .header p { color: var(--muted); }
+
+    .nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; }
+    .nav a { color: var(--accent); text-decoration: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .card { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); }
+    .card h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
+
+    .stat-card { text-align: center; }
+    .stat-card .number { font-size: 2rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: var(--muted); }
+    .stat-card.green .number { color: var(--green); }
+    .stat-card.yellow .number { color: var(--yellow); }
+    .stat-card.red .number { color: var(--red); }
+    .stat-card.purple .number { color: var(--purple); }
+
+    .bar { height: 24px; background: var(--border); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
+    .bar-fill { height: 100%; transition: width 0.5s; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; }
+    tr:hover { background: rgba(59, 130, 246, 0.1); }
+
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .badge.ok { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+    .badge.review { background: rgba(245, 158, 11, 0.2); color: var(--yellow); }
+    .badge.high { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+
+    .rec-item { background: var(--bg); padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border-left: 3px solid var(--accent); }
+    .rec-item h4 { font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .rec-item p { font-size: 0.85rem; color: var(--muted); }
+    .rec-item .savings { color: var(--green); font-weight: 600; }
+
+    .section-title { font-size: 1.25rem; color: var(--text); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
+
+    .pie-chart { width: 200px; height: 200px; border-radius: 50%; margin: 1rem auto; position: relative; }
+    .legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Controller Budget Analysis</h1>
+    <p>Northampton County FY2024 - Improvement Opportunities</p>
+  </div>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="candidate.html">Candidate</a>
+    <a href="controller.html">Controller Powers</a>
+    <a href="src/index.html">Source</a>
+  </div>
+
+  <div class="container">
+    <!-- Key Metrics -->
+    <div class="grid-4" style="margin-bottom: 2rem;">
+      <div class="card stat-card green">
+        <div class="number">$583M</div>
+        <div class="label">Total Budget</div>
+      </div>
+      <div class="card stat-card purple">
+        <div class="number">10.8</div>
+        <div class="label">Mill Rate (No Increase)</div>
+      </div>
+      <div class="card stat-card yellow">
+        <div class="number">$13.7M</div>
+        <div class="label">Potential Savings</div>
+      </div>
+      <div class="card stat-card">
+        <div class="number">8</div>
+        <div class="label">Row Officers to Audit</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Expenditure Breakdown -->
+      <div class="card">
+        <h2>📊 Expenditure Breakdown</h2>
+
+        <div class="bar-label"><span>Human Services</span><span>$349.8M (60%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 60%; background: var(--purple);"></div></div>
+        <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem;">Mostly pass-through federal/state dollars</p>
+
+        <div class="bar-label"><span>General Government</span><span>$105.7M (18%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 18%; background: var(--accent);"></div></div>
+
+        <div class="bar-label"><span>Courts & Corrections</span><span>$93.6M (16%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 16%; background: var(--yellow);"></div></div>
+
+        <div class="bar-label"><span>Public Works</span><span>$27.5M (5%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 5%; background: var(--green);"></div></div>
+
+        <div class="bar-label"><span>Debt Service</span><span>$5.4M (1%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 1%; background: var(--red);"></div></div>
+      </div>
+
+      <!-- Revenue Sources -->
+      <div class="card">
+        <h2>💰 Revenue Sources</h2>
+
+        <div class="bar-label"><span>Intergovernmental</span><span>$285M (49%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 49%; background: var(--green);"></div></div>
+        <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem;">Federal & state grants/pass-through</p>
+
+        <div class="bar-label"><span>Property Tax</span><span>$118M (20%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 20%; background: var(--accent);"></div></div>
+
+        <div class="bar-label"><span>Charges for Services</span><span>$95M (16%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 16%; background: var(--purple);"></div></div>
+
+        <div class="bar-label"><span>Other Revenue</span><span>$84M (14%)</span></div>
+        <div class="bar"><div class="bar-fill" style="width: 14%; background: var(--yellow);"></div></div>
+        <p style="font-size: 0.8rem; color: var(--muted);">Gaming revenue, investments, hotel tax</p>
+      </div>
+    </div>
+
+    <!-- Efficiency Analysis -->
+    <h2 class="section-title">Efficiency Analysis</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Benchmark</th>
+            <th>Status</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Human Services</td>
+            <td>Pass-through ratio</td>
+            <td>68.5%</td>
+            <td>&gt; 65%</td>
+            <td><span class="badge ok">OK</span></td>
+            <td>State/federal funds flowing correctly</td>
+          </tr>
+          <tr>
+            <td>Corrections</td>
+            <td>Cost per capita</td>
+            <td>$134.62</td>
+            <td>&lt; $150</td>
+            <td><span class="badge ok">OK</span></td>
+            <td>Within normal range</td>
+          </tr>
+          <tr>
+            <td>IT</td>
+            <td>% of budget</td>
+            <td>1.46%</td>
+            <td>1-2%</td>
+            <td><span class="badge ok">OK</span></td>
+            <td>Monitor major contracts</td>
+          </tr>
+          <tr>
+            <td>Facilities</td>
+            <td>Cost per sq ft</td>
+            <td>$30.00</td>
+            <td>&lt; $25</td>
+            <td><span class="badge review">REVIEW</span></td>
+            <td>Energy audits, space consolidation</td>
+          </tr>
+          <tr>
+            <td>Debt Service</td>
+            <td>Debt / Property Tax</td>
+            <td>4.6%</td>
+            <td>&lt; 10%</td>
+            <td><span class="badge ok">EXCELLENT</span></td>
+            <td>Strong debt position - capacity for investment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Row Officers -->
+    <h2 class="section-title">Row Officer Revenue & Audit Focus</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Office</th>
+            <th>Budget</th>
+            <th>Revenue</th>
+            <th>Net</th>
+            <th>Audit Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Treasurer</strong></td>
+            <td>$1.8M</td>
+            <td style="color: var(--green);">$118M</td>
+            <td style="color: var(--green);">+$116.2M</td>
+            <td>Cash mgmt, investments, tax collection</td>
+          </tr>
+          <tr>
+            <td><strong>Sheriff</strong></td>
+            <td>$9.1M</td>
+            <td>$3.2M</td>
+            <td style="color: var(--red);">-$5.9M</td>
+            <td>Sheriff sales, civil process, transport</td>
+          </tr>
+          <tr>
+            <td><strong>Recorder of Deeds</strong></td>
+            <td>$1.4M</td>
+            <td style="color: var(--green);">$8.5M</td>
+            <td style="color: var(--green);">+$7.1M</td>
+            <td>Recording fees, transfer tax</td>
+          </tr>
+          <tr>
+            <td><strong>Register of Wills</strong></td>
+            <td>$1.2M</td>
+            <td style="color: var(--green);">$4.8M</td>
+            <td style="color: var(--green);">+$3.6M</td>
+            <td>Estate fees, inheritance tax</td>
+          </tr>
+          <tr>
+            <td><strong>Clerk of Courts</strong></td>
+            <td>$1.3M</td>
+            <td style="color: var(--green);">$3.5M</td>
+            <td style="color: var(--green);">+$2.2M</td>
+            <td>Court fees, fines, bail</td>
+          </tr>
+          <tr>
+            <td><strong>Prothonotary</strong></td>
+            <td>$1.1M</td>
+            <td style="color: var(--green);">$2.8M</td>
+            <td style="color: var(--green);">+$1.7M</td>
+            <td>Civil filings, escrow, liens</td>
+          </tr>
+          <tr>
+            <td><strong>District Attorney</strong></td>
+            <td>$8.2M</td>
+            <td>$2.1M</td>
+            <td style="color: var(--red);">-$6.1M</td>
+            <td>Forfeiture funds, grants</td>
+          </tr>
+          <tr>
+            <td><strong>Coroner</strong></td>
+            <td>$1.6M</td>
+            <td>$0.18M</td>
+            <td style="color: var(--red);">-$1.4M</td>
+            <td>Autopsy fees, investigations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Improvement Recommendations -->
+    <h2 class="section-title">Controller Improvement Recommendations</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <h2>⚡ Immediate (0-6 mo)</h2>
+        <div class="rec-item">
+          <h4>Real-Time Budget Dashboard</h4>
+          <p>§1705 - Catch variances before overruns</p>
+          <div class="savings">Savings: $500K</div>
+        </div>
+        <div class="rec-item">
+          <h4>Duplicate Payment Detection</h4>
+          <p>§1730 - AI/ML pattern matching</p>
+          <div class="savings">Savings: $250K</div>
+        </div>
+        <div class="rec-item">
+          <h4>Standardize Row Officer Reports</h4>
+          <p>§1720 - Earlier detection of issues</p>
+          <div class="savings">Savings: $150K</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📅 Short-Term (6-12 mo)</h2>
+        <div class="rec-item">
+          <h4>Energy Audit - All Facilities</h4>
+          <p>§1705 - Reduce utility costs 10-15%</p>
+          <div class="savings">Savings: $1.5M</div>
+        </div>
+        <div class="rec-item">
+          <h4>Major Contract Review (&gt;$100K)</h4>
+          <p>§1730 - Ensure competitive pricing</p>
+          <div class="savings">Savings: $2M</div>
+        </div>
+        <div class="rec-item">
+          <h4>Continuous Audit Monitoring</h4>
+          <p>§1720 - Real-time vs. annual</p>
+          <div class="savings">Savings: $800K</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🎯 Long-Term (1-3 yr)</h2>
+        <div class="rec-item">
+          <h4>Shared Services with Lehigh County</h4>
+          <p>IT, purchasing, back-office</p>
+          <div class="savings">Savings: $5M</div>
+        </div>
+        <div class="rec-item">
+          <h4>Grant Maximization Program</h4>
+          <p>§1705 - Dedicated grant writer</p>
+          <div class="savings">Savings: $3M</div>
+        </div>
+        <div class="rec-item">
+          <h4>Debt Refinancing Analysis</h4>
+          <p>Lower interest if rates favorable</p>
+          <div class="savings">Savings: $500K</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, var(--surface), #1e3a5f); border: 2px solid var(--accent);">
+      <h2>📈 Total Estimated Savings: $13.7M (2.35% of budget)</h2>
+      <p style="color: var(--muted); margin-bottom: 1rem;">Based on Controller statutory authority per 16 Pa.C.S. §§1602, 1705, 1720, 1730</p>
+      <div class="grid-4" style="margin-top: 1rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--green);">$900K</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">Immediate</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--yellow);">$4.3M</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">Short-Term</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--purple);">$8.5M</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">Long-Term</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent);">0%</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">Tax Increase Needed</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.85rem;">
+      Data sources: <a href="https://www.wfmz.com/news/area/lehighvalley/northampton-county-executive-mcclures-2024-budget-583-million-with-no-tax-increase/article_f3ac53c6-61f8-11ee-a3ba-837356a1a565.html" style="color: var(--accent);">WFMZ</a>,
+      <a href="https://www.norcopa.gov/fiscal-reports" style="color: var(--accent);">Northampton County Fiscal Reports</a>,
+      <a href="https://www.mcall.com/2023/10/03/northampton-county-budget/" style="color: var(--accent);">Morning Call</a>
+    </p>
+  </div>
+</body>
+</html>

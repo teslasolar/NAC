@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PA County Code Statutes - NAC Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --gold: #c9a227;
+      --green: #10b981;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+    .header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2.5rem 2rem; border-bottom: 3px solid var(--gold); text-align: center; }
+    .header h1 { font-family: 'Playfair Display', serif; font-size: 2.25rem; margin-bottom: 0.5rem; }
+    .header p { color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+    .nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .nav a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .nav a:hover { text-decoration: underline; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+    .toc { background: var(--surface); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+    .toc h2 { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
+    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+
+    .article { margin-bottom: 3rem; }
+    .article-header { background: var(--surface); padding: 1rem 1.5rem; border-radius: 8px 8px 0 0; border-left: 4px solid var(--gold); }
+    .article-header h2 { font-size: 1.25rem; color: var(--gold); }
+
+    .statute { background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 1.5rem; scroll-margin-top: 80px; }
+    .statute:last-child { border-radius: 0 0 8px 8px; }
+    .statute:target { background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent); }
+
+    .statute-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .statute-id { font-family: monospace; font-size: 1rem; color: var(--accent); font-weight: 600; }
+    .statute-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .statute-text { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; padding: 1rem; background: var(--bg); border-radius: 6px; border-left: 3px solid var(--border); }
+
+    .related { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .related-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .related-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .related-links a { background: var(--bg); color: var(--accent); padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; text-decoration: none; }
+    .related-links a:hover { background: var(--accent); color: white; }
+
+    .copy-btn { background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+    .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+    .external { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--green); font-size: 0.85rem; text-decoration: none; }
+    .external:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>PA County Code Reference</h1>
+    <p>Title 16 Pa.C.S. - County Code statutes relevant to the Controller's Office</p>
+  </div>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="candidate.html">Candidate</a>
+    <a href="controller.html">Controller Powers</a>
+    <a href="analysis.html">Budget Analysis</a>
+    <a href="src/index.html">Source Code</a>
+  </div>
+
+  <div class="container">
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h2>Quick Navigation</h2>
+      <div class="toc-grid">
+        <div>
+          <strong>Controller (Art. XVI)</strong><br>
+          <a href="#1601">§1601 Definitions</a><br>
+          <a href="#1602">§1602 System of Accounts</a><br>
+          <a href="#1603">§1603 Account Books</a><br>
+          <a href="#1604">§1604 Monthly Reports</a><br>
+          <a href="#1605">§1605 Annual Report</a><br>
+          <a href="#1606">§1606 Independence</a><br>
+          <a href="#1607">§1607 Bond</a><br>
+          <a href="#1608">§1608 Subpoena Power</a>
+        </div>
+        <div>
+          <strong>Fiscal Affairs (Art. XVII)</strong><br>
+          <a href="#1701">§1701 Fiscal Year</a><br>
+          <a href="#1705">§1705 Fiscal Supervision</a><br>
+          <a href="#1710">§1710 Budget</a><br>
+          <a href="#1720">§1720 Audit & Settlement</a><br>
+          <a href="#1730">§1730 Pre-Audit Claims</a><br>
+          <a href="#1731">§1731 Warrants</a>
+        </div>
+        <div>
+          <strong>Boards (Art. XV, XIX)</strong><br>
+          <a href="#1501">§1501 Salary Board</a><br>
+          <a href="#1502">§1502 Board Meetings</a><br>
+          <a href="#1902">§1902 Retirement Board</a>
+        </div>
+        <div>
+          <strong>Row Officers (Art. XX)</strong><br>
+          <a href="#2001">§2001 Treasurer</a><br>
+          <a href="#2010">§2010 Sheriff</a><br>
+          <a href="#2020">§2020 Register of Wills</a><br>
+          <a href="#2030">§2030 Recorder of Deeds</a><br>
+          <a href="#2040">§2040 Prothonotary</a><br>
+          <a href="#2050">§2050 Clerk of Courts</a><br>
+          <a href="#2060">§2060 Coroner</a><br>
+          <a href="#2070">§2070 District Attorney</a>
+        </div>
+        <div>
+          <strong>Other PA Codes</strong><br>
+          <a href="#prison-board">61 Pa.C.S. §1731 Prison Board</a><br>
+          <a href="#elections-board">25 P.S. §2641 Elections</a><br>
+          <a href="#tax-appeals">72 P.S. §5020 Tax Appeals</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article XVI - Controller -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XVI - Controller</h2>
+      </div>
+
+      <div class="statute" id="1601">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1601</span>
+          <button class="copy-btn" onclick="copyLink('1601')">Copy Link</button>
+        </div>
+        <div class="statute-title">Definitions</div>
+        <div class="statute-text">
+          As used in this article: "Controller" means the chief fiscal officer of the county elected under this title.
+        </div>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1602">§1602 System of Accounts</a>
+            <a href="#1606">§1606 Independence</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1602">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1602</span>
+          <button class="copy-btn" onclick="copyLink('1602')">Copy Link</button>
+        </div>
+        <div class="statute-title">System of Accounts</div>
+        <div class="statute-text">
+          The controller shall prescribe a uniform system of accounts for all county officers, departments, boards, and agencies. The system shall provide for adequate internal controls and audit trails.
+        </div>
+        <a href="src/isa95/L3_Operations/controller/StatutoryDuties.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1603">§1603 Account Books</a>
+            <a href="#1705">§1705 Fiscal Supervision</a>
+            <a href="#1720">§1720 Audit & Settlement</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1603">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1603</span>
+          <button class="copy-btn" onclick="copyLink('1603')">Copy Link</button>
+        </div>
+        <div class="statute-title">Account Books</div>
+        <div class="statute-text">
+          The controller shall keep proper books of account, including a general ledger showing all receipts, disbursements, assets, and liabilities of the county.
+        </div>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1602">§1602 System of Accounts</a>
+            <a href="#1604">§1604 Monthly Reports</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1604">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1604</span>
+          <button class="copy-btn" onclick="copyLink('1604')">Copy Link</button>
+        </div>
+        <div class="statute-title">Monthly Reports</div>
+        <div class="statute-text">
+          The controller shall prepare monthly reports showing the financial condition of the county, including budget status, cash position, and outstanding obligations.
+        </div>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1605">§1605 Annual Report</a>
+            <a href="#1705">§1705 Fiscal Supervision</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1605">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1605</span>
+          <button class="copy-btn" onclick="copyLink('1605')">Copy Link</button>
+        </div>
+        <div class="statute-title">Annual Report</div>
+        <div class="statute-text">
+          The controller shall prepare an annual financial report within 90 days after the close of the fiscal year, containing a complete statement of all receipts and expenditures.
+        </div>
+        <a href="src/isa95/L4_Enterprise/reporting/AnnualReport.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1604">§1604 Monthly Reports</a>
+            <a href="#1701">§1701 Fiscal Year</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1606">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1606</span>
+          <button class="copy-btn" onclick="copyLink('1606')">Copy Link</button>
+        </div>
+        <div class="statute-title">Independence</div>
+        <div class="statute-text">
+          The controller shall be independent of the board of commissioners and shall not be subject to their direction in the performance of audit and fiscal supervision duties.
+        </div>
+        <a href="src/isa95/L3_Operations/controller/Independence.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Key point:</div>
+          <div class="related-links">
+            <a href="candidate.html">Why this matters for Controller candidacy</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1607">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1607</span>
+          <button class="copy-btn" onclick="copyLink('1607')">Copy Link</button>
+        </div>
+        <div class="statute-title">Bond Requirement</div>
+        <div class="statute-text">
+          Before assuming office, the controller shall execute a bond in such amount as the court of common pleas shall direct, conditioned on faithful performance of duties.
+        </div>
+      </div>
+
+      <div class="statute" id="1608">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1608</span>
+          <button class="copy-btn" onclick="copyLink('1608')">Copy Link</button>
+        </div>
+        <div class="statute-title">Subpoena Power</div>
+        <div class="statute-text">
+          The controller shall have power to compel the attendance of witnesses and the production of documents in connection with any audit or examination. Witnesses may be examined under oath.
+        </div>
+        <a href="src/isa95/L3_Operations/controller/AuditAuthority.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1720">§1720 Audit & Settlement</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article XVII - Fiscal Affairs -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XVII - Fiscal Affairs</h2>
+      </div>
+
+      <div class="statute" id="1701">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1701</span>
+          <button class="copy-btn" onclick="copyLink('1701')">Copy Link</button>
+        </div>
+        <div class="statute-title">Fiscal Year</div>
+        <div class="statute-text">
+          The fiscal year of all counties shall begin January 1 and end December 31 of each year.
+        </div>
+      </div>
+
+      <div class="statute" id="1705">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1705</span>
+          <button class="copy-btn" onclick="copyLink('1705')">Copy Link</button>
+        </div>
+        <div class="statute-title">Fiscal Supervision</div>
+        <div class="statute-text">
+          The controller shall have general supervision of the fiscal affairs of the county, including oversight of all financial transactions and compliance with budgetary requirements.
+        </div>
+        <a href="analysis.html" class="external">→ View Budget Analysis</a>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1602">§1602 System of Accounts</a>
+            <a href="#1710">§1710 Budget</a>
+            <a href="#1730">§1730 Pre-Audit</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1710">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1710</span>
+          <button class="copy-btn" onclick="copyLink('1710')">Copy Link</button>
+        </div>
+        <div class="statute-title">Budget Preparation</div>
+        <div class="statute-text">
+          The budget shall be prepared annually by the commissioners with input from all county departments. The controller shall review the proposed budget for compliance with fiscal policies.
+        </div>
+        <a href="src/isa95/L2_Control/budget/AnnualBudget.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="1720">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1720</span>
+          <button class="copy-btn" onclick="copyLink('1720')">Copy Link</button>
+        </div>
+        <div class="statute-title">Audit and Settlement</div>
+        <div class="statute-text">
+          The controller shall audit and settle the accounts of all county officers, including the treasurer, sheriff, prothonotary, register of wills, recorder of deeds, clerk of courts, coroner, and district attorney.
+        </div>
+        <a href="src/isa95/L3_Operations/controller/AuditJurisdiction.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Officers covered:</div>
+          <div class="related-links">
+            <a href="#2001">§2001 Treasurer</a>
+            <a href="#2010">§2010 Sheriff</a>
+            <a href="#2020">§2020 Register of Wills</a>
+            <a href="#2030">§2030 Recorder of Deeds</a>
+            <a href="#2040">§2040 Prothonotary</a>
+            <a href="#2050">§2050 Clerk of Courts</a>
+            <a href="#2060">§2060 Coroner</a>
+            <a href="#2070">§2070 District Attorney</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1730">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1730</span>
+          <button class="copy-btn" onclick="copyLink('1730')">Copy Link</button>
+        </div>
+        <div class="statute-title">Pre-Audit of Claims</div>
+        <div class="statute-text">
+          No claim against the county shall be paid until it has been audited by the controller. The controller shall examine each claim for proper authorization, available appropriation, and compliance with law.
+        </div>
+        <a href="src/isa95/L1_Transactions/claims/ClaimApproval.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Related sections:</div>
+          <div class="related-links">
+            <a href="#1731">§1731 Warrants</a>
+            <a href="#1705">§1705 Fiscal Supervision</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1731">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1731</span>
+          <button class="copy-btn" onclick="copyLink('1731')">Copy Link</button>
+        </div>
+        <div class="statute-title">Warrant Issuance</div>
+        <div class="statute-text">
+          Upon approval of a claim, the controller shall issue a warrant directing the treasurer to pay the amount due. No warrant shall issue without prior audit.
+        </div>
+        <a href="src/isa95/L1_Transactions/payments/Warrant.js" class="external">→ View Implementation</a>
+      </div>
+    </div>
+
+    <!-- Article XV - Salary Board -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XV - Salary Board</h2>
+      </div>
+
+      <div class="statute" id="1501">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1501</span>
+          <button class="copy-btn" onclick="copyLink('1501')">Copy Link</button>
+        </div>
+        <div class="statute-title">Salary Board Composition</div>
+        <div class="statute-text">
+          The salary board shall consist of the commissioners, the controller, and one judge designated by the president judge. The board shall fix the compensation of county employees.
+        </div>
+        <a href="src/isa95/L3_Operations/controller/SalaryBoard.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Controller board seats:</div>
+          <div class="related-links">
+            <a href="#1902">§1902 Retirement Board</a>
+            <a href="candidate.html#boards">All 5 Board Memberships</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="1502">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1502</span>
+          <button class="copy-btn" onclick="copyLink('1502')">Copy Link</button>
+        </div>
+        <div class="statute-title">Salary Board Meetings</div>
+        <div class="statute-text">
+          The salary board shall meet at least annually to review and establish salaries for all county positions. The controller shall maintain records of all salary board actions.
+        </div>
+      </div>
+    </div>
+
+    <!-- Article XIX - Retirement -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XIX - Retirement</h2>
+      </div>
+
+      <div class="statute" id="1902">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §1902</span>
+          <button class="copy-btn" onclick="copyLink('1902')">Copy Link</button>
+        </div>
+        <div class="statute-title">Retirement Board</div>
+        <div class="statute-text">
+          The retirement board shall consist of the commissioners, the controller, and two employee representatives. The controller shall ensure proper accounting of retirement funds.
+        </div>
+      </div>
+    </div>
+
+    <!-- Article XX - Row Officers -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XX - Row Officers</h2>
+      </div>
+
+      <div class="statute" id="2001">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2001</span>
+          <button class="copy-btn" onclick="copyLink('2001')">Copy Link</button>
+        </div>
+        <div class="statute-title">Treasurer Duties</div>
+        <div class="statute-text">
+          The treasurer shall receive all county funds and make disbursements as directed by warrant of the controller. The treasurer shall maintain detailed records of all receipts and payments.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/Treasurer.js" class="external">→ View Implementation</a>
+        <div class="related">
+          <div class="related-label">Audit areas:</div>
+          <div class="related-links">
+            <a href="analysis.html">Cash management, Investments, Tax collection</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="2010">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2010</span>
+          <button class="copy-btn" onclick="copyLink('2010')">Copy Link</button>
+        </div>
+        <div class="statute-title">Sheriff Duties</div>
+        <div class="statute-text">
+          The sheriff shall collect fees and costs as prescribed by law. All funds collected shall be deposited and accounted for monthly to the controller.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/Sheriff.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2020">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2020</span>
+          <button class="copy-btn" onclick="copyLink('2020')">Copy Link</button>
+        </div>
+        <div class="statute-title">Register of Wills</div>
+        <div class="statute-text">
+          The register of wills shall collect fees for probate services and inheritance tax. Monthly reports shall be filed with the controller.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/RegisterOfWills.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2030">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2030</span>
+          <button class="copy-btn" onclick="copyLink('2030')">Copy Link</button>
+        </div>
+        <div class="statute-title">Recorder of Deeds</div>
+        <div class="statute-text">
+          The recorder of deeds shall collect recording fees and realty transfer tax. All collections shall be remitted to the treasurer and reported to the controller.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/RecorderOfDeeds.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2040">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2040</span>
+          <button class="copy-btn" onclick="copyLink('2040')">Copy Link</button>
+        </div>
+        <div class="statute-title">Prothonotary</div>
+        <div class="statute-text">
+          The prothonotary shall collect fees for civil court filings. Escrow accounts shall be reconciled monthly with controller oversight.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/Prothonotary.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2050">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2050</span>
+          <button class="copy-btn" onclick="copyLink('2050')">Copy Link</button>
+        </div>
+        <div class="statute-title">Clerk of Courts</div>
+        <div class="statute-text">
+          The clerk of courts shall collect fees for criminal and civil court matters. All funds shall be deposited daily and reconciled with controller records.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/ClerkOfCourts.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2060">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2060</span>
+          <button class="copy-btn" onclick="copyLink('2060')">Copy Link</button>
+        </div>
+        <div class="statute-title">Coroner</div>
+        <div class="statute-text">
+          The coroner shall collect fees for autopsy and investigation services. Financial records shall be subject to controller audit.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/Coroner.js" class="external">→ View Implementation</a>
+      </div>
+
+      <div class="statute" id="2070">
+        <div class="statute-header">
+          <span class="statute-id">16 Pa.C.S. §2070</span>
+          <button class="copy-btn" onclick="copyLink('2070')">Copy Link</button>
+        </div>
+        <div class="statute-title">District Attorney</div>
+        <div class="statute-text">
+          The district attorney shall account for all forfeiture funds and grant receipts. The controller shall audit forfeiture accounts annually.
+        </div>
+        <a href="src/isa95/L3_Operations/rowOfficers/DistrictAttorney.js" class="external">→ View Implementation</a>
+      </div>
+    </div>
+
+    <!-- Other Pennsylvania Codes - Board Memberships -->
+    <div class="article">
+      <div class="article-header">
+        <h2>Other PA Codes - Controller Board Memberships</h2>
+      </div>
+
+      <div class="statute" id="prison-board">
+        <div class="statute-header">
+          <span class="statute-id">61 Pa.C.S. §1731</span>
+          <button class="copy-btn" onclick="copyLink('prison-board')">Copy Link</button>
+        </div>
+        <div class="statute-title">Prison Board</div>
+        <div class="statute-text">
+          The board of inspectors (prison board) shall consist of the county commissioners, the president judge, the sheriff, the controller, and the district attorney. The board shall supervise the county prison and correctional facilities.
+        </div>
+        <a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=61" class="external">→ Title 61 (Prisons and Parole)</a>
+        <div class="related">
+          <div class="related-label">Controller role:</div>
+          <div class="related-links">
+            <a href="analysis.html">Corrections Budget: $42M</a>
+            <a href="candidate.html">Board Memberships</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="elections-board">
+        <div class="statute-header">
+          <span class="statute-id">25 P.S. §2641</span>
+          <button class="copy-btn" onclick="copyLink('elections-board')">Copy Link</button>
+        </div>
+        <div class="statute-title">Board of Elections</div>
+        <div class="statute-text">
+          In each county there shall be a county board of elections consisting of the county commissioners and, in counties having a controller, such controller shall be an ex officio member. The board oversees all elections in the county.
+        </div>
+        <a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=25" class="external">→ Title 25 (Elections)</a>
+        <div class="related">
+          <div class="related-label">Controller role:</div>
+          <div class="related-links">
+            <a href="candidate.html">Board Memberships</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="statute" id="tax-appeals">
+        <div class="statute-header">
+          <span class="statute-id">72 P.S. §5020</span>
+          <button class="copy-btn" onclick="copyLink('tax-appeals')">Copy Link</button>
+        </div>
+        <div class="statute-title">Board of Assessment Appeals</div>
+        <div class="statute-text">
+          The board of assessment appeals shall hear and decide appeals from assessments of real property. In counties having a controller, the controller shall be an ex officio member of the board.
+        </div>
+        <a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=72" class="external">→ Title 72 (Taxation and Fiscal Affairs)</a>
+        <div class="related">
+          <div class="related-label">Fiscal impact:</div>
+          <div class="related-links">
+            <a href="analysis.html">Property Tax: $118M</a>
+            <a href="candidate.html">Board Memberships</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.85rem;">
+      Reference: <a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16" style="color: var(--accent);">PA General Assembly - Title 16</a> |
+      <a href="https://www.norcopa.gov" style="color: var(--accent);">Northampton County Government</a>
+    </p>
+  </div>
+
+  <script>
+    function copyLink(id) {
+      const url = window.location.href.split('#')[0] + '#' + id;
+      navigator.clipboard.writeText(url);
+      alert('Link copied: ' + url);
+    }
+  </script>
+</body>
+</html>

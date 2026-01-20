@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC API - Northampton County Data Integration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --green: #10b981;
+      --yellow: #f59e0b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2rem; border-bottom: 3px solid var(--green); text-align: center; }
+    .header h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .header p { color: var(--muted); }
+
+    .nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; justify-content: center; }
+    .nav a { color: var(--accent); text-decoration: none; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+    .card { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.2rem; color: var(--green); margin-bottom: 1rem; }
+    .card h3 { font-size: 1rem; color: var(--accent); margin: 1rem 0 0.5rem; }
+
+    code { font-family: 'JetBrains Mono', monospace; background: var(--bg); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; }
+    pre { background: var(--bg); padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0.5rem 0; font-size: 0.85rem; }
+
+    .endpoint { background: var(--bg); padding: 0.75rem 1rem; border-radius: 6px; margin: 0.5rem 0; border-left: 3px solid var(--green); }
+    .endpoint .method { color: var(--green); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+    .endpoint .path { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .endpoint .desc { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+    .file-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .file-link { background: var(--bg); padding: 1rem; border-radius: 8px; text-decoration: none; color: var(--text); display: block; border: 1px solid var(--border); }
+    .file-link:hover { border-color: var(--accent); }
+    .file-link .name { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.9rem; }
+    .file-link .desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .county-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+    .county-links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .county-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>NAC API</h1>
+    <p>Northampton County Data Integration Layer</p>
+  </div>
+  <div class="nav">
+    <a href="../../index.html">Home</a>
+    <a href="../../analysis.html">Budget Analysis</a>
+    <a href="../../statutes.html">Statutes</a>
+    <a href="../index.html">Source</a>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>Overview</h2>
+      <p>The NAC API provides a data integration layer for accessing Northampton County budget data, row officer information, and links to official county systems.</p>
+      <h3>Quick Start (Browser)</h3>
+      <pre>&lt;script src="src/api/nac-api.browser.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Access budget data
+  console.log(NAC.budget.total); // 582000000
+
+  // Format currency
+  console.log(NAC.formatCurrency(NAC.budget.total)); // $582,000,000
+
+  // Get row officer data
+  const treasurer = NAC.getRowOfficer('treasurer');
+  console.log(treasurer.revenue); // 118000000
+
+  // Open county page
+  NAC.openCountyPage('controller');
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="card">
+      <h2>API Endpoints</h2>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/budget</span>
+        <div class="desc">Returns FY2024 budget summary with categories</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/budget/history</span>
+        <div class="desc">Returns budget history 2021-2026</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/officers</span>
+        <div class="desc">Returns all 8 row officers with budgets and revenues</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/officers/:id</span>
+        <div class="desc">Returns specific row officer by ID (e.g., treasurer, sheriff)</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/revenue</span>
+        <div class="desc">Returns revenue sources breakdown</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/debt</span>
+        <div class="desc">Returns county debt status and capacity</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/gracedale</span>
+        <div class="desc">Returns Gracedale nursing home metrics</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/metrics</span>
+        <div class="desc">Returns controller metrics (per capita, claims volume)</div>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/links/county</span>
+        <div class="desc">Returns norcopa.gov links for all departments</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Module Files</h2>
+      <div class="file-list">
+        <a href="NACClient.js" class="file-link">
+          <div class="name">NACClient.js</div>
+          <div class="desc">Main client with county endpoints</div>
+        </a>
+        <a href="DataService.js" class="file-link">
+          <div class="name">DataService.js</div>
+          <div class="desc">Data access layer for budget info</div>
+        </a>
+        <a href="Router.js" class="file-link">
+          <div class="name">Router.js</div>
+          <div class="desc">API routing and OpenAPI spec</div>
+        </a>
+        <a href="nac-api.browser.js" class="file-link">
+          <div class="name">nac-api.browser.js</div>
+          <div class="desc">Browser-ready client script</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>County Integration Links</h2>
+      <h3>Row Offices</h3>
+      <div class="county-links">
+        <a href="https://www.norcopa.gov/government/row-offices/controller" target="_blank">Controller</a>
+        <a href="https://www.norcopa.gov/government/row-offices/treasurer" target="_blank">Treasurer</a>
+        <a href="https://www.norcopa.gov/government/row-offices/sheriff" target="_blank">Sheriff</a>
+        <a href="https://www.norcopa.gov/government/row-offices/recorder-of-deeds" target="_blank">Recorder of Deeds</a>
+        <a href="https://www.norcopa.gov/government/row-offices/register-of-wills" target="_blank">Register of Wills</a>
+        <a href="https://www.norcopa.gov/government/row-offices/prothonotary" target="_blank">Prothonotary</a>
+        <a href="https://www.norcopa.gov/government/row-offices/clerk-of-courts" target="_blank">Clerk of Courts</a>
+        <a href="https://www.norcopa.gov/government/row-offices/district-attorney" target="_blank">District Attorney</a>
+      </div>
+      <h3>Departments</h3>
+      <div class="county-links">
+        <a href="https://www.norcopa.gov/government/departments/fiscal-affairs" target="_blank">Fiscal Affairs</a>
+        <a href="https://www.norcopa.gov/government/departments/human-services" target="_blank">Human Services</a>
+        <a href="https://www.norcopa.gov/government/departments/gracedale" target="_blank">Gracedale</a>
+        <a href="https://www.norcopa.gov/government/departments/voter-registration" target="_blank">Elections</a>
+      </div>
+      <h3>External Data Sources</h3>
+      <div class="county-links">
+        <a href="https://gis.norcopa.gov" target="_blank">GIS Portal</a>
+        <a href="https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16" target="_blank">PA Title 16</a>
+        <a href="https://www.norcopa.gov" target="_blank">County Home</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Usage Example (Node.js)</h2>
+      <pre>const { DataService, NACClient } = require('./src/api');
+
+// Get budget summary
+const data = new DataService();
+console.log(data.getBudgetSummary());
+// { fiscalYear: 2024, total: 582000000, ... }
+
+// Get county endpoints
+const client = new NACClient();
+console.log(client.getRowOfficerEndpoints());
+// { controller: 'https://www.norcopa.gov/...', ... }</pre>
+    </div>
+  </div>
+
+  <script src="nac-api.browser.js"></script>
+  <script>
+    // Demo: Log metrics
+    console.log('NAC API loaded:', NAC.version);
+    console.log('Budget:', NAC.formatCurrency(NAC.budget.total));
+    console.log('Metrics:', NAC.getMetrics());
+  </script>
+</body>
+</html>

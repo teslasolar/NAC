@@ -41,3 +41,13 @@ export {
   AssessmentPeriod,
   createOEEAssessmentService
 } from './OEEAssessment.js';
+
+export {
+  OfficeRecommendations,
+  Priority,
+  Category,
+  getRecommendations,
+  getAllRecommendationsByPriority,
+  getOfficesNeedingImprovement,
+  calculateImprovementPotential
+} from './OEERecommendations.js';

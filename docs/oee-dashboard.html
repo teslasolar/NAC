@@ -439,47 +439,11 @@
       </div>
     </div>
 
-    <!-- Recommendations -->
+    <!-- Full Recommendations for All Offices -->
     <div class="recommendations" style="margin-top: 1.5rem;">
-      <h3>Improvement Recommendations</h3>
-      <div id="recommendationsList">
-        <div class="recommendation-item">
-          <div class="office-badge" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">Controller</div>
-          <div class="rec-content">
-            <div class="rec-title">OEE Below Target (83% → 74.2%) — Tara Zrinski</div>
-            <div class="rec-actions">
-              Improve audit turnaround • Streamline payroll processing • Enhance voucher pre-audit workflow • Increase board meeting preparation efficiency
-            </div>
-          </div>
-        </div>
-        <div class="recommendation-item">
-          <div class="office-badge">District Attorney</div>
-          <div class="rec-content">
-            <div class="rec-title">Performance Below Target (70% → 68%)</div>
-            <div class="rec-actions">
-              Identify bottleneck processes • Streamline case review workflow • Review staff allocation
-            </div>
-          </div>
-        </div>
-        <div class="recommendation-item">
-          <div class="office-badge">Coroner</div>
-          <div class="rec-content">
-            <div class="rec-title">Variable Performance Due to Case Complexity</div>
-            <div class="rec-actions">
-              Implement case triage system • Cross-train staff • Optimize scheduling
-            </div>
-          </div>
-        </div>
-        <div class="recommendation-item">
-          <div class="office-badge">Clerk of Courts</div>
-          <div class="rec-content">
-            <div class="rec-title">Availability Impacted by Court Calendar</div>
-            <div class="rec-actions">
-              Coordinate with court scheduling • Batch process filings • Extend counter hours
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3>Improvement Recommendations by Office</h3>
+      <p style="color: #94a3b8; font-size: 0.875rem; margin-bottom: 1rem;">Actionable steps to help each office reach their OEE targets</p>
+      <div id="recommendationsList"></div>
     </div>
   </div>
 
@@ -675,10 +639,173 @@
       });
     }
 
+    // Full recommendations data for all offices
+    const recommendations = {
+      controller: {
+        name: 'County Controller',
+        officer: 'Tara Zrinski',
+        gap: -8.8,
+        summary: 'Audit turnaround and payroll processing efficiency need significant improvement',
+        recs: [
+          { title: 'Implement Continuous Auditing Software', priority: 'HIGH', impact: '+4-6% OEE', actions: 'Deploy automated audit software • Integrate with financial systems • Set up automated exception reporting' },
+          { title: 'Streamline Voucher Pre-Audit Process', priority: 'HIGH', impact: '+2-3% OEE', actions: 'Create standardized checklists • Implement risk-based sampling • Delegate routine vouchers' },
+          { title: 'Automate Payroll Processing', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Integrate timekeeping systems • Automate overtime calculations • Implement direct deposit' },
+          { title: 'Establish Audit Finding Tracking', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Implement tracking database • Set up automated reminders • Create resolution reports' }
+        ]
+      },
+      'district-attorney': {
+        name: 'District Attorney',
+        officer: 'Terence Houck',
+        gap: -1.8,
+        summary: 'Case processing time needs improvement; complex caseload challenges',
+        recs: [
+          { title: 'Implement Case Triage System', priority: 'HIGH', impact: '+3-5% OEE', actions: 'Define complexity criteria • Create triage decision tree • Assign experienced triage officers' },
+          { title: 'Deploy Case Management Software', priority: 'HIGH', impact: '+2-4% OEE', actions: 'Evaluate Odyssey/Tyler systems • Migrate active cases • Integrate with court filing' },
+          { title: 'Establish Plea Bargain Guidelines', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Analyze historical outcomes • Create charge-specific guidelines • Track deviation rates' },
+          { title: 'Expand Diversion Programs', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Review eligibility criteria • Expand ARD capacity • Create drug court fast-track' }
+        ]
+      },
+      'clerk-of-courts': {
+        name: 'Clerk of Courts',
+        officer: 'Teresa Gordinier',
+        gap: -1.8,
+        summary: 'Court calendar constraints affect availability and performance',
+        recs: [
+          { title: 'Electronic Filing Expansion', priority: 'HIGH', impact: '+3-4% OEE', actions: 'Expand e-filing document types • Integrate with attorney systems • Target 70% e-filing rate' },
+          { title: 'Automated Docket Entry', priority: 'HIGH', impact: '+2-3% OEE', actions: 'Identify automatable entries • Create automated rules • Reduce entry time by 50%' },
+          { title: 'Jury Management System Upgrade', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Implement online check-in • Add text reminders • Reduce no-show rate' },
+          { title: 'Court Calendar Coordination', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Meet weekly with court admin • Create advance schedules • Balance daily workload' }
+        ]
+      },
+      'register-of-wills': {
+        name: 'Register of Wills',
+        officer: 'Ronald Heckman',
+        gap: -1.5,
+        summary: 'Estate processing time and complexity management need attention',
+        recs: [
+          { title: 'Implement Estate Complexity Triage', priority: 'HIGH', impact: '+2-3% OEE', actions: 'Define complexity criteria • Create fast-track for small estates • Route complex to senior staff' },
+          { title: 'Online Marriage License Application', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Create online portal • Reduce in-person time to 10 min • Offer appointment scheduling' },
+          { title: 'Inheritance Tax Calculator Tool', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Develop calculation tool • Include common deductions • Reduce revision cycles' },
+          { title: 'Probate Document Templates', priority: 'LOW', impact: '+1% OEE', actions: 'Create fillable PDFs • Include instruction guides • Track rejection reduction' }
+        ]
+      },
+      coroner: {
+        name: "Coroner's Office",
+        officer: 'Zachary Lysek',
+        gap: -0.8,
+        summary: 'Close to target; variable case complexity affects predictability',
+        recs: [
+          { title: 'Standardize Death Investigation Protocols', priority: 'HIGH', impact: '+2-3% OEE', actions: 'Develop type-specific checklists • Create digital templates • Track completion rates' },
+          { title: 'Implement Digital Evidence Management', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Select evidence software • Digitize existing records • Integrate with death cert system' },
+          { title: 'On-Call Deputy Rotation Optimization', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Analyze call volume patterns • Create geographic zones • Track response times' },
+          { title: 'Cremation Permit Fast-Track', priority: 'LOW', impact: '+1% OEE', actions: 'Identify routine vs complex • Create fast-track criteria • Track turnaround times' }
+        ]
+      },
+      prothonotary: {
+        name: 'Prothonotary',
+        officer: 'Coleen Eckhart',
+        gap: -0.5,
+        summary: 'Very close to target; minor improvements will achieve goal',
+        recs: [
+          { title: 'Expand Civil E-Filing', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Expand document types • Partner with legal vendors • Target 60% e-filing rate' },
+          { title: 'Judgment Lien Automation', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Create online search portal • Automate satisfaction processing • Reduce turnaround to 4 hours' },
+          { title: 'Passport Appointment System', priority: 'LOW', impact: '+1% OEE', actions: 'Deploy online booking • Create dedicated hours • Reduce wait to under 15 min' }
+        ]
+      },
+      sheriff: {
+        name: "Sheriff's Office",
+        officer: 'Mark Richter',
+        gap: -0.2,
+        summary: 'Close to target; focus on maintaining performance',
+        recs: [
+          { title: 'Optimize Deputy Scheduling Algorithm', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Implement scheduling software • Analyze historical patterns • Reduce overtime' },
+          { title: 'Mobile Process Service App', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Deploy mobile app • Integrate with case management • Eliminate paper logging' },
+          { title: 'GPS Route Optimization', priority: 'LOW', impact: '+1-2% OEE', actions: 'Implement GPS tracking • Use route optimization • Cluster service by geography' }
+        ]
+      },
+      'recorder-of-deeds': {
+        name: 'Recorder of Deeds',
+        officer: 'Amy Cozze',
+        gap: 0.1,
+        summary: 'Meets target; maintain excellence and pursue continuous improvement',
+        recs: [
+          { title: 'Expand E-Recording Adoption', priority: 'MEDIUM', impact: '+2-3% OEE', actions: 'Partner with title companies • Offer fee incentives • Target 80% e-recording' },
+          { title: 'Automated Indexing Validation', priority: 'MEDIUM', impact: '+1% OEE', actions: 'Add validation rules • Create duplicate detection • Track error rates' },
+          { title: 'Online Document Search Enhancement', priority: 'LOW', impact: '+1% OEE', actions: 'Enhance search functionality • Add document preview • Track online vs in-person' }
+        ]
+      },
+      treasurer: {
+        name: 'County Treasurer',
+        officer: 'Veronica Kwoczka',
+        gap: 1.4,
+        summary: 'EXCEEDS TARGET - World Class performance; share best practices',
+        recs: [
+          { title: 'Document Best Practices', priority: 'LOW', impact: 'County-wide', actions: 'Document cash handling • Create process flowcharts • Offer cross-office training' },
+          { title: 'Expand Online Payment Options', priority: 'MEDIUM', impact: '+1-2% OEE', actions: 'Add ACH payment option • Implement payment plans • Reduce in-person by 20%' }
+        ]
+      }
+    };
+
+    function getPriorityColor(priority) {
+      switch(priority) {
+        case 'HIGH': return '#ef4444';
+        case 'MEDIUM': return '#f59e0b';
+        case 'LOW': return '#3b82f6';
+        default: return '#6b7280';
+      }
+    }
+
+    function getGapColor(gap) {
+      if (gap > 0) return '#22c55e';
+      if (gap > -2) return '#eab308';
+      if (gap > -5) return '#f97316';
+      return '#ef4444';
+    }
+
+    function renderRecommendations() {
+      const container = document.getElementById('recommendationsList');
+
+      // Sort by gap (most negative first)
+      const sorted = Object.entries(recommendations).sort((a, b) => a[1].gap - b[1].gap);
+
+      container.innerHTML = sorted.map(([id, office]) => `
+        <div class="office-rec-section" style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border-radius: 10px; padding: 1.25rem; border: 1px solid rgba(255,255,255,0.05);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+              <h4 style="font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">${office.name}</h4>
+              <p style="font-size: 0.75rem; color: #94a3b8;">${office.officer}</p>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 1.25rem; font-weight: 700; color: ${getGapColor(office.gap)};">
+                ${office.gap > 0 ? '+' : ''}${office.gap}%
+              </div>
+              <div style="font-size: 0.65rem; color: #64748b;">${office.gap >= 0 ? 'Above Target' : 'Below Target'}</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: #a1a1aa; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);">${office.summary}</p>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            ${office.recs.map(rec => `
+              <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                <div style="background: ${getPriorityColor(rec.priority)}22; color: ${getPriorityColor(rec.priority)}; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.65rem; font-weight: 600; white-space: nowrap;">${rec.priority}</div>
+                <div style="flex: 1;">
+                  <div style="font-size: 0.875rem; font-weight: 500; color: #e2e8f0; margin-bottom: 0.25rem;">
+                    ${rec.title}
+                    <span style="color: #22c55e; font-size: 0.75rem; margin-left: 0.5rem;">${rec.impact}</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: #71717a;">${rec.actions}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
     // Initialize
     renderOfficeCards();
     renderOEEChart();
     renderComponentsChart();
+    renderRecommendations();
   </script>
 </body>
 </html>

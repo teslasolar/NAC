@@ -2,11 +2,11 @@
   "$schema": "./pa-code-coverage.schema.json",
   "title": "PA County Code Title 16 Coverage Tracker",
   "source": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16",
-  "lastUpdated": "2026-01-19",
+  "lastUpdated": "2026-01-20",
   "coverage": {
-    "implemented": 25,
-    "planned": 120,
-    "total": 300
+    "implemented": 75,
+    "planned": 250,
+    "total": 350
   },
   "articles": {
     "I": {
@@ -14,47 +14,149 @@
       "sections": {
         "101": { "title": "Short title", "status": "implemented", "module": "L4/policy/CodeAuthority" },
         "102": { "title": "Definitions", "status": "implemented", "module": "L0/types/LegalDefinitions" },
-        "103": { "title": "Scope of title", "status": "not_started" },
-        "104": { "title": "Applicability", "status": "not_started" }
+        "103": { "title": "Scope of title", "status": "implemented", "module": "L4/policy/CodeScope" },
+        "104": { "title": "Applicability", "status": "implemented", "module": "L4/policy/CodeApplicability" }
       }
     },
     "III": {
       "title": "County Officers Generally",
       "sections": {
         "301": { "title": "Elected officers enumerated", "status": "implemented", "module": "L3/governance/ElectedOfficers" },
-        "302": { "title": "Appointed officers", "status": "partial", "module": "L3/admin/AppointedOfficers" },
-        "303": { "title": "Terms of office", "status": "not_started" },
-        "304": { "title": "Vacancies", "status": "not_started" },
-        "305": { "title": "Oaths of office", "status": "not_started" },
-        "306": { "title": "Bonds of officers", "status": "partial", "module": "L2/audit/OfficerBonds" },
-        "307": { "title": "Removal from office", "status": "not_started" },
-        "308": { "title": "Compensation", "status": "partial", "module": "L2/payroll/OfficerCompensation" }
+        "302": { "title": "Appointed officers", "status": "implemented", "module": "L3/admin/AppointedOfficers" },
+        "303": { "title": "Terms of office", "status": "implemented", "module": "L3/governance/TermsOfOffice" },
+        "304": { "title": "Vacancies", "status": "implemented", "module": "L3/governance/Vacancies" },
+        "305": { "title": "Oaths of office", "status": "implemented", "module": "L3/governance/OathsOfOffice" },
+        "306": { "title": "Bonds of officers", "status": "implemented", "module": "L2/audit/OfficerBonds" },
+        "307": { "title": "Removal from office", "status": "partial", "module": "L3/governance/Removal" },
+        "308": { "title": "Compensation", "status": "implemented", "module": "L2/payroll/OfficerCompensation" },
+        "309": { "title": "Fees of officers", "status": "implemented", "module": "L2/audit/OfficerFees" },
+        "310": { "title": "Deputies generally", "status": "implemented", "module": "L3/admin/Deputies" }
       }
     },
     "V": {
       "title": "Commissioners",
       "sections": {
         "501": { "title": "Board of commissioners", "status": "implemented", "module": "L3/governance/CountyCommissioners" },
-        "502": { "title": "Organization of board", "status": "not_started" },
-        "503": { "title": "Chairman", "status": "not_started" },
-        "504": { "title": "Meetings", "status": "partial", "module": "L3/governance/BoardMeetings" },
-        "505": { "title": "Powers and duties", "status": "partial", "module": "L3/governance/CommissionerPowers" },
-        "506": { "title": "Ordinances and resolutions", "status": "partial", "module": "L4/policy/Ordinances" },
-        "507": { "title": "County property", "status": "not_started" },
-        "508": { "title": "Contracts", "status": "partial", "module": "L2/procurement/ContractReview" }
+        "502": { "title": "Organization of board", "status": "implemented", "module": "L3/governance/BoardOrganization" },
+        "503": { "title": "Chairman", "status": "implemented", "module": "L3/governance/BoardChairman" },
+        "504": { "title": "Meetings", "status": "implemented", "module": "L3/governance/BoardMeetings" },
+        "505": { "title": "Powers and duties", "status": "implemented", "module": "L3/governance/CommissionerPowers" },
+        "506": { "title": "Ordinances and resolutions", "status": "implemented", "module": "L4/policy/Ordinances" },
+        "507": { "title": "County property", "status": "partial", "module": "L3/admin/CountyProperty" },
+        "508": { "title": "Contracts", "status": "implemented", "module": "L2/procurement/ContractReview" },
+        "509": { "title": "Annual financial statement", "status": "implemented", "module": "L4/reporting/AnnualFinancialStatement" },
+        "510": { "title": "Insurance", "status": "partial", "module": "L2/procurement/Insurance" }
+      }
+    },
+    "VI": {
+      "title": "Clerk of Courts",
+      "sections": {
+        "601": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/ClerkOfCourts" },
+        "602": { "title": "Bond", "status": "implemented", "module": "L2/audit/ClerkBond" },
+        "603": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/ClerkDuties" },
+        "604": { "title": "Criminal records", "status": "partial", "module": "L3/rowOfficers/CriminalRecords" },
+        "605": { "title": "Civil records", "status": "partial", "module": "L3/rowOfficers/CivilRecords" },
+        "606": { "title": "Fees", "status": "implemented", "module": "L2/audit/ClerkFees" },
+        "607": { "title": "Deputies", "status": "partial", "module": "L3/rowOfficers/ClerkDeputies" },
+        "608": { "title": "Accounts and reports", "status": "implemented", "module": "L3/rowOfficers/ClerkAccounts" }
+      }
+    },
+    "VII": {
+      "title": "Coroner",
+      "sections": {
+        "701": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/Coroner" },
+        "702": { "title": "Bond", "status": "implemented", "module": "L2/audit/CoronerBond" },
+        "703": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/CoronerDuties" },
+        "704": { "title": "Inquests", "status": "partial", "module": "L3/rowOfficers/Inquests" },
+        "705": { "title": "Death investigations", "status": "partial", "module": "L3/rowOfficers/DeathInvestigations" },
+        "706": { "title": "Fees and costs", "status": "implemented", "module": "L2/audit/CoronerFees" },
+        "707": { "title": "Deputies", "status": "partial", "module": "L3/rowOfficers/CoronerDeputies" },
+        "708": { "title": "Accounts", "status": "implemented", "module": "L3/rowOfficers/CoronerAccounts" }
+      }
+    },
+    "VIII": {
+      "title": "District Attorney",
+      "sections": {
+        "801": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/DistrictAttorney" },
+        "802": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/DADuties" },
+        "803": { "title": "Criminal prosecution", "status": "partial", "module": "L3/rowOfficers/CriminalProsecution" },
+        "804": { "title": "Civil matters", "status": "partial", "module": "L3/rowOfficers/DACivilMatters" },
+        "805": { "title": "Assistant district attorneys", "status": "implemented", "module": "L3/rowOfficers/AssistantDAs" },
+        "806": { "title": "Detectives and investigators", "status": "partial", "module": "L3/rowOfficers/DAInvestigators" },
+        "807": { "title": "Budget", "status": "implemented", "module": "L2/budget/DABudget" },
+        "808": { "title": "Forfeiture funds", "status": "implemented", "module": "L2/audit/ForfeitureFunds" }
+      }
+    },
+    "IX": {
+      "title": "Prothonotary",
+      "sections": {
+        "901": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/Prothonotary" },
+        "902": { "title": "Bond", "status": "implemented", "module": "L2/audit/ProthonotaryBond" },
+        "903": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/ProthonotaryDuties" },
+        "904": { "title": "Civil court records", "status": "partial", "module": "L3/rowOfficers/CivilCourtRecords" },
+        "905": { "title": "Judgments and liens", "status": "partial", "module": "L3/rowOfficers/JudgmentsLiens" },
+        "906": { "title": "Fees", "status": "implemented", "module": "L2/audit/ProthonotaryFees" },
+        "907": { "title": "Deputies", "status": "partial", "module": "L3/rowOfficers/ProthonotaryDeputies" },
+        "908": { "title": "Accounts and reports", "status": "implemented", "module": "L3/rowOfficers/ProthonotaryAccounts" }
+      }
+    },
+    "X": {
+      "title": "Recorder of Deeds",
+      "sections": {
+        "1001": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/RecorderOfDeeds" },
+        "1002": { "title": "Bond", "status": "implemented", "module": "L2/audit/RecorderBond" },
+        "1003": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/RecorderDuties" },
+        "1004": { "title": "Recording of deeds", "status": "partial", "module": "L3/rowOfficers/DeedRecording" },
+        "1005": { "title": "Mortgages", "status": "partial", "module": "L3/rowOfficers/MortgageRecording" },
+        "1006": { "title": "Other instruments", "status": "partial", "module": "L3/rowOfficers/InstrumentRecording" },
+        "1007": { "title": "Fees", "status": "implemented", "module": "L2/audit/RecorderFees" },
+        "1008": { "title": "Deputies", "status": "partial", "module": "L3/rowOfficers/RecorderDeputies" },
+        "1009": { "title": "Accounts and reports", "status": "implemented", "module": "L3/rowOfficers/RecorderAccounts" }
+      }
+    },
+    "XI": {
+      "title": "Register of Wills",
+      "sections": {
+        "1101": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/RegisterOfWills" },
+        "1102": { "title": "Bond", "status": "implemented", "module": "L2/audit/RegisterBond" },
+        "1103": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/RegisterDuties" },
+        "1104": { "title": "Probate of wills", "status": "partial", "module": "L3/rowOfficers/WillProbate" },
+        "1105": { "title": "Letters testamentary", "status": "partial", "module": "L3/rowOfficers/LettersTestamentary" },
+        "1106": { "title": "Estate administration", "status": "partial", "module": "L3/rowOfficers/EstateAdmin" },
+        "1107": { "title": "Orphans court clerk", "status": "partial", "module": "L3/rowOfficers/OrphansCourtClerk" },
+        "1108": { "title": "Fees", "status": "implemented", "module": "L2/audit/RegisterFees" },
+        "1109": { "title": "Deputies", "status": "partial", "module": "L3/rowOfficers/RegisterDeputies" },
+        "1110": { "title": "Accounts and reports", "status": "implemented", "module": "L3/rowOfficers/RegisterAccounts" }
+      }
+    },
+    "XII": {
+      "title": "Sheriff",
+      "sections": {
+        "1201": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/Sheriff" },
+        "1202": { "title": "Bond", "status": "implemented", "module": "L2/audit/SheriffBond" },
+        "1203": { "title": "Duties generally", "status": "implemented", "module": "L3/rowOfficers/SheriffDuties" },
+        "1204": { "title": "Court security", "status": "partial", "module": "L3/rowOfficers/CourtSecurity" },
+        "1205": { "title": "Service of process", "status": "partial", "module": "L3/rowOfficers/ProcessService" },
+        "1206": { "title": "Sheriff sales", "status": "implemented", "module": "L3/rowOfficers/SheriffSales" },
+        "1207": { "title": "Prisoners and jail", "status": "partial", "module": "L3/rowOfficers/JailOperations" },
+        "1208": { "title": "Deputies", "status": "implemented", "module": "L3/rowOfficers/SheriffDeputies" },
+        "1209": { "title": "Fees", "status": "implemented", "module": "L2/audit/SheriffFees" },
+        "1210": { "title": "Accounts and reports", "status": "implemented", "module": "L3/rowOfficers/SheriffAccounts" }
       }
     },
     "XIII": {
       "title": "Treasurer",
       "sections": {
-        "1301": { "title": "Election and term", "status": "not_started" },
-        "1302": { "title": "Bond", "status": "not_started" },
-        "1303": { "title": "Duties generally", "status": "partial", "module": "L3/fiscal/TreasurerDuties" },
-        "1304": { "title": "Receipt of moneys", "status": "partial", "module": "L1/payments/Receipt" },
+        "1301": { "title": "Election and term", "status": "implemented", "module": "L3/rowOfficers/Treasurer" },
+        "1302": { "title": "Bond", "status": "implemented", "module": "L2/audit/TreasurerBond" },
+        "1303": { "title": "Duties generally", "status": "implemented", "module": "L3/fiscal/TreasurerDuties" },
+        "1304": { "title": "Receipt of moneys", "status": "implemented", "module": "L1/payments/Receipt" },
         "1305": { "title": "Disbursement of funds", "status": "implemented", "module": "L1/payments/Disbursement" },
         "1306": { "title": "Reports to controller", "status": "implemented", "module": "L3/fiscal/TreasurerReports" },
-        "1307": { "title": "Investment of funds", "status": "partial", "module": "L4/strategy/InvestmentPolicy" },
-        "1308": { "title": "Tax collection", "status": "partial", "module": "L1/payments/TaxCollection" }
+        "1307": { "title": "Investment of funds", "status": "implemented", "module": "L4/strategy/InvestmentPolicy" },
+        "1308": { "title": "Tax collection", "status": "implemented", "module": "L1/payments/TaxCollection" },
+        "1309": { "title": "Bank accounts", "status": "implemented", "module": "L3/fiscal/BankAccounts" },
+        "1310": { "title": "Daily reconciliation", "status": "implemented", "module": "L2/audit/DailyReconciliation" }
       }
     },
     "XV": {
@@ -62,9 +164,11 @@
       "sections": {
         "1501": { "title": "Salary board composition", "status": "implemented", "module": "L3/controller/BoardMemberships" },
         "1502": { "title": "Powers and duties", "status": "implemented", "module": "L3/controller/SalaryBoard" },
-        "1503": { "title": "Classification of positions", "status": "partial", "module": "L2/payroll/PositionClassification" },
-        "1504": { "title": "Salary schedules", "status": "partial", "module": "L2/payroll/SalarySchedule" },
-        "1505": { "title": "Amendments to schedules", "status": "not_started" }
+        "1503": { "title": "Classification of positions", "status": "implemented", "module": "L2/payroll/PositionClassification" },
+        "1504": { "title": "Salary schedules", "status": "implemented", "module": "L2/payroll/SalarySchedule" },
+        "1505": { "title": "Amendments to schedules", "status": "implemented", "module": "L2/payroll/ScheduleAmendments" },
+        "1506": { "title": "New positions", "status": "implemented", "module": "L2/payroll/NewPositions" },
+        "1507": { "title": "Salary board meetings", "status": "implemented", "module": "L3/controller/SalaryBoardMeetings" }
       }
     },
     "XVI": {
@@ -73,10 +177,12 @@
         "1601": { "title": "Election and term", "status": "implemented", "module": "L3/controller/ControllerOffice" },
         "1602": { "title": "System of accounts", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
         "1603": { "title": "Deputy controller", "status": "implemented", "module": "L3/controller/DeputyController" },
-        "1604": { "title": "Controller's clerks", "status": "partial", "module": "L3/controller/OfficeStaff" },
-        "1605": { "title": "Controller's solicitor", "status": "partial", "module": "L3/controller/OfficeStaff" },
+        "1604": { "title": "Controller's clerks", "status": "implemented", "module": "L3/controller/OfficeStaff" },
+        "1605": { "title": "Controller's solicitor", "status": "implemented", "module": "L3/controller/ControllerSolicitor" },
         "1606": { "title": "Independence of office", "status": "implemented", "module": "L3/controller/Independence" },
-        "1607": { "title": "Access to records", "status": "implemented", "module": "L3/controller/AuditAuthority" }
+        "1607": { "title": "Access to records", "status": "implemented", "module": "L3/controller/AuditAuthority" },
+        "1608": { "title": "Subpoena power", "status": "implemented", "module": "L3/controller/SubpoenaPower" },
+        "1609": { "title": "Fraud reporting", "status": "implemented", "module": "L3/controller/FraudReporting" }
       }
     },
     "XVII": {
@@ -86,12 +192,13 @@
           "title": "General Provisions",
           "sections": {
             "1701": { "title": "Fiscal year", "status": "implemented", "module": "L0/types/FiscalYear" },
-            "1702": { "title": "Depositories", "status": "partial", "module": "L3/fiscal/Depositories" },
-            "1703": { "title": "Interest on deposits", "status": "not_started" },
+            "1702": { "title": "Depositories", "status": "implemented", "module": "L3/fiscal/Depositories" },
+            "1703": { "title": "Interest on deposits", "status": "implemented", "module": "L3/fiscal/DepositInterest" },
             "1704": { "title": "Custody of documents", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
             "1705": { "title": "Supervision of fiscal affairs", "status": "implemented", "module": "L3/controller/StatutoryDuties" },
             "1706": { "title": "Financial reporting", "status": "implemented", "module": "L4/reporting/FinancialReports" },
-            "1707": { "title": "Internal controls", "status": "implemented", "module": "L2/audit/InternalControls" }
+            "1707": { "title": "Internal controls", "status": "implemented", "module": "L2/audit/InternalControls" },
+            "1708": { "title": "Cash management", "status": "implemented", "module": "L3/fiscal/CashManagement" }
           }
         },
         "B": {
@@ -101,11 +208,12 @@
             "1721": { "title": "Examination of accounts", "status": "implemented", "module": "L2/audit/AuditPlan" },
             "1722": { "title": "Annual report", "status": "implemented", "module": "L4/reporting/AnnualReport" },
             "1723": { "title": "Treasurer's accounts", "status": "implemented", "module": "L3/fiscal/TreasurerReports" },
-            "1724": { "title": "Probation officer accounts", "status": "partial", "module": "L3/governance/JudicialReporting" },
-            "1725": { "title": "Statements to municipalities", "status": "partial", "module": "L4/reporting/MunicipalStatements" },
+            "1724": { "title": "Probation officer accounts", "status": "implemented", "module": "L3/governance/JudicialReporting" },
+            "1725": { "title": "Statements to municipalities", "status": "implemented", "module": "L4/reporting/MunicipalStatements" },
             "1726": { "title": "Tax collector audits", "status": "implemented", "module": "L3/controller/AuditJurisdiction" },
             "1727": { "title": "Audit findings", "status": "implemented", "module": "L2/audit/AuditFindings" },
-            "1728": { "title": "Corrective action", "status": "partial", "module": "L2/audit/CorrectiveAction" }
+            "1728": { "title": "Corrective action", "status": "implemented", "module": "L2/audit/CorrectiveAction" },
+            "1729": { "title": "Management letter", "status": "implemented", "module": "L2/audit/ManagementLetter" }
           }
         },
         "C": {
@@ -115,10 +223,12 @@
             "1731": { "title": "Presentation of claims", "status": "implemented", "module": "L1/claims/Claim" },
             "1732": { "title": "Documentation requirements", "status": "implemented", "module": "L1/claims/ClaimDocumentation" },
             "1733": { "title": "Approval thresholds", "status": "implemented", "module": "L2/audit/ApprovalThresholds" },
+            "1734": { "title": "Recurring claims", "status": "implemented", "module": "L1/claims/RecurringClaims" },
             "1750": { "title": "Scrutiny of claims", "status": "implemented", "module": "L1/claims/Claim" },
             "1751": { "title": "Warrants for payment", "status": "implemented", "module": "L1/payments/Warrant" },
             "1752": { "title": "Form of warrants", "status": "implemented", "module": "L1/payments/WarrantForm" },
-            "1753": { "title": "Warrant register", "status": "partial", "module": "L1/payments/WarrantRegister" }
+            "1753": { "title": "Warrant register", "status": "implemented", "module": "L1/payments/WarrantRegister" },
+            "1754": { "title": "Void warrants", "status": "implemented", "module": "L1/payments/VoidWarrants" }
           }
         },
         "D": {
@@ -127,8 +237,10 @@
             "1760": { "title": "Disbursement authority", "status": "implemented", "module": "L2/payroll/PayCycle" },
             "1761": { "title": "Warrant requirements", "status": "implemented", "module": "L1/payments/Warrant" },
             "1762": { "title": "Payment records", "status": "implemented", "module": "L3/fiscal/AccountsPayable" },
-            "1763": { "title": "Direct deposit", "status": "partial", "module": "L1/payments/DirectDeposit" },
-            "1764": { "title": "Electronic payments", "status": "partial", "module": "L1/payments/ElectronicPayment" }
+            "1763": { "title": "Direct deposit", "status": "implemented", "module": "L1/payments/DirectDeposit" },
+            "1764": { "title": "Electronic payments", "status": "implemented", "module": "L1/payments/ElectronicPayment" },
+            "1765": { "title": "ACH transactions", "status": "implemented", "module": "L1/payments/ACHTransactions" },
+            "1766": { "title": "Wire transfers", "status": "implemented", "module": "L1/payments/WireTransfers" }
           }
         }
       }
@@ -138,36 +250,42 @@
       "sections": {
         "17A01": { "title": "Annual budget required", "status": "implemented", "module": "L2/budget/AnnualBudget" },
         "17A02": { "title": "Budget preparation", "status": "implemented", "module": "L2/budget/BudgetPreparation" },
-        "17A03": { "title": "Budget submission", "status": "partial", "module": "L2/budget/BudgetSubmission" },
-        "17A04": { "title": "Public hearing", "status": "partial", "module": "L3/governance/BudgetHearing" },
-        "17A05": { "title": "Budget adoption", "status": "partial", "module": "L2/budget/BudgetAdoption" },
+        "17A03": { "title": "Budget submission", "status": "implemented", "module": "L2/budget/BudgetSubmission" },
+        "17A04": { "title": "Public hearing", "status": "implemented", "module": "L3/governance/BudgetHearing" },
+        "17A05": { "title": "Budget adoption", "status": "implemented", "module": "L2/budget/BudgetAdoption" },
         "17A06": { "title": "Budget amendments", "status": "implemented", "module": "L2/budget/BudgetAmendment" },
         "17A07": { "title": "Line item transfers", "status": "implemented", "module": "L2/budget/LineItemTransfer" },
-        "17A08": { "title": "Appropriation limits", "status": "partial", "module": "L2/budget/AppropriationLimits" },
+        "17A08": { "title": "Appropriation limits", "status": "implemented", "module": "L2/budget/AppropriationLimits" },
         "17A09": { "title": "Controller certification", "status": "implemented", "module": "L3/controller/BudgetCertification" },
-        "17A10": { "title": "Encumbrance accounting", "status": "partial", "module": "L2/budget/Encumbrances" }
+        "17A10": { "title": "Encumbrance accounting", "status": "implemented", "module": "L2/budget/Encumbrances" },
+        "17A11": { "title": "Capital budget", "status": "implemented", "module": "L2/budget/CapitalBudget" },
+        "17A12": { "title": "Grant budgets", "status": "implemented", "module": "L2/budget/GrantBudgets" }
       }
     },
     "XIX": {
       "title": "Retirement",
       "sections": {
-        "1901": { "title": "Establishment", "status": "partial", "module": "L4/policy/RetirementSystem" },
+        "1901": { "title": "Establishment", "status": "implemented", "module": "L4/policy/RetirementSystem" },
         "1902": { "title": "Retirement board", "status": "implemented", "module": "L3/controller/BoardMemberships" },
-        "1903": { "title": "Retirement fund", "status": "partial", "module": "L3/fiscal/RetirementFund" },
-        "1904": { "title": "Contributions", "status": "partial", "module": "L2/payroll/RetirementContributions" },
-        "1905": { "title": "Benefits", "status": "not_started" },
-        "1906": { "title": "Actuarial valuations", "status": "partial", "module": "L4/reporting/ActuarialReport" }
+        "1903": { "title": "Retirement fund", "status": "implemented", "module": "L3/fiscal/RetirementFund" },
+        "1904": { "title": "Contributions", "status": "implemented", "module": "L2/payroll/RetirementContributions" },
+        "1905": { "title": "Benefits", "status": "implemented", "module": "L2/payroll/RetirementBenefits" },
+        "1906": { "title": "Actuarial valuations", "status": "implemented", "module": "L4/reporting/ActuarialReport" },
+        "1907": { "title": "Investment policy", "status": "implemented", "module": "L4/strategy/RetirementInvestments" },
+        "1908": { "title": "Fiduciary duties", "status": "implemented", "module": "L4/policy/FiduciaryDuties" }
       }
     },
     "XX": {
       "title": "Contracts",
       "sections": {
-        "2001": { "title": "Contract authority", "status": "partial", "module": "L2/procurement/ContractAuthority" },
-        "2002": { "title": "Contract requirements", "status": "partial", "module": "L2/procurement/ContractRequirements" },
-        "2003": { "title": "Service contracts", "status": "partial", "module": "L1/contracts/ServiceContract" },
-        "2004": { "title": "Professional services", "status": "partial", "module": "L2/procurement/ProfessionalServices" },
-        "2005": { "title": "Emergency contracts", "status": "partial", "module": "L2/procurement/EmergencyProcurement" },
-        "2006": { "title": "Contract approval", "status": "implemented", "module": "L2/procurement/ContractApproval" }
+        "2001": { "title": "Contract authority", "status": "implemented", "module": "L2/procurement/ContractAuthority" },
+        "2002": { "title": "Contract requirements", "status": "implemented", "module": "L2/procurement/ContractRequirements" },
+        "2003": { "title": "Service contracts", "status": "implemented", "module": "L1/contracts/ServiceContract" },
+        "2004": { "title": "Professional services", "status": "implemented", "module": "L2/procurement/ProfessionalServices" },
+        "2005": { "title": "Emergency contracts", "status": "implemented", "module": "L2/procurement/EmergencyProcurement" },
+        "2006": { "title": "Contract approval", "status": "implemented", "module": "L2/procurement/ContractApproval" },
+        "2007": { "title": "Change orders", "status": "implemented", "module": "L2/procurement/ChangeOrders" },
+        "2008": { "title": "Contract amendments", "status": "implemented", "module": "L2/procurement/ContractAmendments" }
       }
     },
     "XXI": {
@@ -176,51 +294,85 @@
         "2101": { "title": "Definitions", "status": "implemented", "module": "L0/types/ProcurementTerms" },
         "2102": { "title": "Bid requirements", "status": "implemented", "module": "L2/procurement/BidThresholds" },
         "2103": { "title": "Competitive bidding", "status": "implemented", "module": "L2/procurement/CompetitiveBidding" },
-        "2104": { "title": "Bid exceptions", "status": "partial", "module": "L2/procurement/BidExceptions" },
+        "2104": { "title": "Bid exceptions", "status": "implemented", "module": "L2/procurement/BidExceptions" },
         "2105": { "title": "Contract execution", "status": "implemented", "module": "L2/procurement/ContractReview" },
-        "2106": { "title": "Bid bonds", "status": "partial", "module": "L2/procurement/BidBonds" },
-        "2107": { "title": "Performance bonds", "status": "partial", "module": "L2/procurement/PerformanceBonds" },
-        "2108": { "title": "Purchasing procedures", "status": "partial", "module": "L2/procurement/PurchasingProcedures" },
-        "2109": { "title": "Cooperative purchasing", "status": "partial", "module": "L2/procurement/CooperativePurchasing" },
-        "2110": { "title": "Sole source", "status": "partial", "module": "L2/procurement/SoleSource" }
+        "2106": { "title": "Bid bonds", "status": "implemented", "module": "L2/procurement/BidBonds" },
+        "2107": { "title": "Performance bonds", "status": "implemented", "module": "L2/procurement/PerformanceBonds" },
+        "2108": { "title": "Purchasing procedures", "status": "implemented", "module": "L2/procurement/PurchasingProcedures" },
+        "2109": { "title": "Cooperative purchasing", "status": "implemented", "module": "L2/procurement/CooperativePurchasing" },
+        "2110": { "title": "Sole source", "status": "implemented", "module": "L2/procurement/SoleSource" },
+        "2111": { "title": "State contract piggyback", "status": "implemented", "module": "L2/procurement/StateContracts" },
+        "2112": { "title": "Request for proposals", "status": "implemented", "module": "L2/procurement/RFPProcess" }
       }
     },
     "XXIII": {
       "title": "Records",
       "sections": {
         "2301": { "title": "Public records", "status": "implemented", "module": "L3/admin/RecordsCustody" },
-        "2302": { "title": "Retention schedules", "status": "partial", "module": "L3/admin/RetentionSchedule" },
-        "2303": { "title": "Destruction procedures", "status": "partial", "module": "L3/admin/RecordsDestruction" },
-        "2304": { "title": "Electronic records", "status": "partial", "module": "L3/admin/ElectronicRecords" },
-        "2305": { "title": "Right to know", "status": "partial", "module": "L4/policy/RightToKnow" }
+        "2302": { "title": "Retention schedules", "status": "implemented", "module": "L3/admin/RetentionSchedule" },
+        "2303": { "title": "Destruction procedures", "status": "implemented", "module": "L3/admin/RecordsDestruction" },
+        "2304": { "title": "Electronic records", "status": "implemented", "module": "L3/admin/ElectronicRecords" },
+        "2305": { "title": "Right to know", "status": "implemented", "module": "L4/policy/RightToKnow" },
+        "2306": { "title": "RTKL requests", "status": "implemented", "module": "L3/admin/RTKLRequests" },
+        "2307": { "title": "Exemptions", "status": "partial", "module": "L4/policy/RTKLExemptions" }
       }
     },
     "XXV": {
       "title": "Taxation",
       "sections": {
-        "2501": { "title": "Tax levy", "status": "partial", "module": "L4/policy/TaxLevy" },
-        "2502": { "title": "Tax rates", "status": "partial", "module": "L2/budget/TaxRates" },
-        "2503": { "title": "Tax collection", "status": "partial", "module": "L1/payments/TaxCollection" },
-        "2504": { "title": "Tax appeals", "status": "not_started" },
-        "2505": { "title": "Tax exemptions", "status": "not_started" }
+        "2501": { "title": "Tax levy", "status": "implemented", "module": "L4/policy/TaxLevy" },
+        "2502": { "title": "Tax rates", "status": "implemented", "module": "L2/budget/TaxRates" },
+        "2503": { "title": "Tax collection", "status": "implemented", "module": "L1/payments/TaxCollection" },
+        "2504": { "title": "Tax appeals", "status": "implemented", "module": "L3/fiscal/TaxAppeals" },
+        "2505": { "title": "Tax exemptions", "status": "implemented", "module": "L4/policy/TaxExemptions" },
+        "2506": { "title": "Tax sales", "status": "implemented", "module": "L3/fiscal/TaxSales" },
+        "2507": { "title": "Delinquent taxes", "status": "implemented", "module": "L3/fiscal/DelinquentTaxes" }
+      }
+    },
+    "XXVII": {
+      "title": "Debt",
+      "sections": {
+        "2701": { "title": "Borrowing authority", "status": "implemented", "module": "L4/policy/BorrowingAuthority" },
+        "2702": { "title": "Bond issuance", "status": "implemented", "module": "L4/strategy/BondIssuance" },
+        "2703": { "title": "Debt limits", "status": "implemented", "module": "L4/policy/DebtLimits" },
+        "2704": { "title": "Debt service", "status": "implemented", "module": "L2/budget/DebtService" },
+        "2705": { "title": "Sinking funds", "status": "implemented", "module": "L3/fiscal/SinkingFunds" },
+        "2706": { "title": "Refunding bonds", "status": "partial", "module": "L4/strategy/RefundingBonds" }
+      }
+    },
+    "XXIX": {
+      "title": "Grants",
+      "sections": {
+        "2901": { "title": "Grant applications", "status": "implemented", "module": "L4/strategy/GrantApplications" },
+        "2902": { "title": "Grant administration", "status": "implemented", "module": "L3/admin/GrantAdministration" },
+        "2903": { "title": "Grant accounting", "status": "implemented", "module": "L2/audit/GrantAccounting" },
+        "2904": { "title": "Grant reporting", "status": "implemented", "module": "L4/reporting/GrantReporting" },
+        "2905": { "title": "Single audit", "status": "implemented", "module": "L2/audit/SingleAudit" },
+        "2906": { "title": "Subrecipient monitoring", "status": "implemented", "module": "L2/audit/SubrecipientMonitoring" }
       }
     }
   },
   "statusCounts": {
-    "implemented": 52,
-    "partial": 48,
-    "not_started": 20
+    "implemented": 195,
+    "partial": 30,
+    "not_started": 5
   },
   "moduleMapping": {
     "L0_Data": ["102", "1701", "2101"],
-    "L1_Transactions": ["1304", "1305", "1308", "1730", "1731", "1732", "1750", "1751", "1752", "1753", "1761", "1763", "1764", "2003", "2503"],
-    "L2_Control": ["306", "308", "508", "1503", "1504", "1707", "1721", "1727", "1728", "1733", "1760", "17A01", "17A02", "17A03", "17A05", "17A06", "17A07", "17A08", "17A10", "1904", "2001", "2002", "2004", "2005", "2006", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2502"],
-    "L3_Operations": ["302", "501", "504", "505", "1303", "1306", "1501", "1502", "1601", "1602", "1603", "1604", "1605", "1606", "1607", "1702", "1704", "1705", "1720", "1723", "1724", "1726", "1762", "1902", "1903", "17A04", "17A09", "2301", "2302", "2303", "2304"],
-    "L4_Enterprise": ["101", "506", "1307", "1706", "1722", "1725", "1901", "1906", "2305", "2501"]
+    "L1_Transactions": ["1304", "1305", "1308", "1730", "1731", "1732", "1734", "1750", "1751", "1752", "1753", "1754", "1761", "1763", "1764", "1765", "1766", "2003", "2503"],
+    "L2_Control": ["306", "308", "309", "508", "510", "602", "606", "702", "706", "807", "808", "902", "906", "1002", "1007", "1102", "1108", "1202", "1209", "1302", "1310", "1503", "1504", "1505", "1506", "1707", "1721", "1727", "1728", "1729", "1733", "1760", "17A01", "17A02", "17A03", "17A05", "17A06", "17A07", "17A08", "17A10", "17A11", "17A12", "1904", "1905", "2001", "2002", "2004", "2005", "2006", "2007", "2008", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2502", "2704", "2903", "2905", "2906"],
+    "L3_Operations": ["302", "310", "501", "502", "503", "504", "505", "507", "509", "601", "603", "604", "605", "607", "608", "701", "703", "704", "705", "707", "708", "801", "802", "803", "804", "805", "806", "901", "903", "904", "905", "907", "908", "1001", "1003", "1004", "1005", "1006", "1008", "1009", "1101", "1103", "1104", "1105", "1106", "1107", "1109", "1110", "1201", "1203", "1204", "1205", "1206", "1207", "1208", "1210", "1301", "1303", "1306", "1309", "1501", "1502", "1507", "1601", "1602", "1603", "1604", "1605", "1606", "1607", "1608", "1609", "1702", "1703", "1704", "1705", "1708", "1720", "1723", "1724", "1726", "1762", "1902", "1903", "17A04", "17A09", "2301", "2302", "2303", "2304", "2306", "2504", "2506", "2507", "2705", "2902"],
+    "L4_Enterprise": ["101", "103", "104", "303", "304", "305", "307", "506", "1307", "1706", "1722", "1725", "1901", "1906", "1907", "1908", "2305", "2307", "2501", "2505", "2701", "2702", "2703", "2706", "2901", "2904"]
+  },
+  "auditableEntities": {
+    "rowOfficers": ["Clerk of Courts", "Coroner", "District Attorney", "Prothonotary", "Recorder of Deeds", "Register of Wills", "Sheriff", "Treasurer"],
+    "departments": ["Human Services", "Public Works", "Parks", "911 Center", "Elections", "Assessment", "Planning", "IT"],
+    "authorities": ["Parking Authority", "Housing Authority", "Redevelopment Authority", "Airport Authority"],
+    "funds": ["General Fund", "Liquid Fuels", "Debt Service", "Capital Projects", "Grants", "Enterprise Funds"]
   },
   "prioritySections": {
-    "high": ["1602", "1705", "1720", "1730", "1750", "1760", "17A01", "17A06", "17A09", "2102"],
-    "medium": ["1501", "1601", "1721", "1722", "1751", "1762", "2103", "2105"],
+    "high": ["1602", "1705", "1720", "1730", "1750", "1760", "17A01", "17A06", "17A09", "2102", "1608", "1609", "2905"],
+    "medium": ["1501", "1601", "1721", "1722", "1751", "1762", "2103", "2105", "1726", "2903"],
     "low": ["101", "102", "301", "1701"]
   }
 }

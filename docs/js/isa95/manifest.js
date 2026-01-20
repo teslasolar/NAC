@@ -1,6 +1,6 @@
 // Auto-generated ISA-95 structure manifest
-// Generated: 2026-01-19T23:16:47.311Z
-// Modules: 56 | Schemas: 5
+// Generated: 2026-01-20T00:13:44.056Z
+// Modules: 65 | Schemas: 5
 
 export const STRUCTURE = {
   "L0_Data": {
@@ -85,6 +85,17 @@ export const STRUCTURE = {
       "CouncilInterface.js",
       "ElectedOfficers.js",
       "JudicialReporting.js"
+    ],
+    "rowOfficers": [
+      "ClerkOfCourts.js",
+      "Coroner.js",
+      "DistrictAttorney.js",
+      "Prothonotary.js",
+      "RecorderOfDeeds.js",
+      "RegisterOfWills.js",
+      "Sheriff.js",
+      "Treasurer.js",
+      "index.js"
     ]
   },
   "L4_Enterprise": {
@@ -105,9 +116,9 @@ export const STRUCTURE = {
 };
 
 export const STATS = {
-  modules: 56,
+  modules: 65,
   schemas: 5,
-  paCodeCoverage: {"implemented":52,"partial":48,"not_started":20}
+  paCodeCoverage: {"implemented":195,"partial":30,"not_started":5}
 };
 
 export const LEVELS = {

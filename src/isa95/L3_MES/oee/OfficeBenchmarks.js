@@ -253,6 +253,49 @@ export const OfficeBenchmarks = {
       'judgment_entry_time',
       'lien_search_time'
     ]
+  },
+
+  /**
+   * County Controller
+   * Fiscal oversight, audit, payroll - accuracy and timeliness critical
+   * Current: Tara Zrinski (grades how well current Controller performs)
+   */
+  controller: {
+    name: "County Controller",
+    targetOEE: 0.83,
+    targets: {
+      availability: 0.95,  // Standard office hours
+      performance: 0.88,   // Audit cycles and payroll deadlines
+      quality: 0.995       // Financial accuracy paramount
+    },
+    cycleTimeMinutes: {
+      'payroll-processing': 480,      // Full payroll cycle
+      'voucher-audit': 15,            // Per voucher review
+      'department-audit': 2400,       // Full department audit
+      'warrant-approval': 30,         // Payment warrant review
+      'board-report': 120             // Board meeting prep
+    },
+    slaHours: {
+      payrollDeadline: 48,            // 2 days before pay date
+      voucherReview: 24,              // Same-day turnaround target
+      auditReport: 720,               // 30 days for audit completion
+      annualReport: 2160              // 90 days after fiscal year
+    },
+    keyMetrics: [
+      'payroll_accuracy_rate',
+      'audit_finding_resolution',
+      'voucher_rejection_rate',
+      'board_attendance_rate',
+      'report_timeliness'
+    ],
+    statutoryDuties: [
+      '16 P.S. § 1701 - General powers',
+      '16 P.S. § 1702 - Audit county accounts',
+      '16 P.S. § 1703 - Examine accounts of officers',
+      '16 P.S. § 1705 - Pre-audit all vouchers',
+      '16 P.S. § 1706 - Countersign warrants',
+      '16 P.S. § 1720 - Board memberships'
+    ]
   }
 };
 

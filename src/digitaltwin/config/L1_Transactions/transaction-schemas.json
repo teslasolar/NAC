@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "transaction-schemas",
+  "title": "Transaction Schemas",
+  "description": "JSON schemas for county financial transactions",
+  "version": "1.0.0",
+
+  "receipt": {
+    "description": "Cash receipt transaction",
+    "schema": {
+      "type": "object",
+      "required": ["id", "date", "source", "amount", "fund", "receivedBy"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^REC-[0-9]{4}-[0-9]{6}$" },
+        "date": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" },
+        "sourceType": {
+          "type": "string",
+          "enum": ["row_officer", "department", "public", "state", "federal", "other"]
+        },
+        "amount": { "type": "number", "minimum": 0 },
+        "fund": { "type": "string" },
+        "account": { "type": "string" },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["cash", "check", "ach", "wire", "credit_card"]
+        },
+        "checkNumber": { "type": "string" },
+        "receivedBy": { "type": "string" },
+        "depositDate": { "type": "string", "format": "date" },
+        "depositSlipNumber": { "type": "string" }
+      }
+    }
+  },
+
+  "warrant": {
+    "description": "Controller warrant for payment",
+    "schema": {
+      "type": "object",
+      "required": ["id", "date", "payee", "amount", "fund", "controllerSignature"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^WAR-[0-9]{4}-[0-9]{6}$" },
+        "date": { "type": "string", "format": "date-time" },
+        "payee": { "type": "string" },
+        "payeeAddress": { "type": "string" },
+        "amount": { "type": "number", "minimum": 0 },
+        "fund": { "type": "string" },
+        "account": { "type": "string" },
+        "description": { "type": "string" },
+        "invoiceNumbers": { "type": "array", "items": { "type": "string" } },
+        "department": { "type": "string" },
+        "controllerSignature": { "type": "string" },
+        "approvalDate": { "type": "string", "format": "date" },
+        "approvalLevel": {
+          "type": "string",
+          "enum": ["department_head", "controller", "council"]
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["check", "ach", "wire"]
+        },
+        "checkNumber": { "type": "string" },
+        "clearedDate": { "type": "string", "format": "date" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "issued", "cleared", "voided", "stale"]
+        }
+      }
+    }
+  },
+
+  "transfer_tax": {
+    "description": "Realty transfer tax transaction",
+    "schema": {
+      "type": "object",
+      "required": ["id", "recordingDate", "grantor", "grantee", "consideration", "stateTax", "countyTax"],
+      "properties": {
+        "id": { "type": "string" },
+        "recordingDate": { "type": "string", "format": "date" },
+        "documentNumber": { "type": "string" },
+        "grantor": { "type": "string" },
+        "grantee": { "type": "string" },
+        "propertyAddress": { "type": "string" },
+        "parcelId": { "type": "string" },
+        "consideration": { "type": "number", "minimum": 0 },
+        "stateTax": { "type": "number", "minimum": 0 },
+        "countyTax": { "type": "number", "minimum": 0 },
+        "exemptionCode": { "type": "string" },
+        "exemptionAmount": { "type": "number" },
+        "remittanceDate": { "type": "string", "format": "date" }
+      }
+    }
+  },
+
+  "inheritance_tax": {
+    "description": "PA inheritance tax transaction",
+    "schema": {
+      "type": "object",
+      "required": ["id", "estateName", "decedentDOD", "grossEstate", "taxableEstate"],
+      "properties": {
+        "id": { "type": "string" },
+        "estateName": { "type": "string" },
+        "decedentDOD": { "type": "string", "format": "date" },
+        "grossEstate": { "type": "number", "minimum": 0 },
+        "deductions": { "type": "number", "minimum": 0 },
+        "taxableEstate": { "type": "number", "minimum": 0 },
+        "beneficiaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "relationship": { "type": "string", "enum": ["lineal", "sibling", "other"] },
+              "share": { "type": "number" },
+              "taxRate": { "type": "number" },
+              "taxDue": { "type": "number" }
+            }
+          }
+        },
+        "totalTaxDue": { "type": "number" },
+        "discountAmount": { "type": "number" },
+        "penaltyAmount": { "type": "number" },
+        "interestAmount": { "type": "number" },
+        "netTaxDue": { "type": "number" },
+        "paymentDate": { "type": "string", "format": "date" },
+        "remittanceDate": { "type": "string", "format": "date" }
+      }
+    }
+  },
+
+  "forfeiture": {
+    "description": "Asset forfeiture transaction per 42 Pa.C.S. §6801",
+    "schema": {
+      "type": "object",
+      "required": ["id", "seizureDate", "assetDescription", "estimatedValue", "caseNumber"],
+      "properties": {
+        "id": { "type": "string" },
+        "seizureDate": { "type": "string", "format": "date" },
+        "assetDescription": { "type": "string" },
+        "assetType": {
+          "type": "string",
+          "enum": ["currency", "vehicle", "real_property", "other"]
+        },
+        "estimatedValue": { "type": "number", "minimum": 0 },
+        "finalValue": { "type": "number" },
+        "caseNumber": { "type": "string" },
+        "defendant": { "type": "string" },
+        "seizingAgency": { "type": "string" },
+        "petitionFiledDate": { "type": "string", "format": "date" },
+        "courtOrderDate": { "type": "string", "format": "date" },
+        "dispositionDate": { "type": "string", "format": "date" },
+        "disposition": {
+          "type": "string",
+          "enum": ["forfeited", "returned", "settled", "pending"]
+        },
+        "proceedsDeposited": { "type": "number" },
+        "depositDate": { "type": "string", "format": "date" },
+        "permittedUse": { "type": "string" }
+      }
+    }
+  },
+
+  "bail_bond": {
+    "description": "Bail or bond transaction",
+    "schema": {
+      "type": "object",
+      "required": ["id", "postDate", "defendant", "amount", "bondType"],
+      "properties": {
+        "id": { "type": "string" },
+        "postDate": { "type": "string", "format": "date-time" },
+        "caseNumber": { "type": "string" },
+        "defendant": { "type": "string" },
+        "amount": { "type": "number", "minimum": 0 },
+        "bondType": {
+          "type": "string",
+          "enum": ["cash", "surety", "property", "ror", "unsecured"]
+        },
+        "postedBy": { "type": "string" },
+        "suretyCompany": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["active", "exonerated", "forfeited", "refunded"]
+        },
+        "dispositionDate": { "type": "string", "format": "date" },
+        "refundAmount": { "type": "number" },
+        "refundDate": { "type": "string", "format": "date" }
+      }
+    }
+  },
+
+  "escrow": {
+    "description": "Escrow account transaction",
+    "schema": {
+      "type": "object",
+      "required": ["id", "date", "caseNumber", "amount", "transactionType"],
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "caseNumber": { "type": "string" },
+        "amount": { "type": "number" },
+        "transactionType": {
+          "type": "string",
+          "enum": ["deposit", "disbursement", "interest", "fee"]
+        },
+        "depositor": { "type": "string" },
+        "payee": { "type": "string" },
+        "courtOrderNumber": { "type": "string" },
+        "courtOrderDate": { "type": "string", "format": "date" },
+        "balance": { "type": "number" }
+      }
+    }
+  }
+}

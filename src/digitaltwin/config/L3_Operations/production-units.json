@@ -1,0 +1,266 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "production-units",
+  "title": "Production Unit Definitions",
+  "description": "Row officer production unit configurations",
+  "version": "1.0.0",
+
+  "enterprise": {
+    "id": "northampton-county",
+    "name": "Northampton County Government",
+    "type": "third_class_county",
+    "homeRuleCharter": true,
+    "population": 312274,
+    "established": 1752
+  },
+
+  "units": {
+    "sheriff": {
+      "id": "sheriff",
+      "name": "Sheriff's Office",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article XII",
+        "sections": ["1201", "1202", "1203", "1204", "1205", "1206", "1207", "1208", "1209", "1210"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "dimensions": { "width": 60, "height": 8, "depth": 40 },
+      "color": "#3498db",
+      "staffing": {
+        "fte": 45,
+        "positions": [
+          { "title": "Sheriff", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Deputy Sheriff", "count": 30 },
+          { "title": "Corrections Officer", "count": 8 },
+          { "title": "Administrative Staff", "count": 5 }
+        ]
+      },
+      "operatingHours": { "start": 0, "end": 24, "note": "24/7 for jail operations" },
+      "assemblyLines": ["sheriff-sales", "process-service", "inmate-accounts", "court-security"]
+    },
+
+    "treasurer": {
+      "id": "treasurer",
+      "name": "County Treasurer",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article XIII",
+        "sections": ["1301", "1302", "1303", "1304", "1305", "1306", "1307", "1308", "1309", "1310"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 80, "y": 0, "z": 0 },
+      "dimensions": { "width": 50, "height": 6, "depth": 30 },
+      "color": "#27ae60",
+      "staffing": {
+        "fte": 15,
+        "positions": [
+          { "title": "Treasurer", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Investment Officer", "count": 1 },
+          { "title": "Tax Collector", "count": 3 },
+          { "title": "Accounting Clerk", "count": 5 },
+          { "title": "Customer Service", "count": 4 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["cash-receipts", "disbursements", "investments", "tax-collection", "bank-reconciliation"]
+    },
+
+    "coroner": {
+      "id": "coroner",
+      "name": "Coroner's Office",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article VII",
+        "sections": ["701", "702", "703", "704", "705", "706", "707", "708"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 160, "y": 0, "z": 0 },
+      "dimensions": { "width": 40, "height": 6, "depth": 25 },
+      "color": "#9b59b6",
+      "staffing": {
+        "fte": 8,
+        "positions": [
+          { "title": "Coroner", "count": 1, "elected": true },
+          { "title": "Chief Deputy Coroner", "count": 1 },
+          { "title": "Deputy Coroner", "count": 4 },
+          { "title": "Administrative Staff", "count": 2 }
+        ]
+      },
+      "operatingHours": { "start": 0, "end": 24, "note": "24/7 for death response" },
+      "assemblyLines": ["death-investigation", "autopsy", "cremation-permits", "property-control"]
+    },
+
+    "district-attorney": {
+      "id": "district-attorney",
+      "name": "District Attorney's Office",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article VIII",
+        "sections": ["801", "802", "803", "804", "805", "806", "807", "808"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": false,
+      "position": { "x": 240, "y": 0, "z": 0 },
+      "dimensions": { "width": 55, "height": 7, "depth": 35 },
+      "color": "#e74c3c",
+      "staffing": {
+        "fte": 35,
+        "positions": [
+          { "title": "District Attorney", "count": 1, "elected": true },
+          { "title": "First Assistant DA", "count": 1 },
+          { "title": "Assistant District Attorney", "count": 20 },
+          { "title": "Detective", "count": 5 },
+          { "title": "Victim Advocate", "count": 3 },
+          { "title": "Administrative Staff", "count": 5 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["prosecution", "forfeiture", "grants", "restitution"]
+    },
+
+    "recorder-of-deeds": {
+      "id": "recorder-of-deeds",
+      "name": "Recorder of Deeds",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article X",
+        "sections": ["1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 0, "y": 0, "z": 60 },
+      "dimensions": { "width": 35, "height": 5, "depth": 25 },
+      "color": "#f39c12",
+      "staffing": {
+        "fte": 12,
+        "positions": [
+          { "title": "Recorder of Deeds", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Recording Clerk", "count": 5 },
+          { "title": "Index Clerk", "count": 3 },
+          { "title": "Customer Service", "count": 2 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["recording", "transfer-tax", "public-records", "technology-fund"]
+    },
+
+    "register-of-wills": {
+      "id": "register-of-wills",
+      "name": "Register of Wills",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article XI",
+        "sections": ["1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108", "1109", "1110"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 80, "y": 0, "z": 60 },
+      "dimensions": { "width": 45, "height": 6, "depth": 30 },
+      "color": "#1abc9c",
+      "staffing": {
+        "fte": 14,
+        "positions": [
+          { "title": "Register of Wills", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Probate Clerk", "count": 4 },
+          { "title": "Estate Clerk", "count": 3 },
+          { "title": "Tax Clerk", "count": 2 },
+          { "title": "Marriage License Clerk", "count": 2 },
+          { "title": "Administrative Staff", "count": 1 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["probate", "estate-admin", "inheritance-tax", "marriage-licenses", "guardian-accounts"]
+    },
+
+    "clerk-of-courts": {
+      "id": "clerk-of-courts",
+      "name": "Clerk of Courts",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article VI",
+        "sections": ["601", "602", "603", "604", "605", "606", "607", "608"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 160, "y": 0, "z": 60 },
+      "dimensions": { "width": 45, "height": 6, "depth": 30 },
+      "color": "#3498db",
+      "staffing": {
+        "fte": 18,
+        "positions": [
+          { "title": "Clerk of Courts", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Criminal Division Clerk", "count": 6 },
+          { "title": "Civil Division Clerk", "count": 4 },
+          { "title": "Records Clerk", "count": 3 },
+          { "title": "Cashier", "count": 2 },
+          { "title": "Administrative Staff", "count": 1 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["criminal-filing", "fee-collection", "records-management", "bail-bond"]
+    },
+
+    "prothonotary": {
+      "id": "prothonotary",
+      "name": "Prothonotary",
+      "type": "row_officer",
+      "authority": {
+        "statute": "16 Pa.C.S. Article IX",
+        "sections": ["901", "902", "903", "904", "905", "906", "907", "908"]
+      },
+      "elected": true,
+      "term": 4,
+      "bondRequired": true,
+      "position": { "x": 240, "y": 0, "z": 60 },
+      "dimensions": { "width": 45, "height": 6, "depth": 30 },
+      "color": "#e67e22",
+      "staffing": {
+        "fte": 16,
+        "positions": [
+          { "title": "Prothonotary", "count": 1, "elected": true },
+          { "title": "Chief Deputy", "count": 1 },
+          { "title": "Civil Filing Clerk", "count": 5 },
+          { "title": "Judgment Clerk", "count": 3 },
+          { "title": "Lien Clerk", "count": 3 },
+          { "title": "Cashier", "count": 2 },
+          { "title": "Administrative Staff", "count": 1 }
+        ]
+      },
+      "operatingHours": { "start": 8, "end": 17 },
+      "assemblyLines": ["civil-filing", "judgments", "liens", "escrow", "fees"]
+    }
+  },
+
+  "connections": [
+    { "from": "sheriff", "to": "treasurer", "type": "fee-deposit", "label": "Fee Collection" },
+    { "from": "coroner", "to": "treasurer", "type": "fee-deposit", "label": "Permit Fees" },
+    { "from": "clerk-of-courts", "to": "treasurer", "type": "fee-deposit", "label": "Court Fees" },
+    { "from": "prothonotary", "to": "treasurer", "type": "fee-deposit", "label": "Filing Fees" },
+    { "from": "recorder-of-deeds", "to": "treasurer", "type": "fee-deposit", "label": "Recording Fees" },
+    { "from": "register-of-wills", "to": "treasurer", "type": "fee-deposit", "label": "Probate Fees" },
+    { "from": "sheriff", "to": "district-attorney", "type": "case-referral", "label": "Arrests" },
+    { "from": "district-attorney", "to": "clerk-of-courts", "type": "case-filing", "label": "Criminal Cases" },
+    { "from": "district-attorney", "to": "prothonotary", "type": "case-filing", "label": "Civil Matters" },
+    { "from": "prothonotary", "to": "sheriff", "type": "service-request", "label": "Writs" },
+    { "from": "clerk-of-courts", "to": "sheriff", "type": "service-request", "label": "Subpoenas" },
+    { "from": "coroner", "to": "district-attorney", "type": "referral", "label": "Suspicious Deaths" },
+    { "from": "sheriff", "to": "recorder-of-deeds", "type": "deed-recording", "label": "Sheriff Deeds" },
+    { "from": "register-of-wills", "to": "prothonotary", "type": "judgment", "label": "Estate Judgments" }
+  ]
+}

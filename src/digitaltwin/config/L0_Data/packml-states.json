@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "packml-states",
+  "title": "PackML State Definitions",
+  "description": "ISA-88 / ISA-TR88.00.02 PackML state machine definitions",
+  "version": "1.0.0",
+
+  "states": {
+    "waiting": {
+      "STOPPED": {
+        "description": "Machine is powered but not operating",
+        "color": "#6c757d",
+        "canTransitionTo": ["RESETTING", "ABORTING"]
+      },
+      "IDLE": {
+        "description": "Machine ready to start production",
+        "color": "#17a2b8",
+        "canTransitionTo": ["STARTING", "STOPPING", "ABORTING"]
+      },
+      "COMPLETE": {
+        "description": "Production cycle completed",
+        "color": "#007bff",
+        "canTransitionTo": ["RESETTING", "STOPPING", "ABORTING"]
+      },
+      "HELD": {
+        "description": "Production temporarily paused by operator",
+        "color": "#e83e8c",
+        "canTransitionTo": ["UNHOLDING", "STOPPING", "ABORTING"]
+      },
+      "SUSPENDED": {
+        "description": "Production paused due to external condition",
+        "color": "#6f42c1",
+        "canTransitionTo": ["UNSUSPENDING", "STOPPING", "ABORTING"]
+      },
+      "ABORTED": {
+        "description": "Machine stopped due to fault",
+        "color": "#343a40",
+        "canTransitionTo": ["CLEARING"]
+      }
+    },
+    "acting": {
+      "STARTING": {
+        "description": "Machine starting up",
+        "color": "#ffc107",
+        "completesTo": "EXECUTE",
+        "canTransitionTo": ["EXECUTE", "STOPPING", "ABORTING"]
+      },
+      "EXECUTE": {
+        "description": "Machine actively producing",
+        "color": "#28a745",
+        "canTransitionTo": ["COMPLETING", "HOLDING", "SUSPENDING", "STOPPING", "ABORTING"]
+      },
+      "COMPLETING": {
+        "description": "Finishing current production",
+        "color": "#20c997",
+        "completesTo": "COMPLETE",
+        "canTransitionTo": ["COMPLETE", "STOPPING", "ABORTING"]
+      },
+      "RESETTING": {
+        "description": "Resetting to initial conditions",
+        "color": "#ffc107",
+        "completesTo": "IDLE",
+        "canTransitionTo": ["IDLE", "STOPPING", "ABORTING"]
+      },
+      "HOLDING": {
+        "description": "Transitioning to held state",
+        "color": "#fd7e14",
+        "completesTo": "HELD",
+        "canTransitionTo": ["HELD", "ABORTING"]
+      },
+      "UNHOLDING": {
+        "description": "Resuming from held state",
+        "color": "#fd7e14",
+        "completesTo": "EXECUTE",
+        "canTransitionTo": ["EXECUTE", "STOPPING", "ABORTING"]
+      },
+      "SUSPENDING": {
+        "description": "Transitioning to suspended state",
+        "color": "#6f42c1",
+        "completesTo": "SUSPENDED",
+        "canTransitionTo": ["SUSPENDED", "ABORTING"]
+      },
+      "UNSUSPENDING": {
+        "description": "Resuming from suspended state",
+        "color": "#6f42c1",
+        "completesTo": "EXECUTE",
+        "canTransitionTo": ["EXECUTE", "STOPPING", "ABORTING"]
+      },
+      "STOPPING": {
+        "description": "Stopping production",
+        "color": "#dc3545",
+        "completesTo": "STOPPED",
+        "canTransitionTo": ["STOPPED", "ABORTING"]
+      },
+      "ABORTING": {
+        "description": "Emergency stop in progress",
+        "color": "#dc3545",
+        "completesTo": "ABORTED",
+        "canTransitionTo": ["ABORTED"]
+      },
+      "CLEARING": {
+        "description": "Clearing fault conditions",
+        "color": "#6c757d",
+        "completesTo": "STOPPED",
+        "canTransitionTo": ["STOPPED", "ABORTING"]
+      }
+    }
+  },
+
+  "modes": {
+    "PRODUCTION": {
+      "description": "Normal production mode",
+      "allowedStates": "all"
+    },
+    "MAINTENANCE": {
+      "description": "Maintenance mode - limited operations",
+      "allowedStates": ["STOPPED", "IDLE", "RESETTING"]
+    },
+    "MANUAL": {
+      "description": "Manual intervention mode",
+      "allowedStates": "all"
+    },
+    "AUDIT": {
+      "description": "Under audit/review - read-only operations",
+      "allowedStates": ["STOPPED", "IDLE"]
+    },
+    "TRAINING": {
+      "description": "Training mode - simulated operations",
+      "allowedStates": "all"
+    }
+  },
+
+  "commands": {
+    "reset": {
+      "fromStates": ["STOPPED", "COMPLETE"],
+      "toState": "RESETTING",
+      "description": "Reset machine to ready state"
+    },
+    "start": {
+      "fromStates": ["IDLE"],
+      "toState": "STARTING",
+      "description": "Start production"
+    },
+    "stop": {
+      "fromStates": ["EXECUTE", "STARTING", "COMPLETING", "HELD", "SUSPENDED"],
+      "toState": "STOPPING",
+      "description": "Stop production gracefully"
+    },
+    "hold": {
+      "fromStates": ["EXECUTE"],
+      "toState": "HOLDING",
+      "description": "Pause production"
+    },
+    "unhold": {
+      "fromStates": ["HELD"],
+      "toState": "UNHOLDING",
+      "description": "Resume from hold"
+    },
+    "suspend": {
+      "fromStates": ["EXECUTE"],
+      "toState": "SUSPENDING",
+      "description": "Suspend due to external condition"
+    },
+    "unsuspend": {
+      "fromStates": ["SUSPENDED"],
+      "toState": "UNSUSPENDING",
+      "description": "Resume from suspension"
+    },
+    "abort": {
+      "fromStates": "all",
+      "toState": "ABORTING",
+      "description": "Emergency stop"
+    },
+    "clear": {
+      "fromStates": ["ABORTED"],
+      "toState": "CLEARING",
+      "description": "Clear fault and reset"
+    }
+  }
+}

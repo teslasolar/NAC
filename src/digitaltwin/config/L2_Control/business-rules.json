@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "business-rules",
+  "title": "County Business Rules",
+  "description": "Business rules and validation logic for county operations",
+  "version": "1.0.0",
+
+  "validation": {
+    "warrants": {
+      "rules": [
+        {
+          "id": "WAR-001",
+          "name": "Controller Signature Required",
+          "description": "All warrants must have Controller signature",
+          "field": "controllerSignature",
+          "condition": "required",
+          "severity": "blocking"
+        },
+        {
+          "id": "WAR-002",
+          "name": "Fund Balance Check",
+          "description": "Sufficient fund balance must exist",
+          "condition": "fund.balance >= warrant.amount",
+          "severity": "blocking"
+        },
+        {
+          "id": "WAR-003",
+          "name": "Appropriation Check",
+          "description": "Warrant must not exceed line item appropriation",
+          "condition": "lineItem.available >= warrant.amount",
+          "severity": "blocking"
+        },
+        {
+          "id": "WAR-004",
+          "name": "Duplicate Check",
+          "description": "No duplicate payment for same invoice",
+          "condition": "no_duplicate_invoice",
+          "severity": "blocking"
+        }
+      ]
+    },
+
+    "receipts": {
+      "rules": [
+        {
+          "id": "REC-001",
+          "name": "Same Day Deposit",
+          "description": "Receipts must be deposited same day",
+          "condition": "depositDate == receiptDate",
+          "severity": "warning"
+        },
+        {
+          "id": "REC-002",
+          "name": "Valid Fund Code",
+          "description": "Fund code must be valid and active",
+          "field": "fund",
+          "condition": "exists_in_chart_of_accounts",
+          "severity": "blocking"
+        }
+      ]
+    },
+
+    "recordings": {
+      "rules": [
+        {
+          "id": "DEED-001",
+          "name": "Notarization Required",
+          "description": "Deed must be properly notarized",
+          "condition": "notarization_valid",
+          "severity": "blocking"
+        },
+        {
+          "id": "DEED-002",
+          "name": "Transfer Tax Statement",
+          "description": "Transfer tax statement required if consideration > 0",
+          "condition": "if consideration > 0 then transfer_tax_statement_present",
+          "severity": "blocking"
+        },
+        {
+          "id": "DEED-003",
+          "name": "UPI Required",
+          "description": "Uniform Parcel Identifier required",
+          "condition": "upi_present",
+          "severity": "blocking"
+        }
+      ]
+    },
+
+    "probate": {
+      "rules": [
+        {
+          "id": "PRO-001",
+          "name": "Original Will Required",
+          "description": "Original will must be presented",
+          "condition": "original_will_presented",
+          "severity": "blocking"
+        },
+        {
+          "id": "PRO-002",
+          "name": "Death Certificate",
+          "description": "Certified death certificate required",
+          "condition": "death_certificate_present",
+          "severity": "blocking"
+        },
+        {
+          "id": "PRO-003",
+          "name": "Executor Bond",
+          "description": "Bond required unless waived in will",
+          "condition": "bond_posted or bond_waived_in_will",
+          "severity": "blocking"
+        }
+      ]
+    }
+  },
+
+  "calculations": {
+    "transfer_tax": {
+      "formula": "consideration * (stateRate + countyRate)",
+      "parameters": {
+        "stateRate": 0.01,
+        "countyRate": 0.005
+      },
+      "exemptions": [
+        { "code": "EX01", "description": "Gift between family members" },
+        { "code": "EX02", "description": "Will or intestate" },
+        { "code": "EX03", "description": "Mortgage foreclosure" },
+        { "code": "EX04", "description": "Government entity" }
+      ]
+    },
+
+    "inheritance_tax": {
+      "rates": {
+        "lineal_descendant": 0.045,
+        "sibling": 0.12,
+        "other": 0.15
+      },
+      "discounts": {
+        "early_payment": {
+          "description": "5% discount if paid within 3 months",
+          "withinDays": 90,
+          "discountRate": 0.05
+        }
+      },
+      "penalties": {
+        "late_payment": {
+          "description": "Penalty for late payment",
+          "afterDays": 270,
+          "penaltyRate": 0.10
+        }
+      }
+    },
+
+    "recording_fees": {
+      "formula": "baseFee + (additionalPages * perPageFee) + techFee + upiFeee",
+      "parameters": {
+        "baseFee": 48.00,
+        "perPageFee": 2.00,
+        "techFee": 10.00,
+        "upiFee": 13.50
+      }
+    }
+  },
+
+  "segregationOfDuties": {
+    "description": "Required separation of functions",
+    "rules": [
+      {
+        "id": "SOD-001",
+        "function1": "receipt_collection",
+        "function2": "receipt_recording",
+        "mustBeDifferent": true
+      },
+      {
+        "id": "SOD-002",
+        "function1": "warrant_preparation",
+        "function2": "warrant_approval",
+        "mustBeDifferent": true
+      },
+      {
+        "id": "SOD-003",
+        "function1": "check_signing",
+        "function2": "bank_reconciliation",
+        "mustBeDifferent": true
+      },
+      {
+        "id": "SOD-004",
+        "function1": "payroll_entry",
+        "function2": "payroll_approval",
+        "mustBeDifferent": true
+      }
+    ]
+  },
+
+  "retentionSchedules": {
+    "description": "Record retention per PA Municipal Records Act",
+    "schedules": {
+      "financial_records": {
+        "warrants": { "years": 7, "afterEvent": "fiscal_year_end" },
+        "receipts": { "years": 7, "afterEvent": "fiscal_year_end" },
+        "bank_statements": { "years": 7, "afterEvent": "fiscal_year_end" },
+        "audit_reports": { "years": "permanent", "afterEvent": null }
+      },
+      "court_records": {
+        "criminal_cases": { "years": "permanent", "afterEvent": null },
+        "civil_cases": { "years": 10, "afterEvent": "case_closed" },
+        "judgments": { "years": 20, "afterEvent": "judgment_satisfied" }
+      },
+      "property_records": {
+        "deeds": { "years": "permanent", "afterEvent": null },
+        "mortgages": { "years": "permanent", "afterEvent": null },
+        "liens": { "years": 20, "afterEvent": "lien_released" }
+      },
+      "vital_records": {
+        "death_certificates": { "years": "permanent", "afterEvent": null },
+        "wills": { "years": "permanent", "afterEvent": null },
+        "marriage_licenses": { "years": "permanent", "afterEvent": null }
+      }
+    }
+  }
+}

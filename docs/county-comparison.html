@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>County Comparison - Northampton vs Peer Counties</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .county-selector {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    .county-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .county-btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .county-btn.active { border-color: #22c55e; background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .county-btn.northampton { border-color: #3b82f6; background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .county-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    .county-card.highlight {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .county-card h4 { color: #fff; margin-bottom: 0.5rem; }
+    .county-card .pop { color: #64748b; font-size: 0.8rem; margin-bottom: 1rem; }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.85rem;
+    }
+    .metric-row:last-child { border-bottom: none; }
+    .metric-row .label { color: #94a3b8; }
+    .metric-row .value { font-family: monospace; }
+    .metric-row .value.best { color: #22c55e; }
+    .metric-row .value.worst { color: #ef4444; }
+    .metric-row .value.mid { color: #f59e0b; }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 300px; position: relative; }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ranking-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .ranking-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ranking-table tr:hover { background: rgba(255,255,255,0.03); }
+    .ranking-table .rank {
+      width: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .ranking-table .rank.first { color: #22c55e; }
+    .ranking-table .rank.second { color: #84cc16; }
+    .ranking-table .rank.third { color: #f59e0b; }
+
+    .insight-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .insight-box h3 { color: #3b82f6; margin-bottom: 1rem; }
+    .insight-box ul { list-style: none; }
+    .insight-box li { padding: 0.5rem 0; color: #94a3b8; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .insight-box .good::before { content: '✓'; color: #22c55e; }
+    .insight-box .improve::before { content: '→'; color: #f59e0b; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 1000px) {
+      .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>County Comparison</h1>
+    <p>How does Northampton County compare to similar Pennsylvania counties?</p>
+  </div>
+
+  <div class="container">
+    <div class="county-selector">
+      <button class="county-btn northampton active">Northampton</button>
+      <button class="county-btn active">Lehigh</button>
+      <button class="county-btn active">Monroe</button>
+      <button class="county-btn active">Bucks</button>
+      <button class="county-btn active">Berks</button>
+      <button class="county-btn">Chester</button>
+      <button class="county-btn">Delaware</button>
+      <button class="county-btn">Lancaster</button>
+    </div>
+
+    <div class="comparison-grid">
+      <div class="county-card highlight">
+        <h4>Northampton</h4>
+        <div class="pop">Pop: 315,614</div>
+        <div class="metric-row"><span class="label">Budget</span><span class="value">$583M</span></div>
+        <div class="metric-row"><span class="label">Per Capita</span><span class="value best">$1,847</span></div>
+        <div class="metric-row"><span class="label">Employees</span><span class="value">2,847</span></div>
+        <div class="metric-row"><span class="label">Mill Rate</span><span class="value">10.8</span></div>
+        <div class="metric-row"><span class="label">Bond Rating</span><span class="value best">Aa2</span></div>
+      </div>
+      <div class="county-card">
+        <h4>Lehigh</h4>
+        <div class="pop">Pop: 374,557</div>
+        <div class="metric-row"><span class="label">Budget</span><span class="value">$712M</span></div>
+        <div class="metric-row"><span class="label">Per Capita</span><span class="value mid">$1,901</span></div>
+        <div class="metric-row"><span class="label">Employees</span><span class="value">3,245</span></div>
+        <div class="metric-row"><span class="label">Mill Rate</span><span class="value">11.2</span></div>
+        <div class="metric-row"><span class="label">Bond Rating</span><span class="value best">Aa2</span></div>
+      </div>
+      <div class="county-card">
+        <h4>Monroe</h4>
+        <div class="pop">Pop: 170,271</div>
+        <div class="metric-row"><span class="label">Budget</span><span class="value">$198M</span></div>
+        <div class="metric-row"><span class="label">Per Capita</span><span class="value worst">$1,163</span></div>
+        <div class="metric-row"><span class="label">Employees</span><span class="value">892</span></div>
+        <div class="metric-row"><span class="label">Mill Rate</span><span class="value">7.25</span></div>
+        <div class="metric-row"><span class="label">Bond Rating</span><span class="value">A1</span></div>
+      </div>
+      <div class="county-card">
+        <h4>Bucks</h4>
+        <div class="pop">Pop: 646,538</div>
+        <div class="metric-row"><span class="label">Budget</span><span class="value">$892M</span></div>
+        <div class="metric-row"><span class="label">Per Capita</span><span class="value best">$1,380</span></div>
+        <div class="metric-row"><span class="label">Employees</span><span class="value">2,987</span></div>
+        <div class="metric-row"><span class="label">Mill Rate</span><span class="value">8.75</span></div>
+        <div class="metric-row"><span class="label">Bond Rating</span><span class="value best">Aaa</span></div>
+      </div>
+      <div class="county-card">
+        <h4>Berks</h4>
+        <div class="pop">Pop: 428,849</div>
+        <div class="metric-row"><span class="label">Budget</span><span class="value">$485M</span></div>
+        <div class="metric-row"><span class="label">Per Capita</span><span class="value best">$1,131</span></div>
+        <div class="metric-row"><span class="label">Employees</span><span class="value">2,156</span></div>
+        <div class="metric-row"><span class="label">Mill Rate</span><span class="value">6.85</span></div>
+        <div class="metric-row"><span class="label">Bond Rating</span><span class="value">Aa3</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Per Capita Spending Comparison</h3>
+      <div class="chart-container">
+        <canvas id="spendingChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Efficiency Rankings</h3>
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Metric</th>
+            <th>Northampton</th>
+            <th>Best in Class</th>
+            <th>Peer Average</th>
+            <th>Gap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rank first">1st</td>
+            <td>Bond Rating</td>
+            <td style="color: #22c55e;">Aa2</td>
+            <td>Bucks (Aaa)</td>
+            <td>Aa3</td>
+            <td style="color: #22c55e;">+1 notch above avg</td>
+          </tr>
+          <tr>
+            <td class="rank second">2nd</td>
+            <td>Audit Compliance</td>
+            <td style="color: #22c55e;">98%</td>
+            <td>Lehigh (99%)</td>
+            <td>94%</td>
+            <td style="color: #22c55e;">+4% above avg</td>
+          </tr>
+          <tr>
+            <td class="rank second">2nd</td>
+            <td>Grant Utilization</td>
+            <td style="color: #22c55e;">89%</td>
+            <td>Bucks (92%)</td>
+            <td>81%</td>
+            <td style="color: #22c55e;">+8% above avg</td>
+          </tr>
+          <tr>
+            <td class="rank third">3rd</td>
+            <td>Cost Per Employee</td>
+            <td style="color: #f59e0b;">$204,800</td>
+            <td>Berks ($178,400)</td>
+            <td>$195,200</td>
+            <td style="color: #f59e0b;">+5% above avg</td>
+          </tr>
+          <tr>
+            <td class="rank">4th</td>
+            <td>Digital Services</td>
+            <td style="color: #f59e0b;">72%</td>
+            <td>Bucks (91%)</td>
+            <td>78%</td>
+            <td style="color: #ef4444;">-6% below avg</td>
+          </tr>
+          <tr>
+            <td class="rank">4th</td>
+            <td>Response Time (Permits)</td>
+            <td style="color: #f59e0b;">8.2 days</td>
+            <td>Lehigh (5.1 days)</td>
+            <td>7.4 days</td>
+            <td style="color: #ef4444;">+0.8 days slower</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box">
+      <h3>Key Insights for Northampton County</h3>
+      <ul>
+        <li class="good">Strong financial management - Aa2 bond rating tied for best among peers</li>
+        <li class="good">High grant utilization rate (89%) indicates effective program management</li>
+        <li class="good">Audit compliance (98%) exceeds peer average by 4 percentage points</li>
+        <li class="improve">Digital services adoption (72%) lags peer average - opportunity for efficiency gains</li>
+        <li class="improve">Permit processing (8.2 days) slower than peers - workflow optimization needed</li>
+        <li class="improve">Cost per employee 5% above average - review staffing ratios and compensation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>County Comparison - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="oee-dashboard.html">OEE Dashboard</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('spendingChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Northampton', 'Lehigh', 'Monroe', 'Bucks', 'Berks'],
+        datasets: [
+          { label: 'Human Services', data: [554, 612, 398, 445, 378], backgroundColor: '#8b5cf6' },
+          { label: 'Public Safety', data: [301, 342, 245, 298, 267], backgroundColor: '#ef4444' },
+          { label: 'Judicial', data: [247, 278, 189, 234, 198], backgroundColor: '#3b82f6' },
+          { label: 'Administration', data: [206, 198, 142, 156, 134], backgroundColor: '#22c55e' },
+          { label: 'Infrastructure', data: [120, 134, 98, 112, 89], backgroundColor: '#f59e0b' },
+          { label: 'Other', data: [419, 337, 91, 135, 65], backgroundColor: '#64748b' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { stacked: true, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { stacked: true, ticks: { color: '#94a3b8', callback: v => '$' + v }, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Per Capita ($)', color: '#94a3b8' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

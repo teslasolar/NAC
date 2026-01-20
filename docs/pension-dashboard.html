@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pension & Benefits Dashboard - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+    .green { color: #22c55e; }
+    .blue { color: #3b82f6; }
+    .yellow { color: #f59e0b; }
+    .red { color: #ef4444; }
+
+    .funded-status {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .funded-status h2 { color: #22c55e; margin-bottom: 1rem; font-size: 1.25rem; }
+    .funded-status .big-number { font-size: 4rem; font-weight: 700; color: #22c55e; }
+    .funded-status .subtitle { color: #94a3b8; margin-top: 0.5rem; }
+    .funded-bar {
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      height: 24px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .funded-bar .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #84cc16);
+      border-radius: 12px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 280px; position: relative; }
+
+    .benefits-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .benefits-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .benefits-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .benefits-table tr:hover { background: rgba(255,255,255,0.03); }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+    .trend-up { color: #22c55e; }
+    .trend-down { color: #ef4444; }
+    .trend-flat { color: #64748b; }
+
+    .obligation-card {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .obligation-card h3 { color: #f59e0b; margin-bottom: 1rem; }
+    .obligation-card .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .obligation-card .item { text-align: center; }
+    .obligation-card .item .value { font-size: 1.5rem; font-weight: 700; color: #fff; }
+    .obligation-card .item .label { font-size: 0.8rem; color: #94a3b8; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Pension & Benefits Dashboard</h1>
+    <p>County employee retirement fund status and long-term obligations</p>
+  </div>
+
+  <div class="container">
+    <div class="funded-status">
+      <h2>Pension Fund Status</h2>
+      <div class="big-number">87.4%</div>
+      <div class="subtitle">Funded Ratio - Above State Minimum (70%)</div>
+      <div class="funded-bar">
+        <div class="fill" style="width: 87.4%;"></div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="value blue">$412M</div>
+        <div class="label">Total Assets</div>
+      </div>
+      <div class="stat-card">
+        <div class="value yellow">$471M</div>
+        <div class="label">Total Liability</div>
+      </div>
+      <div class="stat-card">
+        <div class="value red">$59M</div>
+        <div class="label">Unfunded Liability</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">1,842</div>
+        <div class="label">Active Members</div>
+      </div>
+      <div class="stat-card">
+        <div class="value blue">1,156</div>
+        <div class="label">Retirees</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">7.2%</div>
+        <div class="label">Assumed Return</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Funded Ratio History (10 Years)</h3>
+        <div class="chart-container">
+          <canvas id="fundedChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Asset Allocation</h3>
+        <div class="chart-container">
+          <canvas id="allocationChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Benefits Cost Summary</h3>
+      <table class="benefits-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Annual Cost</th>
+            <th>Per Employee</th>
+            <th>% of Payroll</th>
+            <th>5-Year Trend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pension Contribution</strong></td>
+            <td style="font-family: monospace;">$18,450,000</td>
+            <td style="font-family: monospace;">$6,479</td>
+            <td>12.8%</td>
+            <td><span class="trend-indicator trend-up">↑ 2.1%/yr</span></td>
+          </tr>
+          <tr>
+            <td><strong>Health Insurance</strong></td>
+            <td style="font-family: monospace;">$42,300,000</td>
+            <td style="font-family: monospace;">$14,857</td>
+            <td>29.4%</td>
+            <td><span class="trend-indicator trend-up">↑ 4.8%/yr</span></td>
+          </tr>
+          <tr>
+            <td><strong>Dental/Vision</strong></td>
+            <td style="font-family: monospace;">$3,200,000</td>
+            <td style="font-family: monospace;">$1,124</td>
+            <td>2.2%</td>
+            <td><span class="trend-indicator trend-flat">→ 1.2%/yr</span></td>
+          </tr>
+          <tr>
+            <td><strong>Life Insurance</strong></td>
+            <td style="font-family: monospace;">$890,000</td>
+            <td style="font-family: monospace;">$313</td>
+            <td>0.6%</td>
+            <td><span class="trend-indicator trend-flat">→ 0.5%/yr</span></td>
+          </tr>
+          <tr>
+            <td><strong>Workers Comp</strong></td>
+            <td style="font-family: monospace;">$4,150,000</td>
+            <td style="font-family: monospace;">$1,458</td>
+            <td>2.9%</td>
+            <td><span class="trend-indicator trend-down">↓ 1.5%/yr</span></td>
+          </tr>
+          <tr>
+            <td><strong>FICA/Medicare</strong></td>
+            <td style="font-family: monospace;">$11,020,000</td>
+            <td style="font-family: monospace;">$3,870</td>
+            <td>7.65%</td>
+            <td><span class="trend-indicator trend-up">↑ 3.2%/yr</span></td>
+          </tr>
+          <tr style="background: rgba(255,255,255,0.05);">
+            <td><strong style="color: #22c55e;">TOTAL BENEFITS</strong></td>
+            <td style="font-family: monospace; color: #22c55e;"><strong>$80,010,000</strong></td>
+            <td style="font-family: monospace; color: #22c55e;"><strong>$28,101</strong></td>
+            <td style="color: #22c55e;"><strong>55.6%</strong></td>
+            <td><span class="trend-indicator trend-up">↑ 3.4%/yr</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="obligation-card">
+      <h3>Long-Term Obligations</h3>
+      <div class="items">
+        <div class="item">
+          <div class="value">$59M</div>
+          <div class="label">Unfunded Pension Liability</div>
+        </div>
+        <div class="item">
+          <div class="value">$127M</div>
+          <div class="label">OPEB Liability (Retiree Health)</div>
+        </div>
+        <div class="item">
+          <div class="value">$186M</div>
+          <div class="label">Total Post-Employment Obligations</div>
+        </div>
+        <div class="item">
+          <div class="value">18 yrs</div>
+          <div class="label">Amortization Period</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 1.5rem;">
+      <h3>Sustainability Analysis</h3>
+      <table class="benefits-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>2025</th>
+            <th>2030</th>
+            <th>2035</th>
+            <th>2040</th>
+            <th>Risk Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Baseline (Current Policy)</td>
+            <td>87.4%</td>
+            <td>89.2%</td>
+            <td>92.1%</td>
+            <td>95.8%</td>
+            <td style="color: #22c55e;">Low</td>
+          </tr>
+          <tr>
+            <td>Market Downturn (-20%)</td>
+            <td>87.4%</td>
+            <td>78.5%</td>
+            <td>82.3%</td>
+            <td>87.1%</td>
+            <td style="color: #f59e0b;">Medium</td>
+          </tr>
+          <tr>
+            <td>Lower Returns (5.5%)</td>
+            <td>87.4%</td>
+            <td>84.1%</td>
+            <td>81.8%</td>
+            <td>79.2%</td>
+            <td style="color: #f59e0b;">Medium</td>
+          </tr>
+          <tr>
+            <td>Contribution Holiday</td>
+            <td>87.4%</td>
+            <td>72.3%</td>
+            <td>65.1%</td>
+            <td>58.4%</td>
+            <td style="color: #ef4444;">High</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Pension & Benefits Dashboard - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="audit-tracker.html">Audit Tracker</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('fundedChart'), {
+      type: 'line',
+      data: {
+        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+          label: 'Funded Ratio',
+          data: [72, 74, 76, 78, 81, 79, 85, 83, 86, 87.4],
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34, 197, 94, 0.1)',
+          fill: true,
+          tension: 0.3
+        }, {
+          label: 'State Minimum (70%)',
+          data: [70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+          borderColor: '#ef4444',
+          borderDash: [5, 5],
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { min: 60, max: 100, ticks: { color: '#94a3b8', callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('allocationChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['US Equities', 'International Equities', 'Fixed Income', 'Real Estate', 'Alternatives', 'Cash'],
+        datasets: [{
+          data: [35, 20, 25, 10, 7, 3],
+          backgroundColor: ['#3b82f6', '#8b5cf6', '#22c55e', '#f59e0b', '#ef4444', '#64748b']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { color: '#94a3b8', padding: 8 } },
+          tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.raw + '%' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

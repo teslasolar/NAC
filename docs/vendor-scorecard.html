@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Performance Scorecard - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+    .green { color: #22c55e; }
+    .blue { color: #3b82f6; }
+    .yellow { color: #f59e0b; }
+    .red { color: #ef4444; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 280px; position: relative; }
+
+    .vendor-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .vendor-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .vendor-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .vendor-table tr:hover { background: rgba(255,255,255,0.03); }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .score-a { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .score-b { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .score-c { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .score-d { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+    .metric-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .metric-bar .bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .metric-bar .fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    .metric-bar .value {
+      font-size: 0.8rem;
+      font-family: monospace;
+      width: 40px;
+      text-align: right;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-bar select {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+    }
+    .filter-bar select option { background: #1e293b; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Vendor Performance Scorecard</h1>
+    <p>Track contractor delivery, quality, and cost performance for data-driven procurement</p>
+  </div>
+
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="value blue">247</div>
+        <div class="label">Active Vendors</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">$127M</div>
+        <div class="label">Contract Value (YTD)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">92%</div>
+        <div class="label">On-Time Delivery</div>
+      </div>
+      <div class="stat-card">
+        <div class="value yellow">87%</div>
+        <div class="label">Budget Compliance</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">94%</div>
+        <div class="label">Quality Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="value blue">23</div>
+        <div class="label">Local Vendors</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Spending by Category</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Performance Trend (12 Months)</h3>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Top Vendors by Contract Value</h3>
+      <div class="filter-bar">
+        <select>
+          <option>All Categories</option>
+          <option>Professional Services</option>
+          <option>IT & Technology</option>
+          <option>Construction</option>
+          <option>Healthcare</option>
+          <option>Supplies</option>
+        </select>
+        <select>
+          <option>All Scores</option>
+          <option>A (Excellent)</option>
+          <option>B (Good)</option>
+          <option>C (Acceptable)</option>
+          <option>D (Needs Improvement)</option>
+        </select>
+      </div>
+      <table class="vendor-table">
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Category</th>
+            <th>Contract Value</th>
+            <th>On-Time</th>
+            <th>Budget</th>
+            <th>Quality</th>
+            <th>Overall Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>KPMG LLP</strong><br><span style="color: #64748b; font-size: 0.8rem;">Professional Services</span></td>
+            <td>Audit Services</td>
+            <td style="font-family: monospace;">$2,450,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 98%; background: #22c55e;"></div></div><span class="value">98%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 100%; background: #22c55e;"></div></div><span class="value">100%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 96%; background: #22c55e;"></div></div><span class="value">96%</span></div></td>
+            <td><span class="score-badge score-a">A (98%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tyler Technologies</strong><br><span style="color: #64748b; font-size: 0.8rem;">IT & Technology</span></td>
+            <td>ERP System</td>
+            <td style="font-family: monospace;">$3,200,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 85%; background: #3b82f6;"></div></div><span class="value">85%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 78%; background: #f59e0b;"></div></div><span class="value">78%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 92%; background: #22c55e;"></div></div><span class="value">92%</span></div></td>
+            <td><span class="score-badge score-b">B (85%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pennoni Associates</strong><br><span style="color: #64748b; font-size: 0.8rem;">Engineering</span></td>
+            <td>Infrastructure</td>
+            <td style="font-family: monospace;">$1,875,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 94%; background: #22c55e;"></div></div><span class="value">94%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 91%; background: #22c55e;"></div></div><span class="value">91%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 95%; background: #22c55e;"></div></div><span class="value">95%</span></div></td>
+            <td><span class="score-badge score-a">A (93%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Aramark</strong><br><span style="color: #64748b; font-size: 0.8rem;">Food Services</span></td>
+            <td>Prison Food</td>
+            <td style="font-family: monospace;">$4,100,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 88%; background: #3b82f6;"></div></div><span class="value">88%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 95%; background: #22c55e;"></div></div><span class="value">95%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 82%; background: #3b82f6;"></div></div><span class="value">82%</span></div></td>
+            <td><span class="score-badge score-b">B (88%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>GovDeals Inc</strong><br><span style="color: #64748b; font-size: 0.8rem;">Surplus Sales</span></td>
+            <td>Asset Disposal</td>
+            <td style="font-family: monospace;">$185,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 100%; background: #22c55e;"></div></div><span class="value">100%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 100%; background: #22c55e;"></div></div><span class="value">100%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 90%; background: #22c55e;"></div></div><span class="value">90%</span></div></td>
+            <td><span class="score-badge score-a">A (97%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>XYZ Construction</strong><br><span style="color: #64748b; font-size: 0.8rem;">Construction</span></td>
+            <td>Building Maint.</td>
+            <td style="font-family: monospace;">$2,750,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 72%; background: #f59e0b;"></div></div><span class="value">72%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 65%; background: #ef4444;"></div></div><span class="value">65%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 78%; background: #f59e0b;"></div></div><span class="value">78%</span></div></td>
+            <td><span class="score-badge score-c">C (72%)</span></td>
+          </tr>
+          <tr>
+            <td><strong>MedCare Services</strong><br><span style="color: #64748b; font-size: 0.8rem;">Healthcare</span></td>
+            <td>Prison Medical</td>
+            <td style="font-family: monospace;">$5,600,000</td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 91%; background: #22c55e;"></div></div><span class="value">91%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 82%; background: #3b82f6;"></div></div><span class="value">82%</span></div></td>
+            <td><div class="metric-bar"><div class="bar"><div class="fill" style="width: 89%; background: #3b82f6;"></div></div><span class="value">89%</span></div></td>
+            <td><span class="score-badge score-b">B (87%)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%); border-color: rgba(239, 68, 68, 0.3);">
+      <h3 style="color: #ef4444;">Vendors Requiring Attention</h3>
+      <p style="color: #94a3b8; margin-bottom: 1rem;">Vendors with scores below 75% or significant issues in the past quarter</p>
+      <table class="vendor-table">
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Issue</th>
+            <th>Impact</th>
+            <th>Action Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>XYZ Construction</strong></td>
+            <td>35% over budget on courthouse HVAC project</td>
+            <td style="color: #ef4444;">$412,000 overrun</td>
+            <td>Contract review meeting scheduled</td>
+          </tr>
+          <tr>
+            <td><strong>ABC Supplies</strong></td>
+            <td>3 late deliveries in past 60 days</td>
+            <td style="color: #f59e0b;">Operational delays</td>
+            <td>Performance improvement plan</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Vendor Performance Scorecard - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="audit-tracker.html">Audit Tracker</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    // Category spending chart
+    new Chart(document.getElementById('categoryChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Professional Services', 'IT & Technology', 'Construction', 'Healthcare', 'Food Services', 'Supplies', 'Other'],
+        datasets: [{
+          data: [28, 22, 18, 15, 8, 5, 4],
+          backgroundColor: ['#8b5cf6', '#3b82f6', '#f59e0b', '#ef4444', '#22c55e', '#06b6d4', '#64748b']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { color: '#94a3b8', padding: 8, font: { size: 11 } } } }
+      }
+    });
+
+    // Performance trend chart
+    new Chart(document.getElementById('trendChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { label: 'On-Time', data: [89, 91, 88, 93, 90, 92, 94, 91, 93, 92, 94, 92], borderColor: '#22c55e', tension: 0.3 },
+          { label: 'Budget', data: [85, 82, 88, 84, 86, 89, 85, 87, 88, 86, 89, 87], borderColor: '#3b82f6', tension: 0.3 },
+          { label: 'Quality', data: [92, 93, 91, 94, 93, 95, 94, 93, 95, 94, 96, 94], borderColor: '#8b5cf6', tension: 0.3 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { min: 70, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

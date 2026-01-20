@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Tracker - Northampton County Controller</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card .value { font-size: 2rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+    .stat-card.critical .value { color: #ef4444; }
+    .stat-card.warning .value { color: #f59e0b; }
+    .stat-card.good .value { color: #22c55e; }
+    .stat-card.info .value { color: #3b82f6; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 250px; position: relative; }
+
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .audit-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .audit-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+    }
+    .audit-table tr:hover { background: rgba(255,255,255,0.03); }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-open { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .status-progress { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-resolved { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .status-verified { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+    .priority-high { color: #ef4444; }
+    .priority-medium { color: #f59e0b; }
+    .priority-low { color: #22c55e; }
+
+    .days-badge {
+      font-family: monospace;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .days-critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .days-warning { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .days-ok { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+
+    .filter-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-bar select, .filter-bar input {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    .filter-bar select option { background: #1e293b; }
+
+    .commitment-box {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .commitment-box h3 { color: #22c55e; margin-bottom: 1rem; }
+    .commitment-box ul { list-style: none; }
+    .commitment-box li { padding: 0.5rem 0; color: #94a3b8; }
+    .commitment-box li::before { content: '✓ '; color: #22c55e; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Audit Tracker Dashboard</h1>
+    <p>Real-time audit findings, resolution status, and accountability metrics</p>
+  </div>
+
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-card critical">
+        <div class="value">12</div>
+        <div class="label">Open Findings</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="value">8</div>
+        <div class="label">In Progress</div>
+      </div>
+      <div class="stat-card good">
+        <div class="value">47</div>
+        <div class="label">Resolved (YTD)</div>
+      </div>
+      <div class="stat-card info">
+        <div class="value">34</div>
+        <div class="label">Avg Days to Close</div>
+      </div>
+      <div class="stat-card good">
+        <div class="value">89%</div>
+        <div class="label">Resolution Rate</div>
+      </div>
+      <div class="stat-card info">
+        <div class="value">$2.3M</div>
+        <div class="label">Savings Identified</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Findings by Department</h3>
+        <div class="chart-container">
+          <canvas id="deptChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Resolution Timeline</h3>
+        <div class="chart-container">
+          <canvas id="timelineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Active Audit Findings</h3>
+      <div class="filter-bar">
+        <select id="filterDept">
+          <option value="">All Departments</option>
+          <option value="human-services">Human Services</option>
+          <option value="public-safety">Public Safety</option>
+          <option value="judicial">Judicial</option>
+          <option value="administration">Administration</option>
+          <option value="row-officers">Row Officers</option>
+        </select>
+        <select id="filterStatus">
+          <option value="">All Statuses</option>
+          <option value="open">Open</option>
+          <option value="progress">In Progress</option>
+          <option value="resolved">Resolved</option>
+        </select>
+        <select id="filterPriority">
+          <option value="">All Priorities</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <input type="text" placeholder="Search findings..." id="searchInput">
+      </div>
+
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Finding</th>
+            <th>Department</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Days Open</th>
+            <th>Assigned To</th>
+          </tr>
+        </thead>
+        <tbody id="auditTableBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="commitment-box">
+      <h3>Controller's Audit Commitment</h3>
+      <ul>
+        <li>All findings published within 5 business days of identification</li>
+        <li>30-day target for resolution of high-priority findings</li>
+        <li>60-day target for resolution of medium-priority findings</li>
+        <li>90-day target for resolution of low-priority findings</li>
+        <li>Monthly public reporting on resolution progress</li>
+        <li>Quarterly trend analysis and systemic issue identification</li>
+        <li>Annual comprehensive audit report to County Council</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Audit Tracker - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="transformation-plan.html">Transformation Plan</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    // Sample audit data
+    const auditFindings = [
+      { id: 'AUD-2025-001', finding: 'Overtime approval documentation missing', dept: 'Public Safety', priority: 'high', status: 'open', daysOpen: 45, assignedTo: 'J. Martinez' },
+      { id: 'AUD-2025-002', finding: 'Vendor contract renewal without competitive bid', dept: 'Human Services', priority: 'high', status: 'progress', daysOpen: 32, assignedTo: 'S. Chen' },
+      { id: 'AUD-2025-003', finding: 'Inventory discrepancy in fleet management', dept: 'Administration', priority: 'medium', status: 'progress', daysOpen: 28, assignedTo: 'R. Johnson' },
+      { id: 'AUD-2025-004', finding: 'Travel expense receipts incomplete', dept: 'Judicial', priority: 'low', status: 'resolved', daysOpen: 15, assignedTo: 'M. Williams' },
+      { id: 'AUD-2025-005', finding: 'Grant reporting deadline missed', dept: 'Human Services', priority: 'high', status: 'open', daysOpen: 12, assignedTo: 'K. Brown' },
+      { id: 'AUD-2025-006', finding: 'Payroll coding errors in overtime classification', dept: 'Administration', priority: 'medium', status: 'progress', daysOpen: 41, assignedTo: 'L. Davis' },
+      { id: 'AUD-2025-007', finding: 'Petty cash reconciliation not performed monthly', dept: 'Row Officers', priority: 'medium', status: 'open', daysOpen: 22, assignedTo: 'T. Miller' },
+      { id: 'AUD-2025-008', finding: 'IT access not revoked for terminated employees', dept: 'Administration', priority: 'high', status: 'progress', daysOpen: 8, assignedTo: 'A. Garcia' },
+      { id: 'AUD-2025-009', finding: 'Capital asset tagging incomplete', dept: 'Public Safety', priority: 'low', status: 'progress', daysOpen: 55, assignedTo: 'C. Wilson' },
+      { id: 'AUD-2025-010', finding: 'Purchase order threshold violations', dept: 'Human Services', priority: 'medium', status: 'open', daysOpen: 19, assignedTo: 'P. Anderson' },
+      { id: 'AUD-2025-011', finding: 'Bank reconciliation delays', dept: 'Row Officers', priority: 'medium', status: 'progress', daysOpen: 35, assignedTo: 'E. Thomas' },
+      { id: 'AUD-2025-012', finding: 'Vehicle usage logs incomplete', dept: 'Public Safety', priority: 'low', status: 'open', daysOpen: 67, assignedTo: 'D. Jackson' },
+    ];
+
+    // Populate table
+    const tbody = document.getElementById('auditTableBody');
+    auditFindings.forEach(f => {
+      const priorityClass = `priority-${f.priority}`;
+      const statusClass = f.status === 'open' ? 'status-open' : f.status === 'progress' ? 'status-progress' : 'status-resolved';
+      const statusText = f.status === 'open' ? 'Open' : f.status === 'progress' ? 'In Progress' : 'Resolved';
+      const daysClass = f.daysOpen > 45 ? 'days-critical' : f.daysOpen > 30 ? 'days-warning' : 'days-ok';
+
+      tbody.innerHTML += `
+        <tr>
+          <td style="font-family: monospace; color: #3b82f6;">${f.id}</td>
+          <td>${f.finding}</td>
+          <td>${f.dept}</td>
+          <td class="${priorityClass}" style="font-weight: 600;">${f.priority.toUpperCase()}</td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+          <td><span class="days-badge ${daysClass}">${f.daysOpen} days</span></td>
+          <td>${f.assignedTo}</td>
+        </tr>
+      `;
+    });
+
+    // Department chart
+    const deptCtx = document.getElementById('deptChart').getContext('2d');
+    new Chart(deptCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Human Services', 'Public Safety', 'Administration', 'Row Officers', 'Judicial'],
+        datasets: [
+          { label: 'Open', data: [2, 2, 1, 1, 0], backgroundColor: '#ef4444' },
+          { label: 'In Progress', data: [1, 1, 2, 1, 0], backgroundColor: '#f59e0b' },
+          { label: 'Resolved', data: [12, 15, 8, 7, 5], backgroundColor: '#22c55e' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { stacked: true, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { stacked: true, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // Timeline chart
+    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    new Chart(timelineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { label: 'New Findings', data: [8, 5, 12, 7, 9, 6, 11, 8, 7, 10, 6, 8], borderColor: '#ef4444', tension: 0.3, fill: false },
+          { label: 'Resolved', data: [6, 7, 10, 9, 11, 8, 9, 10, 8, 12, 9, 7], borderColor: '#22c55e', tension: 0.3, fill: false }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

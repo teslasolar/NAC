@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constituent Issue Tracker - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+    .green { color: #22c55e; }
+    .blue { color: #3b82f6; }
+    .yellow { color: #f59e0b; }
+    .red { color: #ef4444; }
+
+    .submit-box {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border: 2px solid rgba(6, 182, 212, 0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .submit-box h2 { color: #06b6d4; margin-bottom: 0.5rem; }
+    .submit-box p { color: #94a3b8; margin-bottom: 1.5rem; }
+    .submit-box .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: #06b6d4;
+      color: #0f172a;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .submit-box .btn:hover { transform: translateY(-2px); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 280px; position: relative; }
+
+    .issues-list {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .issue-item {
+      padding: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: start;
+    }
+    .issue-item:last-child { border-bottom: none; }
+    .issue-item:hover { background: rgba(255,255,255,0.02); }
+
+    .issue-id {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+    .issue-content h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .issue-content .meta {
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .issue-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-new { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .status-progress { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-resolved { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .status-closed { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
+
+    .category-badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(139, 92, 246, 0.2);
+      color: #a78bfa;
+    }
+
+    .satisfaction-box {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .satisfaction-box h3 { color: #22c55e; margin-bottom: 1rem; }
+    .satisfaction-score { font-size: 3rem; font-weight: 700; color: #22c55e; }
+    .satisfaction-label { color: #94a3b8; }
+    .satisfaction-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .satisfaction-breakdown .item { text-align: center; }
+    .satisfaction-breakdown .pct { font-size: 1.25rem; font-weight: 600; }
+    .satisfaction-breakdown .label { font-size: 0.75rem; color: #64748b; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .issue-item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Constituent Issue Tracker</h1>
+    <p>Report problems, track resolution, hold government accountable</p>
+  </div>
+
+  <div class="container">
+    <div class="submit-box">
+      <h2>Have an Issue to Report?</h2>
+      <p>Submit concerns about county services, facilities, or operations. Track your issue from submission to resolution.</p>
+      <a href="#" class="btn">Submit New Issue</a>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="value blue">1,247</div>
+        <div class="label">Issues YTD</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">1,089</div>
+        <div class="label">Resolved (87%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="value yellow">112</div>
+        <div class="label">In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="value red">46</div>
+        <div class="label">Open >30 Days</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">4.8 days</div>
+        <div class="label">Avg Resolution</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">92%</div>
+        <div class="label">Satisfaction</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Issues by Category</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Resolution Time Trend</h3>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Recent Issues</h3>
+    </div>
+    <div class="issues-list">
+      <div class="issue-item">
+        <span class="issue-id">#2025-1247</span>
+        <div class="issue-content">
+          <h4>Pothole on Bushkill Drive near Township Line Road</h4>
+          <div class="meta">
+            <span class="category-badge">Roads</span>
+            <span>Submitted: Jan 18, 2025</span>
+            <span>Dept: Public Works</span>
+          </div>
+        </div>
+        <span class="issue-status status-new">New</span>
+      </div>
+      <div class="issue-item">
+        <span class="issue-id">#2025-1246</span>
+        <div class="issue-content">
+          <h4>Long wait time at Recorder of Deeds office</h4>
+          <div class="meta">
+            <span class="category-badge">Services</span>
+            <span>Submitted: Jan 17, 2025</span>
+            <span>Dept: Row Officers</span>
+          </div>
+        </div>
+        <span class="issue-status status-progress">In Progress</span>
+      </div>
+      <div class="issue-item">
+        <span class="issue-id">#2025-1243</span>
+        <div class="issue-content">
+          <h4>Tax bill calculation appears incorrect</h4>
+          <div class="meta">
+            <span class="category-badge">Taxes</span>
+            <span>Submitted: Jan 16, 2025</span>
+            <span>Dept: Assessment</span>
+          </div>
+        </div>
+        <span class="issue-status status-progress">In Progress</span>
+      </div>
+      <div class="issue-item">
+        <span class="issue-id">#2025-1240</span>
+        <div class="issue-content">
+          <h4>Bridge guardrail damage on Route 33 overpass</h4>
+          <div class="meta">
+            <span class="category-badge">Infrastructure</span>
+            <span>Submitted: Jan 15, 2025</span>
+            <span>Dept: Public Works</span>
+          </div>
+        </div>
+        <span class="issue-status status-resolved">Resolved</span>
+      </div>
+      <div class="issue-item">
+        <span class="issue-id">#2025-1238</span>
+        <div class="issue-content">
+          <h4>Website not working on mobile devices</h4>
+          <div class="meta">
+            <span class="category-badge">Technology</span>
+            <span>Submitted: Jan 14, 2025</span>
+            <span>Dept: IT</span>
+          </div>
+        </div>
+        <span class="issue-status status-resolved">Resolved</span>
+      </div>
+      <div class="issue-item">
+        <span class="issue-id">#2025-1235</span>
+        <div class="issue-content">
+          <h4>Park maintenance needed at Louise Moore Park</h4>
+          <div class="meta">
+            <span class="category-badge">Parks</span>
+            <span>Submitted: Jan 13, 2025</span>
+            <span>Dept: Parks & Rec</span>
+          </div>
+        </div>
+        <span class="issue-status status-closed">Closed</span>
+      </div>
+    </div>
+
+    <div class="satisfaction-box">
+      <h3>Constituent Satisfaction</h3>
+      <div class="satisfaction-score">4.6/5.0</div>
+      <div class="satisfaction-label">Based on 847 feedback responses</div>
+      <div class="satisfaction-breakdown">
+        <div class="item"><div class="pct green">72%</div><div class="label">Very Satisfied</div></div>
+        <div class="item"><div class="pct green">20%</div><div class="label">Satisfied</div></div>
+        <div class="item"><div class="pct yellow">5%</div><div class="label">Neutral</div></div>
+        <div class="item"><div class="pct red">3%</div><div class="label">Dissatisfied</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Constituent Issue Tracker - Northampton County</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="transformation-plan.html">Transformation Plan</a> |
+      <a href="oee-dashboard.html">OEE Dashboard</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('categoryChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Roads/Infrastructure', 'Services', 'Taxes/Assessment', 'Parks', 'Technology', 'Other'],
+        datasets: [{
+          data: [32, 24, 18, 12, 8, 6],
+          backgroundColor: ['#f59e0b', '#3b82f6', '#22c55e', '#84cc16', '#8b5cf6', '#64748b']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { color: '#94a3b8', padding: 8 } } }
+      }
+    });
+
+    new Chart(document.getElementById('trendChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
+        datasets: [
+          { label: 'Avg Resolution (days)', data: [6.2, 5.8, 5.5, 5.1, 4.9, 4.7, 4.8], borderColor: '#22c55e', tension: 0.3 },
+          { label: 'Target (5 days)', data: [5, 5, 5, 5, 5, 5, 5], borderColor: '#3b82f6', borderDash: [5, 5] }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { min: 0, max: 10, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

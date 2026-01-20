@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Tax Breakdown - Where Your Tax Dollars Go</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #ca8a04 0%, #a16207 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+    .calculator-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 2px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+    }
+    .calculator-box h2 { color: #fff; margin-bottom: 1.5rem; text-align: center; }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-align: center;
+      font-family: monospace;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: #22c55e;
+    }
+    .input-group .hint {
+      color: #64748b;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .result-box {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.4);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .result-box .label { color: #94a3b8; margin-bottom: 0.5rem; }
+    .result-box .amount {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #22c55e;
+      font-family: monospace;
+    }
+    .result-box .subtext { color: #64748b; font-size: 0.9rem; margin-top: 0.5rem; }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-box {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .chart-box h3 { color: #fff; margin-bottom: 1rem; font-size: 1rem; text-align: center; }
+    .chart-container { height: 280px; position: relative; }
+
+    .detail-list {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .detail-list h3 { color: #fff; margin-bottom: 1rem; font-size: 1rem; }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .detail-item:last-child { border-bottom: none; }
+    .detail-item .left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .detail-item .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .detail-item .name { color: #e2e8f0; }
+    .detail-item .percent { color: #64748b; font-size: 0.8rem; }
+    .detail-item .amount {
+      font-family: monospace;
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .info-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-card .value { font-size: 1.5rem; font-weight: 700; color: #3b82f6; }
+    .info-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+
+    .note-box {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .note-box strong { color: #3b82f6; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .breakdown-grid { grid-template-columns: 1fr; }
+      .info-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Property Tax Breakdown</h1>
+    <p>See exactly where your Northampton County tax dollars go</p>
+  </div>
+
+  <div class="container">
+    <div class="calculator-box">
+      <h2>Enter Your Annual County Property Tax</h2>
+      <div class="input-group">
+        <label>Annual County Property Tax Amount ($)</label>
+        <input type="number" id="taxInput" value="2500" min="0" step="100">
+        <div class="hint">Find this on your tax bill under "County" portion (not school or municipal)</div>
+      </div>
+    </div>
+
+    <div class="result-box">
+      <div class="label">Your County Tax Contribution</div>
+      <div class="amount" id="totalAmount">$2,500</div>
+      <div class="subtext">Here's how Northampton County uses your <span id="taxAmount2">$2,500</span></div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="value" id="dailyAmount">$6.85</div>
+        <div class="label">Per Day</div>
+      </div>
+      <div class="info-card">
+        <div class="value" id="monthlyAmount">$208.33</div>
+        <div class="label">Per Month</div>
+      </div>
+      <div class="info-card">
+        <div class="value">315,614</div>
+        <div class="label">Residents Served</div>
+      </div>
+    </div>
+
+    <div class="breakdown-grid">
+      <div class="chart-box">
+        <h3>Your Tax Dollar Breakdown</h3>
+        <div class="chart-container">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+
+      <div class="detail-list">
+        <h3>Where Your Money Goes</h3>
+        <div id="detailItems">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Note:</strong> This shows only the County portion of your property tax. Your total tax bill also includes
+      School District taxes (typically 60-70% of total) and Municipal taxes (5-15% of total). The County portion
+      funds services that benefit all 315,614 Northampton County residents across 38 municipalities.
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Property Tax Breakdown - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Full Budget</a> |
+      <a href="transformation-plan.html">Transformation Plan</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    const categories = [
+      { name: 'Human Services', percent: 30.0, color: '#8b5cf6', desc: 'Mental health, aging, children & youth services' },
+      { name: 'Public Safety', percent: 16.3, color: '#ef4444', desc: 'Prison, 911, emergency management' },
+      { name: 'Judicial', percent: 13.4, color: '#3b82f6', desc: 'Courts, DA, public defender' },
+      { name: 'General Government', percent: 11.1, color: '#22c55e', desc: 'Administration, HR, IT, facilities' },
+      { name: 'Health & Welfare', percent: 8.9, color: '#f59e0b', desc: 'Nursing home, public health' },
+      { name: 'Row Officers', percent: 7.7, color: '#06b6d4', desc: 'Controller, treasurer, sheriff, etc.' },
+      { name: 'Infrastructure', percent: 6.5, color: '#84cc16', desc: 'Roads, bridges, parks' },
+      { name: 'Debt Service', percent: 4.3, color: '#64748b', desc: 'Bond payments' },
+      { name: 'Capital Projects', percent: 1.8, color: '#ec4899', desc: 'Major improvements' }
+    ];
+
+    let chart;
+    const taxInput = document.getElementById('taxInput');
+
+    function updateDisplay() {
+      const tax = parseFloat(taxInput.value) || 0;
+
+      document.getElementById('totalAmount').textContent = '$' + tax.toLocaleString();
+      document.getElementById('taxAmount2').textContent = '$' + tax.toLocaleString();
+      document.getElementById('dailyAmount').textContent = '$' + (tax / 365).toFixed(2);
+      document.getElementById('monthlyAmount').textContent = '$' + (tax / 12).toFixed(2);
+
+      // Update detail items
+      const detailContainer = document.getElementById('detailItems');
+      detailContainer.innerHTML = categories.map(cat => {
+        const amount = (tax * cat.percent / 100).toFixed(2);
+        return `
+          <div class="detail-item">
+            <div class="left">
+              <div class="dot" style="background: ${cat.color}"></div>
+              <div>
+                <div class="name">${cat.name}</div>
+                <div class="percent">${cat.percent}% - ${cat.desc}</div>
+              </div>
+            </div>
+            <div class="amount">$${amount}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Update chart
+      if (chart) {
+        chart.data.datasets[0].data = categories.map(c => (tax * c.percent / 100).toFixed(2));
+        chart.update();
+      }
+    }
+
+    // Initialize chart
+    const ctx = document.getElementById('pieChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: categories.map(c => c.name),
+        datasets: [{
+          data: categories.map(c => (2500 * c.percent / 100).toFixed(2)),
+          backgroundColor: categories.map(c => c.color),
+          borderColor: '#1e293b',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => `$${ctx.raw} (${categories[ctx.dataIndex].percent}%)`
+            }
+          }
+        }
+      }
+    });
+
+    taxInput.addEventListener('input', updateDisplay);
+    updateDisplay();
+  </script>
+</body>
+</html>

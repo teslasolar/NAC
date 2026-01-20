@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capital Projects Tracker - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+    .green { color: #22c55e; }
+    .blue { color: #3b82f6; }
+    .yellow { color: #f59e0b; }
+    .red { color: #ef4444; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 250px; position: relative; }
+
+    .project-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
+    }
+    .project-card .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .project-card h4 { color: #fff; font-size: 1.1rem; }
+    .project-card .dept { color: #64748b; font-size: 0.85rem; }
+    .project-card .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-active { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .status-planning { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .status-delayed { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-complete { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+
+    .project-card .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .project-card .metric {
+      text-align: center;
+    }
+    .project-card .metric .value { font-size: 1.1rem; font-weight: 600; font-family: monospace; }
+    .project-card .metric .label { font-size: 0.7rem; color: #64748b; }
+
+    .progress-section { margin-top: 1rem; }
+    .progress-section .label-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .progress-bar {
+      height: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.5s;
+    }
+
+    .budget-comparison {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .budget-item {
+      flex: 1;
+    }
+    .budget-item .label { font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; }
+    .budget-item .amount { font-size: 1rem; font-family: monospace; }
+    .budget-item .variance { font-size: 0.8rem; margin-top: 0.25rem; }
+    .variance.over { color: #ef4444; }
+    .variance.under { color: #22c55e; }
+    .variance.on { color: #3b82f6; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .project-card .metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Capital Projects Tracker</h1>
+    <p>Monitor major infrastructure investments, timelines, and budget performance</p>
+  </div>
+
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="value blue">$48.5M</div>
+        <div class="label">Total Capital Budget</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">$31.2M</div>
+        <div class="label">Spent to Date</div>
+      </div>
+      <div class="stat-card">
+        <div class="value blue">12</div>
+        <div class="label">Active Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="value green">8</div>
+        <div class="label">On Schedule</div>
+      </div>
+      <div class="stat-card">
+        <div class="value yellow">3</div>
+        <div class="label">At Risk</div>
+      </div>
+      <div class="stat-card">
+        <div class="value red">1</div>
+        <div class="label">Over Budget</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Budget by Category</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Monthly Spending (2025)</h3>
+        <div class="chart-container">
+          <canvas id="spendingChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color: #fff; margin-bottom: 1rem;">Active Projects</h3>
+
+    <div class="project-card">
+      <div class="header-row">
+        <div>
+          <h4>Courthouse HVAC Replacement</h4>
+          <div class="dept">Facilities Management</div>
+        </div>
+        <span class="status-badge status-active">In Progress</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="value green">68%</div><div class="label">Complete</div></div>
+        <div class="metric"><div class="value">Mar 2025</div><div class="label">Target Date</div></div>
+        <div class="metric"><div class="value">$8.2M</div><div class="label">Budget</div></div>
+        <div class="metric"><div class="value yellow">$8.6M</div><div class="label">Projected</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="label-row"><span>Progress</span><span>68%</span></div>
+        <div class="progress-bar"><div class="fill" style="width: 68%; background: linear-gradient(90deg, #22c55e, #84cc16);"></div></div>
+      </div>
+      <div class="budget-comparison">
+        <div class="budget-item"><div class="label">Original Budget</div><div class="amount">$8,200,000</div></div>
+        <div class="budget-item"><div class="label">Spent to Date</div><div class="amount">$5,576,000</div></div>
+        <div class="budget-item"><div class="label">Projected Final</div><div class="amount yellow">$8,612,000</div><div class="variance over">+$412,000 (5% over)</div></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="header-row">
+        <div>
+          <h4>911 Center Technology Upgrade</h4>
+          <div class="dept">Emergency Management</div>
+        </div>
+        <span class="status-badge status-active">In Progress</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="value green">45%</div><div class="label">Complete</div></div>
+        <div class="metric"><div class="value">Jun 2025</div><div class="label">Target Date</div></div>
+        <div class="metric"><div class="value">$12.5M</div><div class="label">Budget</div></div>
+        <div class="metric"><div class="value green">$12.3M</div><div class="label">Projected</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="label-row"><span>Progress</span><span>45%</span></div>
+        <div class="progress-bar"><div class="fill" style="width: 45%; background: linear-gradient(90deg, #3b82f6, #22c55e);"></div></div>
+      </div>
+      <div class="budget-comparison">
+        <div class="budget-item"><div class="label">Original Budget</div><div class="amount">$12,500,000</div></div>
+        <div class="budget-item"><div class="label">Spent to Date</div><div class="amount">$5,625,000</div></div>
+        <div class="budget-item"><div class="label">Projected Final</div><div class="amount green">$12,300,000</div><div class="variance under">-$200,000 (2% under)</div></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="header-row">
+        <div>
+          <h4>Bridge #247 Rehabilitation</h4>
+          <div class="dept">Public Works</div>
+        </div>
+        <span class="status-badge status-delayed">Delayed</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="value yellow">32%</div><div class="label">Complete</div></div>
+        <div class="metric"><div class="value red">Aug 2025</div><div class="label">Revised Date</div></div>
+        <div class="metric"><div class="value">$4.8M</div><div class="label">Budget</div></div>
+        <div class="metric"><div class="value yellow">$5.1M</div><div class="label">Projected</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="label-row"><span>Progress</span><span style="color: #f59e0b;">32% (was 45% target)</span></div>
+        <div class="progress-bar"><div class="fill" style="width: 32%; background: linear-gradient(90deg, #f59e0b, #ef4444);"></div></div>
+      </div>
+      <div class="budget-comparison">
+        <div class="budget-item"><div class="label">Original Budget</div><div class="amount">$4,800,000</div></div>
+        <div class="budget-item"><div class="label">Spent to Date</div><div class="amount">$1,536,000</div></div>
+        <div class="budget-item"><div class="label">Projected Final</div><div class="amount yellow">$5,100,000</div><div class="variance over">+$300,000 (6% over) - Weather delays</div></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="header-row">
+        <div>
+          <h4>Government Center Solar Installation</h4>
+          <div class="dept">Facilities Management</div>
+        </div>
+        <span class="status-badge status-planning">Planning</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="value blue">5%</div><div class="label">Complete</div></div>
+        <div class="metric"><div class="value">Q4 2025</div><div class="label">Target Date</div></div>
+        <div class="metric"><div class="value">$3.2M</div><div class="label">Budget</div></div>
+        <div class="metric"><div class="value green">$3.2M</div><div class="label">Projected</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="label-row"><span>Progress</span><span>5% (Design phase)</span></div>
+        <div class="progress-bar"><div class="fill" style="width: 5%; background: #3b82f6;"></div></div>
+      </div>
+      <div class="budget-comparison">
+        <div class="budget-item"><div class="label">Original Budget</div><div class="amount">$3,200,000</div></div>
+        <div class="budget-item"><div class="label">Spent to Date</div><div class="amount">$160,000</div></div>
+        <div class="budget-item"><div class="label">Projected Final</div><div class="amount green">$3,200,000</div><div class="variance on">On budget</div></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="header-row">
+        <div>
+          <h4>Prison Kitchen Renovation</h4>
+          <div class="dept">Corrections</div>
+        </div>
+        <span class="status-badge status-complete">Completed</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="value green">100%</div><div class="label">Complete</div></div>
+        <div class="metric"><div class="value green">Dec 2024</div><div class="label">Completed</div></div>
+        <div class="metric"><div class="value">$2.1M</div><div class="label">Budget</div></div>
+        <div class="metric"><div class="value green">$1.98M</div><div class="label">Final Cost</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="label-row"><span>Progress</span><span style="color: #22c55e;">Complete</span></div>
+        <div class="progress-bar"><div class="fill" style="width: 100%; background: #22c55e;"></div></div>
+      </div>
+      <div class="budget-comparison">
+        <div class="budget-item"><div class="label">Original Budget</div><div class="amount">$2,100,000</div></div>
+        <div class="budget-item"><div class="label">Final Cost</div><div class="amount green">$1,980,000</div></div>
+        <div class="budget-item"><div class="label">Savings</div><div class="amount green">$120,000</div><div class="variance under">6% under budget</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Capital Projects Tracker - Northampton County Controller's Office</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="audit-tracker.html">Audit Tracker</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('categoryChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Buildings', 'Technology', 'Infrastructure', 'Equipment', 'Vehicles'],
+        datasets: [{
+          data: [18.5, 14.2, 8.3, 4.8, 2.7],
+          backgroundColor: ['#8b5cf6', '#3b82f6', '#f59e0b', '#22c55e', '#64748b']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { color: '#94a3b8', padding: 8 } },
+          tooltip: { callbacks: { label: ctx => '$' + ctx.raw + 'M' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('spendingChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { label: 'Budgeted', data: [2.8, 3.1, 3.5, 4.2, 4.8, 5.2, 4.5, 4.1, 3.8, 3.5, 3.2, 2.8], backgroundColor: 'rgba(59, 130, 246, 0.5)', borderColor: '#3b82f6', borderWidth: 1 },
+          { label: 'Actual', data: [2.5, 2.9, 3.8, 4.1, 4.5, null, null, null, null, null, null, null], backgroundColor: '#22c55e' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94a3b8', callback: v => '$' + v + 'M' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

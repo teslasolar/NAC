@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Development Scorecard - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #fbbf24;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-stat {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat .value { font-size: 2.5rem; font-weight: 700; color: #22c55e; }
+    .hero-stat .label { font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; }
+    .hero-stat .trend { font-size: 0.8rem; margin-top: 0.5rem; }
+    .trend-up { color: #22c55e; }
+    .trend-down { color: #ef4444; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 280px; position: relative; }
+
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .industry-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .industry-card h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .industry-card .stats { display: flex; justify-content: space-between; }
+    .industry-card .stat-item { text-align: center; }
+    .industry-card .stat-value { font-size: 1.1rem; font-weight: 600; }
+    .industry-card .stat-label { font-size: 0.7rem; color: #64748b; }
+
+    .projects-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .projects-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .projects-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .projects-table tr:hover { background: rgba(255,255,255,0.03); }
+
+    .status-badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .status-active { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .status-planning { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .status-complete { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+
+    .comparison-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .comparison-box h3 { color: #3b82f6; margin-bottom: 1rem; }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    .comparison-grid .county { font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+    .comparison-grid .metric { font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.25rem; }
+    .comparison-grid .value { font-size: 1rem; font-weight: 500; }
+    .comparison-grid .highlight { color: #22c55e; }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Economic Development Scorecard</h1>
+    <p>Jobs, businesses, and economic health of Northampton County</p>
+  </div>
+
+  <div class="container">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="value">3.8%</div>
+        <div class="label">Unemployment Rate</div>
+        <div class="trend trend-up">↓ 0.4% vs last year</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">$68,450</div>
+        <div class="label">Median Household Income</div>
+        <div class="trend trend-up">↑ 3.2% vs last year</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">8,247</div>
+        <div class="label">Active Businesses</div>
+        <div class="trend trend-up">↑ 312 net new (YTD)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">2,845</div>
+        <div class="label">Jobs Created (YTD)</div>
+        <div class="trend trend-up">↑ 18% vs 2024</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Employment Trend (5 Years)</h3>
+        <div class="chart-container">
+          <canvas id="employmentChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Business Growth</h3>
+        <div class="chart-container">
+          <canvas id="businessChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color: #fff; margin-bottom: 1rem;">Employment by Industry</h3>
+    <div class="industry-grid">
+      <div class="industry-card">
+        <h4>🏥 Healthcare</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">28,450</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">+4.2%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <h4>�icing Retail</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #3b82f6;">21,340</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #f59e0b;">+1.1%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <h4>🏭 Manufacturing</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #3b82f6;">18,720</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">+2.8%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <h4>📚 Education</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #3b82f6;">15,890</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">+1.9%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <h4>🚚 Logistics</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #3b82f6;">14,560</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">+5.7%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <h4>💼 Professional Svc</h4>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-value" style="color: #3b82f6;">12,340</div><div class="stat-label">Jobs</div></div>
+          <div class="stat-item"><div class="stat-value" style="color: #22c55e;">+3.4%</div><div class="stat-label">Growth</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Major Development Projects</h3>
+      <table class="projects-table">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Location</th>
+            <th>Investment</th>
+            <th>Jobs</th>
+            <th>Status</th>
+            <th>Completion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Amazon Distribution Center Expansion</strong></td>
+            <td>Bethlehem</td>
+            <td style="font-family: monospace;">$125M</td>
+            <td style="color: #22c55e;">+850</td>
+            <td><span class="status-badge status-active">Active</span></td>
+            <td>Q3 2025</td>
+          </tr>
+          <tr>
+            <td><strong>St. Luke's Medical Campus</strong></td>
+            <td>Easton</td>
+            <td style="font-family: monospace;">$78M</td>
+            <td style="color: #22c55e;">+420</td>
+            <td><span class="status-badge status-active">Active</span></td>
+            <td>Q1 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Majestic Realty Logistics Park</strong></td>
+            <td>Lower Nazareth</td>
+            <td style="font-family: monospace;">$95M</td>
+            <td style="color: #22c55e;">+650</td>
+            <td><span class="status-badge status-planning">Planning</span></td>
+            <td>Q4 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Wind Creek Casino Hotel</strong></td>
+            <td>Bethlehem</td>
+            <td style="font-family: monospace;">$45M</td>
+            <td style="color: #22c55e;">+180</td>
+            <td><span class="status-badge status-complete">Complete</span></td>
+            <td>Q4 2024</td>
+          </tr>
+          <tr>
+            <td><strong>Northampton Community College Tech Center</strong></td>
+            <td>Bethlehem</td>
+            <td style="font-family: monospace;">$32M</td>
+            <td style="color: #22c55e;">+75</td>
+            <td><span class="status-badge status-active">Active</span></td>
+            <td>Q2 2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="comparison-box">
+      <h3>Regional Comparison</h3>
+      <div class="comparison-grid">
+        <div>
+          <div class="county highlight">Northampton</div>
+          <div class="metric">Unemployment</div><div class="value highlight">3.8%</div>
+          <div class="metric">Income</div><div class="value">$68,450</div>
+          <div class="metric">Job Growth</div><div class="value highlight">+2.4%</div>
+        </div>
+        <div>
+          <div class="county">Lehigh</div>
+          <div class="metric">Unemployment</div><div class="value">4.1%</div>
+          <div class="metric">Income</div><div class="value">$71,200</div>
+          <div class="metric">Job Growth</div><div class="value">+2.1%</div>
+        </div>
+        <div>
+          <div class="county">Monroe</div>
+          <div class="metric">Unemployment</div><div class="value">4.8%</div>
+          <div class="metric">Income</div><div class="value">$58,900</div>
+          <div class="metric">Job Growth</div><div class="value">+1.5%</div>
+        </div>
+        <div>
+          <div class="county">Bucks</div>
+          <div class="metric">Unemployment</div><div class="value">3.5%</div>
+          <div class="metric">Income</div><div class="value">$89,400</div>
+          <div class="metric">Job Growth</div><div class="value">+1.8%</div>
+        </div>
+        <div>
+          <div class="county">PA Average</div>
+          <div class="metric">Unemployment</div><div class="value">4.2%</div>
+          <div class="metric">Income</div><div class="value">$63,600</div>
+          <div class="metric">Job Growth</div><div class="value">+1.6%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Economic Development Scorecard - Northampton County</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="county-comparison.html">County Comparison</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('employmentChart'), {
+      type: 'line',
+      data: {
+        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+        datasets: [
+          { label: 'Total Employment', data: [142000, 148000, 154000, 158000, 162000, 165000], borderColor: '#22c55e', fill: false, tension: 0.3 },
+          { label: 'Unemployment Rate %', data: [8.2, 5.8, 4.5, 4.2, 4.0, 3.8], borderColor: '#ef4444', fill: false, tension: 0.3, yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { type: 'linear', position: 'left', ticks: { color: '#94a3b8', callback: v => (v/1000) + 'K' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y1: { type: 'linear', position: 'right', min: 0, max: 10, ticks: { color: '#94a3b8', callback: v => v + '%' }, grid: { display: false } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('businessChart'), {
+      type: 'bar',
+      data: {
+        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+        datasets: [
+          { label: 'New Businesses', data: [412, 485, 523, 578, 612, 680], backgroundColor: '#22c55e' },
+          { label: 'Closures', data: [380, 320, 285, 265, 290, 368], backgroundColor: '#ef4444' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

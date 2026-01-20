@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>911 & Emergency Response Metrics - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .header {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+    .header h1 { font-size: 2rem; color: #fff; }
+    .header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    .live-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .live-stat {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .live-stat .pulse {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .live-stat .value { font-size: 2.5rem; font-weight: 700; }
+    .live-stat .label { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; }
+    .live-stat .sub { font-size: 0.75rem; color: #64748b; }
+    .green { color: #22c55e; }
+    .yellow { color: #f59e0b; }
+    .red { color: #ef4444; }
+    .blue { color: #3b82f6; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card h3 { color: #fff; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart-container { height: 280px; position: relative; }
+
+    .response-times {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .response-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .response-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .response-card h4 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+    .response-card .time { font-size: 2rem; font-weight: 700; font-family: monospace; }
+    .response-card .target { font-size: 0.8rem; color: #64748b; margin-top: 0.5rem; }
+    .response-card .status { margin-top: 0.5rem; font-size: 0.85rem; }
+
+    .map-placeholder {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+    }
+    .map-placeholder h3 { color: #fff; margin-bottom: 1rem; }
+    .map-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .zone {
+      padding: 1rem 0.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+    .zone .name { font-weight: 600; color: #fff; }
+    .zone .time { font-family: monospace; margin-top: 0.25rem; }
+    .zone.fast { background: rgba(34, 197, 94, 0.3); }
+    .zone.medium { background: rgba(245, 158, 11, 0.3); }
+    .zone.slow { background: rgba(239, 68, 68, 0.3); }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .response-times { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>911 & Emergency Response</h1>
+    <p>Real-time emergency services metrics for Northampton County</p>
+  </div>
+
+  <div class="container">
+    <div class="live-stats">
+      <div class="live-stat">
+        <div class="pulse"></div>
+        <div class="value blue">127</div>
+        <div class="label">Calls Today</div>
+        <div class="sub">Avg: 145/day</div>
+      </div>
+      <div class="live-stat">
+        <div class="pulse"></div>
+        <div class="value green">12</div>
+        <div class="label">Active Incidents</div>
+        <div class="sub">3 EMS, 7 Fire, 2 Police</div>
+      </div>
+      <div class="live-stat">
+        <div class="value green">8 sec</div>
+        <div class="label">Avg Answer Time</div>
+        <div class="sub">Target: <15 sec</div>
+      </div>
+      <div class="live-stat">
+        <div class="value green">48 sec</div>
+        <div class="label">Avg Dispatch Time</div>
+        <div class="sub">Target: <60 sec</div>
+      </div>
+      <div class="live-stat">
+        <div class="value green">98.7%</div>
+        <div class="label">Uptime (YTD)</div>
+        <div class="sub">Target: 99.9%</div>
+      </div>
+      <div class="live-stat">
+        <div class="value blue">52,847</div>
+        <div class="label">Calls YTD</div>
+        <div class="sub">↑ 3.2% vs 2024</div>
+      </div>
+    </div>
+
+    <div class="response-times">
+      <div class="response-card">
+        <div class="icon">🚑</div>
+        <h4>EMS Response</h4>
+        <div class="time green">6:42</div>
+        <div class="target">Target: 8:00</div>
+        <div class="status green">✓ Meeting Target</div>
+      </div>
+      <div class="response-card">
+        <div class="icon">🚒</div>
+        <h4>Fire Response</h4>
+        <div class="time green">5:18</div>
+        <div class="target">Target: 6:00</div>
+        <div class="status green">✓ Meeting Target</div>
+      </div>
+      <div class="response-card">
+        <div class="icon">🚔</div>
+        <h4>Police Response</h4>
+        <div class="time yellow">9:24</div>
+        <div class="target">Target: 8:00</div>
+        <div class="status yellow">⚠ Above Target</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Call Volume by Hour (Today)</h3>
+        <div class="chart-container">
+          <canvas id="hourlyChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Calls by Type (YTD)</h3>
+        <div class="chart-container">
+          <canvas id="typeChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      <h3>Response Time by Zone</h3>
+      <div class="map-grid">
+        <div class="zone fast"><div class="name">Easton</div><div class="time">5:12</div></div>
+        <div class="zone fast"><div class="name">Bethlehem</div><div class="time">5:45</div></div>
+        <div class="zone fast"><div class="name">Nazareth</div><div class="time">6:18</div></div>
+        <div class="zone medium"><div class="name">Bangor</div><div class="time">7:42</div></div>
+        <div class="zone medium"><div class="name">Pen Argyl</div><div class="time">8:15</div></div>
+        <div class="zone slow"><div class="name">Rural North</div><div class="time">11:24</div></div>
+        <div class="zone fast"><div class="name">Palmer</div><div class="time">5:33</div></div>
+        <div class="zone fast"><div class="name">Forks</div><div class="time">6:05</div></div>
+        <div class="zone medium"><div class="name">Plainfield</div><div class="time">7:18</div></div>
+        <div class="zone medium"><div class="name">Washington</div><div class="time">7:55</div></div>
+        <div class="zone medium"><div class="name">Moore</div><div class="time">8:32</div></div>
+        <div class="zone slow"><div class="name">Rural South</div><div class="time">10:45</div></div>
+      </div>
+      <p style="color: #64748b; font-size: 0.8rem; margin-top: 1rem;">
+        Green: Under 7 min | Yellow: 7-9 min | Red: Over 9 min
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Monthly Trends (2025)</h3>
+      <div class="chart-container">
+        <canvas id="trendsChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>911 & Emergency Response Metrics - Northampton County</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="budget.html">Budget</a> |
+      <a href="capital-projects.html">Capital Projects</a> |
+      <a href="about.html">About</a>
+    </p>
+  </div>
+
+  <script>
+    // Hourly chart
+    new Chart(document.getElementById('hourlyChart'), {
+      type: 'bar',
+      data: {
+        labels: ['12a', '2a', '4a', '6a', '8a', '10a', '12p', '2p', '4p', '6p', '8p', '10p'],
+        datasets: [{
+          label: 'Calls',
+          data: [3, 2, 1, 4, 8, 12, 15, 14, 16, 18, 12, 8],
+          backgroundColor: '#3b82f6'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // Type chart
+    new Chart(document.getElementById('typeChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Medical Emergency', 'Fire/Rescue', 'Traffic Accident', 'Domestic', 'Suspicious Activity', 'Other'],
+        datasets: [{
+          data: [35, 18, 15, 12, 10, 10],
+          backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#06b6d4', '#64748b']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { color: '#94a3b8', padding: 8 } } }
+      }
+    });
+
+    // Trends chart
+    new Chart(document.getElementById('trendsChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { label: 'Total Calls', data: [4250, 3980, 4420, 4380, 4650, 4890, 5120, 5080, 4780, 4520, 4350, null], borderColor: '#3b82f6', yAxisID: 'y' },
+          { label: 'Avg Response (min)', data: [6.8, 6.5, 6.7, 6.4, 6.9, 7.2, 7.5, 7.1, 6.8, 6.6, 6.5, null], borderColor: '#22c55e', yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { type: 'linear', position: 'left', ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Calls', color: '#94a3b8' } },
+          y1: { type: 'linear', position: 'right', ticks: { color: '#94a3b8' }, grid: { display: false }, title: { display: true, text: 'Response Time (min)', color: '#94a3b8' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

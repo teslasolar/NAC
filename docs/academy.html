@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Academy - Learn How Your County Works</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0f1a;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --border: #374151;
+      --text: #e5e7eb;
+      --text-dim: #9ca3af;
+      --accent: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --cyan: #06b6d4;
+      --purple: #8b5cf6;
+      --orange: #f97316;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 50%, #1e1b4b 100%);
+      border-bottom: 2px solid var(--purple);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #fff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+
+    .header-nav {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .header-nav a {
+      color: var(--cyan);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+
+    .header-nav a:hover {
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    /* Main */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Course grid */
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .course-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+    }
+
+    .course-banner {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+
+    .course-content {
+      padding: 1.5rem;
+    }
+
+    .course-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-content p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-lessons {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .course-level {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .level-beginner { background: #22c55e33; color: #22c55e; }
+    .level-intermediate { background: #f59e0b33; color: #f59e0b; }
+    .level-advanced { background: #ef444433; color: #ef4444; }
+
+    /* Lesson view */
+    .lesson-view {
+      display: none;
+    }
+
+    .lesson-view.active {
+      display: block;
+    }
+
+    .lesson-header {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lesson-header h2 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lesson-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .lesson-nav button {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .lesson-nav button:hover { background: var(--bg-panel); border-color: var(--accent); }
+    .lesson-nav button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .lesson-content {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .lesson-content h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 1rem;
+      color: var(--cyan);
+    }
+
+    .lesson-content h3:first-child {
+      margin-top: 0;
+    }
+
+    .lesson-content p {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .lesson-content ul, .lesson-content ol {
+      margin: 1rem 0 1rem 1.5rem;
+      color: var(--text);
+    }
+
+    .lesson-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .info-box {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+
+    .info-box.tip {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: var(--green);
+    }
+
+    .info-box.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--yellow);
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Diagram */
+    .diagram {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .org-level {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .org-box {
+      background: var(--bg-panel);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .org-box.highlight {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .org-box .title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .org-box .subtitle {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .org-connector {
+      width: 2px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .data-table th, .data-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table th {
+      background: var(--bg-surface);
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    .data-table tr:hover td {
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    /* Quiz */
+    .quiz-section {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .quiz-section h4 {
+      margin-bottom: 1rem;
+      color: var(--yellow);
+    }
+
+    .quiz-option {
+      display: block;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--accent);
+    }
+
+    .quiz-option.correct {
+      border-color: var(--green);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .quiz-option.incorrect {
+      border-color: var(--red);
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* Progress */
+    .progress-bar {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-step {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .progress-step.completed { background: var(--green); }
+    .progress-step.current { background: var(--accent); }
+
+    /* Back button */
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--cyan);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-btn:hover { text-decoration: underline; }
+
+    /* Glossary */
+    .glossary-term {
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .glossary-term dt {
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+    }
+
+    .glossary-term dd {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .course-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.75rem; }
+      .lesson-header { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎓 NAC Academy</h1>
+    <p>Learn how Northampton County government works</p>
+    <div class="header-nav">
+      <a href="scada.html">← Back to SCADA</a>
+      <a href="#courses">Courses</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#resources">Resources</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Course List -->
+    <div id="course-list">
+      <h2 class="section-title">📚 Available Courses</h2>
+
+      <div class="course-grid">
+        <div class="course-card" onclick="showCourse('govt101')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #1e3a5f, #3b82f6);">🏛️</div>
+          <div class="course-content">
+            <h3>County Government 101</h3>
+            <p>How Northampton County government is structured, who does what, and how decisions get made.</p>
+            <div class="course-meta">
+              <span class="course-lessons">5 lessons • 15 min</span>
+              <span class="course-level level-beginner">Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card" onclick="showCourse('row-officers')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #1e1b4b, #8b5cf6);">👥</div>
+          <div class="course-content">
+            <h3>Meet Your Row Officers</h3>
+            <p>The 9 elected row officers and what their offices actually do for you.</p>
+            <div class="course-meta">
+              <span class="course-lessons">9 lessons • 20 min</span>
+              <span class="course-level level-beginner">Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card" onclick="showCourse('budget101')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #065f46, #22c55e);">💰</div>
+          <div class="course-content">
+            <h3>Budget & Your Tax Dollars</h3>
+            <p>Where the $583M county budget comes from, where it goes, and how to track it.</p>
+            <div class="course-meta">
+              <span class="course-lessons">6 lessons • 18 min</span>
+              <span class="course-level level-intermediate">Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card" onclick="showCourse('controller')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #7c2d12, #f97316);">🔍</div>
+          <div class="course-content">
+            <h3>The Controller's Office</h3>
+            <p>Deep dive into fiscal oversight, auditing, and how the Controller protects your money.</p>
+            <div class="course-meta">
+              <span class="course-lessons">4 lessons • 12 min</span>
+              <span class="course-level level-intermediate">Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card" onclick="showCourse('engage')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #0e7490, #06b6d4);">🗣️</div>
+          <div class="course-content">
+            <h3>Civic Engagement Guide</h3>
+            <p>How to attend meetings, request records, contact officials, and make your voice heard.</p>
+            <div class="course-meta">
+              <span class="course-lessons">5 lessons • 15 min</span>
+              <span class="course-level level-beginner">Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card" onclick="showCourse('elections')">
+          <div class="course-banner" style="background: linear-gradient(135deg, #991b1b, #ef4444);">🗳️</div>
+          <div class="course-content">
+            <h3>Elections & Voting</h3>
+            <p>How county elections work, when they happen, and what positions are on your ballot.</p>
+            <div class="course-meta">
+              <span class="course-lessons">4 lessons • 12 min</span>
+              <span class="course-level level-beginner">Beginner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Facts -->
+      <h2 class="section-title" id="glossary">📖 Quick Reference</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        <div style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+          <h3 style="color: var(--cyan); margin-bottom: 1rem;">Key Numbers</h3>
+          <dl class="glossary-term">
+            <dt>Population</dt>
+            <dd>~312,000 residents</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>Annual Budget</dt>
+            <dd>$583 million (2026)</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>County Employees</dt>
+            <dd>~2,847 people</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>Municipalities</dt>
+            <dd>38 townships, boroughs, cities</dd>
+          </dl>
+        </div>
+
+        <div style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+          <h3 style="color: var(--cyan); margin-bottom: 1rem;">Glossary</h3>
+          <dl class="glossary-term">
+            <dt>Row Officer</dt>
+            <dd>Independently elected county official (Controller, Treasurer, etc.)</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>ACFR</dt>
+            <dd>Annual Comprehensive Financial Report - the county's audited financials</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>Mill</dt>
+            <dd>$1 of tax per $1,000 of assessed property value</dd>
+          </dl>
+          <dl class="glossary-term">
+            <dt>Home Rule</dt>
+            <dd>County governs itself via charter, not state code</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <h2 class="section-title" id="resources">🔗 Official Resources</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <a href="https://www.northamptoncounty.org" target="_blank" style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">🌐</span>
+          <div>
+            <div style="font-weight: 600;">County Website</div>
+            <div style="font-size: 0.8rem; color: var(--text-dim);">northamptoncounty.org</div>
+          </div>
+        </a>
+        <a href="https://www.northamptoncounty.org/CTRLR" target="_blank" style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">🔍</span>
+          <div>
+            <div style="font-weight: 600;">Controller's Office</div>
+            <div style="font-size: 0.8rem; color: var(--text-dim);">Audits & financial oversight</div>
+          </div>
+        </a>
+        <a href="https://www.northamptoncounty.org/CTYEXEC" target="_blank" style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">🏢</span>
+          <div>
+            <div style="font-weight: 600;">County Executive</div>
+            <div style="font-size: 0.8rem; color: var(--text-dim);">Administration & operations</div>
+          </div>
+        </a>
+        <a href="https://www.northamptoncounty.org/CNTYCOUNCIL" target="_blank" style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">⚖️</span>
+          <div>
+            <div style="font-weight: 600;">County Council</div>
+            <div style="font-size: 0.8rem; color: var(--text-dim);">Legislative body</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Course: County Government 101 -->
+    <div id="course-govt101" class="lesson-view">
+      <button class="back-btn" onclick="showCourseList()">← Back to Courses</button>
+
+      <div class="lesson-header">
+        <h2>🏛️ County Government 101</h2>
+        <div class="lesson-nav">
+          <button onclick="prevLesson()" id="prev-btn">← Previous</button>
+          <span id="lesson-counter" style="padding: 0.5rem 1rem;">1 / 5</span>
+          <button onclick="nextLesson()" id="next-btn">Next →</button>
+        </div>
+      </div>
+
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="lesson-content" id="lesson-content">
+        <!-- Lesson content loaded by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Course data
+    const courses = {
+      'govt101': {
+        title: 'County Government 101',
+        icon: '🏛️',
+        lessons: [
+          {
+            title: 'What is County Government?',
+            content: `
+              <h3>Welcome to County Government 101!</h3>
+              <p>Northampton County is one of Pennsylvania's 67 counties. But what does the county actually do? And why should you care?</p>
+
+              <h3>County vs. Municipal vs. State</h3>
+              <p>There are multiple layers of government that affect your daily life:</p>
+              <ul>
+                <li><strong>Federal</strong> - National defense, social security, immigration</li>
+                <li><strong>State (PA)</strong> - Highways, state police, licensing</li>
+                <li><strong>County</strong> - Courts, elections, assessments, human services</li>
+                <li><strong>Municipal</strong> - Local police, zoning, roads, trash</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>💡 Key Insight</strong>
+                Counties handle things that are too big for one town but don't need state-level coordination - like running the court system, managing elections, and providing human services.
+              </div>
+
+              <h3>Home Rule Charter</h3>
+              <p>Northampton County operates under a <strong>Home Rule Charter</strong>, adopted in 1978. This means we're not bound by the default PA County Code - we wrote our own rules for how to govern ourselves.</p>
+            `
+          },
+          {
+            title: 'The Three Branches',
+            content: `
+              <h3>Separation of Powers</h3>
+              <p>Just like the federal government, Northampton County has three branches:</p>
+
+              <div class="diagram">
+                <div class="org-chart">
+                  <div class="org-level">
+                    <div class="org-box highlight">
+                      <div class="title">THE PEOPLE</div>
+                      <div class="subtitle">312,000 residents</div>
+                    </div>
+                  </div>
+                  <div class="org-connector"></div>
+                  <div class="org-level">
+                    <div class="org-box">
+                      <div class="title">Executive</div>
+                      <div class="subtitle">County Executive</div>
+                    </div>
+                    <div class="org-box">
+                      <div class="title">Legislative</div>
+                      <div class="subtitle">County Council (9)</div>
+                    </div>
+                    <div class="org-box">
+                      <div class="title">Judicial</div>
+                      <div class="subtitle">Court of Common Pleas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Executive Branch</h3>
+              <p>The <strong>County Executive</strong> is like the CEO - they run day-to-day operations, propose the budget, and oversee county departments.</p>
+
+              <h3>Legislative Branch</h3>
+              <p><strong>County Council</strong> (9 members) passes ordinances, approves the budget, and provides oversight. Think of them as the board of directors.</p>
+
+              <h3>Judicial Branch</h3>
+              <p>The <strong>Court of Common Pleas</strong> handles civil and criminal cases. Judges are elected but operate independently.</p>
+
+              <div class="info-box tip">
+                <strong>✅ Checks & Balances</strong>
+                The Executive proposes the budget, but Council must approve it. Council passes laws, but the Executive can veto. This prevents any one branch from having too much power.
+              </div>
+            `
+          },
+          {
+            title: 'Row Officers: Independent Watchdogs',
+            content: `
+              <h3>What are Row Officers?</h3>
+              <p>In addition to the three branches, Pennsylvania counties have <strong>independently elected "row officers"</strong> - officials who answer directly to voters, not the Executive or Council.</p>
+
+              <p>Northampton County has <strong>9 row officers</strong>:</p>
+
+              <table class="data-table">
+                <tr>
+                  <th>Office</th>
+                  <th>Primary Function</th>
+                </tr>
+                <tr>
+                  <td>🔍 Controller</td>
+                  <td>Audits spending, approves payments</td>
+                </tr>
+                <tr>
+                  <td>💰 Treasurer</td>
+                  <td>Collects taxes, manages investments</td>
+                </tr>
+                <tr>
+                  <td>⚖️ District Attorney</td>
+                  <td>Prosecutes crimes</td>
+                </tr>
+                <tr>
+                  <td>🛡️ Sheriff</td>
+                  <td>Court security, warrants, civil process</td>
+                </tr>
+                <tr>
+                  <td>📜 Recorder of Deeds</td>
+                  <td>Records property transactions</td>
+                </tr>
+                <tr>
+                  <td>👨‍⚖️ Prothonotary</td>
+                  <td>Civil court records</td>
+                </tr>
+                <tr>
+                  <td>📋 Clerk of Courts</td>
+                  <td>Criminal court records</td>
+                </tr>
+                <tr>
+                  <td>📝 Register of Wills</td>
+                  <td>Probate, estates, marriage licenses</td>
+                </tr>
+                <tr>
+                  <td>🏥 Coroner</td>
+                  <td>Death investigations</td>
+                </tr>
+              </table>
+
+              <div class="info-box">
+                <strong>💡 Why Independent?</strong>
+                Row officers can't be fired by the Executive or Council. This independence allows the Controller to audit the Executive's spending without fear of retaliation.
+              </div>
+            `
+          },
+          {
+            title: 'County Services You Use',
+            content: `
+              <h3>What Does the County Do For You?</h3>
+              <p>You interact with county government more than you might realize:</p>
+
+              <h3>Courts & Legal</h3>
+              <ul>
+                <li>Civil lawsuits and family court</li>
+                <li>Criminal prosecutions</li>
+                <li>Marriage licenses</li>
+                <li>Probate and estates</li>
+              </ul>
+
+              <h3>Elections</h3>
+              <ul>
+                <li>Voter registration</li>
+                <li>Running all elections (federal, state, local)</li>
+                <li>Counting ballots</li>
+              </ul>
+
+              <h3>Property</h3>
+              <ul>
+                <li>Recording deeds when you buy a house</li>
+                <li>Assessing property values for taxes</li>
+                <li>Tax collection</li>
+              </ul>
+
+              <h3>Human Services</h3>
+              <ul>
+                <li>Mental health services</li>
+                <li>Drug & alcohol programs</li>
+                <li>Children, youth & families services</li>
+                <li>Area Agency on Aging</li>
+              </ul>
+
+              <h3>Emergency Services</h3>
+              <ul>
+                <li>911 dispatch center</li>
+                <li>Emergency management</li>
+                <li>Coroner investigations</li>
+              </ul>
+
+              <div class="info-box tip">
+                <strong>✅ Fun Fact</strong>
+                The county 911 center dispatches for 38 municipalities - over 500,000 calls per year!
+              </div>
+            `
+          },
+          {
+            title: 'Quiz: Test Your Knowledge',
+            content: `
+              <h3>Let's See What You've Learned!</h3>
+
+              <div class="quiz-section">
+                <h4>Question 1: What is a "row officer"?</h4>
+                <label class="quiz-option" data-correct="true">
+                  <input type="radio" name="q1" style="margin-right: 0.75rem;">
+                  An independently elected county official
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q1" style="margin-right: 0.75rem;">
+                  Someone who works in the Executive's office
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q1" style="margin-right: 0.75rem;">
+                  A state-appointed inspector
+                </label>
+              </div>
+
+              <div class="quiz-section">
+                <h4>Question 2: Who approves the county budget?</h4>
+                <label class="quiz-option">
+                  <input type="radio" name="q2" style="margin-right: 0.75rem;">
+                  The County Executive
+                </label>
+                <label class="quiz-option" data-correct="true">
+                  <input type="radio" name="q2" style="margin-right: 0.75rem;">
+                  County Council
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q2" style="margin-right: 0.75rem;">
+                  The Controller
+                </label>
+              </div>
+
+              <div class="quiz-section">
+                <h4>Question 3: How many row officers does Northampton County have?</h4>
+                <label class="quiz-option">
+                  <input type="radio" name="q3" style="margin-right: 0.75rem;">
+                  5
+                </label>
+                <label class="quiz-option" data-correct="true">
+                  <input type="radio" name="q3" style="margin-right: 0.75rem;">
+                  9
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q3" style="margin-right: 0.75rem;">
+                  12
+                </label>
+              </div>
+
+              <button onclick="checkQuiz()" style="background: var(--green); border: none; color: #000; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 1rem;">Check Answers</button>
+
+              <div id="quiz-result" style="margin-top: 1rem; display: none;"></div>
+            `
+          }
+        ]
+      }
+    };
+
+    let currentCourse = null;
+    let currentLesson = 0;
+
+    function showCourseList() {
+      document.getElementById('course-list').style.display = 'block';
+      document.querySelectorAll('.lesson-view').forEach(v => v.classList.remove('active'));
+    }
+
+    function showCourse(courseId) {
+      currentCourse = courseId;
+      currentLesson = 0;
+
+      document.getElementById('course-list').style.display = 'none';
+
+      // For now, only govt101 is fully implemented
+      if (courseId === 'govt101') {
+        document.getElementById('course-govt101').classList.add('active');
+        renderLesson();
+      } else {
+        alert('This course is coming soon! Check back later.');
+        showCourseList();
+      }
+    }
+
+    function renderLesson() {
+      const course = courses[currentCourse];
+      const lesson = course.lessons[currentLesson];
+
+      // Update content
+      document.getElementById('lesson-content').innerHTML = lesson.content;
+
+      // Update counter
+      document.getElementById('lesson-counter').textContent = `${currentLesson + 1} / ${course.lessons.length}`;
+
+      // Update buttons
+      document.getElementById('prev-btn').disabled = currentLesson === 0;
+      document.getElementById('next-btn').disabled = currentLesson === course.lessons.length - 1;
+      document.getElementById('next-btn').textContent = currentLesson === course.lessons.length - 1 ? 'Complete ✓' : 'Next →';
+
+      // Update progress bar
+      const progressHtml = course.lessons.map((_, i) =>
+        `<div class="progress-step ${i < currentLesson ? 'completed' : ''} ${i === currentLesson ? 'current' : ''}"></div>`
+      ).join('');
+      document.getElementById('progress-bar').innerHTML = progressHtml;
+
+      // Setup quiz if present
+      setupQuiz();
+    }
+
+    function nextLesson() {
+      const course = courses[currentCourse];
+      if (currentLesson < course.lessons.length - 1) {
+        currentLesson++;
+        renderLesson();
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function prevLesson() {
+      if (currentLesson > 0) {
+        currentLesson--;
+        renderLesson();
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function setupQuiz() {
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove previous selections in same group
+          const name = this.querySelector('input').name;
+          document.querySelectorAll(`[name="${name}"]`).forEach(input => {
+            input.closest('.quiz-option').classList.remove('correct', 'incorrect');
+          });
+        });
+      });
+    }
+
+    function checkQuiz() {
+      let correct = 0;
+      let total = 0;
+
+      document.querySelectorAll('.quiz-section').forEach(section => {
+        total++;
+        const selected = section.querySelector('input:checked');
+        if (selected) {
+          const option = selected.closest('.quiz-option');
+          if (option.dataset.correct) {
+            option.classList.add('correct');
+            correct++;
+          } else {
+            option.classList.add('incorrect');
+            // Highlight correct answer
+            section.querySelector('[data-correct]').classList.add('correct');
+          }
+        }
+      });
+
+      const result = document.getElementById('quiz-result');
+      result.style.display = 'block';
+
+      if (correct === total) {
+        result.innerHTML = `<div class="info-box tip"><strong>🎉 Perfect Score!</strong> You got all ${total} questions correct! You now understand the basics of county government.</div>`;
+      } else {
+        result.innerHTML = `<div class="info-box warning"><strong>📚 Keep Learning!</strong> You got ${correct}/${total} correct. Review the lessons and try again!</div>`;
+      }
+    }
+  </script>
+</body>
+</html>

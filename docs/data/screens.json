@@ -1,0 +1,161 @@
+{
+  "system": {
+    "name": "Northampton County SCADA",
+    "version": "1.0.0",
+    "operator": "Thomas Frumkin",
+    "role": "Controller Candidate"
+  },
+  "screens": {
+    "overview": {
+      "id": "overview",
+      "name": "System Overview",
+      "icon": "🏛️",
+      "category": "main",
+      "url": null,
+      "description": "County-wide operational status"
+    },
+    "oee": {
+      "id": "oee",
+      "name": "OEE Dashboard",
+      "icon": "⚡",
+      "category": "operations",
+      "url": "oee-dashboard.html",
+      "description": "Office efficiency metrics"
+    },
+    "budget": {
+      "id": "budget",
+      "name": "Budget Visualization",
+      "icon": "💰",
+      "category": "finance",
+      "url": "budget.html",
+      "description": "$583M county budget breakdown"
+    },
+    "audit": {
+      "id": "audit",
+      "name": "Audit Tracker",
+      "icon": "🔍",
+      "category": "finance",
+      "url": "audit-tracker.html",
+      "description": "Audit findings and resolution"
+    },
+    "vendors": {
+      "id": "vendors",
+      "name": "Vendor Scorecard",
+      "icon": "📋",
+      "category": "operations",
+      "url": "vendor-scorecard.html",
+      "description": "Contractor performance tracking"
+    },
+    "grants": {
+      "id": "grants",
+      "name": "Grant Tracker",
+      "icon": "💵",
+      "category": "finance",
+      "url": "grant-tracker.html",
+      "description": "Federal & state funding"
+    },
+    "comparison": {
+      "id": "comparison",
+      "name": "County Comparison",
+      "icon": "📊",
+      "category": "analytics",
+      "url": "county-comparison.html",
+      "description": "Peer county benchmarks"
+    },
+    "tax": {
+      "id": "tax",
+      "name": "Tax Calculator",
+      "icon": "🧮",
+      "category": "citizen",
+      "url": "tax-calculator.html",
+      "description": "Property tax breakdown"
+    },
+    "capital": {
+      "id": "capital",
+      "name": "Capital Projects",
+      "icon": "🏗️",
+      "category": "operations",
+      "url": "capital-projects.html",
+      "description": "Infrastructure investments"
+    },
+    "pension": {
+      "id": "pension",
+      "name": "Pension Dashboard",
+      "icon": "🏦",
+      "category": "finance",
+      "url": "pension-dashboard.html",
+      "description": "Retirement fund status"
+    },
+    "emergency": {
+      "id": "emergency",
+      "name": "911 Metrics",
+      "icon": "🚨",
+      "category": "operations",
+      "url": "emergency-metrics.html",
+      "description": "Emergency response times"
+    },
+    "issues": {
+      "id": "issues",
+      "name": "Issue Tracker",
+      "icon": "📝",
+      "category": "citizen",
+      "url": "issue-tracker.html",
+      "description": "Constituent complaints"
+    },
+    "economic": {
+      "id": "economic",
+      "name": "Economic Scorecard",
+      "icon": "📈",
+      "category": "analytics",
+      "url": "economic-scorecard.html",
+      "description": "Jobs and business growth"
+    },
+    "org": {
+      "id": "org",
+      "name": "Org Chart",
+      "icon": "👥",
+      "category": "main",
+      "url": "org-chart.html",
+      "description": "2,847 employee hierarchy"
+    },
+    "transform": {
+      "id": "transform",
+      "name": "Transformation Plan",
+      "icon": "🌱",
+      "category": "main",
+      "url": "transformation-plan.html",
+      "description": "100-day improvement plan"
+    },
+    "about": {
+      "id": "about",
+      "name": "About Operator",
+      "icon": "👤",
+      "category": "system",
+      "url": "about.html",
+      "description": "Thomas Frumkin profile"
+    }
+  },
+  "categories": {
+    "main": { "name": "Main", "color": "#3b82f6" },
+    "operations": { "name": "Operations", "color": "#22c55e" },
+    "finance": { "name": "Finance", "color": "#f59e0b" },
+    "analytics": { "name": "Analytics", "color": "#8b5cf6" },
+    "citizen": { "name": "Citizen Services", "color": "#06b6d4" },
+    "system": { "name": "System", "color": "#64748b" }
+  },
+  "alarms": {
+    "active": [
+      { "id": "ALM-001", "priority": "medium", "message": "PCCD Grant 62% unspent - 30 days remaining", "screen": "grants" },
+      { "id": "ALM-002", "priority": "low", "message": "3 audit findings open >45 days", "screen": "audit" },
+      { "id": "ALM-003", "priority": "info", "message": "Police response time above target", "screen": "emergency" }
+    ]
+  },
+  "kpis": {
+    "oee": { "value": 78.2, "target": 80, "unit": "%", "status": "warning" },
+    "budget_utilized": { "value": 67, "target": 75, "unit": "%", "status": "ok" },
+    "audit_resolution": { "value": 89, "target": 85, "unit": "%", "status": "good" },
+    "citizen_satisfaction": { "value": 92, "target": 90, "unit": "%", "status": "good" },
+    "grant_utilization": { "value": 67, "target": 80, "unit": "%", "status": "warning" },
+    "pension_funded": { "value": 87.4, "target": 80, "unit": "%", "status": "good" }
+  }
+}

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Northampton County SCADA - Control System</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0f1a;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --border: #374151;
+      --text: #e5e7eb;
+      --text-dim: #9ca3af;
+      --accent: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --cyan: #06b6d4;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'SF Pro', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NORTH DOCK - Header */
+    .dock-north {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .system-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .system-title h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .system-title .version {
+      font-size: 0.7rem;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.online { background: var(--green); }
+    .status-dot.warning { background: var(--yellow); }
+    .status-dot.alarm { background: var(--red); animation: blink 0.5s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .alarm-count {
+      background: var(--yellow);
+      color: #000;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .alarm-count:hover { background: #fbbf24; }
+
+    .datetime {
+      text-align: right;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .datetime .time {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    .datetime .date {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    /* MAIN CONTAINER */
+    .dock-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* WEST DOCK - Navigation */
+    .dock-west {
+      width: 220px;
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .nav-section {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-section-title {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .nav-item:hover {
+      background: var(--bg-surface);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      margin-left: -3px;
+    }
+
+    .nav-item .icon {
+      font-size: 1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .nav-item .badge {
+      margin-left: auto;
+      background: var(--yellow);
+      color: #000;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* CENTER DOCK - Main Content */
+    .dock-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-dark);
+    }
+
+    .screen-header {
+      background: var(--bg-surface);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .screen-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .screen-title h2 {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .screen-title .breadcrumb {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .screen-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .screen-actions button {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 0.4rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .screen-actions button:hover {
+      background: var(--bg-surface);
+      color: var(--text);
+    }
+
+    .screen-content {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .screen-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: var(--bg-dark);
+    }
+
+    /* Overview Screen */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .kpi-row {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+    }
+
+    .kpi-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .kpi-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      font-family: 'Consolas', monospace;
+    }
+
+    .kpi-card .label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    .kpi-card .target {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-top: 0.5rem;
+    }
+
+    .kpi-card.good .value { color: var(--green); }
+    .kpi-card.warning .value { color: var(--yellow); }
+    .kpi-card.bad .value { color: var(--red); }
+
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      background: var(--bg-surface);
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-content {
+      padding: 0.75rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .alarm-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .alarm-item:hover { background: var(--bg-surface); }
+
+    .alarm-item.high { border-left: 3px solid var(--red); }
+    .alarm-item.medium { border-left: 3px solid var(--yellow); }
+    .alarm-item.low { border-left: 3px solid var(--cyan); }
+    .alarm-item.info { border-left: 3px solid var(--text-dim); }
+
+    .alarm-item .priority {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .alarm-item.high .priority { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+    .alarm-item.medium .priority { background: rgba(245, 158, 11, 0.2); color: var(--yellow); }
+    .alarm-item.low .priority { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
+
+    .screen-tile {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-surface);
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .screen-tile:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--accent);
+    }
+
+    .screen-tile .icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-panel);
+      border-radius: 8px;
+    }
+
+    .screen-tile .info h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .screen-tile .info p {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    /* EAST DOCK - Context Panel */
+    .dock-east {
+      width: 280px;
+      background: var(--bg-panel);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .dock-east .panel {
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mini-chart {
+      height: 60px;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 0.5rem;
+    }
+
+    .mini-chart .bar {
+      flex: 1;
+      background: var(--accent);
+      border-radius: 2px 2px 0 0;
+      min-height: 4px;
+    }
+
+    .row-officer-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+
+    .row-officer-item:last-child { border-bottom: none; }
+
+    .row-officer-item .name { color: var(--text); }
+
+    .row-officer-item .oee {
+      font-family: monospace;
+      font-weight: 600;
+    }
+
+    /* SOUTH DOCK - Status Bar */
+    .dock-south {
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-item .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-item .indicator.green { background: var(--green); }
+    .status-item .indicator.yellow { background: var(--yellow); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+
+    @media (max-width: 1200px) {
+      .dock-east { display: none; }
+    }
+
+    @media (max-width: 900px) {
+      .dock-west { width: 60px; }
+      .nav-item span { display: none; }
+      .nav-section-title { display: none; }
+      .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- NORTH DOCK -->
+  <div class="dock-north">
+    <div class="system-title">
+      <h1>NORTHAMPTON COUNTY SCADA</h1>
+      <span class="version">v1.0.0</span>
+    </div>
+    <div class="header-status">
+      <div class="status-indicator">
+        <span class="status-dot online"></span>
+        <span>System Online</span>
+      </div>
+      <div class="alarm-count" onclick="showAlarms()">3 ALARMS</div>
+      <div class="datetime">
+        <div class="time" id="clock">--:--:--</div>
+        <div class="date" id="date">--- --, ----</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dock-container">
+    <!-- WEST DOCK -->
+    <div class="dock-west">
+      <div class="nav-section">
+        <div class="nav-section-title">Main</div>
+        <div class="nav-item active" onclick="loadScreen('overview')">
+          <span class="icon">🏛️</span>
+          <span>Overview</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('transform')">
+          <span class="icon">🌱</span>
+          <span>Transform Plan</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('org')">
+          <span class="icon">👥</span>
+          <span>Org Chart</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Operations</div>
+        <div class="nav-item" onclick="loadScreen('oee')">
+          <span class="icon">⚡</span>
+          <span>OEE Dashboard</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('vendors')">
+          <span class="icon">📋</span>
+          <span>Vendors</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('capital')">
+          <span class="icon">🏗️</span>
+          <span>Capital Projects</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('emergency')">
+          <span class="icon">🚨</span>
+          <span>911 Metrics</span>
+          <span class="badge">!</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Finance</div>
+        <div class="nav-item" onclick="loadScreen('budget')">
+          <span class="icon">💰</span>
+          <span>Budget</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('audit')">
+          <span class="icon">🔍</span>
+          <span>Audit Tracker</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('grants')">
+          <span class="icon">💵</span>
+          <span>Grants</span>
+          <span class="badge">3</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('pension')">
+          <span class="icon">🏦</span>
+          <span>Pension</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Analytics</div>
+        <div class="nav-item" onclick="loadScreen('comparison')">
+          <span class="icon">📊</span>
+          <span>County Compare</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('economic')">
+          <span class="icon">📈</span>
+          <span>Economic</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Citizen</div>
+        <div class="nav-item" onclick="loadScreen('tax')">
+          <span class="icon">🧮</span>
+          <span>Tax Calculator</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('issues')">
+          <span class="icon">📝</span>
+          <span>Issue Tracker</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">System</div>
+        <div class="nav-item" onclick="loadScreen('about')">
+          <span class="icon">👤</span>
+          <span>About Operator</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('modules')">
+          <span class="icon">🔧</span>
+          <span>ISA-95 Modules</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER DOCK -->
+    <div class="dock-center">
+      <div class="screen-header">
+        <div class="screen-title">
+          <span id="screenIcon">🏛️</span>
+          <h2 id="screenName">System Overview</h2>
+          <span class="breadcrumb" id="screenBreadcrumb">Main > Overview</span>
+        </div>
+        <div class="screen-actions">
+          <button onclick="refreshScreen()">↻ Refresh</button>
+          <button onclick="popoutScreen()">↗ Pop Out</button>
+          <button onclick="printScreen()">🖨 Print</button>
+        </div>
+      </div>
+      <div class="screen-content" id="screenContent">
+        <!-- Overview content loaded by default -->
+      </div>
+    </div>
+
+    <!-- EAST DOCK -->
+    <div class="dock-east">
+      <div class="panel">
+        <div class="panel-header">
+          <span>Active Alarms</span>
+          <span style="color: var(--yellow);">3</span>
+        </div>
+        <div class="panel-content" id="alarmList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <span>OEE by Office</span>
+          <span style="color: var(--text-dim);">Avg: 78.2%</span>
+        </div>
+        <div class="panel-content" id="oeeList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <span>Call Volume (24h)</span>
+        </div>
+        <div class="mini-chart" id="callChart">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOUTH DOCK -->
+  <div class="dock-south">
+    <div class="status-left">
+      <div class="status-item">
+        <span class="indicator green"></span>
+        <span>Database: Connected</span>
+      </div>
+      <div class="status-item">
+        <span class="indicator green"></span>
+        <span>API: Online</span>
+      </div>
+      <div class="status-item">
+        <span class="indicator yellow"></span>
+        <span>3 Pending Alerts</span>
+      </div>
+    </div>
+    <div class="status-right">
+      <span>Operator: Thomas Frumkin</span>
+      <span>|</span>
+      <span>Session: 2h 34m</span>
+      <span>|</span>
+      <span>Northampton County, PA</span>
+    </div>
+  </div>
+
+  <script>
+    // Screen configuration
+    const screens = {
+      overview: { name: 'System Overview', icon: '🏛️', category: 'Main', url: null },
+      oee: { name: 'OEE Dashboard', icon: '⚡', category: 'Operations', url: 'oee-dashboard.html' },
+      budget: { name: 'Budget Visualization', icon: '💰', category: 'Finance', url: 'budget.html' },
+      audit: { name: 'Audit Tracker', icon: '🔍', category: 'Finance', url: 'audit-tracker.html' },
+      vendors: { name: 'Vendor Scorecard', icon: '📋', category: 'Operations', url: 'vendor-scorecard.html' },
+      grants: { name: 'Grant Tracker', icon: '💵', category: 'Finance', url: 'grant-tracker.html' },
+      comparison: { name: 'County Comparison', icon: '📊', category: 'Analytics', url: 'county-comparison.html' },
+      tax: { name: 'Tax Calculator', icon: '🧮', category: 'Citizen', url: 'tax-calculator.html' },
+      capital: { name: 'Capital Projects', icon: '🏗️', category: 'Operations', url: 'capital-projects.html' },
+      pension: { name: 'Pension Dashboard', icon: '🏦', category: 'Finance', url: 'pension-dashboard.html' },
+      emergency: { name: '911 Metrics', icon: '🚨', category: 'Operations', url: 'emergency-metrics.html' },
+      issues: { name: 'Issue Tracker', icon: '📝', category: 'Citizen', url: 'issue-tracker.html' },
+      economic: { name: 'Economic Scorecard', icon: '📈', category: 'Analytics', url: 'economic-scorecard.html' },
+      org: { name: 'Org Chart', icon: '👥', category: 'Main', url: 'org-chart.html' },
+      transform: { name: 'Transformation Plan', icon: '🌱', category: 'Main', url: 'transformation-plan.html' },
+      about: { name: 'About Operator', icon: '👤', category: 'System', url: 'about.html' },
+      modules: { name: 'ISA-95 Modules', icon: '🔧', category: 'System', url: 'modules.html' }
+    };
+
+    const alarms = [
+      { id: 'ALM-001', priority: 'medium', message: 'PCCD Grant 62% unspent - 30 days remaining', screen: 'grants' },
+      { id: 'ALM-002', priority: 'low', message: '3 audit findings open >45 days', screen: 'audit' },
+      { id: 'ALM-003', priority: 'info', message: 'Police response time above target (9:24)', screen: 'emergency' }
+    ];
+
+    const oeeData = [
+      { name: 'Treasurer', oee: 86.4, status: 'good' },
+      { name: 'Recorder', oee: 82.1, status: 'good' },
+      { name: 'Prothonotary', oee: 79.5, status: 'warning' },
+      { name: 'Sheriff', oee: 77.8, status: 'warning' },
+      { name: 'Controller', oee: 74.2, status: 'warning' },
+      { name: 'Clerk of Courts', oee: 74.2, status: 'warning' },
+      { name: 'Register of Wills', oee: 73.5, status: 'warning' },
+      { name: 'Coroner', oee: 71.2, status: 'bad' },
+      { name: 'District Attorney', oee: 68.2, status: 'bad' }
+    ];
+
+    let currentScreen = 'overview';
+
+    // Clock update
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+      document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Load screen
+    function loadScreen(screenId) {
+      const screen = screens[screenId];
+      if (!screen) return;
+
+      currentScreen = screenId;
+
+      // Update nav
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      event.target.closest('.nav-item')?.classList.add('active');
+
+      // Update header
+      document.getElementById('screenIcon').textContent = screen.icon;
+      document.getElementById('screenName').textContent = screen.name;
+      document.getElementById('screenBreadcrumb').textContent = `${screen.category} > ${screen.name}`;
+
+      // Load content
+      const content = document.getElementById('screenContent');
+      if (screen.url) {
+        content.innerHTML = `<iframe src="${screen.url}" title="${screen.name}"></iframe>`;
+      } else {
+        content.innerHTML = getOverviewHTML();
+      }
+    }
+
+    // Overview HTML
+    function getOverviewHTML() {
+      return `
+        <div class="overview-grid">
+          <div class="kpi-row">
+            <div class="kpi-card warning">
+              <div class="value">78.2%</div>
+              <div class="label">Avg OEE</div>
+              <div class="target">Target: 80%</div>
+            </div>
+            <div class="kpi-card good">
+              <div class="value">89%</div>
+              <div class="label">Audit Resolution</div>
+              <div class="target">Target: 85%</div>
+            </div>
+            <div class="kpi-card warning">
+              <div class="value">67%</div>
+              <div class="label">Grant Utilization</div>
+              <div class="target">Target: 80%</div>
+            </div>
+            <div class="kpi-card good">
+              <div class="value">87.4%</div>
+              <div class="label">Pension Funded</div>
+              <div class="target">Target: 80%</div>
+            </div>
+            <div class="kpi-card good">
+              <div class="value">92%</div>
+              <div class="label">Citizen Satisfaction</div>
+              <div class="target">Target: 90%</div>
+            </div>
+            <div class="kpi-card good">
+              <div class="value">6:42</div>
+              <div class="label">EMS Response</div>
+              <div class="target">Target: 8:00</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">Operations Screens</div>
+            <div class="panel-content">
+              ${['oee', 'vendors', 'capital', 'emergency'].map(id => {
+                const s = screens[id];
+                return `<div class="screen-tile" onclick="loadScreen('${id}')">
+                  <div class="icon">${s.icon}</div>
+                  <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">Finance Screens</div>
+            <div class="panel-content">
+              ${['budget', 'audit', 'grants', 'pension'].map(id => {
+                const s = screens[id];
+                return `<div class="screen-tile" onclick="loadScreen('${id}')">
+                  <div class="icon">${s.icon}</div>
+                  <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">Analytics Screens</div>
+            <div class="panel-content">
+              ${['comparison', 'economic', 'tax', 'issues'].map(id => {
+                const s = screens[id];
+                return `<div class="screen-tile" onclick="loadScreen('${id}')">
+                  <div class="icon">${s.icon}</div>
+                  <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Populate alarms
+    function populateAlarms() {
+      const container = document.getElementById('alarmList');
+      container.innerHTML = alarms.map(a => `
+        <div class="alarm-item ${a.priority}" onclick="loadScreen('${a.screen}')">
+          <span class="priority">${a.priority}</span>
+          <span>${a.message}</span>
+        </div>
+      `).join('');
+    }
+
+    // Populate OEE list
+    function populateOEE() {
+      const container = document.getElementById('oeeList');
+      container.innerHTML = oeeData.map(o => `
+        <div class="row-officer-item">
+          <span class="name">${o.name}</span>
+          <span class="oee" style="color: var(--${o.status === 'good' ? 'green' : o.status === 'warning' ? 'yellow' : 'red'})">${o.oee}%</span>
+        </div>
+      `).join('');
+    }
+
+    // Populate call chart
+    function populateCallChart() {
+      const container = document.getElementById('callChart');
+      const data = [3, 2, 1, 4, 8, 12, 15, 14, 16, 18, 12, 8, 6, 5, 7, 9, 11, 14, 12, 10, 8, 6, 4, 3];
+      const max = Math.max(...data);
+      container.innerHTML = data.map(v => `<div class="bar" style="height: ${(v/max)*100}%"></div>`).join('');
+    }
+
+    // Actions
+    function refreshScreen() {
+      loadScreen(currentScreen);
+    }
+
+    function popoutScreen() {
+      const screen = screens[currentScreen];
+      if (screen.url) {
+        window.open(screen.url, '_blank', 'width=1200,height=800');
+      }
+    }
+
+    function printScreen() {
+      window.print();
+    }
+
+    function showAlarms() {
+      loadScreen('audit');
+    }
+
+    // Initialize
+    populateAlarms();
+    populateOEE();
+    populateCallChart();
+    document.getElementById('screenContent').innerHTML = getOverviewHTML();
+  </script>
+</body>
+</html>

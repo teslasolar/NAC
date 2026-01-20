@@ -1,0 +1,99 @@
+{
+  "govt101": {
+    "title": "County Government 101",
+    "icon": "🏛️",
+    "description": "Learn the basics of how Northampton County government works",
+    "lessons": [
+      {
+        "id": "what-is-county",
+        "title": "What is County Government?",
+        "duration": "5 min"
+      },
+      {
+        "id": "three-branches",
+        "title": "The Three Branches",
+        "duration": "5 min"
+      },
+      {
+        "id": "row-officers-intro",
+        "title": "Row Officers: Independent Watchdogs",
+        "duration": "5 min"
+      },
+      {
+        "id": "county-services",
+        "title": "County Services You Use",
+        "duration": "5 min"
+      },
+      {
+        "id": "govt101-quiz",
+        "title": "Quiz: Test Your Knowledge",
+        "duration": "3 min",
+        "isQuiz": true
+      }
+    ]
+  },
+  "row-officers": {
+    "title": "Meet Your Row Officers",
+    "icon": "👥",
+    "description": "Deep dive into each of the 9 independently elected officials",
+    "lessons": [
+      { "id": "ro-what", "title": "What are Row Officers?", "duration": "4 min" },
+      { "id": "ro-controller", "title": "The Controller", "duration": "5 min" },
+      { "id": "ro-treasurer", "title": "The Treasurer", "duration": "4 min" },
+      { "id": "ro-da", "title": "The District Attorney", "duration": "4 min" },
+      { "id": "ro-sheriff", "title": "The Sheriff", "duration": "4 min" },
+      { "id": "ro-recorder", "title": "Recorder & Prothonotary", "duration": "5 min" },
+      { "id": "ro-clerk", "title": "Clerk & Register", "duration": "5 min" },
+      { "id": "ro-coroner", "title": "The Coroner", "duration": "4 min" },
+      { "id": "ro-quiz", "title": "Quiz: Row Officers", "duration": "3 min", "isQuiz": true }
+    ]
+  },
+  "budget101": {
+    "title": "Budget & Your Tax Dollars",
+    "icon": "💰",
+    "description": "Understand where your tax money comes from and where it goes",
+    "lessons": [
+      { "id": "budget-revenue", "title": "The $583 Million Question", "duration": "5 min" },
+      { "id": "budget-spending", "title": "Where Does It Go?", "duration": "5 min" },
+      { "id": "budget-process", "title": "The Budget Process", "duration": "4 min" },
+      { "id": "budget-tax", "title": "Understanding Property Tax", "duration": "5 min" },
+      { "id": "budget-grants", "title": "Grants & Federal Money", "duration": "4 min" },
+      { "id": "budget-quiz", "title": "Quiz: Budget Basics", "duration": "3 min", "isQuiz": true }
+    ]
+  },
+  "controller": {
+    "title": "The Controller's Office",
+    "icon": "🔍",
+    "description": "Learn about the county's financial watchdog",
+    "lessons": [
+      { "id": "ctrl-why", "title": "Why the Controller Matters", "duration": "4 min" },
+      { "id": "ctrl-preaudit", "title": "Pre-Audit: The First Line", "duration": "5 min" },
+      { "id": "ctrl-audits", "title": "Annual Audits", "duration": "5 min" },
+      { "id": "ctrl-boards", "title": "Board Memberships", "duration": "4 min" }
+    ]
+  },
+  "engage": {
+    "title": "Civic Engagement Guide",
+    "icon": "🗣️",
+    "description": "How to participate in your county government",
+    "lessons": [
+      { "id": "engage-meeting", "title": "Attend a Meeting", "duration": "4 min" },
+      { "id": "engage-rtk", "title": "Right-to-Know Requests", "duration": "5 min" },
+      { "id": "engage-contact", "title": "Contact Your Officials", "duration": "4 min" },
+      { "id": "engage-run", "title": "Run for Office", "duration": "5 min" },
+      { "id": "engage-other", "title": "Other Ways to Engage", "duration": "4 min" }
+    ]
+  },
+  "elections": {
+    "title": "Elections & Voting",
+    "icon": "🗳️",
+    "description": "Everything you need to know about county elections",
+    "lessons": [
+      { "id": "elect-how", "title": "How County Elections Work", "duration": "4 min" },
+      { "id": "elect-ballot", "title": "What's on Your Ballot?", "duration": "5 min" },
+      { "id": "elect-options", "title": "Voting Options", "duration": "4 min" },
+      { "id": "elect-machines", "title": "Voting Machines & Security", "duration": "5 min" },
+      { "id": "elect-quiz", "title": "Quiz: Elections", "duration": "3 min", "isQuiz": true }
+    ]
+  }
+}

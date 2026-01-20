@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "udt-station",
+  "title": "UDT_Station",
+  "description": "User Defined Type template for a WorkStation",
+  "version": "1.0.0",
+  "udtType": "UDT_Station",
+  "category": "base",
+
+  "members": {
+    "Config": {
+      "description": "Static configuration (read-only at runtime)",
+      "members": {
+        "ID": { "type": "STRING", "length": 32, "description": "Station identifier" },
+        "Name": { "type": "STRING", "length": 64, "description": "Display name" },
+        "Description": { "type": "STRING", "length": 256, "description": "Station description" },
+        "Capacity": { "type": "INT", "description": "Max simultaneous items" },
+        "CycleTimeMs": { "type": "DINT", "description": "Base cycle time in milliseconds" },
+        "LineID": { "type": "STRING", "length": 32, "description": "Parent assembly line ID" },
+        "UnitID": { "type": "STRING", "length": 32, "description": "Parent production unit ID" },
+        "Position": {
+          "type": "UDT_Position3D",
+          "members": {
+            "X": { "type": "REAL", "description": "X position" },
+            "Y": { "type": "REAL", "description": "Y position" },
+            "Z": { "type": "REAL", "description": "Z position" }
+          }
+        }
+      }
+    },
+
+    "Status": {
+      "description": "Runtime status values",
+      "members": {
+        "State": { "type": "INT", "description": "PackML state (0-16)", "enum": "PackMLState" },
+        "StateName": { "type": "STRING", "length": 16, "description": "State name for display" },
+        "Mode": { "type": "INT", "description": "Operating mode", "enum": "PackMLMode" },
+        "ModeName": { "type": "STRING", "length": 16, "description": "Mode name for display" },
+        "CurrentLoad": { "type": "INT", "description": "Items currently processing" },
+        "Utilization": { "type": "REAL", "description": "Current utilization 0.0-1.0" },
+        "IsActive": { "type": "BOOL", "description": "Station is actively processing" },
+        "IsBlocked": { "type": "BOOL", "description": "Station is blocked (downstream full)" },
+        "IsStarved": { "type": "BOOL", "description": "Station is starved (no input)" },
+        "LastStateChange": { "type": "LINT", "description": "Timestamp of last state change" }
+      }
+    },
+
+    "Metrics": {
+      "description": "Performance metrics",
+      "members": {
+        "ItemsProcessed": { "type": "DINT", "description": "Total items processed" },
+        "ItemsInQueue": { "type": "INT", "description": "Items waiting in input queue" },
+        "AvgCycleTimeMs": { "type": "DINT", "description": "Average actual cycle time" },
+        "TotalProcessingTimeMs": { "type": "LINT", "description": "Cumulative processing time" },
+        "Throughput": { "type": "REAL", "description": "Items per hour" },
+        "ErrorCount": { "type": "INT", "description": "Total errors" },
+        "LastErrorCode": { "type": "INT", "description": "Most recent error code" },
+        "LastErrorTime": { "type": "LINT", "description": "Timestamp of last error" },
+        "UptimeSeconds": { "type": "DINT", "description": "Time in EXECUTE state" },
+        "DowntimeSeconds": { "type": "DINT", "description": "Time in STOPPED/HELD state" }
+      }
+    },
+
+    "Commands": {
+      "description": "Command interface",
+      "members": {
+        "Start": { "type": "BOOL", "description": "Command to start" },
+        "Stop": { "type": "BOOL", "description": "Command to stop" },
+        "Reset": { "type": "BOOL", "description": "Command to reset" },
+        "Hold": { "type": "BOOL", "description": "Command to hold" },
+        "Unhold": { "type": "BOOL", "description": "Command to unhold" },
+        "Abort": { "type": "BOOL", "description": "Command to abort" },
+        "Clear": { "type": "BOOL", "description": "Command to clear" }
+      }
+    },
+
+    "Alarms": {
+      "description": "Station alarms",
+      "members": {
+        "HighUtilization": { "type": "BOOL", "description": "Utilization > 80%" },
+        "CriticalUtilization": { "type": "BOOL", "description": "Utilization > 95%" },
+        "QueueOverflow": { "type": "BOOL", "description": "Input queue exceeded limit" },
+        "CycleTimeExceeded": { "type": "BOOL", "description": "Cycle time > 2x normal" },
+        "EquipmentFault": { "type": "BOOL", "description": "Equipment malfunction" },
+        "StaffShortage": { "type": "BOOL", "description": "Insufficient staff" }
+      }
+    }
+  }
+}

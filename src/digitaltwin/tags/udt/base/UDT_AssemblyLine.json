@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "udt-assembly-line",
+  "title": "UDT_AssemblyLine",
+  "description": "User Defined Type template for an AssemblyLine",
+  "version": "1.0.0",
+  "udtType": "UDT_AssemblyLine",
+  "category": "base",
+
+  "members": {
+    "Config": {
+      "description": "Static configuration",
+      "members": {
+        "ID": { "type": "STRING", "length": 32, "description": "Line identifier" },
+        "Name": { "type": "STRING", "length": 64, "description": "Display name" },
+        "Description": { "type": "STRING", "length": 256, "description": "Line description" },
+        "UnitID": { "type": "STRING", "length": 32, "description": "Parent production unit ID" },
+        "Layout": { "type": "STRING", "length": 16, "description": "Layout type: linear, u-shape, parallel" },
+        "StationCount": { "type": "INT", "description": "Number of stations in line" },
+        "WorkflowRef": { "type": "STRING", "length": 32, "description": "Reference to workflow definition" },
+        "BasePosition": {
+          "type": "UDT_Position3D",
+          "members": {
+            "X": { "type": "REAL" },
+            "Y": { "type": "REAL" },
+            "Z": { "type": "REAL" }
+          }
+        }
+      }
+    },
+
+    "Status": {
+      "description": "Runtime status",
+      "members": {
+        "State": { "type": "INT", "description": "PackML state", "enum": "PackMLState" },
+        "StateName": { "type": "STRING", "length": 16 },
+        "Mode": { "type": "INT", "description": "Operating mode", "enum": "PackMLMode" },
+        "ModeName": { "type": "STRING", "length": 16 },
+        "IsRunning": { "type": "BOOL", "description": "Line is actively running" },
+        "ActiveStations": { "type": "INT", "description": "Number of stations in EXECUTE" },
+        "BottleneckStationID": { "type": "STRING", "length": 32, "description": "Current bottleneck station" },
+        "LastStateChange": { "type": "LINT", "description": "Timestamp of last state change" }
+      }
+    },
+
+    "Queues": {
+      "description": "Queue status",
+      "members": {
+        "InputQueueLength": { "type": "INT", "description": "Items in input queue" },
+        "OutputQueueLength": { "type": "INT", "description": "Items in output queue" },
+        "TotalWIP": { "type": "INT", "description": "Total work in progress" },
+        "InputQueueCapacity": { "type": "INT", "description": "Max input queue size" },
+        "OutputQueueCapacity": { "type": "INT", "description": "Max output queue size" }
+      }
+    },
+
+    "Metrics": {
+      "description": "Performance metrics",
+      "members": {
+        "ItemsStarted": { "type": "DINT", "description": "Total items started" },
+        "ItemsCompleted": { "type": "DINT", "description": "Total items completed" },
+        "ItemsRejected": { "type": "DINT", "description": "Total items rejected" },
+        "Efficiency": { "type": "REAL", "description": "Completed / Started ratio" },
+        "AvgCycleTimeMs": { "type": "DINT", "description": "Average end-to-end cycle time" },
+        "ThroughputPerHour": { "type": "REAL", "description": "Items completed per hour" },
+        "OEE": { "type": "REAL", "description": "Overall Equipment Effectiveness" },
+        "Availability": { "type": "REAL", "description": "Uptime / Total time" },
+        "Performance": { "type": "REAL", "description": "Actual / Ideal cycle time" },
+        "Quality": { "type": "REAL", "description": "Good items / Total items" }
+      }
+    },
+
+    "Commands": {
+      "description": "Command interface",
+      "members": {
+        "Start": { "type": "BOOL", "description": "Start all stations" },
+        "Stop": { "type": "BOOL", "description": "Stop all stations" },
+        "Reset": { "type": "BOOL", "description": "Reset line" },
+        "Hold": { "type": "BOOL", "description": "Hold all stations" },
+        "ClearQueues": { "type": "BOOL", "description": "Clear all queues" }
+      }
+    },
+
+    "Alarms": {
+      "description": "Line-level alarms",
+      "members": {
+        "InputQueueFull": { "type": "BOOL", "description": "Input queue at capacity" },
+        "OutputQueueFull": { "type": "BOOL", "description": "Output queue at capacity" },
+        "Bottleneck": { "type": "BOOL", "description": "Bottleneck detected" },
+        "LowThroughput": { "type": "BOOL", "description": "Throughput below target" },
+        "HighRejectRate": { "type": "BOOL", "description": "Reject rate > threshold" },
+        "StationFault": { "type": "BOOL", "description": "One or more stations faulted" }
+      }
+    },
+
+    "Stations": {
+      "description": "Array of station references",
+      "type": "ARRAY",
+      "arraySize": "[0..19]",
+      "elementType": "UDT_Station",
+      "note": "Individual station tags stored separately, this is for reference"
+    }
+  }
+}

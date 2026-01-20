@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "udt-alarm",
+  "title": "UDT_Alarm",
+  "description": "User Defined Type template for alarms per ISA-18.2",
+  "version": "1.0.0",
+  "udtType": "UDT_Alarm",
+  "category": "base",
+  "standard": "ISA-18.2",
+
+  "members": {
+    "Config": {
+      "description": "Alarm configuration",
+      "members": {
+        "ID": { "type": "STRING", "length": 32, "description": "Alarm identifier" },
+        "Name": { "type": "STRING", "length": 64, "description": "Alarm name" },
+        "Description": { "type": "STRING", "length": 256, "description": "Alarm description" },
+        "Category": { "type": "STRING", "length": 32, "description": "Alarm category" },
+        "Priority": { "type": "INT", "description": "1=Critical, 2=High, 3=Medium, 4=Low" },
+        "PriorityName": { "type": "STRING", "length": 16 },
+        "AreaPath": { "type": "STRING", "length": 128, "description": "Area/Unit/Line path" },
+        "Enabled": { "type": "BOOL", "description": "Alarm is enabled" }
+      }
+    },
+
+    "Setpoints": {
+      "description": "Alarm setpoints",
+      "members": {
+        "HighHigh": { "type": "REAL", "description": "High-high limit" },
+        "High": { "type": "REAL", "description": "High limit" },
+        "Low": { "type": "REAL", "description": "Low limit" },
+        "LowLow": { "type": "REAL", "description": "Low-low limit" },
+        "Deadband": { "type": "REAL", "description": "Deadband for return to normal" },
+        "OnDelay": { "type": "DINT", "description": "On-delay in ms" },
+        "OffDelay": { "type": "DINT", "description": "Off-delay in ms" }
+      }
+    },
+
+    "Status": {
+      "description": "Current alarm status per ISA-18.2 state model",
+      "members": {
+        "State": { "type": "INT", "description": "ISA-18.2 state code" },
+        "StateName": { "type": "STRING", "length": 32, "description": "NORM, UNACK, ACK, RTN_UNACK, SHELVED, SUPPRESSED" },
+        "InAlarm": { "type": "BOOL", "description": "Alarm condition active" },
+        "Acknowledged": { "type": "BOOL", "description": "Alarm has been acknowledged" },
+        "Shelved": { "type": "BOOL", "description": "Alarm is shelved" },
+        "Suppressed": { "type": "BOOL", "description": "Alarm is suppressed by design" },
+        "OutOfService": { "type": "BOOL", "description": "Alarm out of service" }
+      }
+    },
+
+    "CurrentValue": {
+      "description": "Current process value",
+      "members": {
+        "Value": { "type": "REAL", "description": "Current value" },
+        "Quality": { "type": "INT", "description": "Value quality code" },
+        "Timestamp": { "type": "LINT", "description": "Value timestamp" }
+      }
+    },
+
+    "Timestamps": {
+      "description": "Event timestamps",
+      "members": {
+        "AlarmTime": { "type": "LINT", "description": "When alarm activated" },
+        "AckTime": { "type": "LINT", "description": "When acknowledged" },
+        "AckBy": { "type": "STRING", "length": 64, "description": "Who acknowledged" },
+        "ClearTime": { "type": "LINT", "description": "When condition cleared" },
+        "ShelveTime": { "type": "LINT", "description": "When shelved" },
+        "ShelveExpiry": { "type": "LINT", "description": "Shelve expiration" },
+        "ShelveBy": { "type": "STRING", "length": 64, "description": "Who shelved" }
+      }
+    },
+
+    "Statistics": {
+      "description": "Alarm statistics",
+      "members": {
+        "ActivationCount": { "type": "DINT", "description": "Total activations" },
+        "ActivationsToday": { "type": "INT", "description": "Activations today" },
+        "TotalActiveTimeMs": { "type": "LINT", "description": "Cumulative active time" },
+        "AvgDurationMs": { "type": "DINT", "description": "Average duration" },
+        "AvgTimeToAckMs": { "type": "DINT", "description": "Average time to acknowledge" },
+        "LastActivation": { "type": "LINT", "description": "Last activation timestamp" }
+      }
+    },
+
+    "Response": {
+      "description": "Required response",
+      "members": {
+        "ResponseProcedure": { "type": "STRING", "length": 64, "description": "SOP reference" },
+        "ResponseTimeTarget": { "type": "DINT", "description": "Target response time ms" },
+        "EscalationTime": { "type": "DINT", "description": "Time before escalation ms" },
+        "EscalationTarget": { "type": "STRING", "length": 64, "description": "Who to escalate to" },
+        "NotificationList": { "type": "STRING", "length": 256, "description": "Notification recipients" }
+      }
+    },
+
+    "Commands": {
+      "description": "Operator commands",
+      "members": {
+        "Acknowledge": { "type": "BOOL", "description": "Acknowledge alarm" },
+        "Shelve": { "type": "BOOL", "description": "Shelve alarm" },
+        "Unshelve": { "type": "BOOL", "description": "Unshelve alarm" },
+        "Reset": { "type": "BOOL", "description": "Reset alarm" },
+        "ShelveMinutes": { "type": "INT", "description": "Shelve duration" }
+      }
+    }
+  }
+}

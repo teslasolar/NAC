@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Source - ISA-95 Modules</title>
+  <style>
+    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; --card: white; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+    .header { background: var(--primary); color: white; padding: 2rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.8; }
+    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
+    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
+    .nav a:hover { text-decoration: underline; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--card); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+    .card .badge { background: var(--accent); color: white; font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+    .card ul { margin-top: 0.75rem; padding-left: 1.25rem; }
+    .card li { margin-bottom: 0.25rem; }
+    .card a { color: var(--primary); text-decoration: none; }
+    .card a:hover { color: var(--accent); }
+    h2 { color: var(--primary); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>src/ - Source Code</h1>
+    <p>ISA-95 Enterprise Architecture for PA County Code</p>
+  </div>
+  <div class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../docs/index.html">Docs</a>
+    <a href="../queries/">Queries</a>
+    <a href="../candidate.html">Candidate</a>
+  </div>
+
+  <div class="container">
+    <h2>ISA-95 Module Hierarchy</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>L0 - Foundational Types</h3>
+        <span class="badge">isa95/L0_Types</span>
+        <ul>
+          <li><a href="isa95/L0_Types/Money.js">Money</a> - Currency amounts</li>
+          <li><a href="isa95/L0_Types/Account.js">Account</a> - Account structures</li>
+          <li><a href="isa95/L0_Types/Claim.js">Claim</a> - Payment claims</li>
+          <li><a href="isa95/L0_Types/Finding.js">Finding</a> - Audit findings</li>
+          <li><a href="isa95/L0_Types/AuditEngagement.js">AuditEngagement</a> - Audit engagements</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>L1 - Sensing & Data</h3>
+        <span class="badge">isa95/L1_Sensing</span>
+        <ul>
+          <li><a href="isa95/L1_Sensing/FeeCapture.js">FeeCapture</a> - Fee collection</li>
+          <li><a href="isa95/L1_Sensing/TaxCapture.js">TaxCapture</a> - Tax collection</li>
+          <li><a href="isa95/L1_Sensing/ClaimCapture.js">ClaimCapture</a> - Claim intake</li>
+          <li><a href="isa95/L1_Sensing/BudgetSensor.js">BudgetSensor</a> - Budget monitoring</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>L2 - Control & Processing</h3>
+        <span class="badge">isa95/L2_Control</span>
+        <ul>
+          <li><a href="isa95/L2_Control/ClaimProcessor.js">ClaimProcessor</a> - Claim validation</li>
+          <li><a href="isa95/L2_Control/AuditSequencer.js">AuditSequencer</a> - Audit workflow</li>
+          <li><a href="isa95/L2_Control/BudgetControl.js">BudgetControl</a> - Budget enforcement</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>L3 - Operations</h3>
+        <span class="badge">isa95/L3_Operations</span>
+        <ul>
+          <li><a href="isa95/L3_Operations/AnnualAuditPlan.js">AnnualAuditPlan</a></li>
+          <li><a href="isa95/L3_Operations/BoardMeeting.js">BoardMeeting</a></li>
+          <li><a href="isa95/L3_Operations/BudgetCycle.js">BudgetCycle</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/">Row Officers</a> - 8 modules</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>L4 - Enterprise</h3>
+        <span class="badge">isa95/L4_Enterprise</span>
+        <ul>
+          <li><a href="isa95/L4_Enterprise/CountyGovernance.js">CountyGovernance</a></li>
+          <li><a href="isa95/L4_Enterprise/FiscalPolicy.js">FiscalPolicy</a></li>
+          <li><a href="isa95/L4_Enterprise/StrategicPlan.js">StrategicPlan</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Row Officers</h3>
+        <span class="badge">L3_Operations/rowOfficers</span>
+        <ul>
+          <li><a href="isa95/L3_Operations/rowOfficers/Treasurer.js">Treasurer</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/Sheriff.js">Sheriff</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/RegisterOfWills.js">Register of Wills</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/RecorderOfDeeds.js">Recorder of Deeds</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/Prothonotary.js">Prothonotary</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/ClerkOfCourts.js">Clerk of Courts</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/Coroner.js">Coroner</a></li>
+          <li><a href="isa95/L3_Operations/rowOfficers/DistrictAttorney.js">District Attorney</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Other Source Directories</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>controller/</h3>
+        <p>Controller-specific logic and statutory duties implementation.</p>
+      </div>
+      <div class="card">
+        <h3>data/</h3>
+        <p>PA Code coverage JSON and reference data.</p>
+      </div>
+      <div class="card">
+        <h3>persistence/</h3>
+        <p>IndexedDB and API abstraction layers.</p>
+      </div>
+      <div class="card">
+        <h3>templates/</h3>
+        <p>Module templates for code generation.</p>
+      </div>
+      <div class="card">
+        <h3>ai/</h3>
+        <p>AI/ML components for anomaly detection.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

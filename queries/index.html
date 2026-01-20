@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Queries - Markdown-Driven SQL</title>
+  <style>
+    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; --card: white; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+    .header { background: var(--primary); color: white; padding: 2rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.8; }
+    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
+    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .query-card { background: var(--card); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .query-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+    .query-card .desc { color: #666; margin-bottom: 0.75rem; }
+    .query-card code { background: #eee; padding: 0.5rem 1rem; border-radius: 4px; display: block; font-family: monospace; }
+    h2 { color: var(--primary); margin: 2rem 0 1rem; }
+    .usage { background: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; }
+    .usage code { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>queries/ - Markdown SQL Queries</h1>
+    <p>Self-documenting queries for the NAC database</p>
+  </div>
+  <div class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../src/index.html">Source</a>
+    <a href="../docs/index.html">Docs</a>
+    <a href="../candidate.html">Candidate</a>
+  </div>
+
+  <div class="container">
+    <div class="usage">
+      <strong>Usage:</strong><br><br>
+      <code>npm run nac query &lt;filename&gt;</code><br><br>
+      Example: <code>npm run nac query statutory-requirements.md</code>
+    </div>
+
+    <h2>Available Queries</h2>
+
+    <div class="query-card">
+      <h3><a href="statutory-requirements.md">statutory-requirements.md</a></h3>
+      <p class="desc">Get all Controller-related statutory requirements - duties, board memberships, and Article XVI sections.</p>
+      <code>npm run nac query statutory-requirements.md</code>
+    </div>
+
+    <div class="query-card">
+      <h3><a href="controller-case.md">controller-case.md</a></h3>
+      <p class="desc">The statutory case for Controller candidacy - maps qualifications to PA Code requirements.</p>
+      <code>npm run nac query controller-case.md</code>
+    </div>
+
+    <div class="query-card">
+      <h3><a href="annual-audit-plan.md">annual-audit-plan.md</a></h3>
+      <p class="desc">Generate annual audit plan by officer and audit area.</p>
+      <code>npm run nac query annual-audit-plan.md</code>
+    </div>
+
+    <div class="query-card">
+      <h3><a href="coverage-gaps.md">coverage-gaps.md</a></h3>
+      <p class="desc">Find PA Code sections not yet fully implemented.</p>
+      <code>npm run nac query coverage-gaps.md</code>
+    </div>
+
+    <div class="query-card">
+      <h3><a href="officer-detail.md">officer-detail.md</a></h3>
+      <p class="desc">Get detailed audit areas for a specific row officer.</p>
+      <code>npm run nac query officer-detail.md officer=sheriff</code>
+    </div>
+
+    <h2>Built-in Commands</h2>
+    <div class="query-card">
+      <h3>coverage</h3>
+      <p class="desc">PA Code coverage by article</p>
+      <code>npm run nac coverage</code>
+    </div>
+    <div class="query-card">
+      <h3>officers</h3>
+      <p class="desc">All row officers and audit areas</p>
+      <code>npm run nac officers</code>
+    </div>
+    <div class="query-card">
+      <h3>modules</h3>
+      <p class="desc">ISA-95 modules by level</p>
+      <code>npm run nac modules</code>
+    </div>
+    <div class="query-card">
+      <h3>duties</h3>
+      <p class="desc">Controller statutory duties</p>
+      <code>npm run nac duties</code>
+    </div>
+    <div class="query-card">
+      <h3>stats</h3>
+      <p class="desc">Database statistics</p>
+      <code>npm run nac stats</code>
+    </div>
+  </div>
+</body>
+</html>

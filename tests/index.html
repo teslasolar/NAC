@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Tests - Test Suite</title>
+  <style>
+    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; --card: white; --pass: #22c55e; --fail: #ef4444; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+    .header { background: var(--primary); color: white; padding: 2rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.8; }
+    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
+    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .stats { display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; }
+    .stat { background: var(--card); padding: 1.5rem 2rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .stat .number { font-size: 2.5rem; font-weight: bold; color: var(--pass); }
+    .stat .label { color: #666; }
+    .test-card { background: var(--card); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .test-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+    .test-card p { color: #666; margin-bottom: 0.75rem; }
+    .test-card code { background: #1e1e1e; color: #d4d4d4; padding: 0.5rem 1rem; border-radius: 4px; display: block; }
+    h2 { color: var(--primary); margin: 2rem 0 1rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+    .badge.pass { background: #dcfce7; color: #166534; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>tests/ - Test Suite</h1>
+    <p>Automated testing for NAC modules and systems</p>
+  </div>
+  <div class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../src/index.html">Source</a>
+    <a href="../scripts/index.html">Scripts</a>
+    <a href="../docs/index.html">Docs</a>
+  </div>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat">
+        <div class="number">31</div>
+        <div class="label">Total Tests</div>
+      </div>
+      <div class="stat">
+        <div class="number" style="color: var(--pass);">31</div>
+        <div class="label">Passing</div>
+      </div>
+      <div class="stat">
+        <div class="number" style="color: var(--fail);">0</div>
+        <div class="label">Failing</div>
+      </div>
+    </div>
+
+    <h2>Test Files</h2>
+
+    <div class="test-card">
+      <h3><a href="test-runner.js">test-runner.js</a></h3>
+      <p>Custom test runner with describe/it/expect syntax. Provides colored output and summary statistics.</p>
+      <code>npm test</code>
+    </div>
+
+    <div class="test-card">
+      <h3><a href="modules.test.js">modules.test.js</a></h3>
+      <p>Tests for all ISA-95 modules across L0-L4 levels. Validates exports, type definitions, and module structure.</p>
+      <span class="badge pass">31 tests passing</span>
+    </div>
+
+    <h2>Test Categories</h2>
+    <div class="test-card">
+      <h3>L0 Types</h3>
+      <p>Money, Account, Claim, Finding, AuditEngagement - foundational type validation</p>
+    </div>
+    <div class="test-card">
+      <h3>L1 Sensing</h3>
+      <p>FeeCapture, TaxCapture, ClaimCapture, BudgetSensor - data capture validation</p>
+    </div>
+    <div class="test-card">
+      <h3>L2 Control</h3>
+      <p>ClaimProcessor, AuditSequencer, BudgetControl - processing logic validation</p>
+    </div>
+    <div class="test-card">
+      <h3>L3 Operations</h3>
+      <p>AnnualAuditPlan, BoardMeeting, BudgetCycle, Row Officers - operational workflow validation</p>
+    </div>
+    <div class="test-card">
+      <h3>L4 Enterprise</h3>
+      <p>CountyGovernance, FiscalPolicy, StrategicPlan - enterprise architecture validation</p>
+    </div>
+
+    <h2>CI/CD</h2>
+    <p style="margin-top: 1rem;">Tests run automatically on every push via GitHub Actions. See <a href="../.github/workflows/">.github/workflows/</a> for CI configuration.</p>
+  </div>
+</body>
+</html>

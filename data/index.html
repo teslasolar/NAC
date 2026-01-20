@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Data - SQLite Database</title>
+  <style>
+    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; --card: white; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+    .header { background: var(--primary); color: white; padding: 2rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.8; }
+    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
+    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .db-card { background: var(--card); border-radius: 8px; padding: 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; margin-bottom: 2rem; }
+    .db-card .icon { font-size: 4rem; margin-bottom: 1rem; }
+    .db-card h2 { color: var(--primary); margin-bottom: 0.5rem; }
+    .db-card .size { color: var(--accent); font-size: 1.5rem; font-weight: bold; }
+    .tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .table-card { background: var(--card); border-radius: 8px; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+    .table-card h4 { color: var(--primary); margin-bottom: 0.25rem; }
+    .table-card p { color: #666; font-size: 0.9rem; }
+    h2 { color: var(--primary); margin: 2rem 0 1rem; }
+    .views { margin-top: 2rem; }
+    .view-item { background: #f0f4f8; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 0.5rem; }
+    .view-item code { color: var(--primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>data/ - Database</h1>
+    <p>SQLite database consolidating all PA Code and module data</p>
+  </div>
+  <div class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../src/index.html">Source</a>
+    <a href="../queries/index.html">Queries</a>
+    <a href="../scripts/index.html">Scripts</a>
+  </div>
+
+  <div class="container">
+    <div class="db-card">
+      <div class="icon">🗄️</div>
+      <h2>nac.db</h2>
+      <div class="size">112 KB</div>
+      <p>SQLite database containing all PA Code coverage, modules, and audit data</p>
+    </div>
+
+    <h2>Tables</h2>
+    <div class="tables">
+      <div class="table-card">
+        <h4>articles</h4>
+        <p>22 PA Code articles</p>
+      </div>
+      <div class="table-card">
+        <h4>sections</h4>
+        <p>230 code sections</p>
+      </div>
+      <div class="table-card">
+        <h4>modules</h4>
+        <p>65 ISA-95 modules</p>
+      </div>
+      <div class="table-card">
+        <h4>row_officers</h4>
+        <p>8 elected officials</p>
+      </div>
+      <div class="table-card">
+        <h4>audit_areas</h4>
+        <p>26 audit categories</p>
+      </div>
+      <div class="table-card">
+        <h4>board_memberships</h4>
+        <p>5 Controller boards</p>
+      </div>
+      <div class="table-card">
+        <h4>statutory_duties</h4>
+        <p>Core Controller duties</p>
+      </div>
+    </div>
+
+    <div class="views">
+      <h2>Views</h2>
+      <div class="view-item"><code>v_coverage_by_article</code> - Coverage stats per article</div>
+      <div class="view-item"><code>v_modules_by_level</code> - Module counts by ISA-95 level</div>
+      <div class="view-item"><code>v_audit_summary</code> - Officers and their audit areas</div>
+      <div class="view-item"><code>v_controller_duties</code> - All Controller statutory duties</div>
+    </div>
+
+    <h2>Query the Database</h2>
+    <p style="margin-top: 1rem;">Use the <a href="../queries/index.html">NAC CLI</a> to query this database:</p>
+    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 6px; margin-top: 1rem;">npm run nac stats
+npm run nac coverage
+npm run nac officers
+npm run nac query statutory-requirements.md</pre>
+  </div>
+</body>
+</html>

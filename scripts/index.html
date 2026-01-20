@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Scripts - Build & CLI Tools</title>
+  <style>
+    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; --card: white; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+    .header { background: var(--primary); color: white; padding: 2rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.8; }
+    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
+    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .script-card { background: var(--card); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.08); border-left: 4px solid var(--accent); }
+    .script-card h3 { color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .script-card .badge { background: var(--primary); color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+    .script-card p { color: #666; margin-bottom: 0.75rem; }
+    .script-card code { background: #1e1e1e; color: #d4d4d4; padding: 0.5rem 1rem; border-radius: 4px; display: block; font-family: monospace; }
+    h2 { color: var(--primary); margin: 2rem 0 1rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>scripts/ - Build & CLI Tools</h1>
+    <p>Node.js scripts for building and querying the NAC system</p>
+  </div>
+  <div class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../src/index.html">Source</a>
+    <a href="../queries/index.html">Queries</a>
+    <a href="../docs/index.html">Docs</a>
+  </div>
+
+  <div class="container">
+    <h2>Scripts</h2>
+
+    <div class="script-card">
+      <h3><a href="nac-cli.js">nac-cli.js</a> <span class="badge">CLI</span></h3>
+      <p>Command-line interface for querying the NAC SQLite database. Supports built-in queries and markdown-driven custom queries.</p>
+      <code>npm run nac [command] [args...]</code>
+    </div>
+
+    <div class="script-card">
+      <h3><a href="init-db.js">init-db.js</a> <span class="badge">Database</span></h3>
+      <p>Initializes the SQLite database from PA Code coverage JSON. Creates tables for articles, sections, modules, row officers, audit areas, board memberships, and statutory duties.</p>
+      <code>npm run init-db</code>
+    </div>
+
+    <div class="script-card">
+      <h3><a href="build.js">build.js</a> <span class="badge">Build</span></h3>
+      <p>Build script v2.0 - generates manifest.json from ISA-95 modules and PA Code coverage data.</p>
+      <code>npm run build</code>
+    </div>
+
+    <div class="script-card">
+      <h3><a href="generate-module.js">generate-module.js</a> <span class="badge">Generator</span></h3>
+      <p>Module generator - creates new ISA-95 compliant modules from templates with proper structure and documentation.</p>
+      <code>node scripts/generate-module.js [level] [name]</code>
+    </div>
+
+    <h2>npm Scripts</h2>
+    <div class="script-card">
+      <h3>npm run build</h3>
+      <p>Run build.js to generate manifest</p>
+    </div>
+    <div class="script-card">
+      <h3>npm run init-db</h3>
+      <p>Initialize/rebuild SQLite database</p>
+    </div>
+    <div class="script-card">
+      <h3>npm run nac</h3>
+      <p>Run NAC CLI tool</p>
+    </div>
+    <div class="script-card">
+      <h3>npm test</h3>
+      <p>Run test suite</p>
+    </div>
+  </div>
+</body>
+</html>

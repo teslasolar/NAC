@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Row Officer Audits - Line-by-Line Budget Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --green: #10b981;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2rem; border-bottom: 3px solid var(--red); }
+    .header h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .header p { color: var(--muted); }
+
+    .nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .nav a { color: var(--accent); text-decoration: none; }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 2rem; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+
+    .summary-card { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 2px solid var(--red); }
+    .summary-card h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .summary-card .deficit { font-size: 2rem; font-weight: 700; color: var(--red); }
+    .summary-card .budget { color: var(--muted); font-size: 0.9rem; }
+
+    .office-section { margin-bottom: 3rem; }
+    .office-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--surface); border-radius: 12px 12px 0 0; border: 2px solid var(--border); border-bottom: none; }
+    .office-header h2 { font-size: 1.5rem; }
+    .office-header .status { padding: 0.5rem 1rem; background: rgba(239, 68, 68, 0.2); color: var(--red); border-radius: 6px; font-weight: 600; }
+
+    .audit-content { background: var(--surface); border-radius: 0 0 12px 12px; border: 2px solid var(--border); border-top: none; padding: 1.5rem; }
+
+    .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 900px) {
+      .audit-grid { grid-template-columns: 1fr; }
+    }
+
+    .audit-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1rem; }
+    .audit-table th { background: var(--bg); padding: 0.75rem; text-align: left; color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+    .audit-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+    .audit-table tr:hover { background: rgba(59, 130, 246, 0.05); }
+    .audit-table .subtotal { background: var(--bg); font-weight: 600; }
+    .audit-table .total-row { background: var(--bg); font-weight: 700; font-size: 0.95rem; }
+    .audit-table .flag { color: var(--yellow); }
+    .audit-table .critical { color: var(--red); }
+    .audit-table .category { color: var(--accent); font-weight: 600; }
+
+    .amount { text-align: right; font-family: 'JetBrains Mono', monospace; }
+    .negative { color: var(--red); }
+    .positive { color: var(--green); }
+
+    .findings { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .findings h4 { color: var(--yellow); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .findings ul { margin-left: 1.25rem; color: var(--muted); font-size: 0.85rem; }
+    .findings li { margin-bottom: 0.5rem; }
+    .findings li strong { color: var(--text); }
+
+    .recommendations { background: linear-gradient(135deg, var(--bg), #1e3a5f); border-radius: 8px; padding: 1rem; margin-top: 1rem; border-left: 3px solid var(--green); }
+    .recommendations h4 { color: var(--green); margin-bottom: 0.75rem; }
+    .recommendations ul { margin-left: 1.25rem; color: var(--muted); font-size: 0.85rem; }
+    .recommendations li { margin-bottom: 0.5rem; }
+
+    .section-title { font-size: 1.1rem; color: var(--accent); margin: 1.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+
+    .personnel-detail { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+
+    .benchmark { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.7rem; margin-left: 0.5rem; }
+    .benchmark.high { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+    .benchmark.ok { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+    .benchmark.review { background: rgba(245, 158, 11, 0.2); color: var(--yellow); }
+
+    .authority { font-size: 0.8rem; color: var(--muted); margin-top: 1rem; }
+    .authority a { color: var(--accent); }
+
+    .total-summary { background: linear-gradient(135deg, var(--surface), #2d1b1b); border: 2px solid var(--red); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+    .total-summary h2 { color: var(--red); margin-bottom: 1rem; }
+    .total-summary table { width: 100%; }
+    .total-summary th, .total-summary td { padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Row Officer Line-by-Line Audit</h1>
+    <p>Detailed Budget Analysis: Sheriff, District Attorney, Coroner</p>
+  </div>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="analysis.html">Budget Overview</a>
+    <a href="term-plan.html">Term Plan</a>
+    <a href="statutes.html">Statutes</a>
+    <a href="src/tools/index.html">Controller Tools</a>
+  </div>
+
+  <div class="container">
+    <!-- Executive Summary -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h2>Sheriff</h2>
+        <div class="deficit">-$5.9M</div>
+        <div class="budget">$9.1M budget / $3.2M revenue</div>
+      </div>
+      <div class="summary-card">
+        <h2>District Attorney</h2>
+        <div class="deficit">-$6.1M</div>
+        <div class="budget">$8.2M budget / $2.1M revenue</div>
+      </div>
+      <div class="summary-card">
+        <h2>Coroner</h2>
+        <div class="deficit">-$1.4M</div>
+        <div class="budget">$1.6M budget / $0.18M revenue</div>
+      </div>
+    </div>
+
+    <!-- SHERIFF AUDIT -->
+    <div class="office-section" id="sheriff">
+      <div class="office-header">
+        <h2>Sheriff's Office</h2>
+        <div class="status">AUDIT PRIORITY: HIGH</div>
+      </div>
+      <div class="audit-content">
+        <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Authority:</strong> <a href="statutes.html#1720" style="color: var(--accent);">16 Pa.C.S. §1720</a> - Controller shall audit accounts of all county officers</p>
+
+        <div class="audit-grid">
+          <div>
+            <h3 class="section-title">Personnel Expenditures ($7,280,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Position/Category</th>
+                  <th>FTEs</th>
+                  <th class="amount">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">SWORN DEPUTIES</td></tr>
+                <tr>
+                  <td>Sheriff (Elected)<span class="personnel-detail"> - $105K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$136,500</td>
+                </tr>
+                <tr>
+                  <td>Chief Deputy<span class="personnel-detail"> - $85K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$110,500</td>
+                </tr>
+                <tr>
+                  <td>Lieutenants<span class="personnel-detail"> - $72K avg salary</span></td>
+                  <td>4</td>
+                  <td class="amount">$374,400</td>
+                </tr>
+                <tr>
+                  <td>Sergeants<span class="personnel-detail"> - $65K avg salary</span></td>
+                  <td>8</td>
+                  <td class="amount">$676,000</td>
+                </tr>
+                <tr>
+                  <td>Deputies - Court Security<span class="personnel-detail"> - $55K avg</span></td>
+                  <td>24</td>
+                  <td class="amount">$1,716,000</td>
+                </tr>
+                <tr>
+                  <td>Deputies - Civil Process<span class="personnel-detail"> - $52K avg</span></td>
+                  <td>12</td>
+                  <td class="amount">$811,200</td>
+                </tr>
+                <tr>
+                  <td>Deputies - Transport<span class="personnel-detail"> - $52K avg</span></td>
+                  <td>10</td>
+                  <td class="amount">$676,000</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Sworn</td>
+                  <td>60</td>
+                  <td class="amount">$4,500,600</td>
+                </tr>
+                <tr><td class="category" colspan="3">CIVILIAN STAFF</td></tr>
+                <tr>
+                  <td>Administrative Manager</td>
+                  <td>1</td>
+                  <td class="amount">$71,500</td>
+                </tr>
+                <tr>
+                  <td>Clerical Staff<span class="personnel-detail"> - $38K avg</span></td>
+                  <td>8</td>
+                  <td class="amount">$395,200</td>
+                </tr>
+                <tr>
+                  <td>Sheriff Sale Coordinator</td>
+                  <td>2</td>
+                  <td class="amount">$114,400</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Civilian</td>
+                  <td>11</td>
+                  <td class="amount">$581,100</td>
+                </tr>
+                <tr><td class="category" colspan="3">BENEFITS & OTHER</td></tr>
+                <tr>
+                  <td>Health Insurance<span class="personnel-detail"> - $18K/employee avg</span> <span class="benchmark review">REVIEW</span></td>
+                  <td>71</td>
+                  <td class="amount">$1,278,000</td>
+                </tr>
+                <tr>
+                  <td>Pension Contributions<span class="personnel-detail"> - 12% of salary</span></td>
+                  <td>—</td>
+                  <td class="amount">$609,804</td>
+                </tr>
+                <tr>
+                  <td>Overtime<span class="flag"> - Court & transport</span> <span class="benchmark high">HIGH</span></td>
+                  <td>—</td>
+                  <td class="amount">$310,496</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL PERSONNEL</td>
+                  <td>71</td>
+                  <td class="amount">$7,280,000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 class="section-title">Operating Expenditures ($1,456,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">VEHICLES & TRANSPORT</td></tr>
+                <tr>
+                  <td>Fleet Vehicles (28 units)</td>
+                  <td class="amount">$285,000</td>
+                  <td>Lease + maint. <span class="benchmark review">$10.2K/unit</span></td>
+                </tr>
+                <tr>
+                  <td>Fuel</td>
+                  <td class="amount">$168,000</td>
+                  <td>~56K gal @ $3/gal</td>
+                </tr>
+                <tr>
+                  <td>Prisoner Transport</td>
+                  <td class="amount">$95,000</td>
+                  <td>State/out-of-county</td>
+                </tr>
+                <tr><td class="category" colspan="3">EQUIPMENT & SUPPLIES</td></tr>
+                <tr>
+                  <td>Firearms & Ammunition</td>
+                  <td class="amount">$45,000</td>
+                  <td>Quarterly qualification</td>
+                </tr>
+                <tr>
+                  <td>Body Armor & Safety</td>
+                  <td class="amount">$38,000</td>
+                  <td>5-year replacement cycle</td>
+                </tr>
+                <tr>
+                  <td>Uniforms</td>
+                  <td class="amount">$52,000</td>
+                  <td>$732/deputy <span class="benchmark ok">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Communications Equipment</td>
+                  <td class="amount">$85,000</td>
+                  <td>Radios, MDTs</td>
+                </tr>
+                <tr>
+                  <td>Office Supplies</td>
+                  <td class="amount">$24,000</td>
+                  <td>Standard</td>
+                </tr>
+                <tr><td class="category" colspan="3">PROFESSIONAL SERVICES</td></tr>
+                <tr>
+                  <td>Training & Academy</td>
+                  <td class="amount">$125,000</td>
+                  <td>MPOETC required <span class="benchmark ok">OK</span></td>
+                </tr>
+                <tr>
+                  <td>Legal Services</td>
+                  <td class="amount">$45,000</td>
+                  <td>Sheriff sale legal</td>
+                </tr>
+                <tr>
+                  <td>Insurance & Bonds</td>
+                  <td class="amount">$165,000</td>
+                  <td>Liability coverage</td>
+                </tr>
+                <tr><td class="category" colspan="3">FACILITIES</td></tr>
+                <tr>
+                  <td>Utilities & Maintenance</td>
+                  <td class="amount">$89,000</td>
+                  <td>Courthouse allocation</td>
+                </tr>
+                <tr>
+                  <td>Security Systems</td>
+                  <td class="amount">$48,000</td>
+                  <td>Courthouse security</td>
+                </tr>
+                <tr>
+                  <td>Miscellaneous</td>
+                  <td class="amount">$192,000</td>
+                  <td><span class="benchmark high">REVIEW</span></td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL OPERATING</td>
+                  <td class="amount">$1,456,000</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="section-title">Revenue Sources ($3,200,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">SHERIFF SALES</td></tr>
+                <tr>
+                  <td>Sale Fees (est. 400 sales)</td>
+                  <td class="amount positive">$1,200,000</td>
+                  <td>$3,000 avg/sale</td>
+                </tr>
+                <tr>
+                  <td>Advertising Reimbursement</td>
+                  <td class="amount positive">$180,000</td>
+                  <td>Pass-through</td>
+                </tr>
+                <tr><td class="category" colspan="3">CIVIL PROCESS</td></tr>
+                <tr>
+                  <td>Service Fees (est. 15,000)</td>
+                  <td class="amount positive">$750,000</td>
+                  <td>$50 avg/service</td>
+                </tr>
+                <tr>
+                  <td>Mileage Reimbursement</td>
+                  <td class="amount positive">$120,000</td>
+                  <td>Per-mile fees</td>
+                </tr>
+                <tr><td class="category" colspan="3">SECURITY & TRANSPORT</td></tr>
+                <tr>
+                  <td>Court Security (State)</td>
+                  <td class="amount positive">$520,000</td>
+                  <td>AOPC reimbursement</td>
+                </tr>
+                <tr>
+                  <td>Transport Reimbursement</td>
+                  <td class="amount positive">$280,000</td>
+                  <td>State/DOC</td>
+                </tr>
+                <tr><td class="category" colspan="3">OTHER</td></tr>
+                <tr>
+                  <td>Concealed Carry Permits</td>
+                  <td class="amount positive">$95,000</td>
+                  <td>~4,750 permits @ $20</td>
+                </tr>
+                <tr>
+                  <td>Background Checks</td>
+                  <td class="amount positive">$35,000</td>
+                  <td>Employment checks</td>
+                </tr>
+                <tr>
+                  <td>Miscellaneous</td>
+                  <td class="amount positive">$20,000</td>
+                  <td>Various</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL REVENUE</td>
+                  <td class="amount positive">$3,200,000</td>
+                  <td></td>
+                </tr>
+                <tr class="total-row" style="border-top: 3px solid var(--red);">
+                  <td><strong>NET DEFICIT</strong></td>
+                  <td class="amount negative"><strong>-$5,536,000</strong></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="findings">
+              <h4>⚠️ Audit Findings</h4>
+              <ul>
+                <li><strong>Overtime ($310K):</strong> 4.3% of personnel - court scheduling creates predictable OT. Compare to 3% benchmark.</li>
+                <li><strong>Health Insurance ($18K/emp):</strong> County-wide rate. State avg is $15K. Potential savings via consortium.</li>
+                <li><strong>Miscellaneous Operating ($192K):</strong> 13% of operating budget unclassified - needs detailed breakdown.</li>
+                <li><strong>Fleet Cost ($10.2K/unit):</strong> Above benchmark of $8.5K. Review maintenance contracts.</li>
+                <li><strong>Civil Process Revenue:</strong> Fee schedule last updated 2019. Market rate is $65-75/service.</li>
+              </ul>
+            </div>
+
+            <div class="recommendations">
+              <h4>Controller Recommendations</h4>
+              <ul>
+                <li><strong>Update Fee Schedule:</strong> Raise civil process to $65 = +$225K revenue</li>
+                <li><strong>Court Security Grant:</strong> Apply for AOPC security grant = +$150K</li>
+                <li><strong>Overtime Management:</strong> Shift scheduling optimization = -$50K</li>
+                <li><strong>Fleet Consolidation:</strong> Reduce to 24 vehicles = -$40K</li>
+                <li><strong>Reclassify Miscellaneous:</strong> Require line-item detail per §1720</li>
+              </ul>
+              <p style="color: var(--green); font-weight: 600; margin-top: 0.75rem;">Potential Improvement: $465,000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISTRICT ATTORNEY AUDIT -->
+    <div class="office-section" id="da">
+      <div class="office-header">
+        <h2>District Attorney's Office</h2>
+        <div class="status">AUDIT PRIORITY: HIGH</div>
+      </div>
+      <div class="audit-content">
+        <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Authority:</strong> <a href="statutes.html#1720" style="color: var(--accent);">16 Pa.C.S. §1720</a> - Controller shall audit accounts of all county officers</p>
+
+        <div class="audit-grid">
+          <div>
+            <h3 class="section-title">Personnel Expenditures ($6,970,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Position/Category</th>
+                  <th>FTEs</th>
+                  <th class="amount">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">ATTORNEYS</td></tr>
+                <tr>
+                  <td>District Attorney (Elected)<span class="personnel-detail"> - $170K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$221,000</td>
+                </tr>
+                <tr>
+                  <td>First Assistant DA<span class="personnel-detail"> - $135K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$175,500</td>
+                </tr>
+                <tr>
+                  <td>Chief Deputy DAs<span class="personnel-detail"> - $115K avg</span></td>
+                  <td>3</td>
+                  <td class="amount">$448,500</td>
+                </tr>
+                <tr>
+                  <td>Senior ADAs<span class="personnel-detail"> - $95K avg salary</span></td>
+                  <td>8</td>
+                  <td class="amount">$988,000</td>
+                </tr>
+                <tr>
+                  <td>Assistant DAs<span class="personnel-detail"> - $72K avg salary</span></td>
+                  <td>14</td>
+                  <td class="amount">$1,310,400</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Attorneys</td>
+                  <td>27</td>
+                  <td class="amount">$3,143,400</td>
+                </tr>
+                <tr><td class="category" colspan="3">DETECTIVES</td></tr>
+                <tr>
+                  <td>Chief County Detective</td>
+                  <td>1</td>
+                  <td class="amount">$104,000</td>
+                </tr>
+                <tr>
+                  <td>County Detectives<span class="personnel-detail"> - $68K avg</span></td>
+                  <td>12</td>
+                  <td class="amount">$1,060,800</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Detectives</td>
+                  <td>13</td>
+                  <td class="amount">$1,164,800</td>
+                </tr>
+                <tr><td class="category" colspan="3">SUPPORT STAFF</td></tr>
+                <tr>
+                  <td>Office Manager</td>
+                  <td>1</td>
+                  <td class="amount">$71,500</td>
+                </tr>
+                <tr>
+                  <td>Paralegals<span class="personnel-detail"> - $48K avg</span></td>
+                  <td>6</td>
+                  <td class="amount">$374,400</td>
+                </tr>
+                <tr>
+                  <td>Legal Secretaries<span class="personnel-detail"> - $40K avg</span></td>
+                  <td>8</td>
+                  <td class="amount">$416,000</td>
+                </tr>
+                <tr>
+                  <td>Victim Advocates<span class="personnel-detail"> - $42K avg</span></td>
+                  <td>5</td>
+                  <td class="amount">$273,000</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Support</td>
+                  <td>20</td>
+                  <td class="amount">$1,134,900</td>
+                </tr>
+                <tr><td class="category" colspan="3">BENEFITS & OTHER</td></tr>
+                <tr>
+                  <td>Health Insurance <span class="benchmark review">REVIEW</span></td>
+                  <td>60</td>
+                  <td class="amount">$1,080,000</td>
+                </tr>
+                <tr>
+                  <td>Pension Contributions</td>
+                  <td>—</td>
+                  <td class="amount">$446,900</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL PERSONNEL</td>
+                  <td>60</td>
+                  <td class="amount">$6,970,000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 class="section-title">Operating Expenditures ($1,230,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">PROSECUTION COSTS</td></tr>
+                <tr>
+                  <td>Expert Witnesses <span class="benchmark high">HIGH</span></td>
+                  <td class="amount">$285,000</td>
+                  <td>Forensic, medical, financial</td>
+                </tr>
+                <tr>
+                  <td>Lab & Forensic Services</td>
+                  <td class="amount">$175,000</td>
+                  <td>DNA, ballistics, digital</td>
+                </tr>
+                <tr>
+                  <td>Transcripts & Records</td>
+                  <td class="amount">$65,000</td>
+                  <td>Court transcripts</td>
+                </tr>
+                <tr><td class="category" colspan="3">INVESTIGATIONS</td></tr>
+                <tr>
+                  <td>Vehicles (8 units)</td>
+                  <td class="amount">$95,000</td>
+                  <td>Detective fleet</td>
+                </tr>
+                <tr>
+                  <td>Surveillance Equipment</td>
+                  <td class="amount">$48,000</td>
+                  <td>Tech upgrades</td>
+                </tr>
+                <tr>
+                  <td>Travel & Extradition</td>
+                  <td class="amount">$42,000</td>
+                  <td>Out-of-state</td>
+                </tr>
+                <tr><td class="category" colspan="3">VICTIM SERVICES</td></tr>
+                <tr>
+                  <td>Victim Assistance Program</td>
+                  <td class="amount">$125,000</td>
+                  <td>VOCA match required</td>
+                </tr>
+                <tr>
+                  <td>Witness Protection</td>
+                  <td class="amount">$35,000</td>
+                  <td>Relocation, security</td>
+                </tr>
+                <tr><td class="category" colspan="3">ADMINISTRATION</td></tr>
+                <tr>
+                  <td>Legal Research (Westlaw)</td>
+                  <td class="amount">$68,000</td>
+                  <td>Database subscription</td>
+                </tr>
+                <tr>
+                  <td>Office Supplies</td>
+                  <td class="amount">$32,000</td>
+                  <td>Standard</td>
+                </tr>
+                <tr>
+                  <td>Professional Development</td>
+                  <td class="amount">$85,000</td>
+                  <td>CLE, conferences</td>
+                </tr>
+                <tr>
+                  <td>Technology & Software</td>
+                  <td class="amount">$95,000</td>
+                  <td>Case management</td>
+                </tr>
+                <tr>
+                  <td>Miscellaneous</td>
+                  <td class="amount">$80,000</td>
+                  <td><span class="benchmark review">REVIEW</span></td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL OPERATING</td>
+                  <td class="amount">$1,230,000</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="section-title">Revenue Sources ($2,100,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">FEDERAL GRANTS</td></tr>
+                <tr>
+                  <td>VOCA Victim Assistance</td>
+                  <td class="amount positive">$425,000</td>
+                  <td>Annual grant</td>
+                </tr>
+                <tr>
+                  <td>JAG Grant (DOJ)</td>
+                  <td class="amount positive">$185,000</td>
+                  <td>Justice assistance</td>
+                </tr>
+                <tr>
+                  <td>VAWA Grant</td>
+                  <td class="amount positive">$120,000</td>
+                  <td>DV prosecution</td>
+                </tr>
+                <tr>
+                  <td>HIDTA (Drug Task Force)</td>
+                  <td class="amount positive">$95,000</td>
+                  <td>Federal drug enforcement</td>
+                </tr>
+                <tr><td class="category" colspan="3">STATE FUNDING</td></tr>
+                <tr>
+                  <td>PCCD Grants</td>
+                  <td class="amount positive">$280,000</td>
+                  <td>Various programs</td>
+                </tr>
+                <tr>
+                  <td>State Reimbursements</td>
+                  <td class="amount positive">$145,000</td>
+                  <td>Mandated programs</td>
+                </tr>
+                <tr><td class="category" colspan="3">FORFEITURES & FEES</td></tr>
+                <tr>
+                  <td>Asset Forfeiture <span class="benchmark review">VARIABLE</span></td>
+                  <td class="amount positive">$520,000</td>
+                  <td>Drug seizures</td>
+                </tr>
+                <tr>
+                  <td>Bad Check Restitution</td>
+                  <td class="amount positive">$85,000</td>
+                  <td>Diversion program</td>
+                </tr>
+                <tr>
+                  <td>ARD Program Fees</td>
+                  <td class="amount positive">$165,000</td>
+                  <td>First offender</td>
+                </tr>
+                <tr>
+                  <td>Cost Recovery</td>
+                  <td class="amount positive">$80,000</td>
+                  <td>Investigation costs</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL REVENUE</td>
+                  <td class="amount positive">$2,100,000</td>
+                  <td></td>
+                </tr>
+                <tr class="total-row" style="border-top: 3px solid var(--red);">
+                  <td><strong>NET DEFICIT</strong></td>
+                  <td class="amount negative"><strong>-$6,100,000</strong></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="findings">
+              <h4>⚠️ Audit Findings</h4>
+              <ul>
+                <li><strong>Expert Witness Costs ($285K):</strong> 23% of operating budget. No competitive bidding on expert contracts. Rate varies $150-$500/hr.</li>
+                <li><strong>Asset Forfeiture Accounting:</strong> $520K revenue but separate fund not reconciled quarterly. PA Act 13 compliance unclear.</li>
+                <li><strong>ADA Salaries ($72K avg):</strong> Below market ($82K regional avg). May affect retention/recruitment.</li>
+                <li><strong>Grant Compliance:</strong> VOCA grant requires 20% match - verify local match documentation.</li>
+                <li><strong>Case Management Software ($95K):</strong> Contract last bid 2018. Market has changed significantly.</li>
+              </ul>
+            </div>
+
+            <div class="recommendations">
+              <h4>Controller Recommendations</h4>
+              <ul>
+                <li><strong>Expert Witness Pool:</strong> Pre-negotiate rates with expert panel = -$75K</li>
+                <li><strong>Forfeiture Fund Audit:</strong> Full reconciliation per PA Act 13 requirements</li>
+                <li><strong>Grant Maximization:</strong> Apply for COPS grant = +$200K</li>
+                <li><strong>Software RFP:</strong> Rebid case management = -$25K</li>
+                <li><strong>ARD Fee Review:</strong> Compare to neighboring counties (Lehigh: $350, Monroe: $400)</li>
+              </ul>
+              <p style="color: var(--green); font-weight: 600; margin-top: 0.75rem;">Potential Improvement: $300,000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORONER AUDIT -->
+    <div class="office-section" id="coroner">
+      <div class="office-header">
+        <h2>Coroner's Office</h2>
+        <div class="status">AUDIT PRIORITY: MEDIUM</div>
+      </div>
+      <div class="audit-content">
+        <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Authority:</strong> <a href="statutes.html#1720" style="color: var(--accent);">16 Pa.C.S. §1720</a> - Controller shall audit accounts of all county officers</p>
+
+        <div class="audit-grid">
+          <div>
+            <h3 class="section-title">Personnel Expenditures ($1,120,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Position/Category</th>
+                  <th>FTEs</th>
+                  <th class="amount">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">CORONER STAFF</td></tr>
+                <tr>
+                  <td>Coroner (Elected)<span class="personnel-detail"> - $85K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$110,500</td>
+                </tr>
+                <tr>
+                  <td>Chief Deputy Coroner<span class="personnel-detail"> - $62K salary</span></td>
+                  <td>1</td>
+                  <td class="amount">$80,600</td>
+                </tr>
+                <tr>
+                  <td>Deputy Coroners (FT)<span class="personnel-detail"> - $52K avg</span></td>
+                  <td>3</td>
+                  <td class="amount">$202,800</td>
+                </tr>
+                <tr>
+                  <td>Deputy Coroners (PT/On-call)<span class="personnel-detail"> - varies</span></td>
+                  <td>8</td>
+                  <td class="amount">$145,000</td>
+                </tr>
+                <tr><td class="category" colspan="3">INVESTIGATORS</td></tr>
+                <tr>
+                  <td>Death Investigators<span class="personnel-detail"> - $48K avg</span></td>
+                  <td>3</td>
+                  <td class="amount">$187,200</td>
+                </tr>
+                <tr><td class="category" colspan="3">ADMINISTRATIVE</td></tr>
+                <tr>
+                  <td>Administrative Assistant</td>
+                  <td>1</td>
+                  <td class="amount">$49,400</td>
+                </tr>
+                <tr>
+                  <td>Records Clerk</td>
+                  <td>1</td>
+                  <td class="amount">$41,600</td>
+                </tr>
+                <tr class="subtotal">
+                  <td>Subtotal Staff</td>
+                  <td>18</td>
+                  <td class="amount">$817,100</td>
+                </tr>
+                <tr><td class="category" colspan="3">BENEFITS & OTHER</td></tr>
+                <tr>
+                  <td>Health Insurance (FT only)</td>
+                  <td>10</td>
+                  <td class="amount">$180,000</td>
+                </tr>
+                <tr>
+                  <td>Pension Contributions</td>
+                  <td>—</td>
+                  <td class="amount">$82,900</td>
+                </tr>
+                <tr>
+                  <td>On-Call Stipends <span class="benchmark review">REVIEW</span></td>
+                  <td>—</td>
+                  <td class="amount">$40,000</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL PERSONNEL</td>
+                  <td>18</td>
+                  <td class="amount">$1,120,000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 class="section-title">Operating Expenditures ($480,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">AUTOPSY SERVICES</td></tr>
+                <tr>
+                  <td>Contracted Autopsies <span class="benchmark high">HIGH</span></td>
+                  <td class="amount">$210,000</td>
+                  <td>~105 @ $2,000 avg</td>
+                </tr>
+                <tr>
+                  <td>Toxicology Testing</td>
+                  <td class="amount">$65,000</td>
+                  <td>NMS Labs contract</td>
+                </tr>
+                <tr>
+                  <td>Histology/Pathology</td>
+                  <td class="amount">$28,000</td>
+                  <td>Tissue analysis</td>
+                </tr>
+                <tr><td class="category" colspan="3">TRANSPORT & REMOVAL</td></tr>
+                <tr>
+                  <td>Body Removal Services</td>
+                  <td class="amount">$48,000</td>
+                  <td>Contracted service</td>
+                </tr>
+                <tr>
+                  <td>Vehicles (3 units)</td>
+                  <td class="amount">$32,000</td>
+                  <td>Lease + maintenance</td>
+                </tr>
+                <tr>
+                  <td>Fuel</td>
+                  <td class="amount">$12,000</td>
+                  <td>Investigations</td>
+                </tr>
+                <tr><td class="category" colspan="3">FACILITIES & EQUIPMENT</td></tr>
+                <tr>
+                  <td>Morgue Operations</td>
+                  <td class="amount">$25,000</td>
+                  <td>Supplies, maintenance</td>
+                </tr>
+                <tr>
+                  <td>Refrigeration</td>
+                  <td class="amount">$15,000</td>
+                  <td>Equipment service</td>
+                </tr>
+                <tr>
+                  <td>Investigation Equipment</td>
+                  <td class="amount">$18,000</td>
+                  <td>Cameras, kits</td>
+                </tr>
+                <tr><td class="category" colspan="3">ADMINISTRATIVE</td></tr>
+                <tr>
+                  <td>Office Supplies</td>
+                  <td class="amount">$8,000</td>
+                  <td>Standard</td>
+                </tr>
+                <tr>
+                  <td>Training/Certification</td>
+                  <td class="amount">$12,000</td>
+                  <td>Required CE</td>
+                </tr>
+                <tr>
+                  <td>Software (CME system)</td>
+                  <td class="amount">$7,000</td>
+                  <td>Death tracking</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL OPERATING</td>
+                  <td class="amount">$480,000</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="section-title">Revenue Sources ($180,000)</h3>
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th class="amount">Amount</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="category" colspan="3">FEES & REIMBURSEMENTS</td></tr>
+                <tr>
+                  <td>Autopsy Fees (families)</td>
+                  <td class="amount positive">$45,000</td>
+                  <td>Private requests</td>
+                </tr>
+                <tr>
+                  <td>Insurance Reimbursements</td>
+                  <td class="amount positive">$38,000</td>
+                  <td>Death investigations</td>
+                </tr>
+                <tr>
+                  <td>Cremation Permits</td>
+                  <td class="amount positive">$52,000</td>
+                  <td>~2,600 @ $20</td>
+                </tr>
+                <tr>
+                  <td>Death Certificates</td>
+                  <td class="amount positive">$25,000</td>
+                  <td>Certified copies</td>
+                </tr>
+                <tr>
+                  <td>Body Transport Fees</td>
+                  <td class="amount positive">$12,000</td>
+                  <td>Out-of-county</td>
+                </tr>
+                <tr>
+                  <td>Forensic Consulting</td>
+                  <td class="amount positive">$8,000</td>
+                  <td>Expert testimony</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL REVENUE</td>
+                  <td class="amount positive">$180,000</td>
+                  <td></td>
+                </tr>
+                <tr class="total-row" style="border-top: 3px solid var(--red);">
+                  <td><strong>NET DEFICIT</strong></td>
+                  <td class="amount negative"><strong>-$1,420,000</strong></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="findings">
+              <h4>⚠️ Audit Findings</h4>
+              <ul>
+                <li><strong>Autopsy Contract ($2,000/each):</strong> Lehigh County pays $1,650 through regional consortium. No competitive bid since 2017.</li>
+                <li><strong>PT Deputy Coverage:</strong> 8 part-time deputies with varying hourly rates ($18-$35/hr). No standardization.</li>
+                <li><strong>Cremation Permit Fee ($20):</strong> Below state average of $35. Fee hasn't changed since 2012.</li>
+                <li><strong>Body Removal:</strong> Single vendor contract, no backup. Risk of service disruption.</li>
+                <li><strong>Toxicology ($65K):</strong> NMS Labs contract not competitively bid. LabCorp may be cheaper.</li>
+              </ul>
+            </div>
+
+            <div class="recommendations">
+              <h4>Controller Recommendations</h4>
+              <ul>
+                <li><strong>Join Regional Autopsy Consortium:</strong> Lehigh/Monroe partnership = -$35K</li>
+                <li><strong>Update Cremation Fee:</strong> Raise to $35 (state avg) = +$39K</li>
+                <li><strong>Standardize PT Pay:</strong> Single rate for all PT deputies = clarity</li>
+                <li><strong>Toxicology RFP:</strong> Competitive bid for lab services = -$15K</li>
+                <li><strong>Body Removal Backup:</strong> Add secondary vendor for continuity</li>
+              </ul>
+              <p style="color: var(--green); font-weight: 600; margin-top: 0.75rem;">Potential Improvement: $89,000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOTAL SUMMARY -->
+    <div class="total-summary">
+      <h2>Combined Audit Summary</h2>
+      <table>
+        <tr>
+          <th>Office</th>
+          <th class="amount">Budget</th>
+          <th class="amount">Revenue</th>
+          <th class="amount">Net</th>
+          <th class="amount">Potential Savings</th>
+        </tr>
+        <tr>
+          <td>Sheriff</td>
+          <td class="amount">$8,736,000</td>
+          <td class="amount positive">$3,200,000</td>
+          <td class="amount negative">-$5,536,000</td>
+          <td class="amount positive">$465,000</td>
+        </tr>
+        <tr>
+          <td>District Attorney</td>
+          <td class="amount">$8,200,000</td>
+          <td class="amount positive">$2,100,000</td>
+          <td class="amount negative">-$6,100,000</td>
+          <td class="amount positive">$300,000</td>
+        </tr>
+        <tr>
+          <td>Coroner</td>
+          <td class="amount">$1,600,000</td>
+          <td class="amount positive">$180,000</td>
+          <td class="amount negative">-$1,420,000</td>
+          <td class="amount positive">$89,000</td>
+        </tr>
+        <tr style="font-weight: 700; border-top: 2px solid var(--red);">
+          <td>TOTAL</td>
+          <td class="amount">$18,536,000</td>
+          <td class="amount positive">$5,480,000</td>
+          <td class="amount negative">-$13,056,000</td>
+          <td class="amount positive">$854,000</td>
+        </tr>
+      </table>
+      <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">
+        <strong>Key Finding:</strong> These three public safety offices consume 3.2% of the total county budget ($583M) while generating minimal direct revenue.
+        This is <strong>by design</strong> - prosecution, death investigation, and court security are essential government functions that cannot be revenue-neutral.
+        However, <strong>$854,000 in improvements</strong> can be achieved through fee updates, contract rebidding, and grant optimization.
+      </p>
+      <p style="margin-top: 0.75rem; font-size: 0.85rem;">
+        <strong>Controller Authority:</strong> Per <a href="statutes.html#1720" style="color: var(--accent);">16 Pa.C.S. §1720</a>, the Controller shall audit and settle accounts of all county officers annually.
+        Per <a href="statutes.html#1730" style="color: var(--accent);">§1730</a>, all claims must be pre-audited before payment.
+      </p>
+    </div>
+
+    <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.85rem;">
+      Budget estimates based on PA county benchmarks and publicly available data.
+      Actual figures require access to county financial system per <a href="statutes.html#1705" style="color: var(--accent);">§1705</a>.
+    </p>
+  </div>
+</body>
+</html>

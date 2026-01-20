@@ -85,6 +85,7 @@
   <div class="nav">
     <a href="index.html">Home</a>
     <a href="candidate.html">Candidate</a>
+    <a href="audits.html">Row Officer Audits</a>
     <a href="controller.html">Controller Powers</a>
     <a href="statutes.html">Statutes</a>
     <a href="src/index.html">Source</a>
@@ -214,6 +215,7 @@
 
     <!-- Row Officers -->
     <h2 class="section-title">Row Officer Revenue & Audit Focus</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem;">Click deficit offices (red) for detailed line-by-line audit breakdown</p>
     <div class="card">
       <table>
         <thead>
@@ -233,12 +235,12 @@
             <td style="color: var(--green);">+$116.2M</td>
             <td>Cash mgmt, investments, tax collection</td>
           </tr>
-          <tr>
-            <td><strong>Sheriff</strong></td>
+          <tr onclick="window.location='audits.html#sheriff'" style="cursor: pointer;">
+            <td><strong><a href="audits.html#sheriff" style="color: var(--red);">Sheriff</a></strong></td>
             <td>$9.1M</td>
             <td>$3.2M</td>
             <td style="color: var(--red);">-$5.9M</td>
-            <td>Sheriff sales, civil process, transport</td>
+            <td>Sheriff sales, civil process, transport <span class="badge high">AUDIT</span></td>
           </tr>
           <tr>
             <td><strong>Recorder of Deeds</strong></td>
@@ -268,19 +270,19 @@
             <td style="color: var(--green);">+$1.7M</td>
             <td>Civil filings, escrow, liens</td>
           </tr>
-          <tr>
-            <td><strong>District Attorney</strong></td>
+          <tr onclick="window.location='audits.html#da'" style="cursor: pointer;">
+            <td><strong><a href="audits.html#da" style="color: var(--red);">District Attorney</a></strong></td>
             <td>$8.2M</td>
             <td>$2.1M</td>
             <td style="color: var(--red);">-$6.1M</td>
-            <td>Forfeiture funds, grants</td>
+            <td>Forfeiture funds, grants <span class="badge high">AUDIT</span></td>
           </tr>
-          <tr>
-            <td><strong>Coroner</strong></td>
+          <tr onclick="window.location='audits.html#coroner'" style="cursor: pointer;">
+            <td><strong><a href="audits.html#coroner" style="color: var(--red);">Coroner</a></strong></td>
             <td>$1.6M</td>
             <td>$0.18M</td>
             <td style="color: var(--red);">-$1.4M</td>
-            <td>Autopsy fees, investigations</td>
+            <td>Autopsy fees, investigations <span class="badge high">AUDIT</span></td>
           </tr>
         </tbody>
       </table>

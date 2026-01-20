@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controller Term Plan 2026-2031 - Northampton County</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --gold: #c9a227;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2.5rem 2rem; border-bottom: 3px solid var(--gold); text-align: center; }
+    .header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { color: var(--muted); }
+
+    .nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; justify-content: center; }
+    .nav a { color: var(--accent); text-decoration: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+    .timeline-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding: 1rem 1.5rem; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); }
+    .timeline-header h2 { font-size: 1.1rem; }
+    .timeline-header .years { display: flex; gap: 0.5rem; }
+    .year-badge { padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; }
+    .year-badge.active { background: var(--accent); color: white; }
+    .year-badge.future { background: var(--border); color: var(--muted); }
+
+    .phase { margin-bottom: 2rem; }
+    .phase-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .phase-num { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; }
+    .phase-num.p1 { background: var(--green); }
+    .phase-num.p2 { background: var(--accent); }
+    .phase-num.p3 { background: var(--yellow); color: #000; }
+    .phase-num.p4 { background: var(--purple); }
+    .phase-title { font-size: 1.25rem; }
+    .phase-dates { font-size: 0.85rem; color: var(--muted); }
+
+    .phase-content { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); margin-left: 24px; border-left: 3px solid var(--border); }
+    .phase.p1 .phase-content { border-left-color: var(--green); }
+    .phase.p2 .phase-content { border-left-color: var(--accent); }
+    .phase.p3 .phase-content { border-left-color: var(--yellow); }
+    .phase.p4 .phase-content { border-left-color: var(--purple); }
+
+    .goal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .goal { background: var(--bg); padding: 1rem; border-radius: 8px; }
+    .goal h4 { font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .goal p { font-size: 0.85rem; color: var(--muted); }
+    .goal .statute { font-size: 0.75rem; color: var(--accent); margin-top: 0.5rem; }
+
+    .milestone { display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+    .milestone:last-child { border-bottom: none; }
+    .milestone-q { min-width: 50px; font-weight: 600; color: var(--accent); font-size: 0.9rem; }
+    .milestone-content h5 { font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .milestone-content p { font-size: 0.8rem; color: var(--muted); }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
+    .kpi { background: var(--surface); padding: 1.25rem; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+    .kpi .value { font-size: 1.75rem; font-weight: 700; }
+    .kpi .label { font-size: 0.8rem; color: var(--muted); }
+    .kpi.green .value { color: var(--green); }
+    .kpi.yellow .value { color: var(--yellow); }
+    .kpi.purple .value { color: var(--purple); }
+
+    .board-timeline { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); margin-top: 2rem; }
+    .board-timeline h3 { color: var(--gold); margin-bottom: 1rem; }
+    .board-row { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .board-row:last-child { border-bottom: none; }
+    .board-name { font-weight: 500; }
+
+    .summary-card { background: linear-gradient(135deg, var(--surface), #1e3a5f); border-radius: 12px; padding: 2rem; border: 2px solid var(--gold); margin-top: 2rem; }
+    .summary-card h3 { color: var(--gold); margin-bottom: 1rem; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .summary-item { text-align: center; }
+    .summary-item .num { font-size: 2rem; font-weight: 700; color: var(--green); }
+    .summary-item .label { font-size: 0.85rem; color: var(--muted); }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Controller Term Plan</h1>
+    <p>Northampton County 2026-2031 | Thomas Frumkin</p>
+  </div>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="candidate.html">Candidate</a>
+    <a href="analysis.html">Budget Analysis</a>
+    <a href="statutes.html">Statutes</a>
+  </div>
+
+  <div class="container">
+    <!-- Context Banner -->
+    <div class="timeline-header">
+      <div>
+        <h2>Term Overview</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Appointment to fill Zrinski vacancy + Full elected term</p>
+      </div>
+      <div class="years">
+        <span class="year-badge active">2026</span>
+        <span class="year-badge future">2027</span>
+        <span class="year-badge future">2028</span>
+        <span class="year-badge future">2029</span>
+        <span class="year-badge future">2030</span>
+        <span class="year-badge future">2031</span>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="kpi-grid">
+      <div class="kpi green">
+        <div class="value">$583M</div>
+        <div class="label">Budget Oversight</div>
+      </div>
+      <div class="kpi">
+        <div class="value">8</div>
+        <div class="label">Row Officers to Audit</div>
+      </div>
+      <div class="kpi yellow">
+        <div class="value">5</div>
+        <div class="label">Board Seats</div>
+      </div>
+      <div class="kpi purple">
+        <div class="value">~6 yrs</div>
+        <div class="label">Total Term (if re-elected)</div>
+      </div>
+    </div>
+
+    <!-- Phase 1: Appointment -->
+    <div class="phase p1">
+      <div class="phase-header">
+        <div class="phase-num p1">1</div>
+        <div>
+          <div class="phase-title">Appointment & Onboarding</div>
+          <div class="phase-dates">Q1 2026 (Jan - Mar)</div>
+        </div>
+      </div>
+      <div class="phase-content">
+        <p>Council appoints replacement Controller following Zrinski's move to County Executive (sworn in Jan 5, 2026). Immediate focus on operational continuity and systems assessment.</p>
+
+        <div class="goal-grid">
+          <div class="goal">
+            <h4>🔄 Transition Audit</h4>
+            <p>Review all active audits, pending claims, and open investigations from prior Controller</p>
+            <div class="statute"><a href="statutes.html#1602">§1602</a> System of Accounts</div>
+          </div>
+          <div class="goal">
+            <h4>👥 Staff Assessment</h4>
+            <p>Meet with all Controller office staff, assess capabilities, identify training needs</p>
+          </div>
+          <div class="goal">
+            <h4>📊 Systems Inventory</h4>
+            <p>Document current financial systems, reporting tools, audit software in use</p>
+            <div class="statute"><a href="statutes.html#1603">§1603</a> Account Books</div>
+          </div>
+          <div class="goal">
+            <h4>🤝 Board Introductions</h4>
+            <p>Attend first meetings of all 5 boards as ex officio member</p>
+            <div class="statute"><a href="statutes.html#1501">§1501</a> Salary Board</div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Q1 Milestones</h4>
+        <div class="milestone">
+          <div class="milestone-q">Week 1</div>
+          <div class="milestone-content">
+            <h5>Sworn In & Office Access</h5>
+            <p>Bond executed per §1607, full system access, meet department heads</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Week 2-4</div>
+          <div class="milestone-content">
+            <h5>Operational Review</h5>
+            <p>Review all pending claims, active audits, monthly report status</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Month 2</div>
+          <div class="milestone-content">
+            <h5>First Monthly Report</h5>
+            <p>Issue first monthly financial report per §1604</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Month 3</div>
+          <div class="milestone-content">
+            <h5>90-Day Assessment</h5>
+            <p>Public report on office status and improvement roadmap</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Foundation -->
+    <div class="phase p2">
+      <div class="phase-header">
+        <div class="phase-num p2">2</div>
+        <div>
+          <div class="phase-title">Foundation & Quick Wins</div>
+          <div class="phase-dates">Q2 2026 - Q4 2027 (Remainder of Appointed Term)</div>
+        </div>
+      </div>
+      <div class="phase-content">
+        <p>Establish credibility through immediate improvements while building infrastructure for long-term transformation. Focus on demonstrating value before 2027 election.</p>
+
+        <div class="goal-grid">
+          <div class="goal">
+            <h4>⚡ Real-Time Dashboard</h4>
+            <p>Deploy budget monitoring dashboard for variance detection - save $500K</p>
+            <div class="statute"><a href="statutes.html#1705">§1705</a> Fiscal Supervision</div>
+          </div>
+          <div class="goal">
+            <h4>🔍 Duplicate Detection</h4>
+            <p>Implement AI/ML duplicate payment detection - save $250K</p>
+            <div class="statute"><a href="statutes.html#1730">§1730</a> Pre-Audit Claims</div>
+          </div>
+          <div class="goal">
+            <h4>📋 Standardized Reporting</h4>
+            <p>Uniform monthly reports from all 8 row officers - save $150K</p>
+            <div class="statute"><a href="statutes.html#1720">§1720</a> Audit & Settlement</div>
+          </div>
+          <div class="goal">
+            <h4>🏛️ Gracedale Audit</h4>
+            <p>Deep dive into $55M nursing home operations, $3M deficit</p>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Year 1 Milestones (2026)</h4>
+        <div class="milestone">
+          <div class="milestone-q">Q2</div>
+          <div class="milestone-content">
+            <h5>Dashboard MVP Launch</h5>
+            <p>Basic real-time budget tracking for top 10 cost centers</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Q3</div>
+          <div class="milestone-content">
+            <h5>First Row Officer Audit Cycle</h5>
+            <p>Complete audit of Treasurer, Recorder of Deeds (highest revenue)</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Q4</div>
+          <div class="milestone-content">
+            <h5>Annual Report (FY2025)</h5>
+            <p>First ACFR under new Controller per §1605</p>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Year 2 Milestones (2027 - Election Year)</h4>
+        <div class="milestone">
+          <div class="milestone-q">Q1</div>
+          <div class="milestone-content">
+            <h5>Contract Review Complete</h5>
+            <p>All contracts >$100K reviewed for competitive pricing - target $2M savings</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Q2</div>
+          <div class="milestone-content">
+            <h5>Energy Audit Results</h5>
+            <p>Facility energy efficiency report, projected $1.5M annual savings</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Q3</div>
+          <div class="milestone-content">
+            <h5>Campaign Season</h5>
+            <p>Run on record of $4-5M savings achieved in 18 months</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">Nov</div>
+          <div class="milestone-content">
+            <h5>Election Day</h5>
+            <p>Seek full 4-year term (2028-2031)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Election -->
+    <div class="phase p3">
+      <div class="phase-header">
+        <div class="phase-num p3">3</div>
+        <div>
+          <div class="phase-title">Re-Election Campaign</div>
+          <div class="phase-dates">2027 Election Cycle</div>
+        </div>
+      </div>
+      <div class="phase-content">
+        <p>Campaign on demonstrated results: savings achieved, audits completed, transparency improvements. Incumbent advantage from proven track record.</p>
+
+        <div class="goal-grid">
+          <div class="goal">
+            <h4>📈 Quantified Savings</h4>
+            <p>Document and publicize all savings identified ($4-5M target by election)</p>
+          </div>
+          <div class="goal">
+            <h4>🗳️ Transparency Record</h4>
+            <p>Public dashboard usage stats, open data initiatives, FOIA response times</p>
+          </div>
+          <div class="goal">
+            <h4>✅ Audit Completion Rate</h4>
+            <p>100% of row officers audited, all findings addressed</p>
+          </div>
+          <div class="goal">
+            <h4>🤝 Endorsements</h4>
+            <p>Good government groups, fiscal responsibility advocates, union support</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Full Term -->
+    <div class="phase p4">
+      <div class="phase-header">
+        <div class="phase-num p4">4</div>
+        <div>
+          <div class="phase-title">Full Term - Transformation</div>
+          <div class="phase-dates">2028-2031 (4-Year Elected Term)</div>
+        </div>
+      </div>
+      <div class="phase-content">
+        <p>With mandate from voters, implement larger structural changes: shared services, continuous auditing, grant maximization program. Target $8.5M additional savings.</p>
+
+        <div class="goal-grid">
+          <div class="goal">
+            <h4>🤝 Lehigh Valley Shared Services</h4>
+            <p>IT, purchasing, back-office consolidation with Lehigh County - $5M savings</p>
+          </div>
+          <div class="goal">
+            <h4>💰 Grant Maximization</h4>
+            <p>Dedicated grant writer, maximize federal/state funding - $3M new revenue</p>
+            <div class="statute"><a href="statutes.html#1705">§1705</a> Fiscal Supervision</div>
+          </div>
+          <div class="goal">
+            <h4>🔄 Continuous Audit</h4>
+            <p>Real-time transaction monitoring replaces annual audits - $800K savings</p>
+            <div class="statute"><a href="statutes.html#1720">§1720</a> Audit & Settlement</div>
+          </div>
+          <div class="goal">
+            <h4>📊 Debt Optimization</h4>
+            <p>Refinancing analysis if rates favorable - $500K interest savings</p>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Full Term Milestones</h4>
+        <div class="milestone">
+          <div class="milestone-q">2028</div>
+          <div class="milestone-content">
+            <h5>Shared Services Pilot</h5>
+            <p>Begin IT infrastructure sharing with Lehigh County</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">2029</div>
+          <div class="milestone-content">
+            <h5>Continuous Audit Live</h5>
+            <p>All major transactions monitored in real-time</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">2030</div>
+          <div class="milestone-content">
+            <h5>Full Shared Services</h5>
+            <p>Purchasing, HR, IT fully integrated with regional partners</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-q">2031</div>
+          <div class="milestone-content">
+            <h5>Term Legacy</h5>
+            <p>$13.7M cumulative savings, modernized Controller office, decide on third term</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board Participation Timeline -->
+    <div class="board-timeline">
+      <h3>Board Participation Schedule</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem;">Controller serves as ex officio member on 5 county boards</p>
+      <div class="board-row">
+        <div class="board-name"><a href="statutes.html#1501" style="color: var(--accent);">Salary Board</a></div>
+        <div>Annual salary review (Jan), special meetings as needed. Vote on all county employee compensation.</div>
+      </div>
+      <div class="board-row">
+        <div class="board-name"><a href="statutes.html#1902" style="color: var(--accent);">Retirement Board</a></div>
+        <div>Quarterly meetings. Oversee $300M+ pension fund investments, actuarial reviews.</div>
+      </div>
+      <div class="board-row">
+        <div class="board-name"><a href="statutes.html#prison-board" style="color: var(--accent);">Prison Board</a></div>
+        <div>Monthly meetings. Oversight of $42M corrections budget, facility operations.</div>
+      </div>
+      <div class="board-row">
+        <div class="board-name"><a href="statutes.html#elections-board" style="color: var(--accent);">Board of Elections</a></div>
+        <div>Pre-election meetings, certification sessions. Fiscal oversight of election operations.</div>
+      </div>
+      <div class="board-row">
+        <div class="board-name"><a href="statutes.html#tax-appeals" style="color: var(--accent);">Tax Assessment Appeals</a></div>
+        <div>As scheduled. Review property tax appeals affecting $118M tax base.</div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-card">
+      <h3>6-Year Impact Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="num">$13.7M</div>
+          <div class="label">Total Projected Savings</div>
+        </div>
+        <div class="summary-item">
+          <div class="num">2.35%</div>
+          <div class="label">Budget Efficiency Gain</div>
+        </div>
+        <div class="summary-item">
+          <div class="num">0%</div>
+          <div class="label">Tax Increase Required</div>
+        </div>
+      </div>
+      <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem; text-align: center;">
+        Built on statutory authority: <a href="statutes.html#1602" style="color: var(--accent);">§1602</a> (Accounts),
+        <a href="statutes.html#1705" style="color: var(--accent);">§1705</a> (Fiscal Supervision),
+        <a href="statutes.html#1720" style="color: var(--accent);">§1720</a> (Audit),
+        <a href="statutes.html#1730" style="color: var(--accent);">§1730</a> (Pre-Audit),
+        <a href="statutes.html#1608" style="color: var(--accent);">§1608</a> (Subpoena Power)
+      </p>
+    </div>
+
+    <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.85rem;">
+      Sources: <a href="https://www.mcall.com/2025/11/04/northampton-county-executive-election-results-2025/" style="color: var(--accent);">Morning Call</a> |
+      <a href="https://www.wfmz.com/news/area/lehighvalley/northampton-county-seeks-replacement-for-zrinski-dated-pronouns-will-not-block-women-applicants/article_6a1b552a-aa56-11ee-91ee-d77f058a83f9.html" style="color: var(--accent);">WFMZ</a> |
+      <a href="https://psacc.org/about" style="color: var(--accent);">PA State Association of County Controllers</a> |
+      <a href="https://www.norcopa.gov" style="color: var(--accent);">Northampton County</a>
+    </p>
+  </div>
+</body>
+</html>

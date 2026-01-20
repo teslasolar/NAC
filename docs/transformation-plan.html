@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformation Plan - Northampton County Controller</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 400;
+    }
+
+    .header .tagline {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Philosophy Section */
+    .philosophy {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .philosophy h2 {
+      color: #22c55e;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .philosophy blockquote {
+      font-size: 1.125rem;
+      color: #94a3b8;
+      border-left: 4px solid #22c55e;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    /* Core Principles */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .principle-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .principle-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .principle-card h3 {
+      color: #22c55e;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .principle-card p {
+      color: #94a3b8;
+      font-size: 0.875rem;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 1.5rem 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+    }
+
+    /* 100 Day Plan */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-phase {
+      position: relative;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .timeline-phase::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 1.5rem;
+      width: 16px;
+      height: 16px;
+      background: #22c55e;
+      border-radius: 50%;
+      transform: translateX(-6px);
+    }
+
+    .timeline-phase.phase-2::before { background: #3b82f6; }
+    .timeline-phase.phase-3::before { background: #8b5cf6; }
+    .timeline-phase.phase-4::before { background: #f59e0b; }
+
+    .timeline-phase h3 {
+      color: #fff;
+      font-size: 1.125rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-phase .theme {
+      color: #22c55e;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-phase.phase-2 .theme { color: #3b82f6; }
+    .timeline-phase.phase-3 .theme { color: #8b5cf6; }
+    .timeline-phase.phase-4 .theme { color: #f59e0b; }
+
+    .action-list {
+      list-style: none;
+    }
+
+    .action-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .action-list li:last-child {
+      border-bottom: none;
+    }
+
+    .action-list .action {
+      flex: 1;
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+
+    .action-list .purpose {
+      flex: 1;
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+
+    /* Office Cards */
+    .offices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .office-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .office-card .office-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .office-card .office-name {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .office-card .officer {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .office-card .oee-badge {
+      text-align: right;
+    }
+
+    .office-card .oee-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .office-card .oee-target {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .oee-positive { color: #22c55e; }
+    .oee-close { color: #eab308; }
+    .oee-gap { color: #f97316; }
+
+    .office-card .introspection {
+      background: rgba(255,255,255,0.03);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .office-card .introspection p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .office-card .introspection .human {
+      color: #22c55e;
+      font-style: italic;
+    }
+
+    .office-card .support-list {
+      list-style: none;
+    }
+
+    .office-card .support-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .office-card .support-list li:last-child {
+      border-bottom: none;
+    }
+
+    .office-card .support-list .initiative {
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+
+    .office-card .support-list .benefit {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .office-card .support-list .ethical {
+      font-size: 0.75rem;
+      color: #22c55e;
+      margin-top: 0.25rem;
+    }
+
+    /* Employee Section */
+    .employee-philosophy {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .employee-philosophy h3 {
+      color: #a78bfa;
+      margin-bottom: 1rem;
+    }
+
+    .employee-philosophy p {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .initiatives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .initiative-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .initiative-card h4 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .initiative-card .description {
+      color: #94a3b8;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .initiative-card .states {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .initiative-card .state {
+      padding: 0.75rem;
+      border-radius: 8px;
+    }
+
+    .initiative-card .state.current {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .initiative-card .state.future {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .initiative-card .state-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .initiative-card .state.current .state-label { color: #ef4444; }
+    .initiative-card .state.future .state-label { color: #22c55e; }
+
+    .initiative-card .state-text {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .initiative-card .ethical-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #22c55e;
+      font-style: italic;
+    }
+
+    /* Ethics Box */
+    .ethics-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 2px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .ethics-box h3 {
+      color: #ef4444;
+      margin-bottom: 1rem;
+    }
+
+    .ethics-box .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .ethics-box h4 {
+      color: #fff;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ethics-box ul {
+      list-style: none;
+    }
+
+    .ethics-box li {
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .ethics-box .commitments li::before {
+      content: '✓';
+      color: #22c55e;
+    }
+
+    .ethics-box .red-lines li::before {
+      content: '✗';
+      color: #ef4444;
+    }
+
+    /* Metrics Section */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .metrics-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .metrics-card h3 {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .metric-row:last-child {
+      border-bottom: none;
+    }
+
+    .metric-row .label {
+      color: #94a3b8;
+      font-size: 0.875rem;
+    }
+
+    .metric-row .values {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .metric-row .baseline {
+      color: #64748b;
+      text-decoration: line-through;
+    }
+
+    .metric-row .target {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    /* Controller Hero */
+    .controller-hero {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 2px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .controller-hero h2 {
+      color: #22c55e;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .controller-hero .oee-display {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    .controller-hero .oee-current {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #f97316;
+    }
+
+    .controller-hero .oee-arrow {
+      font-size: 2rem;
+      color: #64748b;
+    }
+
+    .controller-hero .oee-target {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .controller-hero .philosophy-quote {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 800px;
+    }
+
+    .controller-initiatives {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .controller-initiative {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .controller-initiative .timeline-badge {
+      font-size: 0.65rem;
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .controller-initiative h4 {
+      color: #fff;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .controller-initiative p {
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    .controller-initiative .statutory {
+      font-size: 0.7rem;
+      color: #8b5cf6;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.75rem; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .offices-grid { grid-template-columns: 1fr; }
+      .ethics-box .columns { grid-template-columns: 1fr; }
+      .controller-hero .oee-display { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Northampton County Transformation Plan</h1>
+    <div class="subtitle">A Vision for Public Service Excellence</div>
+    <div class="tagline">"How can I serve them better? How can I turn this into something that blooms?"</div>
+  </div>
+
+  <div class="container">
+    <!-- Philosophy -->
+    <div class="philosophy">
+      <h2>Guiding Philosophy</h2>
+      <blockquote>
+        Government exists to serve citizens. Every improvement must ask "Does this help us serve better?"
+        not just "Does this cost less?" Our 2,847 employees are not costs to be minimized - they are
+        the people who serve our residents every day.
+      </blockquote>
+    </div>
+
+    <!-- Core Principles -->
+    <div class="principles-grid">
+      <div class="principle-card">
+        <h3>Service First</h3>
+        <p>Every decision starts with "How does this help citizens?" Reduce wait times, increase accessibility, improve accuracy, treat people with dignity.</p>
+      </div>
+      <div class="principle-card">
+        <h3>Empower, Not Replace</h3>
+        <p>Technology should free employees to do meaningful work, not eliminate jobs. Remove tedium so staff can focus on people.</p>
+      </div>
+      <div class="principle-card">
+        <h3>Transparent & Accountable</h3>
+        <p>The public has a right to know how their government operates. Data available, processes documented, mistakes admitted.</p>
+      </div>
+      <div class="principle-card">
+        <h3>Collaborative, Not Siloed</h3>
+        <p>Row officers working together serve citizens better than competing fiefdoms. Share information, reduce duplication, build relationships.</p>
+      </div>
+      <div class="principle-card">
+        <h3>Ethical Efficiency</h3>
+        <p>Cost savings must never come at the expense of service quality or employee dignity. Cut waste, not corners.</p>
+      </div>
+    </div>
+
+    <!-- Controller Focus -->
+    <div class="section-header">
+      <h2>Controller Office Transformation</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="controller-hero">
+      <h2>Leading by Example</h2>
+      <div class="oee-display">
+        <span class="oee-current">74.2%</span>
+        <span class="oee-arrow">→</span>
+        <span class="oee-target">83%+</span>
+      </div>
+      <p class="philosophy-quote">
+        The Controller is the financial conscience of the county. Our job isn't to slow things down with
+        bureaucracy - it's to ensure every dollar serves the public good. We audit not to catch people,
+        but to help offices improve. We process payroll not as a chore, but as a commitment to the
+        employees who serve our residents.
+      </p>
+
+      <div class="controller-initiatives">
+        <div class="controller-initiative">
+          <span class="timeline-badge">Days 0-90</span>
+          <h4>Continuous Auditing Platform</h4>
+          <p>Real-time transaction monitoring - auditors become advisors, not adversaries</p>
+          <div class="statutory">16 P.S. § 1702 - Audit county accounts</div>
+        </div>
+        <div class="controller-initiative">
+          <span class="timeline-badge">Days 30-60</span>
+          <h4>Voucher Fast-Track System</h4>
+          <p>Risk-based processing - trust routine items, focus expertise on complex ones</p>
+          <div class="statutory">16 P.S. § 1705 - Pre-audit all vouchers</div>
+        </div>
+        <div class="controller-initiative">
+          <span class="timeline-badge">Days 60-120</span>
+          <h4>Payroll Modernization</h4>
+          <p>Integrated timekeeping - 2,847 employees get accurate, on-time pay</p>
+          <div class="statutory">16 P.S. § 1706 - Countersign warrants</div>
+        </div>
+        <div class="controller-initiative">
+          <span class="timeline-badge">Days 90-180</span>
+          <h4>Financial Transparency Portal</h4>
+          <p>Public dashboard - citizens see where their $583M goes in real-time</p>
+          <div class="statutory">16 P.S. § 1701 - General powers</div>
+        </div>
+        <div class="controller-initiative">
+          <span class="timeline-badge">Ongoing</span>
+          <h4>Cross-Office Advisory Program</h4>
+          <p>Controller staff embedded with offices - prevent problems, don't just find them</p>
+          <div class="statutory">16 P.S. § 1703 - Examine accounts of officers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 100 Day Plan -->
+    <div class="section-header">
+      <h2>100-Day Action Plan</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-phase phase-1">
+        <h3>Days 1-30</h3>
+        <div class="theme">Listen, Learn, Quick Wins</div>
+        <ul class="action-list">
+          <li><span class="action">Meet with every row officer one-on-one</span><span class="purpose">Build relationships, understand challenges</span></li>
+          <li><span class="action">Shadow frontline staff in each office</span><span class="purpose">See real work, not just reports</span></li>
+          <li><span class="action">Launch employee suggestion program</span><span class="purpose">Signal that voices matter</span></li>
+          <li><span class="action">Fix top 3 citizen complaints</span><span class="purpose">Demonstrate commitment to service</span></li>
+          <li><span class="action">Publish first transparency report</span><span class="purpose">Start as we mean to continue</span></li>
+        </ul>
+      </div>
+
+      <div class="timeline-phase phase-2">
+        <h3>Days 31-60</h3>
+        <div class="theme">Foundation Building</div>
+        <ul class="action-list">
+          <li><span class="action">Deploy continuous auditing pilot</span><span class="purpose">Modern tools for modern oversight</span></li>
+          <li><span class="action">Implement voucher fast-track</span><span class="purpose">Immediate efficiency improvement</span></li>
+          <li><span class="action">Launch cross-office working group</span><span class="purpose">Break down silos</span></li>
+          <li><span class="action">Begin payroll system assessment</span><span class="purpose">Prepare for modernization</span></li>
+          <li><span class="action">Create public spending dashboard</span><span class="purpose">Transparency in action</span></li>
+        </ul>
+      </div>
+
+      <div class="timeline-phase phase-3">
+        <h3>Days 61-90</h3>
+        <div class="theme">Acceleration</div>
+        <ul class="action-list">
+          <li><span class="action">Expand auditing to all departments</span><span class="purpose">Full coverage, proactive oversight</span></li>
+          <li><span class="action">Launch employee training program</span><span class="purpose">Invest in our people</span></li>
+          <li><span class="action">Implement first automation project</span><span class="purpose">Free staff from tedium</span></li>
+          <li><span class="action">Publish comprehensive OEE report</span><span class="purpose">Data-driven improvement</span></li>
+          <li><span class="action">Host first public town hall</span><span class="purpose">Direct citizen engagement</span></li>
+        </ul>
+      </div>
+
+      <div class="timeline-phase phase-4">
+        <h3>Days 91-100</h3>
+        <div class="theme">Assessment & Commitment</div>
+        <ul class="action-list">
+          <li><span class="action">Publish 100-day progress report</span><span class="purpose">Accountability to citizens</span></li>
+          <li><span class="action">Announce Year 1 transformation roadmap</span><span class="purpose">Long-term vision</span></li>
+          <li><span class="action">Recognize employee contributors</span><span class="purpose">Celebrate early wins</span></li>
+          <li><span class="action">Set public OEE improvement targets</span><span class="purpose">Measurable commitments</span></li>
+          <li><span class="action">Commit to quarterly transparency reports</span><span class="purpose">Ongoing accountability</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cross-Office Strategies -->
+    <div class="section-header">
+      <h2>Supporting Every Office</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="offices-grid">
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">Sheriff's Office</div>
+            <div class="officer">Mark Richter</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-close">77.8%</div>
+            <div class="oee-target">Target: 78%</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Protect citizens and serve the courts</p>
+          <p class="human">"Deputies face dangerous situations; efficiency cannot compromise safety"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">Overtime Analysis Dashboard</div>
+            <div class="benefit">Optimize scheduling while ensuring adequate coverage</div>
+            <div class="ethical">Deputies get more predictable schedules, better work-life balance</div>
+          </li>
+          <li>
+            <div class="initiative">Equipment Lifecycle Tracking</div>
+            <div class="benefit">Proactive maintenance, fewer emergency purchases</div>
+            <div class="ethical">Reliable equipment keeps deputies safe</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">County Treasurer</div>
+            <div class="officer">Veronica Kwoczka</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-positive">86.4%</div>
+            <div class="oee-target">Target: 85% ✓</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Safeguard and grow county funds fairly</p>
+          <p class="human">"Tax collection is sensitive - people are often stressed when paying"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">Best Practices Documentation</div>
+            <div class="benefit">Share excellence across the county</div>
+            <div class="ethical">Excellence should be shared, not hoarded</div>
+          </li>
+          <li>
+            <div class="initiative">Tax Payment Accessibility Review</div>
+            <div class="benefit">Help struggling taxpayers avoid penalties</div>
+            <div class="ethical">Enforcement serves no one; assistance helps everyone</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">Coroner's Office</div>
+            <div class="officer">Zachary Lysek</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-close">71.2%</div>
+            <div class="oee-target">Target: 72%</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Investigate deaths, provide closure to families</p>
+          <p class="human">"Every case is someone's loved one - dignity and compassion matter most"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">On-Call Compensation Review</div>
+            <div class="benefit">Retain experienced staff, reduce turnover</div>
+            <div class="ethical">People who handle death deserve fair treatment</div>
+          </li>
+          <li>
+            <div class="initiative">Opioid Response Funding Analysis</div>
+            <div class="benefit">Sustainable funding for ongoing crisis</div>
+            <div class="ethical">Every overdose death deserves proper investigation</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">District Attorney</div>
+            <div class="officer">Terence Houck</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-gap">68.2%</div>
+            <div class="oee-target">Target: 70%</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Pursue justice - prosecute crimes while protecting the innocent</p>
+          <p class="human">"Both victims and defendants deserve fair, timely resolution"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">Caseload Cost Analysis</div>
+            <div class="benefit">Right-size staffing for actual workload</div>
+            <div class="ethical">Overworked prosecutors make mistakes; justice requires resources</div>
+          </li>
+          <li>
+            <div class="initiative">Diversion Program ROI</div>
+            <div class="benefit">Data to support rehabilitation programs</div>
+            <div class="ethical">Rehabilitation serves society better than cycles of incarceration</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">Register of Wills</div>
+            <div class="officer">Ronald Heckman</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-close">73.5%</div>
+            <div class="oee-target">Target: 75%</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Guide families through probate during difficult times</p>
+          <p class="human">"People come here after losing loved ones - compassion is essential"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">Small Estate Fast-Track</div>
+            <div class="benefit">Grieving families get closure faster</div>
+            <div class="ethical">Bureaucracy should not compound grief</div>
+          </li>
+          <li>
+            <div class="initiative">Inheritance Tax Assistance</div>
+            <div class="benefit">Fewer errors mean fewer penalties for families</div>
+            <div class="ethical">Complexity should not punish grieving families</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="office-card">
+        <div class="office-header">
+          <div>
+            <div class="office-name">Clerk of Courts</div>
+            <div class="officer">Teresa Gordinier</div>
+          </div>
+          <div class="oee-badge">
+            <div class="oee-value oee-close">74.2%</div>
+            <div class="oee-target">Target: 76%</div>
+          </div>
+        </div>
+        <div class="introspection">
+          <p><strong>Core Function:</strong> Enable the justice system - manage court records</p>
+          <p class="human">"Every filing affects someone's freedom, family, or future"</p>
+        </div>
+        <ul class="support-list">
+          <li>
+            <div class="initiative">E-Filing Expansion Cost-Benefit</div>
+            <div class="benefit">Faster filing, fewer courthouse trips</div>
+            <div class="ethical">Access to justice should not require hours of waiting</div>
+          </li>
+          <li>
+            <div class="initiative">Court Backlog Impact Study</div>
+            <div class="benefit">Data to support adequate staffing</div>
+            <div class="ethical">Delayed justice is denied justice</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Employee Empowerment -->
+    <div class="section-header">
+      <h2>Employee Empowerment</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="employee-philosophy">
+      <h3>People First, Always</h3>
+      <p>
+        Our 2,847 employees are not costs to be minimized - they are the people who serve our residents
+        every day. Transformation means giving them better tools, clearer processes, and meaningful work.
+        When we automate tedious tasks, we free people to do what humans do best: show compassion,
+        exercise judgment, and build relationships.
+      </p>
+    </div>
+
+    <div class="initiatives-grid">
+      <div class="initiative-card">
+        <h4>Tedium Elimination Program</h4>
+        <p class="description">Identify and automate repetitive data entry across all offices</p>
+        <div class="states">
+          <div class="state current">
+            <div class="state-label">Current State</div>
+            <div class="state-text">Staff spend hours on manual data entry, copying between systems</div>
+          </div>
+          <div class="state future">
+            <div class="state-label">Future State</div>
+            <div class="state-text">Automated data flow lets staff focus on citizen interaction</div>
+          </div>
+        </div>
+        <div class="ethical-note">"No one went into public service to do data entry. Free people to serve."</div>
+      </div>
+
+      <div class="initiative-card">
+        <h4>Cross-Training Initiative</h4>
+        <p class="description">Enable employees to learn skills from other offices</p>
+        <div class="states">
+          <div class="state current">
+            <div class="state-label">Current State</div>
+            <div class="state-text">Staff siloed in single office with limited growth opportunities</div>
+          </div>
+          <div class="state future">
+            <div class="state-label">Future State</div>
+            <div class="state-text">Career paths across offices, shared knowledge, backup coverage</div>
+          </div>
+        </div>
+        <div class="ethical-note">"Growth opportunities retain talent and build institutional knowledge."</div>
+      </div>
+
+      <div class="initiative-card">
+        <h4>Process Improvement Teams</h4>
+        <p class="description">Empower frontline staff to identify and fix inefficiencies</p>
+        <div class="states">
+          <div class="state current">
+            <div class="state-label">Current State</div>
+            <div class="state-text">Staff see problems daily but have no channel to fix them</div>
+          </div>
+          <div class="state future">
+            <div class="state-label">Future State</div>
+            <div class="state-text">Employee-led improvement projects with management support</div>
+          </div>
+        </div>
+        <div class="ethical-note">"The people doing the work know best how to improve it."</div>
+      </div>
+
+      <div class="initiative-card">
+        <h4>Recognition Program</h4>
+        <p class="description">Celebrate employees who exemplify public service values</p>
+        <div class="states">
+          <div class="state current">
+            <div class="state-label">Current State</div>
+            <div class="state-text">Good work often goes unnoticed; only problems get attention</div>
+          </div>
+          <div class="state future">
+            <div class="state-label">Future State</div>
+            <div class="state-text">Regular recognition, peer nominations, public appreciation</div>
+          </div>
+        </div>
+        <div class="ethical-note">"Public servants deserve public recognition for their dedication."</div>
+      </div>
+    </div>
+
+    <!-- Ethics Box -->
+    <div class="ethics-box">
+      <h3>Ethical Commitments: Labor Cost Reduction</h3>
+      <p style="color: #94a3b8; margin-bottom: 1rem;">Reduce costs through efficiency, not through layoffs</p>
+      <div class="columns">
+        <div class="commitments">
+          <h4>We Will:</h4>
+          <ul>
+            <li>Attrition before reduction - fill gaps with technology, not new hires</li>
+            <li>Retrain before terminate - skills change, people stay</li>
+            <li>Automate tedium, not judgment - machines do repetition, humans do thinking</li>
+            <li>Savings reinvested - efficiency gains fund better services</li>
+            <li>Transparency always - employees know why changes happen</li>
+          </ul>
+        </div>
+        <div class="red-lines">
+          <h4>We Will NOT:</h4>
+          <ul>
+            <li>Lay off employees solely for automation savings</li>
+            <li>Reduce service quality for cost savings</li>
+            <li>Use hidden metrics that pressure unsafe shortcuts</li>
+            <li>Implement surveillance that treats employees as suspects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="section-header">
+      <h2>Measurable Outcomes</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metrics-card">
+        <h3>Citizen Outcomes</h3>
+        <div class="metric-row">
+          <span class="label">Average wait time at offices</span>
+          <div class="values"><span class="baseline">23 min</span><span class="target">10 min</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Online transaction completion</span>
+          <div class="values"><span class="baseline">45%</span><span class="target">80%</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Citizen satisfaction score</span>
+          <div class="values"><span class="baseline">3.2/5</span><span class="target">4.2/5</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Days to complete typical request</span>
+          <div class="values"><span class="baseline">12 days</span><span class="target">5 days</span></div>
+        </div>
+      </div>
+
+      <div class="metrics-card">
+        <h3>Employee Outcomes</h3>
+        <div class="metric-row">
+          <span class="label">Employee satisfaction score</span>
+          <div class="values"><span class="baseline">3.4/5</span><span class="target">4.0/5</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Annual turnover rate</span>
+          <div class="values"><span class="baseline">14%</span><span class="target">8%</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Training hours per employee</span>
+          <div class="values"><span class="baseline">8 hrs</span><span class="target">24 hrs</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Internal promotion rate</span>
+          <div class="values"><span class="baseline">12%</span><span class="target">25%</span></div>
+        </div>
+      </div>
+
+      <div class="metrics-card">
+        <h3>Financial Outcomes</h3>
+        <div class="metric-row">
+          <span class="label">Audit finding resolution time</span>
+          <div class="values"><span class="baseline">90 days</span><span class="target">30 days</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Voucher processing time</span>
+          <div class="values"><span class="baseline">5 days</span><span class="target">2 days</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Payroll error rate</span>
+          <div class="values"><span class="baseline">0.3%</span><span class="target">0.05%</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Vendor payment timeliness</span>
+          <div class="values"><span class="baseline">78%</span><span class="target">95%</span></div>
+        </div>
+      </div>
+
+      <div class="metrics-card">
+        <h3>Transparency Outcomes</h3>
+        <div class="metric-row">
+          <span class="label">Public data sets available</span>
+          <div class="values"><span class="baseline">12</span><span class="target">50</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">FOIA response time</span>
+          <div class="values"><span class="baseline">18 days</span><span class="target">7 days</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Budget transparency score</span>
+          <div class="values"><span class="baseline">C+</span><span class="target">A</span></div>
+        </div>
+        <div class="metric-row">
+          <span class="label">Website accessibility score</span>
+          <div class="values"><span class="baseline">72%</span><span class="target">98%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Northampton County Transformation Plan</p>
+    <p style="margin-top: 0.5rem;"><a href="index.html">Back to Digital Twin</a> | <a href="oee-dashboard.html">OEE Dashboard</a> | <a href="org-chart.html">Organization Chart</a></p>
+  </div>
+</body>
+</html>

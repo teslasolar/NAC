@@ -11,6 +11,7 @@
     "deploy": "npm run build && gh-pages -d docs",
     "generate": "node scripts/generate-module.js",
     "db:init": "node scripts/init-db.js",
+    "vectors:init": "node scripts/init-vectors.js",
     "nac": "node scripts/nac-cli.js"
   },
   "bin": {

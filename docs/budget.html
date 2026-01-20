@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Visualization - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .header .subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Summary Stats */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .summary-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .summary-card .label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 0.25rem;
+    }
+
+    /* Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-container {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .chart-container h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 350px;
+    }
+
+    /* Budget Breakdown Table */
+    .breakdown {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .breakdown h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .breakdown-table th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .breakdown-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .breakdown-table tr:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .breakdown-table .department {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .breakdown-table .color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .breakdown-table .amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #22c55e;
+    }
+
+    .breakdown-table .percent {
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+    }
+
+    .breakdown-table .bar-cell {
+      width: 200px;
+    }
+
+    .bar-bg {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    /* Controller Section */
+    .controller-focus {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .controller-focus h3 {
+      color: #22c55e;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .controller-focus p {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    .controller-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .controller-stat {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .controller-stat .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .controller-stat .label {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    /* Transparency Commitment */
+    .transparency {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .transparency h3 {
+      color: #a78bfa;
+      margin-bottom: 1rem;
+    }
+
+    .transparency ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .transparency li {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .transparency li::before {
+      content: '>';
+      color: #a78bfa;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .charts-grid { grid-template-columns: 1fr; }
+      .breakdown-table .bar-cell { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Northampton County Budget</h1>
+    <div class="subtitle">FY 2025 - $583 Million - Where Your Tax Dollars Go</div>
+  </div>
+
+  <div class="container">
+    <!-- Summary Stats -->
+    <div class="summary">
+      <div class="summary-card">
+        <div class="value">$583M</div>
+        <div class="label">Total Budget</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">$1,847</div>
+        <div class="label">Per Resident</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">2,847</div>
+        <div class="label">County Employees</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">315,614</div>
+        <div class="label">Population Served</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">$204,800</div>
+        <div class="label">Avg Cost/Employee</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-container">
+        <h3>Budget by Major Category</h3>
+        <div class="chart-wrapper">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-container">
+        <h3>Budget by Function</h3>
+        <div class="chart-wrapper">
+          <canvas id="functionChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Breakdown -->
+    <div class="breakdown">
+      <h3>Detailed Budget Breakdown</h3>
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th>Department / Category</th>
+            <th>Amount</th>
+            <th>% of Budget</th>
+            <th class="bar-cell">Distribution</th>
+          </tr>
+        </thead>
+        <tbody id="budgetTableBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Controller Focus -->
+    <div class="controller-focus">
+      <h3>Controller's Oversight Responsibility</h3>
+      <p>
+        The Controller audits and reviews ALL county spending - every voucher, every payroll,
+        every contract. This $583 million flows through the Controller's office for verification
+        before any payment is made.
+      </p>
+      <p>
+        Under <strong>16 P.S. § 1705</strong>, the Controller must pre-audit all vouchers.
+        Under <strong>16 P.S. § 1702</strong>, the Controller audits all county accounts.
+        This is the financial checkpoint that protects taxpayer dollars.
+      </p>
+      <div class="controller-stats">
+        <div class="controller-stat">
+          <div class="value">~50,000</div>
+          <div class="label">Vouchers/Year</div>
+        </div>
+        <div class="controller-stat">
+          <div class="value">26</div>
+          <div class="label">Pay Periods</div>
+        </div>
+        <div class="controller-stat">
+          <div class="value">$22.4M</div>
+          <div class="label">Weekly Payroll</div>
+        </div>
+        <div class="controller-stat">
+          <div class="value">9</div>
+          <div class="label">Row Officers Audited</div>
+        </div>
+        <div class="controller-stat">
+          <div class="value">40+</div>
+          <div class="label">Departments Reviewed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transparency Commitment -->
+    <div class="transparency">
+      <h3>Transparency Commitment</h3>
+      <ul>
+        <li>Real-time spending dashboard (coming under new Controller)</li>
+        <li>All contracts over $10,000 published online</li>
+        <li>Quarterly audit status reports</li>
+        <li>Vendor payment tracking</li>
+        <li>Payroll cost breakdowns by department</li>
+        <li>Capital project tracking</li>
+        <li>Grant funding utilization</li>
+        <li>Comparison to peer counties</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Budget data represents FY 2025 estimates based on public records</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">Home</a> |
+      <a href="transformation-plan.html">Transformation Plan</a> |
+      <a href="oee-dashboard.html">OEE Dashboard</a> |
+      <a href="about.html">About Thomas Frumkin</a>
+    </p>
+  </div>
+
+  <script>
+    // Budget data (estimated based on typical PA county budgets)
+    const budgetData = [
+      { category: 'Human Services', amount: 175000000, color: '#8b5cf6', description: 'Mental health, aging, children & youth, drug & alcohol services' },
+      { category: 'Public Safety', amount: 95000000, color: '#ef4444', description: 'Prison, 911, emergency management, probation' },
+      { category: 'Judicial', amount: 78000000, color: '#3b82f6', description: 'Courts, district attorney, public defender, clerk of courts' },
+      { category: 'General Government', amount: 65000000, color: '#22c55e', description: 'Administration, finance, HR, IT, facilities' },
+      { category: 'Health & Welfare', amount: 52000000, color: '#f59e0b', description: 'Nursing home, public health initiatives' },
+      { category: 'Row Officers', amount: 45000000, color: '#06b6d4', description: 'Controller, treasurer, sheriff, recorder, register, coroner, prothonotary' },
+      { category: 'Infrastructure', amount: 38000000, color: '#84cc16', description: 'Roads, bridges, parks, buildings maintenance' },
+      { category: 'Debt Service', amount: 25000000, color: '#64748b', description: 'Bond payments, interest' },
+      { category: 'Capital Projects', amount: 10000000, color: '#ec4899', description: 'Major improvements, equipment' }
+    ];
+
+    const totalBudget = budgetData.reduce((sum, item) => sum + item.amount, 0);
+
+    // Format currency
+    function formatCurrency(amount) {
+      if (amount >= 1000000) {
+        return '$' + (amount / 1000000).toFixed(1) + 'M';
+      }
+      return '$' + amount.toLocaleString();
+    }
+
+    // Populate table
+    const tableBody = document.getElementById('budgetTableBody');
+    budgetData.forEach(item => {
+      const percent = ((item.amount / totalBudget) * 100).toFixed(1);
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>
+          <div class="department">
+            <span class="color-dot" style="background: ${item.color}"></span>
+            <div>
+              <div style="font-weight: 500; color: #fff;">${item.category}</div>
+              <div style="font-size: 0.75rem; color: #64748b;">${item.description}</div>
+            </div>
+          </div>
+        </td>
+        <td class="amount">${formatCurrency(item.amount)}</td>
+        <td class="percent">${percent}%</td>
+        <td class="bar-cell">
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: ${percent}%; background: ${item.color}"></div>
+          </div>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    // Category Pie Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(categoryCtx, {
+      type: 'doughnut',
+      data: {
+        labels: budgetData.map(d => d.category),
+        datasets: [{
+          data: budgetData.map(d => d.amount),
+          backgroundColor: budgetData.map(d => d.color),
+          borderColor: '#1e293b',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              color: '#94a3b8',
+              padding: 12,
+              font: { size: 11 }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.raw;
+                const percent = ((value / totalBudget) * 100).toFixed(1);
+                return `${formatCurrency(value)} (${percent}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Function Bar Chart
+    const functionData = [
+      { label: 'Personnel (Salaries & Benefits)', amount: 320000000, color: '#3b82f6' },
+      { label: 'Contracted Services', amount: 135000000, color: '#8b5cf6' },
+      { label: 'Supplies & Materials', amount: 42000000, color: '#22c55e' },
+      { label: 'Debt Service', amount: 25000000, color: '#64748b' },
+      { label: 'Capital Outlay', amount: 35000000, color: '#f59e0b' },
+      { label: 'Other Operating', amount: 26000000, color: '#06b6d4' }
+    ];
+
+    const functionCtx = document.getElementById('functionChart').getContext('2d');
+    new Chart(functionCtx, {
+      type: 'bar',
+      data: {
+        labels: functionData.map(d => d.label),
+        datasets: [{
+          data: functionData.map(d => d.amount),
+          backgroundColor: functionData.map(d => d.color),
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return formatCurrency(context.raw);
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.1)' },
+            ticks: {
+              color: '#94a3b8',
+              callback: function(value) {
+                return formatCurrency(value);
+              }
+            }
+          },
+          y: {
+            grid: { display: false },
+            ticks: { color: '#94a3b8', font: { size: 11 } }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

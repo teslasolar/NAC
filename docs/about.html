@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thomas Frumkin - Candidate for Northampton County Controller</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .header .independent-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid #22c55e;
+      color: #22c55e;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+
+    .hero-left {
+      text-align: center;
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+      margin: 0 auto 1rem auto;
+      border: 4px solid #22c55e;
+    }
+
+    .location {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .hero-right h2 {
+      color: #22c55e;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-right p {
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-right .highlight {
+      background: rgba(34, 197, 94, 0.1);
+      border-left: 4px solid #22c55e;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .hero-right .highlight p {
+      margin: 0;
+      color: #e2e8f0;
+      font-style: italic;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3rem 0 1.5rem 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+    }
+
+    /* Why Controller */
+    .why-controller {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .why-controller h3 {
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+
+    .why-controller ul {
+      list-style: none;
+    }
+
+    .why-controller li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .why-controller li:last-child {
+      border-bottom: none;
+    }
+
+    .why-controller .icon {
+      color: #22c55e;
+      font-size: 1.25rem;
+    }
+
+    .why-controller .text {
+      flex: 1;
+    }
+
+    .why-controller .text strong {
+      color: #fff;
+    }
+
+    .why-controller .text span {
+      color: #94a3b8;
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 1.5rem;
+      width: 12px;
+      height: 12px;
+      background: #22c55e;
+      border-radius: 50%;
+      transform: translateX(-4.5px);
+    }
+
+    .timeline-item.highlight-role {
+      border-color: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
+    .timeline-item .role {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .timeline-item .company {
+      color: #3b82f6;
+      font-size: 0.95rem;
+    }
+
+    .timeline-item .period {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item .location-tag {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.2);
+      color: #a78bfa;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item .description {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .timeline-item .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .timeline-item .skill {
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .skill-card h3 {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-card ul {
+      list-style: none;
+    }
+
+    .skill-card li {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      padding: 0.25rem 0;
+    }
+
+    .skill-card li::before {
+      content: '>';
+      color: #22c55e;
+      margin-right: 0.5rem;
+    }
+
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .value-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .value-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card h4 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card p {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .cta h2 {
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-links a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s;
+    }
+
+    .cta-links a:hover {
+      transform: translateY(-2px);
+    }
+
+    .cta-links .primary {
+      background: #22c55e;
+      color: #0f172a;
+    }
+
+    .cta-links .secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 3rem;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.75rem; }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-right { text-align: left; }
+      .avatar { width: 150px; height: 150px; font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Thomas Frumkin</h1>
+    <div class="subtitle">Candidate for Northampton County Controller</div>
+    <div class="independent-badge">INDEPENDENT</div>
+  </div>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-left">
+        <div class="avatar">TF</div>
+        <div class="location">Bethlehem, Pennsylvania</div>
+      </div>
+      <div class="hero-right">
+        <h2>Controls Engineer. Systems Thinker. Public Servant.</h2>
+        <p>
+          I've spent over a decade building control systems that make complex operations run efficiently
+          and reliably. From Amazon fulfillment centers to medical device manufacturing, I've engineered
+          solutions that optimize performance while maintaining the highest standards of quality and safety.
+        </p>
+        <p>
+          Now I'm applying those same skills to serve Northampton County. The Controller's office isn't
+          just about audits and numbers - it's about building systems that ensure every taxpayer dollar
+          serves the public good.
+        </p>
+        <div class="highlight">
+          <p>"I'm not running as a Democrat or Republican. I'm running as an engineer who wants to make
+          county government work better for everyone."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Controller -->
+    <div class="why-controller">
+      <h3>Why a Controls Engineer for Controller?</h3>
+      <ul>
+        <li>
+          <span class="icon">></span>
+          <div class="text">
+            <strong>Systems Thinking</strong><br>
+            <span>I see how all the pieces connect - budgets, departments, processes, people. The Controller oversees the whole county's fiscal health, not just individual transactions.</span>
+          </div>
+        </li>
+        <li>
+          <span class="icon">></span>
+          <div class="text">
+            <strong>Process Optimization</strong><br>
+            <span>ISA-95 and ISA-88 standards I've used in industry are now modeling county operations on this site. Same rigor, applied to public service.</span>
+          </div>
+        </li>
+        <li>
+          <span class="icon">></span>
+          <div class="text">
+            <strong>Data-Driven Decisions</strong><br>
+            <span>Every recommendation on this site is backed by metrics. OEE scores, statutory requirements, measurable outcomes. Not politics - performance.</span>
+          </div>
+        </li>
+        <li>
+          <span class="icon">></span>
+          <div class="text">
+            <strong>Independent Oversight</strong><br>
+            <span>As an Independent, I audit based on the numbers and the PA Code - not party loyalty. The Controller should be the county's conscience, not anyone's ally.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Experience -->
+    <div class="section-header">
+      <h2>Professional Experience</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="role">Owner & Founder</div>
+        <div class="company">Konomi Systems</div>
+        <div class="period">Nov 2023 - Present</div>
+        <span class="location-tag">Bethlehem, PA</span>
+        <div class="description">
+          Building Personal Autonomous Agents (PAA) for meta-analysis, advanced simulation, and secure computation.
+          Developed systems that synthesize massive public datasets to reveal hidden correlations - the same
+          analytical approach now applied to county government operations.
+        </div>
+        <div class="skills">
+          <span class="skill">AI/ML Systems</span>
+          <span class="skill">Data Analysis</span>
+          <span class="skill">Secure Computation</span>
+          <span class="skill">System Architecture</span>
+        </div>
+      </div>
+
+      <div class="timeline-item highlight-role">
+        <div class="role">Principal Controls Engineer</div>
+        <div class="company">InflexionPoint</div>
+        <div class="period">Oct 2021 - Aug 2025 (3 yrs 11 mos)</div>
+        <span class="location-tag">Neptune, NJ</span>
+        <div class="description">
+          Led control system design and implementation for complex industrial operations.
+          Responsible for ensuring systems operated efficiently, safely, and within compliance requirements.
+        </div>
+        <div class="skills">
+          <span class="skill">Process Control</span>
+          <span class="skill">System Integration</span>
+          <span class="skill">Compliance</span>
+          <span class="skill">Project Leadership</span>
+        </div>
+      </div>
+
+      <div class="timeline-item highlight-role">
+        <div class="role">Controls Engineer</div>
+        <div class="company">B. Braun Medical</div>
+        <div class="period">Apr 2019 - Jun 2021 (2 yrs 3 mos)</div>
+        <span class="location-tag">Allentown, PA</span>
+        <div class="description">
+          Engineered control systems for medical device manufacturing - an industry where quality isn't
+          optional and every process must be documented, auditable, and compliant. FDA-regulated environment
+          with zero tolerance for errors.
+        </div>
+        <div class="skills">
+          <span class="skill">FDA Compliance</span>
+          <span class="skill">Quality Systems</span>
+          <span class="skill">Documentation</span>
+          <span class="skill">Audit Readiness</span>
+        </div>
+      </div>
+
+      <div class="timeline-item highlight-role">
+        <div class="role">Automation Engineer</div>
+        <div class="company">Amazon</div>
+        <div class="period">Sep 2014 - Jan 2017 (2 yrs 5 mos)</div>
+        <span class="location-tag">Hazle Township, PA</span>
+        <div class="description">
+          Electrical automation engineering at one of the world's most demanding logistics operations.
+          Learned to optimize at scale - millions of transactions, thousands of processes, relentless
+          focus on efficiency and throughput.
+        </div>
+        <div class="skills">
+          <span class="skill">Large-Scale Systems</span>
+          <span class="skill">Automation</span>
+          <span class="skill">Efficiency Optimization</span>
+          <span class="skill">Electrical Engineering</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Electrical Automation Engineer</div>
+        <div class="company">Gerhart Systems and Controls</div>
+        <div class="period">Nov 2013 - Jul 2014</div>
+        <span class="location-tag">Allentown, PA</span>
+        <div class="description">
+          Automation and controls for various US industries including cryogenic gases, general weighing,
+          and manufacturing systems.
+        </div>
+        <div class="skills">
+          <span class="skill">PLC Programming</span>
+          <span class="skill">Industrial Automation</span>
+          <span class="skill">Multi-Industry</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Electrical Engineer</div>
+        <div class="company">Armani Engineering Corp</div>
+        <div class="period">Jul 2012 - Nov 2013</div>
+        <span class="location-tag">Bethlehem, PA</span>
+        <div class="description">
+          PLC/HMI programming and project design. RSLogix5000, Unity Pro XL, Profibus communication,
+          AutoCAD, and touch screen graphics programming.
+        </div>
+        <div class="skills">
+          <span class="skill">RSLogix5000</span>
+          <span class="skill">HMI Design</span>
+          <span class="skill">AutoCAD</span>
+          <span class="skill">Project Design</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Farmer</div>
+        <div class="company">Residential Hobby Farm</div>
+        <div class="period">Jan 2017 - Present</div>
+        <span class="location-tag">Bethlehem, PA</span>
+        <div class="description">
+          Solar-powered operation raising poultry (chickens, ducks, turkeys, guinea hens) and growing
+          fruit trees (apples, peaches, pears, plums, cherries, apricots), berries, and herbs.
+          Self-sufficiency, sustainability, and connection to the land.
+        </div>
+        <div class="skills">
+          <span class="skill">Solar Power</span>
+          <span class="skill">Sustainability</span>
+          <span class="skill">Agriculture</span>
+          <span class="skill">Self-Sufficiency</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Japanese Teaching Assistant</div>
+        <div class="company">Lehigh University</div>
+        <div class="period">Aug 2010 - May 2011</div>
+        <span class="location-tag">Bethlehem, PA</span>
+        <div class="description">
+          Created lectures for Elementary I and II Japanese, graded tests and quizzes.
+          Teaching requires breaking down complex systems into understandable parts -
+          the same skill needed to explain county finances to the public.
+        </div>
+        <div class="skills">
+          <span class="skill">Teaching</span>
+          <span class="skill">Communication</span>
+          <span class="skill">Curriculum Design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section-header">
+      <h2>Relevant Skills</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Control Systems</h3>
+        <ul>
+          <li>ISA-95 Enterprise Integration</li>
+          <li>ISA-88 Batch Control / PackML</li>
+          <li>PLC/HMI Programming</li>
+          <li>SCADA Systems</li>
+          <li>Process Optimization</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Compliance & Audit</h3>
+        <ul>
+          <li>FDA Regulated Environments</li>
+          <li>Documentation Standards</li>
+          <li>Quality Management Systems</li>
+          <li>Process Validation</li>
+          <li>Audit Trail Maintenance</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Data & Analysis</h3>
+        <ul>
+          <li>Large Dataset Analysis</li>
+          <li>Performance Metrics (OEE)</li>
+          <li>Statistical Process Control</li>
+          <li>Trend Analysis</li>
+          <li>Reporting Systems</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Technology</h3>
+        <ul>
+          <li>System Architecture</li>
+          <li>Database Design</li>
+          <li>Web Development</li>
+          <li>AI/ML Integration</li>
+          <li>Secure Systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="section-header">
+      <h2>Core Values</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="icon">></div>
+        <h4>Independence</h4>
+        <p>No party. No faction. Just the numbers and the law.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">></div>
+        <h4>Transparency</h4>
+        <p>Every citizen should see where their money goes.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">></div>
+        <h4>Efficiency</h4>
+        <p>Better systems mean better service, not bigger budgets.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">></div>
+        <h4>Accountability</h4>
+        <p>Measure everything. Report publicly. Fix problems.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">></div>
+        <h4>Service</h4>
+        <p>Government exists to serve citizens. Period.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>See the Vision in Action</h2>
+      <p>
+        This isn't just a campaign site - it's a working demonstration of how I'll approach the Controller's
+        office. Data-driven, transparent, and focused on results.
+      </p>
+      <div class="cta-links">
+        <a href="transformation-plan.html" class="primary">View Transformation Plan</a>
+        <a href="oee-dashboard.html" class="secondary">OEE Dashboard</a>
+        <a href="org-chart.html" class="secondary">Org Chart</a>
+        <a href="index.html" class="secondary">Full Digital Twin</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Thomas Frumkin for Northampton County Controller</p>
+    <p style="margin-top: 0.5rem;">Independent Candidate | Bethlehem, PA</p>
+    <p style="margin-top: 1rem;"><a href="index.html">Back to Home</a></p>
+  </div>
+</body>
+</html>

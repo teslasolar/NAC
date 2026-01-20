@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northampton County - AI Risk Scoring Engine</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-bottom: 2px solid #9c27b0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #ce93d8;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.6em;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            padding: 10px 20px;
+            background: rgba(156, 39, 176, 0.3);
+            border: 1px solid #9c27b0;
+            color: #ce93d8;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .header-btn:hover {
+            background: #9c27b0;
+            color: #fff;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .risk-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .risk-metric {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-metric::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .risk-metric.critical::before { background: linear-gradient(90deg, #ff1744, #ff5252); }
+        .risk-metric.high::before { background: linear-gradient(90deg, #ff9100, #ffab40); }
+        .risk-metric.medium::before { background: linear-gradient(90deg, #ffc400, #ffea00); }
+        .risk-metric.low::before { background: linear-gradient(90deg, #00c853, #69f0ae); }
+
+        .risk-metric h4 {
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .risk-metric .value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .risk-metric.critical .value { color: #ff5252; }
+        .risk-metric.high .value { color: #ffab40; }
+        .risk-metric.medium .value { color: #ffea00; }
+        .risk-metric.low .value { color: #69f0ae; }
+
+        .risk-metric .trend {
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .risk-metric .trend.up { color: #ff5252; }
+        .risk-metric .trend.down { color: #69f0ae; }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .chart-container h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .chart-wrapper {
+            height: 280px;
+            position: relative;
+        }
+
+        .risk-table {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .risk-table h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .risk-table h3 .subtitle {
+            font-size: 0.75em;
+            color: #888;
+            font-weight: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            color: #888;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background: rgba(156, 39, 176, 0.1);
+        }
+
+        .risk-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score-bar {
+            width: 60px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-bar .fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .score-bar .fill.critical { background: linear-gradient(90deg, #ff1744, #ff5252); }
+        .score-bar .fill.high { background: linear-gradient(90deg, #ff9100, #ffab40); }
+        .score-bar .fill.medium { background: linear-gradient(90deg, #ffc400, #ffea00); }
+        .score-bar .fill.low { background: linear-gradient(90deg, #00c853, #69f0ae); }
+
+        .risk-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+
+        .risk-badge.critical { background: rgba(255, 82, 82, 0.3); color: #ff5252; }
+        .risk-badge.high { background: rgba(255, 171, 64, 0.3); color: #ffab40; }
+        .risk-badge.medium { background: rgba(255, 234, 0, 0.3); color: #ffea00; }
+        .risk-badge.low { background: rgba(105, 240, 174, 0.3); color: #69f0ae; }
+
+        .factors-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .factor-chip {
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.7em;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .model-info {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .model-info h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .model-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .model-stat:last-child {
+            border-bottom: none;
+        }
+
+        .model-stat .label {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .model-stat .value {
+            font-weight: bold;
+        }
+
+        .alerts-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .alerts-panel h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .alert-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid;
+        }
+
+        .alert-item.critical { border-color: #ff5252; }
+        .alert-item.high { border-color: #ffab40; }
+        .alert-item.medium { border-color: #ffea00; }
+
+        .alert-item .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .alert-item .desc {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .alert-item .time {
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .factors-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .factors-panel h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .factor-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .factor-item:last-child {
+            border-bottom: none;
+        }
+
+        .factor-weight {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            background: rgba(156, 39, 176, 0.3);
+            color: #ce93d8;
+        }
+
+        .factor-info {
+            flex: 1;
+        }
+
+        .factor-info .name {
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+
+        .factor-info .impact {
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        .analysis-panel {
+            background: rgba(156, 39, 176, 0.1);
+            border: 1px solid #9c27b0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .analysis-panel h3 {
+            color: #ce93d8;
+            margin-bottom: 15px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-panel p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .analysis-panel ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .analysis-panel li {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .run-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .run-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top-color: #9c27b0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI Risk Scoring Engine <span class="ai-badge">ML-POWERED</span></h1>
+        <div class="header-actions">
+            <button class="header-btn" onclick="refreshScores()">🔄 Refresh Scores</button>
+            <button class="header-btn" onclick="exportReport()">📊 Export Report</button>
+            <button class="header-btn" onclick="configureModel()">⚙️ Configure</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="content-area">
+            <div class="risk-overview">
+                <div class="risk-metric critical">
+                    <h4>Critical Risks</h4>
+                    <div class="value">3</div>
+                    <div class="trend up">↑ 2 from last week</div>
+                </div>
+                <div class="risk-metric high">
+                    <h4>High Risks</h4>
+                    <div class="value">12</div>
+                    <div class="trend down">↓ 3 from last week</div>
+                </div>
+                <div class="risk-metric medium">
+                    <h4>Medium Risks</h4>
+                    <div class="value">28</div>
+                    <div class="trend">— No change</div>
+                </div>
+                <div class="risk-metric low">
+                    <h4>Low Risks</h4>
+                    <div class="value">89</div>
+                    <div class="trend down">↓ 5 from last week</div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Risk Distribution by Category</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Risk Trend (30 Days)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="risk-table">
+                <h3>
+                    Top Risk Areas
+                    <span class="subtitle">Ranked by composite risk score</span>
+                </h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk Area</th>
+                            <th>Category</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Key Factors</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody id="riskTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Risk by Row Officer</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="officerChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Risk Score Heatmap</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="heatmapChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="model-info">
+                <h3>🧠 Model Information</h3>
+                <div class="model-stat">
+                    <span class="label">Model Version</span>
+                    <span class="value">v2.4.1</span>
+                </div>
+                <div class="model-stat">
+                    <span class="label">Last Training</span>
+                    <span class="value">2024-01-15</span>
+                </div>
+                <div class="model-stat">
+                    <span class="label">Accuracy</span>
+                    <span class="value" style="color: #69f0ae;">94.2%</span>
+                </div>
+                <div class="model-stat">
+                    <span class="label">F1 Score</span>
+                    <span class="value">0.912</span>
+                </div>
+                <div class="model-stat">
+                    <span class="label">Data Points</span>
+                    <span class="value">147,832</span>
+                </div>
+                <div class="model-stat">
+                    <span class="label">Features Used</span>
+                    <span class="value">38</span>
+                </div>
+            </div>
+
+            <div class="alerts-panel">
+                <h3>🚨 Real-time Alerts</h3>
+                <div class="alert-item critical">
+                    <div class="title">Unusual Transaction Pattern</div>
+                    <div class="desc">Multiple large transfers detected in Sheriff's office</div>
+                    <div class="time">2 minutes ago</div>
+                </div>
+                <div class="alert-item high">
+                    <div class="title">SLA Breach Predicted</div>
+                    <div class="desc">Deed recording queue likely to exceed 5-day SLA</div>
+                    <div class="time">15 minutes ago</div>
+                </div>
+                <div class="alert-item medium">
+                    <div class="title">Budget Variance</div>
+                    <div class="desc">District Attorney office 12% over projected spend</div>
+                    <div class="time">1 hour ago</div>
+                </div>
+            </div>
+
+            <div class="factors-panel">
+                <h3>📊 Risk Factors</h3>
+                <div class="factor-item">
+                    <div class="factor-weight">25%</div>
+                    <div class="factor-info">
+                        <div class="name">Transaction Volume Anomaly</div>
+                        <div class="impact">High impact on fraud detection</div>
+                    </div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-weight">20%</div>
+                    <div class="factor-info">
+                        <div class="name">Historical Compliance Rate</div>
+                        <div class="impact">Predicts future violations</div>
+                    </div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-weight">15%</div>
+                    <div class="factor-info">
+                        <div class="name">Staff Turnover Rate</div>
+                        <div class="impact">Affects control quality</div>
+                    </div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-weight">15%</div>
+                    <div class="factor-info">
+                        <div class="name">Processing Time Variance</div>
+                        <div class="impact">Indicates bottlenecks</div>
+                    </div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-weight">25%</div>
+                    <div class="factor-info">
+                        <div class="name">Budget Deviation</div>
+                        <div class="impact">Financial risk indicator</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-panel">
+                <h3>💡 AI Analysis Summary</h3>
+                <p>Based on current patterns, the model has identified:</p>
+                <ul>
+                    <li><strong>Sheriff's Office</strong> shows increased transaction activity - recommend detailed audit</li>
+                    <li><strong>Recorder of Deeds</strong> processing times improving - risk trending down</li>
+                    <li><strong>District Attorney</strong> budget variance requires monitoring</li>
+                </ul>
+                <p>Overall county risk posture: <strong style="color: #ffab40;">MODERATE</strong></p>
+                <button class="run-btn" onclick="runFullAnalysis()">🔬 Run Full Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Risk data
+        const riskAreas = [
+            { area: 'Vendor Payment Processing', category: 'Financial', score: 87, level: 'critical', factors: ['Volume spike', 'New vendors', 'Large amounts'], trend: 'up', officer: 'Controller' },
+            { area: 'Criminal Evidence Chain', category: 'Compliance', score: 82, level: 'critical', factors: ['Custody gaps', 'Missing docs'], trend: 'up', officer: 'Clerk of Courts' },
+            { area: 'Civil Service Records', category: 'Operational', score: 78, level: 'critical', factors: ['Backlog', 'Staff shortage'], trend: 'stable', officer: 'Sheriff' },
+            { area: 'Tax Collection Accuracy', category: 'Financial', score: 72, level: 'high', factors: ['Reconciliation issues'], trend: 'down', officer: 'Treasurer' },
+            { area: 'Deed Recording Timeliness', category: 'Operational', score: 68, level: 'high', factors: ['SLA breaches', 'Queue growth'], trend: 'up', officer: 'Recorder' },
+            { area: 'Probate Processing', category: 'Compliance', score: 65, level: 'high', factors: ['Documentation gaps'], trend: 'stable', officer: 'Register' },
+            { area: 'Case Filing Accuracy', category: 'Operational', score: 62, level: 'high', factors: ['Error rate increase'], trend: 'up', officer: 'Prothonotary' },
+            { area: 'Investigation Caseload', category: 'Operational', score: 58, level: 'medium', factors: ['Aging cases'], trend: 'stable', officer: 'DA' },
+            { area: 'Death Certificate Processing', category: 'Compliance', score: 45, level: 'medium', factors: ['Minor delays'], trend: 'down', officer: 'Coroner' },
+            { area: 'Budget Forecast Accuracy', category: 'Financial', score: 35, level: 'low', factors: ['Within tolerance'], trend: 'down', officer: 'Controller' }
+        ];
+
+        // Render risk table
+        function renderRiskTable() {
+            const tbody = document.getElementById('riskTableBody');
+            tbody.innerHTML = '';
+
+            riskAreas.forEach(risk => {
+                const tr = document.createElement('tr');
+                const trendIcon = risk.trend === 'up' ? '↑' : risk.trend === 'down' ? '↓' : '—';
+                const trendClass = risk.trend === 'up' ? 'up' : risk.trend === 'down' ? 'down' : '';
+
+                tr.innerHTML = `
+                    <td><strong>${risk.area}</strong><br><small style="color: #888;">${risk.officer}</small></td>
+                    <td>${risk.category}</td>
+                    <td>
+                        <div class="risk-score">
+                            <span>${risk.score}</span>
+                            <div class="score-bar">
+                                <div class="fill ${risk.level}" style="width: ${risk.score}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-badge ${risk.level}">${risk.level.toUpperCase()}</span></td>
+                    <td>
+                        <div class="factors-list">
+                            ${risk.factors.map(f => `<span class="factor-chip">${f}</span>`).join('')}
+                        </div>
+                    </td>
+                    <td class="trend ${trendClass}">${trendIcon}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Initialize charts
+        function initCharts() {
+            // Category distribution chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Financial', 'Compliance', 'Operational', 'Reputational'],
+                    datasets: [{
+                        data: [32, 28, 35, 5],
+                        backgroundColor: ['#ff5252', '#ce93d8', '#4a9eff', '#ffab40'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { color: '#888', padding: 15 }
+                        }
+                    }
+                }
+            });
+
+            // Trend chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [
+                        {
+                            label: 'Critical',
+                            data: [2, 1, 3, 3],
+                            borderColor: '#ff5252',
+                            backgroundColor: 'rgba(255, 82, 82, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'High',
+                            data: [15, 14, 13, 12],
+                            borderColor: '#ffab40',
+                            backgroundColor: 'rgba(255, 171, 64, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Medium',
+                            data: [25, 27, 28, 28],
+                            borderColor: '#ffea00',
+                            backgroundColor: 'rgba(255, 234, 0, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#888' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#333' },
+                            ticks: { color: '#888' }
+                        },
+                        y: {
+                            grid: { color: '#333' },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+
+            // Officer risk chart
+            const officerCtx = document.getElementById('officerChart').getContext('2d');
+            new Chart(officerCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Controller', 'Sheriff', 'DA', 'Prothonotary', 'Clerk', 'Register', 'Recorder', 'Coroner'],
+                    datasets: [{
+                        label: 'Risk Score',
+                        data: [72, 78, 58, 62, 82, 65, 68, 45],
+                        backgroundColor: [
+                            '#ffab40', '#ff5252', '#ffea00', '#ffea00',
+                            '#ff5252', '#ffab40', '#ffab40', '#69f0ae'
+                        ],
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        },
+                        y: {
+                            grid: { color: '#333' },
+                            ticks: { color: '#888' },
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Heatmap-style chart
+            const heatmapCtx = document.getElementById('heatmapChart').getContext('2d');
+            new Chart(heatmapCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Financial',
+                            data: [65, 72, 68, 75, 70, 68, 72, 78, 75, 72, 70, 72],
+                            backgroundColor: 'rgba(255, 82, 82, 0.7)'
+                        },
+                        {
+                            label: 'Compliance',
+                            data: [58, 55, 60, 62, 58, 55, 58, 62, 60, 58, 55, 58],
+                            backgroundColor: 'rgba(206, 147, 216, 0.7)'
+                        },
+                        {
+                            label: 'Operational',
+                            data: [45, 48, 52, 55, 50, 48, 50, 55, 52, 50, 48, 50],
+                            backgroundColor: 'rgba(74, 158, 255, 0.7)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#888' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { color: '#333' },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function refreshScores() {
+            // Simulate refresh
+            const btn = event.target;
+            btn.textContent = '⏳ Refreshing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.textContent = '🔄 Refresh Scores';
+                btn.disabled = false;
+                alert('Risk scores updated successfully!');
+            }, 2000);
+        }
+
+        function exportReport() {
+            const report = {
+                generatedAt: new Date().toISOString(),
+                summary: {
+                    critical: 3,
+                    high: 12,
+                    medium: 28,
+                    low: 89
+                },
+                riskAreas: riskAreas,
+                modelInfo: {
+                    version: 'v2.4.1',
+                    accuracy: 0.942,
+                    f1Score: 0.912
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'risk-scoring-report.json';
+            a.click();
+        }
+
+        function configureModel() {
+            alert('Model configuration panel would open here.\n\nConfigurable parameters:\n- Risk thresholds\n- Factor weights\n- Alert sensitivity\n- Training data sources');
+        }
+
+        function runFullAnalysis() {
+            const btn = event.target;
+            btn.textContent = '⏳ Running Analysis...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.textContent = '🔬 Run Full Analysis';
+                btn.disabled = false;
+                alert('Full analysis complete!\n\nKey findings:\n1. 3 new risk areas identified\n2. Sheriff office requires immediate attention\n3. Overall risk posture improved 5% from last month');
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRiskTable();
+            initCharts();
+        });
+    </script>
+</body>
+</html>

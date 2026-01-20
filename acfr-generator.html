@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northampton County - ACFR Report Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-bottom: 2px solid #00c853;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #00c853;
+            font-size: 1.6em;
+        }
+
+        .header .subtitle {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            padding: 10px 20px;
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid #00c853;
+            color: #00c853;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .header-btn:hover {
+            background: #00c853;
+            color: #000;
+        }
+
+        .header-btn.primary {
+            background: #00c853;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .nav-panel h3 {
+            color: #00c853;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 200, 83, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(0, 200, 83, 0.2);
+            border-left: 3px solid #00c853;
+        }
+
+        .nav-item .icon {
+            font-size: 1.2em;
+        }
+
+        .nav-item .label {
+            flex: 1;
+            font-size: 0.9em;
+        }
+
+        .nav-item .status {
+            font-size: 0.75em;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .nav-item .status.complete { background: rgba(0, 200, 83, 0.3); color: #00c853; }
+        .nav-item .status.pending { background: rgba(255, 193, 7, 0.3); color: #ffc107; }
+        .nav-item .status.draft { background: rgba(74, 158, 255, 0.3); color: #4a9eff; }
+
+        .progress-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .progress-panel h3 {
+            color: #00c853;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            background: #333;
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00c853, #69f0ae);
+            transition: width 0.5s;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .checklist-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .checklist-panel h3 {
+            color: #00c853;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .checklist-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #00c853;
+        }
+
+        .checklist-item.checked {
+            color: #888;
+            text-decoration: line-through;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .section-header h2 {
+            color: #00c853;
+            font-size: 1.3em;
+        }
+
+        .section-header .badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .section-header .badge.required { background: rgba(255, 82, 82, 0.3); color: #ff5252; }
+        .section-header .badge.optional { background: rgba(74, 158, 255, 0.3); color: #4a9eff; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .form-row.two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .financial-table th, .financial-table td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #333;
+        }
+
+        .financial-table th {
+            text-align: left;
+            color: #888;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .financial-table th:first-child {
+            text-align: left;
+        }
+
+        .financial-table td:first-child {
+            text-align: left;
+        }
+
+        .financial-table tr:hover {
+            background: rgba(0, 200, 83, 0.1);
+        }
+
+        .financial-table .total {
+            font-weight: bold;
+            border-top: 2px solid #00c853;
+        }
+
+        .financial-table input {
+            background: transparent;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 8px;
+            text-align: right;
+            width: 120px;
+            border-radius: 3px;
+        }
+
+        .financial-table input:focus {
+            border-color: #00c853;
+            outline: none;
+        }
+
+        .auto-populated {
+            background: rgba(0, 200, 83, 0.1);
+            border: 1px dashed #00c853;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .auto-populated h4 {
+            color: #00c853;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .auto-populated p {
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .preview-section {
+            background: #fff;
+            color: #000;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .preview-section h1 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .preview-section h2 {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .preview-section h3 {
+            font-size: 1em;
+            margin: 20px 0 10px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+        }
+
+        .preview-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        .preview-section table th,
+        .preview-section table td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: right;
+        }
+
+        .preview-section table th {
+            background: #f0f0f0;
+            text-align: left;
+        }
+
+        .preview-section table td:first-child {
+            text-align: left;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn.primary {
+            background: #00c853;
+            color: #000;
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .note-box {
+            background: rgba(74, 158, 255, 0.1);
+            border-left: 4px solid #4a9eff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .note-box h4 {
+            color: #4a9eff;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .note-box p {
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #888;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>📊 ACFR Report Generator</h1>
+            <div class="subtitle">Annual Comprehensive Financial Report - Fiscal Year 2023</div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" onclick="saveDraft()">💾 Save Draft</button>
+            <button class="header-btn" onclick="validateReport()">✓ Validate</button>
+            <button class="header-btn" onclick="previewReport()">👁️ Preview</button>
+            <button class="header-btn primary" onclick="generateReport()">📄 Generate PDF</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="nav-panel">
+                <h3>📑 Report Sections</h3>
+                <div class="nav-item active" onclick="showSection('intro')">
+                    <span class="icon">📝</span>
+                    <span class="label">Introductory Section</span>
+                    <span class="status complete">Done</span>
+                </div>
+                <div class="nav-item" onclick="showSection('financial')">
+                    <span class="icon">💰</span>
+                    <span class="label">Financial Section</span>
+                    <span class="status draft">Draft</span>
+                </div>
+                <div class="nav-item" onclick="showSection('statements')">
+                    <span class="icon">📊</span>
+                    <span class="label">Basic Financial Statements</span>
+                    <span class="status draft">Draft</span>
+                </div>
+                <div class="nav-item" onclick="showSection('notes')">
+                    <span class="icon">📋</span>
+                    <span class="label">Notes to Statements</span>
+                    <span class="status pending">Pending</span>
+                </div>
+                <div class="nav-item" onclick="showSection('rsi')">
+                    <span class="icon">📈</span>
+                    <span class="label">Required Supplementary</span>
+                    <span class="status pending">Pending</span>
+                </div>
+                <div class="nav-item" onclick="showSection('statistical')">
+                    <span class="icon">📉</span>
+                    <span class="label">Statistical Section</span>
+                    <span class="status pending">Pending</span>
+                </div>
+            </div>
+
+            <div class="progress-panel">
+                <h3>📊 Completion Progress</h3>
+                <div class="progress-bar">
+                    <div class="fill" style="width: 45%;"></div>
+                </div>
+                <div class="progress-stats">
+                    <span>45% Complete</span>
+                    <span>3 of 6 sections</span>
+                </div>
+            </div>
+
+            <div class="checklist-panel">
+                <h3>✓ GASB Requirements</h3>
+                <div class="checklist-item checked">
+                    <input type="checkbox" checked disabled>
+                    <span>MD&A included</span>
+                </div>
+                <div class="checklist-item checked">
+                    <input type="checkbox" checked disabled>
+                    <span>Government-wide statements</span>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="chk3">
+                    <label for="chk3">Fund financial statements</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="chk4">
+                    <label for="chk4">Notes to statements</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="chk5">
+                    <label for="chk5">RSI - Budget comparison</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="chk6">
+                    <label for="chk6">Statistical tables</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="section-panel" id="sectionIntro">
+                <div class="section-header">
+                    <div>
+                        <h2>Introductory Section</h2>
+                        <p style="color: #888; margin-top: 5px;">Letter of Transmittal & Organization Chart</p>
+                    </div>
+                    <span class="badge required">Required</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Report Title</label>
+                    <input type="text" value="Annual Comprehensive Financial Report">
+                </div>
+
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label>Fiscal Year End</label>
+                        <input type="date" value="2023-12-31">
+                    </div>
+                    <div class="form-group">
+                        <label>Reporting Entity</label>
+                        <input type="text" value="County of Northampton, Pennsylvania">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Letter of Transmittal</label>
+                    <textarea>To the Honorable Members of County Council and Citizens of Northampton County:
+
+We are pleased to present the Annual Comprehensive Financial Report (ACFR) of the County of Northampton, Pennsylvania, for the fiscal year ended December 31, 2023.
+
+This report was prepared by the Office of the Controller in conformity with accounting principles generally accepted in the United States of America (GAAP) and audited by an independent firm of certified public accountants.
+
+The Controller's Office is responsible for both the accuracy of the data and the completeness and fairness of the presentation, including all disclosures. We believe the data, as presented, is accurate in all material respects and presents fairly the financial position, results of operations, and cash flows of the County.
+
+Respectfully submitted,
+
+Tara Zrinski
+Controller, Northampton County</textarea>
+                </div>
+
+                <div class="auto-populated">
+                    <h4>🔄 Auto-Populated from Digital Twin</h4>
+                    <p>Organization chart data automatically pulled from L3 Operations layer. 8 Row Officers and departmental structure included.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Principal Officials - Executive</label>
+                        <input type="text" value="Lamont McClure, County Executive">
+                    </div>
+                    <div class="form-group">
+                        <label>Controller</label>
+                        <input type="text" value="Tara Zrinski">
+                    </div>
+                    <div class="form-group">
+                        <label>District Attorney</label>
+                        <input type="text" value="Stephen Baratta">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-panel" id="sectionFinancial" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2>Financial Section</h2>
+                        <p style="color: #888; margin-top: 5px;">Independent Auditor's Report & MD&A</p>
+                    </div>
+                    <span class="badge required">Required</span>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active">Auditor's Report</button>
+                    <button class="tab">MD&A</button>
+                    <button class="tab">Financial Highlights</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Independent Auditor</label>
+                    <input type="text" placeholder="e.g., Baker Tilly US, LLP">
+                </div>
+
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label>Audit Opinion Date</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Opinion Type</label>
+                        <select>
+                            <option>Unmodified (Clean)</option>
+                            <option>Qualified</option>
+                            <option>Adverse</option>
+                            <option>Disclaimer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <h4>GASB 34 Requirement</h4>
+                    <p>Management's Discussion and Analysis (MD&A) must provide an objective and easily readable analysis of the government's financial activities based on currently known facts, decisions, or conditions.</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Management's Discussion and Analysis</label>
+                    <textarea placeholder="Provide narrative overview and analysis of financial activities...">The County of Northampton's financial position remained strong during fiscal year 2023. Total net position increased by $12.4 million, representing a 3.2% improvement over the prior year.
+
+Key Financial Highlights:
+• Total revenues: $428.5 million
+• Total expenses: $416.1 million
+• Net position increase: $12.4 million
+• General Fund balance: $48.2 million (14.2% of expenditures)
+
+The County maintained its AA+ credit rating from Standard & Poor's, reflecting continued strong financial management practices.</textarea>
+                </div>
+            </div>
+
+            <div class="section-panel" id="sectionStatements" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2>Basic Financial Statements</h2>
+                        <p style="color: #888; margin-top: 5px;">Government-wide & Fund Financial Statements</p>
+                    </div>
+                    <span class="badge required">Required</span>
+                </div>
+
+                <h3 style="color: #00c853; margin-bottom: 15px;">Statement of Net Position</h3>
+
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>Assets</th>
+                            <th>Governmental Activities</th>
+                            <th>Business-Type Activities</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cash and investments</td>
+                            <td><input type="text" value="85,234,000"></td>
+                            <td><input type="text" value="12,456,000"></td>
+                            <td>$97,690,000</td>
+                        </tr>
+                        <tr>
+                            <td>Receivables (net)</td>
+                            <td><input type="text" value="42,156,000"></td>
+                            <td><input type="text" value="3,234,000"></td>
+                            <td>$45,390,000</td>
+                        </tr>
+                        <tr>
+                            <td>Capital assets (net)</td>
+                            <td><input type="text" value="312,456,000"></td>
+                            <td><input type="text" value="28,900,000"></td>
+                            <td>$341,356,000</td>
+                        </tr>
+                        <tr class="total">
+                            <td>Total Assets</td>
+                            <td>$439,846,000</td>
+                            <td>$44,590,000</td>
+                            <td>$484,436,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>Liabilities</th>
+                            <th>Governmental Activities</th>
+                            <th>Business-Type Activities</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accounts payable</td>
+                            <td><input type="text" value="18,234,000"></td>
+                            <td><input type="text" value="1,456,000"></td>
+                            <td>$19,690,000</td>
+                        </tr>
+                        <tr>
+                            <td>Long-term debt</td>
+                            <td><input type="text" value="145,678,000"></td>
+                            <td><input type="text" value="8,900,000"></td>
+                            <td>$154,578,000</td>
+                        </tr>
+                        <tr>
+                            <td>Net pension liability</td>
+                            <td><input type="text" value="52,345,000"></td>
+                            <td><input type="text" value="4,123,000"></td>
+                            <td>$56,468,000</td>
+                        </tr>
+                        <tr class="total">
+                            <td>Total Liabilities</td>
+                            <td>$216,257,000</td>
+                            <td>$14,479,000</td>
+                            <td>$230,736,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="auto-populated">
+                    <h4>🔄 Data Integration</h4>
+                    <p>Financial data automatically validated against L1 Transaction layer. Reconciliation with budget system complete.</p>
+                </div>
+            </div>
+
+            <div class="section-panel" id="sectionPreview" style="display: none;">
+                <div class="section-header">
+                    <h2>Report Preview</h2>
+                </div>
+
+                <div class="preview-section">
+                    <h1>COUNTY OF NORTHAMPTON, PENNSYLVANIA</h1>
+                    <h2>Annual Comprehensive Financial Report<br>For the Fiscal Year Ended December 31, 2023</h2>
+
+                    <h3>Statement of Net Position</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Governmental Activities</th>
+                                <th>Business-Type Activities</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ASSETS</strong></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Cash and investments</td>
+                                <td>$85,234,000</td>
+                                <td>$12,456,000</td>
+                                <td>$97,690,000</td>
+                            </tr>
+                            <tr>
+                                <td>Receivables (net)</td>
+                                <td>$42,156,000</td>
+                                <td>$3,234,000</td>
+                                <td>$45,390,000</td>
+                            </tr>
+                            <tr>
+                                <td>Capital assets (net)</td>
+                                <td>$312,456,000</td>
+                                <td>$28,900,000</td>
+                                <td>$341,356,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Assets</strong></td>
+                                <td><strong>$439,846,000</strong></td>
+                                <td><strong>$44,590,000</strong></td>
+                                <td><strong>$484,436,000</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="text-align: center; margin-top: 30px; font-style: italic; color: #666;">
+                        See accompanying notes to financial statements.
+                    </p>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn secondary" onclick="previousSection()">← Previous</button>
+                <button class="btn primary" onclick="nextSection()">Next Section →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sections = ['intro', 'financial', 'statements', 'notes', 'rsi', 'statistical'];
+        let currentSection = 0;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-panel').forEach(s => s.style.display = 'none');
+
+            // Show selected or map to existing panels
+            const panelMap = {
+                'intro': 'sectionIntro',
+                'financial': 'sectionFinancial',
+                'statements': 'sectionStatements',
+                'notes': 'sectionStatements', // Reuse for demo
+                'rsi': 'sectionStatements',
+                'statistical': 'sectionStatements'
+            };
+
+            const panel = document.getElementById(panelMap[sectionId]);
+            if (panel) panel.style.display = 'block';
+
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+
+            currentSection = sections.indexOf(sectionId);
+        }
+
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems[currentSection].click();
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems[currentSection].click();
+            }
+        }
+
+        function saveDraft() {
+            const data = {
+                savedAt: new Date().toISOString(),
+                currentSection: currentSection,
+                // Would collect all form data here
+            };
+            localStorage.setItem('acfr_draft', JSON.stringify(data));
+            alert('Draft saved successfully!');
+        }
+
+        function validateReport() {
+            const issues = [];
+
+            // Check required fields
+            const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    issues.push(`Missing: ${field.previousElementSibling?.textContent || 'Required field'}`);
+                }
+            });
+
+            if (issues.length === 0) {
+                alert('✓ Validation passed! All required fields complete.');
+            } else {
+                alert('Validation issues found:\n\n' + issues.join('\n'));
+            }
+        }
+
+        function previewReport() {
+            document.querySelectorAll('.section-panel').forEach(s => s.style.display = 'none');
+            document.getElementById('sectionPreview').style.display = 'block';
+        }
+
+        function generateReport() {
+            const confirmed = confirm(
+                'Generate ACFR PDF Report?\n\n' +
+                'This will create a formatted PDF document following GASB standards.\n\n' +
+                'The report will include:\n' +
+                '• Introductory Section\n' +
+                '• Financial Section\n' +
+                '• Basic Financial Statements\n' +
+                '• Notes to Financial Statements\n' +
+                '• Required Supplementary Information\n' +
+                '• Statistical Section'
+            );
+
+            if (confirmed) {
+                alert('PDF generation started...\n\nIn production, this would generate a properly formatted ACFR document using a PDF library.');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load draft if exists
+            const draft = localStorage.getItem('acfr_draft');
+            if (draft) {
+                console.log('Draft found:', JSON.parse(draft));
+            }
+        });
+    </script>
+</body>
+</html>

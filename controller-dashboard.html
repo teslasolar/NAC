@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controller Dashboard - Northampton County</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0f0f1a;
+      --bg-secondary: #1a1a2e;
+      --bg-card: #16213e;
+      --accent: #4a9eff;
+      --success: #2ed573;
+      --warning: #ffa502;
+      --danger: #ff4757;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --border: #2a2a4a;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .header-sub {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--success);
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .current-time {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Main Layout */
+    .main {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 20px;
+      padding: 20px;
+      height: calc(100vh - 70px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .kpi-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+    .kpi-change {
+      font-size: 11px;
+      margin-top: 5px;
+    }
+    .kpi-change.up { color: var(--success); }
+    .kpi-change.down { color: var(--danger); }
+
+    /* Officer Status */
+    .officer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .officer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .officer-item:hover {
+      background: var(--bg-primary);
+    }
+    .officer-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .officer-info {
+      flex: 1;
+    }
+    .officer-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .officer-status {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .officer-state {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .state-execute { background: var(--success); color: #000; }
+    .state-idle { background: var(--text-secondary); color: #000; }
+    .state-held { background: var(--warning); color: #000; }
+    .state-stopped { background: var(--danger); color: #fff; }
+
+    /* Center Content */
+    .center {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    /* Workflow Panel */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    .workflow-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    .workflow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .workflow-name {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .workflow-count {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .workflow-bar {
+      height: 6px;
+      background: var(--bg-primary);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .workflow-progress {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s;
+    }
+
+    /* Transaction Feed */
+    .feed {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .feed-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .feed-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .feed-content {
+      flex: 1;
+    }
+    .feed-title {
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    .feed-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .feed-amount {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Right Sidebar */
+    .right-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow: hidden;
+    }
+
+    /* Alarms */
+    .alarm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .alarm-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border-left: 3px solid var(--warning);
+    }
+    .alarm-item.critical { border-left-color: var(--danger); }
+    .alarm-item.info { border-left-color: var(--accent); }
+    .alarm-icon {
+      font-size: 16px;
+    }
+    .alarm-text {
+      flex: 1;
+      font-size: 12px;
+    }
+    .alarm-time {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    /* Compliance */
+    .compliance-ring {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      position: relative;
+    }
+    .compliance-ring svg {
+      transform: rotate(-90deg);
+    }
+    .compliance-ring circle {
+      fill: none;
+      stroke-width: 10;
+    }
+    .compliance-bg {
+      stroke: var(--bg-primary);
+    }
+    .compliance-value {
+      stroke: var(--success);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.5s;
+    }
+    .compliance-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .compliance-pct {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .compliance-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    /* Checklist */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-box.checked {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    /* Charts placeholder */
+    .chart-container {
+      height: 200px;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+    }
+
+    /* Mini bar chart */
+    .mini-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 60px;
+      padding: 10px 0;
+    }
+    .mini-bar {
+      flex: 1;
+      background: var(--accent);
+      border-radius: 2px;
+      min-height: 5px;
+      transition: height 0.3s;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .action-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+    .action-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .action-btn span {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>Controller Dashboard</h1>
+      <div class="header-sub">Northampton County | Tara Zrinski, Controller</div>
+    </div>
+    <div class="header-right">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span>LIVE</span>
+      </div>
+      <div class="current-time" id="current-time"></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Key Metrics</span>
+          <span class="card-badge">FY 2025</span>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: var(--success)">$312M</div>
+            <div class="kpi-label">Revenue YTD</div>
+            <div class="kpi-change up">+4.2% vs prior</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: var(--warning)">$298M</div>
+            <div class="kpi-label">Expenses YTD</div>
+            <div class="kpi-change up">+2.1% vs prior</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: var(--accent)">1,247</div>
+            <div class="kpi-label">Claims Processed</div>
+            <div class="kpi-change up">+12% this month</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: var(--success)">98.2%</div>
+            <div class="kpi-label">On-Time Payments</div>
+            <div class="kpi-change up">+0.5%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex: 1; overflow: hidden;">
+        <div class="card-header">
+          <span class="card-title">Row Officers</span>
+          <span class="card-badge">8 Active</span>
+        </div>
+        <div class="officer-list">
+          <div class="officer-item">
+            <div class="officer-icon">&#9878;</div>
+            <div class="officer-info">
+              <div class="officer-name">Sheriff</div>
+              <div class="officer-status">C. Zieger | 12 active</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#128176;</div>
+            <div class="officer-info">
+              <div class="officer-name">Fiscal Affairs</div>
+              <div class="officer-status">Treasury | 45 pending</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#128220;</div>
+            <div class="officer-info">
+              <div class="officer-name">Recorder of Deeds</div>
+              <div class="officer-status">D. Edelman | 8 pending</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#128221;</div>
+            <div class="officer-info">
+              <div class="officer-name">Register of Wills</div>
+              <div class="officer-status">P. Manento | 3 pending</div>
+            </div>
+            <div class="officer-state state-idle">IDLE</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#9878;</div>
+            <div class="officer-info">
+              <div class="officer-name">Prothonotary</div>
+              <div class="officer-status">H. Ruggiero | 15 pending</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#9878;</div>
+            <div class="officer-info">
+              <div class="officer-name">Clerk of Courts</div>
+              <div class="officer-status">L. Fisher | 7 pending</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#9878;</div>
+            <div class="officer-info">
+              <div class="officer-name">District Attorney</div>
+              <div class="officer-status">S. Baratta | 22 active</div>
+            </div>
+            <div class="officer-state state-execute">EXEC</div>
+          </div>
+          <div class="officer-item">
+            <div class="officer-icon">&#128658;</div>
+            <div class="officer-info">
+              <div class="officer-name">Coroner</div>
+              <div class="officer-status">Z. Lysek | 1 active</div>
+            </div>
+            <div class="officer-state state-idle">IDLE</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Content -->
+    <section class="center">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Active Workflows</span>
+          <span class="card-badge" id="workflow-total">127 Active</span>
+        </div>
+        <div class="workflow-grid">
+          <div class="workflow-card">
+            <div class="workflow-header">
+              <span class="workflow-name">Claims</span>
+              <span style="color: var(--success);">&#10003;</span>
+            </div>
+            <div class="workflow-count">45</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">Avg 2.3 days</div>
+            <div class="workflow-bar">
+              <div class="workflow-progress" style="width: 72%; background: var(--success);"></div>
+            </div>
+          </div>
+          <div class="workflow-card">
+            <div class="workflow-header">
+              <span class="workflow-name">Warrants</span>
+              <span style="color: var(--warning);">&#9888;</span>
+            </div>
+            <div class="workflow-count">38</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">3 near SLA</div>
+            <div class="workflow-bar">
+              <div class="workflow-progress" style="width: 85%; background: var(--warning);"></div>
+            </div>
+          </div>
+          <div class="workflow-card">
+            <div class="workflow-header">
+              <span class="workflow-name">Audits</span>
+              <span style="color: var(--accent);">&#128269;</span>
+            </div>
+            <div class="workflow-count">12</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">2 in fieldwork</div>
+            <div class="workflow-bar">
+              <div class="workflow-progress" style="width: 45%; background: var(--accent);"></div>
+            </div>
+          </div>
+          <div class="workflow-card">
+            <div class="workflow-header">
+              <span class="workflow-name">Recordings</span>
+              <span style="color: var(--success);">&#10003;</span>
+            </div>
+            <div class="workflow-count">32</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">All on track</div>
+            <div class="workflow-bar">
+              <div class="workflow-progress" style="width: 90%; background: var(--success);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex: 1; overflow: hidden; display: flex; flex-direction: column;">
+        <div class="card-header">
+          <span class="card-title">Transaction Feed</span>
+          <span class="card-badge">Real-time</span>
+        </div>
+        <div class="feed" id="transaction-feed">
+          <!-- Transactions will be added here -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Quick Actions</span>
+        </div>
+        <div class="quick-actions">
+          <button class="action-btn"><span>&#128196;</span> New Audit</button>
+          <button class="action-btn"><span>&#128176;</span> Process Claims</button>
+          <button class="action-btn"><span>&#128200;</span> Run Reports</button>
+          <button class="action-btn"><span>&#128269;</span> ACL Analysis</button>
+          <button class="action-btn"><span>&#128202;</span> Budget Review</button>
+          <button class="action-btn"><span>&#128274;</span> P-Card Audit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Active Alarms</span>
+          <span class="card-badge" style="background: var(--warning);">3</span>
+        </div>
+        <div class="alarm-list" id="alarm-list">
+          <div class="alarm-item">
+            <span class="alarm-icon">&#9888;</span>
+            <div class="alarm-text">Warrant #4521 approaching SLA deadline</div>
+            <span class="alarm-time">2m ago</span>
+          </div>
+          <div class="alarm-item critical">
+            <span class="alarm-icon">&#128680;</span>
+            <div class="alarm-text">Duplicate payment detected - Vendor #1847</div>
+            <span class="alarm-time">15m ago</span>
+          </div>
+          <div class="alarm-item info">
+            <span class="alarm-icon">&#128712;</span>
+            <div class="alarm-text">P-Card threshold exceeded - Dept. 420</div>
+            <span class="alarm-time">1h ago</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Compliance Score</span>
+        </div>
+        <div class="compliance-ring">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="compliance-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="compliance-value" cx="60" cy="60" r="50"
+              stroke-dasharray="314" stroke-dashoffset="31"></circle>
+          </svg>
+          <div class="compliance-text">
+            <div class="compliance-pct">92%</div>
+            <div class="compliance-label">OVERALL</div>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-box checked">&#10003;</div>
+            <span>Monthly reconciliations</span>
+          </div>
+          <div class="check-item">
+            <div class="check-box checked">&#10003;</div>
+            <span>Quarterly CAFR prep</span>
+          </div>
+          <div class="check-item">
+            <div class="check-box checked">&#10003;</div>
+            <span>Annual budget adoption</span>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <span>Single Audit completion</span>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <span>Internal control review</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex: 1;">
+        <div class="card-header">
+          <span class="card-title">Daily Volume</span>
+        </div>
+        <div class="mini-bars" id="volume-chart">
+          <!-- Generated by JS -->
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-secondary);">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Sample transaction data
+    const transactions = [
+      { type: 'claim', icon: '&#128176;', color: '#2ed573', title: 'Claim #CLM-2025-4892 approved', meta: 'Vendor: ABC Supplies | Dept: Public Works', amount: '$12,450.00' },
+      { type: 'warrant', icon: '&#128203;', color: '#4a9eff', title: 'Warrant #WAR-78451 issued', meta: 'Payee: Johnson Construction', amount: '$85,200.00' },
+      { type: 'deed', icon: '&#128220;', color: '#ffa502', title: 'Deed recorded - UPI 48-5-12', meta: 'Recorder: D. Edelman | Transfer tax collected', amount: '$2,340.00' },
+      { type: 'receipt', icon: '&#128179;', color: '#2ed573', title: 'Receipt #RCT-9921 processed', meta: 'Source: Hotel Tax Q4 | Wilson Borough', amount: '$18,750.00' },
+      { type: 'audit', icon: '&#128269;', color: '#9b59b6', title: 'Audit engagement started', meta: 'Target: Sheriff Cash Collection | Auditor: M. Aurand', amount: '' },
+      { type: 'payroll', icon: '&#128181;', color: '#4a9eff', title: 'Payroll batch #PR-2025-02 processed', meta: '1,247 employees | Period: Jan 1-15', amount: '$4.2M' },
+    ];
+
+    // Render transactions
+    function renderTransactions() {
+      const feed = document.getElementById('transaction-feed');
+      feed.innerHTML = transactions.map(t => `
+        <div class="feed-item">
+          <div class="feed-icon" style="background: ${t.color}20; color: ${t.color};">${t.icon}</div>
+          <div class="feed-content">
+            <div class="feed-title">${t.title}</div>
+            <div class="feed-meta">${t.meta}</div>
+          </div>
+          ${t.amount ? `<div class="feed-amount">${t.amount}</div>` : ''}
+        </div>
+      `).join('');
+    }
+
+    // Volume chart
+    function renderVolumeChart() {
+      const chart = document.getElementById('volume-chart');
+      const values = [65, 82, 71, 90, 78];
+      chart.innerHTML = values.map(v => `<div class="mini-bar" style="height: ${v}%;"></div>`).join('');
+    }
+
+    // Update time
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('current-time').textContent = now.toLocaleString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    // Simulate live updates
+    function simulateLiveUpdate() {
+      const newTransactions = [
+        { type: 'claim', icon: '&#128176;', color: '#2ed573', title: `Claim #CLM-2025-${4900 + Math.floor(Math.random() * 100)} submitted`, meta: 'Vendor: Random Corp | Pending review', amount: `$${(Math.random() * 10000).toFixed(2)}` },
+        { type: 'receipt', icon: '&#128179;', color: '#2ed573', title: 'Tax payment received', meta: 'Source: Property Tax | Real-time', amount: `$${(Math.random() * 5000).toFixed(2)}` },
+      ];
+
+      const newTx = newTransactions[Math.floor(Math.random() * newTransactions.length)];
+      transactions.unshift(newTx);
+      if (transactions.length > 10) transactions.pop();
+      renderTransactions();
+    }
+
+    // Initialize
+    renderTransactions();
+    renderVolumeChart();
+    updateTime();
+    setInterval(updateTime, 1000);
+    setInterval(simulateLiveUpdate, 8000);
+  </script>
+</body>
+</html>

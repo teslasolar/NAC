@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Flow - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f1a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .header {
+      background: #1a1a2e;
+      padding: 20px 30px;
+      border-bottom: 1px solid #2a2a4a;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 5px; }
+    .header p { color: #888; font-size: 14px; }
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .control-btn {
+      background: #2a2a4a;
+      border: 1px solid #3a3a5a;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .control-btn:hover, .control-btn.active {
+      background: #4a9eff;
+      border-color: #4a9eff;
+    }
+    .main {
+      padding: 30px;
+    }
+    #sankey-chart {
+      width: 100%;
+      height: calc(100vh - 200px);
+      min-height: 600px;
+    }
+    .node rect {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .node:hover rect {
+      opacity: 0.8;
+    }
+    .node text {
+      font-size: 12px;
+      fill: #fff;
+      pointer-events: none;
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.4;
+      transition: stroke-opacity 0.2s;
+    }
+    .link:hover {
+      stroke-opacity: 0.7;
+    }
+    .tooltip {
+      position: absolute;
+      background: #1a1a2e;
+      border: 1px solid #3a3a5a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 1000;
+      max-width: 300px;
+    }
+    .tooltip.visible { opacity: 1; }
+    .tooltip h4 { margin-bottom: 8px; color: #4a9eff; }
+    .tooltip p { color: #aaa; margin: 4px 0; }
+    .tooltip .amount { font-size: 18px; font-weight: 600; color: #2ed573; }
+    .legend {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 15px 20px;
+    }
+    .legend h4 {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0;
+      font-size: 12px;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+    }
+    .stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 15px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4a9eff;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Northampton County Budget Flow</h1>
+    <p>FY 2025 Fund Flow Visualization | Source: County Budget Office</p>
+    <div class="controls">
+      <button class="control-btn active" data-view="overview">Overview</button>
+      <button class="control-btn" data-view="general">General Fund</button>
+      <button class="control-btn" data-view="special">Special Revenue</button>
+      <button class="control-btn" data-view="capital">Capital Projects</button>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">$428.5M</div>
+        <div class="stat-label">Total Budget</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">$312.4M</div>
+        <div class="stat-label">General Fund</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">$78.2M</div>
+        <div class="stat-label">Special Revenue</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">$37.9M</div>
+        <div class="stat-label">Capital</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="sankey-chart"></div>
+  </main>
+
+  <div class="tooltip" id="tooltip"></div>
+
+  <div class="legend">
+    <h4>Fund Categories</h4>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #4a9eff;"></div>
+      <span>Revenue Sources</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #2ed573;"></div>
+      <span>Funds</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #ffa502;"></div>
+      <span>Departments</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #ff6b81;"></div>
+      <span>Expenditure Types</span>
+    </div>
+  </div>
+
+  <script>
+    // Northampton County Budget Data (illustrative based on typical PA 3rd class county)
+    const budgetData = {
+      nodes: [
+        // Revenue Sources (Level 0)
+        { id: 'property-tax', name: 'Property Tax', category: 'revenue' },
+        { id: 'earned-income-tax', name: 'Earned Income Tax', category: 'revenue' },
+        { id: 'hotel-tax', name: 'Hotel Tax', category: 'revenue' },
+        { id: 'deed-transfer-tax', name: 'Deed Transfer Tax', category: 'revenue' },
+        { id: 'state-grants', name: 'State Grants', category: 'revenue' },
+        { id: 'federal-grants', name: 'Federal Grants', category: 'revenue' },
+        { id: 'fees-fines', name: 'Fees & Fines', category: 'revenue' },
+        { id: 'intergovernmental', name: 'Intergovernmental', category: 'revenue' },
+        { id: 'other-revenue', name: 'Other Revenue', category: 'revenue' },
+
+        // Funds (Level 1)
+        { id: 'general-fund', name: 'General Fund', category: 'fund' },
+        { id: 'human-services', name: 'Human Services Fund', category: 'fund' },
+        { id: 'capital-fund', name: 'Capital Projects Fund', category: 'fund' },
+        { id: 'debt-service', name: 'Debt Service Fund', category: 'fund' },
+        { id: 'liquid-fuels', name: 'Liquid Fuels Fund', category: 'fund' },
+        { id: 'grants-fund', name: 'Grants Fund', category: 'fund' },
+
+        // Departments (Level 2)
+        { id: 'courts', name: 'Courts & Judicial', category: 'department' },
+        { id: 'corrections', name: 'Corrections', category: 'department' },
+        { id: 'public-safety', name: 'Public Safety', category: 'department' },
+        { id: 'human-svcs-dept', name: 'Human Services', category: 'department' },
+        { id: 'public-works', name: 'Public Works', category: 'department' },
+        { id: 'row-officers', name: 'Row Officers', category: 'department' },
+        { id: 'general-govt', name: 'General Government', category: 'department' },
+        { id: 'debt-payments', name: 'Debt Service', category: 'department' },
+        { id: 'capital-projects', name: 'Capital Projects', category: 'department' },
+
+        // Expenditure Types (Level 3)
+        { id: 'personnel', name: 'Personnel & Benefits', category: 'expenditure' },
+        { id: 'operations', name: 'Operations', category: 'expenditure' },
+        { id: 'contracts', name: 'Contracts & Services', category: 'expenditure' },
+        { id: 'capital-outlay', name: 'Capital Outlay', category: 'expenditure' },
+        { id: 'debt-principal', name: 'Debt Principal', category: 'expenditure' },
+        { id: 'debt-interest', name: 'Debt Interest', category: 'expenditure' },
+        { id: 'grants-out', name: 'Grants & Subsidies', category: 'expenditure' },
+      ],
+      links: [
+        // Revenue to Funds
+        { source: 'property-tax', target: 'general-fund', value: 142.5 },
+        { source: 'earned-income-tax', target: 'general-fund', value: 48.2 },
+        { source: 'hotel-tax', target: 'general-fund', value: 8.5 },
+        { source: 'deed-transfer-tax', target: 'general-fund', value: 12.8 },
+        { source: 'fees-fines', target: 'general-fund', value: 28.4 },
+        { source: 'state-grants', target: 'human-services', value: 42.1 },
+        { source: 'federal-grants', target: 'human-services', value: 18.6 },
+        { source: 'federal-grants', target: 'grants-fund', value: 12.4 },
+        { source: 'state-grants', target: 'liquid-fuels', value: 8.2 },
+        { source: 'intergovernmental', target: 'general-fund', value: 35.2 },
+        { source: 'other-revenue', target: 'general-fund', value: 18.8 },
+        { source: 'property-tax', target: 'debt-service', value: 22.4 },
+        { source: 'other-revenue', target: 'capital-fund', value: 37.9 },
+
+        // General Fund to Departments
+        { source: 'general-fund', target: 'courts', value: 48.5 },
+        { source: 'general-fund', target: 'corrections', value: 62.4 },
+        { source: 'general-fund', target: 'public-safety', value: 38.2 },
+        { source: 'general-fund', target: 'public-works', value: 22.8 },
+        { source: 'general-fund', target: 'row-officers', value: 28.6 },
+        { source: 'general-fund', target: 'general-govt', value: 45.2 },
+        { source: 'general-fund', target: 'human-svcs-dept', value: 48.7 },
+
+        // Human Services Fund
+        { source: 'human-services', target: 'human-svcs-dept', value: 60.7 },
+
+        // Debt Service Fund
+        { source: 'debt-service', target: 'debt-payments', value: 22.4 },
+
+        // Capital Fund
+        { source: 'capital-fund', target: 'capital-projects', value: 37.9 },
+
+        // Liquid Fuels
+        { source: 'liquid-fuels', target: 'public-works', value: 8.2 },
+
+        // Grants Fund
+        { source: 'grants-fund', target: 'human-svcs-dept', value: 12.4 },
+
+        // Departments to Expenditure Types
+        { source: 'courts', target: 'personnel', value: 38.2 },
+        { source: 'courts', target: 'operations', value: 8.5 },
+        { source: 'courts', target: 'contracts', value: 1.8 },
+
+        { source: 'corrections', target: 'personnel', value: 48.5 },
+        { source: 'corrections', target: 'operations', value: 12.4 },
+        { source: 'corrections', target: 'contracts', value: 1.5 },
+
+        { source: 'public-safety', target: 'personnel', value: 28.4 },
+        { source: 'public-safety', target: 'operations', value: 6.8 },
+        { source: 'public-safety', target: 'capital-outlay', value: 3.0 },
+
+        { source: 'human-svcs-dept', target: 'personnel', value: 42.5 },
+        { source: 'human-svcs-dept', target: 'contracts', value: 58.2 },
+        { source: 'human-svcs-dept', target: 'grants-out', value: 21.1 },
+
+        { source: 'public-works', target: 'personnel', value: 12.4 },
+        { source: 'public-works', target: 'operations', value: 8.2 },
+        { source: 'public-works', target: 'capital-outlay', value: 10.4 },
+
+        { source: 'row-officers', target: 'personnel', value: 22.8 },
+        { source: 'row-officers', target: 'operations', value: 5.8 },
+
+        { source: 'general-govt', target: 'personnel', value: 18.2 },
+        { source: 'general-govt', target: 'operations', value: 12.5 },
+        { source: 'general-govt', target: 'contracts', value: 14.5 },
+
+        { source: 'debt-payments', target: 'debt-principal', value: 15.2 },
+        { source: 'debt-payments', target: 'debt-interest', value: 7.2 },
+
+        { source: 'capital-projects', target: 'capital-outlay', value: 37.9 },
+      ]
+    };
+
+    const categoryColors = {
+      revenue: '#4a9eff',
+      fund: '#2ed573',
+      department: '#ffa502',
+      expenditure: '#ff6b81'
+    };
+
+    const width = document.getElementById('sankey-chart').clientWidth;
+    const height = document.getElementById('sankey-chart').clientHeight;
+
+    const svg = d3.select('#sankey-chart')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+
+    const tooltip = d3.select('#tooltip');
+
+    // Create sankey generator
+    const sankey = d3.sankey()
+      .nodeId(d => d.id)
+      .nodeWidth(20)
+      .nodePadding(12)
+      .extent([[50, 50], [width - 50, height - 50]]);
+
+    // Process data
+    const graph = sankey({
+      nodes: budgetData.nodes.map(d => ({ ...d })),
+      links: budgetData.links.map(d => ({ ...d }))
+    });
+
+    // Draw links
+    const link = svg.append('g')
+      .selectAll('.link')
+      .data(graph.links)
+      .join('path')
+      .attr('class', 'link')
+      .attr('d', d3.sankeyLinkHorizontal())
+      .attr('stroke', d => categoryColors[d.source.category])
+      .attr('stroke-width', d => Math.max(1, d.width))
+      .on('mouseover', function(event, d) {
+        d3.select(this).attr('stroke-opacity', 0.7);
+        showTooltip(event, `
+          <h4>${d.source.name} → ${d.target.name}</h4>
+          <p class="amount">$${d.value.toFixed(1)}M</p>
+          <p>${((d.value / 428.5) * 100).toFixed(1)}% of total budget</p>
+        `);
+      })
+      .on('mouseout', function() {
+        d3.select(this).attr('stroke-opacity', 0.4);
+        hideTooltip();
+      });
+
+    // Draw nodes
+    const node = svg.append('g')
+      .selectAll('.node')
+      .data(graph.nodes)
+      .join('g')
+      .attr('class', 'node')
+      .attr('transform', d => `translate(${d.x0},${d.y0})`);
+
+    node.append('rect')
+      .attr('height', d => d.y1 - d.y0)
+      .attr('width', d => d.x1 - d.x0)
+      .attr('fill', d => categoryColors[d.category])
+      .attr('rx', 3)
+      .on('mouseover', function(event, d) {
+        const total = d.value || d3.sum(d.sourceLinks, l => l.value) || d3.sum(d.targetLinks, l => l.value);
+        showTooltip(event, `
+          <h4>${d.name}</h4>
+          <p class="amount">$${total.toFixed(1)}M</p>
+          <p>Category: ${d.category}</p>
+          <p>Inflows: ${d.targetLinks?.length || 0} | Outflows: ${d.sourceLinks?.length || 0}</p>
+        `);
+      })
+      .on('mouseout', hideTooltip);
+
+    node.append('text')
+      .attr('x', d => d.x0 < width / 2 ? (d.x1 - d.x0) + 8 : -8)
+      .attr('y', d => (d.y1 - d.y0) / 2)
+      .attr('dy', '0.35em')
+      .attr('text-anchor', d => d.x0 < width / 2 ? 'start' : 'end')
+      .text(d => d.name);
+
+    function showTooltip(event, html) {
+      tooltip
+        .html(html)
+        .style('left', (event.pageX + 15) + 'px')
+        .style('top', (event.pageY - 10) + 'px')
+        .classed('visible', true);
+    }
+
+    function hideTooltip() {
+      tooltip.classed('visible', false);
+    }
+
+    // View controls
+    document.querySelectorAll('.control-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        // Filter logic would go here for different views
+      });
+    });
+  </script>
+</body>
+</html>

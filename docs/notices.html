@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Notice Board - Northampton County</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0f1a;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --border: #374151;
+      --text: #e5e7eb;
+      --text-dim: #9ca3af;
+      --accent: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --cyan: #06b6d4;
+      --purple: #8b5cf6;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+      border-bottom: 2px solid var(--yellow);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .savings-badge {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid var(--green);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .savings-badge strong { color: var(--green); }
+
+    /* Main layout */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* Filters */
+    .filters {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .filter-group select {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    /* Notice cards */
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .notice-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.15s;
+    }
+
+    .notice-card:hover {
+      border-color: var(--accent);
+    }
+
+    .notice-card.urgent {
+      border-left: 4px solid var(--red);
+    }
+
+    .notice-card.featured {
+      border-left: 4px solid var(--yellow);
+    }
+
+    .notice-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .notice-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .type-bid { background: #3b82f633; color: #60a5fa; }
+    .type-hearing { background: #f59e0b33; color: #fbbf24; }
+    .type-job { background: #22c55e33; color: #4ade80; }
+    .type-ordinance { background: #8b5cf633; color: #a78bfa; }
+    .type-meeting { background: #06b6d433; color: #22d3ee; }
+    .type-election { background: #ef444433; color: #f87171; }
+    .type-general { background: #6b728033; color: #9ca3af; }
+
+    .notice-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+
+    .notice-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .notice-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .notice-body {
+      padding: 0 1.25rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .notice-footer {
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notice-deadline {
+      font-size: 0.8rem;
+    }
+
+    .notice-deadline.soon {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    .notice-deadline.urgent {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .notice-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .notice-actions button {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .notice-actions button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .notice-actions button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 1rem;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-content {
+      padding: 1rem;
+    }
+
+    /* Stats */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0.75rem;
+      background: var(--bg-surface);
+      border-radius: 8px;
+    }
+
+    .stat-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    .stat-item .label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .stat-item.blue .value { color: var(--accent); }
+    .stat-item.green .value { color: var(--green); }
+    .stat-item.yellow .value { color: var(--yellow); }
+    .stat-item.purple .value { color: var(--purple); }
+
+    /* Sponsors */
+    .sponsor-slot {
+      background: var(--bg-surface);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .sponsor-slot.filled {
+      border-style: solid;
+      border-color: var(--green);
+    }
+
+    .sponsor-slot img {
+      max-width: 100%;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+    }
+
+    .sponsor-slot .name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .sponsor-slot .tagline {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .sponsor-slot.available {
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    .sponsor-slot.available a {
+      color: var(--cyan);
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    /* Calendar */
+    .calendar-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calendar-item:last-child { border-bottom: none; }
+
+    .calendar-date {
+      background: var(--accent);
+      color: white;
+      border-radius: 6px;
+      padding: 0.5rem;
+      text-align: center;
+      min-width: 50px;
+    }
+
+    .calendar-date .day {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .calendar-date .month {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .calendar-info h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .calendar-info p {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* Cost savings panel */
+    .savings-panel {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+      border: 1px solid var(--green);
+    }
+
+    .savings-breakdown {
+      font-size: 0.85rem;
+    }
+
+    .savings-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .savings-row:last-child { border-bottom: none; }
+
+    .savings-row .amount {
+      color: var(--green);
+      font-weight: 600;
+      font-family: monospace;
+    }
+
+    .savings-total {
+      background: var(--bg-surface);
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+
+    .savings-total .amount {
+      color: var(--green);
+      font-size: 1.1rem;
+    }
+
+    /* Ad rates */
+    .rate-card {
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rate-card .tier {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .rate-card .price {
+      color: var(--cyan);
+      font-family: monospace;
+    }
+
+    .rate-card .desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 1024px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .notice-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📋 Public Notice Board</h1>
+    <div class="header-right">
+      <div class="savings-badge">
+        Est. Annual Savings: <strong>$127,000</strong>
+      </div>
+      <a href="scada.html" class="back-link">← Back to SCADA</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      <!-- Filters -->
+      <div class="filters">
+        <div class="filter-group">
+          <label>Type:</label>
+          <select id="filterType" onchange="filterNotices()">
+            <option value="all">All Notices</option>
+            <option value="bid">Bid Requests</option>
+            <option value="hearing">Public Hearings</option>
+            <option value="job">Job Postings</option>
+            <option value="ordinance">Ordinances</option>
+            <option value="meeting">Meetings</option>
+            <option value="election">Elections</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Department:</label>
+          <select id="filterDept">
+            <option value="all">All Departments</option>
+            <option value="controller">Controller</option>
+            <option value="executive">County Executive</option>
+            <option value="council">County Council</option>
+            <option value="public-works">Public Works</option>
+            <option value="human-services">Human Services</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Search notices..." id="searchInput" onkeyup="filterNotices()">
+        </div>
+      </div>
+
+      <!-- Notice List -->
+      <div class="notice-list" id="noticeList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Stats -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">📊 Notice Stats</div>
+        <div class="sidebar-content">
+          <div class="stat-grid">
+            <div class="stat-item blue">
+              <div class="value">24</div>
+              <div class="label">Active Notices</div>
+            </div>
+            <div class="stat-item green">
+              <div class="value">8</div>
+              <div class="label">Open Bids</div>
+            </div>
+            <div class="stat-item yellow">
+              <div class="value">5</div>
+              <div class="label">Jobs Posted</div>
+            </div>
+            <div class="stat-item purple">
+              <div class="value">3</div>
+              <div class="label">Hearings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Deadlines -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">📅 Upcoming Deadlines</div>
+        <div class="sidebar-content">
+          <div class="calendar-item">
+            <div class="calendar-date">
+              <div class="day">24</div>
+              <div class="month">Jan</div>
+            </div>
+            <div class="calendar-info">
+              <h4>IT Services RFP</h4>
+              <p>Bid submission deadline</p>
+            </div>
+          </div>
+          <div class="calendar-item">
+            <div class="calendar-date" style="background: var(--yellow);">
+              <div class="day">28</div>
+              <div class="month">Jan</div>
+            </div>
+            <div class="calendar-info">
+              <h4>Budget Hearing</h4>
+              <p>Public comment period</p>
+            </div>
+          </div>
+          <div class="calendar-item">
+            <div class="calendar-date">
+              <div class="day">31</div>
+              <div class="month">Jan</div>
+            </div>
+            <div class="calendar-info">
+              <h4>Controller Position</h4>
+              <p>Application deadline</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cost Savings -->
+      <div class="sidebar-card savings-panel">
+        <div class="sidebar-header" style="background: transparent;">💰 Digital vs Print Savings</div>
+        <div class="sidebar-content">
+          <div class="savings-breakdown">
+            <div class="savings-row">
+              <span>Legal notices</span>
+              <span class="amount">$52,000</span>
+            </div>
+            <div class="savings-row">
+              <span>Bid advertisements</span>
+              <span class="amount">$38,000</span>
+            </div>
+            <div class="savings-row">
+              <span>Job postings</span>
+              <span class="amount">$24,000</span>
+            </div>
+            <div class="savings-row">
+              <span>Public hearings</span>
+              <span class="amount">$13,000</span>
+            </div>
+          </div>
+          <div class="savings-total">
+            <span>Annual Savings</span>
+            <span class="amount">$127,000</span>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 0.75rem;">
+            *Based on 2025 newspaper publication costs. Digital notices still meet PA legal requirements when posted on official county website.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sponsor Slots -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">🏪 Local Sponsors</div>
+        <div class="sidebar-content">
+          <div class="sponsor-slot filled">
+            <div class="name">🏦 First National Bank</div>
+            <div class="tagline">Banking for Northampton County since 1892</div>
+          </div>
+          <div class="sponsor-slot filled">
+            <div class="name">🔧 Valley Auto Service</div>
+            <div class="tagline">Honest repairs, fair prices</div>
+          </div>
+          <div class="sponsor-slot available">
+            <span>Sponsor Slot Available</span>
+            <a href="mailto:sponsors@northamptoncounty.org">Inquire about rates →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Revenue -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">📈 Sponsorship Rates</div>
+        <div class="sidebar-content">
+          <div class="rate-card">
+            <div class="tier">Featured Sponsor</div>
+            <div class="price">$500/month</div>
+            <div class="desc">Logo + tagline, sidebar placement</div>
+          </div>
+          <div class="rate-card">
+            <div class="tier">Standard Sponsor</div>
+            <div class="price">$250/month</div>
+            <div class="desc">Business name + link</div>
+          </div>
+          <div class="rate-card">
+            <div class="tier">Community Partner</div>
+            <div class="price">$100/month</div>
+            <div class="desc">Name listing only</div>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 0.75rem;">
+            Potential annual revenue: <strong style="color: var(--cyan);">$18,000+</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const notices = [
+      {
+        id: 1,
+        type: 'bid',
+        title: 'RFP: County IT Infrastructure Modernization',
+        dept: 'Information Technology',
+        posted: '2026-01-10',
+        deadline: '2026-01-24',
+        description: 'Seeking proposals for comprehensive IT infrastructure upgrade including network, security systems, and cloud migration. Estimated project value: $2.5M over 3 years.',
+        urgent: false,
+        featured: true
+      },
+      {
+        id: 2,
+        type: 'hearing',
+        title: '2026 Budget Amendment Public Hearing',
+        dept: 'County Council',
+        posted: '2026-01-15',
+        deadline: '2026-01-28',
+        description: 'Public hearing on proposed budget amendments for human services funding. Citizens may provide testimony in person or submit written comments.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 3,
+        type: 'job',
+        title: 'County Controller - Vacancy Appointment',
+        dept: 'County Council',
+        posted: '2026-01-06',
+        deadline: '2026-01-31',
+        description: 'The position of County Controller is vacant following the election of Tara Zrinski as County Executive. County Council is accepting applications for appointment to fill the remainder of the term.',
+        urgent: true,
+        featured: true
+      },
+      {
+        id: 4,
+        type: 'bid',
+        title: 'Bridge Repair - Route 248 Overpass',
+        dept: 'Public Works',
+        posted: '2026-01-12',
+        deadline: '2026-02-05',
+        description: 'Sealed bids for structural repairs to the Route 248 overpass bridge. Pre-bid meeting required. Prevailing wage applies.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 5,
+        type: 'ordinance',
+        title: 'Ordinance 2026-03: Short-Term Rental Regulations',
+        dept: 'County Council',
+        posted: '2026-01-08',
+        deadline: '2026-02-08',
+        description: 'Proposed ordinance establishing registration requirements and safety standards for short-term rental properties. 30-day public comment period.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 6,
+        type: 'meeting',
+        title: 'County Council Regular Meeting',
+        dept: 'County Council',
+        posted: '2026-01-18',
+        deadline: '2026-01-23',
+        description: 'Regular meeting of County Council. Agenda includes Controller appointment discussion, budget amendments, and zoning appeals.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 7,
+        type: 'job',
+        title: 'Assistant District Attorney - Criminal Division',
+        dept: 'District Attorney',
+        posted: '2026-01-14',
+        deadline: '2026-02-14',
+        description: 'Full-time position prosecuting felony cases. JD required, 2+ years criminal law experience preferred. Salary range: $65,000-$85,000.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 8,
+        type: 'bid',
+        title: 'Janitorial Services - Government Center',
+        dept: 'General Services',
+        posted: '2026-01-11',
+        deadline: '2026-01-30',
+        description: '3-year contract for janitorial services at the Government Center complex. Includes daily cleaning, floor maintenance, and window washing.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 9,
+        type: 'election',
+        title: 'School Board Election - Petition Filing Deadline',
+        dept: 'Elections',
+        posted: '2026-01-05',
+        deadline: '2026-02-18',
+        description: 'Candidates for school board positions must file nomination petitions by February 18, 2026. Petition forms available at the Elections Office.',
+        urgent: false,
+        featured: false
+      },
+      {
+        id: 10,
+        type: 'hearing',
+        title: 'Zoning Variance - 123 Main Street',
+        dept: 'Planning & Zoning',
+        posted: '2026-01-16',
+        deadline: '2026-01-30',
+        description: 'Public hearing on variance request for mixed-use development. Applicant seeks exception to height restrictions. Public comment welcome.',
+        urgent: false,
+        featured: false
+      }
+    ];
+
+    const typeLabels = {
+      bid: { label: '📦 Bid Request', class: 'type-bid' },
+      hearing: { label: '🎤 Public Hearing', class: 'type-hearing' },
+      job: { label: '💼 Job Posting', class: 'type-job' },
+      ordinance: { label: '📜 Ordinance', class: 'type-ordinance' },
+      meeting: { label: '📅 Meeting', class: 'type-meeting' },
+      election: { label: '🗳️ Election', class: 'type-election' },
+      general: { label: '📋 Notice', class: 'type-general' }
+    };
+
+    function renderNotices(filteredNotices) {
+      const container = document.getElementById('noticeList');
+
+      if (filteredNotices.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 3rem; color: var(--text-dim);">
+            <p style="font-size: 2rem; margin-bottom: 1rem;">📭</p>
+            <p>No notices match your filters</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredNotices.map(notice => {
+        const type = typeLabels[notice.type] || typeLabels.general;
+        const daysLeft = getDaysLeft(notice.deadline);
+        const deadlineClass = daysLeft <= 3 ? 'urgent' : daysLeft <= 7 ? 'soon' : '';
+        const cardClass = notice.urgent ? 'urgent' : notice.featured ? 'featured' : '';
+
+        return `
+          <div class="notice-card ${cardClass}">
+            <div class="notice-header">
+              <div>
+                <span class="notice-type ${type.class}">${type.label}</span>
+                <h3 class="notice-title">${notice.title}</h3>
+                <div class="notice-meta">
+                  <span>🏢 ${notice.dept}</span>
+                  <span>📅 Posted ${formatDate(notice.posted)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="notice-body">
+              ${notice.description}
+            </div>
+            <div class="notice-footer">
+              <div class="notice-deadline ${deadlineClass}">
+                ${daysLeft > 0 ? `⏰ ${daysLeft} days remaining` : '⚠️ Deadline passed'}
+              </div>
+              <div class="notice-actions">
+                <button onclick="shareNotice(${notice.id})">Share</button>
+                <button class="primary" onclick="viewDetails(${notice.id})">View Details</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getDaysLeft(deadline) {
+      const now = new Date();
+      const end = new Date(deadline);
+      const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+      return diff;
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function filterNotices() {
+      const typeFilter = document.getElementById('filterType').value;
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+      let filtered = notices;
+
+      if (typeFilter !== 'all') {
+        filtered = filtered.filter(n => n.type === typeFilter);
+      }
+
+      if (searchTerm) {
+        filtered = filtered.filter(n =>
+          n.title.toLowerCase().includes(searchTerm) ||
+          n.description.toLowerCase().includes(searchTerm) ||
+          n.dept.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Sort by deadline (soonest first), then by featured
+      filtered.sort((a, b) => {
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        return new Date(a.deadline) - new Date(b.deadline);
+      });
+
+      renderNotices(filtered);
+    }
+
+    function shareNotice(id) {
+      const notice = notices.find(n => n.id === id);
+      if (notice && navigator.share) {
+        navigator.share({
+          title: notice.title,
+          text: notice.description,
+          url: window.location.href + '#notice-' + id
+        });
+      } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(window.location.href + '#notice-' + id);
+        alert('Link copied to clipboard!');
+      }
+    }
+
+    function viewDetails(id) {
+      const notice = notices.find(n => n.id === id);
+      if (notice) {
+        alert(`Full details for "${notice.title}" would open in a modal or new page.\n\nDeadline: ${formatDate(notice.deadline)}\nDepartment: ${notice.dept}`);
+      }
+    }
+
+    // Initial render
+    filterNotices();
+  </script>
+</body>
+</html>

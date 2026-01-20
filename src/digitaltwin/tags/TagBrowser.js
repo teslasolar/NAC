@@ -17,133 +17,22 @@ import { readFileSync, readdirSync, existsSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import {
+  TagValue,
+  TagDataType,
+  TagQuality,
+  TagNode
+} from './helpers/index.js';
+
+// Re-export for backward compatibility
+export { TagValue, TagDataType, TagQuality } from './helpers/TagValue.js';
+export { TagNode } from './helpers/TagNode.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const UDT_PATH = join(__dirname, 'udt');
 const INSTANCES_PATH = join(__dirname, 'instances');
-
-/**
- * Tag data types (similar to IEC 61131-3)
- */
-export const TagDataType = {
-  BOOL: 'BOOL',
-  INT: 'INT',
-  DINT: 'DINT',
-  LINT: 'LINT',
-  REAL: 'REAL',
-  STRING: 'STRING',
-  ARRAY: 'ARRAY',
-  UDT: 'UDT'
-};
-
-/**
- * Tag quality codes (OPC UA style)
- */
-export const TagQuality = {
-  GOOD: 192,
-  GOOD_LOCAL_OVERRIDE: 216,
-  UNCERTAIN: 64,
-  BAD: 0,
-  BAD_NOT_CONNECTED: 8,
-  BAD_DEVICE_FAILURE: 12,
-  BAD_SENSOR_FAILURE: 16,
-  BAD_LAST_KNOWN_VALUE: 20,
-  BAD_COMM_FAILURE: 24,
-  BAD_OUT_OF_SERVICE: 28
-};
-
-/**
- * Single tag value with metadata
- */
-export class TagValue {
-  constructor(value, quality = TagQuality.GOOD, timestamp = Date.now()) {
-    this.value = value;
-    this.quality = quality;
-    this.timestamp = timestamp;
-    this.sourceTimestamp = timestamp;
-    this.serverTimestamp = timestamp;
-  }
-
-  isGood() {
-    return this.quality >= 192;
-  }
-
-  toJSON() {
-    return {
-      value: this.value,
-      quality: this.quality,
-      timestamp: this.timestamp
-    };
-  }
-}
-
-/**
- * Tag node in the browse tree
- */
-export class TagNode {
-  constructor(name, path, nodeType = 'folder') {
-    this.name = name;
-    this.path = path;
-    this.nodeType = nodeType; // folder, udt, tag
-    this.dataType = null;
-    this.udtType = null;
-    this.description = '';
-    this.children = new Map();
-    this.value = null;
-    this.writable = true;
-    this.subscribers = [];
-  }
-
-  addChild(name, node) {
-    this.children.set(name, node);
-    return node;
-  }
-
-  getChild(name) {
-    return this.children.get(name);
-  }
-
-  hasChildren() {
-    return this.children.size > 0;
-  }
-
-  getChildNames() {
-    return Array.from(this.children.keys());
-  }
-
-  subscribe(callback) {
-    this.subscribers.push(callback);
-    return () => {
-      this.subscribers = this.subscribers.filter(cb => cb !== callback);
-    };
-  }
-
-  notifySubscribers(oldValue, newValue) {
-    for (const callback of this.subscribers) {
-      try {
-        callback(newValue, oldValue, this.path);
-      } catch (e) {
-        console.error(`Subscriber error for ${this.path}:`, e);
-      }
-    }
-  }
-
-  toJSON() {
-    return {
-      name: this.name,
-      path: this.path,
-      nodeType: this.nodeType,
-      dataType: this.dataType,
-      udtType: this.udtType,
-      description: this.description,
-      hasChildren: this.hasChildren(),
-      childCount: this.children.size,
-      writable: this.writable,
-      value: this.value?.toJSON()
-    };
-  }
-}
 
 /**
  * TagBrowser - Main class for tag access

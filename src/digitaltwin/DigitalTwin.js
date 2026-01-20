@@ -15,6 +15,13 @@
 import { PackMLStateMachine, PackMLState, PackMLMode } from '../isa88/PackML.js';
 import { WorkItem } from '../isa88/ProductionUnit.js';
 
+// Import helpers
+import { CountyMetrics, getUnitConnections } from './helpers/index.js';
+
+// Re-export for backward compatibility
+export { CountyMetrics } from './helpers/CountyMetrics.js';
+export { ConnectionType, getUnitConnections, getConnectionsForUnit, calculateUnitLayout } from './helpers/UnitConnections.js';
+
 // Import all officer units
 import { createSheriffUnit } from './officers/SheriffUnit.js';
 import { createTreasurerUnit } from './officers/TreasurerUnit.js';
@@ -24,52 +31,6 @@ import { createRecorderOfDeedsUnit } from './officers/RecorderOfDeedsUnit.js';
 import { createRegisterOfWillsUnit } from './officers/RegisterOfWillsUnit.js';
 import { createClerkOfCourtsUnit } from './officers/ClerkOfCourtsUnit.js';
 import { createProthonotaryUnit } from './officers/ProthonotaryUnit.js';
-
-/**
- * County metrics for dashboard
- */
-export class CountyMetrics {
-  constructor() {
-    this.totalItemsProcessed = 0;
-    this.totalRevenue = 0;
-    this.activeWorkItems = 0;
-    this.unitStatuses = new Map();
-    this.throughputByUnit = new Map();
-    this.lastUpdated = new Date().toISOString();
-  }
-
-  update(units) {
-    this.totalItemsProcessed = 0;
-    this.activeWorkItems = 0;
-
-    for (const [unitId, unit] of units) {
-      const status = unit.getStatus();
-      this.unitStatuses.set(unitId, status);
-      this.totalItemsProcessed += status.totalItemsProcessed;
-
-      // Count active items across all lines
-      for (const line of status.lines) {
-        this.activeWorkItems += line.inputQueueLength;
-        for (const station of line.stations) {
-          this.activeWorkItems += station.currentLoad;
-        }
-      }
-    }
-
-    this.lastUpdated = new Date().toISOString();
-    return this;
-  }
-
-  toJSON() {
-    return {
-      totalItemsProcessed: this.totalItemsProcessed,
-      activeWorkItems: this.activeWorkItems,
-      unitCount: this.unitStatuses.size,
-      lastUpdated: this.lastUpdated,
-      units: Object.fromEntries(this.unitStatuses)
-    };
-  }
-}
 
 /**
  * Digital Twin - The County Government Factory
@@ -359,38 +320,10 @@ export class DigitalTwin {
       scene.units.push(unitData);
     }
 
-    // Add inter-unit connections (e.g., Sheriff -> Treasurer for fee deposits)
-    scene.connections = this._getUnitConnections();
+    // Add inter-unit connections from helper
+    scene.connections = getUnitConnections();
 
     return scene;
-  }
-
-  /**
-   * Get connections between units (workflow dependencies)
-   */
-  _getUnitConnections() {
-    // Define the financial flow: fees/funds -> Treasurer
-    return [
-      { from: 'sheriff', to: 'treasurer', type: 'fee-deposit', label: 'Fee Collection' },
-      { from: 'coroner', to: 'treasurer', type: 'fee-deposit', label: 'Permit Fees' },
-      { from: 'clerk-of-courts', to: 'treasurer', type: 'fee-deposit', label: 'Court Fees' },
-      { from: 'prothonotary', to: 'treasurer', type: 'fee-deposit', label: 'Filing Fees' },
-      { from: 'recorder-of-deeds', to: 'treasurer', type: 'fee-deposit', label: 'Recording Fees' },
-      { from: 'register-of-wills', to: 'treasurer', type: 'fee-deposit', label: 'Probate Fees' },
-      // Criminal justice flow
-      { from: 'sheriff', to: 'district-attorney', type: 'case-referral', label: 'Arrests' },
-      { from: 'district-attorney', to: 'clerk-of-courts', type: 'case-filing', label: 'Criminal Cases' },
-      { from: 'district-attorney', to: 'prothonotary', type: 'case-filing', label: 'Civil Matters' },
-      // Court documents
-      { from: 'prothonotary', to: 'sheriff', type: 'service-request', label: 'Writs' },
-      { from: 'clerk-of-courts', to: 'sheriff', type: 'service-request', label: 'Subpoenas' },
-      // Death investigations
-      { from: 'coroner', to: 'district-attorney', type: 'referral', label: 'Suspicious Deaths' },
-      // Property records
-      { from: 'sheriff', to: 'recorder-of-deeds', type: 'deed-recording', label: 'Sheriff Deeds' },
-      // Estate matters
-      { from: 'register-of-wills', to: 'prothonotary', type: 'judgment', label: 'Estate Judgments' }
-    ];
   }
 
   /**

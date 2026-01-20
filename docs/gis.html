@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS & Property Maps - Northampton County</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #1a1a2e;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #e4e4e4;
+        }
+        .header {
+            background: rgba(0,0,0,0.5);
+            padding: 15px 20px;
+            border-bottom: 2px solid #27ae60;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .header h1 { color: #27ae60; font-size: 1.5em; }
+        .header h1 span { color: #ffd700; }
+        .back-btn {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #219a52; }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 350px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .search-box {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(39,174,96,0.3);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1em;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+        .search-input::placeholder { color: #666; }
+
+        .layer-controls {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .layer-controls h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .layer-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        .layer-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #27ae60;
+        }
+        .layer-option label { cursor: pointer; }
+
+        .property-info {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        .property-info h3 {
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        .property-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(39,174,96,0.3);
+        }
+        .property-card .address {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .property-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .property-detail:last-child { border-bottom: none; }
+        .property-detail .label { color: #888; }
+        .property-detail .value { font-weight: 500; }
+        .property-detail .value.tax { color: #27ae60; }
+
+        .quick-links {
+            padding: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .quick-links h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .quick-link-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(39,174,96,0.2);
+            border: 1px solid rgba(39,174,96,0.3);
+            border-radius: 5px;
+            color: #27ae60;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        .quick-link-btn:hover {
+            background: rgba(39,174,96,0.3);
+        }
+
+        #map {
+            flex: 1;
+            background: #1a1a2e;
+        }
+
+        .map-legend {
+            position: absolute;
+            bottom: 30px;
+            right: 10px;
+            background: rgba(26,26,46,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(39,174,96,0.3);
+            z-index: 1000;
+            min-width: 150px;
+        }
+        .map-legend h4 { color: #27ae60; margin-bottom: 10px; font-size: 0.9em; }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 0;
+            font-size: 0.85em;
+        }
+        .legend-color {
+            width: 20px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        .map-tools {
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1000;
+        }
+        .map-tool-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(26,26,46,0.95);
+            border: 1px solid rgba(39,174,96,0.3);
+            border-radius: 5px;
+            color: #27ae60;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-tool-btn:hover {
+            background: rgba(39,174,96,0.2);
+        }
+        .map-tool-btn.active {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .coords-display {
+            position: absolute;
+            bottom: 10px;
+            left: 360px;
+            background: rgba(26,26,46,0.9);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            z-index: 1000;
+            font-family: monospace;
+        }
+
+        .no-property {
+            text-align: center;
+            color: #666;
+            padding: 30px;
+        }
+        .no-property .icon { font-size: 3em; margin-bottom: 15px; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: 40%; }
+            .main-container { flex-direction: column; }
+            .coords-display { left: 10px; }
+        }
+
+        /* Leaflet customization */
+        .leaflet-container { background: #1a1a2e; }
+        .leaflet-popup-content-wrapper {
+            background: rgba(26,26,46,0.95);
+            color: #e4e4e4;
+            border: 1px solid rgba(39,174,96,0.5);
+        }
+        .leaflet-popup-tip { background: rgba(26,26,46,0.95); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🗺️ GIS & <span>Property</span> Maps</h1>
+        <button class="back-btn" onclick="window.location.href='scada.html'">← Back to SCADA</button>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search address, parcel ID, or owner...">
+            </div>
+
+            <div class="layer-controls">
+                <h3>📍 MAP LAYERS</h3>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerParcels" checked>
+                    <label for="layerParcels">Property Parcels</label>
+                </div>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerZoning" checked>
+                    <label for="layerZoning">Zoning Districts</label>
+                </div>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerRoads">
+                    <label for="layerRoads">Road Network</label>
+                </div>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerFlood">
+                    <label for="layerFlood">Flood Zones</label>
+                </div>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerSchools">
+                    <label for="layerSchools">School Districts</label>
+                </div>
+                <div class="layer-option">
+                    <input type="checkbox" id="layerMunicipals">
+                    <label for="layerMunicipals">Municipal Boundaries</label>
+                </div>
+            </div>
+
+            <div class="property-info" id="propertyInfo">
+                <h3>📋 PROPERTY DETAILS</h3>
+                <div class="no-property">
+                    <div class="icon">🏠</div>
+                    <p>Click on a property on the map or search above to view details</p>
+                </div>
+            </div>
+
+            <div class="quick-links">
+                <h3>🔗 QUICK LINKS</h3>
+                <a href="https://www.ncpagis.org/" target="_blank" class="quick-link-btn">Official County GIS Portal</a>
+                <a href="checkbook.html" class="quick-link-btn">Tax Payment Records</a>
+                <a href="tickets.html" class="quick-link-btn">Report Property Issue</a>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="map-tools">
+            <button class="map-tool-btn" onclick="zoomIn()" title="Zoom In">+</button>
+            <button class="map-tool-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+            <button class="map-tool-btn" onclick="resetView()" title="Reset View">⌂</button>
+            <button class="map-tool-btn" onclick="toggleMeasure()" id="measureBtn" title="Measure Distance">📏</button>
+            <button class="map-tool-btn" onclick="printMap()" title="Print Map">🖨️</button>
+        </div>
+
+        <div class="map-legend">
+            <h4>ZONING LEGEND</h4>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #27ae60;"></div>
+                <span>Residential</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3498db;"></div>
+                <span>Commercial</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9b59b6;"></div>
+                <span>Industrial</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f39c12;"></div>
+                <span>Agricultural</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #1abc9c;"></div>
+                <span>Conservation</span>
+            </div>
+        </div>
+
+        <div class="coords-display" id="coords">Lat: ---, Lng: ---</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map centered on Northampton County, PA
+        const map = L.map('map', {
+            zoomControl: false
+        }).setView([40.7545, -75.3033], 11);
+
+        // Base tile layer (dark theme)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Sample property data for demonstration
+        const sampleProperties = [
+            { id: 'K9-14-3A-0312', address: '669 Washington St, Easton', lat: 40.6884, lng: -75.2207, owner: 'NORTHAMPTON COUNTY', value: 45000000, tax: 892000, zoning: 'institutional', acres: 12.5, use: 'Government Center' },
+            { id: 'K9-14-2B-0105', address: '2370 Bushkill Center Rd, Nazareth', lat: 40.7408, lng: -75.3194, owner: 'GRACEDALE NURSING HOME', value: 35000000, tax: 0, zoning: 'institutional', acres: 85, use: 'Nursing Facility' },
+            { id: 'L8-5-1C-0042', address: '101 Larry Holmes Dr, Easton', lat: 40.6918, lng: -75.2094, owner: 'WIND CREEK BETHLEHEM LLC', value: 198000000, tax: 3920000, zoning: 'commercial', acres: 2.1, use: 'Casino/Entertainment' },
+            { id: 'M7-8-2A-0088', address: '3777 Easton-Nazareth Hwy, Easton', lat: 40.7156, lng: -75.2756, owner: 'AMAZON.COM SERVICES LLC', value: 125000000, tax: 2475000, zoning: 'industrial', acres: 95, use: 'Distribution Center' },
+            { id: 'N6-12-4D-0201', address: '250 College Drive, Bethlehem', lat: 40.6340, lng: -75.3621, owner: 'NORTHAMPTON COMM COLLEGE', value: 78000000, tax: 0, zoning: 'institutional', acres: 165, use: 'Educational' },
+            { id: 'K8-9-1B-0055', address: '30 S Third St, Easton', lat: 40.6907, lng: -75.2074, owner: 'CITY OF EASTON', value: 8500000, tax: 0, zoning: 'institutional', acres: 0.5, use: 'City Hall' },
+            { id: 'P5-3-2A-0112', address: '1000 Industrial Blvd, Bethlehem', lat: 40.6078, lng: -75.3890, owner: 'LEHIGH HEAVY FORGE', value: 42000000, tax: 832000, zoning: 'industrial', acres: 28, use: 'Manufacturing' },
+            { id: 'J10-7-3C-0078', address: '100 Centre Square, Easton', lat: 40.6914, lng: -75.2094, owner: 'EASTON MAIN STREET INC', value: 2200000, tax: 43560, zoning: 'commercial', acres: 0.25, use: 'Retail/Office' },
+        ];
+
+        // Create markers and polygons for properties
+        const propertyLayer = L.layerGroup().addTo(map);
+        const zoningColors = {
+            residential: '#27ae60',
+            commercial: '#3498db',
+            industrial: '#9b59b6',
+            agricultural: '#f39c12',
+            conservation: '#1abc9c',
+            institutional: '#e74c3c'
+        };
+
+        sampleProperties.forEach(prop => {
+            // Create a small polygon to represent the parcel
+            const size = Math.sqrt(prop.acres) * 0.001;
+            const bounds = [
+                [prop.lat - size/2, prop.lng - size/2],
+                [prop.lat + size/2, prop.lng - size/2],
+                [prop.lat + size/2, prop.lng + size/2],
+                [prop.lat - size/2, prop.lng + size/2]
+            ];
+
+            const polygon = L.polygon(bounds, {
+                color: zoningColors[prop.zoning] || '#666',
+                weight: 2,
+                fillOpacity: 0.4
+            }).addTo(propertyLayer);
+
+            polygon.on('click', () => showPropertyDetails(prop));
+            polygon.bindPopup(`<strong>${prop.address}</strong><br>Click for details`);
+        });
+
+        // Municipal boundaries (simplified)
+        const municipalities = [
+            { name: 'Easton', center: [40.6884, -75.2207] },
+            { name: 'Bethlehem Township', center: [40.6340, -75.3621] },
+            { name: 'Nazareth', center: [40.7408, -75.3094] },
+            { name: 'Forks Township', center: [40.7545, -75.2433] },
+            { name: 'Palmer Township', center: [40.7045, -75.2633] },
+            { name: 'Hanover Township', center: [40.6778, -75.3590] },
+            { name: 'Lower Nazareth Township', center: [40.7108, -75.3194] },
+            { name: 'Williams Township', center: [40.6684, -75.1607] },
+            { name: 'Northampton Borough', center: [40.6870, -75.4965] },
+            { name: 'Bangor', center: [40.8656, -75.2065] },
+        ];
+
+        const municipalLayer = L.layerGroup();
+        municipalities.forEach(muni => {
+            L.circle(muni.center, {
+                radius: 3000,
+                color: '#fff',
+                weight: 1,
+                fillOpacity: 0.05,
+                dashArray: '5,5'
+            }).bindTooltip(muni.name, { permanent: false }).addTo(municipalLayer);
+        });
+
+        // Layer toggle handlers
+        document.getElementById('layerParcels').addEventListener('change', (e) => {
+            if (e.target.checked) propertyLayer.addTo(map);
+            else map.removeLayer(propertyLayer);
+        });
+
+        document.getElementById('layerMunicipals').addEventListener('change', (e) => {
+            if (e.target.checked) municipalLayer.addTo(map);
+            else map.removeLayer(municipalLayer);
+        });
+
+        // Coordinate display
+        map.on('mousemove', (e) => {
+            document.getElementById('coords').textContent =
+                `Lat: ${e.latlng.lat.toFixed(5)}, Lng: ${e.latlng.lng.toFixed(5)}`;
+        });
+
+        function showPropertyDetails(prop) {
+            const html = `
+                <div class="property-card">
+                    <div class="address">${prop.address}</div>
+                    <div class="property-detail">
+                        <span class="label">Parcel ID</span>
+                        <span class="value">${prop.id}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Owner</span>
+                        <span class="value">${prop.owner}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Assessed Value</span>
+                        <span class="value">$${prop.value.toLocaleString()}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Annual Tax</span>
+                        <span class="value tax">$${prop.tax.toLocaleString()}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Zoning</span>
+                        <span class="value" style="text-transform:capitalize">${prop.zoning}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Acres</span>
+                        <span class="value">${prop.acres}</span>
+                    </div>
+                    <div class="property-detail">
+                        <span class="label">Land Use</span>
+                        <span class="value">${prop.use}</span>
+                    </div>
+                </div>
+            `;
+            document.getElementById('propertyInfo').innerHTML = '<h3>📋 PROPERTY DETAILS</h3>' + html;
+            map.setView([prop.lat, prop.lng], 15);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value.toLowerCase();
+                const result = sampleProperties.find(p =>
+                    p.address.toLowerCase().includes(query) ||
+                    p.id.toLowerCase().includes(query) ||
+                    p.owner.toLowerCase().includes(query)
+                );
+                if (result) {
+                    showPropertyDetails(result);
+                } else {
+                    alert('Property not found. Try searching for: Easton, Gracedale, Amazon, or Wind Creek');
+                }
+            }
+        });
+
+        // Map controls
+        function zoomIn() { map.zoomIn(); }
+        function zoomOut() { map.zoomOut(); }
+        function resetView() { map.setView([40.7545, -75.3033], 11); }
+
+        let measuring = false;
+        let measurePoints = [];
+        let measureLine = null;
+
+        function toggleMeasure() {
+            measuring = !measuring;
+            document.getElementById('measureBtn').classList.toggle('active', measuring);
+            if (!measuring && measureLine) {
+                map.removeLayer(measureLine);
+                measurePoints = [];
+            }
+        }
+
+        map.on('click', (e) => {
+            if (measuring) {
+                measurePoints.push(e.latlng);
+                if (measureLine) map.removeLayer(measureLine);
+                if (measurePoints.length > 1) {
+                    measureLine = L.polyline(measurePoints, { color: '#ffd700', weight: 3 }).addTo(map);
+                    let totalDist = 0;
+                    for (let i = 1; i < measurePoints.length; i++) {
+                        totalDist += measurePoints[i-1].distanceTo(measurePoints[i]);
+                    }
+                    const miles = (totalDist * 0.000621371).toFixed(2);
+                    measureLine.bindPopup(`Distance: ${miles} miles`).openPopup();
+                }
+            }
+        });
+
+        function printMap() {
+            window.print();
+        }
+
+        // Add county boundary outline
+        const countyBoundary = L.polygon([
+            [40.98, -75.65], [40.98, -74.98], [40.55, -74.98],
+            [40.55, -75.20], [40.58, -75.30], [40.55, -75.45],
+            [40.58, -75.65]
+        ], {
+            color: '#ffd700',
+            weight: 3,
+            fillOpacity: 0,
+            dashArray: '10,5'
+        }).addTo(map).bindTooltip('Northampton County', { permanent: false });
+    </script>
+</body>
+</html>

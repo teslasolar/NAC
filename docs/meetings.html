@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Archive - Northampton County</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-bottom: 2px solid #f39c12;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { color: #f39c12; font-size: 1.8em; }
+        .header h1 span { color: #fff; }
+        .back-btn {
+            background: #f39c12;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #e67e22; }
+
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid rgba(243,156,18,0.3);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1em;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #f39c12;
+        }
+        .filter-select {
+            padding: 12px 15px;
+            border: 2px solid rgba(243,156,18,0.3);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            cursor: pointer;
+        }
+        .filter-btn {
+            background: #f39c12;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .filter-btn:hover { background: #e67e22; }
+
+        .main-content {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+        @media (max-width: 1024px) {
+            .main-content { grid-template-columns: 1fr; }
+        }
+
+        .meetings-list { }
+
+        .meeting-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(243,156,18,0.2);
+            transition: all 0.2s;
+        }
+        .meeting-card:hover {
+            border-color: #f39c12;
+            transform: translateY(-2px);
+        }
+        .meeting-card.expanded {
+            border-color: #f39c12;
+            background: rgba(243,156,18,0.1);
+        }
+
+        .meeting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .meeting-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+        .meeting-date {
+            background: rgba(243,156,18,0.2);
+            color: #f39c12;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+
+        .meeting-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9em;
+        }
+        .meeting-meta span { display: flex; align-items: center; gap: 5px; }
+
+        .meeting-body {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .meeting-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            background: rgba(243,156,18,0.2);
+            border: 1px solid rgba(243,156,18,0.3);
+            color: #f39c12;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .action-btn:hover {
+            background: rgba(243,156,18,0.3);
+        }
+        .action-btn.primary {
+            background: #f39c12;
+            color: #1a1a2e;
+        }
+
+        .transcript-preview {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+            display: none;
+        }
+        .transcript-preview.show { display: block; }
+        .transcript-line {
+            margin-bottom: 10px;
+        }
+        .transcript-line .speaker {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .transcript-line .timestamp {
+            color: #666;
+            font-size: 0.8em;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(243,156,18,0.2);
+        }
+        .sidebar-panel h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .calendar-mini {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+        .calendar-mini .day-header {
+            color: #888;
+            font-size: 0.8em;
+            padding: 5px;
+        }
+        .calendar-mini .day {
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+        .calendar-mini .day:hover { background: rgba(243,156,18,0.2); }
+        .calendar-mini .day.has-meeting {
+            background: rgba(243,156,18,0.3);
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .calendar-mini .day.today {
+            border: 2px solid #f39c12;
+        }
+
+        .upcoming-list { list-style: none; }
+        .upcoming-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .upcoming-list li:last-child { border-bottom: none; }
+        .upcoming-list .date { color: #f39c12; font-weight: bold; font-size: 0.85em; }
+        .upcoming-list .title { margin-top: 3px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .stat-item {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-item .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #f39c12;
+        }
+        .stat-item .label {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .board-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+        .board-badge.council { background: rgba(52,152,219,0.2); color: #3498db; }
+        .board-badge.finance { background: rgba(46,204,113,0.2); color: #2ecc71; }
+        .board-badge.planning { background: rgba(155,89,182,0.2); color: #9b59b6; }
+        .board-badge.elections { background: rgba(231,76,60,0.2); color: #e74c3c; }
+        .board-badge.personnel { background: rgba(241,196,15,0.2); color: #f1c40f; }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .page-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(243,156,18,0.3);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .page-btn:hover, .page-btn.active {
+            background: #f39c12;
+            color: #1a1a2e;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📹 <span>Meeting</span> Archive</h1>
+        <button class="back-btn" onclick="window.location.href='scada.html'">← Back to SCADA</button>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search meetings, topics, or speakers...">
+        <select class="filter-select" id="boardFilter">
+            <option value="">All Boards/Committees</option>
+            <option value="council">County Council</option>
+            <option value="finance">Finance Committee</option>
+            <option value="planning">Planning Commission</option>
+            <option value="elections">Election Board</option>
+            <option value="personnel">Personnel Committee</option>
+        </select>
+        <select class="filter-select" id="yearFilter">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+        </select>
+        <button class="filter-btn" onclick="filterMeetings()">Filter</button>
+    </div>
+
+    <div class="main-content">
+        <div class="meetings-list" id="meetingsList">
+            <!-- Meetings will be rendered here -->
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-panel">
+                <h3>📊 Archive Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="value">847</div>
+                        <div class="label">Total Meetings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">2,341</div>
+                        <div class="label">Hours Recorded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">523</div>
+                        <div class="label">Transcripts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">12.4K</div>
+                        <div class="label">Documents</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-panel">
+                <h3>📅 January 2026</h3>
+                <div class="calendar-mini" id="calendar">
+                    <!-- Calendar will be rendered -->
+                </div>
+            </div>
+
+            <div class="sidebar-panel">
+                <h3>⏰ Upcoming Meetings</h3>
+                <ul class="upcoming-list">
+                    <li>
+                        <div class="date">Jan 23, 2026 - 7:00 PM</div>
+                        <div class="title">County Council Meeting</div>
+                    </li>
+                    <li>
+                        <div class="date">Jan 27, 2026 - 4:00 PM</div>
+                        <div class="title">Finance Committee</div>
+                    </li>
+                    <li>
+                        <div class="date">Jan 30, 2026 - 6:00 PM</div>
+                        <div class="title">Planning Commission</div>
+                    </li>
+                    <li>
+                        <div class="date">Feb 6, 2026 - 7:00 PM</div>
+                        <div class="title">County Council Meeting</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-panel">
+                <h3>🔗 Quick Links</h3>
+                <a href="#" class="action-btn" style="width:100%; justify-content:center; margin-bottom:10px;">📺 Live Stream</a>
+                <a href="#" class="action-btn" style="width:100%; justify-content:center; margin-bottom:10px;">📋 Current Agendas</a>
+                <a href="#" class="action-btn" style="width:100%; justify-content:center;">📄 Meeting Minutes</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const meetings = [
+            {
+                id: 1,
+                title: 'County Council Meeting',
+                board: 'council',
+                date: '2026-01-16',
+                time: '7:00 PM',
+                duration: '2h 15m',
+                location: 'Council Chambers, Government Center',
+                summary: 'Discussion of 2026 budget amendments, Gracedale staffing crisis, and approval of emergency road repairs for Route 33 interchange. Public comment period on proposed tax reassessment timeline.',
+                hasVideo: true,
+                hasTranscript: true,
+                hasMinutes: true,
+                attendees: ['Tara Zrinski (Exec)', 'Ron Heckman', 'Lori Vargo Heffner', 'Kerry Myers', 'John Cusick'],
+                transcript: [
+                    { time: '0:00:00', speaker: 'Exec. Zrinski', text: 'I call this meeting of the Northampton County Council to order.' },
+                    { time: '0:00:45', speaker: 'Clerk', text: 'Roll call. Council members Heckman, Vargo Heffner, Myers, Cusick present.' },
+                    { time: '0:02:15', speaker: 'Exec. Zrinski', text: 'First item on the agenda is the 2026 budget amendment regarding Gracedale nursing home staffing.' },
+                    { time: '0:05:30', speaker: 'Mr. Heckman', text: 'I move we allocate an additional 2.5 million dollars from the general fund reserve to address the critical staffing shortage.' },
+                ]
+            },
+            {
+                id: 2,
+                title: 'Finance Committee Meeting',
+                board: 'finance',
+                date: '2026-01-13',
+                time: '4:00 PM',
+                duration: '1h 45m',
+                location: 'Room 201, Government Center',
+                summary: 'Review of Q4 2025 financial statements, discussion of fund balance policy, and presentation of Controller\'s audit findings on capital project spending.',
+                hasVideo: true,
+                hasTranscript: true,
+                hasMinutes: true,
+                attendees: ['Kerry Myers (Chair)', 'John Cusick', 'Ron Heckman'],
+                transcript: [
+                    { time: '0:00:00', speaker: 'Chair Myers', text: 'Finance Committee meeting is called to order.' },
+                    { time: '0:03:20', speaker: 'Controller', text: 'The audit of capital projects reveals several areas of concern regarding procurement procedures.' },
+                ]
+            },
+            {
+                id: 3,
+                title: 'Planning Commission Hearing',
+                board: 'planning',
+                date: '2026-01-09',
+                time: '6:00 PM',
+                duration: '3h 30m',
+                location: 'Council Chambers, Government Center',
+                summary: 'Public hearing on proposed warehouse development in Williams Township. Review of comprehensive plan amendments for Lower Nazareth Township zoning changes.',
+                hasVideo: true,
+                hasTranscript: false,
+                hasMinutes: true,
+                attendees: ['Planning Commission Members', 'Township Representatives', 'Developer Representatives'],
+                transcript: []
+            },
+            {
+                id: 4,
+                title: 'Election Board Meeting',
+                board: 'elections',
+                date: '2026-01-06',
+                time: '10:00 AM',
+                duration: '1h 15m',
+                location: 'Election Office, Wolf Building',
+                summary: 'Certification of 2025 municipal election results, discussion of ballot scanner maintenance, and review of poll worker training program updates.',
+                hasVideo: false,
+                hasTranscript: true,
+                hasMinutes: true,
+                attendees: ['Election Board Members', 'Director of Elections'],
+                transcript: []
+            },
+            {
+                id: 5,
+                title: 'County Council Meeting',
+                board: 'council',
+                date: '2026-01-02',
+                time: '7:00 PM',
+                duration: '1h 45m',
+                location: 'Council Chambers, Government Center',
+                summary: 'Organizational meeting for 2026. Election of Council President and Vice President. Appointment of committee chairs. Swearing in of new County Executive.',
+                hasVideo: true,
+                hasTranscript: true,
+                hasMinutes: true,
+                attendees: ['Full Council', 'County Executive'],
+                transcript: []
+            },
+            {
+                id: 6,
+                title: 'Personnel Committee Meeting',
+                board: 'personnel',
+                date: '2025-12-18',
+                time: '3:00 PM',
+                duration: '2h 00m',
+                location: 'Room 201, Government Center',
+                summary: 'Discussion of AFSCME contract negotiations, review of employee health insurance options for 2026, and approval of new job classifications.',
+                hasVideo: true,
+                hasTranscript: false,
+                hasMinutes: true,
+                attendees: ['Personnel Committee Members', 'HR Director'],
+                transcript: []
+            },
+        ];
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function renderMeetings(data) {
+            const container = document.getElementById('meetingsList');
+            container.innerHTML = data.map(m => `
+                <div class="meeting-card" id="meeting-${m.id}">
+                    <div class="meeting-header">
+                        <div>
+                            <div class="meeting-title">${m.title}</div>
+                            <span class="board-badge ${m.board}">${m.board.charAt(0).toUpperCase() + m.board.slice(1)}</span>
+                        </div>
+                        <div class="meeting-date">${formatDate(m.date)}</div>
+                    </div>
+                    <div class="meeting-meta">
+                        <span>🕐 ${m.time}</span>
+                        <span>⏱️ ${m.duration}</span>
+                        <span>📍 ${m.location}</span>
+                    </div>
+                    <div class="meeting-body">${m.summary}</div>
+                    <div class="meeting-actions">
+                        ${m.hasVideo ? '<a href="#" class="action-btn primary">▶️ Watch Video</a>' : ''}
+                        ${m.hasTranscript ? `<button class="action-btn" onclick="toggleTranscript(${m.id})">📝 View Transcript</button>` : ''}
+                        ${m.hasMinutes ? '<a href="#" class="action-btn">📄 Minutes</a>' : ''}
+                        <a href="#" class="action-btn">📎 Attachments</a>
+                    </div>
+                    ${m.hasTranscript && m.transcript.length > 0 ? `
+                        <div class="transcript-preview" id="transcript-${m.id}">
+                            ${m.transcript.map(t => `
+                                <div class="transcript-line">
+                                    <span class="timestamp">[${t.time}]</span>
+                                    <span class="speaker">${t.speaker}:</span>
+                                    ${t.text}
+                                </div>
+                            `).join('')}
+                            <p style="color:#666; margin-top:15px; font-style:italic;">... transcript continues ...</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function toggleTranscript(id) {
+            const transcript = document.getElementById(`transcript-${id}`);
+            const card = document.getElementById(`meeting-${id}`);
+            if (transcript) {
+                transcript.classList.toggle('show');
+                card.classList.toggle('expanded');
+            }
+        }
+
+        function filterMeetings() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const board = document.getElementById('boardFilter').value;
+            const year = document.getElementById('yearFilter').value;
+
+            let filtered = meetings.filter(m => {
+                if (board && m.board !== board) return false;
+                if (year && !m.date.startsWith(year)) return false;
+                if (search && !m.title.toLowerCase().includes(search) &&
+                    !m.summary.toLowerCase().includes(search)) return false;
+                return true;
+            });
+
+            renderMeetings(filtered);
+        }
+
+        function renderCalendar() {
+            const container = document.getElementById('calendar');
+            const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            const meetingDays = [2, 6, 9, 13, 16, 23, 27, 30]; // Days with meetings
+
+            let html = days.map(d => `<div class="day-header">${d}</div>`).join('');
+
+            // January 2026 starts on Thursday (index 4)
+            for (let i = 0; i < 4; i++) {
+                html += '<div class="day"></div>';
+            }
+
+            for (let d = 1; d <= 31; d++) {
+                const hasMeeting = meetingDays.includes(d);
+                const isToday = d === 20;
+                html += `<div class="day ${hasMeeting ? 'has-meeting' : ''} ${isToday ? 'today' : ''}">${d}</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Initialize
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') filterMeetings();
+        });
+
+        renderMeetings(meetings);
+        renderCalendar();
+    </script>
+</body>
+</html>

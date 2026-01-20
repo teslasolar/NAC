@@ -563,6 +563,11 @@
           <span>911 Metrics</span>
           <span class="badge">!</span>
         </div>
+        <div class="nav-item" onclick="loadScreen('gracedale')" style="border-left: 3px solid #e74c3c; margin-left: -3px;">
+          <span class="icon">🏥</span>
+          <span>Gracedale</span>
+          <span class="badge" style="background: #e74c3c;">ALERT</span>
+        </div>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Finance</div>
@@ -582,6 +587,16 @@
         <div class="nav-item" onclick="loadScreen('pension')">
           <span class="icon">🏦</span>
           <span>Pension</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('checkbook')" style="border-left: 3px solid #00d4aa; margin-left: -3px;">
+          <span class="icon">💰</span>
+          <span>Open Checkbook</span>
+          <span class="badge" style="background: #00d4aa;">OPEN</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('funding')" style="border-left: 3px solid #9b59b6; margin-left: -3px;">
+          <span class="icon">📊</span>
+          <span>State Funding</span>
+          <span class="badge" style="background: #9b59b6;">TRACK</span>
         </div>
       </div>
       <div class="nav-section">
@@ -624,6 +639,16 @@
           <span class="icon">⛓️</span>
           <span>County Ledger</span>
           <span class="badge" style="background: #06b6d4;">CHAIN</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('gis')" style="border-left: 3px solid #27ae60; margin-left: -3px;">
+          <span class="icon">🗺️</span>
+          <span>GIS / Maps</span>
+          <span class="badge" style="background: #27ae60;">MAP</span>
+        </div>
+        <div class="nav-item" onclick="loadScreen('meetings')" style="border-left: 3px solid #f39c12; margin-left: -3px;">
+          <span class="icon">📹</span>
+          <span>Meeting Archive</span>
+          <span class="badge" style="background: #f39c12;">VIDEO</span>
         </div>
       </div>
       <div class="nav-section">
@@ -738,6 +763,11 @@
       academy: { name: 'NAC Academy', icon: '🎓', category: 'Citizen', url: 'academy.html' },
       notices: { name: 'Public Notices', icon: '📋', category: 'Citizen', url: 'notices.html' },
       ledger: { name: 'County Ledger', icon: '⛓️', category: 'Citizen', url: 'ledger.html' },
+      checkbook: { name: 'Open Checkbook', icon: '💰', category: 'Finance', url: 'checkbook.html' },
+      gracedale: { name: 'Gracedale Dashboard', icon: '🏥', category: 'Operations', url: 'gracedale.html' },
+      funding: { name: 'State Funding Tracker', icon: '📊', category: 'Finance', url: 'funding.html' },
+      gis: { name: 'GIS & Property Maps', icon: '🗺️', category: 'Citizen', url: 'gis.html' },
+      meetings: { name: 'Meeting Archive', icon: '📹', category: 'Citizen', url: 'meetings.html' },
       economic: { name: 'Economic Scorecard', icon: '📈', category: 'Analytics', url: 'economic-scorecard.html' },
       org: { name: 'Org Chart', icon: '👥', category: 'Main', url: 'org-chart.html' },
       transform: { name: 'Transformation Plan', icon: '🌱', category: 'Main', url: 'transformation-plan.html' },

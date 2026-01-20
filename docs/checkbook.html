@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Checkbook - Northampton County</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-bottom: 2px solid #00d4aa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { color: #00d4aa; font-size: 1.8em; }
+        .header h1 span { color: #ffd700; }
+        .back-btn {
+            background: #00d4aa;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #00b894; }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0,212,170,0.3);
+        }
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4aa;
+        }
+        .stat-card .label { color: #888; margin-top: 5px; }
+
+        .main-content { padding: 20px; }
+
+        .search-section {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .search-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 2px solid rgba(0,212,170,0.3);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1em;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+        .search-btn {
+            background: #00d4aa;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .search-btn:hover { background: #00b894; }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid rgba(0,212,170,0.3);
+            border-radius: 5px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .results-count { color: #888; }
+        .export-btn {
+            background: transparent;
+            border: 1px solid #00d4aa;
+            color: #00d4aa;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .export-btn:hover { background: rgba(0,212,170,0.1); }
+
+        .payments-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .payments-table th {
+            background: rgba(0,212,170,0.2);
+            padding: 15px;
+            text-align: left;
+            color: #00d4aa;
+            cursor: pointer;
+            user-select: none;
+        }
+        .payments-table th:hover { background: rgba(0,212,170,0.3); }
+        .payments-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .payments-table tr:hover { background: rgba(0,212,170,0.05); }
+
+        .amount { font-weight: bold; color: #00d4aa; }
+        .amount.negative { color: #ff6b6b; }
+
+        .vendor-link {
+            color: #4dabf7;
+            text-decoration: none;
+        }
+        .vendor-link:hover { text-decoration: underline; }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            background: rgba(0,212,170,0.2);
+            color: #00d4aa;
+        }
+        .category-badge.personnel { background: rgba(74,144,226,0.2); color: #4a90e2; }
+        .category-badge.services { background: rgba(155,89,182,0.2); color: #9b59b6; }
+        .category-badge.supplies { background: rgba(241,196,15,0.2); color: #f1c40f; }
+        .category-badge.capital { background: rgba(230,126,34,0.2); color: #e67e22; }
+        .category-badge.grants { background: rgba(46,204,113,0.2); color: #2ecc71; }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .page-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,212,170,0.3);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .page-btn:hover, .page-btn.active {
+            background: #00d4aa;
+            color: #1a1a2e;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .chart-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(0,212,170,0.3);
+        }
+        .chart-card h3 { color: #00d4aa; margin-bottom: 15px; }
+
+        .top-vendors {
+            list-style: none;
+        }
+        .top-vendors li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .top-vendors .rank {
+            color: #ffd700;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .spending-bar {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .spending-bar .label {
+            width: 120px;
+            font-size: 0.9em;
+        }
+        .spending-bar .bar-container {
+            flex: 1;
+            height: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .spending-bar .bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .spending-bar .value {
+            width: 100px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .disclaimer {
+            background: rgba(255,193,7,0.1);
+            border: 1px solid rgba(255,193,7,0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #ffc107;
+        }
+
+        @media (max-width: 768px) {
+            .charts-section { grid-template-columns: 1fr; }
+            .payments-table { font-size: 0.85em; }
+            .payments-table th, .payments-table td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>💰 Open <span>Checkbook</span> - Northampton County</h1>
+        <button class="back-btn" onclick="window.location.href='scada.html'">← Back to SCADA</button>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="value" id="totalSpending">$0</div>
+            <div class="label">Total FY 2025 Spending</div>
+        </div>
+        <div class="stat-card">
+            <div class="value" id="totalPayments">0</div>
+            <div class="label">Total Payments</div>
+        </div>
+        <div class="stat-card">
+            <div class="value" id="uniqueVendors">0</div>
+            <div class="label">Unique Vendors</div>
+        </div>
+        <div class="stat-card">
+            <div class="value" id="avgPayment">$0</div>
+            <div class="label">Average Payment</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="search-section">
+            <div class="search-row">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search vendor name, description, or check number...">
+                <input type="date" class="search-input" id="startDate" style="flex:0.3;">
+                <input type="date" class="search-input" id="endDate" style="flex:0.3;">
+                <button class="search-btn" onclick="performSearch()">🔍 Search</button>
+            </div>
+            <div class="filters">
+                <select class="filter-select" id="categoryFilter" onchange="performSearch()">
+                    <option value="">All Categories</option>
+                    <option value="personnel">Personnel</option>
+                    <option value="services">Professional Services</option>
+                    <option value="supplies">Supplies & Materials</option>
+                    <option value="capital">Capital Projects</option>
+                    <option value="grants">Grants & Subsidies</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="debt">Debt Service</option>
+                </select>
+                <select class="filter-select" id="departmentFilter" onchange="performSearch()">
+                    <option value="">All Departments</option>
+                    <option value="gracedale">Gracedale Nursing Home</option>
+                    <option value="corrections">Corrections</option>
+                    <option value="courts">Courts & Judiciary</option>
+                    <option value="human-services">Human Services</option>
+                    <option value="public-works">Public Works</option>
+                    <option value="administration">Administration</option>
+                    <option value="elections">Elections</option>
+                    <option value="controller">Controller's Office</option>
+                </select>
+                <select class="filter-select" id="amountFilter" onchange="performSearch()">
+                    <option value="">Any Amount</option>
+                    <option value="0-1000">Under $1,000</option>
+                    <option value="1000-10000">$1,000 - $10,000</option>
+                    <option value="10000-100000">$10,000 - $100,000</option>
+                    <option value="100000+">Over $100,000</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="results-header">
+            <span class="results-count" id="resultsCount">Showing 0 payments</span>
+            <button class="export-btn" onclick="exportCSV()">📥 Export CSV</button>
+        </div>
+
+        <table class="payments-table">
+            <thead>
+                <tr>
+                    <th onclick="sortBy('date')">Date ↕</th>
+                    <th onclick="sortBy('vendor')">Vendor ↕</th>
+                    <th onclick="sortBy('description')">Description</th>
+                    <th onclick="sortBy('department')">Department</th>
+                    <th onclick="sortBy('category')">Category</th>
+                    <th onclick="sortBy('amount')">Amount ↕</th>
+                    <th>Check #</th>
+                </tr>
+            </thead>
+            <tbody id="paymentsBody">
+            </tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>📊 Spending by Category</h3>
+                <div id="categoryChart"></div>
+            </div>
+            <div class="chart-card">
+                <h3>🏆 Top 10 Vendors</h3>
+                <ol class="top-vendors" id="topVendors"></ol>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            ⚠️ <strong>Demo Data:</strong> This checkbook displays simulated payment data for demonstration purposes.
+            In production, this would connect to the County's financial system (SAP, Tyler Munis, etc.)
+            and display real-time payment information per PA Right-to-Know Law requirements.
+        </div>
+    </div>
+
+    <script>
+        // Simulated payment data - in production, this would come from county financial system
+        const payments = generatePayments();
+        let filteredPayments = [...payments];
+        let currentPage = 1;
+        const perPage = 20;
+        let sortColumn = 'date';
+        let sortDir = 'desc';
+
+        function generatePayments() {
+            const vendors = [
+                { name: 'Aramark Services', category: 'services', dept: 'gracedale' },
+                { name: 'PNC Bank', category: 'debt', dept: 'administration' },
+                { name: 'PPL Electric Utilities', category: 'utilities', dept: 'public-works' },
+                { name: 'UGI Energy Services', category: 'utilities', dept: 'administration' },
+                { name: 'Lehigh Valley Health Network', category: 'services', dept: 'human-services' },
+                { name: 'St. Luke\'s Hospital', category: 'services', dept: 'corrections' },
+                { name: 'Highmark Blue Shield', category: 'personnel', dept: 'administration' },
+                { name: 'AFSCME Local 3162', category: 'personnel', dept: 'gracedale' },
+                { name: 'CDW Government', category: 'supplies', dept: 'administration' },
+                { name: 'Office Depot', category: 'supplies', dept: 'courts' },
+                { name: 'Staples Business', category: 'supplies', dept: 'elections' },
+                { name: 'James J. Anderson Construction', category: 'capital', dept: 'public-works' },
+                { name: 'Barry Isett & Associates', category: 'services', dept: 'public-works' },
+                { name: 'Keystone Consulting Engineers', category: 'services', dept: 'public-works' },
+                { name: 'Northampton County Prison', category: 'services', dept: 'corrections' },
+                { name: 'PA Department of Revenue', category: 'grants', dept: 'administration' },
+                { name: 'DCED Grant Program', category: 'grants', dept: 'human-services' },
+                { name: 'Dominion Voting Systems', category: 'capital', dept: 'elections' },
+                { name: 'ES&S Election Systems', category: 'services', dept: 'elections' },
+                { name: 'Magellan Behavioral Health', category: 'services', dept: 'human-services' },
+                { name: 'County Employees Pension', category: 'personnel', dept: 'administration' },
+                { name: 'PA State Retirement', category: 'personnel', dept: 'administration' },
+                { name: 'Waste Management', category: 'services', dept: 'public-works' },
+                { name: 'Verizon Business', category: 'utilities', dept: 'administration' },
+                { name: 'McKesson Medical', category: 'supplies', dept: 'gracedale' },
+            ];
+
+            const descriptions = {
+                personnel: ['Employee benefits', 'Payroll processing', 'Health insurance premiums', 'Pension contributions', 'Workers compensation'],
+                services: ['Professional consulting', 'Medical services', 'Food services contract', 'Security services', 'Legal services', 'Maintenance contract'],
+                supplies: ['Office supplies', 'Medical supplies', 'Computer equipment', 'Cleaning supplies', 'Safety equipment'],
+                capital: ['Building renovation', 'Equipment purchase', 'Infrastructure upgrade', 'Vehicle acquisition', 'Technology systems'],
+                grants: ['Community program', 'Social services grant', 'Housing assistance', 'Youth program funding', 'Senior services'],
+                utilities: ['Electric service', 'Natural gas', 'Water/sewer', 'Telecommunications', 'Internet service'],
+                debt: ['Bond payment', 'Interest payment', 'Loan repayment', 'Capital lease', 'Note payment']
+            };
+
+            const data = [];
+            const startDate = new Date('2025-01-01');
+            const endDate = new Date('2025-12-31');
+
+            for (let i = 0; i < 500; i++) {
+                const vendor = vendors[Math.floor(Math.random() * vendors.length)];
+                const date = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
+                const descList = descriptions[vendor.category];
+
+                let amount;
+                switch(vendor.category) {
+                    case 'personnel': amount = 5000 + Math.random() * 200000; break;
+                    case 'services': amount = 1000 + Math.random() * 150000; break;
+                    case 'capital': amount = 10000 + Math.random() * 500000; break;
+                    case 'grants': amount = 5000 + Math.random() * 100000; break;
+                    case 'debt': amount = 50000 + Math.random() * 300000; break;
+                    default: amount = 100 + Math.random() * 20000;
+                }
+
+                data.push({
+                    id: i + 1,
+                    date: date.toISOString().split('T')[0],
+                    vendor: vendor.name,
+                    description: descList[Math.floor(Math.random() * descList.length)],
+                    department: vendor.dept,
+                    category: vendor.category,
+                    amount: Math.round(amount * 100) / 100,
+                    checkNumber: 'CHK' + (100000 + Math.floor(Math.random() * 50000))
+                });
+            }
+
+            return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function getDeptName(dept) {
+            const names = {
+                'gracedale': 'Gracedale',
+                'corrections': 'Corrections',
+                'courts': 'Courts',
+                'human-services': 'Human Services',
+                'public-works': 'Public Works',
+                'administration': 'Administration',
+                'elections': 'Elections',
+                'controller': 'Controller'
+            };
+            return names[dept] || dept;
+        }
+
+        function updateStats() {
+            const total = filteredPayments.reduce((sum, p) => sum + p.amount, 0);
+            const uniqueVendors = new Set(filteredPayments.map(p => p.vendor)).size;
+
+            document.getElementById('totalSpending').textContent = formatCurrency(total);
+            document.getElementById('totalPayments').textContent = filteredPayments.length.toLocaleString();
+            document.getElementById('uniqueVendors').textContent = uniqueVendors;
+            document.getElementById('avgPayment').textContent = formatCurrency(total / filteredPayments.length || 0);
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const department = document.getElementById('departmentFilter').value;
+            const amountRange = document.getElementById('amountFilter').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            filteredPayments = payments.filter(p => {
+                if (query && !p.vendor.toLowerCase().includes(query) &&
+                    !p.description.toLowerCase().includes(query) &&
+                    !p.checkNumber.toLowerCase().includes(query)) return false;
+                if (category && p.category !== category) return false;
+                if (department && p.department !== department) return false;
+                if (startDate && p.date < startDate) return false;
+                if (endDate && p.date > endDate) return false;
+
+                if (amountRange) {
+                    const [min, max] = amountRange.split('-').map(v => v === '+' ? Infinity : parseFloat(v));
+                    if (amountRange.includes('+')) {
+                        if (p.amount < parseFloat(amountRange)) return false;
+                    } else if (p.amount < min || p.amount > max) return false;
+                }
+
+                return true;
+            });
+
+            currentPage = 1;
+            sortPayments();
+            renderPayments();
+            updateStats();
+            updateCharts();
+        }
+
+        function sortBy(column) {
+            if (sortColumn === column) {
+                sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDir = 'desc';
+            }
+            sortPayments();
+            renderPayments();
+        }
+
+        function sortPayments() {
+            filteredPayments.sort((a, b) => {
+                let valA = a[sortColumn];
+                let valB = b[sortColumn];
+
+                if (sortColumn === 'date') {
+                    valA = new Date(valA);
+                    valB = new Date(valB);
+                } else if (sortColumn === 'amount') {
+                    valA = parseFloat(valA);
+                    valB = parseFloat(valB);
+                } else {
+                    valA = String(valA).toLowerCase();
+                    valB = String(valB).toLowerCase();
+                }
+
+                if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        function renderPayments() {
+            const start = (currentPage - 1) * perPage;
+            const pageData = filteredPayments.slice(start, start + perPage);
+
+            const tbody = document.getElementById('paymentsBody');
+            tbody.innerHTML = pageData.map(p => `
+                <tr>
+                    <td>${formatDate(p.date)}</td>
+                    <td><a href="#" class="vendor-link" onclick="filterByVendor('${p.vendor}')">${p.vendor}</a></td>
+                    <td>${p.description}</td>
+                    <td>${getDeptName(p.department)}</td>
+                    <td><span class="category-badge ${p.category}">${p.category}</span></td>
+                    <td class="amount">${formatCurrency(p.amount)}</td>
+                    <td>${p.checkNumber}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('resultsCount').textContent =
+                `Showing ${start + 1}-${Math.min(start + perPage, filteredPayments.length)} of ${filteredPayments.length.toLocaleString()} payments`;
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredPayments.length / perPage);
+            const pagination = document.getElementById('pagination');
+
+            let html = '';
+            if (currentPage > 1) {
+                html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})">← Prev</button>`;
+            }
+
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (currentPage < totalPages) {
+                html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})">Next →</button>`;
+            }
+
+            pagination.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderPayments();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        function filterByVendor(vendor) {
+            document.getElementById('searchInput').value = vendor;
+            performSearch();
+        }
+
+        function updateCharts() {
+            // Category spending chart
+            const categoryTotals = {};
+            filteredPayments.forEach(p => {
+                categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.amount;
+            });
+
+            const maxCategory = Math.max(...Object.values(categoryTotals));
+            const colors = {
+                personnel: '#4a90e2',
+                services: '#9b59b6',
+                supplies: '#f1c40f',
+                capital: '#e67e22',
+                grants: '#2ecc71',
+                utilities: '#3498db',
+                debt: '#e74c3c'
+            };
+
+            document.getElementById('categoryChart').innerHTML = Object.entries(categoryTotals)
+                .sort((a, b) => b[1] - a[1])
+                .map(([cat, amount]) => `
+                    <div class="spending-bar">
+                        <div class="label">${cat}</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: ${(amount/maxCategory)*100}%; background: ${colors[cat] || '#00d4aa'}"></div>
+                        </div>
+                        <div class="value">${formatCurrency(amount)}</div>
+                    </div>
+                `).join('');
+
+            // Top vendors
+            const vendorTotals = {};
+            filteredPayments.forEach(p => {
+                vendorTotals[p.vendor] = (vendorTotals[p.vendor] || 0) + p.amount;
+            });
+
+            const topVendors = Object.entries(vendorTotals)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            document.getElementById('topVendors').innerHTML = topVendors
+                .map(([vendor, amount], i) => `
+                    <li>
+                        <span><span class="rank">#${i + 1}</span> ${vendor}</span>
+                        <span class="amount">${formatCurrency(amount)}</span>
+                    </li>
+                `).join('');
+        }
+
+        function exportCSV() {
+            const headers = ['Date', 'Vendor', 'Description', 'Department', 'Category', 'Amount', 'Check Number'];
+            const rows = filteredPayments.map(p => [
+                p.date, p.vendor, p.description, getDeptName(p.department), p.category, p.amount, p.checkNumber
+            ]);
+
+            const csv = [headers, ...rows].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `northampton-county-payments-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        document.getElementById('searchInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        // Set default date range to current year
+        document.getElementById('startDate').value = '2025-01-01';
+        document.getElementById('endDate').value = '2025-12-31';
+
+        performSearch();
+    </script>
+</body>
+</html>

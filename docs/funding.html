@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Funding Tracker - Northampton County</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-bottom: 2px solid #9b59b6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { color: #9b59b6; font-size: 1.8em; }
+        .header h1 span { color: #ffd700; }
+        .back-btn {
+            background: #9b59b6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #8e44ad; }
+
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+        }
+        .summary-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(155,89,182,0.3);
+        }
+        .summary-card .value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #9b59b6;
+        }
+        .summary-card .label { color: #888; margin-top: 5px; }
+        .summary-card.received .value { color: #2ecc71; }
+        .summary-card.pending .value { color: #f1c40f; }
+        .summary-card.delayed .value { color: #e74c3c; }
+
+        .main-content { padding: 20px; }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(155,89,182,0.3);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab:hover { background: rgba(155,89,182,0.2); }
+        .tab.active {
+            background: #9b59b6;
+            border-color: #9b59b6;
+        }
+
+        .funding-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .funding-table th {
+            background: rgba(155,89,182,0.2);
+            padding: 15px;
+            text-align: left;
+            color: #9b59b6;
+        }
+        .funding-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .funding-table tr:hover { background: rgba(155,89,182,0.05); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .status-badge.received { background: rgba(46,204,113,0.2); color: #2ecc71; }
+        .status-badge.pending { background: rgba(241,196,15,0.2); color: #f1c40f; }
+        .status-badge.delayed { background: rgba(231,76,60,0.2); color: #e74c3c; }
+        .status-badge.applied { background: rgba(52,152,219,0.2); color: #3498db; }
+
+        .amount { font-weight: bold; }
+        .amount.positive { color: #2ecc71; }
+
+        .progress-section {
+            margin: 30px 0;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+        }
+        .progress-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+        .progress-segment.received { background: #2ecc71; color: #fff; }
+        .progress-segment.pending { background: #f1c40f; color: #1a1a2e; }
+        .progress-segment.delayed { background: #e74c3c; color: #fff; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .chart-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(155,89,182,0.3);
+        }
+        .chart-panel h3 { color: #9b59b6; margin-bottom: 15px; }
+
+        .agency-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .agency-row .name { width: 150px; font-size: 0.9em; }
+        .agency-row .bar-container {
+            flex: 1;
+            height: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 15px;
+        }
+        .agency-row .bar {
+            height: 100%;
+            border-radius: 10px;
+        }
+        .agency-row .value { width: 100px; text-align: right; font-weight: bold; }
+
+        .timeline-panel {
+            margin-top: 30px;
+        }
+        .fiscal-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 20px 0;
+        }
+        .fiscal-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+        .timeline-point {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+        .timeline-point .dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #9b59b6;
+            margin: 0 auto 10px;
+        }
+        .timeline-point .dot.completed { background: #2ecc71; }
+        .timeline-point .dot.current { background: #f1c40f; box-shadow: 0 0 10px #f1c40f; }
+        .timeline-point .label { font-size: 0.85em; color: #888; }
+        .timeline-point .date { font-size: 0.75em; color: #666; margin-top: 5px; }
+
+        .contact-info {
+            background: rgba(155,89,182,0.1);
+            border: 1px solid rgba(155,89,182,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .contact-info h3 { color: #9b59b6; margin-bottom: 15px; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .contact-card {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .contact-card .title { color: #9b59b6; font-weight: bold; }
+        .contact-card .detail { color: #888; font-size: 0.9em; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 State <span>Funding</span> Tracker</h1>
+        <button class="back-btn" onclick="window.location.href='scada.html'">← Back to SCADA</button>
+    </div>
+
+    <div class="summary-bar">
+        <div class="summary-card">
+            <div class="value">$142.8M</div>
+            <div class="label">Total FY 2025-26 Allocation</div>
+        </div>
+        <div class="summary-card received">
+            <div class="value">$89.4M</div>
+            <div class="label">Received to Date</div>
+        </div>
+        <div class="summary-card pending">
+            <div class="value">$38.2M</div>
+            <div class="label">Pending Release</div>
+        </div>
+        <div class="summary-card delayed">
+            <div class="value">$15.2M</div>
+            <div class="label">Delayed / At Risk</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>FY 2025-26 State Funding Status</span>
+                <span>62.6% Received</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-segment received" style="width:62.6%">$89.4M</div>
+                <div class="progress-segment pending" style="width:26.8%">$38.2M</div>
+                <div class="progress-segment delayed" style="width:10.6%">$15.2M</div>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#2ecc71"></div>
+                    <span>Received</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#f1c40f"></div>
+                    <span>Pending</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#e74c3c"></div>
+                    <span>Delayed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('all')">All Grants</button>
+            <button class="tab" onclick="showTab('received')">Received</button>
+            <button class="tab" onclick="showTab('pending')">Pending</button>
+            <button class="tab" onclick="showTab('delayed')">Delayed</button>
+        </div>
+
+        <table class="funding-table" id="fundingTable">
+            <thead>
+                <tr>
+                    <th>Program / Grant</th>
+                    <th>State Agency</th>
+                    <th>Allocated</th>
+                    <th>Received</th>
+                    <th>Status</th>
+                    <th>Expected Date</th>
+                </tr>
+            </thead>
+            <tbody id="fundingBody">
+            </tbody>
+        </table>
+
+        <div class="charts-grid">
+            <div class="chart-panel">
+                <h3>📈 Funding by State Agency</h3>
+                <div id="agencyChart"></div>
+            </div>
+            <div class="chart-panel">
+                <h3>📋 Program Categories</h3>
+                <div id="categoryChart"></div>
+            </div>
+        </div>
+
+        <div class="chart-panel timeline-panel">
+            <h3>🗓️ FY 2025-26 Funding Timeline</h3>
+            <div class="fiscal-timeline">
+                <div class="timeline-point">
+                    <div class="dot completed"></div>
+                    <div class="label">Budget Enacted</div>
+                    <div class="date">Jul 1, 2025</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="dot completed"></div>
+                    <div class="label">Q1 Release</div>
+                    <div class="date">Aug 15, 2025</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="dot completed"></div>
+                    <div class="label">Q2 Release</div>
+                    <div class="date">Nov 15, 2025</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="dot current"></div>
+                    <div class="label">Q3 Release</div>
+                    <div class="date">Feb 15, 2026</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="dot"></div>
+                    <div class="label">Q4 Release</div>
+                    <div class="date">May 15, 2026</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="dot"></div>
+                    <div class="label">Year End</div>
+                    <div class="date">Jun 30, 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h3>📞 State Agency Contacts</h3>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="title">PA Dept. of Human Services</div>
+                    <div class="detail">Grant inquiries: (717) 787-2600</div>
+                    <div class="detail">dhs.pa.gov</div>
+                </div>
+                <div class="contact-card">
+                    <div class="title">PA Dept. of Revenue</div>
+                    <div class="detail">Local tax distribution: (717) 787-8201</div>
+                    <div class="detail">revenue.pa.gov</div>
+                </div>
+                <div class="contact-card">
+                    <div class="title">PA DCED</div>
+                    <div class="detail">Community grants: (717) 787-7120</div>
+                    <div class="detail">dced.pa.gov</div>
+                </div>
+                <div class="contact-card">
+                    <div class="title">PA Emergency Management</div>
+                    <div class="detail">Disaster funds: (717) 651-2001</div>
+                    <div class="detail">pema.pa.gov</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fundingData = [
+            { program: 'Human Services Block Grant', agency: 'DHS', allocated: 28500000, received: 21375000, status: 'pending', expected: '2026-02-15' },
+            { program: 'Child Welfare Services', agency: 'DHS', allocated: 18200000, received: 18200000, status: 'received', expected: '2025-09-01' },
+            { program: 'Mental Health Services', agency: 'DHS', allocated: 12400000, received: 9300000, status: 'pending', expected: '2026-02-28' },
+            { program: 'Act 13 Impact Fees', agency: 'PUC', allocated: 8900000, received: 8900000, status: 'received', expected: '2025-07-15' },
+            { program: 'Liquid Fuels Tax', agency: 'PennDOT', allocated: 7200000, received: 5400000, status: 'pending', expected: '2026-01-31' },
+            { program: 'State Gaming Revenue', agency: 'Revenue', allocated: 6800000, received: 6800000, status: 'received', expected: '2025-10-01' },
+            { program: 'Election Reimbursement', agency: 'DOS', allocated: 4500000, received: 0, status: 'delayed', expected: '2026-03-15' },
+            { program: 'County Prison Reimbursement', agency: 'DOC', allocated: 9200000, received: 4600000, status: 'delayed', expected: '2026-04-01' },
+            { program: 'Drug & Alcohol Programs', agency: 'DDAP', allocated: 5600000, received: 5600000, status: 'received', expected: '2025-08-15' },
+            { program: 'Aging Services', agency: 'PDA', allocated: 11200000, received: 8400000, status: 'pending', expected: '2026-02-01' },
+            { program: 'Community Development', agency: 'DCED', allocated: 3800000, received: 0, status: 'delayed', expected: '2026-05-01' },
+            { program: 'Emergency Management', agency: 'PEMA', allocated: 2100000, received: 2100000, status: 'received', expected: '2025-07-01' },
+            { program: 'Courts AOC Funding', agency: 'AOPC', allocated: 8400000, received: 6300000, status: 'pending', expected: '2026-03-01' },
+            { program: 'Veterans Affairs', agency: 'DMVA', allocated: 1200000, received: 1200000, status: 'received', expected: '2025-09-15' },
+            { program: 'Conservation District', agency: 'DEP', allocated: 850000, received: 850000, status: 'received', expected: '2025-08-01' },
+            { program: 'Library System Grant', agency: 'Education', allocated: 1450000, received: 1450000, status: 'received', expected: '2025-10-15' },
+            { program: 'ARPA Recovery Funds', agency: 'Treasury', allocated: 12500000, received: 6600000, status: 'delayed', expected: '2026-06-30' },
+        ];
+
+        let currentFilter = 'all';
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function showTab(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            let filtered = fundingData;
+            if (currentFilter !== 'all') {
+                filtered = fundingData.filter(f => f.status === currentFilter);
+            }
+
+            const tbody = document.getElementById('fundingBody');
+            tbody.innerHTML = filtered.map(f => `
+                <tr>
+                    <td><strong>${f.program}</strong></td>
+                    <td>${f.agency}</td>
+                    <td class="amount">${formatCurrency(f.allocated)}</td>
+                    <td class="amount positive">${formatCurrency(f.received)}</td>
+                    <td><span class="status-badge ${f.status}">${f.status.charAt(0).toUpperCase() + f.status.slice(1)}</span></td>
+                    <td>${formatDate(f.expected)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderCharts() {
+            // Agency totals
+            const agencyTotals = {};
+            fundingData.forEach(f => {
+                agencyTotals[f.agency] = (agencyTotals[f.agency] || 0) + f.allocated;
+            });
+
+            const maxAgency = Math.max(...Object.values(agencyTotals));
+            const agencyColors = {
+                'DHS': '#3498db', 'PUC': '#9b59b6', 'PennDOT': '#e67e22', 'Revenue': '#2ecc71',
+                'DOS': '#e74c3c', 'DOC': '#1abc9c', 'DDAP': '#f39c12', 'PDA': '#16a085',
+                'DCED': '#8e44ad', 'PEMA': '#c0392b', 'AOPC': '#27ae60', 'DMVA': '#2980b9',
+                'DEP': '#d35400', 'Education': '#7f8c8d', 'Treasury': '#34495e'
+            };
+
+            document.getElementById('agencyChart').innerHTML = Object.entries(agencyTotals)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 8)
+                .map(([agency, amount]) => `
+                    <div class="agency-row">
+                        <div class="name">${agency}</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width:${(amount/maxAgency)*100}%; background:${agencyColors[agency] || '#9b59b6'}"></div>
+                        </div>
+                        <div class="value">${formatCurrency(amount)}</div>
+                    </div>
+                `).join('');
+
+            // Status breakdown
+            const statusTotals = { received: 0, pending: 0, delayed: 0 };
+            fundingData.forEach(f => {
+                statusTotals[f.status] += f.allocated;
+            });
+
+            const total = Object.values(statusTotals).reduce((a, b) => a + b, 0);
+            const statusColors = { received: '#2ecc71', pending: '#f1c40f', delayed: '#e74c3c' };
+
+            document.getElementById('categoryChart').innerHTML = Object.entries(statusTotals)
+                .map(([status, amount]) => `
+                    <div class="agency-row">
+                        <div class="name" style="text-transform:capitalize">${status}</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width:${(amount/total)*100}%; background:${statusColors[status]}"></div>
+                        </div>
+                        <div class="value">${formatCurrency(amount)}</div>
+                    </div>
+                `).join('');
+        }
+
+        // Initialize
+        renderTable();
+        renderCharts();
+    </script>
+</body>
+</html>

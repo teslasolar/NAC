@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>County Ledger - Immutable Public Records</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0f1a;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --border: #374151;
+      --text: #e5e7eb;
+      --text-dim: #9ca3af;
+      --accent: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --cyan: #06b6d4;
+      --purple: #8b5cf6;
+      --orange: #f97316;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #164e63 100%);
+      border-bottom: 2px solid var(--cyan);
+      padding: 1.5rem 2rem;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .chain-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid var(--green);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .chain-status .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    /* Main */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 1.5rem;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      font-family: 'Consolas', monospace;
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    .stat-card.cyan .value { color: var(--cyan); }
+    .stat-card.green .value { color: var(--green); }
+    .stat-card.purple .value { color: var(--purple); }
+    .stat-card.yellow .value { color: var(--yellow); }
+
+    /* Tabs */
+    .tabs {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.15s;
+    }
+
+    .tab:hover { color: var(--text); background: var(--bg-surface); }
+    .tab.active { color: var(--cyan); background: var(--bg-panel); border-bottom: 2px solid var(--cyan); }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Record list */
+    .record-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .record-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.15s;
+    }
+
+    .record-card:hover {
+      border-color: var(--cyan);
+    }
+
+    .record-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .record-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .type-budget { background: #22c55e33; color: #4ade80; }
+    .type-audit { background: #f59e0b33; color: #fbbf24; }
+    .type-report { background: #3b82f633; color: #60a5fa; }
+    .type-ordinance { background: #8b5cf633; color: #a78bfa; }
+    .type-contract { background: #06b6d433; color: #22d3ee; }
+
+    .record-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .record-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .record-hash {
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-surface);
+      font-family: 'Consolas', monospace;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .record-hash code {
+      color: var(--cyan);
+      word-break: break-all;
+    }
+
+    .record-hash .verify-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--green);
+      font-size: 0.75rem;
+    }
+
+    .record-footer {
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .record-block {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .record-block strong {
+      color: var(--purple);
+      font-family: monospace;
+    }
+
+    .record-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .record-actions button {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .record-actions button:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 1rem;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-content {
+      padding: 1rem;
+    }
+
+    /* Verify tool */
+    .verify-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .verify-btn {
+      width: 100%;
+      background: var(--cyan);
+      border: none;
+      color: #000;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .verify-btn:hover { background: #22d3ee; }
+
+    .verify-result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .verify-result.valid {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .verify-result.invalid {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+
+    /* Chain visualization */
+    .chain-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      position: relative;
+    }
+
+    .block::after {
+      content: '↓';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--border);
+      font-size: 0.8rem;
+    }
+
+    .block:last-child::after { display: none; }
+
+    .block .number {
+      font-size: 0.7rem;
+      color: var(--purple);
+      font-family: monospace;
+    }
+
+    .block .hash {
+      font-size: 0.65rem;
+      color: var(--cyan);
+      font-family: monospace;
+      word-break: break-all;
+    }
+
+    .block .time {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+    }
+
+    /* How it works */
+    .how-it-works {
+      font-size: 0.85rem;
+    }
+
+    .how-it-works ol {
+      padding-left: 1.25rem;
+    }
+
+    .how-it-works li {
+      margin-bottom: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .how-it-works strong {
+      color: var(--text);
+    }
+
+    /* Upload area */
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.05);
+    }
+
+    .upload-area .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-area p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    /* Filter */
+    .filter-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-row select {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 1024px) {
+      .main { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: repeat(3, 1fr); }
+      .sidebar { display: grid; grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .sidebar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div>
+        <h1>⛓️ County Ledger</h1>
+        <p>Immutable, timestamped public records on the blockchain</p>
+      </div>
+      <div class="header-right">
+        <div class="chain-status">
+          <span class="dot"></span>
+          <span>Chain Valid • Block #1,247</span>
+        </div>
+        <a href="scada.html" class="back-link">← Back to SCADA</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card cyan">
+        <div class="value">1,247</div>
+        <div class="label">Total Blocks</div>
+      </div>
+      <div class="stat-card green">
+        <div class="value">847</div>
+        <div class="label">Documents</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="value">100%</div>
+        <div class="label">Verified</div>
+      </div>
+      <div class="stat-card yellow">
+        <div class="value">2019</div>
+        <div class="label">Since Year</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">24/7</div>
+        <div class="label">Public Access</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showPanel('records')">📄 Records</button>
+      <button class="tab" onclick="showPanel('verify')">✓ Verify</button>
+      <button class="tab" onclick="showPanel('explorer')">🔍 Explorer</button>
+    </div>
+
+    <!-- Records Panel -->
+    <div class="panel active" id="panel-records">
+      <div class="filter-row">
+        <select id="filterType" onchange="filterRecords()">
+          <option value="all">All Types</option>
+          <option value="budget">Budgets</option>
+          <option value="audit">Audits</option>
+          <option value="report">Reports</option>
+          <option value="ordinance">Ordinances</option>
+          <option value="contract">Contracts</option>
+        </select>
+        <select id="filterYear" onchange="filterRecords()">
+          <option value="all">All Years</option>
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+
+      <div class="record-list" id="recordList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Verify Panel -->
+    <div class="panel" id="panel-verify">
+      <div style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+        <h3 style="margin-bottom: 1rem;">🔐 Verify Document Integrity</h3>
+        <p style="color: var(--text-dim); margin-bottom: 1.5rem;">
+          Upload a document or paste its hash to verify it hasn't been tampered with.
+        </p>
+
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+          <div class="icon">📁</div>
+          <p>Drop a file here or click to upload</p>
+          <input type="file" id="fileInput" style="display: none;" onchange="hashFile(this)">
+        </div>
+
+        <div style="text-align: center; margin: 1rem 0; color: var(--text-dim);">— OR —</div>
+
+        <input type="text" class="verify-input" id="hashInput" placeholder="Paste document hash (SHA-256)...">
+        <button class="verify-btn" onclick="verifyHash()">Verify on Chain</button>
+
+        <div id="verifyResult"></div>
+      </div>
+    </div>
+
+    <!-- Explorer Panel -->
+    <div class="panel" id="panel-explorer">
+      <div style="background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+        <h3 style="margin-bottom: 1rem;">⛓️ Block Explorer</h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+          <div class="block">
+            <div class="number">Block #1,247</div>
+            <div class="hash">0x7f3a...9e2b</div>
+            <div class="time">2 min ago</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,246</div>
+            <div class="hash">0x2c8f...4d1a</div>
+            <div class="time">1 hour ago</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,245</div>
+            <div class="hash">0x9b4e...7c3f</div>
+            <div class="time">3 hours ago</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,244</div>
+            <div class="hash">0x1d6a...8f5e</div>
+            <div class="time">5 hours ago</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,243</div>
+            <div class="hash">0x5e2c...3a7b</div>
+            <div class="time">8 hours ago</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,242</div>
+            <div class="hash">0x8f1d...6c9e</div>
+            <div class="time">12 hours ago</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <button style="background: var(--bg-surface); border: 1px solid var(--border); color: var(--text); padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer;">
+            Load More Blocks
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Quick Verify -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">🔐 Quick Verify</div>
+        <div class="sidebar-content">
+          <input type="text" class="verify-input" id="quickHash" placeholder="Paste hash...">
+          <button class="verify-btn" onclick="quickVerify()">Check</button>
+        </div>
+      </div>
+
+      <!-- Recent Blocks -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">⛓️ Latest Blocks</div>
+        <div class="sidebar-content chain-visual">
+          <div class="block">
+            <div class="number">Block #1,247</div>
+            <div class="hash">0x7f3a8b2c...9e2b</div>
+            <div class="time">Jan 20, 2026 14:32</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,246</div>
+            <div class="hash">0x2c8f1e4d...4d1a</div>
+            <div class="time">Jan 20, 2026 13:45</div>
+          </div>
+          <div class="block">
+            <div class="number">Block #1,245</div>
+            <div class="hash">0x9b4e7c3f...7c3f</div>
+            <div class="time">Jan 20, 2026 11:22</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">💡 How It Works</div>
+        <div class="sidebar-content how-it-works">
+          <ol>
+            <li><strong>Document Upload:</strong> Official documents are hashed using SHA-256</li>
+            <li><strong>Timestamping:</strong> Hash + timestamp recorded on chain</li>
+            <li><strong>Immutability:</strong> Once recorded, cannot be changed</li>
+            <li><strong>Verification:</strong> Anyone can verify document integrity</li>
+          </ol>
+          <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--cyan);">
+            Powered by ISA-80085 Government Ledger
+          </p>
+        </div>
+      </div>
+
+      <!-- Document Types -->
+      <div class="sidebar-card">
+        <div class="sidebar-header">📑 Recorded Documents</div>
+        <div class="sidebar-content">
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <span>Budgets</span>
+            <span style="color: var(--green);">124</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <span>Audit Reports</span>
+            <span style="color: var(--yellow);">287</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <span>Financial Reports</span>
+            <span style="color: var(--accent);">198</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <span>Ordinances</span>
+            <span style="color: var(--purple);">156</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+            <span>Contracts</span>
+            <span style="color: var(--cyan);">82</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const records = [
+      {
+        id: 1,
+        type: 'budget',
+        title: '2026 Adopted Budget',
+        dept: 'Controller',
+        date: '2025-12-15',
+        hash: 'a7f3b2c8e9d4f1a6b5c3d2e8f7a9b4c6d1e3f5a8b2c7d9e4f6a1b3c5d8e2f4a7',
+        block: 1245,
+        size: '4.2 MB',
+        verified: true
+      },
+      {
+        id: 2,
+        type: 'audit',
+        title: 'Treasurer Annual Audit FY2025',
+        dept: 'Controller',
+        date: '2025-11-30',
+        hash: 'b8c4d5e6f7a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8',
+        block: 1198,
+        size: '12.8 MB',
+        verified: true
+      },
+      {
+        id: 3,
+        type: 'report',
+        title: 'Q4 2025 Financial Report',
+        dept: 'Controller',
+        date: '2026-01-10',
+        hash: 'c9d5e6f7a8b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9',
+        block: 1240,
+        size: '2.1 MB',
+        verified: true
+      },
+      {
+        id: 4,
+        type: 'budget',
+        title: '2025 Amended Budget - Human Services',
+        dept: 'Controller',
+        date: '2025-06-20',
+        hash: 'd0e6f7a8b9c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0',
+        block: 1087,
+        size: '1.8 MB',
+        verified: true
+      },
+      {
+        id: 5,
+        type: 'audit',
+        title: 'Sheriff Office Audit FY2025',
+        dept: 'Controller',
+        date: '2025-10-15',
+        hash: 'e1f7a8b9c0d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1',
+        block: 1165,
+        size: '8.4 MB',
+        verified: true
+      },
+      {
+        id: 6,
+        type: 'ordinance',
+        title: 'Ordinance 2025-47: Tax Rate Adjustment',
+        dept: 'County Council',
+        date: '2025-11-01',
+        hash: 'f2a8b9c0d1e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2',
+        block: 1172,
+        size: '340 KB',
+        verified: true
+      },
+      {
+        id: 7,
+        type: 'contract',
+        title: 'IT Services Contract - Acme Tech',
+        dept: 'General Services',
+        date: '2025-08-22',
+        hash: 'a3b9c0d1e2f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3',
+        block: 1120,
+        size: '2.7 MB',
+        verified: true
+      },
+      {
+        id: 8,
+        type: 'audit',
+        title: 'Register of Wills Audit FY2025',
+        dept: 'Controller',
+        date: '2025-09-30',
+        hash: 'b4c0d1e2f3a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4',
+        block: 1145,
+        size: '6.2 MB',
+        verified: true
+      },
+      {
+        id: 9,
+        type: 'report',
+        title: 'ACFR - Annual Comprehensive Financial Report 2024',
+        dept: 'Controller',
+        date: '2025-03-31',
+        hash: 'c5d1e2f3a4b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5',
+        block: 1012,
+        size: '45.6 MB',
+        verified: true
+      },
+      {
+        id: 10,
+        type: 'budget',
+        title: '2025 Adopted Budget',
+        dept: 'Controller',
+        date: '2024-12-18',
+        hash: 'd6e2f3a4b5c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6',
+        block: 892,
+        size: '3.9 MB',
+        verified: true
+      }
+    ];
+
+    const typeLabels = {
+      budget: { label: '💰 Budget', class: 'type-budget' },
+      audit: { label: '🔍 Audit', class: 'type-audit' },
+      report: { label: '📊 Report', class: 'type-report' },
+      ordinance: { label: '📜 Ordinance', class: 'type-ordinance' },
+      contract: { label: '📝 Contract', class: 'type-contract' }
+    };
+
+    function renderRecords(filteredRecords) {
+      const container = document.getElementById('recordList');
+
+      container.innerHTML = filteredRecords.map(record => {
+        const type = typeLabels[record.type];
+        return `
+          <div class="record-card">
+            <div class="record-header">
+              <div>
+                <span class="record-type ${type.class}">${type.label}</span>
+                <h3 class="record-title">${record.title}</h3>
+                <div class="record-meta">
+                  <span>🏢 ${record.dept}</span>
+                  <span>📅 ${formatDate(record.date)}</span>
+                  <span>📦 ${record.size}</span>
+                </div>
+              </div>
+            </div>
+            <div class="record-hash">
+              <code>SHA-256: ${record.hash}</code>
+              <span class="verify-badge">✓ Verified</span>
+            </div>
+            <div class="record-footer">
+              <div class="record-block">
+                Block <strong>#${record.block}</strong>
+              </div>
+              <div class="record-actions">
+                <button onclick="copyHash('${record.hash}')">Copy Hash</button>
+                <button onclick="viewRecord(${record.id})">View Details</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function filterRecords() {
+      const typeFilter = document.getElementById('filterType').value;
+      const yearFilter = document.getElementById('filterYear').value;
+
+      let filtered = records;
+
+      if (typeFilter !== 'all') {
+        filtered = filtered.filter(r => r.type === typeFilter);
+      }
+
+      if (yearFilter !== 'all') {
+        filtered = filtered.filter(r => r.date.startsWith(yearFilter));
+      }
+
+      renderRecords(filtered);
+    }
+
+    function showPanel(panel) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+      document.querySelector(`[onclick="showPanel('${panel}')"]`).classList.add('active');
+      document.getElementById(`panel-${panel}`).classList.add('active');
+    }
+
+    function copyHash(hash) {
+      navigator.clipboard.writeText(hash);
+      alert('Hash copied to clipboard!');
+    }
+
+    function viewRecord(id) {
+      const record = records.find(r => r.id === id);
+      if (record) {
+        alert(`Document: ${record.title}\n\nHash: ${record.hash}\n\nBlock: #${record.block}\nDate: ${record.date}\nSize: ${record.size}\n\n✓ Verified on chain`);
+      }
+    }
+
+    async function hashFile(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const buffer = await file.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+      document.getElementById('hashInput').value = hashHex;
+      verifyHash();
+    }
+
+    function verifyHash() {
+      const hash = document.getElementById('hashInput').value.trim().toLowerCase();
+      const result = document.getElementById('verifyResult');
+
+      if (!hash) {
+        result.innerHTML = '';
+        return;
+      }
+
+      const found = records.find(r => r.hash.toLowerCase() === hash);
+
+      if (found) {
+        result.className = 'verify-result valid';
+        result.innerHTML = `
+          <strong>✓ Document Verified!</strong><br><br>
+          <strong>${found.title}</strong><br>
+          Recorded in Block #${found.block}<br>
+          Date: ${formatDate(found.date)}<br>
+          Department: ${found.dept}
+        `;
+      } else {
+        result.className = 'verify-result invalid';
+        result.innerHTML = `
+          <strong>✗ Not Found</strong><br><br>
+          This hash is not recorded on the county ledger.<br>
+          The document may have been modified or was never recorded.
+        `;
+      }
+    }
+
+    function quickVerify() {
+      const hash = document.getElementById('quickHash').value.trim().toLowerCase();
+      if (!hash) return;
+
+      const found = records.find(r => r.hash.toLowerCase().includes(hash));
+      if (found) {
+        alert(`✓ VERIFIED\n\n${found.title}\nBlock #${found.block}`);
+      } else {
+        alert('✗ NOT FOUND\n\nThis hash is not on the ledger.');
+      }
+    }
+
+    // Initial render
+    filterRecords();
+  </script>
+</body>
+</html>

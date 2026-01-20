@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OEE Dashboard - Northampton County</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      color: #e4e4e7;
+    }
+
+    .header {
+      background: rgba(255,255,255,0.05);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .header p {
+      color: #a1a1aa;
+      margin-top: 0.25rem;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Summary Cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .summary-card .label {
+      color: #a1a1aa;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .summary-card .value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .summary-card .subtitle {
+      color: #71717a;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    /* OEE Colors */
+    .oee-world-class { color: #22c55e; }
+    .oee-good { color: #84cc16; }
+    .oee-acceptable { color: #eab308; }
+    .oee-needs-improvement { color: #f97316; }
+    .oee-critical { color: #ef4444; }
+
+    /* Office Grid */
+    .office-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .office-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .office-card .office-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .office-card .office-name {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .office-card .office-oee {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .office-card .office-rating {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Component Bars */
+    .component-bars {
+      margin-top: 1rem;
+    }
+
+    .component-bar {
+      margin-bottom: 0.75rem;
+    }
+
+    .component-bar .bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .component-bar .bar-track {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .component-bar .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .bar-availability { background: #3b82f6; }
+    .bar-performance { background: #8b5cf6; }
+    .bar-quality { background: #10b981; }
+
+    /* Target indicator */
+    .target-indicator {
+      position: relative;
+    }
+
+    .target-line {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: #fff;
+      opacity: 0.5;
+    }
+
+    /* Charts Section */
+    .charts-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .chart-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    /* Six Big Losses */
+    .losses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .loss-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .loss-card .loss-name {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .loss-card .loss-affects {
+      font-size: 0.75rem;
+      color: #71717a;
+      margin-bottom: 0.5rem;
+    }
+
+    .loss-card .loss-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    /* Recommendations */
+    .recommendations {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .recommendations h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .recommendation-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .recommendation-item .office-badge {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      height: fit-content;
+    }
+
+    .recommendation-item .rec-content {
+      flex: 1;
+    }
+
+    .recommendation-item .rec-title {
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .recommendation-item .rec-actions {
+      font-size: 0.875rem;
+      color: #a1a1aa;
+    }
+
+    /* Benchmark Legend */
+    .benchmark-legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #71717a;
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    @media (max-width: 1200px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .office-grid { grid-template-columns: 1fr; }
+      .charts-section { grid-template-columns: 1fr; }
+      .losses-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .losses-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>OEE Dashboard</h1>
+    <p>Overall Equipment Effectiveness - Northampton County Row Officers</p>
+  </div>
+
+  <div class="container">
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="label">County Average OEE</div>
+        <div class="value oee-good" id="avgOEE">76.2%</div>
+        <div class="subtitle">Target: 78%</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Offices Meeting Target</div>
+        <div class="value" id="meetingTarget">5/8</div>
+        <div class="subtitle">62.5% compliance</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Top Performer</div>
+        <div class="value oee-world-class" id="topPerformer">Treasurer</div>
+        <div class="subtitle">86.4% OEE</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Needs Most Attention</div>
+        <div class="value oee-needs-improvement" id="needsAttention">DA</div>
+        <div class="subtitle">68.2% OEE</div>
+      </div>
+    </div>
+
+    <!-- Office Grid -->
+    <div class="office-grid" id="officeGrid">
+      <!-- Generated by JavaScript -->
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="chart-card">
+        <h3>OEE Comparison by Office</h3>
+        <div class="chart-container">
+          <canvas id="oeeChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Component Breakdown</h3>
+        <div class="chart-container">
+          <canvas id="componentsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Six Big Losses -->
+    <div class="chart-card">
+      <h3>Six Big Losses - Government Operations</h3>
+      <div class="losses-grid">
+        <div class="loss-card">
+          <div class="loss-name">System Failures</div>
+          <div class="loss-affects">Affects: Availability</div>
+          <div class="loss-value oee-needs-improvement">42 min</div>
+        </div>
+        <div class="loss-card">
+          <div class="loss-name">Setup & Transitions</div>
+          <div class="loss-affects">Affects: Availability</div>
+          <div class="loss-value oee-acceptable">68 min</div>
+        </div>
+        <div class="loss-card">
+          <div class="loss-name">Minor Stoppages</div>
+          <div class="loss-affects">Affects: Performance</div>
+          <div class="loss-value oee-acceptable">85 min</div>
+        </div>
+        <div class="loss-card">
+          <div class="loss-name">Reduced Speed</div>
+          <div class="loss-affects">Affects: Performance</div>
+          <div class="loss-value oee-good">28 min</div>
+        </div>
+        <div class="loss-card">
+          <div class="loss-name">Process Defects</div>
+          <div class="loss-affects">Affects: Quality</div>
+          <div class="loss-value oee-world-class">12 items</div>
+        </div>
+        <div class="loss-card">
+          <div class="loss-name">Startup Losses</div>
+          <div class="loss-affects">Affects: Quality</div>
+          <div class="loss-value oee-world-class">5 items</div>
+        </div>
+      </div>
+
+      <div class="benchmark-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #22c55e;"></div>
+          <span>World Class (85%+)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #84cc16;"></div>
+          <span>Good (75-85%)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #eab308;"></div>
+          <span>Acceptable (65-75%)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #f97316;"></div>
+          <span>Needs Improvement (50-65%)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #ef4444;"></div>
+          <span>Critical (&lt;50%)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="recommendations" style="margin-top: 1.5rem;">
+      <h3>Improvement Recommendations</h3>
+      <div id="recommendationsList">
+        <div class="recommendation-item">
+          <div class="office-badge">District Attorney</div>
+          <div class="rec-content">
+            <div class="rec-title">Performance Below Target (78% → 68%)</div>
+            <div class="rec-actions">
+              Identify bottleneck processes • Streamline case review workflow • Review staff allocation
+            </div>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <div class="office-badge">Coroner</div>
+          <div class="rec-content">
+            <div class="rec-title">Variable Performance Due to Case Complexity</div>
+            <div class="rec-actions">
+              Implement case triage system • Cross-train staff • Optimize scheduling
+            </div>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <div class="office-badge">Clerk of Courts</div>
+          <div class="rec-content">
+            <div class="rec-title">Availability Impacted by Court Calendar</div>
+            <div class="rec-actions">
+              Coordinate with court scheduling • Batch process filings • Extend counter hours
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>OEE methodology based on <a href="https://www.oee.com/" target="_blank">oee.com</a> and <a href="https://www.leanproduction.com/oee/" target="_blank">Lean Production</a></p>
+    <p style="margin-top: 0.5rem;">Northampton County Digital Twin - ISA-95 L3 MES Layer</p>
+  </div>
+
+  <script>
+    // Office OEE Data (simulated based on benchmarks)
+    const officeData = [
+      { id: 'treasurer', name: 'County Treasurer', oee: 86.4, target: 85, availability: 94, performance: 92, quality: 99.8 },
+      { id: 'recorder-of-deeds', name: 'Recorder of Deeds', oee: 82.1, target: 82, availability: 93, performance: 89, quality: 99.2 },
+      { id: 'prothonotary', name: 'Prothonotary', oee: 79.5, target: 80, availability: 92, performance: 87, quality: 99.1 },
+      { id: 'sheriff', name: "Sheriff's Office", oee: 77.8, target: 78, availability: 88, performance: 89, quality: 99.3 },
+      { id: 'clerk-of-courts', name: 'Clerk of Courts', oee: 74.2, target: 76, availability: 88, performance: 85, quality: 99.1 },
+      { id: 'register-of-wills', name: 'Register of Wills', oee: 73.5, target: 75, availability: 91, performance: 82, quality: 98.5 },
+      { id: 'coroner', name: "Coroner's Office", oee: 71.2, target: 72, availability: 93, performance: 78, quality: 98.2 },
+      { id: 'district-attorney', name: 'District Attorney', oee: 68.2, target: 70, availability: 90, performance: 77, quality: 98.4 }
+    ];
+
+    function getOEEColor(oee) {
+      if (oee >= 85) return '#22c55e';
+      if (oee >= 75) return '#84cc16';
+      if (oee >= 65) return '#eab308';
+      if (oee >= 50) return '#f97316';
+      return '#ef4444';
+    }
+
+    function getOEERating(oee) {
+      if (oee >= 85) return 'World Class';
+      if (oee >= 75) return 'Good';
+      if (oee >= 65) return 'Acceptable';
+      if (oee >= 50) return 'Needs Improvement';
+      return 'Critical';
+    }
+
+    // Generate Office Cards
+    function renderOfficeCards() {
+      const grid = document.getElementById('officeGrid');
+      grid.innerHTML = officeData.map(office => `
+        <div class="office-card">
+          <div class="office-header">
+            <div>
+              <div class="office-name">${office.name}</div>
+              <span class="office-rating">${getOEERating(office.oee)}</span>
+            </div>
+            <div class="office-oee" style="color: ${getOEEColor(office.oee)}">${office.oee}%</div>
+          </div>
+          <div class="component-bars">
+            <div class="component-bar">
+              <div class="bar-header">
+                <span>Availability</span>
+                <span>${office.availability}%</span>
+              </div>
+              <div class="bar-track target-indicator">
+                <div class="bar-fill bar-availability" style="width: ${office.availability}%"></div>
+              </div>
+            </div>
+            <div class="component-bar">
+              <div class="bar-header">
+                <span>Performance</span>
+                <span>${office.performance}%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-performance" style="width: ${office.performance}%"></div>
+              </div>
+            </div>
+            <div class="component-bar">
+              <div class="bar-header">
+                <span>Quality</span>
+                <span>${office.quality}%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-quality" style="width: ${office.quality}%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 0.75rem; font-size: 0.75rem; color: #71717a;">
+            Target: ${office.target}% | ${office.oee >= office.target ? '✓ Meeting target' : '⚠ Below target'}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // OEE Comparison Chart
+    function renderOEEChart() {
+      const ctx = document.getElementById('oeeChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: officeData.map(o => o.name.replace("'s Office", "").replace(" of ", "\nof ")),
+          datasets: [
+            {
+              label: 'Actual OEE',
+              data: officeData.map(o => o.oee),
+              backgroundColor: officeData.map(o => getOEEColor(o.oee)),
+              borderRadius: 4
+            },
+            {
+              label: 'Target OEE',
+              data: officeData.map(o => o.target),
+              type: 'line',
+              borderColor: '#fff',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              pointBackgroundColor: '#fff',
+              pointRadius: 4,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#a1a1aa' }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 50,
+              max: 100,
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              ticks: { color: '#a1a1aa' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#a1a1aa', maxRotation: 45 }
+            }
+          }
+        }
+      });
+    }
+
+    // Components Radar Chart
+    function renderComponentsChart() {
+      const ctx = document.getElementById('componentsChart').getContext('2d');
+
+      // Average components across all offices
+      const avgAvailability = officeData.reduce((sum, o) => sum + o.availability, 0) / officeData.length;
+      const avgPerformance = officeData.reduce((sum, o) => sum + o.performance, 0) / officeData.length;
+      const avgQuality = officeData.reduce((sum, o) => sum + o.quality, 0) / officeData.length;
+
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Availability', 'Performance', 'Quality'],
+          datasets: [
+            {
+              label: 'County Average',
+              data: [avgAvailability, avgPerformance, avgQuality],
+              backgroundColor: 'rgba(59, 130, 246, 0.2)',
+              borderColor: '#3b82f6',
+              pointBackgroundColor: '#3b82f6',
+              pointBorderColor: '#fff'
+            },
+            {
+              label: 'World Class Target',
+              data: [95, 95, 99.9],
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              borderColor: '#22c55e',
+              borderDash: [5, 5],
+              pointBackgroundColor: '#22c55e',
+              pointBorderColor: '#fff'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#a1a1aa' }
+            }
+          },
+          scales: {
+            r: {
+              beginAtZero: false,
+              min: 70,
+              max: 100,
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              angleLines: { color: 'rgba(255,255,255,0.1)' },
+              pointLabels: { color: '#a1a1aa' },
+              ticks: { color: '#71717a', backdropColor: 'transparent' }
+            }
+          }
+        }
+      });
+    }
+
+    // Initialize
+    renderOfficeCards();
+    renderOEEChart();
+    renderComponentsChart();
+  </script>
+</body>
+</html>

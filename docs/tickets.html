@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Tickets - Northampton County</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0f1a;
+      --bg-panel: #111827;
+      --bg-surface: #1f2937;
+      --border: #374151;
+      --text: #e5e7eb;
+      --text-dim: #9ca3af;
+      --accent: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --cyan: #06b6d4;
+      --purple: #8b5cf6;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .header .back-link:hover { text-decoration: underline; }
+
+    /* Main */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.15s;
+    }
+
+    .tab:hover { color: var(--text); background: var(--bg-surface); }
+    .tab.active { color: var(--accent); background: var(--bg-panel); border-bottom: 2px solid var(--accent); }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Form */
+    .form-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .form-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .form-group label .required {
+      color: var(--red);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-hint {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 0.5rem;
+    }
+
+    /* Category cards */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .category-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .category-card:hover {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .category-card.selected {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    .category-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .category-card p {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* Submit button */
+    .submit-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: background 0.15s;
+    }
+
+    .submit-btn:hover { background: #2563eb; }
+
+    .submit-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .submit-note a { color: var(--cyan); }
+
+    /* Ticket list */
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ticket-item {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ticket-item:hover {
+      border-color: var(--accent);
+    }
+
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .ticket-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .ticket-number {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-family: monospace;
+    }
+
+    .ticket-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .ticket-label {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .label-roads { background: #f59e0b33; color: #f59e0b; }
+    .label-budget { background: #22c55e33; color: #22c55e; }
+    .label-services { background: #3b82f633; color: #3b82f6; }
+    .label-other { background: #8b5cf633; color: #8b5cf6; }
+
+    .ticket-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-open { background: #22c55e33; color: #22c55e; }
+    .status-progress { background: #f59e0b33; color: #f59e0b; }
+    .status-closed { background: #6b728033; color: #9ca3af; }
+
+    /* Stats */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    .stat-card.green .value { color: var(--green); }
+    .stat-card.yellow .value { color: var(--yellow); }
+    .stat-card.blue .value { color: var(--accent); }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-dim);
+    }
+
+    .loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Preview modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 { font-size: 1.25rem; }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .preview-section {
+      margin-bottom: 1rem;
+    }
+
+    .preview-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .preview-value {
+      background: var(--bg-surface);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--green);
+      border: none;
+      color: #000;
+    }
+
+    .btn-primary:hover { background: #16a34a; }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎫 Citizen Tickets</h1>
+    <a href="scada.html" class="back-link">← Back to SCADA</a>
+  </div>
+
+  <div class="main">
+    <div class="tabs">
+      <button class="tab active" onclick="showPanel('submit')">Submit Ticket</button>
+      <button class="tab" onclick="showPanel('view')">View Tickets</button>
+    </div>
+
+    <!-- Submit Panel -->
+    <div class="panel active" id="panel-submit">
+      <div class="form-card">
+        <div class="form-header">
+          <h2>Submit a Ticket</h2>
+          <p>Report issues, ask questions, or suggest improvements. All tickets are public and tracked on GitHub.</p>
+        </div>
+
+        <form id="ticketForm" onsubmit="previewTicket(event)">
+          <div class="form-group">
+            <label>Category <span class="required">*</span></label>
+            <div class="category-grid">
+              <div class="category-card" data-category="roads" onclick="selectCategory(this)">
+                <div class="icon">🛣️</div>
+                <h3>Roads & Infrastructure</h3>
+                <p>Potholes, bridges, signs</p>
+              </div>
+              <div class="category-card" data-category="budget" onclick="selectCategory(this)">
+                <div class="icon">💰</div>
+                <h3>Budget & Finance</h3>
+                <p>Spending, taxes, audits</p>
+              </div>
+              <div class="category-card" data-category="services" onclick="selectCategory(this)">
+                <div class="icon">🏛️</div>
+                <h3>County Services</h3>
+                <p>Permits, records, offices</p>
+              </div>
+              <div class="category-card" data-category="safety" onclick="selectCategory(this)">
+                <div class="icon">🚨</div>
+                <h3>Public Safety</h3>
+                <p>911, emergency services</p>
+              </div>
+              <div class="category-card" data-category="suggestion" onclick="selectCategory(this)">
+                <div class="icon">💡</div>
+                <h3>Suggestion</h3>
+                <p>Ideas for improvement</p>
+              </div>
+              <div class="category-card" data-category="other" onclick="selectCategory(this)">
+                <div class="icon">📝</div>
+                <h3>Other</h3>
+                <p>General inquiries</p>
+              </div>
+            </div>
+            <input type="hidden" id="category" required>
+          </div>
+
+          <div class="form-group">
+            <label for="title">Title <span class="required">*</span></label>
+            <input type="text" id="title" placeholder="Brief description of your issue" required maxlength="100">
+            <div class="form-hint">Keep it short and descriptive (max 100 chars)</div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description <span class="required">*</span></label>
+            <textarea id="description" placeholder="Provide details about your issue, question, or suggestion..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">Location (optional)</label>
+              <input type="text" id="location" placeholder="Address, intersection, or area">
+            </div>
+            <div class="form-group">
+              <label for="contact">Contact Email (optional)</label>
+              <input type="email" id="contact" placeholder="your@email.com">
+              <div class="form-hint">For follow-up questions only</div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span>📤</span> Preview & Submit to GitHub
+          </button>
+
+          <div class="submit-note">
+            Tickets are stored as <a href="https://github.com/teslasolar/NAC/issues" target="_blank">GitHub Issues</a>.
+            You'll need a GitHub account to submit. All submissions are public.
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View Panel -->
+    <div class="panel" id="panel-view">
+      <div class="stats-row">
+        <div class="stat-card green">
+          <div class="value" id="stat-open">-</div>
+          <div class="label">Open</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="value" id="stat-progress">-</div>
+          <div class="label">In Progress</div>
+        </div>
+        <div class="stat-card">
+          <div class="value" id="stat-closed">-</div>
+          <div class="label">Closed</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="value" id="stat-total">-</div>
+          <div class="label">Total</div>
+        </div>
+      </div>
+
+      <div id="ticketList" class="ticket-list">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading tickets from GitHub...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal" id="previewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Preview Your Ticket</h3>
+        <button class="modal-close" onclick="closePreview()">&times;</button>
+      </div>
+
+      <div class="preview-section">
+        <div class="preview-label">Title</div>
+        <div class="preview-value" id="preview-title"></div>
+      </div>
+
+      <div class="preview-section">
+        <div class="preview-label">Category</div>
+        <div class="preview-value" id="preview-category"></div>
+      </div>
+
+      <div class="preview-section">
+        <div class="preview-label">Description</div>
+        <div class="preview-value" id="preview-body"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closePreview()">Edit</button>
+        <button class="btn-primary" onclick="submitToGitHub()">🚀 Submit to GitHub</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const REPO_OWNER = 'teslasolar';
+    const REPO_NAME = 'NAC';
+    const LABELS_MAP = {
+      'roads': 'citizen:roads',
+      'budget': 'citizen:budget',
+      'services': 'citizen:services',
+      'safety': 'citizen:safety',
+      'suggestion': 'citizen:suggestion',
+      'other': 'citizen:other'
+    };
+
+    let selectedCategory = '';
+    let ticketData = {};
+
+    function selectCategory(el) {
+      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedCategory = el.dataset.category;
+      document.getElementById('category').value = selectedCategory;
+    }
+
+    function showPanel(panel) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+      document.querySelector(`[onclick="showPanel('${panel}')"]`).classList.add('active');
+      document.getElementById(`panel-${panel}`).classList.add('active');
+
+      if (panel === 'view') {
+        loadTickets();
+      }
+    }
+
+    function previewTicket(e) {
+      e.preventDefault();
+
+      if (!selectedCategory) {
+        alert('Please select a category');
+        return;
+      }
+
+      const title = document.getElementById('title').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+
+      // Build the issue body
+      let body = description;
+
+      body += '\n\n---\n';
+      body += `**Category:** ${getCategoryName(selectedCategory)}\n`;
+      if (location) body += `**Location:** ${location}\n`;
+      if (contact) body += `**Contact:** ${contact}\n`;
+      body += `**Submitted via:** [Citizen Tickets](https://thomasfrumkin.com/tickets.html)\n`;
+      body += `**Date:** ${new Date().toLocaleDateString('en-US', { dateStyle: 'full' })}`;
+
+      ticketData = {
+        title: `[Citizen] ${title}`,
+        body: body,
+        labels: [LABELS_MAP[selectedCategory], 'citizen-ticket'],
+        category: getCategoryName(selectedCategory)
+      };
+
+      // Show preview
+      document.getElementById('preview-title').textContent = ticketData.title;
+      document.getElementById('preview-category').textContent = ticketData.category;
+      document.getElementById('preview-body').textContent = body;
+      document.getElementById('previewModal').classList.add('active');
+    }
+
+    function closePreview() {
+      document.getElementById('previewModal').classList.remove('active');
+    }
+
+    function submitToGitHub() {
+      const params = new URLSearchParams({
+        title: ticketData.title,
+        body: ticketData.body,
+        labels: ticketData.labels.join(',')
+      });
+
+      const url = `https://github.com/${REPO_OWNER}/${REPO_NAME}/issues/new?${params.toString()}`;
+      window.open(url, '_blank');
+      closePreview();
+
+      // Show success message
+      alert('Opening GitHub to complete your submission. Thank you for your feedback!');
+    }
+
+    function getCategoryName(cat) {
+      const names = {
+        'roads': '🛣️ Roads & Infrastructure',
+        'budget': '💰 Budget & Finance',
+        'services': '🏛️ County Services',
+        'safety': '🚨 Public Safety',
+        'suggestion': '💡 Suggestion',
+        'other': '📝 Other'
+      };
+      return names[cat] || cat;
+    }
+
+    async function loadTickets() {
+      const container = document.getElementById('ticketList');
+
+      try {
+        // Fetch issues with citizen-ticket label
+        const response = await fetch(
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues?labels=citizen-ticket&state=all&per_page=50`
+        );
+
+        if (!response.ok) throw new Error('Failed to fetch');
+
+        const issues = await response.json();
+
+        // Update stats
+        const open = issues.filter(i => i.state === 'open' && !i.labels.find(l => l.name === 'in-progress')).length;
+        const inProgress = issues.filter(i => i.labels.find(l => l.name === 'in-progress')).length;
+        const closed = issues.filter(i => i.state === 'closed').length;
+
+        document.getElementById('stat-open').textContent = open;
+        document.getElementById('stat-progress').textContent = inProgress;
+        document.getElementById('stat-closed').textContent = closed;
+        document.getElementById('stat-total').textContent = issues.length;
+
+        if (issues.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: var(--text-dim);">
+              <p style="font-size: 2rem; margin-bottom: 1rem;">📭</p>
+              <p>No citizen tickets yet. Be the first to submit one!</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = issues.map(issue => {
+          const categoryLabel = issue.labels.find(l => l.name.startsWith('citizen:'));
+          const category = categoryLabel ? categoryLabel.name.split(':')[1] : 'other';
+          const isInProgress = issue.labels.find(l => l.name === 'in-progress');
+          const status = issue.state === 'closed' ? 'closed' : (isInProgress ? 'progress' : 'open');
+          const statusText = status === 'closed' ? 'Closed' : (status === 'progress' ? 'In Progress' : 'Open');
+
+          return `
+            <div class="ticket-item" onclick="window.open('${issue.html_url}', '_blank')">
+              <div class="ticket-header">
+                <div>
+                  <span class="ticket-label label-${category}">${getCategoryEmoji(category)} ${category}</span>
+                  <div class="ticket-title">${escapeHtml(issue.title.replace('[Citizen] ', ''))}</div>
+                </div>
+                <span class="ticket-status status-${status}">${statusText}</span>
+              </div>
+              <div class="ticket-meta">
+                <span class="ticket-number">#${issue.number}</span>
+                <span>Opened ${timeAgo(new Date(issue.created_at))}</span>
+                <span>${issue.comments} comments</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('Error loading tickets:', err);
+        container.innerHTML = `
+          <div style="text-align: center; padding: 3rem; color: var(--text-dim);">
+            <p style="margin-bottom: 1rem;">Unable to load tickets</p>
+            <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}/issues?q=label%3Acitizen-ticket"
+               target="_blank" style="color: var(--cyan);">View on GitHub</a>
+          </div>
+        `;
+      }
+    }
+
+    function getCategoryEmoji(cat) {
+      const emojis = {
+        'roads': '🛣️',
+        'budget': '💰',
+        'services': '🏛️',
+        'safety': '🚨',
+        'suggestion': '💡',
+        'other': '📝'
+      };
+      return emojis[cat] || '📝';
+    }
+
+    function timeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      const intervals = [
+        { label: 'year', seconds: 31536000 },
+        { label: 'month', seconds: 2592000 },
+        { label: 'day', seconds: 86400 },
+        { label: 'hour', seconds: 3600 },
+        { label: 'minute', seconds: 60 }
+      ];
+
+      for (const interval of intervals) {
+        const count = Math.floor(seconds / interval.seconds);
+        if (count >= 1) {
+          return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+        }
+      }
+      return 'just now';
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Close modal on outside click
+    document.getElementById('previewModal').addEventListener('click', (e) => {
+      if (e.target.id === 'previewModal') closePreview();
+    });
+  </script>
+</body>
+</html>

@@ -9,73 +9,16 @@
  * @standard ISA-95 Level 2
  */
 
-import { AlarmPriority, AlarmState, CountyAlarmTypes } from '../alarms/index.js';
+import { CountyAlarmTypes } from '../alarms/index.js';
+import {
+  WorkflowInstance,
+  SlaManager,
+  calculateSlaStatus
+} from './helpers/index.js';
 
-/**
- * Workflow instance representing an active workflow
- */
-export class WorkflowInstance {
-  constructor(workflowId, workflowDef, entityId, initialData = {}) {
-    this.id = `${workflowId}-${entityId}-${Date.now()}`;
-    this.workflowId = workflowId;
-    this.entityId = entityId;
-    this.definition = workflowDef;
-    this.currentState = workflowDef.states[0];
-    this.data = initialData;
-    this.history = [];
-    this.startedAt = new Date();
-    this.updatedAt = new Date();
-    this.slaDeadline = this._calculateSlaDeadline();
-    this.alarms = [];
-  }
-
-  _calculateSlaDeadline() {
-    if (!this.definition.slaBusinessDays) return null;
-    const deadline = new Date(this.startedAt);
-    let daysToAdd = this.definition.slaBusinessDays;
-    while (daysToAdd > 0) {
-      deadline.setDate(deadline.getDate() + 1);
-      const dayOfWeek = deadline.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        daysToAdd--;
-      }
-    }
-    return deadline;
-  }
-
-  recordTransition(fromState, toState, action, user, notes = '') {
-    this.history.push({
-      timestamp: new Date(),
-      fromState,
-      toState,
-      action,
-      user,
-      notes
-    });
-    this.currentState = toState;
-    this.updatedAt = new Date();
-  }
-
-  isComplete() {
-    const states = this.definition.states;
-    return this.currentState === states[states.length - 1];
-  }
-
-  toJSON() {
-    return {
-      id: this.id,
-      workflowId: this.workflowId,
-      entityId: this.entityId,
-      currentState: this.currentState,
-      data: this.data,
-      startedAt: this.startedAt,
-      updatedAt: this.updatedAt,
-      slaDeadline: this.slaDeadline,
-      historyCount: this.history.length,
-      isComplete: this.isComplete()
-    };
-  }
-}
+// Re-export for backward compatibility
+export { WorkflowInstance } from './helpers/WorkflowInstance.js';
+export { SlaManager, SlaStatus, calculateSlaStatus } from './helpers/SlaManager.js';
 
 /**
  * WorkflowEngine - Main workflow orchestration engine
@@ -94,6 +37,9 @@ export class WorkflowEngine {
 
     // Event handlers
     this.handlers = new Map();
+
+    // SLA manager
+    this.slaManager = new SlaManager(this.escalationRules);
   }
 
   /**
@@ -146,7 +92,6 @@ export class WorkflowEngine {
       throw new Error(`Invalid action '${action}' from state '${instance.currentState}'`);
     }
 
-    // Check conditions
     const conditionResult = await this._checkConditions(transition, instance, data);
     if (!conditionResult.valid) {
       return {
@@ -159,7 +104,6 @@ export class WorkflowEngine {
     const fromState = instance.currentState;
     const toState = transition.to;
 
-    // Update instance
     instance.recordTransition(fromState, toState, action, user, data.notes || '');
     Object.assign(instance.data, data);
 
@@ -197,38 +141,22 @@ export class WorkflowEngine {
 
     for (const condition of conditions) {
       const met = await this._evaluateCondition(condition, instance, data);
-      if (!met) {
-        failures.push(condition);
-      }
+      if (!met) failures.push(condition);
     }
 
-    return {
-      valid: failures.length === 0,
-      failures
-    };
+    return { valid: failures.length === 0, failures };
   }
 
   /**
    * Evaluate a single condition
    */
   async _evaluateCondition(condition, instance, data) {
-    // Check if condition is in data flags
-    if (data[condition] === true) {
-      return true;
-    }
+    if (data[condition] === true) return true;
+    if (instance.data[condition] === true) return true;
 
-    // Check in instance data
-    if (instance.data[condition] === true) {
-      return true;
-    }
-
-    // Custom condition handlers
     const handler = this.handlers.get(`condition:${condition}`);
-    if (handler) {
-      return await handler(instance, data);
-    }
+    if (handler) return await handler(instance, data);
 
-    // Default: condition not met if not explicitly true
     return false;
   }
 
@@ -237,30 +165,21 @@ export class WorkflowEngine {
    */
   handleException(instanceId, exceptionName, user, notes = '') {
     const instance = this.instances.get(instanceId);
-    if (!instance) {
-      throw new Error(`Workflow instance not found: ${instanceId}`);
-    }
+    if (!instance) throw new Error(`Workflow instance not found: ${instanceId}`);
 
     const exceptions = instance.definition.exceptions || [];
     const exception = exceptions.find(e => e.name === exceptionName);
-
-    if (!exception) {
-      throw new Error(`Unknown exception: ${exceptionName}`);
-    }
+    if (!exception) throw new Error(`Unknown exception: ${exceptionName}`);
 
     const previousState = instance.currentState;
 
     if (exception.action === 'suspend') {
-      instance.data._suspended = true;
-      instance.data._suspendedState = previousState;
-      instance.data._suspendReason = exceptionName;
+      instance.suspend(exceptionName);
     } else if (exception.action === 'abort') {
-      instance.data._aborted = true;
-      instance.data._abortReason = exceptionName;
+      instance.abort(exceptionName);
     }
 
     instance.recordTransition(previousState, `${previousState}:${exception.action}`, exceptionName, user, notes);
-
     this._emit('exceptionHandled', { instance, exception, user });
 
     if (this.alarmManager) {
@@ -278,18 +197,12 @@ export class WorkflowEngine {
    */
   resumeWorkflow(instanceId, user, notes = '') {
     const instance = this.instances.get(instanceId);
-    if (!instance || !instance.data._suspended) {
+    if (!instance || !instance.isSuspended()) {
       throw new Error(`Workflow not suspended: ${instanceId}`);
     }
 
-    const suspendedState = instance.data._suspendedState;
-    delete instance.data._suspended;
-    delete instance.data._suspendedState;
-    delete instance.data._suspendReason;
-
-    instance.currentState = suspendedState;
+    const suspendedState = instance.resume();
     instance.recordTransition(`${suspendedState}:suspend`, suspendedState, 'resume', user, notes);
-
     this._emit('workflowResumed', instance);
     return instance;
   }
@@ -313,62 +226,18 @@ export class WorkflowEngine {
    * Check SLA status for all active workflows
    */
   checkSlaStatus() {
-    const now = new Date();
-    const results = [];
+    const results = this.slaManager.checkAll(this.instances);
 
-    for (const instance of this.instances.values()) {
-      if (instance.isComplete() || instance.data._aborted) continue;
-
-      const slaStatus = this._calculateSlaStatus(instance, now);
-      results.push({
-        instanceId: instance.id,
-        workflowId: instance.workflowId,
-        entityId: instance.entityId,
-        currentState: instance.currentState,
-        slaStatus
-      });
-
-      // Check escalation rules
-      for (const rule of this.escalationRules) {
-        if (slaStatus.ratio >= rule.threshold && !instance.alarms.includes(rule.trigger)) {
-          this._escalate(instance, rule);
-          instance.alarms.push(rule.trigger);
-        }
+    // Process escalations
+    for (const result of results) {
+      const instance = this.instances.get(result.instanceId);
+      for (const rule of result.escalations) {
+        this._escalate(instance, rule);
+        instance.alarms.push(rule.trigger);
       }
     }
 
     return results;
-  }
-
-  /**
-   * Calculate SLA status for instance
-   */
-  _calculateSlaStatus(instance, now) {
-    if (!instance.slaDeadline) {
-      return { status: 'no_sla', ratio: 0 };
-    }
-
-    const totalTime = instance.slaDeadline - instance.startedAt;
-    const elapsedTime = now - instance.startedAt;
-    const ratio = elapsedTime / totalTime;
-
-    let status;
-    if (ratio < 0.75) {
-      status = 'on_track';
-    } else if (ratio < 1.0) {
-      status = 'warning';
-    } else if (ratio < 1.5) {
-      status = 'breached';
-    } else {
-      status = 'critical';
-    }
-
-    return {
-      status,
-      ratio,
-      deadline: instance.slaDeadline,
-      remainingMs: Math.max(0, instance.slaDeadline - now)
-    };
   }
 
   /**
@@ -378,10 +247,6 @@ export class WorkflowEngine {
     this._emit('escalation', { instance, rule });
 
     if (this.alarmManager) {
-      const alarmType = rule.trigger === 'sla_critical'
-        ? CountyAlarmTypes.SLA_BREACH
-        : CountyAlarmTypes.SLA_WARNING;
-
       this._raiseAlarm(instance, rule.trigger.toUpperCase(), {
         action: rule.action,
         threshold: rule.threshold
@@ -431,14 +296,14 @@ export class WorkflowEngine {
    */
   _emit(event, data) {
     const handlers = this.handlers.get(event);
-    if (handlers) {
-      const handlerList = Array.isArray(handlers) ? handlers : [handlers];
-      for (const handler of handlerList) {
-        try {
-          handler(data);
-        } catch (err) {
-          console.error(`Error in event handler for ${event}:`, err);
-        }
+    if (!handlers) return;
+
+    const handlerList = Array.isArray(handlers) ? handlers : [handlers];
+    for (const handler of handlerList) {
+      try {
+        handler(data);
+      } catch (err) {
+        console.error(`Error in event handler for ${event}:`, err);
       }
     }
   }
@@ -473,7 +338,7 @@ export class WorkflowEngine {
   getActiveInstances(workflowId = null) {
     const active = [];
     for (const instance of this.instances.values()) {
-      if (!instance.isComplete() && !instance.data._aborted) {
+      if (!instance.isComplete() && !instance.isAborted()) {
         if (!workflowId || instance.workflowId === workflowId) {
           active.push(instance.toJSON());
         }
@@ -505,9 +370,9 @@ export class WorkflowEngine {
       if (instance.isComplete()) {
         stats.completed++;
         stats.byWorkflow[wfId].completed++;
-      } else if (instance.data._aborted) {
+      } else if (instance.isAborted()) {
         stats.aborted++;
-      } else if (instance.data._suspended) {
+      } else if (instance.isSuspended()) {
         stats.suspended++;
       } else {
         stats.active++;

@@ -1,0 +1,104 @@
+{
+  "$schema": "../../../udt/base/UDT_ProductionUnit.json",
+  "tagName": "Sheriff",
+  "udtType": "UDT_ProductionUnit",
+  "description": "Sheriff's Office production unit tag instance",
+  "scope": "global",
+  "dataAccess": "read-write",
+
+  "values": {
+    "Config": {
+      "ID": "sheriff",
+      "Name": "Sheriff's Office",
+      "OfficerTitle": "Sheriff",
+      "Authority": "16 Pa.C.S. Article XII",
+      "Article": "XII",
+      "Term": 4,
+      "Elected": true,
+      "BondRequired": true,
+      "LineCount": 4,
+      "Position": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
+      "Dimensions": { "Width": 60.0, "Height": 8.0, "Depth": 40.0 }
+    },
+
+    "Staffing": {
+      "TotalFTE": 45.0,
+      "CurrentStaff": 42,
+      "ElectedOfficials": 1,
+      "DeputyCount": 31,
+      "ClericalCount": 5,
+      "VacantPositions": 3
+    },
+
+    "OperatingHours": {
+      "StartHour": 0,
+      "EndHour": 24,
+      "Is24x7": true,
+      "IsOpen": true
+    },
+
+    "Status": {
+      "State": 6,
+      "StateName": "EXECUTE",
+      "Mode": 0,
+      "ModeName": "PRODUCTION",
+      "IsOnline": true,
+      "ActiveLines": 4,
+      "ActiveStations": 15,
+      "TotalStations": 17,
+      "HealthScore": 94.5,
+      "LastStateChange": 1705680000000
+    },
+
+    "Metrics": {
+      "TotalItemsProcessed": 127,
+      "TotalItemsYTD": 8452,
+      "TotalRevenue": 4525.00,
+      "RevenueYTD": 287500.00,
+      "AvgProcessingTimeMs": 180000,
+      "CustomerWaitTimeMin": 12,
+      "ErrorRate": 0.8,
+      "SLACompliance": 96.2,
+      "CustomerSatisfaction": 4.3
+    },
+
+    "Financial": {
+      "BudgetAllocated": 4250000.00,
+      "BudgetSpent": 3890000.00,
+      "BudgetRemaining": 360000.00,
+      "BudgetVariance": -2.1,
+      "FeesCollectedToday": 4525.00,
+      "FeesCollectedMTD": 42750.00,
+      "FeesCollectedYTD": 287500.00,
+      "OutstandingReceivables": 12500.00
+    },
+
+    "Commands": {
+      "Start": false,
+      "Stop": false,
+      "Reset": false,
+      "EmergencyStop": false,
+      "SetMode": 0
+    },
+
+    "Alarms": {
+      "Offline": false,
+      "StaffShortage": false,
+      "HighBacklog": false,
+      "BudgetOverrun": false,
+      "SLABreach": false,
+      "AuditFinding": true,
+      "SystemFault": false,
+      "SecurityAlert": false
+    },
+
+    "AuditStatus": {
+      "LastAuditDate": 1688169600000,
+      "NextAuditDate": 1719792000000,
+      "OpenFindings": 2,
+      "HighRiskFindings": 0,
+      "ComplianceScore": 92.0,
+      "RiskLevel": 2
+    }
+  }
+}

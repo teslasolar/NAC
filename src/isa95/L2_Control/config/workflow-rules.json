@@ -1,0 +1,305 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "workflow-rules",
+  "title": "Workflow Rules and Transitions",
+  "description": "State transitions and workflow rules for work items",
+  "version": "1.0.0",
+
+  "globalRules": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "escalationThresholdHours": 4,
+    "auditLogRequired": true
+  },
+
+  "workflows": {
+    "sheriff_sale": {
+      "description": "Sheriff sale process per PA Rules of Civil Procedure",
+      "slaBusinessDays": 90,
+      "states": ["petition_received", "scheduled", "advertised", "conducted", "distributed", "completed"],
+      "transitions": [
+        {
+          "from": "petition_received",
+          "to": "scheduled",
+          "action": "schedule_sale",
+          "conditions": ["valid_writ", "property_verified"],
+          "slaHours": 168
+        },
+        {
+          "from": "scheduled",
+          "to": "advertised",
+          "action": "publish_notice",
+          "conditions": ["sale_date_set"],
+          "slaHours": 504,
+          "note": "21-day statutory advertising requirement"
+        },
+        {
+          "from": "advertised",
+          "to": "conducted",
+          "action": "conduct_auction",
+          "conditions": ["advertising_complete", "auction_date_reached"],
+          "slaHours": 24
+        },
+        {
+          "from": "conducted",
+          "to": "distributed",
+          "action": "distribute_proceeds",
+          "conditions": ["successful_bid", "deed_prepared"],
+          "slaHours": 720,
+          "note": "30-day distribution requirement"
+        },
+        {
+          "from": "distributed",
+          "to": "completed",
+          "action": "close_case",
+          "conditions": ["all_proceeds_distributed"],
+          "slaHours": 24
+        }
+      ],
+      "exceptions": [
+        {
+          "name": "stay_ordered",
+          "action": "suspend",
+          "resumeCondition": "stay_lifted"
+        },
+        {
+          "name": "bankruptcy_filed",
+          "action": "abort",
+          "note": "Automatic stay applies"
+        }
+      ]
+    },
+
+    "process_service": {
+      "description": "Legal process service workflow",
+      "slaBusinessDays": 30,
+      "states": ["received", "assigned", "attempted", "served", "returned"],
+      "transitions": [
+        {
+          "from": "received",
+          "to": "assigned",
+          "action": "assign_deputy",
+          "conditions": ["valid_address", "fee_paid"],
+          "slaHours": 4
+        },
+        {
+          "from": "assigned",
+          "to": "attempted",
+          "action": "attempt_service",
+          "maxAttempts": 3,
+          "slaHours": 72
+        },
+        {
+          "from": "attempted",
+          "to": "served",
+          "action": "complete_service",
+          "conditions": ["service_successful"],
+          "slaHours": 1
+        },
+        {
+          "from": ["served", "attempted"],
+          "to": "returned",
+          "action": "file_return",
+          "slaHours": 24
+        }
+      ]
+    },
+
+    "criminal_case": {
+      "description": "Criminal case prosecution workflow",
+      "slaBusinessDays": 365,
+      "states": ["referred", "reviewed", "charged", "preliminary", "trial_prep", "adjudicated", "closed"],
+      "transitions": [
+        {
+          "from": "referred",
+          "to": "reviewed",
+          "action": "review_case",
+          "conditions": ["complete_file"],
+          "slaHours": 72
+        },
+        {
+          "from": "reviewed",
+          "to": "charged",
+          "action": "file_charges",
+          "conditions": ["probable_cause", "within_sol"],
+          "slaHours": 168,
+          "alternativeTo": "declined"
+        },
+        {
+          "from": "charged",
+          "to": "preliminary",
+          "action": "preliminary_hearing",
+          "slaHours": 240,
+          "note": "10-day rule if incarcerated"
+        },
+        {
+          "from": "preliminary",
+          "to": "trial_prep",
+          "action": "bind_over",
+          "conditions": ["prima_facie_established"],
+          "slaHours": 720
+        },
+        {
+          "from": "trial_prep",
+          "to": "adjudicated",
+          "action": "resolve_case",
+          "slaHours": 4320,
+          "note": "180-day speedy trial rule"
+        },
+        {
+          "from": "adjudicated",
+          "to": "closed",
+          "action": "close_case",
+          "slaHours": 168
+        }
+      ]
+    },
+
+    "probate": {
+      "description": "Estate probate workflow",
+      "slaBusinessDays": 365,
+      "states": ["filed", "examined", "letters_issued", "inventory", "accounting", "closed"],
+      "transitions": [
+        {
+          "from": "filed",
+          "to": "examined",
+          "action": "examine_will",
+          "conditions": ["original_will", "death_certificate"],
+          "slaHours": 24
+        },
+        {
+          "from": "examined",
+          "to": "letters_issued",
+          "action": "issue_letters",
+          "conditions": ["will_valid", "executor_qualified", "bond_posted"],
+          "slaHours": 4
+        },
+        {
+          "from": "letters_issued",
+          "to": "inventory",
+          "action": "file_inventory",
+          "slaHours": 2160,
+          "note": "90-day inventory requirement"
+        },
+        {
+          "from": "inventory",
+          "to": "accounting",
+          "action": "file_accounting",
+          "slaHours": 8760,
+          "note": "First accounting within 1 year"
+        },
+        {
+          "from": "accounting",
+          "to": "closed",
+          "action": "close_estate",
+          "conditions": ["all_distributed", "inheritance_tax_paid"],
+          "slaHours": 720
+        }
+      ]
+    },
+
+    "document_recording": {
+      "description": "Document recording workflow",
+      "slaBusinessDays": 1,
+      "states": ["submitted", "reviewed", "recorded", "indexed", "available"],
+      "transitions": [
+        {
+          "from": "submitted",
+          "to": "reviewed",
+          "action": "review_document",
+          "conditions": ["fee_paid"],
+          "slaHours": 2
+        },
+        {
+          "from": "reviewed",
+          "to": "recorded",
+          "action": "record_document",
+          "conditions": ["requirements_met"],
+          "slaHours": 1
+        },
+        {
+          "from": "recorded",
+          "to": "indexed",
+          "action": "index_document",
+          "slaHours": 4
+        },
+        {
+          "from": "indexed",
+          "to": "available",
+          "action": "make_public",
+          "slaHours": 1
+        }
+      ],
+      "rejectionReasons": [
+        "illegible",
+        "missing_signatures",
+        "missing_notarization",
+        "incorrect_fee",
+        "missing_transfer_tax"
+      ]
+    },
+
+    "cash_receipt": {
+      "description": "Cash receipt processing",
+      "slaBusinessDays": 0,
+      "states": ["received", "recorded", "deposited", "reconciled"],
+      "transitions": [
+        {
+          "from": "received",
+          "to": "recorded",
+          "action": "record_receipt",
+          "slaHours": 0.5
+        },
+        {
+          "from": "recorded",
+          "to": "deposited",
+          "action": "deposit_funds",
+          "slaHours": 4,
+          "note": "Same-day deposit requirement"
+        },
+        {
+          "from": "deposited",
+          "to": "reconciled",
+          "action": "reconcile",
+          "slaHours": 24
+        }
+      ]
+    }
+  },
+
+  "approvalThresholds": {
+    "claims": [
+      { "maxAmount": 10000, "approver": "department_head", "level": 1 },
+      { "maxAmount": 50000, "approver": "controller", "level": 2 },
+      { "maxAmount": null, "approver": "council", "level": 3 }
+    ],
+    "contracts": [
+      { "maxAmount": 10000, "approver": "department_head", "level": 1 },
+      { "maxAmount": 25000, "approver": "controller", "level": 2 },
+      { "maxAmount": null, "approver": "council", "level": 3, "bidRequired": true }
+    ],
+    "budget_transfers": [
+      { "maxAmount": 5000, "approver": "department_head", "level": 1 },
+      { "maxAmount": 25000, "approver": "controller", "level": 2 },
+      { "maxAmount": null, "approver": "council", "level": 3 }
+    ]
+  },
+
+  "escalationRules": [
+    {
+      "trigger": "sla_warning",
+      "threshold": 0.75,
+      "action": "notify_supervisor"
+    },
+    {
+      "trigger": "sla_breach",
+      "threshold": 1.0,
+      "action": "escalate_to_officer"
+    },
+    {
+      "trigger": "sla_critical",
+      "threshold": 1.5,
+      "action": "escalate_to_controller"
+    }
+  ]
+}

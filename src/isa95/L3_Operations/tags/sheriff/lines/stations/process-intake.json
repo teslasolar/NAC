@@ -1,0 +1,65 @@
+{
+  "$schema": "../../../../../udt/base/UDT_Station.json",
+  "tagName": "Sheriff.Lines.ProcessService.Stations.ProcessIntake",
+  "udtType": "UDT_Station",
+  "description": "Process Intake station - receive writs and orders",
+  "scope": "sheriff.process-service",
+
+  "values": {
+    "Config": {
+      "ID": "process-intake",
+      "Name": "Process Intake",
+      "Description": "Receive writs and orders from court/attorneys",
+      "Capacity": 20,
+      "CycleTimeMs": 600000,
+      "LineID": "process-service",
+      "UnitID": "sheriff",
+      "Position": { "X": 0.0, "Y": 0.0, "Z": 0.0 }
+    },
+
+    "Status": {
+      "State": 6,
+      "StateName": "EXECUTE",
+      "Mode": 0,
+      "ModeName": "PRODUCTION",
+      "CurrentLoad": 8,
+      "Utilization": 0.40,
+      "IsActive": true,
+      "IsBlocked": false,
+      "IsStarved": false,
+      "LastStateChange": 1705680000000
+    },
+
+    "Metrics": {
+      "ItemsProcessed": 342,
+      "ItemsInQueue": 12,
+      "AvgCycleTimeMs": 540000,
+      "TotalProcessingTimeMs": 184680000000,
+      "Throughput": 12.5,
+      "ErrorCount": 3,
+      "LastErrorCode": 0,
+      "LastErrorTime": 0,
+      "UptimeSeconds": 28800,
+      "DowntimeSeconds": 1800
+    },
+
+    "Commands": {
+      "Start": false,
+      "Stop": false,
+      "Reset": false,
+      "Hold": false,
+      "Unhold": false,
+      "Abort": false,
+      "Clear": false
+    },
+
+    "Alarms": {
+      "HighUtilization": false,
+      "CriticalUtilization": false,
+      "QueueOverflow": false,
+      "CycleTimeExceeded": false,
+      "EquipmentFault": false,
+      "StaffShortage": false
+    }
+  }
+}

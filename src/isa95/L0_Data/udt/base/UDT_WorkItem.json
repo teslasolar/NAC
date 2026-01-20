@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "udt-work-item",
+  "title": "UDT_WorkItem",
+  "description": "User Defined Type template for a WorkItem (transaction flowing through system)",
+  "version": "1.0.0",
+  "udtType": "UDT_WorkItem",
+  "category": "base",
+
+  "members": {
+    "Identity": {
+      "description": "Work item identification",
+      "members": {
+        "ID": { "type": "STRING", "length": 48, "description": "Unique item identifier" },
+        "Type": { "type": "STRING", "length": 32, "description": "Work item type code" },
+        "TypeName": { "type": "STRING", "length": 64, "description": "Human-readable type" },
+        "Category": { "type": "STRING", "length": 32, "description": "Category grouping" },
+        "ReferenceNumber": { "type": "STRING", "length": 32, "description": "External reference (case#, etc)" }
+      }
+    },
+
+    "Routing": {
+      "description": "Routing and location",
+      "members": {
+        "UnitID": { "type": "STRING", "length": 32, "description": "Current/target unit" },
+        "LineID": { "type": "STRING", "length": 32, "description": "Current/target line" },
+        "StationID": { "type": "STRING", "length": 32, "description": "Current station" },
+        "NextStationID": { "type": "STRING", "length": 32, "description": "Next station" },
+        "QueuePosition": { "type": "INT", "description": "Position in queue" }
+      }
+    },
+
+    "Status": {
+      "description": "Processing status",
+      "members": {
+        "State": { "type": "INT", "description": "Item state code" },
+        "StateName": { "type": "STRING", "length": 16, "description": "queued, processing, completed, rejected" },
+        "Priority": { "type": "INT", "description": "1=low, 2=normal, 3=high, 4=urgent" },
+        "PriorityName": { "type": "STRING", "length": 8 },
+        "IsExpedited": { "type": "BOOL", "description": "Expedited processing" },
+        "IsHeld": { "type": "BOOL", "description": "Item is on hold" },
+        "HoldReason": { "type": "STRING", "length": 128, "description": "Reason for hold" },
+        "PercentComplete": { "type": "REAL", "description": "Progress 0-100" }
+      }
+    },
+
+    "Timestamps": {
+      "description": "Key timestamps",
+      "members": {
+        "CreatedAt": { "type": "LINT", "description": "Item creation time" },
+        "ReceivedAt": { "type": "LINT", "description": "Intake timestamp" },
+        "StartedAt": { "type": "LINT", "description": "Processing start" },
+        "CompletedAt": { "type": "LINT", "description": "Processing complete" },
+        "DueDate": { "type": "LINT", "description": "SLA due date" },
+        "LastUpdated": { "type": "LINT", "description": "Last status update" }
+      }
+    },
+
+    "Timing": {
+      "description": "Processing time metrics",
+      "members": {
+        "QueueTimeMs": { "type": "DINT", "description": "Time spent in queue" },
+        "ProcessingTimeMs": { "type": "DINT", "description": "Active processing time" },
+        "TotalCycleTimeMs": { "type": "DINT", "description": "Total end-to-end time" },
+        "SLATimeMs": { "type": "DINT", "description": "SLA target time" },
+        "SLARemainingMs": { "type": "DINT", "description": "Time remaining to SLA" },
+        "IsOverdue": { "type": "BOOL", "description": "Past SLA due date" }
+      }
+    },
+
+    "Financial": {
+      "description": "Financial data",
+      "members": {
+        "FeeAmount": { "type": "REAL", "description": "Fee charged" },
+        "FeePaid": { "type": "BOOL", "description": "Fee has been paid" },
+        "PaymentMethod": { "type": "STRING", "length": 16, "description": "cash, check, card, ach" },
+        "ReceiptNumber": { "type": "STRING", "length": 32, "description": "Receipt reference" },
+        "TaxAmount": { "type": "REAL", "description": "Tax collected" },
+        "TotalAmount": { "type": "REAL", "description": "Total transaction value" }
+      }
+    },
+
+    "Parties": {
+      "description": "Involved parties",
+      "members": {
+        "Submitter": { "type": "STRING", "length": 128, "description": "Who submitted" },
+        "ProcessedBy": { "type": "STRING", "length": 64, "description": "Staff who processed" },
+        "ApprovedBy": { "type": "STRING", "length": 64, "description": "Approver if required" },
+        "Parties": { "type": "STRING", "length": 256, "description": "Other parties involved" }
+      }
+    },
+
+    "Audit": {
+      "description": "Audit trail",
+      "members": {
+        "StationVisits": { "type": "INT", "description": "Number of stations visited" },
+        "Reworks": { "type": "INT", "description": "Number of rework cycles" },
+        "LastAction": { "type": "STRING", "length": 64, "description": "Last action taken" },
+        "LastActionBy": { "type": "STRING", "length": 64, "description": "Who took last action" },
+        "LastActionTime": { "type": "LINT", "description": "When last action occurred" },
+        "Notes": { "type": "STRING", "length": 512, "description": "Processing notes" }
+      }
+    },
+
+    "Flags": {
+      "description": "Status flags",
+      "members": {
+        "RequiresReview": { "type": "BOOL", "description": "Needs supervisor review" },
+        "RequiresApproval": { "type": "BOOL", "description": "Needs approval" },
+        "IsRush": { "type": "BOOL", "description": "Rush processing" },
+        "HasException": { "type": "BOOL", "description": "Exception occurred" },
+        "IsAudited": { "type": "BOOL", "description": "Selected for audit" },
+        "IsFlagged": { "type": "BOOL", "description": "Flagged for attention" },
+        "FlagReason": { "type": "STRING", "length": 128, "description": "Why flagged" }
+      }
+    }
+  }
+}

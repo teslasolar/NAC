@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "fee-schedules",
+  "title": "County Fee Schedules",
+  "description": "Fee schedules for all row officer services per PA statutes",
+  "version": "1.0.0",
+  "effectiveDate": "2024-01-01",
+
+  "sheriff": {
+    "authority": "42 Pa.C.S. §21101 et seq.",
+    "fees": {
+      "service_of_process": {
+        "description": "Service of legal process",
+        "amount": 45.00,
+        "per": "service"
+      },
+      "posting": {
+        "description": "Posting notice",
+        "amount": 35.00,
+        "per": "posting"
+      },
+      "sheriff_sale_deed": {
+        "description": "Sheriff's deed preparation",
+        "amount": 75.00,
+        "per": "deed"
+      },
+      "return_of_service": {
+        "description": "Filing return of service",
+        "amount": 15.00,
+        "per": "return"
+      },
+      "mileage": {
+        "description": "Mileage for service",
+        "amount": 0.67,
+        "per": "mile",
+        "note": "IRS rate"
+      }
+    }
+  },
+
+  "treasurer": {
+    "authority": "16 Pa.C.S. §1301 et seq.",
+    "fees": {
+      "tax_certification": {
+        "description": "Tax certification letter",
+        "amount": 25.00,
+        "per": "parcel"
+      },
+      "duplicate_tax_bill": {
+        "description": "Duplicate tax bill",
+        "amount": 5.00,
+        "per": "bill"
+      },
+      "returned_check": {
+        "description": "Returned check fee",
+        "amount": 35.00,
+        "per": "check"
+      }
+    }
+  },
+
+  "coroner": {
+    "authority": "16 Pa.C.S. §701 et seq.",
+    "fees": {
+      "cremation_permit": {
+        "description": "Cremation authorization",
+        "amount": 50.00,
+        "per": "permit"
+      },
+      "certified_copy": {
+        "description": "Certified copy of report",
+        "amount": 10.00,
+        "per": "copy"
+      },
+      "body_view": {
+        "description": "Body viewing arrangement",
+        "amount": 25.00,
+        "per": "viewing"
+      }
+    }
+  },
+
+  "district-attorney": {
+    "authority": "16 Pa.C.S. §801 et seq.",
+    "fees": {
+      "discovery_copy": {
+        "description": "Discovery document copies",
+        "amount": 0.25,
+        "per": "page"
+      },
+      "ard_fee": {
+        "description": "ARD program fee",
+        "amount": 500.00,
+        "per": "case",
+        "note": "Variable based on case"
+      }
+    }
+  },
+
+  "recorder-of-deeds": {
+    "authority": "21 P.S. §443",
+    "fees": {
+      "recording_base": {
+        "description": "Base recording fee",
+        "amount": 48.00,
+        "per": "document"
+      },
+      "recording_additional_page": {
+        "description": "Additional pages",
+        "amount": 2.00,
+        "per": "page"
+      },
+      "uniform_parcel_identifier": {
+        "description": "UPI fee",
+        "amount": 13.50,
+        "per": "parcel"
+      },
+      "technology_fee": {
+        "description": "Technology improvement fund",
+        "amount": 10.00,
+        "per": "document"
+      },
+      "jlwop_fee": {
+        "description": "JLW/OP fund fee",
+        "amount": 5.00,
+        "per": "document"
+      },
+      "certified_copy": {
+        "description": "Certified copy",
+        "amount": 5.00,
+        "per": "document",
+        "additionalPages": 1.00
+      }
+    },
+    "transfer_tax": {
+      "state_rate": 0.01,
+      "county_rate": 0.005,
+      "note": "1% state + 0.5% county on consideration"
+    }
+  },
+
+  "register-of-wills": {
+    "authority": "20 Pa.C.S. §906",
+    "fees": {
+      "probate_base": {
+        "description": "Base probate fee",
+        "amount": 75.00,
+        "per": "estate"
+      },
+      "letters_testamentary": {
+        "description": "Letters testamentary",
+        "amount": 45.00,
+        "per": "letter"
+      },
+      "letters_administration": {
+        "description": "Letters of administration",
+        "amount": 45.00,
+        "per": "letter"
+      },
+      "marriage_license": {
+        "description": "Marriage license",
+        "amount": 65.00,
+        "per": "license"
+      },
+      "certified_copy_will": {
+        "description": "Certified copy of will",
+        "amount": 10.00,
+        "per": "copy"
+      },
+      "inventory_filing": {
+        "description": "Filing estate inventory",
+        "amount": 25.00,
+        "per": "filing"
+      }
+    },
+    "inheritance_tax_rates": {
+      "lineal": 0.045,
+      "sibling": 0.12,
+      "other": 0.15,
+      "note": "4.5% lineal, 12% sibling, 15% other"
+    }
+  },
+
+  "clerk-of-courts": {
+    "authority": "42 Pa.C.S. §1725",
+    "fees": {
+      "criminal_filing": {
+        "description": "Criminal case filing",
+        "amount": 75.00,
+        "per": "case"
+      },
+      "certified_copy": {
+        "description": "Certified copy",
+        "amount": 10.00,
+        "per": "document"
+      },
+      "subpoena": {
+        "description": "Subpoena issuance",
+        "amount": 10.00,
+        "per": "subpoena"
+      },
+      "appeal_filing": {
+        "description": "Appeal filing fee",
+        "amount": 75.00,
+        "per": "appeal"
+      }
+    }
+  },
+
+  "prothonotary": {
+    "authority": "42 Pa.C.S. §1725",
+    "fees": {
+      "civil_complaint": {
+        "description": "Civil complaint filing",
+        "amount": 225.00,
+        "per": "case"
+      },
+      "writ_of_summons": {
+        "description": "Writ of summons",
+        "amount": 175.00,
+        "per": "writ"
+      },
+      "judgment_entry": {
+        "description": "Judgment entry",
+        "amount": 50.00,
+        "per": "judgment"
+      },
+      "lien_filing": {
+        "description": "Lien filing",
+        "amount": 55.00,
+        "per": "lien"
+      },
+      "satisfaction": {
+        "description": "Satisfaction of judgment",
+        "amount": 20.00,
+        "per": "satisfaction"
+      },
+      "exemplification": {
+        "description": "Exemplification of record",
+        "amount": 25.00,
+        "per": "document"
+      },
+      "certified_copy": {
+        "description": "Certified copy",
+        "amount": 10.00,
+        "per": "document"
+      }
+    }
+  }
+}

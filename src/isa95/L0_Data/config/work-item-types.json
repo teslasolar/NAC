@@ -1,0 +1,258 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "work-item-types",
+  "title": "Work Item Type Definitions",
+  "description": "All work item types that flow through the county production system",
+  "version": "1.0.0",
+
+  "priorities": {
+    "urgent": { "level": 0, "sla_multiplier": 0.25, "color": "#dc3545" },
+    "high": { "level": 1, "sla_multiplier": 0.5, "color": "#fd7e14" },
+    "normal": { "level": 2, "sla_multiplier": 1.0, "color": "#17a2b8" },
+    "low": { "level": 3, "sla_multiplier": 2.0, "color": "#6c757d" }
+  },
+
+  "statuses": {
+    "queued": { "description": "Waiting in queue", "active": false },
+    "processing": { "description": "Currently being processed", "active": true },
+    "completed": { "description": "Successfully completed", "active": false },
+    "rejected": { "description": "Rejected/returned", "active": false },
+    "on_hold": { "description": "On hold pending action", "active": false },
+    "cancelled": { "description": "Cancelled", "active": false }
+  },
+
+  "categories": {
+    "legal_process": {
+      "description": "Legal documents and court processes",
+      "officers": ["sheriff", "clerk-of-courts", "prothonotary"]
+    },
+    "financial": {
+      "description": "Financial transactions and records",
+      "officers": ["treasurer", "all"]
+    },
+    "property": {
+      "description": "Real property records",
+      "officers": ["recorder-of-deeds", "prothonotary", "sheriff"]
+    },
+    "vital_records": {
+      "description": "Birth, death, marriage records",
+      "officers": ["coroner", "register-of-wills"]
+    },
+    "estate": {
+      "description": "Probate and estate matters",
+      "officers": ["register-of-wills"]
+    },
+    "criminal": {
+      "description": "Criminal case processing",
+      "officers": ["district-attorney", "clerk-of-courts", "sheriff"]
+    }
+  },
+
+  "types": {
+    "sheriff": {
+      "sale_petition": {
+        "category": "property",
+        "description": "Writ of execution for sheriff sale",
+        "defaultPriority": "normal",
+        "slaHours": 720,
+        "requiredFields": ["propertyAddress", "petitioner", "defendant", "amount"]
+      },
+      "writ_received": {
+        "category": "legal_process",
+        "description": "Writ or court order for service",
+        "defaultPriority": "normal",
+        "slaHours": 240,
+        "requiredFields": ["writType", "defendant", "address"]
+      },
+      "inmate_deposit": {
+        "category": "financial",
+        "description": "Deposit to inmate account",
+        "defaultPriority": "normal",
+        "slaHours": 1,
+        "requiredFields": ["inmateId", "amount", "source"]
+      },
+      "transport_order": {
+        "category": "criminal",
+        "description": "Prisoner transport request",
+        "defaultPriority": "high",
+        "slaHours": 24,
+        "requiredFields": ["inmateId", "destination", "courtDate"]
+      }
+    },
+
+    "treasurer": {
+      "receipt_incoming": {
+        "category": "financial",
+        "description": "Incoming cash/check receipt",
+        "defaultPriority": "normal",
+        "slaHours": 4,
+        "requiredFields": ["source", "amount", "fund"]
+      },
+      "warrant_received": {
+        "category": "financial",
+        "description": "Controller warrant for payment",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["payee", "amount", "fund", "controllerSignature"]
+      },
+      "tax_payment": {
+        "category": "financial",
+        "description": "Real estate tax payment",
+        "defaultPriority": "normal",
+        "slaHours": 1,
+        "requiredFields": ["parcelId", "amount", "taxYear"]
+      },
+      "investment_order": {
+        "category": "financial",
+        "description": "Investment purchase/sale order",
+        "defaultPriority": "normal",
+        "slaHours": 8,
+        "requiredFields": ["instrumentType", "amount", "maturityDate"]
+      }
+    },
+
+    "coroner": {
+      "death_reported": {
+        "category": "vital_records",
+        "description": "Death report requiring investigation",
+        "defaultPriority": "urgent",
+        "slaHours": 2,
+        "requiredFields": ["decedentName", "location", "reportedBy"]
+      },
+      "autopsy_ordered": {
+        "category": "vital_records",
+        "description": "Autopsy examination order",
+        "defaultPriority": "high",
+        "slaHours": 48,
+        "requiredFields": ["decedentName", "caseNumber", "orderingAuthority"]
+      },
+      "cremation_permit_request": {
+        "category": "vital_records",
+        "description": "Request for cremation authorization",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["decedentName", "funeralHome", "nextOfKin"]
+      }
+    },
+
+    "district-attorney": {
+      "case_referred": {
+        "category": "criminal",
+        "description": "Criminal case referral from police",
+        "defaultPriority": "normal",
+        "slaHours": 72,
+        "requiredFields": ["defendant", "charges", "arrestingAgency"]
+      },
+      "asset_seized": {
+        "category": "financial",
+        "description": "Asset seizure for forfeiture",
+        "defaultPriority": "normal",
+        "slaHours": 720,
+        "requiredFields": ["assetDescription", "value", "caseNumber"]
+      },
+      "restitution_payment": {
+        "category": "financial",
+        "description": "Restitution payment from defendant",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["defendant", "victim", "amount", "caseNumber"]
+      }
+    },
+
+    "recorder-of-deeds": {
+      "document_submitted": {
+        "category": "property",
+        "description": "Document for recording",
+        "defaultPriority": "normal",
+        "slaHours": 8,
+        "requiredFields": ["docType", "grantor", "grantee"]
+      },
+      "transfer_tax": {
+        "category": "financial",
+        "description": "Realty transfer tax calculation",
+        "defaultPriority": "normal",
+        "slaHours": 1,
+        "requiredFields": ["consideration", "propertyAddress", "exemptions"]
+      }
+    },
+
+    "register-of-wills": {
+      "will_filed": {
+        "category": "estate",
+        "description": "Will submitted for probate",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["decedent", "executor", "dateOfDeath"]
+      },
+      "marriage_application": {
+        "category": "vital_records",
+        "description": "Marriage license application",
+        "defaultPriority": "normal",
+        "slaHours": 72,
+        "requiredFields": ["applicant1", "applicant2"]
+      },
+      "inheritance_tax_return": {
+        "category": "financial",
+        "description": "PA inheritance tax return (REV-1500)",
+        "defaultPriority": "normal",
+        "slaHours": 168,
+        "requiredFields": ["estate", "taxableValue", "beneficiaries"]
+      }
+    },
+
+    "clerk-of-courts": {
+      "criminal_filed": {
+        "category": "criminal",
+        "description": "Criminal case filing",
+        "defaultPriority": "normal",
+        "slaHours": 4,
+        "requiredFields": ["defendant", "charges", "docketNumber"]
+      },
+      "bail_posted": {
+        "category": "financial",
+        "description": "Bail money posted",
+        "defaultPriority": "high",
+        "slaHours": 1,
+        "requiredFields": ["defendant", "amount", "postedBy"]
+      },
+      "certification_request": {
+        "category": "legal_process",
+        "description": "Request for certified court document",
+        "defaultPriority": "normal",
+        "slaHours": 8,
+        "requiredFields": ["caseNumber", "documentType"]
+      }
+    },
+
+    "prothonotary": {
+      "complaint_filed": {
+        "category": "legal_process",
+        "description": "Civil complaint filing",
+        "defaultPriority": "normal",
+        "slaHours": 4,
+        "requiredFields": ["plaintiff", "defendant", "claimAmount"]
+      },
+      "judgment_entered": {
+        "category": "legal_process",
+        "description": "Judgment for entry on docket",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["creditor", "debtor", "amount", "caseNumber"]
+      },
+      "lien_filed": {
+        "category": "property",
+        "description": "Lien filing (mechanic, tax, municipal)",
+        "defaultPriority": "normal",
+        "slaHours": 24,
+        "requiredFields": ["lienType", "property", "amount", "claimant"]
+      },
+      "escrow_deposited": {
+        "category": "financial",
+        "description": "Funds deposited in escrow",
+        "defaultPriority": "normal",
+        "slaHours": 4,
+        "requiredFields": ["caseNumber", "amount", "depositor"]
+      }
+    }
+  }
+}

@@ -1,0 +1,437 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "assembly-lines",
+  "title": "Assembly Line Definitions",
+  "description": "Assembly line configurations for all production units",
+  "version": "1.0.0",
+
+  "lines": {
+    "sheriff-sales": {
+      "id": "sheriff-sales",
+      "name": "Sheriff Sales Line",
+      "unit": "sheriff",
+      "description": "Real estate and personal property sales process",
+      "layout": "linear",
+      "workflowRef": "sheriff_sale",
+      "stations": [
+        {
+          "id": "sales-intake",
+          "name": "Sales Intake",
+          "description": "Receive writ of execution from court",
+          "capacity": 5,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["sale_petition"],
+          "outputType": "sale_scheduled",
+          "requiredSkills": ["legal-review", "document-processing"],
+          "equipment": ["document-scanner", "case-management-system"]
+        },
+        {
+          "id": "sales-scheduling",
+          "name": "Sale Scheduling",
+          "description": "Schedule sale date per PA Rules of Civil Procedure",
+          "capacity": 3,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["sale_scheduled"],
+          "outputType": "sale_advertised",
+          "requiredSkills": ["scheduling", "legal-compliance"],
+          "equipment": ["scheduling-system"]
+        },
+        {
+          "id": "sales-advertising",
+          "name": "Sale Advertising",
+          "description": "Publish legal notice per statutory requirements",
+          "capacity": 10,
+          "cycleTimeMinutes": 30240,
+          "inputTypes": ["sale_advertised"],
+          "outputType": "sale_conducted",
+          "requiredSkills": ["legal-advertising"],
+          "equipment": ["legal-notice-system"],
+          "note": "21-day statutory requirement"
+        },
+        {
+          "id": "sales-auction",
+          "name": "Auction Room",
+          "description": "Conduct public sale at courthouse",
+          "capacity": 1,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["sale_conducted"],
+          "outputType": "sale_distributed",
+          "requiredSkills": ["auctioneer", "bid-management"],
+          "equipment": ["auction-podium", "bid-recording-system"]
+        },
+        {
+          "id": "sales-distribution",
+          "name": "Proceeds Distribution",
+          "description": "Distribute sale proceeds per court order within 30 days",
+          "capacity": 5,
+          "cycleTimeMinutes": 120,
+          "inputTypes": ["sale_distributed"],
+          "outputType": "completed",
+          "requiredSkills": ["accounting", "disbursement"],
+          "equipment": ["accounting-system", "check-printer"]
+        }
+      ]
+    },
+
+    "process-service": {
+      "id": "process-service",
+      "name": "Process Service Line",
+      "unit": "sheriff",
+      "description": "Serving legal documents and court orders",
+      "layout": "linear",
+      "workflowRef": "process_service",
+      "stations": [
+        {
+          "id": "process-intake",
+          "name": "Process Intake",
+          "description": "Receive writs and orders from court/attorneys",
+          "capacity": 20,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["writ_received"],
+          "outputType": "writ_assigned",
+          "requiredSkills": ["document-processing"],
+          "equipment": ["intake-system", "fee-collection"]
+        },
+        {
+          "id": "process-assignment",
+          "name": "Deputy Assignment",
+          "description": "Assign to deputy based on location/type",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["writ_assigned"],
+          "outputType": "writ_served",
+          "requiredSkills": ["dispatch", "routing"],
+          "equipment": ["dispatch-system", "gps-tracking"]
+        },
+        {
+          "id": "process-service",
+          "name": "Field Service",
+          "description": "Deputy serves papers in the field",
+          "capacity": 15,
+          "cycleTimeMinutes": 240,
+          "inputTypes": ["writ_served"],
+          "outputType": "writ_returned",
+          "requiredSkills": ["field-service", "legal-process"],
+          "equipment": ["vehicle", "mobile-device", "body-camera"]
+        },
+        {
+          "id": "process-return",
+          "name": "Return Processing",
+          "description": "Complete return of service to court",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["writ_returned"],
+          "outputType": "completed",
+          "requiredSkills": ["legal-documentation"],
+          "equipment": ["return-system", "e-filing"]
+        }
+      ]
+    },
+
+    "cash-receipts": {
+      "id": "cash-receipts",
+      "name": "Cash Receipts Line",
+      "unit": "treasurer",
+      "description": "Processing all incoming county revenues",
+      "layout": "linear",
+      "workflowRef": "cash_receipt",
+      "stations": [
+        {
+          "id": "receipts-intake",
+          "name": "Receipt Intake",
+          "description": "Receive funds from departments and row officers",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["receipt_incoming"],
+          "outputType": "receipt_recorded",
+          "requiredSkills": ["cash-handling", "receipting"],
+          "equipment": ["cash-register", "receipt-printer", "safe"]
+        },
+        {
+          "id": "receipts-recording",
+          "name": "Recording Station",
+          "description": "Record in cash receipts journal",
+          "capacity": 5,
+          "cycleTimeMinutes": 3,
+          "inputTypes": ["receipt_recorded"],
+          "outputType": "receipt_deposited",
+          "requiredSkills": ["accounting", "data-entry"],
+          "equipment": ["accounting-system"]
+        },
+        {
+          "id": "bank-deposit",
+          "name": "Bank Deposit",
+          "description": "Same-day deposit to approved depositories",
+          "capacity": 3,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["receipt_deposited"],
+          "outputType": "completed",
+          "requiredSkills": ["banking", "security"],
+          "equipment": ["deposit-bag", "armored-transport"]
+        }
+      ]
+    },
+
+    "disbursements": {
+      "id": "disbursements",
+      "name": "Disbursements Line",
+      "unit": "treasurer",
+      "description": "Processing payments on controller warrants only",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "warrant-intake",
+          "name": "Warrant Intake",
+          "description": "Receive warrants from Controller",
+          "capacity": 50,
+          "cycleTimeMinutes": 2,
+          "inputTypes": ["warrant_received"],
+          "outputType": "warrant_verified",
+          "requiredSkills": ["document-verification"],
+          "equipment": ["warrant-log"]
+        },
+        {
+          "id": "warrant-verification",
+          "name": "Warrant Verification",
+          "description": "Verify controller signature and fund availability",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["warrant_verified"],
+          "outputType": "payment_issued",
+          "requiredSkills": ["verification", "fund-accounting"],
+          "equipment": ["signature-card", "fund-balance-system"]
+        },
+        {
+          "id": "check-printing",
+          "name": "Check Printing",
+          "description": "Print and mail checks or process ACH",
+          "capacity": 20,
+          "cycleTimeMinutes": 1,
+          "inputTypes": ["payment_issued"],
+          "outputType": "completed",
+          "requiredSkills": ["check-processing", "ach"],
+          "equipment": ["check-printer", "positive-pay-system", "ach-system"]
+        }
+      ]
+    },
+
+    "recording": {
+      "id": "recording",
+      "name": "Document Recording Line",
+      "unit": "recorder-of-deeds",
+      "description": "Recording deeds, mortgages, and other instruments",
+      "layout": "linear",
+      "workflowRef": "document_recording",
+      "stations": [
+        {
+          "id": "doc-intake",
+          "name": "Document Intake",
+          "description": "Receive documents for recording",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["document_submitted"],
+          "outputType": "document_reviewed",
+          "requiredSkills": ["document-intake", "fee-collection"],
+          "equipment": ["intake-counter", "fee-calculator"]
+        },
+        {
+          "id": "doc-review",
+          "name": "Document Review",
+          "description": "Review for recording requirements",
+          "capacity": 5,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["document_reviewed"],
+          "outputType": "document_recorded",
+          "requiredSkills": ["legal-review", "recording-requirements"],
+          "equipment": ["checklist-system"]
+        },
+        {
+          "id": "recording",
+          "name": "Recording Station",
+          "description": "Assign recording number and timestamp",
+          "capacity": 5,
+          "cycleTimeMinutes": 3,
+          "inputTypes": ["document_recorded"],
+          "outputType": "document_indexed",
+          "requiredSkills": ["recording", "data-entry"],
+          "equipment": ["recording-system", "scanner"]
+        },
+        {
+          "id": "indexing",
+          "name": "Indexing Station",
+          "description": "Index by grantor/grantee for searchability",
+          "capacity": 5,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["document_indexed"],
+          "outputType": "completed",
+          "requiredSkills": ["indexing", "data-entry"],
+          "equipment": ["indexing-system"]
+        }
+      ]
+    },
+
+    "probate": {
+      "id": "probate",
+      "name": "Probate Line",
+      "unit": "register-of-wills",
+      "description": "Processing wills and granting letters testamentary/administration",
+      "layout": "linear",
+      "workflowRef": "probate",
+      "stations": [
+        {
+          "id": "probate-intake",
+          "name": "Probate Intake",
+          "description": "Receive will and petition for probate",
+          "capacity": 5,
+          "cycleTimeMinutes": 20,
+          "inputTypes": ["will_filed"],
+          "outputType": "will_received",
+          "requiredSkills": ["probate-intake", "document-review"],
+          "equipment": ["probate-system", "fee-collection"]
+        },
+        {
+          "id": "will-examination",
+          "name": "Will Examination",
+          "description": "Examine will for validity and witness attestation",
+          "capacity": 3,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["will_received"],
+          "outputType": "will_probated",
+          "requiredSkills": ["probate-law", "document-examination"],
+          "equipment": ["magnification", "will-records"]
+        },
+        {
+          "id": "oath-administration",
+          "name": "Oath Administration",
+          "description": "Administer oath to executor/administrator",
+          "capacity": 2,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["will_probated"],
+          "outputType": "oath_taken",
+          "requiredSkills": ["oath-administration"],
+          "equipment": ["oath-book"]
+        },
+        {
+          "id": "letters-issuance",
+          "name": "Letters Issuance",
+          "description": "Issue letters testamentary or administration",
+          "capacity": 3,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["oath_taken"],
+          "outputType": "letters_issued",
+          "requiredSkills": ["document-preparation"],
+          "equipment": ["letters-printer", "seal"]
+        }
+      ]
+    },
+
+    "criminal-filing": {
+      "id": "criminal-filing",
+      "name": "Criminal Case Line",
+      "unit": "clerk-of-courts",
+      "description": "Processing criminal court filings and dispositions",
+      "layout": "linear",
+      "workflowRef": "criminal_case",
+      "stations": [
+        {
+          "id": "criminal-intake",
+          "name": "Criminal Intake",
+          "description": "Receive informations and indictments from DA",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["criminal_filed"],
+          "outputType": "criminal_docketed",
+          "requiredSkills": ["criminal-filing", "data-entry"],
+          "equipment": ["case-management-system"]
+        },
+        {
+          "id": "criminal-docketing",
+          "name": "Criminal Docketing",
+          "description": "Enter case on criminal docket",
+          "capacity": 5,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["criminal_docketed"],
+          "outputType": "case_docketed",
+          "requiredSkills": ["docketing"],
+          "equipment": ["docket-system"]
+        },
+        {
+          "id": "scheduling",
+          "name": "Court Scheduling",
+          "description": "Schedule hearings and trials",
+          "capacity": 3,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["case_docketed"],
+          "outputType": "case_scheduled",
+          "requiredSkills": ["scheduling", "court-calendar"],
+          "equipment": ["scheduling-system"]
+        },
+        {
+          "id": "disposition-entry",
+          "name": "Disposition Entry",
+          "description": "Record case dispositions and sentences",
+          "capacity": 5,
+          "cycleTimeMinutes": 20,
+          "inputTypes": ["criminal_disposed"],
+          "outputType": "completed",
+          "requiredSkills": ["disposition-entry", "sentencing"],
+          "equipment": ["case-management-system"]
+        }
+      ]
+    },
+
+    "civil-filing": {
+      "id": "civil-filing",
+      "name": "Civil Filing Line",
+      "unit": "prothonotary",
+      "description": "Processing civil court filings and docketing",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "complaint-intake",
+          "name": "Complaint Intake",
+          "description": "Receive civil complaints and praecipes",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["complaint_filed"],
+          "outputType": "complaint_received",
+          "requiredSkills": ["civil-filing", "document-review"],
+          "equipment": ["filing-system", "fee-calculator"]
+        },
+        {
+          "id": "filing-review",
+          "name": "Filing Review",
+          "description": "Review for compliance with rules of civil procedure",
+          "capacity": 5,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["complaint_received"],
+          "outputType": "filing_approved",
+          "requiredSkills": ["civil-procedure", "legal-review"],
+          "equipment": ["rules-reference"]
+        },
+        {
+          "id": "docketing",
+          "name": "Docketing Station",
+          "description": "Enter case on civil docket",
+          "capacity": 5,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["filing_approved"],
+          "outputType": "case_docketed",
+          "requiredSkills": ["docketing", "data-entry"],
+          "equipment": ["docket-system"]
+        },
+        {
+          "id": "service-issuance",
+          "name": "Service Issuance",
+          "description": "Issue writ of summons for service",
+          "capacity": 5,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["case_docketed"],
+          "outputType": "completed",
+          "requiredSkills": ["writ-issuance"],
+          "equipment": ["writ-printer", "seal"]
+        }
+      ]
+    }
+  }
+}

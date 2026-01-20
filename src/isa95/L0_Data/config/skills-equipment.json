@@ -1,0 +1,293 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "skills-equipment",
+  "title": "Skills and Equipment Definitions",
+  "description": "Required skills for staff and equipment for workstations",
+  "version": "1.0.0",
+
+  "skills": {
+    "legal": {
+      "legal-review": {
+        "description": "Review legal documents for compliance",
+        "trainingHours": 40,
+        "certificationRequired": false
+      },
+      "probate-law": {
+        "description": "Pennsylvania probate law expertise",
+        "trainingHours": 80,
+        "certificationRequired": false
+      },
+      "forfeiture-law": {
+        "description": "Asset forfeiture procedures per 42 Pa.C.S. §6801",
+        "trainingHours": 40,
+        "certificationRequired": false
+      },
+      "civil-procedure": {
+        "description": "PA Rules of Civil Procedure",
+        "trainingHours": 60,
+        "certificationRequired": false
+      },
+      "criminal-procedure": {
+        "description": "PA Rules of Criminal Procedure",
+        "trainingHours": 60,
+        "certificationRequired": false
+      },
+      "trial-advocacy": {
+        "description": "Courtroom trial skills",
+        "trainingHours": 200,
+        "certificationRequired": true
+      }
+    },
+
+    "financial": {
+      "cash-handling": {
+        "description": "Proper cash handling and receipting",
+        "trainingHours": 8,
+        "certificationRequired": false
+      },
+      "accounting": {
+        "description": "Basic governmental accounting",
+        "trainingHours": 40,
+        "certificationRequired": false
+      },
+      "fund-accounting": {
+        "description": "Governmental fund accounting",
+        "trainingHours": 80,
+        "certificationRequired": false
+      },
+      "reconciliation": {
+        "description": "Bank and account reconciliation",
+        "trainingHours": 16,
+        "certificationRequired": false
+      },
+      "investment-analysis": {
+        "description": "Public fund investment per 16 Pa.C.S. §1307",
+        "trainingHours": 40,
+        "certificationRequired": false
+      },
+      "tax-calculation": {
+        "description": "Transfer and inheritance tax calculation",
+        "trainingHours": 24,
+        "certificationRequired": false
+      },
+      "grant-accounting": {
+        "description": "Federal/state grant accounting and compliance",
+        "trainingHours": 40,
+        "certificationRequired": false
+      }
+    },
+
+    "administrative": {
+      "document-processing": {
+        "description": "General document intake and processing",
+        "trainingHours": 8,
+        "certificationRequired": false
+      },
+      "data-entry": {
+        "description": "Accurate data entry skills",
+        "trainingHours": 4,
+        "certificationRequired": false
+      },
+      "customer-service": {
+        "description": "Public-facing customer service",
+        "trainingHours": 8,
+        "certificationRequired": false
+      },
+      "indexing": {
+        "description": "Document indexing for searchability",
+        "trainingHours": 16,
+        "certificationRequired": false
+      },
+      "records-management": {
+        "description": "Records retention and management",
+        "trainingHours": 24,
+        "certificationRequired": false
+      },
+      "scheduling": {
+        "description": "Calendar and scheduling management",
+        "trainingHours": 8,
+        "certificationRequired": false
+      }
+    },
+
+    "law_enforcement": {
+      "field-service": {
+        "description": "Process service in the field",
+        "trainingHours": 40,
+        "certificationRequired": true
+      },
+      "courtroom-security": {
+        "description": "Courthouse security procedures",
+        "trainingHours": 80,
+        "certificationRequired": true
+      },
+      "transport": {
+        "description": "Prisoner transport protocols",
+        "trainingHours": 40,
+        "certificationRequired": true
+      },
+      "emergency-response": {
+        "description": "Emergency response procedures",
+        "trainingHours": 40,
+        "certificationRequired": true
+      },
+      "death-investigation": {
+        "description": "Death scene investigation",
+        "trainingHours": 120,
+        "certificationRequired": true
+      }
+    },
+
+    "specialized": {
+      "auctioneer": {
+        "description": "Conducting public auctions",
+        "trainingHours": 24,
+        "certificationRequired": false
+      },
+      "pathology": {
+        "description": "Forensic pathology",
+        "trainingHours": 0,
+        "certificationRequired": true,
+        "certificationName": "Board Certified Pathologist"
+      },
+      "toxicology": {
+        "description": "Toxicology analysis",
+        "trainingHours": 0,
+        "certificationRequired": true
+      },
+      "notary": {
+        "description": "Notary public services",
+        "trainingHours": 0,
+        "certificationRequired": true,
+        "certificationName": "PA Notary Commission"
+      }
+    }
+  },
+
+  "equipment": {
+    "office": {
+      "case-management-system": {
+        "description": "Electronic case management software",
+        "category": "software",
+        "maintenanceFrequency": "monthly"
+      },
+      "document-scanner": {
+        "description": "High-speed document scanner",
+        "category": "hardware",
+        "maintenanceFrequency": "quarterly"
+      },
+      "receipt-printer": {
+        "description": "Thermal receipt printer",
+        "category": "hardware",
+        "maintenanceFrequency": "quarterly"
+      },
+      "check-printer": {
+        "description": "MICR check printer",
+        "category": "hardware",
+        "maintenanceFrequency": "monthly"
+      },
+      "seal": {
+        "description": "Official office seal",
+        "category": "hardware",
+        "maintenanceFrequency": "annual"
+      }
+    },
+
+    "financial": {
+      "cash-register": {
+        "description": "Point of sale cash register",
+        "category": "hardware",
+        "maintenanceFrequency": "quarterly"
+      },
+      "safe": {
+        "description": "Secure cash/document safe",
+        "category": "hardware",
+        "maintenanceFrequency": "annual"
+      },
+      "accounting-system": {
+        "description": "Governmental accounting software",
+        "category": "software",
+        "maintenanceFrequency": "monthly"
+      },
+      "payment-gateway": {
+        "description": "Online payment processing",
+        "category": "software",
+        "maintenanceFrequency": "monthly"
+      },
+      "positive-pay-system": {
+        "description": "Check fraud prevention system",
+        "category": "software",
+        "maintenanceFrequency": "monthly"
+      }
+    },
+
+    "security": {
+      "metal-detector": {
+        "description": "Walk-through metal detector",
+        "category": "hardware",
+        "maintenanceFrequency": "monthly"
+      },
+      "x-ray-scanner": {
+        "description": "Baggage x-ray scanner",
+        "category": "hardware",
+        "maintenanceFrequency": "monthly"
+      },
+      "body-camera": {
+        "description": "Body-worn camera",
+        "category": "hardware",
+        "maintenanceFrequency": "weekly"
+      },
+      "radio": {
+        "description": "Two-way radio communication",
+        "category": "hardware",
+        "maintenanceFrequency": "monthly"
+      },
+      "restraints": {
+        "description": "Handcuffs and restraints",
+        "category": "hardware",
+        "maintenanceFrequency": "monthly"
+      }
+    },
+
+    "medical": {
+      "morgue": {
+        "description": "Morgue facility",
+        "category": "facility",
+        "maintenanceFrequency": "daily"
+      },
+      "autopsy-suite": {
+        "description": "Autopsy examination room",
+        "category": "facility",
+        "maintenanceFrequency": "daily"
+      },
+      "refrigeration": {
+        "description": "Body storage refrigeration",
+        "category": "hardware",
+        "maintenanceFrequency": "daily"
+      },
+      "lab-equipment": {
+        "description": "Toxicology laboratory equipment",
+        "category": "hardware",
+        "maintenanceFrequency": "weekly"
+      }
+    },
+
+    "vehicles": {
+      "patrol-vehicle": {
+        "description": "Deputy patrol vehicle",
+        "category": "vehicle",
+        "maintenanceFrequency": "monthly"
+      },
+      "transport-vehicle": {
+        "description": "Prisoner transport vehicle",
+        "category": "vehicle",
+        "maintenanceFrequency": "monthly"
+      },
+      "investigation-vehicle": {
+        "description": "Investigator vehicle",
+        "category": "vehicle",
+        "maintenanceFrequency": "monthly"
+      }
+    }
+  }
+}

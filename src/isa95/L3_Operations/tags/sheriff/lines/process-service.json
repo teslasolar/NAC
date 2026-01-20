@@ -1,0 +1,88 @@
+{
+  "$schema": "../../../../udt/base/UDT_AssemblyLine.json",
+  "tagName": "Sheriff.Lines.ProcessService",
+  "udtType": "UDT_AssemblyLine",
+  "description": "Process Service assembly line tag instance",
+  "scope": "sheriff",
+
+  "values": {
+    "Config": {
+      "ID": "process-service",
+      "Name": "Process Service Line",
+      "Description": "Serving legal documents and court orders",
+      "UnitID": "sheriff",
+      "Layout": "linear",
+      "StationCount": 4,
+      "WorkflowRef": "process_service",
+      "BasePosition": { "X": 0.0, "Y": 0.0, "Z": 0.0 }
+    },
+
+    "Status": {
+      "State": 6,
+      "StateName": "EXECUTE",
+      "Mode": 0,
+      "ModeName": "PRODUCTION",
+      "IsRunning": true,
+      "ActiveStations": 4,
+      "BottleneckStationID": "process-service",
+      "LastStateChange": 1705680000000
+    },
+
+    "Queues": {
+      "InputQueueLength": 15,
+      "OutputQueueLength": 3,
+      "TotalWIP": 28,
+      "InputQueueCapacity": 50,
+      "OutputQueueCapacity": 20
+    },
+
+    "Metrics": {
+      "ItemsStarted": 1247,
+      "ItemsCompleted": 1198,
+      "ItemsRejected": 12,
+      "Efficiency": 0.96,
+      "AvgCycleTimeMs": 14400000,
+      "ThroughputPerHour": 8.5,
+      "OEE": 0.82,
+      "Availability": 0.95,
+      "Performance": 0.89,
+      "Quality": 0.97
+    },
+
+    "Commands": {
+      "Start": false,
+      "Stop": false,
+      "Reset": false,
+      "Hold": false,
+      "ClearQueues": false
+    },
+
+    "Alarms": {
+      "InputQueueFull": false,
+      "OutputQueueFull": false,
+      "Bottleneck": true,
+      "LowThroughput": false,
+      "HighRejectRate": false,
+      "StationFault": false
+    }
+  },
+
+  "stations": [
+    {
+      "tagName": "Sheriff.Lines.ProcessService.Stations[0]",
+      "stationRef": "process-intake"
+    },
+    {
+      "tagName": "Sheriff.Lines.ProcessService.Stations[1]",
+      "stationRef": "process-assignment"
+    },
+    {
+      "tagName": "Sheriff.Lines.ProcessService.Stations[2]",
+      "stationRef": "process-service"
+    },
+    {
+      "tagName": "Sheriff.Lines.ProcessService.Stations[3]",
+      "stationRef": "process-return"
+    }
+  ]
+}

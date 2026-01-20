@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "udt-production-unit",
+  "title": "UDT_ProductionUnit",
+  "description": "User Defined Type template for a ProductionUnit (Row Officer)",
+  "version": "1.0.0",
+  "udtType": "UDT_ProductionUnit",
+  "category": "base",
+
+  "members": {
+    "Config": {
+      "description": "Static configuration",
+      "members": {
+        "ID": { "type": "STRING", "length": 32, "description": "Unit identifier" },
+        "Name": { "type": "STRING", "length": 64, "description": "Display name" },
+        "OfficerTitle": { "type": "STRING", "length": 64, "description": "Official title" },
+        "Authority": { "type": "STRING", "length": 64, "description": "PA Code reference" },
+        "Article": { "type": "STRING", "length": 16, "description": "PA Code article" },
+        "Term": { "type": "INT", "description": "Term length in years" },
+        "Elected": { "type": "BOOL", "description": "Is elected position" },
+        "BondRequired": { "type": "BOOL", "description": "Surety bond required" },
+        "LineCount": { "type": "INT", "description": "Number of assembly lines" },
+        "Position": {
+          "type": "UDT_Position3D",
+          "members": {
+            "X": { "type": "REAL" },
+            "Y": { "type": "REAL" },
+            "Z": { "type": "REAL" }
+          }
+        },
+        "Dimensions": {
+          "type": "UDT_Dimensions3D",
+          "members": {
+            "Width": { "type": "REAL" },
+            "Height": { "type": "REAL" },
+            "Depth": { "type": "REAL" }
+          }
+        }
+      }
+    },
+
+    "Staffing": {
+      "description": "Staffing configuration",
+      "members": {
+        "TotalFTE": { "type": "REAL", "description": "Total full-time equivalents" },
+        "CurrentStaff": { "type": "INT", "description": "Current staff on duty" },
+        "ElectedOfficials": { "type": "INT", "description": "Number of elected positions" },
+        "DeputyCount": { "type": "INT", "description": "Deputy positions" },
+        "ClericalCount": { "type": "INT", "description": "Clerical positions" },
+        "VacantPositions": { "type": "INT", "description": "Open positions" }
+      }
+    },
+
+    "OperatingHours": {
+      "description": "Operating schedule",
+      "members": {
+        "StartHour": { "type": "INT", "description": "Opening hour (0-23)" },
+        "EndHour": { "type": "INT", "description": "Closing hour (0-23)" },
+        "Is24x7": { "type": "BOOL", "description": "Operates 24/7" },
+        "IsOpen": { "type": "BOOL", "description": "Currently within operating hours" }
+      }
+    },
+
+    "Status": {
+      "description": "Runtime status",
+      "members": {
+        "State": { "type": "INT", "description": "PackML state", "enum": "PackMLState" },
+        "StateName": { "type": "STRING", "length": 16 },
+        "Mode": { "type": "INT", "description": "Operating mode", "enum": "PackMLMode" },
+        "ModeName": { "type": "STRING", "length": 16 },
+        "IsOnline": { "type": "BOOL", "description": "Unit is online and operational" },
+        "ActiveLines": { "type": "INT", "description": "Lines currently running" },
+        "ActiveStations": { "type": "INT", "description": "Stations currently in EXECUTE" },
+        "TotalStations": { "type": "INT", "description": "Total stations in unit" },
+        "HealthScore": { "type": "REAL", "description": "Overall health 0-100" },
+        "LastStateChange": { "type": "LINT", "description": "Timestamp of last state change" }
+      }
+    },
+
+    "Metrics": {
+      "description": "Performance metrics",
+      "members": {
+        "TotalItemsProcessed": { "type": "DINT", "description": "Total items processed today" },
+        "TotalItemsYTD": { "type": "DINT", "description": "Items processed year-to-date" },
+        "TotalRevenue": { "type": "REAL", "description": "Fee revenue today" },
+        "RevenueYTD": { "type": "REAL", "description": "Fee revenue year-to-date" },
+        "AvgProcessingTimeMs": { "type": "DINT", "description": "Average processing time" },
+        "CustomerWaitTimeMin": { "type": "INT", "description": "Average customer wait time" },
+        "ErrorRate": { "type": "REAL", "description": "Error rate percentage" },
+        "SLACompliance": { "type": "REAL", "description": "SLA compliance percentage" },
+        "CustomerSatisfaction": { "type": "REAL", "description": "Customer satisfaction score" }
+      }
+    },
+
+    "Financial": {
+      "description": "Financial status",
+      "members": {
+        "BudgetAllocated": { "type": "REAL", "description": "Annual budget" },
+        "BudgetSpent": { "type": "REAL", "description": "Budget spent YTD" },
+        "BudgetRemaining": { "type": "REAL", "description": "Budget remaining" },
+        "BudgetVariance": { "type": "REAL", "description": "Variance percentage" },
+        "FeesCollectedToday": { "type": "REAL", "description": "Fees collected today" },
+        "FeesCollectedMTD": { "type": "REAL", "description": "Fees collected month-to-date" },
+        "FeesCollectedYTD": { "type": "REAL", "description": "Fees collected year-to-date" },
+        "OutstandingReceivables": { "type": "REAL", "description": "Outstanding amounts" }
+      }
+    },
+
+    "Commands": {
+      "description": "Command interface",
+      "members": {
+        "Start": { "type": "BOOL", "description": "Start all lines" },
+        "Stop": { "type": "BOOL", "description": "Stop all lines" },
+        "Reset": { "type": "BOOL", "description": "Reset unit" },
+        "EmergencyStop": { "type": "BOOL", "description": "Emergency stop" },
+        "SetMode": { "type": "INT", "description": "Set operating mode" }
+      }
+    },
+
+    "Alarms": {
+      "description": "Unit-level alarms",
+      "members": {
+        "Offline": { "type": "BOOL", "description": "Unit offline" },
+        "StaffShortage": { "type": "BOOL", "description": "Below minimum staffing" },
+        "HighBacklog": { "type": "BOOL", "description": "Backlog exceeds threshold" },
+        "BudgetOverrun": { "type": "BOOL", "description": "Spending exceeds budget" },
+        "SLABreach": { "type": "BOOL", "description": "SLA compliance below target" },
+        "AuditFinding": { "type": "BOOL", "description": "Open audit finding" },
+        "SystemFault": { "type": "BOOL", "description": "System malfunction" },
+        "SecurityAlert": { "type": "BOOL", "description": "Security concern" }
+      }
+    },
+
+    "AuditStatus": {
+      "description": "Audit and compliance status",
+      "members": {
+        "LastAuditDate": { "type": "LINT", "description": "Date of last audit" },
+        "NextAuditDate": { "type": "LINT", "description": "Scheduled next audit" },
+        "OpenFindings": { "type": "INT", "description": "Open audit findings" },
+        "HighRiskFindings": { "type": "INT", "description": "High-risk open findings" },
+        "ComplianceScore": { "type": "REAL", "description": "Compliance score 0-100" },
+        "RiskLevel": { "type": "INT", "description": "Risk level 1-5" }
+      }
+    }
+  }
+}

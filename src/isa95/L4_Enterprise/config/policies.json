@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "enterprise-policies",
+  "title": "Enterprise Policies",
+  "description": "County-wide policies, governance, and strategic configuration",
+  "version": "1.0.0",
+  "effectiveDate": "2024-01-01",
+
+  "governance": {
+    "structure": "home_rule_charter",
+    "legislativeBody": {
+      "name": "County Council",
+      "members": 9,
+      "term": 4
+    },
+    "executiveBody": {
+      "name": "County Executive",
+      "members": 1,
+      "term": 4
+    },
+    "rowOfficers": {
+      "count": 8,
+      "elected": true,
+      "term": 4
+    }
+  },
+
+  "fiscalPolicy": {
+    "fiscalYear": {
+      "start": "01-01",
+      "end": "12-31",
+      "type": "calendar"
+    },
+    "budgetType": "modified_accrual",
+    "fundAccounting": true,
+    "fundTypes": [
+      { "code": "100", "name": "General Fund", "type": "governmental" },
+      { "code": "200", "name": "Special Revenue Funds", "type": "governmental" },
+      { "code": "300", "name": "Debt Service Fund", "type": "governmental" },
+      { "code": "400", "name": "Capital Projects Fund", "type": "governmental" },
+      { "code": "500", "name": "Enterprise Funds", "type": "proprietary" },
+      { "code": "600", "name": "Internal Service Funds", "type": "proprietary" },
+      { "code": "700", "name": "Trust Funds", "type": "fiduciary" },
+      { "code": "800", "name": "Agency Funds", "type": "fiduciary" }
+    ],
+    "reservePolicy": {
+      "minimumUnassigned": 0.10,
+      "targetUnassigned": 0.15,
+      "note": "10-15% of General Fund revenues"
+    }
+  },
+
+  "internalControls": {
+    "framework": "COSO",
+    "components": [
+      "control_environment",
+      "risk_assessment",
+      "control_activities",
+      "information_communication",
+      "monitoring"
+    ],
+    "antifraudPolicy": {
+      "hotlineEnabled": true,
+      "whistleblowerProtection": true,
+      "mandatoryReporting": true
+    },
+    "segregationOfDuties": {
+      "required": true,
+      "minimumPersons": 2,
+      "documentation": "required"
+    }
+  },
+
+  "investmentPolicy": {
+    "authority": "16 Pa.C.S. §1307",
+    "objectives": ["safety", "liquidity", "yield"],
+    "permittedInstruments": [
+      { "type": "us_treasury", "maxMaturity": "5 years", "maxAllocation": 1.0 },
+      { "type": "federal_agency", "maxMaturity": "5 years", "maxAllocation": 0.5 },
+      { "type": "insured_cd", "maxMaturity": "3 years", "maxAllocation": 0.25, "maxPerInstitution": 0.05 },
+      { "type": "commercial_paper", "maxMaturity": "270 days", "maxAllocation": 0.15, "minRating": "A1/P1" },
+      { "type": "lgip", "maxMaturity": null, "maxAllocation": 0.5, "note": "PA Local Government Investment Pool" }
+    ],
+    "diversification": {
+      "maxSingleIssuer": 0.05,
+      "maxSingleIndustry": 0.25
+    },
+    "collateralization": {
+      "required": true,
+      "minimumRatio": 1.02,
+      "note": "102% of deposits exceeding FDIC coverage"
+    },
+    "reportingFrequency": "quarterly"
+  },
+
+  "procurementPolicy": {
+    "thresholds": [
+      { "maxAmount": 2000, "method": "petty_cash", "quotes": 0, "bidRequired": false },
+      { "maxAmount": 10000, "method": "small_purchase", "quotes": 3, "bidRequired": false },
+      { "maxAmount": 21300, "method": "competitive_quotes", "quotes": 3, "bidRequired": false },
+      { "maxAmount": null, "method": "sealed_bid", "quotes": null, "bidRequired": true }
+    ],
+    "bidThreshold": 21300,
+    "bidAdvertisingDays": 10,
+    "bondRequirements": {
+      "bidBond": 0.10,
+      "performanceBond": 1.0,
+      "paymentBond": 1.0
+    },
+    "minorityBusinessGoal": 0.15,
+    "localPreference": false
+  },
+
+  "auditPolicy": {
+    "externalAudit": {
+      "required": true,
+      "frequency": "annual",
+      "standards": "GAGAS",
+      "reportDeadline": "June 30"
+    },
+    "internalAudit": {
+      "enabled": true,
+      "riskBased": true,
+      "cycleYears": 3,
+      "reportingTo": "Controller"
+    },
+    "rowOfficerAudit": {
+      "required": true,
+      "frequency": "annual",
+      "authority": "16 Pa.C.S. §1602",
+      "scope": ["cash", "fees", "accounts", "compliance"]
+    }
+  },
+
+  "transparencyPolicy": {
+    "openRecords": {
+      "enabled": true,
+      "authority": "65 P.S. §67.101 et seq.",
+      "responseDays": 5,
+      "extensions": 30
+    },
+    "publicMeetings": {
+      "required": true,
+      "authority": "65 Pa.C.S. §701 et seq.",
+      "noticeDays": 3
+    },
+    "financialDisclosure": {
+      "budgetOnline": true,
+      "checkRegisterOnline": true,
+      "contractsOnline": true,
+      "salariesOnline": true
+    }
+  },
+
+  "riskManagement": {
+    "insuranceProgram": {
+      "propertyLiability": true,
+      "workersComp": true,
+      "publicOfficials": true,
+      "cyber": true
+    },
+    "riskAssessment": {
+      "frequency": "annual",
+      "methodology": "enterprise_risk_management"
+    }
+  },
+
+  "performanceMetrics": {
+    "kpis": [
+      {
+        "id": "processing_time",
+        "name": "Average Processing Time",
+        "unit": "hours",
+        "target": "< SLA",
+        "frequency": "daily"
+      },
+      {
+        "id": "throughput",
+        "name": "Items Processed",
+        "unit": "count",
+        "target": null,
+        "frequency": "daily"
+      },
+      {
+        "id": "error_rate",
+        "name": "Error Rate",
+        "unit": "percent",
+        "target": "< 1%",
+        "frequency": "weekly"
+      },
+      {
+        "id": "customer_satisfaction",
+        "name": "Customer Satisfaction",
+        "unit": "percent",
+        "target": "> 90%",
+        "frequency": "quarterly"
+      },
+      {
+        "id": "budget_variance",
+        "name": "Budget Variance",
+        "unit": "percent",
+        "target": "< 5%",
+        "frequency": "monthly"
+      },
+      {
+        "id": "audit_findings",
+        "name": "Open Audit Findings",
+        "unit": "count",
+        "target": "0",
+        "frequency": "quarterly"
+      }
+    ],
+    "dashboardRefresh": "real-time",
+    "reportingCadence": {
+      "operational": "daily",
+      "management": "weekly",
+      "executive": "monthly",
+      "council": "quarterly"
+    }
+  },
+
+  "digitalTwinConfig": {
+    "simulationMode": "real-time",
+    "tickIntervalMs": 1000,
+    "historicalDataDays": 365,
+    "predictionHorizonDays": 90,
+    "alertThresholds": {
+      "queueWarning": 10,
+      "queueCritical": 25,
+      "utilizationWarning": 0.8,
+      "utilizationCritical": 0.95,
+      "slaWarning": 0.75,
+      "slaCritical": 0.9
+    }
+  }
+}

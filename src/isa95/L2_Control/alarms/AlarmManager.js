@@ -323,7 +323,7 @@ const CountyAlarms = {
      { statute }],
 };
 
-module.exports = {
+export {
   AlarmPriority,
   PriorityConfig,
   AlarmState,

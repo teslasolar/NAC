@@ -219,7 +219,7 @@ const CountyAlarmTemplates = {
   },
 };
 
-module.exports = {
+export {
   AlarmRationalization,
   RationalizationResult,
   CountyAlarmTemplates,

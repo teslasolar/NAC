@@ -48,13 +48,52 @@ export {
   BoardMeetingUnit
 } from './engine/ProcessControllers.js';
 
+// Workflow and Rule engines
+export {
+  WorkflowEngine,
+  WorkflowInstance,
+  createWorkflowEngine
+} from './engine/WorkflowEngine.js';
+
+export {
+  RuleEngine,
+  ValidationResult,
+  createRuleEngine
+} from './engine/RuleEngine.js';
+
+/**
+ * Configuration paths
+ */
+export const ConfigPaths = {
+  workflowRules: './config/workflow-rules.json',
+  businessRules: './config/business-rules.json'
+};
+
+/**
+ * Load control configuration
+ */
+export async function loadConfig(configName) {
+  const path = ConfigPaths[configName];
+  if (!path) {
+    throw new Error(`Unknown config: ${configName}`);
+  }
+  const fs = await import('fs/promises');
+  const { dirname, join } = await import('path');
+  const { fileURLToPath } = await import('url');
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  return JSON.parse(await fs.readFile(join(__dirname, path), 'utf8'));
+}
+
 /**
  * Module information
  */
 export const moduleInfo = {
   name: 'L2 Control Layer',
-  version: '1.0.0',
+  version: '2.0.0',
   standard: 'ISA-95 Level 2',
-  domains: ['audit', 'budget', 'payroll', 'procurement', 'alarms'],
-  configPath: './config/'
+  description: 'Process control for county government operations',
+  domains: ['audit', 'budget', 'payroll', 'procurement', 'alarms', 'workflows'],
+  configPath: './config/',
+  engines: ['WorkflowEngine', 'RuleEngine'],
+  processControllers: ['ClaimProcessorUnit', 'AuditExecutorUnit', 'BudgetCycleUnit', 'BoardMeetingUnit']
 };

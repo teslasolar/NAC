@@ -19,16 +19,16 @@ import { fileURLToPath } from 'url';
 import { PackMLStateMachine, PackMLState, PackMLMode } from '../isa88/PackML.js';
 import { ProductionUnit, AssemblyLine, WorkStation, WorkItem } from '../isa88/ProductionUnit.js';
 
-// Get config directory path
+// Get config directory path - now using ISA-95 structure
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const CONFIG_BASE = join(__dirname, 'config');
+const ISA95_BASE = join(__dirname, '..', 'isa95');
 
 /**
- * Load and parse a JSON config file
+ * Load and parse a JSON config file from ISA-95 structure
  */
 function loadJSON(relativePath) {
-  const fullPath = join(CONFIG_BASE, relativePath);
+  const fullPath = join(ISA95_BASE, relativePath);
   if (!existsSync(fullPath)) {
     throw new Error(`Config file not found: ${fullPath}`);
   }
@@ -52,28 +52,28 @@ export class ConfigLoader {
   }
 
   /**
-   * Load all configuration files
+   * Load all configuration files from ISA-95 structure
    */
   loadAll() {
-    // L0 - Data definitions
-    this.configs.L0.packmlStates = loadJSON('L0_Data/packml-states.json');
-    this.configs.L0.workItemTypes = loadJSON('L0_Data/work-item-types.json');
-    this.configs.L0.skillsEquipment = loadJSON('L0_Data/skills-equipment.json');
+    // L0 - Data definitions (src/isa95/L0_Data/config/)
+    this.configs.L0.packmlStates = loadJSON('L0_Data/config/packml-states.json');
+    this.configs.L0.workItemTypes = loadJSON('L0_Data/config/work-item-types.json');
+    this.configs.L0.skillsEquipment = loadJSON('L0_Data/config/skills-equipment.json');
 
-    // L1 - Transaction definitions
-    this.configs.L1.feeSchedules = loadJSON('L1_Transactions/fee-schedules.json');
-    this.configs.L1.transactionSchemas = loadJSON('L1_Transactions/transaction-schemas.json');
+    // L1 - Transaction definitions (src/isa95/L1_Transactions/config/)
+    this.configs.L1.feeSchedules = loadJSON('L1_Transactions/config/fee-schedules.json');
+    this.configs.L1.transactionSchemas = loadJSON('L1_Transactions/config/transaction-schemas.json');
 
-    // L2 - Control configurations
-    this.configs.L2.workflowRules = loadJSON('L2_Control/workflow-rules.json');
-    this.configs.L2.businessRules = loadJSON('L2_Control/business-rules.json');
+    // L2 - Control configurations (src/isa95/L2_Control/config/)
+    this.configs.L2.workflowRules = loadJSON('L2_Control/config/workflow-rules.json');
+    this.configs.L2.businessRules = loadJSON('L2_Control/config/business-rules.json');
 
-    // L3 - Operations configurations
-    this.configs.L3.productionUnits = loadJSON('L3_Operations/production-units.json');
-    this.configs.L3.assemblyLines = loadJSON('L3_Operations/assembly-lines.json');
+    // L3 - Operations configurations (src/isa95/L3_Operations/config/)
+    this.configs.L3.productionUnits = loadJSON('L3_Operations/config/production-units.json');
+    this.configs.L3.assemblyLines = loadJSON('L3_Operations/config/assembly-lines.json');
 
-    // L4 - Enterprise policies
-    this.configs.L4.policies = loadJSON('L4_Enterprise/policies.json');
+    // L4 - Enterprise policies (src/isa95/L4_Enterprise/config/)
+    this.configs.L4.policies = loadJSON('L4_Enterprise/config/policies.json');
 
     this.loaded = true;
     return this;

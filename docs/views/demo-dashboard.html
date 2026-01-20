@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAC Perspective Demo - Component Dashboard</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f1a;
+            --bg-panel: #111827;
+            --bg-surface: #1f2937;
+            --border: #374151;
+            --text: #e5e7eb;
+            --text-dim: #9ca3af;
+            --accent: #3b82f6;
+            --green: #22c55e;
+            --yellow: #f59e0b;
+            --red: #ef4444;
+            --cyan: #06b6d4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        .demo-header {
+            background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+            border-bottom: 2px solid var(--accent);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .demo-header h1 {
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .demo-header .badge {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--cyan);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+        .demo-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        .demo-nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .demo-nav a:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+        .demo-nav a.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+        }
+        .demo-content {
+            padding: 2rem;
+        }
+        .demo-section {
+            margin-bottom: 3rem;
+        }
+        .demo-section h2 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .demo-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .code-preview {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        .code-preview-header {
+            background: var(--bg-surface);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border);
+        }
+        .code-preview pre {
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan);
+        }
+        #kpi-container, #badge-container, #progress-container,
+        #alarm-container, #table-container, #chart-container,
+        #panel-container, #tab-container, #filter-container {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>
+            NAC Perspective
+            <span class="badge">TEMPLATE ENGINE</span>
+        </h1>
+        <nav class="demo-nav">
+            <a href="scada.html">← Back to SCADA</a>
+            <a href="#components" class="active">Components</a>
+            <a href="#layouts">Layouts</a>
+            <a href="#views">Views</a>
+        </nav>
+    </div>
+
+    <div class="demo-content">
+        <!-- KPI Cards -->
+        <div class="demo-section">
+            <h2>KPI Cards</h2>
+            <div class="demo-grid" id="kpi-container"></div>
+            <div class="code-preview">
+                <div class="code-preview-header">Usage</div>
+                <pre>NAC.render('kpi-card', {
+  value: '78.2',
+  unit: '%',
+  label: 'Overall OEE',
+  target: '80%',
+  status: 'warning',
+  trend: 'up',
+  trendValue: '+2.3%'
+}, '#container');</pre>
+            </div>
+        </div>
+
+        <!-- Status Badges -->
+        <div class="demo-section">
+            <h2>Status Badges</h2>
+            <div class="demo-row" id="badge-container"></div>
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="demo-section">
+            <h2>Progress Bars</h2>
+            <div id="progress-container"></div>
+        </div>
+
+        <!-- Alarm Items -->
+        <div class="demo-section">
+            <h2>Alarm Items</h2>
+            <div id="alarm-container"></div>
+        </div>
+
+        <!-- Mini Charts -->
+        <div class="demo-section">
+            <h2>Mini Charts</h2>
+            <div class="demo-row" id="chart-container"></div>
+        </div>
+
+        <!-- Panels -->
+        <div class="demo-section">
+            <h2>Panels</h2>
+            <div class="demo-grid" id="panel-container"></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="demo-section">
+            <h2>Tab Container</h2>
+            <div id="tab-container" style="height: 300px;"></div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="demo-section">
+            <h2>Data Table</h2>
+            <div id="table-container"></div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="demo-section">
+            <h2>Filter Bar</h2>
+            <div id="filter-container"></div>
+        </div>
+    </div>
+
+    <!-- Load template engine and components -->
+    <script src="../templates/engine.js"></script>
+    <script src="../templates/components.js"></script>
+    <script src="../templates/layouts.js"></script>
+
+    <script>
+        // ========================================
+        // KPI CARDS DEMO
+        // ========================================
+        const kpiData = [
+            { value: '78.2', unit: '%', label: 'Overall OEE', target: '80%', status: 'warning', trend: 'up', trendValue: '+2.3%' },
+            { value: '89', unit: '%', label: 'Audit Resolution', target: '85%', status: 'good', trend: 'up', trendValue: '+5%' },
+            { value: '67', unit: '%', label: 'Grant Utilization', target: '80%', status: 'bad', trend: 'down', trendValue: '-3%' },
+            { value: '87.4', unit: '%', label: 'Pension Funded', target: '80%', status: 'good' },
+            { prefix: '$', value: '142.8', unit: 'M', label: 'State Funding', status: 'neutral' },
+            { value: '6:42', label: 'EMS Response', target: '8:00', status: 'good', icon: '🚑' }
+        ];
+
+        const kpiContainer = document.getElementById('kpi-container');
+        kpiData.forEach(kpi => {
+            NAC.render('kpi-card', kpi, kpiContainer);
+        });
+
+        // ========================================
+        // STATUS BADGES DEMO
+        // ========================================
+        const badgeData = [
+            { status: 'success', label: 'Online', pulse: true },
+            { status: 'warning', label: '3 Pending', icon: '⚠️' },
+            { status: 'error', label: 'Critical', pulse: true },
+            { status: 'info', label: 'Processing' },
+            { status: 'pending', label: 'Queued' }
+        ];
+
+        const badgeContainer = document.getElementById('badge-container');
+        badgeData.forEach(badge => {
+            NAC.render('status-badge', badge, badgeContainer);
+        });
+
+        // ========================================
+        // PROGRESS BARS DEMO
+        // ========================================
+        const progressData = [
+            { label: 'Budget Used', value: 67, status: 'default' },
+            { label: 'Grant Spent', value: 45, status: 'warning' },
+            { label: 'Audit Complete', value: 89, status: 'success' },
+            { label: 'Overtime', value: 92, status: 'error' }
+        ];
+
+        const progressContainer = document.getElementById('progress-container');
+        progressData.forEach(progress => {
+            NAC.render('progress-bar', progress, progressContainer);
+        });
+
+        // ========================================
+        // ALARM ITEMS DEMO
+        // ========================================
+        const alarmData = [
+            { id: 'ALM-001', priority: 'high', message: 'Gracedale staffing below critical threshold', source: 'HR System', timestamp: '10:45 AM' },
+            { id: 'ALM-002', priority: 'medium', message: 'PCCD Grant 62% unspent - 30 days remaining', source: 'Finance', timestamp: '9:30 AM' },
+            { id: 'ALM-003', priority: 'low', message: '3 audit findings open >45 days', source: 'Controller', timestamp: '8:15 AM' },
+            { id: 'ALM-004', priority: 'info', message: 'Scheduled maintenance: Tax system - Sunday 2AM', source: 'IT', timestamp: 'Yesterday' }
+        ];
+
+        const alarmContainer = document.getElementById('alarm-container');
+        alarmData.forEach(alarm => {
+            NAC.render('alarm-item', alarm, alarmContainer);
+        });
+
+        // ========================================
+        // MINI CHARTS DEMO
+        // ========================================
+        const chartContainer = document.getElementById('chart-container');
+
+        const chartCard1 = document.createElement('div');
+        chartCard1.style.cssText = 'background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; width: 200px;';
+        chartCard1.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem;">Call Volume (24h)</div>';
+        NAC.render('mini-chart', {
+            data: [3, 5, 8, 12, 15, 18, 14, 12, 16, 20, 18, 15, 12, 10, 8, 9, 11, 14, 16, 13, 10, 7, 5, 4],
+            color: '#3b82f6',
+            height: 50
+        }, chartCard1);
+        chartContainer.appendChild(chartCard1);
+
+        const chartCard2 = document.createElement('div');
+        chartCard2.style.cssText = 'background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; width: 200px;';
+        chartCard2.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem;">Revenue (7 days)</div>';
+        NAC.render('mini-chart', {
+            data: [45, 52, 48, 61, 55, 58, 63],
+            color: '#22c55e',
+            height: 50
+        }, chartCard2);
+        chartContainer.appendChild(chartCard2);
+
+        // ========================================
+        // PANELS DEMO
+        // ========================================
+        const panelContainer = document.getElementById('panel-container');
+
+        NAC.render('panel', {
+            title: 'Active Alerts',
+            icon: '🔔',
+            subtitle: '3 active',
+            collapsible: true,
+            content: `
+                <div style="font-size: 0.85rem; color: var(--text-dim);">
+                    <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">⚠️ Budget review pending</div>
+                    <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">📋 3 grants need attention</div>
+                    <div style="padding: 0.5rem 0;">🔍 Audit response due Friday</div>
+                </div>
+            `
+        }, panelContainer);
+
+        NAC.render('panel', {
+            title: 'Quick Stats',
+            icon: '📊',
+            content: `
+                <div id="stat-rows"></div>
+            `
+        }, panelContainer);
+
+        // Add stat rows to the panel
+        const statRows = document.getElementById('stat-rows');
+        [
+            { label: 'Employees', value: '2,847', icon: '👥', status: 'neutral' },
+            { label: 'Open Positions', value: '124', icon: '📋', status: 'warning' },
+            { label: 'Budget Variance', value: '-2.3%', icon: '💰', status: 'good' }
+        ].forEach(stat => NAC.render('stat-row', stat, statRows));
+
+        // ========================================
+        // TABS DEMO
+        // ========================================
+        NAC.render('tab-container', {
+            tabs: [
+                { label: 'Overview', icon: '🏠', content: '<p>Overview content with summary statistics and key metrics.</p>' },
+                { label: 'Details', icon: '📋', content: '<p>Detailed breakdown of all data points and historical trends.</p>' },
+                { label: 'Actions', icon: '⚡', content: '<p>Available actions and workflow triggers for this module.</p>' },
+                { label: 'History', icon: '📜', content: '<p>Historical log of all changes and events.</p>' }
+            ]
+        }, document.getElementById('tab-container'));
+
+        // ========================================
+        // DATA TABLE DEMO
+        // ========================================
+        NAC.render('data-table', {
+            columns: [
+                { key: 'office', label: 'Office', sortable: true },
+                { key: 'oee', label: 'OEE', sortable: true, format: (v) => `<strong style="color: ${v >= 80 ? 'var(--green)' : v >= 70 ? 'var(--yellow)' : 'var(--red)'}">${v}%</strong>` },
+                { key: 'availability', label: 'Availability', sortable: true, format: (v) => `${v}%` },
+                { key: 'performance', label: 'Performance', sortable: true, format: (v) => `${v}%` },
+                { key: 'quality', label: 'Quality', sortable: true, format: (v) => `${v}%` },
+                { key: 'status', label: 'Status', format: (v) => `<span class="nac-badge nac-badge-${v === 'good' ? 'success' : v === 'warning' ? 'warning' : 'error'}">${v}</span>` }
+            ],
+            data: [
+                { office: 'Treasurer', oee: 86.4, availability: 92, performance: 95, quality: 99, status: 'good' },
+                { office: 'Recorder of Deeds', oee: 82.1, availability: 88, performance: 94, quality: 99, status: 'good' },
+                { office: 'Prothonotary', oee: 79.5, availability: 85, performance: 94, quality: 99, status: 'warning' },
+                { office: 'Sheriff', oee: 77.8, availability: 84, performance: 93, quality: 100, status: 'warning' },
+                { office: 'Controller', oee: 74.2, availability: 82, performance: 91, quality: 99, status: 'warning' },
+                { office: 'Coroner', oee: 71.2, availability: 78, performance: 92, quality: 99, status: 'error' }
+            ],
+            striped: true
+        }, document.getElementById('table-container'));
+
+        // ========================================
+        // FILTER BAR DEMO
+        // ========================================
+        NAC.render('filter-bar', {
+            searchPlaceholder: 'Search offices, metrics...',
+            filters: [
+                { key: 'department', label: 'Department', options: [
+                    { value: 'finance', label: 'Finance' },
+                    { value: 'operations', label: 'Operations' },
+                    { value: 'hr', label: 'Human Resources' }
+                ]},
+                { key: 'status', label: 'Status', options: [
+                    { value: 'good', label: 'Good' },
+                    { value: 'warning', label: 'Warning' },
+                    { value: 'critical', label: 'Critical' }
+                ]}
+            ]
+        }, document.getElementById('filter-container'));
+
+        console.log('NAC Perspective Demo loaded');
+    </script>
+</body>
+</html>

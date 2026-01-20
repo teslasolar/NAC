@@ -2,129 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>L2 Control - Business Logic</title>
+  <meta http-equiv="refresh" content="0; url=../../../docs/scada.html">
+  <title>L2 Control - Redirecting to SCADA</title>
   <style>
-    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #f7fafc; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
-    .header { background: linear-gradient(135deg, #2d5a87 0%, #3b82f6 100%); color: white; padding: 2rem; }
-    .header h1 { font-size: 2rem; }
-    .header .level { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem; }
-    .nav { background: #2d4a6f; padding: 0.75rem 2rem; }
-    .nav a { color: var(--accent); text-decoration: none; margin-right: 1.5rem; }
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-    .section { margin-bottom: 2rem; }
-    .section h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-    .card { background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-    .card h3 { color: var(--primary); font-size: 1rem; margin-bottom: 0.25rem; }
-    .card p { font-size: 0.85rem; color: #666; }
-    .card a { color: var(--primary); text-decoration: none; }
-    .card a:hover { color: var(--accent); }
-    .badge { display: inline-block; background: #10b981; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem; }
+    body { font-family: -apple-system, sans-serif; background: #0a0f1a; color: #e5e7eb; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    a { color: #3b82f6; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="level">ISA-95 Level 2</div>
-    <h1>L2_Control - Business Logic & Control</h1>
-    <p>Budget control, procurement rules, audit procedures</p>
-  </div>
-  <div class="nav">
-    <a href="../../index.html">Home</a>
-    <a href="../L1_Transactions/index.html">← L1</a>
-    <a href="../index.html">ISA-95</a>
-    <a href="../L3_Operations/index.html">L3 →</a>
-  </div>
-
-  <div class="container">
-    <div class="section">
-      <h2>budget/ - Budget Control</h2>
-      <div class="grid">
-        <div class="card">
-          <span class="badge">§1710</span>
-          <h3><a href="budget/AnnualBudget.js">AnnualBudget</a></h3>
-          <p>Annual budget structure</p>
-        </div>
-        <div class="card">
-          <span class="badge">§1705</span>
-          <h3><a href="budget/BudgetCycle.js">BudgetCycle</a></h3>
-          <p>Budget lifecycle management</p>
-        </div>
-        <div class="card">
-          <h3><a href="budget/Appropriation.js">Appropriation</a></h3>
-          <p>Budget appropriations</p>
-        </div>
-        <div class="card">
-          <h3><a href="budget/BudgetAmendment.js">BudgetAmendment</a></h3>
-          <p>Mid-year budget changes</p>
-        </div>
-        <div class="card">
-          <h3><a href="budget/LineItemTransfer.js">LineItemTransfer</a></h3>
-          <p>Line item transfers</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>procurement/ - Procurement Rules</h2>
-      <div class="grid">
-        <div class="card">
-          <h3><a href="procurement/BidThresholds.js">BidThresholds</a></h3>
-          <p>Competitive bid thresholds</p>
-        </div>
-        <div class="card">
-          <h3><a href="procurement/ContractReview.js">ContractReview</a></h3>
-          <p>Contract review process</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>audit/ - Audit Procedures</h2>
-      <div class="grid">
-        <div class="card">
-          <span class="badge">§1720</span>
-          <h3><a href="audit/AuditPlan.js">AuditPlan</a></h3>
-          <p>Annual audit planning</p>
-        </div>
-        <div class="card">
-          <h3><a href="audit/RiskAssessment.js">RiskAssessment</a></h3>
-          <p>Risk-based audit selection</p>
-        </div>
-        <div class="card">
-          <h3><a href="audit/SamplingMethod.js">SamplingMethod</a></h3>
-          <p>Statistical sampling methods</p>
-        </div>
-        <div class="card">
-          <h3><a href="audit/InternalControls.js">InternalControls</a></h3>
-          <p>Internal control evaluation</p>
-        </div>
-        <div class="card">
-          <h3><a href="audit/AuditFindings.js">AuditFindings</a></h3>
-          <p>Finding classification</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>payroll/ - Payroll Control</h2>
-      <div class="grid">
-        <div class="card">
-          <h3><a href="payroll/PayCycle.js">PayCycle</a></h3>
-          <p>Pay period processing</p>
-        </div>
-        <div class="card">
-          <h3><a href="payroll/Deductions.js">Deductions</a></h3>
-          <p>Payroll deductions</p>
-        </div>
-        <div class="card">
-          <h3><a href="payroll/TaxWithholding.js">TaxWithholding</a></h3>
-          <p>Tax withholding rules</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <p>Redirecting to SCADA... <a href="../../../docs/scada.html">Click here</a></p>
 </body>
 </html>

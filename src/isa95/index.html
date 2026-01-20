@@ -2,133 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ISA-95 Architecture - NAC</title>
+  <meta http-equiv="refresh" content="0; url=../../docs/scada.html">
+  <title>ISA-95 Modules - Redirecting to SCADA</title>
   <style>
-    :root { --primary: #1e3a5f; --accent: #c9a227; --bg: #0f172a; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; background: var(--bg); color: #e2e8f0; line-height: 1.6; min-height: 100vh; }
-    .header { background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); padding: 3rem 2rem; text-align: center; border-bottom: 3px solid var(--accent); }
-    .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .header p { opacity: 0.8; max-width: 600px; margin: 0 auto; }
-    .nav { background: #1e293b; padding: 0.75rem 2rem; text-align: center; }
-    .nav a { color: var(--accent); text-decoration: none; margin: 0 1rem; }
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-
-    .pyramid { display: flex; flex-direction: column; align-items: center; margin: 2rem 0; }
-    .level { display: flex; align-items: center; margin: 0.25rem 0; transition: transform 0.2s; }
-    .level:hover { transform: scale(1.02); }
-    .level-box { padding: 1rem 2rem; border-radius: 4px; text-align: center; text-decoration: none; color: white; font-weight: 600; }
-    .level-box:hover { opacity: 0.9; }
-    .level-label { width: 80px; text-align: right; padding-right: 1rem; font-size: 0.9rem; color: #94a3b8; }
-    .level-desc { width: 200px; padding-left: 1rem; font-size: 0.85rem; color: #94a3b8; }
-
-    .l4 .level-box { background: linear-gradient(135deg, #dc2626, #f59e0b); width: 200px; }
-    .l3 .level-box { background: linear-gradient(135deg, #7c3aed, #a855f7); width: 300px; }
-    .l2 .level-box { background: linear-gradient(135deg, #2563eb, #3b82f6); width: 400px; }
-    .l1 .level-box { background: linear-gradient(135deg, #1e3a5f, #2d5a87); width: 500px; }
-    .l0 .level-box { background: linear-gradient(135deg, #0f172a, #1e293b); width: 600px; border: 1px solid #334155; }
-
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
-    .stat { background: #1e293b; padding: 1.5rem; border-radius: 8px; text-align: center; }
-    .stat .number { font-size: 2rem; font-weight: bold; color: var(--accent); }
-    .stat .label { font-size: 0.85rem; color: #94a3b8; }
-
-    h2 { color: var(--accent); margin: 2rem 0 1rem; font-size: 1.5rem; }
-
-    .standards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-    .standard { background: #1e293b; padding: 1.25rem; border-radius: 8px; border-left: 3px solid var(--accent); }
-    .standard h3 { color: #e2e8f0; font-size: 1rem; margin-bottom: 0.25rem; }
-    .standard p { font-size: 0.85rem; color: #94a3b8; }
-    .standard a { color: var(--accent); text-decoration: none; }
+    body { font-family: -apple-system, sans-serif; background: #0a0f1a; color: #e5e7eb; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    a { color: #3b82f6; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>ISA-95 Enterprise Architecture</h1>
-    <p>PA County Code modeled as industrial automation hierarchy</p>
-  </div>
-  <div class="nav">
-    <a href="../index.html">← Source</a>
-    <a href="../../index.html">Home</a>
-    <a href="../../candidate.html">Candidate</a>
-  </div>
-
-  <div class="container">
-    <div class="pyramid">
-      <div class="level l4">
-        <span class="level-label">Level 4</span>
-        <a href="L4_Enterprise/index.html" class="level-box">L4 Enterprise</a>
-        <span class="level-desc">Policy, Strategy, ACFR</span>
-      </div>
-      <div class="level l3">
-        <span class="level-label">Level 3</span>
-        <a href="L3_Operations/index.html" class="level-box">L3 Operations</a>
-        <span class="level-desc">Controller, Row Officers</span>
-      </div>
-      <div class="level l2">
-        <span class="level-label">Level 2</span>
-        <a href="L2_Control/index.html" class="level-box">L2 Control</a>
-        <span class="level-desc">Budget, Procurement, Audit</span>
-      </div>
-      <div class="level l1">
-        <span class="level-label">Level 1</span>
-        <a href="L1_Transactions/index.html" class="level-box">L1 Transactions</a>
-        <span class="level-desc">Claims, Payments, Findings</span>
-      </div>
-      <div class="level l0">
-        <span class="level-label">Level 0</span>
-        <a href="L0_Data/index.html" class="level-box">L0 Data Types</a>
-        <span class="level-desc">Money, Account, Legal Defs</span>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="number">65+</div>
-        <div class="label">Modules</div>
-      </div>
-      <div class="stat">
-        <div class="number">8</div>
-        <div class="label">Row Officers</div>
-      </div>
-      <div class="stat">
-        <div class="number">230</div>
-        <div class="label">PA Code Sections</div>
-      </div>
-      <div class="stat">
-        <div class="number">5</div>
-        <div class="label">ISA Levels</div>
-      </div>
-    </div>
-
-    <h2>Related Standards</h2>
-    <div class="standards">
-      <div class="standard">
-        <h3><a href="../isa88/index.html">ISA-88</a></h3>
-        <p>Batch Control - Legal code as recipes</p>
-      </div>
-      <div class="standard">
-        <h3><a href="../isa101/index.html">ISA-101</a></h3>
-        <p>HMI Standards - Dashboard design</p>
-      </div>
-      <div class="standard">
-        <h3><a href="../isa18_2/index.html">ISA-18.2</a></h3>
-        <p>Alarm Management - Fiscal alerts</p>
-      </div>
-      <div class="standard">
-        <h3><a href="../packml/index.html">PackML</a></h3>
-        <p>State Machines - Operations</p>
-      </div>
-      <div class="standard">
-        <h3><a href="../isa80085/index.html">ISA-80085</a></h3>
-        <p>Blockchain - Audit trails</p>
-      </div>
-      <div class="standard">
-        <h3><a href="../vectordb/index.html">Vector DB</a></h3>
-        <p>3D Legal Code Blocks</p>
-      </div>
-    </div>
-  </div>
+  <p>Redirecting to SCADA... <a href="../../docs/scada.html">Click here</a></p>
 </body>
 </html>

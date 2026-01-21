@@ -1,0 +1,156 @@
+/* NAC UDT Styles - Shared component styles */
+
+:root {
+  --bg-dark: #0a0f1a;
+  --bg-panel: #111827;
+  --bg-surface: #1f2937;
+  --border: #374151;
+  --text: #e5e7eb;
+  --text-dim: #9ca3af;
+  --accent: #3b82f6;
+  --green: #22c55e;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --cyan: #06b6d4;
+}
+
+/* Page Header */
+.page-header {
+  background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--accent);
+}
+.page-header h1 { color: #fff; font-size: 1.5rem; }
+.back-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.back-btn:hover { background: #2563eb; }
+
+/* KPI Card */
+.kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+.kpi-card[data-status="good"] { border-left: 4px solid var(--green); }
+.kpi-card[data-status="warning"] { border-left: 4px solid var(--yellow); }
+.kpi-card[data-status="critical"] { border-left: 4px solid var(--red); }
+.kpi-value { font-size: 2rem; font-weight: 700; color: #fff; }
+.kpi-label { color: var(--text-dim); font-size: 0.875rem; margin-top: 0.25rem; }
+.kpi-trend { font-size: 0.75rem; margin-top: 0.5rem; }
+.kpi-trend.up { color: var(--green); }
+.kpi-trend.down { color: var(--red); }
+
+/* Panel */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.panel-header {
+  background: var(--bg-surface);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+.panel-content { padding: 1rem; }
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.status-badge[data-status="ok"] { background: var(--green); color: #fff; }
+.status-badge[data-status="warning"] { background: var(--yellow); color: #000; }
+.status-badge[data-status="critical"] { background: var(--red); color: #fff; }
+.status-badge[data-status="info"] { background: var(--accent); color: #fff; }
+
+/* Nav Item */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-dim);
+}
+.nav-item:hover { background: var(--bg-surface); color: var(--text); }
+.nav-item.active { background: var(--accent); color: #fff; }
+.nav-item .icon { width: 24px; text-align: center; }
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--yellow);
+  color: #000;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+/* Alarm Item */
+.alarm-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+.alarm-item:hover { background: var(--bg-surface); }
+.alarm-item[data-priority="high"] { border-left: 3px solid var(--red); }
+.alarm-item[data-priority="medium"] { border-left: 3px solid var(--yellow); }
+.alarm-item[data-priority="low"] { border-left: 3px solid var(--accent); }
+.alarm-item[data-priority="info"] { border-left: 3px solid var(--cyan); }
+.alarm-priority {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  min-width: 50px;
+}
+
+/* Stat Row */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: var(--text-dim); }
+.stat-value { font-weight: 600; }
+.stat-value.positive { color: var(--green); }
+.stat-value.negative { color: var(--red); }
+
+/* Progress Bar */
+.progress-bar {
+  background: var(--bg-surface);
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.progress-fill[data-status="good"] { background: var(--green); }
+.progress-fill[data-status="warning"] { background: var(--yellow); }
+.progress-fill[data-status="critical"] { background: var(--red); }

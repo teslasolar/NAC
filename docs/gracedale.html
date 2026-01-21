@@ -3,232 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gracedale Nursing Home Dashboard - Northampton County</title>
+  <title>Gracedale Dashboard - Northampton County</title>
+  <link rel="stylesheet" href="css/udt.css">
   <link rel="stylesheet" href="css/gracedale.css">
 </head>
 <body>
-  <div class="header">
+  <div class="page-header">
     <h1>Gracedale Nursing Home Dashboard</h1>
-    <button class="back-btn" onclick="window.location.href='scada.html'">Back to SCADA</button>
+    <a href="scada.html" class="back-btn">Back to SCADA</a>
   </div>
 
-  <div class="alert-banner">
-    <div class="icon">Alert</div>
-    <div class="text">
-      <strong>Staffing Alert:</strong> Current nursing staff levels are below state-mandated minimums.
-      Overtime costs have increased 34% YoY. Recruitment efforts ongoing.
-    </div>
-  </div>
-
-  <div class="kpi-grid">
-    <div class="kpi-card critical">
-      <div class="value">73%</div>
-      <div class="label">Nursing Staff Level</div>
-      <div class="trend down">-12%</div>
-    </div>
-    <div class="kpi-card warning">
-      <div class="value">642</div>
-      <div class="label">Current Census</div>
-      <div class="trend down">-58</div>
-    </div>
-    <div class="kpi-card warning">
-      <div class="value">91.7%</div>
-      <div class="label">Occupancy Rate</div>
-      <div class="trend down">-3.2%</div>
-    </div>
-    <div class="kpi-card critical">
-      <div class="value">$4.2M</div>
-      <div class="label">YTD Deficit</div>
-      <div class="trend down">+$1.1M</div>
-    </div>
-    <div class="kpi-card good">
-      <div class="value">4.1</div>
-      <div class="label">CMS Star Rating</div>
-      <div class="trend up">+0.3</div>
-    </div>
-    <div class="kpi-card warning">
-      <div class="value">142</div>
-      <div class="label">Open Positions</div>
-      <div class="trend down">+23</div>
-    </div>
-  </div>
+  <div class="alert-banner" id="alertBanner"></div>
+  <div class="kpi-grid" id="kpiGrid"></div>
 
   <div class="main-content">
     <div class="left-column">
       <div class="panel">
-        <h2>Staffing Analysis</h2>
-        <table class="staffing-table">
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Required</th>
-              <th>Current</th>
-              <th>Shortage</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Registered Nurses (RN)</td>
-              <td>95</td>
-              <td>68</td>
-              <td>27</td>
-              <td><span class="status critical">Critical</span></td>
-            </tr>
-            <tr>
-              <td>Licensed Practical Nurses (LPN)</td>
-              <td>120</td>
-              <td>89</td>
-              <td>31</td>
-              <td><span class="status critical">Critical</span></td>
-            </tr>
-            <tr>
-              <td>Certified Nursing Assistants (CNA)</td>
-              <td>280</td>
-              <td>215</td>
-              <td>65</td>
-              <td><span class="status critical">Critical</span></td>
-            </tr>
-            <tr>
-              <td>Dietary Staff</td>
-              <td>45</td>
-              <td>38</td>
-              <td>7</td>
-              <td><span class="status warning">Warning</span></td>
-            </tr>
-            <tr>
-              <td>Housekeeping</td>
-              <td>35</td>
-              <td>29</td>
-              <td>6</td>
-              <td><span class="status warning">Warning</span></td>
-            </tr>
-            <tr>
-              <td>Maintenance</td>
-              <td>18</td>
-              <td>16</td>
-              <td>2</td>
-              <td><span class="status ok">OK</span></td>
-            </tr>
-            <tr>
-              <td>Administration</td>
-              <td>25</td>
-              <td>22</td>
-              <td>3</td>
-              <td><span class="status ok">OK</span></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="action-needed">
-          <h3>Immediate Actions Required</h3>
-          <ul>
-            <li>Increase starting wages by 15% to match regional competitors</li>
-            <li>Partner with LCCC and NCC for nursing pipeline programs</li>
-            <li>Implement retention bonuses for night/weekend shifts</li>
-            <li>Explore agency nursing contracts (short-term)</li>
-            <li>Review visa sponsorship options for international nurses</li>
-          </ul>
+        <div class="panel-header">Staffing Analysis</div>
+        <div class="panel-content">
+          <table class="data-table"><thead><tr>
+            <th>Position</th><th>Req</th><th>Cur</th><th>Gap</th><th>Status</th>
+          </tr></thead><tbody id="staffingTable"></tbody></table>
+          <div class="action-needed" id="actionItems"></div>
         </div>
       </div>
-
       <div class="charts-row">
         <div class="panel">
-          <h2>Monthly Census Trend</h2>
-          <div class="census-chart" id="censusChart"></div>
-          <div style="display:flex; justify-content:space-between; color:#666; font-size:0.8em; margin-top:5px;">
-            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
-            <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-          </div>
+          <div class="panel-header">Census Trend</div>
+          <div class="panel-content"><div class="chart" id="censusChart"></div></div>
         </div>
         <div class="panel">
-          <h2>Quality Ratings</h2>
-          <div class="quality-scores">
-            <div class="quality-item">
-              <div class="stars">4/5</div>
-              <div class="label">Overall Quality</div>
-            </div>
-            <div class="quality-item">
-              <div class="stars">5/5</div>
-              <div class="label">Health Inspections</div>
-            </div>
-            <div class="quality-item">
-              <div class="stars">3/5</div>
-              <div class="label">Staffing</div>
-            </div>
-            <div class="quality-item">
-              <div class="stars">4/5</div>
-              <div class="label">Quality Measures</div>
-            </div>
-          </div>
+          <div class="panel-header">Quality Ratings</div>
+          <div class="panel-content" id="qualityScores"></div>
         </div>
       </div>
     </div>
-
     <div class="right-column">
       <div class="panel">
-        <h2>Budget Overview</h2>
-        <div style="margin-bottom:15px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-            <span>Budget Used</span>
-            <span>78% ($62.4M / $80M)</span>
-          </div>
-          <div class="progress-bar">
-            <div class="fill warning" style="width: 78%;"></div>
-          </div>
-        </div>
-
-        <div class="budget-item"><span>Personnel (Wages & Benefits)</span><span class="amount expense">$48.2M</span></div>
-        <div class="budget-item"><span>Medical Supplies</span><span class="amount expense">$6.8M</span></div>
-        <div class="budget-item"><span>Food Services</span><span class="amount expense">$4.1M</span></div>
-        <div class="budget-item"><span>Utilities</span><span class="amount expense">$2.3M</span></div>
-        <div class="budget-item"><span>Other Operations</span><span class="amount expense">$1.0M</span></div>
-        <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-        <div class="budget-item"><span>Medicaid Reimbursement</span><span class="amount revenue">+$52.1M</span></div>
-        <div class="budget-item"><span>Medicare Reimbursement</span><span class="amount revenue">+$8.4M</span></div>
-        <div class="budget-item"><span>Private Pay</span><span class="amount revenue">+$3.1M</span></div>
-        <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-        <div class="budget-item"><strong>Net Position</strong><span class="amount expense"><strong>-$4.2M</strong></span></div>
+        <div class="panel-header">Budget Overview</div>
+        <div class="panel-content" id="budgetItems"></div>
       </div>
-
-      <div class="panel" style="margin-top:20px;">
-        <h2>Recent Events</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="date">Jan 15, 2026</div>
-            <div class="event">PA DHS inspection completed - no major deficiencies</div>
-          </div>
-          <div class="timeline-item">
-            <div class="date">Jan 8, 2026</div>
-            <div class="event">County Council approved $2.5M emergency staffing fund</div>
-          </div>
-          <div class="timeline-item">
-            <div class="date">Dec 20, 2025</div>
-            <div class="event">AFSCME contract negotiations begin</div>
-          </div>
-          <div class="timeline-item">
-            <div class="date">Dec 12, 2025</div>
-            <div class="event">New electronic health records system deployed</div>
-          </div>
-          <div class="timeline-item">
-            <div class="date">Nov 30, 2025</div>
-            <div class="event">Medicaid rate increase approved (+3.2%)</div>
-          </div>
-        </div>
+      <div class="panel">
+        <div class="panel-header">Recent Events</div>
+        <div class="panel-content" id="timeline"></div>
       </div>
-
-      <div class="panel" style="margin-top:20px;">
-        <h2>Resources</h2>
-        <ul style="list-style:none; padding:0;">
-          <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><a href="#" style="color:#3498db;">2025 Annual Report</a></li>
-          <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><a href="#" style="color:#3498db;">CMS Compare Data</a></li>
-          <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);"><a href="#" style="color:#3498db;">State Inspection Reports</a></li>
-          <li style="padding:8px 0;"><a href="#" style="color:#3498db;">Current Job Openings</a></li>
-        </ul>
+      <div class="panel">
+        <div class="panel-header">Resources</div>
+        <div class="panel-content" id="resources"></div>
       </div>
     </div>
   </div>
 
-  <script src="js/gracedale.js"></script>
+  <script src="js/udt-loader.js"></script>
+  <script src="data/gracedale.js"></script>
 </body>
 </html>

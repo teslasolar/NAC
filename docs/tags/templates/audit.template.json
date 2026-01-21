@@ -1,0 +1,17 @@
+{
+  "tagType": "UDT_Template",
+  "name": "AuditFindings",
+  "description": "Row officer audit findings",
+  "version": "2.0.0",
+  "dataSources": {
+    "offices": { "type": "csv", "path": "data/csv/audit_offices.csv", "key": "id" },
+    "findings": { "type": "csv", "path": "data/csv/audit_findings.csv", "foreignKey": "office_id" },
+    "recommendations": { "type": "csv", "path": "data/csv/audit_recommendations.csv", "foreignKey": "office_id" }
+  },
+  "totals": {
+    "totalBudget": 18536000,
+    "totalRevenue": 5480000,
+    "totalDeficit": -13056000,
+    "totalPotentialSavings": 854000
+  }
+}

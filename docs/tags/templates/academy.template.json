@@ -1,0 +1,10 @@
+{
+  "tagType": "UDT_Template",
+  "name": "AcademyCourses",
+  "description": "Citizen Academy curriculum",
+  "version": "2.0.0",
+  "dataSources": {
+    "courses": { "type": "csv", "path": "data/csv/courses.csv", "key": "id" },
+    "lessons": { "type": "csv", "path": "data/csv/lessons.csv", "foreignKey": "course_id" }
+  }
+}

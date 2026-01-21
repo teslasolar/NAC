@@ -1,0 +1,92 @@
+dept_id,name,staff
+sheriff,Administration,8
+sheriff,Patrol Division,45
+sheriff,Civil Division,24
+sheriff,Court Security,35
+sheriff,Corrections Division,42
+treasurer,Administration,3
+treasurer,Tax Collection,6
+treasurer,Investments,3
+treasurer,Cash Management,5
+controller,Administration,2
+controller,Audit Division,5
+controller,Payroll Division,4
+coroner,Administration,3
+coroner,Investigations,6
+coroner,Medical Services,4
+district-attorney,Administration,8
+district-attorney,Major Crimes Unit,18
+district-attorney,General Crimes Unit,15
+district-attorney,Juvenile Unit,8
+district-attorney,Detective Division,25
+district-attorney,Support Services,14
+recorder-of-deeds,Administration,3
+recorder-of-deeds,Recording Division,6
+recorder-of-deeds,Indexing & Search,5
+register-of-wills,Administration,3
+register-of-wills,Probate Division,5
+register-of-wills,Marriage Licenses,3
+register-of-wills,Inheritance Tax,2
+clerk-of-courts,Administration,4
+clerk-of-courts,Criminal Division,12
+clerk-of-courts,Jury Management,6
+clerk-of-courts,Records Management,8
+prothonotary,Administration,3
+prothonotary,Civil Filing Division,7
+prothonotary,Judgments & Liens,4
+prothonotary,Passport Services,3
+county-executive,Chief of Staff,4
+county-executive,Communications,3
+county-executive,Constituent Services,5
+county-executive,Administrative Staff,8
+county-executive,County Solicitor,6
+human-resources,Recruitment,4
+human-resources,Benefits Administration,5
+human-resources,Labor Relations,3
+human-resources,Training & Development,3
+fiscal-affairs,Budget Office,6
+fiscal-affairs,Accounting,8
+fiscal-affairs,Purchasing,5
+fiscal-affairs,Grants Management,4
+information-technology,Infrastructure,12
+information-technology,Applications,10
+information-technology,Cybersecurity,6
+information-technology,Help Desk,8
+information-technology,GIS Services,5
+court-common-pleas,Judges (15),15
+court-common-pleas,Court Administration,25
+court-common-pleas,Law Clerks,30
+court-common-pleas,Tipstaves,20
+court-common-pleas,Court Reporters,18
+court-common-pleas,Support Staff,28
+adult-probation,Supervision Officers,55
+adult-probation,Pretrial Services,12
+adult-probation,Electronic Monitoring,8
+adult-probation,Administrative,10
+public-defender,Assistant Public Defenders,28
+public-defender,Investigators,8
+public-defender,Paralegals,10
+public-defender,Administrative,6
+children-youth,Intake & Investigation,45
+children-youth,Ongoing Casework,120
+children-youth,Foster Care,35
+children-youth,Adoption Services,20
+children-youth,Prevention Services,25
+children-youth,Administration,40
+aging,Care Management,45
+aging,Protective Services,25
+aging,Nutrition Services,35
+aging,Transportation,28
+mental-health,Crisis Services,35
+mental-health,Case Management,55
+mental-health,Residential Services,45
+mental-health,Administration,30
+corrections,Security,280
+corrections,Inmate Programs,35
+corrections,Medical Services,45
+corrections,Food Services,25
+corrections,Maintenance,20
+corrections,Administration,20
+emergency-services,911 Dispatch,18
+emergency-services,Emergency Planning,5
+emergency-services,Administration,5

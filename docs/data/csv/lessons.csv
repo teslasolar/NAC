@@ -1,0 +1,35 @@
+course_id,id,title,duration,isQuiz
+govt101,what-is-county,What is County Government?,5 min,0
+govt101,three-branches,The Three Branches,5 min,0
+govt101,row-officers-intro,Row Officers: Independent Watchdogs,5 min,0
+govt101,county-services,County Services You Use,5 min,0
+govt101,govt101-quiz,Quiz: Test Your Knowledge,3 min,1
+row-officers,ro-what,What are Row Officers?,4 min,0
+row-officers,ro-controller,The Controller,5 min,0
+row-officers,ro-treasurer,The Treasurer,4 min,0
+row-officers,ro-da,The District Attorney,4 min,0
+row-officers,ro-sheriff,The Sheriff,4 min,0
+row-officers,ro-recorder,Recorder & Prothonotary,5 min,0
+row-officers,ro-clerk,Clerk & Register,5 min,0
+row-officers,ro-coroner,The Coroner,4 min,0
+row-officers,ro-quiz,Quiz: Row Officers,3 min,1
+budget101,budget-revenue,The $583 Million Question,5 min,0
+budget101,budget-spending,Where Does It Go?,5 min,0
+budget101,budget-process,The Budget Process,4 min,0
+budget101,budget-tax,Understanding Property Tax,5 min,0
+budget101,budget-grants,Grants & Federal Money,4 min,0
+budget101,budget-quiz,Quiz: Budget Basics,3 min,1
+controller,ctrl-why,Why the Controller Matters,4 min,0
+controller,ctrl-preaudit,Pre-Audit: The First Line,5 min,0
+controller,ctrl-audits,Annual Audits,5 min,0
+controller,ctrl-boards,Board Memberships,4 min,0
+engage,engage-meeting,Attend a Meeting,4 min,0
+engage,engage-rtk,Right-to-Know Requests,5 min,0
+engage,engage-contact,Contact Your Officials,4 min,0
+engage,engage-run,Run for Office,5 min,0
+engage,engage-other,Other Ways to Engage,4 min,0
+elections,elect-how,How County Elections Work,4 min,0
+elections,elect-ballot,What's on Your Ballot?,5 min,0
+elections,elect-options,Voting Options,4 min,0
+elections,elect-machines,Voting Machines & Security,5 min,0
+elections,elect-quiz,Quiz: Elections,3 min,1

@@ -1,0 +1,9 @@
+name,color,lat_min,lon_min,lat_max,lon_max
+Bethlehem,#4caf50,40.58,-75.42,40.66,-75.32
+Easton,#2196f3,40.67,-75.24,40.72,-75.18
+Palmer Township,#ff9800,40.68,-75.30,40.74,-75.22
+Forks Township,#9c27b0,40.72,-75.26,40.78,-75.18
+Allen Township,#00bcd4,40.78,-75.40,40.85,-75.30
+Bushkill Township,#8bc34a,40.78,-75.32,40.86,-75.22
+Hanover Township,#ff5722,40.68,-75.36,40.74,-75.28
+Lower Nazareth Twp,#e91e63,40.70,-75.36,40.76,-75.28

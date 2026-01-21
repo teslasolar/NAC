@@ -1,0 +1,18 @@
+{
+  "tagType": "UDT_Template",
+  "name": "GISParcels",
+  "description": "GIS parcel data with coordinates",
+  "version": "2.0.0",
+  "dataSources": {
+    "parcels": { "type": "csv", "path": "data/csv/parcels.csv", "key": "id" },
+    "municipalities": { "type": "csv", "path": "data/csv/municipalities.csv", "key": "name" }
+  },
+  "landUseColors": {
+    "residential": "#4caf50",
+    "commercial": "#2196f3",
+    "industrial": "#9c27b0",
+    "agricultural": "#ff9800",
+    "institutional": "#795548",
+    "vacant": "#607d8b"
+  }
+}

@@ -1,0 +1,4 @@
+id,title,status,personnel_total,ftes,operating_total,revenue_total,net,potential
+sheriff,Sheriff's Office,HIGH,7280000,71,1456000,3200000,-5536000,465000
+da,District Attorney's Office,HIGH,6970000,60,1230000,2100000,-6100000,300000
+coroner,Coroner's Office,MEDIUM,1120000,18,480000,180000,-1420000,89000

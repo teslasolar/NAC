@@ -1,0 +1,19 @@
+{
+  "tagType": "UDT_Template",
+  "name": "PublicNotices",
+  "description": "Public notice board data",
+  "version": "2.0.0",
+  "dataSources": {
+    "notices": { "type": "csv", "path": "data/csv/notices.csv", "key": "id" },
+    "descriptions": { "type": "csv", "path": "data/csv/notice_descriptions.csv", "foreignKey": "id" }
+  },
+  "typeLabels": {
+    "bid": { "label": "Bid Request", "class": "type-bid" },
+    "hearing": { "label": "Public Hearing", "class": "type-hearing" },
+    "job": { "label": "Job Posting", "class": "type-job" },
+    "ordinance": { "label": "Ordinance", "class": "type-ordinance" },
+    "meeting": { "label": "Meeting", "class": "type-meeting" },
+    "election": { "label": "Election", "class": "type-election" },
+    "general": { "label": "Notice", "class": "type-general" }
+  }
+}

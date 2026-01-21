@@ -3,17 +3,29 @@
  * Northampton County Digital Twin - ISA-95 Enterprise Model
  *
  * Architecture:
- * - tags/*.json     - Pure data definitions (like Ignition OPC tags/UDTs)
- * - providers/*.js  - Tag providers (data loading, binding, business logic)
+ * - tags/*.json           - Full data definitions (legacy)
+ * - tags/templates/*.json - Lightweight templates referencing CSVs
+ * - data/csv/*.csv        - Token-efficient tabular data
+ * - data/db/tags.db       - SQLite database for queries
+ * - providers/*.js        - Tag providers (data loading, binding, logic)
  *
- * Usage:
- *   <script src="js/providers/TagProvider.js"></script>
- *   <script src="js/providers/LedgerProvider.js"></script>
- *   <script src="js/providers/index.js"></script>
- *   <script>
- *     const ledger = await createLedgerProvider();
- *     const records = ledger.getRecords();
- *   </script>
+ * Data Loaders:
+ * - CSVLoader      - Parse and cache CSV files
+ * - TemplateLoader - Load templates + resolve CSV data sources
+ * - SQLiteLoader   - Query SQLite via sql.js (WebAssembly)
+ *
+ * Usage (JSON providers):
+ *   const ledger = await createLedgerProvider();
+ *   const records = ledger.getRecords();
+ *
+ * Usage (CSV/Template):
+ *   const loader = createTemplateLoader();
+ *   const template = await loader.load('org-chart');
+ *   const depts = template.data.departments;
+ *
+ * Usage (SQLite):
+ *   const db = await createSQLiteLoader('data/db/tags.db');
+ *   const depts = db.getDepartments('row-officer');
  */
 
 // Initialize global tag provider on load
@@ -22,17 +34,23 @@ if (typeof TagProvider !== 'undefined' && !window.tagProvider) {
 }
 
 /**
- * Available Providers (10):
+ * Available Providers (12):
  * ---------------------------------------------------------
- * TagProvider        - Base tag loading system with caching
- * LedgerProvider     - Blockchain ledger records
- * NoticeProvider     - Public notice board with filtering
- * RiskProvider       - AI risk scoring and analysis
- * GISProvider        - Parcel/GIS data operations
- * OrgChartProvider   - County organization structure
- * AuditProvider      - Audit findings and recommendations
- * ScreenProvider     - SCADA screen navigation/KPIs
- * AcademyProvider    - Citizen Academy course progress
+ * Core Loaders:
+ * - CSVLoader        - Parse CSV files (token-efficient)
+ * - TemplateLoader   - Load templates + CSV data
+ * - SQLiteLoader     - Query SQLite database
+ *
+ * Tag Providers:
+ * - TagProvider      - Base tag loading with caching
+ * - LedgerProvider   - Blockchain ledger records
+ * - NoticeProvider   - Public notice board with filtering
+ * - RiskProvider     - AI risk scoring and analysis
+ * - GISProvider      - Parcel/GIS data operations
+ * - OrgChartProvider - County organization structure
+ * - AuditProvider    - Audit findings and recommendations
+ * - ScreenProvider   - SCADA screen navigation/KPIs
+ * - AcademyProvider  - Citizen Academy course progress
  */
 
 /**
@@ -73,4 +91,27 @@ window.NAC_PROVIDERS = {
   academy: () => createAcademyProvider()
 };
 
-console.log('NAC Tag Providers loaded (14 tags, 9 providers)');
+// Data loader factories
+window.NAC_LOADERS = {
+  csv: (basePath) => createCSVLoader(basePath),
+  template: (options) => createTemplateLoader(options),
+  sqlite: (dbPath) => createSQLiteLoader(dbPath)
+};
+
+/**
+ * CSV Files (10):
+ * ---------------------------------------------------------
+ * departments.csv       - 21 county departments
+ * divisions.csv         - 91 dept divisions/units
+ * parcels.csv           - GIS parcel data
+ * municipalities.csv    - 8 townships/cities
+ * notices.csv           - Public notices (header)
+ * notice_descriptions.csv - Notice descriptions
+ * courses.csv           - Academy courses (6)
+ * lessons.csv           - Course lessons (34)
+ * audit_offices.csv     - Audited offices (3)
+ * audit_findings.csv    - Audit findings (15)
+ * audit_recommendations.csv - Recommendations (15)
+ */
+
+console.log('NAC Tag Providers loaded (14 tags, 12 providers, 10 CSVs, SQLite)');

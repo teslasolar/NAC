@@ -1,0 +1,13 @@
+id,owner,address,landUse,assessed,acres,municipality,lat1,lon1,lat2,lon2
+N8-1-1,City of Bethlehem,10 E Church St,institutional,2850000,1.2,Bethlehem,40.6237,-75.3742,40.6247,-75.3722
+N8-1-2,Bethlehem Steel Redevelopment,101 Founders Way,commercial,12500000,5.8,Bethlehem,40.6207,-75.3780,40.6217,-75.3760
+K5-2-1,Northampton County,669 Washington St,institutional,8500000,2.3,Easton,40.6910,-75.2070,40.6920,-75.2050
+K5-2-2,Crayola Experience,30 Centre Square,commercial,4200000,0.8,Easton,40.6880,-75.2100,40.6890,-75.2080
+K5-3-1,Lafayette College,730 High St,institutional,45000000,110,Easton,40.6860,-75.2150,40.6875,-75.2120
+P3-5-1,Palmer Park Mall LLC,3000 Palmer Park Mall,commercial,35000000,42,Palmer Township,40.7000,-75.2600,40.7020,-75.2550
+F7-8-1,FedEx Ground,1000 Postal Road,industrial,28000000,85,Forks Township,40.7400,-75.2200,40.7450,-75.2100
+A2-4-1,Smith Family Farm,1234 Rural Route 1,agricultural,450000,125,Allen Township,40.8000,-75.3500,40.8100,-75.3300
+B4-6-1,Bushkill Farms LLC,567 Farm Lane,agricultural,620000,180,Bushkill Township,40.8200,-75.2800,40.8280,-75.2650
+R1-1-1,"Jones, Robert & Mary",123 Main St,residential,285000,0.25,Bethlehem,40.6500,-75.3200,40.6510,-75.3180
+R1-1-2,"Williams, Sarah",125 Main St,residential,312000,0.28,Bethlehem,40.6510,-75.3200,40.6520,-75.3180
+V3-2-1,Northampton Development Corp,Industrial Blvd (Vacant),vacant,850000,15,Hanover Township,40.7100,-75.2900,40.7130,-75.2850

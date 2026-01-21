@@ -1,0 +1,12 @@
+{
+  "tagType": "UDT_Template",
+  "name": "OrganizationChart",
+  "description": "County organizational structure - 2,847 employees",
+  "version": "2.0.0",
+  "dataSources": {
+    "departments": { "type": "csv", "path": "data/csv/departments.csv", "key": "id" },
+    "divisions": { "type": "csv", "path": "data/csv/divisions.csv", "foreignKey": "dept_id" }
+  },
+  "categories": ["row-officer", "administrative", "judicial", "human-services", "public-safety"],
+  "totals": { "employees": 2847, "totalBudget": 583000000 }
+}

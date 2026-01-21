@@ -157,6 +157,81 @@ class SQLiteLoader {
     };
   }
 
+  // New convenience methods for expanded database
+
+  getLedgerRecords(type = null) {
+    if (type) {
+      return this.query('SELECT * FROM ledger_records WHERE type = ? ORDER BY date DESC', [type]);
+    }
+    return this.query('SELECT * FROM ledger_records ORDER BY date DESC');
+  }
+
+  getRiskAreas(level = null) {
+    if (level) {
+      return this.query('SELECT * FROM risk_areas WHERE level = ? ORDER BY score DESC', [level]);
+    }
+    return this.query('SELECT * FROM risk_areas ORDER BY score DESC');
+  }
+
+  getScreens(category = null) {
+    if (category) {
+      return this.query('SELECT * FROM screens WHERE category = ?', [category]);
+    }
+    return this.getAll('screens');
+  }
+
+  getKPIs() {
+    return this.getAll('kpis');
+  }
+
+  getAlarms() {
+    return this.getAll('alarms');
+  }
+
+  getCountyUnits() {
+    const units = this.getAll('county_units');
+    units.forEach(u => {
+      u.lines = this.getWhere('county_unit_lines', 'unit_id', u.id);
+    });
+    return units;
+  }
+
+  getGracedale() {
+    const facility = this.queryOne('SELECT * FROM gracedale_facility');
+    if (facility) {
+      facility.units = this.getAll('gracedale_units');
+      facility.staffing = this.getAll('gracedale_staffing');
+      facility.kpis = this.getAll('gracedale_kpis');
+    }
+    return facility;
+  }
+
+  getTransformationPlan() {
+    const phases = this.getAll('transformation_phases');
+    phases.forEach(p => {
+      p.initiatives = this.getWhere('transformation_items', 'phase_id', p.id);
+    });
+    return phases;
+  }
+
+  getPACodeSections(officer = null) {
+    if (officer) {
+      return this.query('SELECT * FROM pa_code_sections WHERE officer = ?', [officer]);
+    }
+    return this.getAll('pa_code_sections');
+  }
+
+  getISA95Enums(type = null) {
+    if (type) {
+      return this.query('SELECT * FROM isa95_enums WHERE type = ?', [type]);
+    }
+    return this.getAll('isa95_enums');
+  }
+
+  getTagMetadata() {
+    return this.getAll('tag_metadata');
+  }
+
   /**
    * Close database
    */
@@ -172,7 +247,7 @@ class SQLiteLoader {
 /**
  * Factory function - creates and initializes loader
  */
-async function createSQLiteLoader(dbPath = 'data/db/tags.db') {
+async function createSQLiteLoader(dbPath = 'data/db/nac.db') {
   const loader = new SQLiteLoader();
   await loader.init(dbPath);
   return loader;

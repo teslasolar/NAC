@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Northampton County SCADA - Control System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -500,9 +503,150 @@
 
     @media (max-width: 900px) {
       .dock-west { width: 60px; }
-      .nav-item span { display: none; }
+      .nav-item span:not(.icon) { display: none; }
       .nav-section-title { display: none; }
+      .nav-item .badge { display: none; }
       .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Mobile: Full responsive */
+    @media (max-width: 640px) {
+      body {
+        height: auto;
+        height: 100dvh;
+        overflow: auto;
+      }
+
+      .dock-north {
+        padding: 0.5rem;
+        height: auto;
+        min-height: 56px;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding-top: max(0.5rem, env(safe-area-inset-top));
+      }
+
+      .system-title h1 { font-size: 1rem; }
+      .system-title .version { display: none; }
+      .datetime { display: none; }
+
+      .dock-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .dock-west {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        max-width: 85vw;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 200;
+        overflow-y: auto;
+        padding-top: env(safe-area-inset-top);
+      }
+
+      .dock-west.open {
+        transform: translateX(0);
+      }
+
+      .dock-west.open ~ .mobile-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .dock-west .nav-item span:not(.icon) { display: inline; }
+      .dock-west .nav-section-title { display: block; }
+      .dock-west .nav-item .badge { display: inline; }
+
+      .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 150;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 0.5rem;
+      }
+    }
+
+    /* Hide mobile menu button on desktop */
+    @media (min-width: 641px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      .dock-center {
+        flex: none;
+        height: auto;
+        min-height: calc(100dvh - 120px);
+      }
+
+      .screen-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+      }
+
+      .screen-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .screen-content {
+        height: auto;
+        min-height: 400px;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+        padding: 0.75rem;
+      }
+
+      .kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+
+      .kpi-card {
+        padding: 0.75rem;
+      }
+
+      .kpi-card .value {
+        font-size: 1.25rem;
+      }
+
+      .dock-south {
+        flex-direction: column;
+        height: auto;
+        padding: 0.5rem;
+        gap: 0.25rem;
+        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+      }
+
+      .status-left, .status-right {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
     }
   </style>
 </head>
@@ -510,6 +654,7 @@
   <!-- NORTH DOCK -->
   <div class="dock-north">
     <div class="system-title">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
       <h1>NORTHAMPTON COUNTY SCADA</h1>
       <span class="version">v1.0.0</span>
     </div>
@@ -965,11 +1110,40 @@
       loadScreen('audit');
     }
 
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const sidebar = document.querySelector('.dock-west');
+      const overlay = document.getElementById('mobileOverlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+      const sidebar = document.querySelector('.dock-west');
+      const overlay = document.getElementById('mobileOverlay');
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close menu when clicking nav items on mobile
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 640) {
+          closeMobileMenu();
+        }
+      });
+    });
+
     // Initialize
     populateAlarms();
     populateOEE();
     populateCallChart();
     document.getElementById('screenContent').innerHTML = getOverviewHTML();
   </script>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 </body>
 </html>

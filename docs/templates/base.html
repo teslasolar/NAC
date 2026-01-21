@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- CRITICAL: Viewport meta for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- PWA / Mobile optimizations -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0f1a">
+
+  <!-- Preconnect to speed up font loading if using web fonts -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+
+  <title>{{PAGE_TITLE}} - Northampton County</title>
+
+  <!-- Base responsive styles - MUST be first -->
+  <link rel="stylesheet" href="templates/base.css">
+
+  <!-- Page-specific styles go here -->
+  <style>
+    /*
+     * PAGE-SPECIFIC STYLES
+     * Add your custom styles here
+     */
+  </style>
+</head>
+<body>
+  <!--
+    RESPONSIVE LAYOUT OPTIONS:
+
+    1. FULL PAGE (no sidebar):
+       Just use .main-content directly
+
+    2. WITH SIDEBAR:
+       Use .has-sidebar wrapper with .sidebar and .main-content
+
+    3. WITH BOTTOM NAV (mobile):
+       Add .bottom-nav at end of body
+  -->
+
+  <!-- MOBILE SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- OPTIONAL: SIDEBAR NAVIGATION -->
+  <aside class="sidebar" id="sidebar">
+    <div class="p-md">
+      <h2 class="text-lg font-bold mb-md">Navigation</h2>
+      <!-- Add nav items here -->
+    </div>
+  </aside>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner container-fluid">
+      <div class="flex flex-center flex-gap-sm">
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+        <h1 class="page-title">{{PAGE_TITLE}}</h1>
+      </div>
+      <div class="flex flex-center flex-gap">
+        <!-- Header actions -->
+        <button class="btn btn-sm btn-secondary hide-mobile" onclick="window.location.href='scada.html'">← SCADA</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container p-md">
+
+      <!--
+        YOUR CONTENT HERE
+        Use responsive classes:
+        - .grid-auto for auto-sizing grid
+        - .grid-2, .grid-3, .grid-4 for fixed columns (stack on mobile)
+        - .flex-responsive for row on desktop, column on mobile
+        - .hide-mobile, .hide-desktop for visibility
+        - .table-responsive + .table-stack for mobile tables
+      -->
+
+      <div class="grid-auto">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-base font-bold">Card Title</h3>
+          </div>
+          <div class="card-body">
+            <p>Card content goes here</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- OPTIONAL: MOBILE BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <a href="scada.html" class="bottom-nav-item">
+      <span class="icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="checkbook.html" class="bottom-nav-item">
+      <span class="icon">💰</span>
+      <span>Spending</span>
+    </a>
+    <a href="academy.html" class="bottom-nav-item">
+      <span class="icon">🎓</span>
+      <span>Learn</span>
+    </a>
+    <a href="tickets.html" class="bottom-nav-item">
+      <span class="icon">🎫</span>
+      <span>Report</span>
+    </a>
+  </nav>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Sidebar toggle for mobile
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('sidebar').classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close sidebar on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSidebar();
+    });
+
+    // Close sidebar when clicking a link (mobile)
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+
+    // Highlight current page in bottom nav
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.bottom-nav-item').forEach(item => {
+      if (item.getAttribute('href') === currentPage) {
+        item.classList.add('active');
+      }
+    });
+  </script>
+
+  <!-- Load NAC template engine if using components -->
+  <!--
+  <script src="templates/engine.js"></script>
+  <script src="templates/components.js"></script>
+  -->
+</body>
+</html>

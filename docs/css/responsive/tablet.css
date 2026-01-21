@@ -1,0 +1,103 @@
+/* NAC Responsive - Tablets (640px - 1024px) */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  :root {
+    --header-height: 52px;
+    --sidebar-width: 60px;
+    --sidebar-expanded: 220px;
+  }
+
+  html { font-size: 15px; }
+
+  /* Utility visibility */
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: block !important; }
+
+  /* Hide mobile-only elements */
+  .mobile-menu-btn { display: none; }
+  .mobile-overlay { display: none; }
+
+  /* Header */
+  .page-header, .header, .dock-north {
+    padding: var(--space-sm) var(--space-md);
+  }
+  .page-header h1, .header h1 {
+    font-size: var(--text-xl);
+  }
+
+  /* Sidebar - collapsed with icons */
+  .dock-west, .sidebar {
+    width: var(--sidebar-width);
+    transition: width 0.2s ease;
+  }
+  .dock-west:hover, .sidebar:hover {
+    width: var(--sidebar-expanded);
+  }
+  .nav-item span:not(.icon) {
+    display: none;
+    white-space: nowrap;
+  }
+  .dock-west:hover .nav-item span:not(.icon),
+  .sidebar:hover .nav-item span:not(.icon) {
+    display: inline;
+  }
+  .nav-section-title {
+    display: none;
+  }
+  .dock-west:hover .nav-section-title,
+  .sidebar:hover .nav-section-title {
+    display: block;
+  }
+  .nav-item .badge { display: none; }
+  .dock-west:hover .nav-item .badge,
+  .sidebar:hover .nav-item .badge {
+    display: inline;
+  }
+
+  /* Main content */
+  .dock-center, .content {
+    padding: var(--space-md);
+  }
+
+  /* East dock - hide or slim */
+  .dock-east {
+    width: 200px;
+  }
+
+  /* Grid layouts */
+  .kpi-grid, .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Two column layouts */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  .left-column, .right-column {
+    width: 100%;
+  }
+
+  /* Charts row */
+  .charts-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Tables */
+  table { font-size: var(--text-sm); }
+  th, td { padding: var(--space-sm); }
+
+  /* Landscape tablet specific */
+  @media (orientation: landscape) {
+    .main-content {
+      grid-template-columns: 1fr 1fr;
+    }
+    .kpi-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

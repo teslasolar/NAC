@@ -1,0 +1,98 @@
+/* NAC Responsive - Android Specific */
+
+/* Android detection via user agent (set by JS) */
+.android {
+  /* Android status bar height ~24dp */
+  --android-status-bar: 24px;
+  --android-nav-bar: 48px;
+}
+
+/* Android Chrome address bar */
+.android body {
+  min-height: 100vh;
+  min-height: calc(100vh - 56px); /* Chrome URL bar */
+}
+
+/* Android with gesture navigation */
+.android.gesture-nav body {
+  padding-bottom: 0;
+}
+
+/* Android with 3-button nav */
+.android.button-nav body {
+  padding-bottom: var(--android-nav-bar);
+}
+
+/* Material-style touch feedback */
+.android button,
+.android .btn,
+.android .nav-item,
+.android .kpi-card,
+.android .panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.android button::after,
+.android .btn::after,
+.android .nav-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.android button:active::after,
+.android .btn:active::after,
+.android .nav-item:active::after {
+  opacity: 0.1;
+}
+
+/* Android scrollbars */
+.android ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.android ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.android ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* Samsung Internet specific */
+.samsung-browser {
+  /* Samsung has larger UI chrome */
+}
+
+/* Android PWA */
+@media (display-mode: standalone) {
+  .android .page-header,
+  .android .dock-north {
+    padding-top: var(--android-status-bar);
+  }
+}
+
+/* Android tablets */
+.android.tablet {
+  /* Tablet-specific Android overrides */
+}
+
+/* Android foldables */
+@media (horizontal-viewport-segments: 2) {
+  .android {
+    /* Foldable device support */
+    --fold-width: env(viewport-segment-width 0 0);
+  }
+}
+
+/* High contrast mode */
+@media (forced-colors: active) {
+  .android .kpi-card,
+  .android .panel {
+    border: 2px solid currentColor;
+  }
+}

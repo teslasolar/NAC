@@ -1,0 +1,75 @@
+/* NAC Responsive Base - Variables & Reset */
+
+:root {
+  /* Colors */
+  --bg-dark: #0a0f1a;
+  --bg-panel: #111827;
+  --bg-surface: #1f2937;
+  --border: #374151;
+  --text: #e5e7eb;
+  --text-dim: #9ca3af;
+  --accent: #3b82f6;
+  --green: #22c55e;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --cyan: #06b6d4;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* Font sizes - fluid */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Safe areas (notched phones) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Layout */
+  --header-height: 56px;
+  --sidebar-width: 220px;
+  --sidebar-collapsed: 60px;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+img, video { max-width: 100%; height: auto; }
+button, input, select, textarea { font: inherit; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Utility: Hide on specific devices */
+.hide-mobile { display: block; }
+.hide-tablet { display: block; }
+.hide-desktop { display: block; }
+.show-mobile { display: none; }
+.show-tablet { display: none; }
+.show-desktop { display: none; }

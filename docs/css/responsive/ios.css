@@ -1,0 +1,72 @@
+/* NAC Responsive - iOS Specific */
+
+/* Detect iOS via supports */
+@supports (-webkit-touch-callout: none) {
+  /* Fix 100vh issue on iOS Safari */
+  body {
+    min-height: -webkit-fill-available;
+  }
+
+  /* Safe area padding for notched iPhones */
+  .page-header, .header, .dock-north {
+    padding-top: max(var(--space-sm), env(safe-area-inset-top));
+    padding-left: max(var(--space-md), env(safe-area-inset-left));
+    padding-right: max(var(--space-md), env(safe-area-inset-right));
+  }
+
+  .dock-south, .footer {
+    padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+  }
+
+  .dock-west, .sidebar {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .dock-east {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* iOS momentum scrolling */
+  .dock-west, .dock-east, .dock-center,
+  .sidebar, .content, .panel-content {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix sticky positioning on iOS */
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  /* Prevent text size adjustment */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Input zoom prevention */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Fix flexbox gap in older iOS */
+  @supports not (gap: 1rem) {
+    .kpi-grid > *, .card-grid > * {
+      margin: calc(var(--space-sm) / 2);
+    }
+  }
+}
+
+/* iOS PWA standalone mode */
+@media (display-mode: standalone) {
+  .page-header, .dock-north {
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+}
+
+/* iOS dark mode */
+@media (prefers-color-scheme: dark) {
+  /* Already dark theme, but can adjust */
+  :root {
+    color-scheme: dark;
+  }
+}

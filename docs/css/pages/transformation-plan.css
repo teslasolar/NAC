@@ -1,0 +1,195 @@
+/* Transformation Plan Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  min-height: 100vh;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+.header {
+  background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-bottom: 4px solid #22c55e;
+}
+.header h1 { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.25rem; color: rgba(255,255,255,0.9); }
+.header .tagline { margin-top: 1rem; font-size: 1rem; color: rgba(255,255,255,0.7); font-style: italic; }
+
+.container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+/* Philosophy */
+.philosophy {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.philosophy h2 { color: #22c55e; font-size: 1.5rem; margin-bottom: 1rem; }
+.philosophy blockquote {
+  font-size: 1.125rem; color: #94a3b8;
+  border-left: 4px solid #22c55e; padding-left: 1.5rem; margin: 1rem 0;
+}
+
+/* Principles Grid */
+.principles-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem; margin-bottom: 2rem;
+}
+.principle-card {
+  background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1); transition: transform 0.2s, border-color 0.2s;
+}
+.principle-card:hover { transform: translateY(-4px); border-color: rgba(34, 197, 94, 0.5); }
+.principle-card h3 { color: #22c55e; font-size: 1.125rem; margin-bottom: 0.5rem; }
+.principle-card p { color: #94a3b8; font-size: 0.875rem; }
+
+/* Section Headers */
+.section-header { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0 1.5rem 0; }
+.section-header h2 { font-size: 1.5rem; color: #fff; }
+.section-header .line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%); border-radius: 2px;
+}
+.timeline-phase {
+  position: relative; margin-bottom: 2rem; padding: 1.5rem;
+  background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+}
+.timeline-phase::before {
+  content: ''; position: absolute; left: -2rem; top: 1.5rem;
+  width: 16px; height: 16px; background: #22c55e; border-radius: 50%; transform: translateX(-6px);
+}
+.timeline-phase.phase-2::before { background: #3b82f6; }
+.timeline-phase.phase-3::before { background: #8b5cf6; }
+.timeline-phase.phase-4::before { background: #f59e0b; }
+.timeline-phase h3 { color: #fff; font-size: 1.125rem; margin-bottom: 0.25rem; }
+.timeline-phase .theme { color: #22c55e; font-size: 0.875rem; margin-bottom: 1rem; }
+.timeline-phase.phase-2 .theme { color: #3b82f6; }
+.timeline-phase.phase-3 .theme { color: #8b5cf6; }
+.timeline-phase.phase-4 .theme { color: #f59e0b; }
+
+.action-list { list-style: none; }
+.action-list li { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.action-list li:last-child { border-bottom: none; }
+.action-list .action { flex: 1; color: #e2e8f0; font-weight: 500; }
+.action-list .purpose { flex: 1; color: #64748b; font-size: 0.875rem; }
+
+/* Office Cards */
+.offices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; }
+.office-card {
+  background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.office-card .office-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.office-card .office-name { font-size: 1.125rem; font-weight: 600; color: #fff; }
+.office-card .officer { font-size: 0.875rem; color: #64748b; }
+.office-card .oee-badge { text-align: right; }
+.office-card .oee-value { font-size: 1.25rem; font-weight: 700; }
+.office-card .oee-target { font-size: 0.75rem; color: #64748b; }
+.oee-positive { color: #22c55e; }
+.oee-close { color: #eab308; }
+.oee-gap { color: #f97316; }
+
+.office-card .introspection { background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.office-card .introspection p { font-size: 0.875rem; color: #94a3b8; margin-bottom: 0.5rem; }
+.office-card .introspection .human { color: #22c55e; font-style: italic; }
+
+.office-card .support-list { list-style: none; }
+.office-card .support-list li { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.office-card .support-list li:last-child { border-bottom: none; }
+.office-card .support-list .initiative { font-weight: 500; color: #e2e8f0; margin-bottom: 0.25rem; }
+.office-card .support-list .benefit { font-size: 0.875rem; color: #64748b; }
+.office-card .support-list .ethical { font-size: 0.75rem; color: #22c55e; margin-top: 0.25rem; }
+
+/* Employee Section */
+.employee-philosophy {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+.employee-philosophy h3 { color: #a78bfa; margin-bottom: 1rem; }
+.employee-philosophy p { color: #94a3b8; font-size: 1rem; }
+
+.initiatives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.initiative-card {
+  background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.initiative-card h4 { color: #fff; margin-bottom: 0.5rem; }
+.initiative-card .description { color: #94a3b8; font-size: 0.875rem; margin-bottom: 1rem; }
+.initiative-card .states { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.initiative-card .state { padding: 0.75rem; border-radius: 8px; }
+.initiative-card .state.current { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); }
+.initiative-card .state.future { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); }
+.initiative-card .state-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+.initiative-card .state.current .state-label { color: #ef4444; }
+.initiative-card .state.future .state-label { color: #22c55e; }
+.initiative-card .state-text { font-size: 0.8rem; color: #94a3b8; }
+.initiative-card .ethical-note { margin-top: 1rem; font-size: 0.8rem; color: #22c55e; font-style: italic; }
+
+/* Ethics Box */
+.ethics-box {
+  background: rgba(239, 68, 68, 0.05); border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px; padding: 1.5rem;
+}
+.ethics-box h3 { color: #ef4444; margin-bottom: 1rem; }
+.ethics-box .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.ethics-box h4 { color: #fff; font-size: 0.875rem; margin-bottom: 0.5rem; }
+.ethics-box ul { list-style: none; }
+.ethics-box li { padding: 0.5rem 0; font-size: 0.875rem; color: #94a3b8; display: flex; align-items: flex-start; gap: 0.5rem; }
+.ethics-box .commitments li::before { content: '✓'; color: #22c55e; }
+.ethics-box .red-lines li::before { content: '✗'; color: #ef4444; }
+
+/* Metrics */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.metrics-card {
+  background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.metrics-card h3 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+.metric-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.metric-row:last-child { border-bottom: none; }
+.metric-row .label { color: #94a3b8; font-size: 0.875rem; }
+.metric-row .values { display: flex; gap: 1rem; font-size: 0.875rem; }
+.metric-row .baseline { color: #64748b; text-decoration: line-through; }
+.metric-row .target { color: #22c55e; font-weight: 600; }
+
+/* Controller Hero */
+.controller-hero {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+  border-radius: 16px; padding: 2rem; margin-bottom: 2rem; border: 2px solid rgba(34, 197, 94, 0.4);
+}
+.controller-hero h2 { color: #22c55e; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.controller-hero .oee-display { display: flex; align-items: center; gap: 2rem; margin: 1rem 0; }
+.controller-hero .oee-current { font-size: 3rem; font-weight: 700; color: #f97316; }
+.controller-hero .oee-arrow { font-size: 2rem; color: #64748b; }
+.controller-hero .oee-target { font-size: 3rem; font-weight: 700; color: #22c55e; }
+.controller-hero .philosophy-quote { color: #94a3b8; font-size: 1rem; line-height: 1.8; max-width: 800px; }
+
+.controller-initiatives { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.controller-initiative { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem; }
+.controller-initiative .timeline-badge { font-size: 0.65rem; background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem; display: inline-block; }
+.controller-initiative h4 { color: #fff; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.controller-initiative p { color: #64748b; font-size: 0.8rem; }
+.controller-initiative .statutory { font-size: 0.7rem; color: #8b5cf6; margin-top: 0.5rem; }
+
+/* Footer */
+.footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.875rem; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; }
+.footer a { color: #3b82f6; text-decoration: none; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header h1 { font-size: 1.75rem; }
+  .principles-grid, .offices-grid { grid-template-columns: 1fr; }
+  .ethics-box .columns { grid-template-columns: 1fr; }
+  .controller-hero .oee-display { flex-direction: column; gap: 0.5rem; }
+}

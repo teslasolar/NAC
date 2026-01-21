@@ -1,0 +1,67 @@
+/* Row Officer Audits Styles */
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8;
+  --accent: #3b82f6; --green: #10b981; --red: #ef4444; --yellow: #f59e0b; --purple: #8b5cf6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1e3a5f, #0f172a); padding: 2rem; border-bottom: 3px solid var(--red); }
+.header h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+.header p { color: var(--muted); }
+.nav { background: var(--surface); padding: 0.75rem 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.nav a { color: var(--accent); text-decoration: none; }
+.container { max-width: 1300px; margin: 0 auto; padding: 2rem; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+.summary-card { background: var(--surface); border-radius: 12px; padding: 1.5rem; border: 2px solid var(--red); }
+.summary-card h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.summary-card .deficit { font-size: 2rem; font-weight: 700; color: var(--red); }
+.summary-card .budget { color: var(--muted); font-size: 0.9rem; }
+
+.office-section { margin-bottom: 3rem; }
+.office-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--surface); border-radius: 12px 12px 0 0; border: 2px solid var(--border); border-bottom: none; }
+.office-header h2 { font-size: 1.5rem; }
+.office-header .status { padding: 0.5rem 1rem; background: rgba(239, 68, 68, 0.2); color: var(--red); border-radius: 6px; font-weight: 600; }
+.audit-content { background: var(--surface); border-radius: 0 0 12px 12px; border: 2px solid var(--border); border-top: none; padding: 1.5rem; }
+.audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.audit-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1rem; }
+.audit-table th { background: var(--bg); padding: 0.75rem; text-align: left; color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+.audit-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+.audit-table tr:hover { background: rgba(59, 130, 246, 0.05); }
+.audit-table .subtotal { background: var(--bg); font-weight: 600; }
+.audit-table .total-row { background: var(--bg); font-weight: 700; font-size: 0.95rem; }
+.audit-table .flag { color: var(--yellow); }
+.audit-table .critical { color: var(--red); }
+.audit-table .category { color: var(--accent); font-weight: 600; }
+
+.amount { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.negative { color: var(--red); }
+.positive { color: var(--green); }
+
+.findings { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+.findings h4 { color: var(--yellow); margin-bottom: 0.75rem; }
+.findings ul { margin-left: 1.25rem; color: var(--muted); font-size: 0.85rem; }
+.findings li { margin-bottom: 0.5rem; }
+.findings li strong { color: var(--text); }
+
+.recommendations { background: linear-gradient(135deg, var(--bg), #1e3a5f); border-radius: 8px; padding: 1rem; margin-top: 1rem; border-left: 3px solid var(--green); }
+.recommendations h4 { color: var(--green); margin-bottom: 0.75rem; }
+.recommendations ul { margin-left: 1.25rem; color: var(--muted); font-size: 0.85rem; }
+
+.section-title { font-size: 1.1rem; color: var(--accent); margin: 1.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.personnel-detail { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+.benchmark { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.7rem; margin-left: 0.5rem; }
+.benchmark.high { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+.benchmark.ok { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+.benchmark.review { background: rgba(245, 158, 11, 0.2); color: var(--yellow); }
+
+.total-summary { background: linear-gradient(135deg, var(--surface), #2d1b1b); border: 2px solid var(--red); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+.total-summary h2 { color: var(--red); margin-bottom: 1rem; }
+.total-summary table { width: 100%; }
+.total-summary th, .total-summary td { padding: 0.5rem; }
+
+@media (max-width: 900px) {
+  .summary-grid, .audit-grid { grid-template-columns: 1fr; }
+}

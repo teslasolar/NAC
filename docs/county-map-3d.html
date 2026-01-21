@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Northampton County 3D Audit Map</title>
+  <link rel="stylesheet" href="css/county-map-3d.css">
+</head>
+<body>
+  <div id="loading"><div class="loader"></div><p>Loading Northampton County...</p></div>
+  <div id="container"></div>
+
+  <div id="hud">
+    <div>
+      <div class="hud-title">Northampton County Audit Map</div>
+      <div class="hud-subtitle">Population: 2020 Census | Officials: 2024 | Seat: Easton, PA</div>
+    </div>
+    <div id="legend">
+      <h3>Audit Risk Zones</h3>
+      <div class="legend-item"><div class="legend-color high"></div><span>High Risk</span></div>
+      <div class="legend-item"><div class="legend-color medium"></div><span>Medium Risk</span></div>
+      <div class="legend-item"><div class="legend-color low"></div><span>Low Risk</span></div>
+      <div class="legend-item"><div class="legend-color officer"></div><span>Row Officer</span></div>
+    </div>
+  </div>
+
+  <div id="minimap"><canvas id="minimap-canvas"></canvas><div id="minimap-marker"></div></div>
+
+  <div id="info-panel">
+    <div class="zone-type">District Zone</div>
+    <h2><span id="zone-name">Select a Zone</span></h2>
+    <div class="info-grid">
+      <div class="info-stat"><label>Risk</label><div class="value" id="risk-level">--</div></div>
+      <div class="info-stat"><label>Findings</label><div class="value" id="finding-count">--</div></div>
+      <div class="info-stat"><label>Last Audit</label><div class="value" id="last-audit">--</div></div>
+      <div class="info-stat"><label>Compliance</label><div class="value" id="compliance">--</div></div>
+    </div>
+    <div class="findings-list" id="findings-list"></div>
+  </div>
+
+  <div id="controls">
+    <button class="control-btn" id="btn-reset" title="Reset">R</button>
+    <button class="control-btn" id="btn-top" title="Top">T</button>
+    <button class="control-btn" id="btn-walk" title="Walk">W</button>
+    <button class="control-btn" id="btn-layers" title="Layers">L</button>
+  </div>
+
+  <div id="nav-hints">WASD Move | Mouse Look | Scroll Zoom | Click Select</div>
+
+  <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+  <script type="module" src="js/county-map-3d.js"></script>
+</body>
+</html>

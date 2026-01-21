@@ -1,0 +1,331 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1e3a5f;
+    --accent: #c9a227;
+    --text: #2d3748;
+    --light: #f7fafc;
+    --border: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #2d4a6f 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero .subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+  }
+
+  .hero .tagline {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .hero-stat .label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Main Content */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Statutory Powers Grid */
+  .powers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .power-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--accent);
+  }
+
+  .power-card .statute {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .power-card .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .power-card .quote {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .power-card .qualification {
+    background: var(--light);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+
+  .power-card .qualification strong {
+    color: var(--primary);
+  }
+
+  /* Experience Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--accent);
+  }
+
+  .timeline-item .company {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+  }
+
+  .timeline-item .role {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .timeline-item .desc {
+    margin-top: 0.5rem;
+    color: #666;
+  }
+
+  /* Boards Section */
+  .boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .board-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+
+  .board-card .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .board-card .name {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .board-card .cite {
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  /* Row Officers */
+  .officers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .officer-card {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+
+  .officer-card .icon {
+    font-size: 1.5rem;
+  }
+
+  .officer-card .info .name {
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .officer-card .info .audit {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  /* Quote Block */
+  .quote-block {
+    background: var(--primary);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  .quote-block blockquote {
+    font-size: 1.4rem;
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto 1rem;
+  }
+
+  .quote-block cite {
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+
+  /* Contact */
+  .contact {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .contact h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .contact-info a:hover {
+    color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+  }
+
+  footer a {
+    color: var(--accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero .subtitle { font-size: 1.2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .hero-stat .number { font-size: 2rem; }
+    .powers-grid { grid-template-columns: 1fr; }
+  }

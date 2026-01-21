@@ -1,0 +1,454 @@
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+          color: #e0e0e0;
+          min-height: 100vh;
+      }
+
+      .header {
+          background: rgba(0, 0, 0, 0.3);
+          padding: 20px;
+          border-bottom: 2px solid #00c853;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .header h1 {
+          color: #00c853;
+          font-size: 1.6em;
+      }
+
+      .header .subtitle {
+          color: #888;
+          font-size: 0.9em;
+          margin-top: 5px;
+      }
+
+      .header-actions {
+          display: flex;
+          gap: 15px;
+      }
+
+      .header-btn {
+          padding: 10px 20px;
+          background: rgba(0, 200, 83, 0.2);
+          border: 1px solid #00c853;
+          color: #00c853;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s;
+      }
+
+      .header-btn:hover {
+          background: #00c853;
+          color: #000;
+      }
+
+      .header-btn.primary {
+          background: #00c853;
+          color: #000;
+          font-weight: bold;
+      }
+
+      .main-container {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          gap: 20px;
+          padding: 20px;
+          max-width: 1600px;
+          margin: 0 auto;
+      }
+
+      .sidebar {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+      }
+
+      .nav-panel {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 10px;
+          padding: 20px;
+          border: 1px solid #333;
+      }
+
+      .nav-panel h3 {
+          color: #00c853;
+          margin-bottom: 15px;
+          font-size: 0.95em;
+      }
+
+      .nav-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.3s;
+          margin-bottom: 5px;
+      }
+
+      .nav-item:hover {
+          background: rgba(0, 200, 83, 0.1);
+      }
+
+      .nav-item.active {
+          background: rgba(0, 200, 83, 0.2);
+          border-left: 3px solid #00c853;
+      }
+
+      .nav-item .icon {
+          font-size: 1.2em;
+      }
+
+      .nav-item .label {
+          flex: 1;
+          font-size: 0.9em;
+      }
+
+      .nav-item .status {
+          font-size: 0.75em;
+          padding: 3px 8px;
+          border-radius: 10px;
+      }
+
+      .nav-item .status.complete { background: rgba(0, 200, 83, 0.3); color: #00c853; }
+      .nav-item .status.pending { background: rgba(255, 193, 7, 0.3); color: #ffc107; }
+      .nav-item .status.draft { background: rgba(74, 158, 255, 0.3); color: #4a9eff; }
+
+      .progress-panel {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 10px;
+          padding: 20px;
+          border: 1px solid #333;
+      }
+
+      .progress-panel h3 {
+          color: #00c853;
+          margin-bottom: 15px;
+          font-size: 0.95em;
+      }
+
+      .progress-bar {
+          background: #333;
+          border-radius: 10px;
+          height: 12px;
+          overflow: hidden;
+          margin-bottom: 10px;
+      }
+
+      .progress-bar .fill {
+          height: 100%;
+          background: linear-gradient(90deg, #00c853, #69f0ae);
+          transition: width 0.5s;
+      }
+
+      .progress-stats {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.85em;
+          color: #888;
+      }
+
+      .checklist-panel {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 10px;
+          padding: 20px;
+          border: 1px solid #333;
+      }
+
+      .checklist-panel h3 {
+          color: #00c853;
+          margin-bottom: 15px;
+          font-size: 0.95em;
+      }
+
+      .checklist-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 0;
+          font-size: 0.9em;
+      }
+
+      .checklist-item input {
+          width: 18px;
+          height: 18px;
+          accent-color: #00c853;
+      }
+
+      .checklist-item.checked {
+          color: #888;
+          text-decoration: line-through;
+      }
+
+      .content-area {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+      }
+
+      .section-panel {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 10px;
+          padding: 25px;
+          border: 1px solid #333;
+      }
+
+      .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #333;
+      }
+
+      .section-header h2 {
+          color: #00c853;
+          font-size: 1.3em;
+      }
+
+      .section-header .badge {
+          padding: 5px 12px;
+          border-radius: 15px;
+          font-size: 0.8em;
+      }
+
+      .section-header .badge.required { background: rgba(255, 82, 82, 0.3); color: #ff5252; }
+      .section-header .badge.optional { background: rgba(74, 158, 255, 0.3); color: #4a9eff; }
+
+      .form-group {
+          margin-bottom: 20px;
+      }
+
+      .form-group label {
+          display: block;
+          margin-bottom: 8px;
+          color: #888;
+          font-size: 0.9em;
+      }
+
+      .form-group input, .form-group select, .form-group textarea {
+          width: 100%;
+          padding: 12px;
+          background: #222;
+          border: 1px solid #333;
+          color: #fff;
+          border-radius: 5px;
+          font-size: 1em;
+      }
+
+      .form-group textarea {
+          min-height: 120px;
+          resize: vertical;
+      }
+
+      .form-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
+      }
+
+      .form-row.two-col {
+          grid-template-columns: repeat(2, 1fr);
+      }
+
+      .financial-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 15px 0;
+      }
+
+      .financial-table th, .financial-table td {
+          padding: 12px;
+          text-align: right;
+          border-bottom: 1px solid #333;
+      }
+
+      .financial-table th {
+          text-align: left;
+          color: #888;
+          font-size: 0.85em;
+          text-transform: uppercase;
+      }
+
+      .financial-table th:first-child {
+          text-align: left;
+      }
+
+      .financial-table td:first-child {
+          text-align: left;
+      }
+
+      .financial-table tr:hover {
+          background: rgba(0, 200, 83, 0.1);
+      }
+
+      .financial-table .total {
+          font-weight: bold;
+          border-top: 2px solid #00c853;
+      }
+
+      .financial-table input {
+          background: transparent;
+          border: 1px solid #333;
+          color: #fff;
+          padding: 8px;
+          text-align: right;
+          width: 120px;
+          border-radius: 3px;
+      }
+
+      .financial-table input:focus {
+          border-color: #00c853;
+          outline: none;
+      }
+
+      .auto-populated {
+          background: rgba(0, 200, 83, 0.1);
+          border: 1px dashed #00c853;
+          border-radius: 8px;
+          padding: 15px;
+          margin: 15px 0;
+      }
+
+      .auto-populated h4 {
+          color: #00c853;
+          margin-bottom: 10px;
+          font-size: 0.9em;
+      }
+
+      .auto-populated p {
+          font-size: 0.85em;
+          color: #888;
+      }
+
+      .preview-section {
+          background: #fff;
+          color: #000;
+          border-radius: 8px;
+          padding: 30px;
+          margin-top: 20px;
+          font-family: 'Times New Roman', serif;
+      }
+
+      .preview-section h1 {
+          text-align: center;
+          font-size: 1.5em;
+          margin-bottom: 5px;
+      }
+
+      .preview-section h2 {
+          text-align: center;
+          font-size: 1.2em;
+          font-weight: normal;
+          margin-bottom: 20px;
+      }
+
+      .preview-section h3 {
+          font-size: 1em;
+          margin: 20px 0 10px;
+          border-bottom: 1px solid #000;
+          padding-bottom: 5px;
+      }
+
+      .preview-section table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 15px 0;
+          font-size: 0.9em;
+      }
+
+      .preview-section table th,
+      .preview-section table td {
+          padding: 8px;
+          border: 1px solid #ccc;
+          text-align: right;
+      }
+
+      .preview-section table th {
+          background: #f0f0f0;
+          text-align: left;
+      }
+
+      .preview-section table td:first-child {
+          text-align: left;
+      }
+
+      .btn-row {
+          display: flex;
+          gap: 15px;
+          margin-top: 20px;
+      }
+
+      .btn {
+          padding: 12px 25px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s;
+      }
+
+      .btn.primary {
+          background: #00c853;
+          color: #000;
+      }
+
+      .btn.secondary {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff;
+          border: 1px solid #333;
+      }
+
+      .btn:hover {
+          transform: scale(1.02);
+      }
+
+      .note-box {
+          background: rgba(74, 158, 255, 0.1);
+          border-left: 4px solid #4a9eff;
+          padding: 15px;
+          margin: 15px 0;
+          border-radius: 0 8px 8px 0;
+      }
+
+      .note-box h4 {
+          color: #4a9eff;
+          margin-bottom: 8px;
+          font-size: 0.9em;
+      }
+
+      .note-box p {
+          font-size: 0.85em;
+          color: #888;
+      }
+
+      .tabs {
+          display: flex;
+          gap: 5px;
+          margin-bottom: 20px;
+      }
+
+      .tab {
+          padding: 10px 20px;
+          background: rgba(255, 255, 255, 0.05);
+          border: none;
+          color: #888;
+          border-radius: 5px 5px 0 0;
+          cursor: pointer;
+      }
+
+      .tab.active {
+          background: rgba(0, 200, 83, 0.2);
+          color: #00c853;
+      }

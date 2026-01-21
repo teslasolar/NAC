@@ -1,0 +1,58 @@
+{
+  "tagType": "UDT",
+  "name": "PACountyCode",
+  "description": "Pennsylvania County Code (16 P.S.) key sections",
+  "version": "1.0.0",
+  "title16": {
+    "name": "Pennsylvania Consolidated Statutes Title 16",
+    "subtitle": "Counties",
+    "url": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=16"
+  },
+  "controllerSections": [
+    { "section": "1701", "title": "Election and Term", "summary": "Controller elected for 4-year term" },
+    { "section": "1702", "title": "Bond", "summary": "Controller must give bond as fixed by court" },
+    { "section": "1703", "title": "Deputy and Clerks", "summary": "May appoint deputy and necessary clerks" },
+    { "section": "1704", "title": "Oath of Deputy", "summary": "Deputy must take oath of office" },
+    { "section": "1705", "title": "General Powers and Duties", "summary": "General fiscal officer, auditor of all accounts" },
+    { "section": "1706", "title": "Pre-audit of Claims", "summary": "Examine and audit all claims BEFORE payment" },
+    { "section": "1707", "title": "Annual Audits", "summary": "Audit accounts of all county officers annually" },
+    { "section": "1708", "title": "Special Audits", "summary": "May audit any officer at any time" },
+    { "section": "1709", "title": "Access to Records", "summary": "Full access to all records, papers, accounts" },
+    { "section": "1710", "title": "Report of Audits", "summary": "File report of each audit with court" },
+    { "section": "1711", "title": "Exceptions to Audits", "summary": "Any taxpayer may file exceptions" },
+    { "section": "1712", "title": "Surcharge", "summary": "Surcharge officers for improper payments" },
+    { "section": "1720", "title": "Budget Preparation", "summary": "Assist in preparation of county budget" },
+    { "section": "1721", "title": "Budget Certification", "summary": "Certify sufficient funds before commitment" },
+    { "section": "1722", "title": "Warrants", "summary": "Countersign all warrants for payment" }
+  ],
+  "boardMemberships": [
+    { "board": "Salary Board", "section": "1622", "role": "Voting Member", "description": "Sets salaries for county employees" },
+    { "board": "Retirement Board", "section": "4301", "role": "Voting Member", "description": "Oversees county pension fund" },
+    { "board": "Prison Board", "section": "3001", "role": "Voting Member", "description": "Governs county prison operations" },
+    { "board": "Tax Assessment Appeals", "section": "5401", "role": "Ex-Officio", "description": "Hears property tax appeals" },
+    { "board": "Election Board", "section": "2641", "role": "Ex-Officio", "description": "Oversees election administration" }
+  ],
+  "auditAuthority": {
+    "scope": [
+      "All elected row officers",
+      "All appointed department heads",
+      "All county authorities and agencies",
+      "All recipients of county funds",
+      "All contractors with county"
+    ],
+    "powers": [
+      "Access to all records and documents",
+      "Issue subpoenas for records",
+      "Administer oaths to witnesses",
+      "File surcharges for improper payments",
+      "Report findings to court and council"
+    ],
+    "independence": "Controller operates independently of County Executive and reports to voters"
+  },
+  "keyThresholds": {
+    "bidThreshold": 21800,
+    "quoteThreshold": 11500,
+    "emergencyAuthority": 50000,
+    "councilApprovalRequired": 100000
+  }
+}

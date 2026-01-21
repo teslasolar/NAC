@@ -1,0 +1,82 @@
+{
+  "tagType": "UDT",
+  "name": "AuditFindings",
+  "description": "Row officer audit findings and recommendations",
+  "version": "1.0.0",
+  "summary": [
+    { "name": "Sheriff", "deficit": "-$5.9M", "budget": "$9.1M budget / $3.2M revenue" },
+    { "name": "District Attorney", "deficit": "-$6.1M", "budget": "$8.2M budget / $2.1M revenue" },
+    { "name": "Coroner", "deficit": "-$1.4M", "budget": "$1.6M budget / $0.18M revenue" }
+  ],
+  "offices": {
+    "sheriff": {
+      "title": "Sheriff's Office", "status": "HIGH", "id": "sheriff",
+      "personnel": { "total": "$7,280,000", "ftes": 71 },
+      "operating": { "total": "$1,456,000" },
+      "revenue": { "total": "$3,200,000", "net": "-$5,536,000" },
+      "findings": [
+        { "item": "Overtime ($310K)", "detail": "4.3% of personnel - court scheduling creates predictable OT. Compare to 3% benchmark." },
+        { "item": "Health Insurance ($18K/emp)", "detail": "County-wide rate. State avg is $15K. Potential savings via consortium." },
+        { "item": "Miscellaneous Operating ($192K)", "detail": "13% of operating budget unclassified - needs detailed breakdown." },
+        { "item": "Fleet Cost ($10.2K/unit)", "detail": "Above benchmark of $8.5K. Review maintenance contracts." },
+        { "item": "Civil Process Revenue", "detail": "Fee schedule last updated 2019. Market rate is $65-75/service." }
+      ],
+      "recommendations": [
+        { "action": "Update Fee Schedule", "impact": "Raise civil process to $65 = +$225K revenue" },
+        { "action": "Court Security Grant", "impact": "Apply for AOPC security grant = +$150K" },
+        { "action": "Overtime Management", "impact": "Shift scheduling optimization = -$50K" },
+        { "action": "Fleet Consolidation", "impact": "Reduce to 24 vehicles = -$40K" },
+        { "action": "Reclassify Miscellaneous", "impact": "Require line-item detail per §1720" }
+      ],
+      "potential": "$465,000"
+    },
+    "da": {
+      "title": "District Attorney's Office", "status": "HIGH", "id": "da",
+      "personnel": { "total": "$6,970,000", "ftes": 60 },
+      "operating": { "total": "$1,230,000" },
+      "revenue": { "total": "$2,100,000", "net": "-$6,100,000" },
+      "findings": [
+        { "item": "Expert Witness Costs ($285K)", "detail": "23% of operating budget. No competitive bidding on expert contracts. Rate varies $150-$500/hr." },
+        { "item": "Asset Forfeiture Accounting", "detail": "$520K revenue but separate fund not reconciled quarterly. PA Act 13 compliance unclear." },
+        { "item": "ADA Salaries ($72K avg)", "detail": "Below market ($82K regional avg). May affect retention/recruitment." },
+        { "item": "Grant Compliance", "detail": "VOCA grant requires 20% match - verify local match documentation." },
+        { "item": "Case Management Software ($95K)", "detail": "Contract last bid 2018. Market has changed significantly." }
+      ],
+      "recommendations": [
+        { "action": "Expert Witness Pool", "impact": "Pre-negotiate rates with expert panel = -$75K" },
+        { "action": "Forfeiture Fund Audit", "impact": "Full reconciliation per PA Act 13 requirements" },
+        { "action": "Grant Maximization", "impact": "Apply for COPS grant = +$200K" },
+        { "action": "Software RFP", "impact": "Rebid case management = -$25K" },
+        { "action": "ARD Fee Review", "impact": "Compare to neighboring counties (Lehigh: $350, Monroe: $400)" }
+      ],
+      "potential": "$300,000"
+    },
+    "coroner": {
+      "title": "Coroner's Office", "status": "MEDIUM", "id": "coroner",
+      "personnel": { "total": "$1,120,000", "ftes": 18 },
+      "operating": { "total": "$480,000" },
+      "revenue": { "total": "$180,000", "net": "-$1,420,000" },
+      "findings": [
+        { "item": "Autopsy Contract ($2,000/each)", "detail": "Lehigh County pays $1,650 through regional consortium. No competitive bid since 2017." },
+        { "item": "PT Deputy Coverage", "detail": "8 part-time deputies with varying hourly rates ($18-$35/hr). No standardization." },
+        { "item": "Cremation Permit Fee ($20)", "detail": "Below state average of $35. Fee hasn't changed since 2012." },
+        { "item": "Body Removal", "detail": "Single vendor contract, no backup. Risk of service disruption." },
+        { "item": "Toxicology ($65K)", "detail": "NMS Labs contract not competitively bid. LabCorp may be cheaper." }
+      ],
+      "recommendations": [
+        { "action": "Join Regional Autopsy Consortium", "impact": "Lehigh/Monroe partnership = -$35K" },
+        { "action": "Update Cremation Fee", "impact": "Raise to $35 (state avg) = +$39K" },
+        { "action": "Standardize PT Pay", "impact": "Single rate for all PT deputies = clarity" },
+        { "action": "Toxicology RFP", "impact": "Competitive bid for lab services = -$15K" },
+        { "action": "Body Removal Backup", "impact": "Add secondary vendor for continuity" }
+      ],
+      "potential": "$89,000"
+    }
+  },
+  "totals": {
+    "totalBudget": "$18,536,000",
+    "totalRevenue": "$5,480,000",
+    "totalDeficit": "-$13,056,000",
+    "totalPotentialSavings": "$854,000"
+  }
+}

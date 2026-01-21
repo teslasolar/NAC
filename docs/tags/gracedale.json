@@ -1,0 +1,64 @@
+{
+  "tagType": "UDT",
+  "name": "GracedaleNursingHome",
+  "description": "Gracedale nursing home operations data",
+  "version": "1.0.0",
+  "facility": {
+    "name": "Gracedale Nursing Home",
+    "type": "County-Owned Skilled Nursing Facility",
+    "beds": 665,
+    "location": "Nazareth, PA",
+    "founded": 1965
+  },
+  "census": {
+    "current": 584,
+    "capacity": 665,
+    "occupancy": 87.8,
+    "target": 92
+  },
+  "staffing": {
+    "total": 725,
+    "nursing": 425,
+    "dietary": 85,
+    "housekeeping": 65,
+    "maintenance": 35,
+    "admin": 45,
+    "therapy": 55,
+    "social": 15
+  },
+  "financials": {
+    "annualBudget": 68000000,
+    "medicaid": 52000000,
+    "medicare": 8500000,
+    "private": 5500000,
+    "county": 2000000
+  },
+  "quality": {
+    "cmsStars": 4,
+    "healthInspection": 3,
+    "staffing": 4,
+    "qualityMeasures": 4,
+    "deficiencies": 3,
+    "complaints": 2
+  },
+  "units": [
+    { "id": "1A", "name": "Skilled Nursing 1A", "beds": 60, "census": 52, "staffRatio": "1:8" },
+    { "id": "1B", "name": "Skilled Nursing 1B", "beds": 60, "census": 54, "staffRatio": "1:8" },
+    { "id": "2A", "name": "Long Term Care 2A", "beds": 65, "census": 58, "staffRatio": "1:10" },
+    { "id": "2B", "name": "Long Term Care 2B", "beds": 65, "census": 56, "staffRatio": "1:10" },
+    { "id": "3A", "name": "Memory Care 3A", "beds": 45, "census": 42, "staffRatio": "1:6" },
+    { "id": "3B", "name": "Memory Care 3B", "beds": 45, "census": 40, "staffRatio": "1:6" },
+    { "id": "4A", "name": "Rehabilitation 4A", "beds": 55, "census": 48, "staffRatio": "1:7" },
+    { "id": "4B", "name": "Rehabilitation 4B", "beds": 55, "census": 50, "staffRatio": "1:7" },
+    { "id": "5A", "name": "Ventilator Unit 5A", "beds": 30, "census": 26, "staffRatio": "1:4" },
+    { "id": "5B", "name": "Hospice 5B", "beds": 20, "census": 18, "staffRatio": "1:5" }
+  ],
+  "kpis": {
+    "fallsPer1000Days": 2.8,
+    "pressureUlcers": 1.2,
+    "utis": 3.5,
+    "rehospitalizations": 12.5,
+    "staffTurnover": 28.4,
+    "familySatisfaction": 87
+  }
+}

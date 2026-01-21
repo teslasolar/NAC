@@ -1,0 +1,64 @@
+{
+  "tagType": "UDT",
+  "name": "ISA95Enums",
+  "description": "ISA-95 enumeration types for county operations",
+  "version": "1.0.0",
+  "auditTypes": [
+    { "id": "FINANCIAL", "name": "Financial Audit", "description": "Review of financial statements and records" },
+    { "id": "COMPLIANCE", "name": "Compliance Audit", "description": "Review of adherence to laws and regulations" },
+    { "id": "OPERATIONAL", "name": "Operational Audit", "description": "Review of efficiency and effectiveness" },
+    { "id": "PERFORMANCE", "name": "Performance Audit", "description": "Review of program outcomes and metrics" },
+    { "id": "FORENSIC", "name": "Forensic Audit", "description": "Investigation of fraud or irregularities" },
+    { "id": "SPECIAL", "name": "Special Audit", "description": "Targeted review of specific area" }
+  ],
+  "claimStatus": [
+    { "id": "SUBMITTED", "name": "Submitted", "color": "#3b82f6" },
+    { "id": "UNDER_REVIEW", "name": "Under Review", "color": "#f59e0b" },
+    { "id": "APPROVED", "name": "Approved", "color": "#22c55e" },
+    { "id": "REJECTED", "name": "Rejected", "color": "#ef4444" },
+    { "id": "PAID", "name": "Paid", "color": "#10b981" },
+    { "id": "VOIDED", "name": "Voided", "color": "#6b7280" }
+  ],
+  "departments": [
+    { "id": "CONTROLLER", "name": "Controller's Office", "code": "1000" },
+    { "id": "TREASURER", "name": "Treasurer's Office", "code": "1100" },
+    { "id": "SHERIFF", "name": "Sheriff's Office", "code": "2000" },
+    { "id": "DA", "name": "District Attorney", "code": "2100" },
+    { "id": "CORONER", "name": "Coroner's Office", "code": "2200" },
+    { "id": "RECORDER", "name": "Recorder of Deeds", "code": "3000" },
+    { "id": "REGISTER", "name": "Register of Wills", "code": "3100" },
+    { "id": "CLERK", "name": "Clerk of Courts", "code": "3200" },
+    { "id": "PROTHONOTARY", "name": "Prothonotary", "code": "3300" },
+    { "id": "EXECUTIVE", "name": "County Executive", "code": "4000" },
+    { "id": "COUNCIL", "name": "County Council", "code": "4100" },
+    { "id": "JUDICIARY", "name": "Court System", "code": "5000" },
+    { "id": "HUMAN_SERVICES", "name": "Human Services", "code": "6000" },
+    { "id": "CORRECTIONS", "name": "Corrections", "code": "7000" }
+  ],
+  "fundTypes": [
+    { "id": "GENERAL", "name": "General Fund", "code": "01" },
+    { "id": "SPECIAL_REVENUE", "name": "Special Revenue Fund", "code": "02" },
+    { "id": "DEBT_SERVICE", "name": "Debt Service Fund", "code": "03" },
+    { "id": "CAPITAL_PROJECTS", "name": "Capital Projects Fund", "code": "04" },
+    { "id": "ENTERPRISE", "name": "Enterprise Fund", "code": "05" },
+    { "id": "INTERNAL_SERVICE", "name": "Internal Service Fund", "code": "06" },
+    { "id": "PENSION_TRUST", "name": "Pension Trust Fund", "code": "07" },
+    { "id": "AGENCY", "name": "Agency Fund", "code": "08" }
+  ],
+  "paymentMethods": [
+    { "id": "CHECK", "name": "Check" },
+    { "id": "ACH", "name": "ACH Transfer" },
+    { "id": "WIRE", "name": "Wire Transfer" },
+    { "id": "PCARD", "name": "Purchasing Card" },
+    { "id": "CASH", "name": "Cash" }
+  ],
+  "procurementMethods": [
+    { "id": "SMALL_PURCHASE", "name": "Small Purchase", "threshold": 11500 },
+    { "id": "COMPETITIVE_QUOTE", "name": "Competitive Quote", "threshold": 21800 },
+    { "id": "FORMAL_BID", "name": "Formal Bid", "threshold": null },
+    { "id": "RFP", "name": "Request for Proposal", "threshold": null },
+    { "id": "SOLE_SOURCE", "name": "Sole Source", "threshold": null },
+    { "id": "EMERGENCY", "name": "Emergency Purchase", "threshold": null },
+    { "id": "COOPERATIVE", "name": "Cooperative Contract", "threshold": null }
+  ]
+}

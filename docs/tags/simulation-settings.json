@@ -1,0 +1,63 @@
+{
+  "tagType": "UDT",
+  "name": "SimulationSettings",
+  "description": "County operations simulation parameters",
+  "version": "1.0.0",
+  "scenarios": [
+    {
+      "id": "normal",
+      "name": "Normal Operations",
+      "description": "Typical daily workflow",
+      "multipliers": { "volume": 1.0, "errors": 1.0, "delay": 1.0 }
+    },
+    {
+      "id": "tax-season",
+      "name": "Tax Season (Jan-Apr)",
+      "description": "High volume property tax collection",
+      "multipliers": { "volume": 2.5, "errors": 1.2, "delay": 1.5 },
+      "affectedUnits": ["treasurer", "controller"]
+    },
+    {
+      "id": "election",
+      "name": "Election Period",
+      "description": "Primary/General election processing",
+      "multipliers": { "volume": 3.0, "errors": 0.5, "delay": 0.8 },
+      "affectedUnits": ["clerk-of-courts", "prothonotary"]
+    },
+    {
+      "id": "budget-cycle",
+      "name": "Budget Season (Sep-Dec)",
+      "description": "Annual budget preparation",
+      "multipliers": { "volume": 1.8, "errors": 1.0, "delay": 1.3 },
+      "affectedUnits": ["controller", "fiscal-affairs"]
+    },
+    {
+      "id": "audit-season",
+      "name": "Audit Season",
+      "description": "Annual audit period",
+      "multipliers": { "volume": 1.5, "errors": 0.7, "delay": 1.0 },
+      "affectedUnits": ["controller"]
+    },
+    {
+      "id": "crisis",
+      "name": "Crisis Mode",
+      "description": "Emergency operations",
+      "multipliers": { "volume": 0.5, "errors": 2.0, "delay": 2.0 },
+      "affectedUnits": ["all"]
+    }
+  ],
+  "parameters": {
+    "baseProcessingTime": { "min": 5, "max": 30, "unit": "minutes" },
+    "errorRate": { "base": 0.02, "critical": 0.05 },
+    "staffEfficiency": { "min": 0.7, "max": 0.95 },
+    "queueCapacity": { "default": 100, "max": 500 }
+  },
+  "workItems": [
+    { "type": "claim", "frequency": 150, "avgTime": 15, "priority": "normal" },
+    { "type": "warrant", "frequency": 80, "avgTime": 10, "priority": "high" },
+    { "type": "deed", "frequency": 45, "avgTime": 20, "priority": "normal" },
+    { "type": "filing", "frequency": 200, "avgTime": 8, "priority": "low" },
+    { "type": "audit", "frequency": 5, "avgTime": 480, "priority": "high" },
+    { "type": "payment", "frequency": 300, "avgTime": 5, "priority": "normal" }
+  ]
+}

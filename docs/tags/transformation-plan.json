@@ -1,0 +1,73 @@
+{
+  "tagType": "UDT",
+  "name": "TransformationPlan",
+  "description": "100-day Controller transformation roadmap",
+  "version": "1.0.0",
+  "overview": {
+    "title": "Controller's 100-Day Transformation Plan",
+    "candidate": "Thomas Frumkin",
+    "startDate": "2026-01-06",
+    "targetSavings": "$854,000"
+  },
+  "phases": [
+    {
+      "id": "phase1",
+      "name": "Foundation",
+      "days": "1-30",
+      "focus": "Assessment & Quick Wins",
+      "initiatives": [
+        { "id": "p1-1", "title": "Complete Row Officer Audit Review", "owner": "Controller", "status": "in-progress", "savings": 0 },
+        { "id": "p1-2", "title": "Update Civil Process Fee Schedule", "owner": "Sheriff", "status": "pending", "savings": 225000 },
+        { "id": "p1-3", "title": "Establish Pre-Audit Checklist", "owner": "Controller", "status": "pending", "savings": 0 },
+        { "id": "p1-4", "title": "Launch Public Dashboard", "owner": "IT/Controller", "status": "in-progress", "savings": 0 },
+        { "id": "p1-5", "title": "Submit AOPC Security Grant", "owner": "Sheriff", "status": "pending", "savings": 150000 }
+      ]
+    },
+    {
+      "id": "phase2",
+      "name": "Optimization",
+      "days": "31-60",
+      "focus": "Process Improvement",
+      "initiatives": [
+        { "id": "p2-1", "title": "Implement Overtime Tracking System", "owner": "Controller/HR", "status": "pending", "savings": 50000 },
+        { "id": "p2-2", "title": "Issue Expert Witness RFP", "owner": "DA", "status": "pending", "savings": 75000 },
+        { "id": "p2-3", "title": "Join Regional Autopsy Consortium", "owner": "Coroner", "status": "pending", "savings": 35000 },
+        { "id": "p2-4", "title": "Update Cremation Permit Fees", "owner": "Coroner", "status": "pending", "savings": 39000 },
+        { "id": "p2-5", "title": "Fleet Utilization Analysis", "owner": "Sheriff/Controller", "status": "pending", "savings": 40000 }
+      ]
+    },
+    {
+      "id": "phase3",
+      "name": "Transformation",
+      "days": "61-90",
+      "focus": "Structural Changes",
+      "initiatives": [
+        { "id": "p3-1", "title": "Apply for COPS Grant", "owner": "DA", "status": "pending", "savings": 200000 },
+        { "id": "p3-2", "title": "Rebid Case Management Software", "owner": "DA/IT", "status": "pending", "savings": 25000 },
+        { "id": "p3-3", "title": "Toxicology Lab Services RFP", "owner": "Coroner", "status": "pending", "savings": 15000 },
+        { "id": "p3-4", "title": "Asset Forfeiture Reconciliation", "owner": "DA/Controller", "status": "pending", "savings": 0 },
+        { "id": "p3-5", "title": "Quarterly Audit Schedule Published", "owner": "Controller", "status": "pending", "savings": 0 }
+      ]
+    },
+    {
+      "id": "phase4",
+      "name": "Sustainment",
+      "days": "91-100",
+      "focus": "Institutionalize Changes",
+      "initiatives": [
+        { "id": "p4-1", "title": "Publish First Quarterly Report", "owner": "Controller", "status": "pending", "savings": 0 },
+        { "id": "p4-2", "title": "Update County Code Compliance Matrix", "owner": "Controller", "status": "pending", "savings": 0 },
+        { "id": "p4-3", "title": "Establish Continuous Monitoring KPIs", "owner": "Controller", "status": "pending", "savings": 0 },
+        { "id": "p4-4", "title": "Year 1 Strategic Plan Finalized", "owner": "Controller", "status": "pending", "savings": 0 }
+      ]
+    }
+  ],
+  "metrics": {
+    "totalInitiatives": 18,
+    "completed": 0,
+    "inProgress": 2,
+    "pending": 16,
+    "projectedSavings": 854000,
+    "realizedSavings": 0
+  }
+}

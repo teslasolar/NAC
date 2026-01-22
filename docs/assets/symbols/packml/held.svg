@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect x="10" y="10" width="180" height="180" rx="16" fill="#e83e8c"/>
+  
+  <!-- State indicator shape -->
+  <rect x="60" y="60" width="25" height="80" fill="white"/><rect x="115" y="60" width="25" height="80" fill="white"/>
+  
+  <!-- State label -->
+  <text x="100" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">HELD</text>
+  
+  <!-- Machine-readable marker corners -->
+  <rect x="10" y="10" width="30" height="30" fill="white"/>
+  <rect x="15" y="15" width="20" height="20" fill="black"/>
+  <rect x="18" y="18" width="14" height="14" fill="white"/>
+  
+  <rect x="160" y="10" width="30" height="30" fill="white"/>
+  <rect x="165" y="15" width="20" height="20" fill="black"/>
+  <rect x="168" y="18" width="14" height="14" fill="white"/>
+  
+  <rect x="10" y="160" width="30" height="30" fill="white"/>
+  <rect x="15" y="165" width="20" height="20" fill="black"/>
+  <rect x="18" y="168" width="14" height="14" fill="white"/>
+  
+  <!-- State code (for CV) -->
+  <rect x="160" y="160" width="30" height="30" fill="#ff00ff"/>
+</svg>

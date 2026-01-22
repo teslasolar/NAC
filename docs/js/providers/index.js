@@ -6,26 +6,21 @@
  * - tags/*.json           - Full data definitions (legacy)
  * - tags/templates/*.json - Lightweight templates referencing CSVs
  * - data/csv/*.csv        - Token-efficient tabular data
- * - data/db/tags.db       - SQLite database for queries
+ * - data/db/nac.db        - SQLite database for queries
+ * - assets/symbols/       - SVG symbol library for UI/PackML/CV
  * - providers/*.js        - Tag providers (data loading, binding, logic)
  *
  * Data Loaders:
  * - CSVLoader      - Parse and cache CSV files
  * - TemplateLoader - Load templates + resolve CSV data sources
  * - SQLiteLoader   - Query SQLite via sql.js (WebAssembly)
+ * - SymbolProvider - SVG icons for UI, PackML states, barcodes
  *
- * Usage (JSON providers):
- *   const ledger = await createLedgerProvider();
- *   const records = ledger.getRecords();
- *
- * Usage (CSV/Template):
- *   const loader = createTemplateLoader();
- *   const template = await loader.load('org-chart');
- *   const depts = template.data.departments;
- *
- * Usage (SQLite):
- *   const db = await createSQLiteLoader('data/db/tags.db');
- *   const depts = db.getDepartments('row-officer');
+ * Usage (Symbols):
+ *   const symbols = await createSymbolProvider();
+ *   element.innerHTML = symbols.icon('budget', 24);
+ *   element.innerHTML = symbols.packml('EXECUTE', 48);
+ *   element.innerHTML = symbols.workItemCode('WI-001', 'execute');
  */
 
 // Initialize global tag provider on load
@@ -34,12 +29,13 @@ if (typeof TagProvider !== 'undefined' && !window.tagProvider) {
 }
 
 /**
- * Available Providers (12):
+ * Available Providers (13):
  * ---------------------------------------------------------
  * Core Loaders:
  * - CSVLoader        - Parse CSV files (token-efficient)
  * - TemplateLoader   - Load templates + CSV data
  * - SQLiteLoader     - Query SQLite database
+ * - SymbolProvider   - SVG icons, PackML states, barcodes
  *
  * Tag Providers:
  * - TagProvider      - Base tag loading with caching
@@ -95,7 +91,8 @@ window.NAC_PROVIDERS = {
 window.NAC_LOADERS = {
   csv: (basePath) => createCSVLoader(basePath),
   template: (options) => createTemplateLoader(options),
-  sqlite: (dbPath) => createSQLiteLoader(dbPath)
+  sqlite: (dbPath) => createSQLiteLoader(dbPath),
+  symbols: () => createSymbolProvider()
 };
 
 /**
@@ -114,4 +111,18 @@ window.NAC_LOADERS = {
  * audit_recommendations.csv - Recommendations (15)
  */
 
-console.log('NAC Tag Providers loaded (14 tags, 12 providers, 10 CSVs, SQLite)');
+/**
+ * Symbol Library (42 symbols):
+ * ---------------------------------------------------------
+ * UI Icons (16)     - Screen navigation icons
+ * PackML (13)       - State machine indicators for CV
+ * Officers (9)      - Row officer department icons
+ * Status (4)        - OK/Warning/Error/Info indicators
+ *
+ * CV Features:
+ * - High-res PackML SVGs with corner markers
+ * - Data matrix barcodes for work items
+ * - QR-like codes with state color coding
+ */
+
+console.log('NAC Providers loaded (13 providers, 42 symbols, SQLite)');

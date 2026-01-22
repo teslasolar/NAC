@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f0a1a">
+  <title>NAC MOM - Manufacturing Operations Management</title>
+  <link rel="stylesheet" href="css/mom.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="back-link">&larr; Systems</a>
+      <h1>MOM <span class="subtitle">Operations Management</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="datetime">
+        <div class="time" id="clock">--:--:--</div>
+        <div class="date" id="date">--- --, ----</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Operations Grid -->
+    <div class="ops-grid">
+      <!-- Production Operations -->
+      <section class="ops-card production">
+        <div class="ops-header">
+          <div class="ops-icon">P</div>
+          <h2>Production Operations</h2>
+        </div>
+        <div class="ops-body">
+          <p class="ops-desc">Case processing workflows and throughput management across all row officer offices.</p>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <span class="value">847</span>
+              <span class="label">Cases/Day</span>
+            </div>
+            <div class="kpi">
+              <span class="value">94%</span>
+              <span class="label">Throughput</span>
+            </div>
+            <div class="kpi">
+              <span class="value">2.3h</span>
+              <span class="label">Avg Cycle</span>
+            </div>
+          </div>
+
+          <div class="ops-list">
+            <div class="ops-item">
+              <span class="name">Recorder of Deeds</span>
+              <span class="status good">Normal</span>
+              <span class="metric">156 cases</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Prothonotary</span>
+              <span class="status warning">Backlog</span>
+              <span class="metric">89 cases</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Clerk of Courts</span>
+              <span class="status good">Normal</span>
+              <span class="metric">124 cases</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Register of Wills</span>
+              <span class="status good">Normal</span>
+              <span class="metric">67 cases</span>
+            </div>
+          </div>
+        </div>
+        <div class="ops-footer">
+          <a href="mes.html" class="ops-link">View Work Orders &rarr;</a>
+        </div>
+      </section>
+
+      <!-- Quality Operations -->
+      <section class="ops-card quality">
+        <div class="ops-header">
+          <div class="ops-icon">Q</div>
+          <h2>Quality Operations</h2>
+        </div>
+        <div class="ops-body">
+          <p class="ops-desc">Audit findings, compliance tracking, and quality metrics across departments.</p>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <span class="value">89%</span>
+              <span class="label">Resolution</span>
+            </div>
+            <div class="kpi">
+              <span class="value">12</span>
+              <span class="label">Open Findings</span>
+            </div>
+            <div class="kpi">
+              <span class="value">98%</span>
+              <span class="label">Compliance</span>
+            </div>
+          </div>
+
+          <div class="ops-list">
+            <div class="ops-item">
+              <span class="name">Financial Audits</span>
+              <span class="status good">On Track</span>
+              <span class="metric">3 open</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Compliance Reviews</span>
+              <span class="status warning">2 Overdue</span>
+              <span class="metric">5 open</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Process Audits</span>
+              <span class="status good">Complete</span>
+              <span class="metric">0 open</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">External Audits</span>
+              <span class="status good">On Track</span>
+              <span class="metric">4 open</span>
+            </div>
+          </div>
+        </div>
+        <div class="ops-footer">
+          <a href="audit-tracker.html" class="ops-link">View Audit Tracker &rarr;</a>
+        </div>
+      </section>
+
+      <!-- Maintenance Operations -->
+      <section class="ops-card maintenance">
+        <div class="ops-header">
+          <div class="ops-icon">M</div>
+          <h2>Maintenance Operations</h2>
+        </div>
+        <div class="ops-body">
+          <p class="ops-desc">Facilities management, IT systems maintenance, and asset lifecycle tracking.</p>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <span class="value">97%</span>
+              <span class="label">Uptime</span>
+            </div>
+            <div class="kpi">
+              <span class="value">23</span>
+              <span class="label">Work Orders</span>
+            </div>
+            <div class="kpi">
+              <span class="value">4.2h</span>
+              <span class="label">Avg Response</span>
+            </div>
+          </div>
+
+          <div class="ops-list">
+            <div class="ops-item">
+              <span class="name">IT Systems</span>
+              <span class="status good">Operational</span>
+              <span class="metric">99.2% uptime</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Courthouse HVAC</span>
+              <span class="status warning">PM Due</span>
+              <span class="metric">12 days</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Government Center</span>
+              <span class="status good">Operational</span>
+              <span class="metric">All systems</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Gracedale</span>
+              <span class="status error">3 Issues</span>
+              <span class="metric">Elevator, HVAC</span>
+            </div>
+          </div>
+        </div>
+        <div class="ops-footer">
+          <a href="capital-projects.html" class="ops-link">View Capital Projects &rarr;</a>
+        </div>
+      </section>
+
+      <!-- Inventory Operations -->
+      <section class="ops-card inventory">
+        <div class="ops-header">
+          <div class="ops-icon">I</div>
+          <h2>Inventory Operations</h2>
+        </div>
+        <div class="ops-body">
+          <p class="ops-desc">Supplies, records management, and document/evidence chain of custody.</p>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <span class="value">$2.4M</span>
+              <span class="label">Inventory</span>
+            </div>
+            <div class="kpi">
+              <span class="value">847K</span>
+              <span class="label">Records</span>
+            </div>
+            <div class="kpi">
+              <span class="value">99.8%</span>
+              <span class="label">Accuracy</span>
+            </div>
+          </div>
+
+          <div class="ops-list">
+            <div class="ops-item">
+              <span class="name">Office Supplies</span>
+              <span class="status good">Adequate</span>
+              <span class="metric">$124K value</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Evidence Storage</span>
+              <span class="status warning">78% Full</span>
+              <span class="metric">4,234 items</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">Records Archive</span>
+              <span class="status good">Normal</span>
+              <span class="metric">847K docs</span>
+            </div>
+            <div class="ops-item">
+              <span class="name">IT Equipment</span>
+              <span class="status good">Tracked</span>
+              <span class="metric">2,156 assets</span>
+            </div>
+          </div>
+        </div>
+        <div class="ops-footer">
+          <a href="vendor-scorecard.html" class="ops-link">View Vendor Scorecard &rarr;</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom: Cross-functional Metrics -->
+    <section class="cross-metrics">
+      <h3>Cross-Functional Metrics</h3>
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-header">Overall OEE</div>
+          <div class="metric-value">78.2%</div>
+          <div class="metric-trend up">+2.1% from last month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">Citizen Satisfaction</div>
+          <div class="metric-value">92%</div>
+          <div class="metric-trend up">+1.5% from last quarter</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">Budget Utilization</div>
+          <div class="metric-value">67%</div>
+          <div class="metric-trend down">-3.2% vs target</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">Process Efficiency</div>
+          <div class="metric-value">84%</div>
+          <div class="metric-trend up">+5.0% YoY</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/mom.js"></script>
+</body>
+</html>

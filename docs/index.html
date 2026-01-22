@@ -2,23 +2,238 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=scada.html">
-  <title>Northampton County SCADA - Thomas Frumkin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0f1a">
+  <title>Northampton County Digital Twin - Control Systems</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, sans-serif;
-      background: #0a0f1a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0f1a 0%, #1a1f2e 100%);
       color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .isa95-stack {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+    .level {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      align-items: stretch;
+    }
+    .level-label {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .level-label .num {
+      font-size: 24px;
+      font-weight: 700;
+      color: #6b7280;
+    }
+    .level-label .name {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+    .level-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .level-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateX(4px);
+    }
+    .level-card.active {
+      border-color: #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    }
+    .level-card.coming-soon {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .level-card.coming-soon:hover {
+      transform: none;
+    }
+    .level-card h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
+      gap: 12px;
     }
-    a { color: #3b82f6; }
+    .level-card h2 .badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #3b82f6;
+      color: white;
+      font-weight: 500;
+    }
+    .level-card h2 .badge.soon {
+      background: #6b7280;
+    }
+    .level-card p {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .level-card .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .level-card .features span {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      color: #d1d5db;
+    }
+    .level-card.scada { border-left: 4px solid #10b981; }
+    .level-card.mes { border-left: 4px solid #f59e0b; }
+    .level-card.mom { border-left: 4px solid #8b5cf6; }
+    .level-card.erp { border-left: 4px solid #ef4444; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #6b7280;
+      font-size: 12px;
+    }
+    footer a { color: #3b82f6; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .level { grid-template-columns: 1fr; }
+      .level-label { display: none; }
+      header h1 { font-size: 22px; }
+    }
   </style>
 </head>
 <body>
-  <p>Loading SCADA Interface... <a href="scada.html">Click here</a> if not redirected.</p>
+  <header>
+    <h1>Northampton County Digital Twin</h1>
+    <p>ISA-95 Enterprise Control System Architecture</p>
+  </header>
+
+  <div class="isa95-stack">
+    <!-- Level 4: ERP -->
+    <div class="level">
+      <div class="level-label">
+        <span class="num">L4</span>
+        <span class="name">Business</span>
+      </div>
+      <a href="#" class="level-card erp coming-soon">
+        <h2>ERP - Enterprise Planning <span class="badge soon">Future</span></h2>
+        <p>Business planning, logistics, and high-level scheduling. Multi-year budget planning, workforce planning, capital program management.</p>
+        <div class="features">
+          <span>Budget Planning</span>
+          <span>HR Systems</span>
+          <span>Procurement</span>
+          <span>Strategic Planning</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Level 3: MOM -->
+    <div class="level">
+      <div class="level-label">
+        <span class="num">L3</span>
+        <span class="name">Operations</span>
+      </div>
+      <a href="mom.html" class="level-card mom">
+        <h2>MOM - Operations Management <span class="badge">New</span></h2>
+        <p>Manufacturing Operations Management adapted for county government. Coordinates production, quality, maintenance, and inventory operations across all departments.</p>
+        <div class="features">
+          <span>Production Ops</span>
+          <span>Quality Ops</span>
+          <span>Maintenance Ops</span>
+          <span>Inventory Ops</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Level 3: MES -->
+    <div class="level">
+      <div class="level-label">
+        <span class="num">L3</span>
+        <span class="name">Execution</span>
+      </div>
+      <a href="mes.html" class="level-card mes">
+        <h2>MES - Execution System <span class="badge">New</span></h2>
+        <p>Work order management, scheduling, and real-time tracking. Manages citizen requests, permits, filings, and case workflows through row officer offices.</p>
+        <div class="features">
+          <span>Work Orders</span>
+          <span>Scheduling</span>
+          <span>WIP Tracking</span>
+          <span>Genealogy</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Level 2: SCADA -->
+    <div class="level">
+      <div class="level-label">
+        <span class="num">L2</span>
+        <span class="name">Control</span>
+      </div>
+      <a href="scada.html" class="level-card scada active">
+        <h2>SCADA - Supervisory Control <span class="badge">Active</span></h2>
+        <p>Real-time monitoring and control dashboards. View KPIs, alarms, OEE metrics, and operational status across all county departments and row officer offices.</p>
+        <div class="features">
+          <span>Dashboards</span>
+          <span>Alarms</span>
+          <span>OEE Metrics</span>
+          <span>Real-time Status</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Northampton County Digital Twin &bull; ISA-95 Architecture &bull; <a href="about.html">About</a></p>
+  </footer>
 </body>
 </html>

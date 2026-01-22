@@ -1,0 +1,345 @@
+/**
+ * NAC MOM - Manufacturing Operations Management Styles
+ * ISA-95 Level 3 - Operations Management
+ */
+
+:root {
+  --bg-primary: #0f0a1a;
+  --bg-secondary: #1a1025;
+  --bg-tertiary: #251530;
+  --accent: #8b5cf6;
+  --accent-dim: #6d28d9;
+  --text-primary: #f3e8ff;
+  --text-secondary: #a78bfa;
+  --text-muted: #7c3aed;
+  --border: rgba(139, 92, 246, 0.2);
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --blue: #3b82f6;
+
+  /* Operation card colors */
+  --production: #10b981;
+  --quality: #3b82f6;
+  --maintenance: #f59e0b;
+  --inventory: #ec4899;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+}
+
+.back-link:hover {
+  background: var(--accent-dim);
+  color: var(--text-primary);
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.header h1 .subtitle {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.header-right .datetime {
+  text-align: right;
+}
+
+.header-right .time {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+.header-right .date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Main Container */
+.main-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Operations Grid */
+.ops-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Operations Card */
+.ops-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ops-card.production { border-top: 3px solid var(--production); }
+.ops-card.quality { border-top: 3px solid var(--quality); }
+.ops-card.maintenance { border-top: 3px solid var(--maintenance); }
+.ops-card.inventory { border-top: 3px solid var(--inventory); }
+
+.ops-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ops-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.production .ops-icon { background: rgba(16, 185, 129, 0.2); color: var(--production); }
+.quality .ops-icon { background: rgba(59, 130, 246, 0.2); color: var(--quality); }
+.maintenance .ops-icon { background: rgba(245, 158, 11, 0.2); color: var(--maintenance); }
+.inventory .ops-icon { background: rgba(236, 72, 153, 0.2); color: var(--inventory); }
+
+.ops-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ops-body {
+  padding: 20px;
+  flex: 1;
+}
+
+.ops-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* KPI Row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.kpi {
+  text-align: center;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+.kpi .value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.kpi .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* Operations List */
+.ops-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ops-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.ops-item .name {
+  font-weight: 500;
+}
+
+.ops-item .status {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ops-item .status.good {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--green);
+}
+
+.ops-item .status.warning {
+  background: rgba(234, 179, 8, 0.2);
+  color: var(--yellow);
+}
+
+.ops-item .status.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--red);
+}
+
+.ops-item .metric {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+.ops-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-tertiary);
+}
+
+.ops-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ops-link:hover {
+  color: var(--accent);
+}
+
+/* Cross-Functional Metrics */
+.cross-metrics {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.cross-metrics h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.metric-card {
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.metric-header {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.metric-trend {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.metric-trend.up {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--green);
+}
+
+.metric-trend.down {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--red);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ops-grid {
+    grid-template-columns: 1fr;
+  }
+  .metrics-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+  .kpi-row {
+    grid-template-columns: 1fr;
+  }
+}

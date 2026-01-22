@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1510">
+  <title>NAC MES - Manufacturing Execution System</title>
+  <link rel="stylesheet" href="css/mes.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="back-link">&larr; Systems</a>
+      <h1>MES <span class="subtitle">Execution System</span></h1>
+    </div>
+    <div class="header-center">
+      <div class="shift-info">
+        <span class="shift-label">Current Shift:</span>
+        <span class="shift-value" id="currentShift">Day Shift</span>
+      </div>
+      <div class="wip-summary">
+        <span class="wip-count" id="wipCount">47</span>
+        <span class="wip-label">Active Work Orders</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="datetime">
+        <div class="time" id="clock">--:--:--</div>
+        <div class="date" id="date">--- --, ----</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Left Panel: Work Order Queue -->
+    <aside class="panel work-queue">
+      <div class="panel-header">
+        <h2>Work Order Queue</h2>
+        <button class="btn-new" onclick="showNewWorkOrder()">+ New</button>
+      </div>
+      <div class="filter-bar">
+        <select id="officeFilter" onchange="filterWorkOrders()">
+          <option value="all">All Offices</option>
+          <option value="treasurer">Treasurer</option>
+          <option value="recorder">Recorder of Deeds</option>
+          <option value="prothonotary">Prothonotary</option>
+          <option value="sheriff">Sheriff</option>
+          <option value="controller">Controller</option>
+          <option value="clerk">Clerk of Courts</option>
+          <option value="register">Register of Wills</option>
+          <option value="coroner">Coroner</option>
+          <option value="da">District Attorney</option>
+        </select>
+        <select id="statusFilter" onchange="filterWorkOrders()">
+          <option value="all">All Status</option>
+          <option value="queued">Queued</option>
+          <option value="in-progress">In Progress</option>
+          <option value="held">On Hold</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      <div class="work-order-list" id="workOrderList">
+        <!-- Populated by JS -->
+      </div>
+    </aside>
+
+    <!-- Center: Work Order Detail / Kanban -->
+    <main class="content">
+      <div class="view-tabs">
+        <button class="tab active" onclick="showView('detail')">Work Order Detail</button>
+        <button class="tab" onclick="showView('kanban')">Kanban Board</button>
+        <button class="tab" onclick="showView('schedule')">Schedule</button>
+        <button class="tab" onclick="showView('genealogy')">Genealogy</button>
+      </div>
+
+      <div class="view-content" id="viewContent">
+        <!-- Default: Work Order Detail -->
+        <div class="work-order-detail" id="workOrderDetail">
+          <div class="detail-header">
+            <div class="wo-info">
+              <span class="wo-id">WO-2024-001847</span>
+              <span class="wo-type type-permit">Building Permit</span>
+              <span class="wo-priority priority-normal">Normal</span>
+            </div>
+            <div class="wo-state">
+              <div class="packml-state state-execute">
+                <span class="state-icon"></span>
+                <span class="state-name">EXECUTE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-card">
+              <h3>Request Information</h3>
+              <dl>
+                <dt>Requestor</dt><dd>John Smith</dd>
+                <dt>Submitted</dt><dd>2024-01-15 09:23</dd>
+                <dt>Due Date</dt><dd>2024-01-22</dd>
+                <dt>Office</dt><dd>Recorder of Deeds</dd>
+                <dt>Assigned To</dt><dd>Mary Johnson</dd>
+              </dl>
+            </div>
+
+            <div class="detail-card">
+              <h3>Current Step</h3>
+              <div class="step-progress">
+                <div class="step completed">1. Intake</div>
+                <div class="step completed">2. Validation</div>
+                <div class="step active">3. Processing</div>
+                <div class="step">4. Review</div>
+                <div class="step">5. Complete</div>
+              </div>
+              <div class="step-timer">
+                <span class="label">Time in Step:</span>
+                <span class="value">2h 34m</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>Documents</h3>
+              <ul class="doc-list">
+                <li class="doc"><span class="doc-icon">PDF</span> Application Form</li>
+                <li class="doc"><span class="doc-icon">PDF</span> Site Plan</li>
+                <li class="doc"><span class="doc-icon">IMG</span> Photo Evidence</li>
+              </ul>
+            </div>
+
+            <div class="detail-card">
+              <h3>Activity Log</h3>
+              <ul class="activity-log">
+                <li><span class="time">11:45</span> Started processing - M. Johnson</li>
+                <li><span class="time">10:30</span> Validated documents - System</li>
+                <li><span class="time">09:23</span> Work order created - Intake</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn btn-hold" onclick="holdWorkOrder()">Hold</button>
+            <button class="btn btn-reassign" onclick="reassignWorkOrder()">Reassign</button>
+            <button class="btn btn-complete" onclick="completeStep()">Complete Step</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Panel: Resources & Metrics -->
+    <aside class="panel resources">
+      <div class="panel-section">
+        <h3>Resource Allocation</h3>
+        <div class="resource-list" id="resourceList">
+          <div class="resource-item">
+            <span class="name">Mary Johnson</span>
+            <span class="load load-high">5 WO</span>
+            <span class="status available">Available</span>
+          </div>
+          <div class="resource-item">
+            <span class="name">Robert Davis</span>
+            <span class="load load-medium">3 WO</span>
+            <span class="status available">Available</span>
+          </div>
+          <div class="resource-item">
+            <span class="name">Sarah Wilson</span>
+            <span class="load load-low">1 WO</span>
+            <span class="status break">On Break</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <h3>Today's Metrics</h3>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="value">23</span>
+            <span class="label">Completed</span>
+          </div>
+          <div class="metric">
+            <span class="value">47</span>
+            <span class="label">In Progress</span>
+          </div>
+          <div class="metric">
+            <span class="value">12</span>
+            <span class="label">On Hold</span>
+          </div>
+          <div class="metric">
+            <span class="value">94%</span>
+            <span class="label">On-Time</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <h3>Bottlenecks</h3>
+        <div class="bottleneck-list">
+          <div class="bottleneck-item warning">
+            <span class="office">Prothonotary</span>
+            <span class="count">8 items</span>
+            <span class="wait">Avg 4.2h wait</span>
+          </div>
+          <div class="bottleneck-item">
+            <span class="office">Sheriff</span>
+            <span class="count">5 items</span>
+            <span class="wait">Avg 2.1h wait</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="js/mes.js"></script>
+</body>
+</html>

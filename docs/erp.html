@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a0a0a">
+  <title>NAC ERP - Enterprise Resource Planning</title>
+  <link rel="stylesheet" href="css/erp.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="back-link">&larr; Systems</a>
+      <h1>ERP <span class="subtitle">Enterprise Planning</span></h1>
+    </div>
+    <div class="header-center">
+      <div class="fiscal-year">
+        <span class="label">Fiscal Year</span>
+        <select id="fiscalYear" onchange="changeFiscalYear()">
+          <option value="2024">FY 2024</option>
+          <option value="2025" selected>FY 2025</option>
+          <option value="2026">FY 2026 (Plan)</option>
+        </select>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="datetime">
+        <div class="time" id="clock">--:--:--</div>
+        <div class="date" id="date">--- --, ----</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Top KPI Bar -->
+    <section class="kpi-bar">
+      <div class="kpi-item">
+        <span class="kpi-value">$512.4M</span>
+        <span class="kpi-label">Total Budget</span>
+        <span class="kpi-change up">+3.2% YoY</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-value">2,847</span>
+        <span class="kpi-label">Total FTEs</span>
+        <span class="kpi-change down">-1.2% YoY</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-value">$42.3M</span>
+        <span class="kpi-label">Capital Plan</span>
+        <span class="kpi-change up">+8.5% YoY</span>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-value">94%</span>
+        <span class="kpi-label">Strategic Goals</span>
+        <span class="kpi-change up">On Track</span>
+      </div>
+    </section>
+
+    <!-- Main Grid -->
+    <div class="erp-grid">
+      <!-- Budget Planning -->
+      <section class="erp-card budget">
+        <div class="card-header">
+          <div class="card-icon">B</div>
+          <h2>Budget Planning</h2>
+          <a href="budget.html" class="card-link">Details &rarr;</a>
+        </div>
+        <div class="card-body">
+          <div class="budget-chart" id="budgetChart">
+            <div class="budget-bar">
+              <div class="bar-label">General Fund</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 67%"></div>
+              </div>
+              <div class="bar-values">
+                <span>$198.2M spent</span>
+                <span>$295.8M budget</span>
+              </div>
+            </div>
+            <div class="budget-bar">
+              <div class="bar-label">Human Services</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 72%"></div>
+              </div>
+              <div class="bar-values">
+                <span>$86.4M spent</span>
+                <span>$120.1M budget</span>
+              </div>
+            </div>
+            <div class="budget-bar">
+              <div class="bar-label">Public Safety</div>
+              <div class="bar-track">
+                <div class="bar-fill warning" style="width: 81%"></div>
+              </div>
+              <div class="bar-values">
+                <span>$52.6M spent</span>
+                <span>$64.9M budget</span>
+              </div>
+            </div>
+            <div class="budget-bar">
+              <div class="bar-label">Capital Projects</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 45%"></div>
+              </div>
+              <div class="bar-values">
+                <span>$19.0M spent</span>
+                <span>$42.3M budget</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Workforce Planning -->
+      <section class="erp-card workforce">
+        <div class="card-header">
+          <div class="card-icon">W</div>
+          <h2>Workforce Planning</h2>
+          <a href="org-chart.html" class="card-link">Org Chart &rarr;</a>
+        </div>
+        <div class="card-body">
+          <div class="workforce-stats">
+            <div class="stat-row">
+              <span class="stat-label">Total Positions</span>
+              <span class="stat-value">2,912</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Filled</span>
+              <span class="stat-value good">2,847 (97.8%)</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Open Positions</span>
+              <span class="stat-value warning">65</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Avg Tenure</span>
+              <span class="stat-value">8.4 years</span>
+            </div>
+          </div>
+          <div class="dept-breakdown">
+            <h4>By Department</h4>
+            <div class="dept-list">
+              <div class="dept-item">
+                <span>Human Services</span>
+                <span>842 FTE</span>
+              </div>
+              <div class="dept-item">
+                <span>Gracedale</span>
+                <span>624 FTE</span>
+              </div>
+              <div class="dept-item">
+                <span>Corrections</span>
+                <span>412 FTE</span>
+              </div>
+              <div class="dept-item">
+                <span>Courts</span>
+                <span>287 FTE</span>
+              </div>
+              <div class="dept-item">
+                <span>Other</span>
+                <span>682 FTE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Procurement -->
+      <section class="erp-card procurement">
+        <div class="card-header">
+          <div class="card-icon">P</div>
+          <h2>Procurement</h2>
+          <a href="vendor-scorecard.html" class="card-link">Vendors &rarr;</a>
+        </div>
+        <div class="card-body">
+          <div class="procurement-summary">
+            <div class="proc-stat">
+              <span class="value">$87.2M</span>
+              <span class="label">YTD Spend</span>
+            </div>
+            <div class="proc-stat">
+              <span class="value">1,247</span>
+              <span class="label">Active Contracts</span>
+            </div>
+            <div class="proc-stat">
+              <span class="value">23</span>
+              <span class="label">Pending RFPs</span>
+            </div>
+          </div>
+          <div class="contract-list">
+            <h4>Expiring Soon</h4>
+            <div class="contract-item warning">
+              <span class="vendor">Aramark Food Services</span>
+              <span class="expires">30 days</span>
+              <span class="value">$4.2M/yr</span>
+            </div>
+            <div class="contract-item">
+              <span class="vendor">IT Managed Services</span>
+              <span class="expires">60 days</span>
+              <span class="value">$1.8M/yr</span>
+            </div>
+            <div class="contract-item">
+              <span class="vendor">Fleet Maintenance</span>
+              <span class="expires">90 days</span>
+              <span class="value">$890K/yr</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Strategic Planning -->
+      <section class="erp-card strategic">
+        <div class="card-header">
+          <div class="card-icon">S</div>
+          <h2>Strategic Planning</h2>
+          <a href="transformation-plan.html" class="card-link">Plan &rarr;</a>
+        </div>
+        <div class="card-body">
+          <div class="initiative-list">
+            <div class="initiative">
+              <div class="init-header">
+                <span class="init-name">Digital Transformation</span>
+                <span class="init-status on-track">On Track</span>
+              </div>
+              <div class="init-progress">
+                <div class="progress-bar" style="width: 68%"></div>
+              </div>
+              <div class="init-meta">68% complete &bull; Q4 2025 target</div>
+            </div>
+            <div class="initiative">
+              <div class="init-header">
+                <span class="init-name">Gracedale Modernization</span>
+                <span class="init-status on-track">On Track</span>
+              </div>
+              <div class="init-progress">
+                <div class="progress-bar" style="width: 45%"></div>
+              </div>
+              <div class="init-meta">45% complete &bull; Q2 2026 target</div>
+            </div>
+            <div class="initiative">
+              <div class="init-header">
+                <span class="init-name">911 System Upgrade</span>
+                <span class="init-status at-risk">At Risk</span>
+              </div>
+              <div class="init-progress">
+                <div class="progress-bar warning" style="width: 32%"></div>
+              </div>
+              <div class="init-meta">32% complete &bull; Q1 2025 target</div>
+            </div>
+            <div class="initiative">
+              <div class="init-header">
+                <span class="init-name">Open Data Portal</span>
+                <span class="init-status complete">Complete</span>
+              </div>
+              <div class="init-progress">
+                <div class="progress-bar complete" style="width: 100%"></div>
+              </div>
+              <div class="init-meta">Launched Jan 2024</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom: Financial Forecast -->
+    <section class="forecast-section">
+      <h3>5-Year Financial Forecast</h3>
+      <div class="forecast-table">
+        <div class="forecast-header">
+          <span>Category</span>
+          <span>FY24 Actual</span>
+          <span>FY25 Budget</span>
+          <span>FY26 Plan</span>
+          <span>FY27 Plan</span>
+          <span>FY28 Plan</span>
+        </div>
+        <div class="forecast-row">
+          <span>Revenue</span>
+          <span>$498.2M</span>
+          <span>$512.4M</span>
+          <span>$528.1M</span>
+          <span>$544.0M</span>
+          <span>$560.3M</span>
+        </div>
+        <div class="forecast-row">
+          <span>Operating Expense</span>
+          <span>$456.8M</span>
+          <span>$470.1M</span>
+          <span>$484.2M</span>
+          <span>$498.7M</span>
+          <span>$513.7M</span>
+        </div>
+        <div class="forecast-row">
+          <span>Capital Expense</span>
+          <span>$38.4M</span>
+          <span>$42.3M</span>
+          <span>$45.0M</span>
+          <span>$42.0M</span>
+          <span>$38.0M</span>
+        </div>
+        <div class="forecast-row highlight">
+          <span>Net Position</span>
+          <span class="positive">+$3.0M</span>
+          <span class="neutral">$0.0M</span>
+          <span class="negative">-$1.1M</span>
+          <span class="positive">+$3.3M</span>
+          <span class="positive">+$8.6M</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/erp.js"></script>
+</body>
+</html>

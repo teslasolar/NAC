@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0f1a">
-  <title>Northampton County Digital Twin - Control Systems</title>
+  <title>Thomas Frumkin for Northampton County Controller</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -13,7 +13,132 @@
       color: #e5e7eb;
       min-height: 100vh;
       display: flex;
+    }
+
+    /* Left Dock - Candidate Info */
+    .dock-left {
+      width: 280px;
+      background: rgba(0,0,0,0.3);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      display: flex;
       flex-direction: column;
+      padding: 24px;
+    }
+    .candidate-card {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .candidate-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: white;
+    }
+    .candidate-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .candidate-role {
+      font-size: 13px;
+      color: #10b981;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .candidate-location {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .platform-section {
+      margin-bottom: 20px;
+    }
+    .platform-section h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6b7280;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .platform-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .platform-item .icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .platform-item .text {
+      color: #d1d5db;
+    }
+
+    .social-links {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .social-links a {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .social-links a:hover {
+      background: rgba(59, 130, 246, 0.3);
+      color: white;
+    }
+
+    .cta-button {
+      display: block;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 16px;
+      transition: opacity 0.2s;
+    }
+    .cta-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
     }
     header {
       text-align: center;
@@ -87,13 +212,6 @@
       border-color: #3b82f6;
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
     }
-    .level-card.coming-soon {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .level-card.coming-soon:hover {
-      transform: none;
-    }
     .level-card h2 {
       font-size: 18px;
       font-weight: 600;
@@ -109,9 +227,6 @@
       background: #3b82f6;
       color: white;
       font-weight: 500;
-    }
-    .level-card h2 .badge.soon {
-      background: #6b7280;
     }
     .level-card p {
       color: #9ca3af;
@@ -145,6 +260,31 @@
     }
     footer a { color: #3b82f6; text-decoration: none; }
 
+    /* Mobile */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .dock-left {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 20px;
+      }
+      .candidate-card {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .candidate-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin: 0;
+      }
+      .platform-section { display: none; }
+      .social-links { margin-top: 0; }
+    }
     @media (max-width: 600px) {
       .level { grid-template-columns: 1fr; }
       .level-label { display: none; }
@@ -153,87 +293,147 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Northampton County Digital Twin</h1>
-    <p>ISA-95 Enterprise Control System Architecture</p>
-  </header>
-
-  <div class="isa95-stack">
-    <!-- Level 4: ERP -->
-    <div class="level">
-      <div class="level-label">
-        <span class="num">L4</span>
-        <span class="name">Business</span>
+  <!-- Left Dock - Candidate Info -->
+  <aside class="dock-left">
+    <div class="candidate-card">
+      <div class="candidate-avatar">TF</div>
+      <div>
+        <div class="candidate-name">Thomas Frumkin</div>
+        <div class="candidate-role">For County Controller</div>
+        <div class="candidate-location">Northampton County, PA</div>
       </div>
-      <a href="erp.html" class="level-card erp">
-        <h2>ERP - Enterprise Planning <span class="badge">New</span></h2>
-        <p>Business planning, logistics, and high-level scheduling. Multi-year budget planning, workforce planning, capital program management.</p>
-        <div class="features">
-          <span>Budget Planning</span>
-          <span>HR Systems</span>
-          <span>Procurement</span>
-          <span>Strategic Planning</span>
-        </div>
-      </a>
     </div>
 
-    <!-- Level 3: MOM -->
-    <div class="level">
-      <div class="level-label">
-        <span class="num">L3</span>
-        <span class="name">Operations</span>
+    <div class="platform-section">
+      <h3>Platform</h3>
+      <div class="platform-item">
+        <span class="icon">T</span>
+        <span class="text">Transparency through open data and real-time dashboards</span>
       </div>
-      <a href="mom.html" class="level-card mom">
-        <h2>MOM - Operations Management <span class="badge">New</span></h2>
-        <p>Manufacturing Operations Management adapted for county government. Coordinates production, quality, maintenance, and inventory operations across all departments.</p>
-        <div class="features">
-          <span>Production Ops</span>
-          <span>Quality Ops</span>
-          <span>Maintenance Ops</span>
-          <span>Inventory Ops</span>
-        </div>
-      </a>
+      <div class="platform-item">
+        <span class="icon">E</span>
+        <span class="text">Efficiency via digital transformation and process automation</span>
+      </div>
+      <div class="platform-item">
+        <span class="icon">A</span>
+        <span class="text">Accountability with audit tracking and performance metrics</span>
+      </div>
+      <div class="platform-item">
+        <span class="icon">M</span>
+        <span class="text">Modernization of legacy systems and workflows</span>
+      </div>
     </div>
 
-    <!-- Level 3: MES -->
-    <div class="level">
-      <div class="level-label">
-        <span class="num">L3</span>
-        <span class="name">Execution</span>
+    <div class="platform-section">
+      <h3>Experience</h3>
+      <div class="platform-item">
+        <span class="icon">$</span>
+        <span class="text">Financial systems & ERP implementation</span>
       </div>
-      <a href="mes.html" class="level-card mes">
-        <h2>MES - Execution System <span class="badge">New</span></h2>
-        <p>Work order management, scheduling, and real-time tracking. Manages citizen requests, permits, filings, and case workflows through row officer offices.</p>
-        <div class="features">
-          <span>Work Orders</span>
-          <span>Scheduling</span>
-          <span>WIP Tracking</span>
-          <span>Genealogy</span>
-        </div>
-      </a>
+      <div class="platform-item">
+        <span class="icon">D</span>
+        <span class="text">Data analytics & business intelligence</span>
+      </div>
+      <div class="platform-item">
+        <span class="icon">P</span>
+        <span class="text">Process improvement & automation</span>
+      </div>
     </div>
 
-    <!-- Level 2: SCADA -->
-    <div class="level">
-      <div class="level-label">
-        <span class="num">L2</span>
-        <span class="name">Control</span>
-      </div>
-      <a href="scada.html" class="level-card scada active">
-        <h2>SCADA - Supervisory Control <span class="badge">Active</span></h2>
-        <p>Real-time monitoring and control dashboards. View KPIs, alarms, OEE metrics, and operational status across all county departments and row officer offices.</p>
-        <div class="features">
-          <span>Dashboards</span>
-          <span>Alarms</span>
-          <span>OEE Metrics</span>
-          <span>Real-time Status</span>
-        </div>
-      </a>
+    <div class="social-links">
+      <a href="#" title="Website">W</a>
+      <a href="#" title="Email">@</a>
+      <a href="#" title="LinkedIn">in</a>
+      <a href="#" title="Twitter">X</a>
     </div>
+
+    <a href="about.html" class="cta-button">Learn More</a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header>
+      <h1>Northampton County Digital Twin</h1>
+      <p>ISA-95 Enterprise Control System Architecture</p>
+    </header>
+
+    <div class="isa95-stack">
+      <!-- Level 4: ERP -->
+      <div class="level">
+        <div class="level-label">
+          <span class="num">L4</span>
+          <span class="name">Business</span>
+        </div>
+        <a href="erp.html" class="level-card erp">
+          <h2>ERP - Enterprise Planning <span class="badge">New</span></h2>
+          <p>Business planning, logistics, and high-level scheduling. Multi-year budget planning, workforce planning, capital program management.</p>
+          <div class="features">
+            <span>Budget Planning</span>
+            <span>HR Systems</span>
+            <span>Procurement</span>
+            <span>Strategic Planning</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Level 3: MOM -->
+      <div class="level">
+        <div class="level-label">
+          <span class="num">L3</span>
+          <span class="name">Operations</span>
+        </div>
+        <a href="mom.html" class="level-card mom">
+          <h2>MOM - Operations Management <span class="badge">New</span></h2>
+          <p>Manufacturing Operations Management adapted for county government. Coordinates production, quality, maintenance, and inventory operations across all departments.</p>
+          <div class="features">
+            <span>Production Ops</span>
+            <span>Quality Ops</span>
+            <span>Maintenance Ops</span>
+            <span>Inventory Ops</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Level 3: MES -->
+      <div class="level">
+        <div class="level-label">
+          <span class="num">L3</span>
+          <span class="name">Execution</span>
+        </div>
+        <a href="mes.html" class="level-card mes">
+          <h2>MES - Execution System <span class="badge">New</span></h2>
+          <p>Work order management, scheduling, and real-time tracking. Manages citizen requests, permits, filings, and case workflows through row officer offices.</p>
+          <div class="features">
+            <span>Work Orders</span>
+            <span>Scheduling</span>
+            <span>WIP Tracking</span>
+            <span>Genealogy</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Level 2: SCADA -->
+      <div class="level">
+        <div class="level-label">
+          <span class="num">L2</span>
+          <span class="name">Control</span>
+        </div>
+        <a href="scada.html" class="level-card scada active">
+          <h2>SCADA - Supervisory Control <span class="badge">Active</span></h2>
+          <p>Real-time monitoring and control dashboards. View KPIs, alarms, OEE metrics, and operational status across all county departments and row officer offices.</p>
+          <div class="features">
+            <span>Dashboards</span>
+            <span>Alarms</span>
+            <span>OEE Metrics</span>
+            <span>Real-time Status</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>Northampton County Digital Twin &bull; ISA-95 Architecture &bull; <a href="about.html">About</a></p>
+    </footer>
   </div>
-
-  <footer>
-    <p>Northampton County Digital Twin &bull; ISA-95 Architecture &bull; <a href="about.html">About</a></p>
-  </footer>
 </body>
 </html>

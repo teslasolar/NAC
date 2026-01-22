@@ -323,10 +323,133 @@
       .platform-section { display: none; }
       .social-links { margin-top: 0; }
     }
+    /* Enterprise System Guide */
+    .guide-section {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .guide-header:hover {
+      background: var(--bg-light);
+      border-color: var(--text-muted);
+    }
+    .guide-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .guide-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .guide-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .guide-content.expanded {
+      max-height: 2000px;
+      transition: max-height 0.5s ease-in;
+    }
+    .guide-intro {
+      padding: 20px;
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+    }
+    .guide-intro p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .guide-intro strong {
+      color: var(--text-primary);
+    }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .guide-card {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .guide-card h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .guide-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .guide-card li {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      padding-left: 12px;
+      position: relative;
+    }
+    .guide-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 4px;
+      height: 4px;
+      background: var(--text-muted);
+      border-radius: 50%;
+    }
+    .guide-card li:last-child {
+      margin-bottom: 0;
+    }
+    .guide-card li strong {
+      color: var(--text-primary);
+    }
+    .guide-footer {
+      margin-top: 12px;
+      padding: 16px 20px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .guide-footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
     @media (max-width: 600px) {
       .level { grid-template-columns: 1fr; }
       .level-label { display: none; }
       header h1 { font-size: 20px; }
+      .guide-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -466,9 +589,82 @@
       </div>
     </div>
 
+    <!-- Enterprise System Guide -->
+    <section class="guide-section">
+      <div class="guide-header" onclick="toggleGuide()">
+        <h3>What is an Enterprise System?</h3>
+        <span class="guide-toggle" id="guideToggle">+</span>
+      </div>
+      <div class="guide-content" id="guideContent">
+        <div class="guide-intro">
+          <p>An <strong>enterprise system</strong> is an integrated software platform that coordinates all the information and processes across an organization. Originally developed for manufacturing, the ISA-95 standard provides a proven framework that translates directly to government operations.</p>
+        </div>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h4>Why ISA-95 for Government?</h4>
+            <ul>
+              <li><strong>Row offices are production lines</strong> - Each processes "work items" (permits, filings, cases) through defined workflows</li>
+              <li><strong>Citizens are customers</strong> - They expect quality service, timely delivery, and transparent status</li>
+              <li><strong>Efficiency matters</strong> - Tax dollars fund operations; waste affects everyone</li>
+              <li><strong>Standards exist</strong> - ISA-95 has 25+ years of proven methodology</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>The Four Levels Explained</h4>
+            <ul>
+              <li><strong>Level 4 (ERP)</strong> - Long-term planning: budgets, workforce, strategic initiatives. Answers "What should we do this year?"</li>
+              <li><strong>Level 3 (MOM/MES)</strong> - Operations: work orders, scheduling, resource allocation. Answers "What are we doing today?"</li>
+              <li><strong>Level 2 (SCADA)</strong> - Real-time monitoring: dashboards, alarms, KPIs. Answers "What's happening right now?"</li>
+              <li><strong>Level 0-1</strong> - Physical processes: the actual work being done (not shown here)</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>How to Use This System</h4>
+            <ul>
+              <li><strong>Start with SCADA</strong> - Get real-time visibility into all departments. Identify bottlenecks and issues.</li>
+              <li><strong>Drill into MES</strong> - See individual work orders and cases. Track progress through workflows.</li>
+              <li><strong>Review MOM</strong> - Understand cross-functional operations. See how departments coordinate.</li>
+              <li><strong>Plan with ERP</strong> - Make data-driven budget and staffing decisions based on actual operations.</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>Key Metrics</h4>
+            <ul>
+              <li><strong>OEE (Overall Equipment Effectiveness)</strong> - Measures how well a department uses its time: availability × performance × quality</li>
+              <li><strong>Cycle Time</strong> - How long to complete a typical work item (permit, filing, case)</li>
+              <li><strong>Backlog</strong> - Work waiting to be processed; indicates staffing needs</li>
+              <li><strong>First-Pass Yield</strong> - Percentage completed correctly the first time</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="guide-footer">
+          <p>This digital twin demonstrates how industrial automation principles can modernize government operations. The goal: transparent, efficient, accountable public service.</p>
+        </div>
+      </div>
+    </section>
+
     <footer>
       <p>Northampton County Digital Twin &bull; ISA-95 Architecture &bull; <a href="about.html">About</a></p>
     </footer>
   </div>
+
+  <script>
+    function toggleGuide() {
+      const content = document.getElementById('guideContent');
+      const toggle = document.getElementById('guideToggle');
+      if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        toggle.textContent = '+';
+      } else {
+        content.classList.add('expanded');
+        toggle.textContent = '−';
+      }
+    }
+  </script>
 </body>
 </html>

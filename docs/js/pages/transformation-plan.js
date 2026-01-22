@@ -48,7 +48,7 @@ const TP = {
   ],
 
   offices: [
-    { name: "Sheriff's Office", officer: 'Mark Richter', oee: 77.8, target: 78, status: 'close', func: 'Protect citizens and serve the courts', human: 'Deputies face dangerous situations; efficiency cannot compromise safety', initiatives: [
+    { name: "Sheriff's Office", officer: 'Christopher Zieger', oee: 77.8, target: 78, status: 'close', func: 'Protect citizens and serve the courts', human: 'Deputies face dangerous situations; efficiency cannot compromise safety', initiatives: [
       { title: 'Overtime Analysis Dashboard', benefit: 'Optimize scheduling while ensuring adequate coverage', ethical: 'Deputies get more predictable schedules, better work-life balance' },
       { title: 'Equipment Lifecycle Tracking', benefit: 'Proactive maintenance, fewer emergency purchases', ethical: 'Reliable equipment keeps deputies safe' }
     ]},
@@ -60,11 +60,11 @@ const TP = {
       { title: 'On-Call Compensation Review', benefit: 'Retain experienced staff, reduce turnover', ethical: 'People who handle death deserve fair treatment' },
       { title: 'Opioid Response Funding Analysis', benefit: 'Sustainable funding for ongoing crisis', ethical: 'Every overdose death deserves proper investigation' }
     ]},
-    { name: 'District Attorney', officer: 'Terence Houck', oee: 68.2, target: 70, status: 'gap', func: 'Pursue justice - prosecute crimes while protecting the innocent', human: 'Both victims and defendants deserve fair, timely resolution', initiatives: [
+    { name: 'District Attorney', officer: 'Stephen G. Baratta', oee: 68.2, target: 70, status: 'gap', func: 'Pursue justice - prosecute crimes while protecting the innocent', human: 'Both victims and defendants deserve fair, timely resolution', initiatives: [
       { title: 'Caseload Cost Analysis', benefit: 'Right-size staffing for actual workload', ethical: 'Overworked prosecutors make mistakes; justice requires resources' },
       { title: 'Diversion Program ROI', benefit: 'Data to support rehabilitation programs', ethical: 'Rehabilitation serves society better than cycles of incarceration' }
     ]},
-    { name: 'Register of Wills', officer: 'Ronald Heckman', oee: 73.5, target: 75, status: 'close', func: 'Guide families through probate during difficult times', human: 'People come here after losing loved ones - compassion is essential', initiatives: [
+    { name: 'Register of Wills', officer: 'Patricia J. Manento', oee: 73.5, target: 75, status: 'close', func: 'Guide families through probate during difficult times', human: 'People come here after losing loved ones - compassion is essential', initiatives: [
       { title: 'Small Estate Fast-Track', benefit: 'Grieving families get closure faster', ethical: 'Bureaucracy should not compound grief' },
       { title: 'Inheritance Tax Assistance', benefit: 'Fewer errors mean fewer penalties for families', ethical: 'Complexity should not punish grieving families' }
     ]},

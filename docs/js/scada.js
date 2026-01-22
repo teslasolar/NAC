@@ -1,39 +1,82 @@
 /**
  * NAC SCADA - Main Control System JavaScript
  * Screen management, navigation, and data display
+ * Uses SymbolProvider for SVG icons and PackML state indicators
  */
 
-// Screen configuration
+// Symbol provider instance (loaded async)
+let symbols = null;
+
+// Screen configuration with symbol IDs
 const screens = {
-  overview: { name: 'System Overview', icon: 'Overview', category: 'Main', url: null },
-  oee: { name: 'OEE Dashboard', icon: 'OEE', category: 'Operations', url: 'oee-dashboard.html' },
-  budget: { name: 'Budget Visualization', icon: 'Budget', category: 'Finance', url: 'budget.html' },
-  audit: { name: 'Audit Tracker', icon: 'Audit', category: 'Finance', url: 'audit-tracker.html' },
-  vendors: { name: 'Vendor Scorecard', icon: 'Vendors', category: 'Operations', url: 'vendor-scorecard.html' },
-  grants: { name: 'Grant Tracker', icon: 'Grants', category: 'Finance', url: 'grant-tracker.html' },
-  comparison: { name: 'County Comparison', icon: 'Compare', category: 'Analytics', url: 'county-comparison.html' },
-  tax: { name: 'Tax Calculator', icon: 'Tax', category: 'Citizen', url: 'tax-calculator.html' },
-  capital: { name: 'Capital Projects', icon: 'Capital', category: 'Operations', url: 'capital-projects.html' },
-  pension: { name: 'Pension Dashboard', icon: 'Pension', category: 'Finance', url: 'pension-dashboard.html' },
-  emergency: { name: '911 Metrics', icon: '911', category: 'Operations', url: 'emergency-metrics.html' },
-  issues: { name: 'Issue Tracker', icon: 'Issues', category: 'Citizen', url: 'issue-tracker.html' },
-  tickets: { name: 'Citizen Tickets', icon: 'Tickets', category: 'Citizen', url: 'tickets.html' },
-  academy: { name: 'NAC Academy', icon: 'Academy', category: 'Citizen', url: 'academy.html' },
-  notices: { name: 'Public Notices', icon: 'Notices', category: 'Citizen', url: 'notices.html' },
-  ledger: { name: 'County Ledger', icon: 'Ledger', category: 'Citizen', url: 'ledger.html' },
-  checkbook: { name: 'Open Checkbook', icon: 'Checkbook', category: 'Finance', url: 'checkbook.html' },
-  gracedale: { name: 'Gracedale Dashboard', icon: 'Gracedale', category: 'Operations', url: 'gracedale.html' },
-  funding: { name: 'State Funding Tracker', icon: 'Funding', category: 'Finance', url: 'funding.html' },
-  gis: { name: 'GIS & Property Maps', icon: 'GIS', category: 'Citizen', url: 'gis.html' },
-  meetings: { name: 'Meeting Archive', icon: 'Meetings', category: 'Citizen', url: 'meetings.html' },
-  economic: { name: 'Economic Scorecard', icon: 'Economic', category: 'Analytics', url: 'economic-scorecard.html' },
-  org: { name: 'Org Chart', icon: 'Org', category: 'Main', url: 'org-chart.html' },
-  transform: { name: 'Transformation Plan', icon: 'Transform', category: 'Main', url: 'transformation-plan.html' },
-  about: { name: 'About Operator', icon: 'About', category: 'System', url: 'about.html' },
-  modules: { name: 'ISA-95 Modules', icon: 'Modules', category: 'System', url: 'modules.html' },
-  perspective: { name: 'Perspective Demo', icon: 'Demo', category: 'System', url: 'views/demo-dashboard.html' },
-  chat: { name: 'PANAC Chat', icon: 'Chat', category: 'System', url: 'chat.html' }
+  overview: { name: 'System Overview', icon: 'overview', category: 'Main', url: null },
+  oee: { name: 'OEE Dashboard', icon: 'oee', category: 'Operations', url: 'oee-dashboard.html' },
+  budget: { name: 'Budget Visualization', icon: 'budget', category: 'Finance', url: 'budget.html' },
+  audit: { name: 'Audit Tracker', icon: 'audit', category: 'Finance', url: 'audit-tracker.html' },
+  vendors: { name: 'Vendor Scorecard', icon: 'vendors', category: 'Operations', url: 'vendor-scorecard.html' },
+  grants: { name: 'Grant Tracker', icon: 'grants', category: 'Finance', url: 'grant-tracker.html' },
+  comparison: { name: 'County Comparison', icon: 'comparison', category: 'Analytics', url: 'county-comparison.html' },
+  tax: { name: 'Tax Calculator', icon: 'tax', category: 'Citizen', url: 'tax-calculator.html' },
+  capital: { name: 'Capital Projects', icon: 'capital', category: 'Operations', url: 'capital-projects.html' },
+  pension: { name: 'Pension Dashboard', icon: 'pension', category: 'Finance', url: 'pension-dashboard.html' },
+  emergency: { name: '911 Metrics', icon: 'emergency', category: 'Operations', url: 'emergency-metrics.html' },
+  issues: { name: 'Issue Tracker', icon: 'issues', category: 'Citizen', url: 'issue-tracker.html' },
+  tickets: { name: 'Citizen Tickets', icon: 'issues', category: 'Citizen', url: 'tickets.html' },
+  academy: { name: 'NAC Academy', icon: 'transform', category: 'Citizen', url: 'academy.html' },
+  notices: { name: 'Public Notices', icon: 'issues', category: 'Citizen', url: 'notices.html' },
+  ledger: { name: 'County Ledger', icon: 'audit', category: 'Citizen', url: 'ledger.html' },
+  checkbook: { name: 'Open Checkbook', icon: 'budget', category: 'Finance', url: 'checkbook.html' },
+  gracedale: { name: 'Gracedale Dashboard', icon: 'pension', category: 'Operations', url: 'gracedale.html' },
+  funding: { name: 'State Funding Tracker', icon: 'grants', category: 'Finance', url: 'funding.html' },
+  gis: { name: 'GIS & Property Maps', icon: 'comparison', category: 'Citizen', url: 'gis.html' },
+  meetings: { name: 'Meeting Archive', icon: 'issues', category: 'Citizen', url: 'meetings.html' },
+  economic: { name: 'Economic Scorecard', icon: 'economic', category: 'Analytics', url: 'economic-scorecard.html' },
+  org: { name: 'Org Chart', icon: 'org', category: 'Main', url: 'org-chart.html' },
+  transform: { name: 'Transformation Plan', icon: 'transform', category: 'Main', url: 'transformation-plan.html' },
+  about: { name: 'About Operator', icon: 'about', category: 'System', url: 'about.html' },
+  modules: { name: 'ISA-95 Modules', icon: 'oee', category: 'System', url: 'modules.html' },
+  perspective: { name: 'Perspective Demo', icon: 'overview', category: 'System', url: 'views/demo-dashboard.html' },
+  chat: { name: 'PANAC Chat', icon: 'about', category: 'System', url: 'chat.html' }
 };
+
+// Get icon HTML (uses symbols if loaded, fallback otherwise)
+function getIcon(iconId, size = 24) {
+  if (symbols) {
+    return symbols.icon(iconId, size);
+  }
+  const fallbacks = {
+    overview: '🏛️', budget: '💰', audit: '🔍', oee: '⚡', vendors: '📋',
+    grants: '💵', comparison: '📊', tax: '🧮', capital: '🏗️', pension: '🏦',
+    emergency: '🚨', issues: '📝', economic: '📈', org: '👥', transform: '🌱', about: '👤'
+  };
+  return fallbacks[iconId] || '●';
+}
+
+// Get PackML state indicator
+function getPackMLState(state, size = 20) {
+  if (symbols) {
+    return symbols.packml(state, size);
+  }
+  const colors = { execute: '#28a745', idle: '#17a2b8', held: '#e83e8c', stopped: '#6c757d' };
+  return `<span style="display:inline-block;width:${size}px;height:${size}px;background:${colors[state.toLowerCase()]||'#666'};border-radius:4px"></span>`;
+}
+
+// Get officer icon
+function getOfficerIcon(officer, size = 20) {
+  if (symbols) {
+    return symbols.officer(officer, size);
+  }
+  return '👤';
+}
+
+// Get status indicator
+function getStatusIcon(status, size = 16) {
+  if (symbols) {
+    return symbols.status(status, size);
+  }
+  const icons = { ok: '✓', warning: '⚠', error: '✗', info: 'ℹ' };
+  return icons[status] || '●';
+}
 
 const alarms = [
   { id: 'ALM-001', priority: 'medium', message: 'PCCD Grant 62% unspent - 30 days remaining', screen: 'grants' },
@@ -73,8 +116,9 @@ function loadScreen(screenId) {
   document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
   event.target.closest('.nav-item')?.classList.add('active');
 
-  // Update header
-  document.getElementById('screenIcon').textContent = screen.icon;
+  // Update header with SVG icon
+  const screenIconEl = document.getElementById('screenIcon');
+  screenIconEl.innerHTML = getIcon(screen.icon, 24);
   document.getElementById('screenName').textContent = screen.name;
   document.getElementById('screenBreadcrumb').textContent = `${screen.category} > ${screen.name}`;
 
@@ -130,7 +174,7 @@ function getOverviewHTML() {
           ${['oee', 'vendors', 'capital', 'emergency'].map(id => {
             const s = screens[id];
             return `<div class="screen-tile" onclick="loadScreen('${id}')">
-              <div class="icon">${s.icon}</div>
+              <div class="tile-icon">${getIcon(s.icon, 32)}</div>
               <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
             </div>`;
           }).join('')}
@@ -143,7 +187,7 @@ function getOverviewHTML() {
           ${['budget', 'audit', 'grants', 'pension'].map(id => {
             const s = screens[id];
             return `<div class="screen-tile" onclick="loadScreen('${id}')">
-              <div class="icon">${s.icon}</div>
+              <div class="tile-icon">${getIcon(s.icon, 32)}</div>
               <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
             </div>`;
           }).join('')}
@@ -156,7 +200,7 @@ function getOverviewHTML() {
           ${['comparison', 'economic', 'tax', 'issues'].map(id => {
             const s = screens[id];
             return `<div class="screen-tile" onclick="loadScreen('${id}')">
-              <div class="icon">${s.icon}</div>
+              <div class="tile-icon">${getIcon(s.icon, 32)}</div>
               <div class="info"><h4>${s.name}</h4><p>${s.category}</p></div>
             </div>`;
           }).join('')}
@@ -177,15 +221,22 @@ function populateAlarms() {
   `).join('');
 }
 
-// Populate OEE list
+// Populate OEE list with officer icons and PackML state
 function populateOEE() {
   const container = document.getElementById('oeeList');
-  container.innerHTML = oeeData.map(o => `
+  container.innerHTML = oeeData.map(o => {
+    // Map OEE status to PackML state
+    const packmlState = o.status === 'good' ? 'execute' : o.status === 'warning' ? 'held' : 'stopped';
+    const officerKey = o.name.toLowerCase().replace(/\s+/g, '').replace('of', '');
+
+    return `
     <div class="row-officer-item">
+      <span class="officer-icon">${getOfficerIcon(officerKey, 18)}</span>
       <span class="name">${o.name}</span>
+      <span class="packml-indicator">${getPackMLState(packmlState, 14)}</span>
       <span class="oee" style="color: var(--${o.status === 'good' ? 'green' : o.status === 'warning' ? 'yellow' : 'red'})">${o.oee}%</span>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // Populate call chart
@@ -234,7 +285,17 @@ function closeMobileMenu() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+  // Load symbols
+  if (typeof createSymbolProvider !== 'undefined') {
+    try {
+      symbols = await createSymbolProvider();
+      console.log('SCADA: SymbolProvider loaded');
+    } catch (e) {
+      console.warn('SCADA: Could not load symbols, using fallbacks');
+    }
+  }
+
   // Clock
   setInterval(updateClock, 1000);
   updateClock();
@@ -245,6 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
   populateCallChart();
   document.getElementById('screenContent').innerHTML = getOverviewHTML();
 
+  // Update nav icons
+  updateNavIcons();
+
   // Close menu when clicking nav items on mobile
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -254,3 +318,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Update nav icons with SVG symbols
+function updateNavIcons() {
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const screenId = item.getAttribute('onclick')?.match(/loadScreen\('(\w+)'\)/)?.[1];
+    if (screenId && screens[screenId]) {
+      const iconEl = item.querySelector('.icon');
+      if (iconEl) {
+        iconEl.innerHTML = getIcon(screens[screenId].icon, 18);
+      }
+    }
+  });
+}

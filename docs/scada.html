@@ -6,7 +6,23 @@
   <meta name="theme-color" content="#0a0f1a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Northampton County SCADA - Control System</title>
-  <link rel="stylesheet" href="css/scada.css?v=2">
+  <link rel="stylesheet" href="css/scada.css?v=3">
+  <style>
+    /* Symbol icon styles */
+    .nav-item .icon { display: inline-flex; align-items: center; justify-content: center; }
+    .nav-item .icon svg { width: 18px; height: 18px; }
+    .screen-tile .icon svg, .screen-tile .tile-icon svg { width: 32px; height: 32px; }
+    .tile-icon { display: flex; align-items: center; justify-content: center; }
+    .packml-indicator { display: flex; align-items: center; margin-left: auto; }
+    .packml-state { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+    .row-officer-item { display: flex; align-items: center; gap: 8px; }
+    .row-officer-item .officer-icon { display: flex; }
+    .row-officer-item .officer-icon svg { width: 20px; height: 20px; }
+    .kpi-card .status-icon { position: absolute; top: 8px; right: 8px; }
+    .kpi-card .status-icon svg { width: 16px; height: 16px; }
+    #screenIcon { display: flex; align-items: center; }
+    #screenIcon svg { width: 24px; height: 24px; margin-right: 8px; }
+  </style>
 </head>
 <body>
   <!-- NORTH DOCK - Header -->
@@ -133,6 +149,8 @@
   <!-- Mobile overlay -->
   <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
-  <script src="js/scada.js?v=2"></script>
+  <!-- Symbol Provider for SVG icons -->
+  <script src="js/providers/SymbolProvider.js"></script>
+  <script src="js/scada.js?v=3"></script>
 </body>
 </html>

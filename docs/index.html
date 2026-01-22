@@ -3,23 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0f1a">
+  <meta name="theme-color" content="#1a1a1a">
   <title>Thomas Frumkin for Northampton County Controller</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0a0f1a 0%, #1a1f2e 100%);
-      color: #e5e7eb;
+      background: #1a1a1a;
+      color: #d4d4d4;
       min-height: 100vh;
       display: flex;
+    }
+
+    /* ISA-101 Color Palette */
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-medium: #242424;
+      --bg-light: #2e2e2e;
+      --border: #3a3a3a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #525252;
+      --status-good: #4ade80;
+      --status-warn: #fbbf24;
+      --status-bad: #f87171;
+      --status-info: #60a5fa;
     }
 
     /* Left Dock - Candidate Info */
     .dock-left {
       width: 280px;
-      background: rgba(0,0,0,0.3);
-      border-right: 1px solid rgba(255,255,255,0.1);
+      background: var(--bg-medium);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       padding: 24px;
@@ -32,42 +48,44 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #3b82f6, #10b981);
+      background: var(--bg-light);
+      border: 2px solid var(--border);
       margin: 0 auto 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 36px;
       font-weight: 700;
-      color: white;
+      color: var(--text-primary);
     }
     .candidate-name {
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 600;
+      color: var(--text-primary);
       margin-bottom: 4px;
     }
     .candidate-role {
       font-size: 13px;
-      color: #10b981;
-      font-weight: 600;
+      color: var(--status-good);
+      font-weight: 500;
       margin-bottom: 4px;
     }
     .candidate-location {
       font-size: 12px;
-      color: #6b7280;
+      color: var(--text-muted);
     }
 
     .platform-section {
       margin-bottom: 20px;
     }
     .platform-section h3 {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6b7280;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border);
     }
     .platform-item {
       display: flex;
@@ -80,16 +98,19 @@
     .platform-item .icon {
       width: 24px;
       height: 24px;
-      border-radius: 6px;
-      background: rgba(59, 130, 246, 0.2);
+      border-radius: 4px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
+      font-weight: 600;
       flex-shrink: 0;
+      color: var(--text-secondary);
     }
     .platform-item .text {
-      color: #d1d5db;
+      color: var(--text-secondary);
     }
 
     .social-links {
@@ -101,36 +122,41 @@
     .social-links a {
       width: 36px;
       height: 36px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #9ca3af;
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 14px;
+      font-weight: 600;
       transition: all 0.2s;
     }
     .social-links a:hover {
-      background: rgba(59, 130, 246, 0.3);
-      color: white;
+      background: var(--accent);
+      border-color: var(--text-muted);
+      color: var(--text-primary);
     }
 
     .cta-button {
       display: block;
-      background: linear-gradient(90deg, #3b82f6, #10b981);
-      color: white;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
       text-align: center;
       padding: 12px 20px;
-      border-radius: 8px;
+      border-radius: 6px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 14px;
       margin-top: 16px;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
     }
     .cta-button:hover {
-      opacity: 0.9;
+      background: var(--accent);
+      border-color: var(--text-muted);
     }
 
     /* Main Content */
@@ -143,20 +169,19 @@
     header {
       text-align: center;
       padding: 40px 20px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border);
     }
     header h1 {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
-      background: linear-gradient(90deg, #3b82f6, #10b981);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-primary);
     }
     header p {
-      color: #9ca3af;
-      font-size: 14px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .isa95-stack {
       max-width: 900px;
@@ -166,99 +191,112 @@
     }
     .level {
       display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
       align-items: stretch;
     }
     .level-label {
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 16px 12px;
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 8px;
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     .level-label .num {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 700;
-      color: #6b7280;
+      color: var(--text-muted);
+      font-family: 'SF Mono', Monaco, monospace;
     }
     .level-label .name {
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #9ca3af;
-      margin-top: 4px;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
     .level-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 24px;
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
       text-decoration: none;
       color: inherit;
       display: block;
     }
     .level-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.2);
-      transform: translateX(4px);
+      background: var(--bg-light);
+      border-color: var(--text-muted);
     }
     .level-card.active {
-      border-color: #3b82f6;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+      border-color: var(--status-good);
     }
     .level-card h2 {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      color: var(--text-primary);
     }
     .level-card h2 .badge {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: #3b82f6;
-      color: white;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
       font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .level-card.active h2 .badge {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: var(--status-good);
+      color: var(--status-good);
     }
     .level-card p {
-      color: #9ca3af;
-      font-size: 13px;
+      color: var(--text-muted);
+      font-size: 12px;
       line-height: 1.5;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .level-card .features {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
     .level-card .features span {
-      font-size: 11px;
-      padding: 4px 10px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 4px;
-      color: #d1d5db;
+      font-size: 10px;
+      padding: 3px 8px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-secondary);
     }
-    .level-card.scada { border-left: 4px solid #10b981; }
-    .level-card.mes { border-left: 4px solid #f59e0b; }
-    .level-card.mom { border-left: 4px solid #8b5cf6; }
-    .level-card.erp { border-left: 4px solid #ef4444; }
+
+    /* Subtle level indicators */
+    .level-card.scada { border-left: 3px solid var(--status-good); }
+    .level-card.mes { border-left: 3px solid var(--status-warn); }
+    .level-card.mom { border-left: 3px solid var(--status-info); }
+    .level-card.erp { border-left: 3px solid var(--text-muted); }
 
     footer {
       text-align: center;
       padding: 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      color: #6b7280;
-      font-size: 12px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 11px;
     }
-    footer a { color: #3b82f6; text-decoration: none; }
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { color: var(--text-primary); }
 
     /* Mobile */
     @media (max-width: 900px) {
@@ -266,7 +304,7 @@
       .dock-left {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid var(--border);
         padding: 20px;
       }
       .candidate-card {
@@ -288,7 +326,7 @@
     @media (max-width: 600px) {
       .level { grid-template-columns: 1fr; }
       .level-label { display: none; }
-      header h1 { font-size: 22px; }
+      header h1 { font-size: 20px; }
     }
   </style>
 </head>

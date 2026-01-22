@@ -1,22 +1,22 @@
 /**
  * NAC ERP - Enterprise Resource Planning Styles
  * ISA-95 Level 4 - Business Planning
+ * ISA-101 Neutral Color Scheme
  */
 
 :root {
-  --bg-primary: #1a0a0a;
-  --bg-secondary: #251010;
-  --bg-tertiary: #301515;
-  --accent: #ef4444;
-  --accent-dim: #b91c1c;
-  --text-primary: #fef2f2;
-  --text-secondary: #f87171;
-  --text-muted: #991b1b;
-  --border: rgba(239, 68, 68, 0.2);
-  --green: #22c55e;
-  --yellow: #eab308;
-  --red: #ef4444;
-  --blue: #3b82f6;
+  --bg-dark: #1a1a1a;
+  --bg-medium: #242424;
+  --bg-light: #2e2e2e;
+  --border: #3a3a3a;
+  --text-primary: #e5e5e5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+  --accent: #525252;
+  --status-good: #4ade80;
+  --status-warn: #fbbf24;
+  --status-bad: #f87171;
+  --status-info: #60a5fa;
 }
 
 * {
@@ -27,7 +27,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-primary);
+  background: var(--bg-dark);
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
@@ -40,7 +40,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  background: var(--bg-secondary);
+  background: var(--bg-medium);
   border-bottom: 1px solid var(--border);
 }
 
@@ -56,24 +56,25 @@ body {
   font-size: 13px;
   padding: 6px 12px;
   border-radius: 4px;
-  background: var(--bg-tertiary);
+  background: var(--bg-light);
+  border: 1px solid var(--border);
 }
 
 .back-link:hover {
-  background: var(--accent-dim);
+  background: var(--accent);
   color: var(--text-primary);
 }
 
 .header h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--text-primary);
 }
 
 .header h1 .subtitle {
   font-weight: 400;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
   margin-left: 8px;
 }
 
@@ -90,19 +91,20 @@ body {
 }
 
 .fiscal-year .label {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .fiscal-year select {
-  background: var(--bg-tertiary);
+  background: var(--bg-light);
   color: var(--text-primary);
   border: 1px solid var(--border);
   padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .header-right .datetime {
@@ -110,9 +112,10 @@ body {
 }
 
 .header-right .time {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   font-family: 'SF Mono', Monaco, monospace;
+  color: var(--text-primary);
 }
 
 .header-right .date {
@@ -131,29 +134,29 @@ body {
 .kpi-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .kpi-item {
-  background: var(--bg-secondary);
+  background: var(--bg-medium);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 6px;
+  padding: 16px;
   text-align: center;
 }
 
 .kpi-value {
   display: block;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .kpi-label {
   display: block;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -161,86 +164,88 @@ body {
 }
 
 .kpi-change {
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
 }
 
 .kpi-change.up {
-  background: rgba(34, 197, 94, 0.2);
-  color: var(--green);
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--status-good);
 }
 
 .kpi-change.down {
-  background: rgba(239, 68, 68, 0.2);
-  color: var(--red);
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--status-bad);
 }
 
 /* ERP Grid */
 .erp-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 20px;
 }
 
 /* ERP Card */
 .erp-card {
-  background: var(--bg-secondary);
+  background: var(--bg-medium);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
-.erp-card.budget { border-top: 3px solid var(--red); }
-.erp-card.workforce { border-top: 3px solid var(--blue); }
-.erp-card.procurement { border-top: 3px solid var(--yellow); }
-.erp-card.strategic { border-top: 3px solid var(--green); }
+.erp-card.budget { border-left: 3px solid var(--text-muted); }
+.erp-card.workforce { border-left: 3px solid var(--status-info); }
+.erp-card.procurement { border-left: 3px solid var(--status-warn); }
+.erp-card.strategic { border-left: 3px solid var(--status-good); }
 
 .card-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border);
 }
 
 .card-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  background: var(--bg-tertiary);
-  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .card-header h2 {
   flex: 1;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .card-link {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   text-decoration: none;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .card-link:hover {
-  color: var(--accent);
+  color: var(--text-secondary);
 }
 
 .card-body {
-  padding: 20px;
+  padding: 16px;
 }
 
 /* Budget Chart */
 .budget-bar {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .budget-bar:last-child {
@@ -248,47 +253,48 @@ body {
 }
 
 .bar-label {
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 6px;
+  color: var(--text-secondary);
 }
 
 .bar-track {
-  height: 8px;
-  background: var(--bg-tertiary);
-  border-radius: 4px;
+  height: 6px;
+  background: var(--bg-light);
+  border-radius: 3px;
   overflow: hidden;
   margin-bottom: 4px;
 }
 
 .bar-fill {
   height: 100%;
-  background: var(--accent);
-  border-radius: 4px;
+  background: var(--text-muted);
+  border-radius: 3px;
   transition: width 0.3s;
 }
 
 .bar-fill.warning {
-  background: var(--yellow);
+  background: var(--status-warn);
 }
 
 .bar-values {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
 }
 
 /* Workforce Stats */
 .workforce-stats {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .stat-row:last-child {
@@ -299,79 +305,87 @@ body {
   color: var(--text-muted);
 }
 
-.stat-value.good { color: var(--green); }
-.stat-value.warning { color: var(--yellow); }
+.stat-value { color: var(--text-secondary); }
+.stat-value.good { color: var(--status-good); }
+.stat-value.warning { color: var(--status-warn); }
 
 .dept-breakdown h4 {
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 10px;
+  color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 .dept-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 12px;
-  background: var(--bg-tertiary);
-  border-radius: 4px;
-  margin-bottom: 6px;
-  font-size: 12px;
+  padding: 6px 10px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 
 /* Procurement */
 .procurement-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .proc-stat {
   text-align: center;
-  padding: 12px;
-  background: var(--bg-tertiary);
-  border-radius: 8px;
+  padding: 10px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
 }
 
 .proc-stat .value {
   display: block;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .proc-stat .label {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-muted);
   text-transform: uppercase;
 }
 
 .contract-list h4 {
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 10px;
+  color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 .contract-item {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  gap: 12px;
-  padding: 10px 12px;
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  margin-bottom: 8px;
-  font-size: 12px;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  font-size: 11px;
   align-items: center;
 }
 
 .contract-item.warning {
-  border-left: 3px solid var(--yellow);
+  border-left: 3px solid var(--status-warn);
 }
 
 .contract-item .vendor {
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .contract-item .expires {
@@ -379,13 +393,13 @@ body {
 }
 
 .contract-item .value {
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 /* Strategic Initiatives */
 .initiative {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -403,74 +417,76 @@ body {
 }
 
 .init-name {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .init-status {
-  font-size: 10px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .init-status.on-track {
-  background: rgba(34, 197, 94, 0.2);
-  color: var(--green);
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--status-good);
 }
 
 .init-status.at-risk {
-  background: rgba(234, 179, 8, 0.2);
-  color: var(--yellow);
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--status-warn);
 }
 
 .init-status.complete {
-  background: rgba(59, 130, 246, 0.2);
-  color: var(--blue);
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--status-info);
 }
 
 .init-progress {
-  height: 6px;
-  background: var(--bg-tertiary);
-  border-radius: 3px;
+  height: 4px;
+  background: var(--bg-light);
+  border-radius: 2px;
   overflow: hidden;
   margin-bottom: 6px;
 }
 
 .progress-bar {
   height: 100%;
-  background: var(--green);
-  border-radius: 3px;
+  background: var(--status-good);
+  border-radius: 2px;
 }
 
 .progress-bar.warning {
-  background: var(--yellow);
+  background: var(--status-warn);
 }
 
 .progress-bar.complete {
-  background: var(--blue);
+  background: var(--status-info);
 }
 
 .init-meta {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
 }
 
 /* Forecast Section */
 .forecast-section {
-  background: var(--bg-secondary);
+  background: var(--bg-medium);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 6px;
+  padding: 16px;
 }
 
 .forecast-section h3 {
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
 }
 
 .forecast-table {
@@ -480,23 +496,24 @@ body {
 .forecast-header,
 .forecast-row {
   display: grid;
-  grid-template-columns: 180px repeat(5, 1fr);
-  gap: 12px;
-  padding: 12px 16px;
-  font-size: 13px;
+  grid-template-columns: 160px repeat(5, 1fr);
+  gap: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
 }
 
 .forecast-header {
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 11px;
+  background: var(--bg-light);
+  border-radius: 4px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 10px;
   text-transform: uppercase;
 }
 
 .forecast-row {
   border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .forecast-row:last-child {
@@ -504,14 +521,14 @@ body {
 }
 
 .forecast-row.highlight {
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  font-weight: 600;
+  background: var(--bg-light);
+  border-radius: 4px;
+  font-weight: 500;
   margin-top: 8px;
 }
 
-.forecast-row .positive { color: var(--green); }
-.forecast-row .negative { color: var(--red); }
+.forecast-row .positive { color: var(--status-good); }
+.forecast-row .negative { color: var(--status-bad); }
 .forecast-row .neutral { color: var(--text-muted); }
 
 /* Responsive */
@@ -533,7 +550,7 @@ body {
   }
   .forecast-header,
   .forecast-row {
-    grid-template-columns: 120px repeat(5, 80px);
-    font-size: 11px;
+    grid-template-columns: 100px repeat(5, 70px);
+    font-size: 10px;
   }
 }

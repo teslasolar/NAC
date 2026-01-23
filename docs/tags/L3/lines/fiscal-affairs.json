@@ -1,0 +1,136 @@
+{
+  "tagType": "UnitLines",
+  "id": "fiscal-affairs-lines",
+  "unit": "fiscal-affairs-revenue",
+  "name": "Fiscal Affairs Assembly Lines",
+  "lines": [
+    {
+      "id": "cash-receipts",
+      "name": "Cash Receipts Line",
+      "description": "Processing all incoming county revenues",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "receipts-intake",
+          "name": "Receipt Intake",
+          "description": "Receive funds from departments and row officers",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["receipt_incoming"],
+          "outputType": "receipt_recorded",
+          "requiredSkills": ["cash-handling", "receipting"],
+          "equipment": ["cash-register", "receipt-printer", "safe"]
+        },
+        {
+          "id": "receipts-verification",
+          "name": "Verification",
+          "description": "Verify amounts and coding",
+          "capacity": 5,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["receipt_recorded"],
+          "outputType": "receipt_verified",
+          "requiredSkills": ["accounting"],
+          "equipment": ["verification-system"]
+        },
+        {
+          "id": "receipts-deposit",
+          "name": "Bank Deposit",
+          "description": "Prepare and make bank deposits",
+          "capacity": 2,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["receipt_verified"],
+          "outputType": "completed",
+          "requiredSkills": ["banking"],
+          "equipment": ["deposit-slip-printer", "armored-transport"]
+        }
+      ]
+    },
+    {
+      "id": "tax-collection",
+      "name": "Tax Collection Line",
+      "description": "Processing county tax payments",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "tax-counter",
+          "name": "Tax Counter",
+          "description": "Accept in-person tax payments",
+          "capacity": 4,
+          "cycleTimeMinutes": 8,
+          "inputTypes": ["tax_payment"],
+          "outputType": "payment_processed",
+          "requiredSkills": ["customer-service", "cash-handling"],
+          "equipment": ["pos-terminal", "receipt-printer"]
+        },
+        {
+          "id": "tax-mail",
+          "name": "Mail Processing",
+          "description": "Process mailed tax payments",
+          "capacity": 6,
+          "cycleTimeMinutes": 3,
+          "inputTypes": ["mail_payment"],
+          "outputType": "payment_processed",
+          "requiredSkills": ["mail-processing"],
+          "equipment": ["mail-opener", "check-scanner"]
+        },
+        {
+          "id": "tax-online",
+          "name": "Online Payments",
+          "description": "Process electronic payments",
+          "capacity": 100,
+          "cycleTimeMinutes": 0.5,
+          "inputTypes": ["online_payment"],
+          "outputType": "payment_processed",
+          "requiredSkills": ["automated"],
+          "equipment": ["payment-gateway"]
+        },
+        {
+          "id": "tax-posting",
+          "name": "Payment Posting",
+          "description": "Post payments to tax records",
+          "capacity": 10,
+          "cycleTimeMinutes": 2,
+          "inputTypes": ["payment_processed"],
+          "outputType": "completed",
+          "requiredSkills": ["data-entry"],
+          "equipment": ["tax-system"]
+        }
+      ]
+    },
+    {
+      "id": "investments",
+      "name": "Investment Management Line",
+      "description": "Managing county fund investments",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "cash-forecast",
+          "name": "Cash Forecasting",
+          "description": "Project cash needs for investment decisions",
+          "capacity": 1,
+          "cycleTimeMinutes": 120,
+          "requiredSkills": ["financial-analysis"],
+          "equipment": ["forecasting-tools"]
+        },
+        {
+          "id": "investment-execution",
+          "name": "Investment Execution",
+          "description": "Execute approved investment transactions",
+          "capacity": 2,
+          "cycleTimeMinutes": 30,
+          "requiredSkills": ["trading"],
+          "equipment": ["trading-platform"]
+        },
+        {
+          "id": "investment-reporting",
+          "name": "Investment Reporting",
+          "description": "Report on portfolio performance",
+          "capacity": 1,
+          "cycleTimeMinutes": 240,
+          "requiredSkills": ["reporting"],
+          "equipment": ["reporting-system"]
+        }
+      ]
+    }
+  ]
+}

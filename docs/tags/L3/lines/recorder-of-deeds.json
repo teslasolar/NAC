@@ -1,0 +1,101 @@
+{
+  "tagType": "UnitLines",
+  "id": "recorder-of-deeds-lines",
+  "unit": "recorder-of-deeds",
+  "name": "Recorder of Deeds Assembly Lines",
+  "lines": [
+    {
+      "id": "deed-recording",
+      "name": "Deed Recording Line",
+      "description": "Record property transfer documents",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "document-intake",
+          "name": "Document Intake",
+          "description": "Receive documents for recording",
+          "capacity": 15,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["document_submitted"],
+          "outputType": "document_logged",
+          "requiredSkills": ["document-review"],
+          "equipment": ["scanner", "fee-system"]
+        },
+        {
+          "id": "document-review",
+          "name": "Document Review",
+          "description": "Verify document meets recording requirements",
+          "capacity": 8,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["document_logged"],
+          "outputType": "document_approved",
+          "requiredSkills": ["legal-review"],
+          "equipment": ["checklist-system"]
+        },
+        {
+          "id": "document-indexing",
+          "name": "Indexing",
+          "description": "Index document in grantor/grantee system",
+          "capacity": 6,
+          "cycleTimeMinutes": 8,
+          "inputTypes": ["document_approved"],
+          "outputType": "document_indexed",
+          "requiredSkills": ["data-entry", "indexing"],
+          "equipment": ["indexing-system"]
+        },
+        {
+          "id": "document-imaging",
+          "name": "Imaging",
+          "description": "Scan and store digital image",
+          "capacity": 10,
+          "cycleTimeMinutes": 3,
+          "inputTypes": ["document_indexed"],
+          "outputType": "completed",
+          "requiredSkills": ["scanning"],
+          "equipment": ["high-speed-scanner", "image-system"]
+        }
+      ]
+    },
+    {
+      "id": "document-retrieval",
+      "name": "Document Retrieval Line",
+      "description": "Retrieve recorded documents for public",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "search-request",
+          "name": "Search Request",
+          "description": "Receive search/copy request",
+          "capacity": 10,
+          "cycleTimeMinutes": 3,
+          "inputTypes": ["search_request"],
+          "outputType": "search_initiated",
+          "requiredSkills": ["customer-service"],
+          "equipment": ["request-system"]
+        },
+        {
+          "id": "document-search",
+          "name": "Document Search",
+          "description": "Search index for requested documents",
+          "capacity": 8,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["search_initiated"],
+          "outputType": "document_located",
+          "requiredSkills": ["research"],
+          "equipment": ["search-system"]
+        },
+        {
+          "id": "copy-production",
+          "name": "Copy Production",
+          "description": "Produce certified copies",
+          "capacity": 5,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["document_located"],
+          "outputType": "completed",
+          "requiredSkills": ["certification"],
+          "equipment": ["printer", "certification-seal"]
+        }
+      ]
+    }
+  ]
+}

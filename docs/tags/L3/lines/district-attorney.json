@@ -1,0 +1,123 @@
+{
+  "tagType": "UnitLines",
+  "id": "district-attorney-lines",
+  "unit": "district-attorney",
+  "name": "District Attorney Assembly Lines",
+  "lines": [
+    {
+      "id": "criminal-prosecution",
+      "name": "Criminal Prosecution Line",
+      "description": "Process criminal cases from filing to disposition",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "case-intake",
+          "name": "Case Intake",
+          "description": "Receive cases from police departments",
+          "capacity": 50,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["case_submitted"],
+          "outputType": "case_assigned",
+          "requiredSkills": ["case-review"],
+          "equipment": ["case-management-system"]
+        },
+        {
+          "id": "case-review",
+          "name": "Case Review",
+          "description": "Review evidence and determine charges",
+          "capacity": 20,
+          "cycleTimeMinutes": 120,
+          "inputTypes": ["case_assigned"],
+          "outputType": "charges_filed",
+          "requiredSkills": ["legal-analysis"],
+          "equipment": ["case-management-system"]
+        },
+        {
+          "id": "discovery",
+          "name": "Discovery",
+          "description": "Prepare and provide discovery to defense",
+          "capacity": 15,
+          "cycleTimeMinutes": 180,
+          "inputTypes": ["charges_filed"],
+          "outputType": "discovery_complete",
+          "requiredSkills": ["discovery-preparation"],
+          "equipment": ["document-system", "redaction-tools"]
+        },
+        {
+          "id": "plea-negotiation",
+          "name": "Plea Negotiation",
+          "description": "Negotiate plea agreements",
+          "capacity": 20,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["discovery_complete"],
+          "outputType": "plea_entered",
+          "requiredSkills": ["negotiation"],
+          "equipment": ["case-management-system"]
+        },
+        {
+          "id": "trial",
+          "name": "Trial",
+          "description": "Prosecute case at trial",
+          "capacity": 8,
+          "cycleTimeMinutes": 1440,
+          "inputTypes": ["plea_entered"],
+          "outputType": "verdict_entered",
+          "requiredSkills": ["trial-advocacy"],
+          "equipment": ["courtroom", "presentation-system"]
+        },
+        {
+          "id": "sentencing",
+          "name": "Sentencing",
+          "description": "Present sentencing recommendation",
+          "capacity": 10,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["verdict_entered"],
+          "outputType": "completed",
+          "requiredSkills": ["sentencing-advocacy"],
+          "equipment": ["case-management-system"]
+        }
+      ]
+    },
+    {
+      "id": "diversion-program",
+      "name": "Diversion Program Line",
+      "description": "ARD and other diversion programs",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "diversion-screening",
+          "name": "Eligibility Screening",
+          "description": "Screen defendants for diversion eligibility",
+          "capacity": 20,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["diversion_request"],
+          "outputType": "eligibility_determined",
+          "requiredSkills": ["screening"],
+          "equipment": ["case-system"]
+        },
+        {
+          "id": "diversion-admission",
+          "name": "Program Admission",
+          "description": "Complete admission paperwork",
+          "capacity": 10,
+          "cycleTimeMinutes": 45,
+          "inputTypes": ["eligibility_determined"],
+          "outputType": "program_enrolled",
+          "requiredSkills": ["intake"],
+          "equipment": ["program-system"]
+        },
+        {
+          "id": "diversion-monitoring",
+          "name": "Program Monitoring",
+          "description": "Monitor compliance with program requirements",
+          "capacity": 100,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["program_enrolled"],
+          "outputType": "program_complete",
+          "requiredSkills": ["case-management"],
+          "equipment": ["monitoring-system"]
+        }
+      ]
+    }
+  ]
+}

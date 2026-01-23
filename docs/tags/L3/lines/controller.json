@@ -1,0 +1,147 @@
+{
+  "tagType": "UnitLines",
+  "id": "controller-lines",
+  "unit": "controller",
+  "name": "Controller Assembly Lines",
+  "lines": [
+    {
+      "id": "claims-processing",
+      "name": "Claims Processing Line",
+      "description": "Pre-audit and approve vendor claims",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "claims-intake",
+          "name": "Claims Intake",
+          "description": "Receive claims from departments",
+          "capacity": 20,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["claim_submitted"],
+          "outputType": "claim_logged",
+          "requiredSkills": ["document-processing"],
+          "equipment": ["claims-system", "scanner"]
+        },
+        {
+          "id": "claims-review",
+          "name": "Pre-Audit Review",
+          "description": "Review claim for completeness and compliance",
+          "capacity": 8,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["claim_logged"],
+          "outputType": "claim_approved",
+          "requiredSkills": ["auditing", "policy-knowledge"],
+          "equipment": ["claims-system"]
+        },
+        {
+          "id": "claims-approval",
+          "name": "Approval",
+          "description": "Final approval and warrant generation",
+          "capacity": 2,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["claim_approved"],
+          "outputType": "warrant_issued",
+          "requiredSkills": ["authorization"],
+          "equipment": ["signature-system"]
+        }
+      ]
+    },
+    {
+      "id": "payroll-processing",
+      "name": "Payroll Processing Line",
+      "description": "Process bi-weekly county payroll",
+      "layout": "batch",
+      "batchSize": 2850,
+      "frequency": "bi-weekly",
+      "stations": [
+        {
+          "id": "time-collection",
+          "name": "Time Collection",
+          "description": "Collect time entries from all departments",
+          "capacity": 2850,
+          "cycleTimeMinutes": 0.1,
+          "inputTypes": ["time_entry"],
+          "outputType": "time_validated",
+          "requiredSkills": ["data-validation"],
+          "equipment": ["timekeeping-system"]
+        },
+        {
+          "id": "payroll-calculation",
+          "name": "Payroll Calculation",
+          "description": "Calculate gross, deductions, net pay",
+          "capacity": 2850,
+          "cycleTimeMinutes": 0.05,
+          "inputTypes": ["time_validated"],
+          "outputType": "pay_calculated",
+          "requiredSkills": ["payroll-processing"],
+          "equipment": ["payroll-system"]
+        },
+        {
+          "id": "payroll-review",
+          "name": "Payroll Review",
+          "description": "Audit payroll for exceptions",
+          "capacity": 100,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["pay_calculated"],
+          "outputType": "pay_approved",
+          "requiredSkills": ["payroll-auditing"],
+          "equipment": ["exception-reports"]
+        },
+        {
+          "id": "payroll-disbursement",
+          "name": "Disbursement",
+          "description": "Issue direct deposits and checks",
+          "capacity": 2850,
+          "cycleTimeMinutes": 0.01,
+          "inputTypes": ["pay_approved"],
+          "outputType": "completed",
+          "requiredSkills": ["banking"],
+          "equipment": ["ach-system", "check-printer"]
+        }
+      ]
+    },
+    {
+      "id": "audit-engagement",
+      "name": "Audit Engagement Line",
+      "description": "Conduct internal audits of county offices",
+      "layout": "project",
+      "stations": [
+        {
+          "id": "audit-planning",
+          "name": "Audit Planning",
+          "description": "Plan audit scope and approach",
+          "capacity": 2,
+          "cycleTimeMinutes": 480,
+          "requiredSkills": ["audit-planning"],
+          "equipment": ["audit-software"]
+        },
+        {
+          "id": "audit-fieldwork",
+          "name": "Fieldwork",
+          "description": "Conduct audit testing and analysis",
+          "capacity": 4,
+          "cycleTimeMinutes": 2400,
+          "requiredSkills": ["auditing", "analysis"],
+          "equipment": ["audit-software", "data-analytics"]
+        },
+        {
+          "id": "audit-reporting",
+          "name": "Report Writing",
+          "description": "Prepare audit report and findings",
+          "capacity": 2,
+          "cycleTimeMinutes": 960,
+          "requiredSkills": ["report-writing"],
+          "equipment": ["word-processing"]
+        },
+        {
+          "id": "audit-followup",
+          "name": "Follow-up",
+          "description": "Track finding resolution",
+          "capacity": 1,
+          "cycleTimeMinutes": 120,
+          "requiredSkills": ["tracking"],
+          "equipment": ["finding-tracker"]
+        }
+      ]
+    }
+  ]
+}

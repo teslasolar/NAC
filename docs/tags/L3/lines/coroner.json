@@ -1,0 +1,101 @@
+{
+  "tagType": "UnitLines",
+  "id": "coroner-lines",
+  "unit": "coroner",
+  "name": "Coroner Assembly Lines",
+  "lines": [
+    {
+      "id": "death-investigation",
+      "name": "Death Investigation Line",
+      "description": "Investigate deaths under coroner jurisdiction",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "death-notification",
+          "name": "Death Notification",
+          "description": "Receive notification of death",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["death_reported"],
+          "outputType": "case_opened",
+          "requiredSkills": ["intake"],
+          "equipment": ["phone-system", "case-management"]
+        },
+        {
+          "id": "scene-investigation",
+          "name": "Scene Investigation",
+          "description": "Investigate death scene",
+          "capacity": 4,
+          "cycleTimeMinutes": 180,
+          "inputTypes": ["case_opened"],
+          "outputType": "scene_complete",
+          "requiredSkills": ["investigation", "forensics"],
+          "equipment": ["investigation-kit", "camera", "vehicle"]
+        },
+        {
+          "id": "autopsy-decision",
+          "name": "Autopsy Decision",
+          "description": "Determine if autopsy required",
+          "capacity": 2,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["scene_complete"],
+          "outputType": "autopsy_scheduled",
+          "requiredSkills": ["medical-judgment"],
+          "equipment": ["case-management"]
+        },
+        {
+          "id": "autopsy-performance",
+          "name": "Autopsy",
+          "description": "Perform autopsy examination",
+          "capacity": 1,
+          "cycleTimeMinutes": 240,
+          "inputTypes": ["autopsy_scheduled"],
+          "outputType": "autopsy_complete",
+          "requiredSkills": ["pathology"],
+          "equipment": ["autopsy-suite"]
+        },
+        {
+          "id": "death-certification",
+          "name": "Death Certification",
+          "description": "Issue death certificate",
+          "capacity": 2,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["autopsy_complete", "scene_complete"],
+          "outputType": "completed",
+          "requiredSkills": ["certification"],
+          "equipment": ["certificate-system"]
+        }
+      ]
+    },
+    {
+      "id": "cremation-authorization",
+      "name": "Cremation Authorization Line",
+      "description": "Authorize cremations per PA law",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "cremation-request",
+          "name": "Request Receipt",
+          "description": "Receive cremation authorization request",
+          "capacity": 10,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["cremation_request"],
+          "outputType": "request_logged",
+          "requiredSkills": ["intake"],
+          "equipment": ["form-system"]
+        },
+        {
+          "id": "cremation-review",
+          "name": "Review",
+          "description": "Review death certificate and circumstances",
+          "capacity": 3,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["request_logged"],
+          "outputType": "authorization_issued",
+          "requiredSkills": ["legal-review"],
+          "equipment": ["case-records"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "tagType": "UnitLines",
+  "id": "prothonotary-lines",
+  "unit": "prothonotary",
+  "name": "Prothonotary Assembly Lines",
+  "lines": [
+    {
+      "id": "civil-filings",
+      "name": "Civil Filings Line",
+      "description": "Process civil case filings",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "civil-intake",
+          "name": "Civil Intake",
+          "description": "Receive civil complaints and filings",
+          "capacity": 25,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["civil_filing"],
+          "outputType": "filing_logged",
+          "requiredSkills": ["legal-intake"],
+          "equipment": ["filing-system", "fee-collection"]
+        },
+        {
+          "id": "civil-docketing",
+          "name": "Docketing",
+          "description": "Enter on civil docket",
+          "capacity": 15,
+          "cycleTimeMinutes": 8,
+          "inputTypes": ["filing_logged"],
+          "outputType": "docketed",
+          "requiredSkills": ["data-entry"],
+          "equipment": ["docket-system"]
+        },
+        {
+          "id": "civil-indexing",
+          "name": "Indexing",
+          "description": "Index by party name",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["docketed"],
+          "outputType": "completed",
+          "requiredSkills": ["indexing"],
+          "equipment": ["index-system"]
+        }
+      ]
+    },
+    {
+      "id": "judgment-processing",
+      "name": "Judgment Processing Line",
+      "description": "Process and index judgments",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "judgment-intake",
+          "name": "Judgment Intake",
+          "description": "Receive judgment for entry",
+          "capacity": 15,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["judgment_filed"],
+          "outputType": "judgment_logged",
+          "requiredSkills": ["legal-review"],
+          "equipment": ["judgment-system"]
+        },
+        {
+          "id": "judgment-indexing",
+          "name": "Judgment Indexing",
+          "description": "Index judgment as lien",
+          "capacity": 10,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["judgment_logged"],
+          "outputType": "lien_indexed",
+          "requiredSkills": ["lien-indexing"],
+          "equipment": ["lien-index-system"]
+        },
+        {
+          "id": "judgment-certification",
+          "name": "Certification",
+          "description": "Certify judgment copies",
+          "capacity": 8,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["lien_indexed"],
+          "outputType": "completed",
+          "requiredSkills": ["certification"],
+          "equipment": ["certificate-printer", "seal"]
+        }
+      ]
+    },
+    {
+      "id": "passport-services",
+      "name": "Passport Services Line",
+      "description": "Accept passport applications",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "passport-appointment",
+          "name": "Appointment Check-in",
+          "description": "Check in passport applicant",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["appointment"],
+          "outputType": "checked_in",
+          "requiredSkills": ["customer-service"],
+          "equipment": ["appointment-system"]
+        },
+        {
+          "id": "passport-review",
+          "name": "Application Review",
+          "description": "Review application and documents",
+          "capacity": 4,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["checked_in"],
+          "outputType": "application_verified",
+          "requiredSkills": ["passport-processing"],
+          "equipment": ["checklist", "id-verification"]
+        },
+        {
+          "id": "passport-execution",
+          "name": "Oath and Execution",
+          "description": "Administer oath and witness signature",
+          "capacity": 4,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["application_verified"],
+          "outputType": "completed",
+          "requiredSkills": ["notary"],
+          "equipment": ["seal", "mailing-supplies"]
+        }
+      ]
+    }
+  ]
+}

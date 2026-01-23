@@ -1,0 +1,101 @@
+{
+  "tagType": "UnitLines",
+  "id": "register-of-wills-lines",
+  "unit": "register-of-wills",
+  "name": "Register of Wills Assembly Lines",
+  "lines": [
+    {
+      "id": "probate-processing",
+      "name": "Probate Processing Line",
+      "description": "Process estate probate filings",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "probate-intake",
+          "name": "Probate Intake",
+          "description": "Receive probate petition",
+          "capacity": 10,
+          "cycleTimeMinutes": 20,
+          "inputTypes": ["probate_petition"],
+          "outputType": "petition_logged",
+          "requiredSkills": ["legal-intake"],
+          "equipment": ["probate-system", "scanner"]
+        },
+        {
+          "id": "will-verification",
+          "name": "Will Verification",
+          "description": "Verify will and witness signatures",
+          "capacity": 5,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["petition_logged"],
+          "outputType": "will_verified",
+          "requiredSkills": ["legal-review"],
+          "equipment": ["witness-log"]
+        },
+        {
+          "id": "letters-issuance",
+          "name": "Letters Issuance",
+          "description": "Issue letters testamentary/administration",
+          "capacity": 5,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["will_verified"],
+          "outputType": "letters_issued",
+          "requiredSkills": ["document-preparation"],
+          "equipment": ["letters-system", "seal"]
+        },
+        {
+          "id": "estate-tracking",
+          "name": "Estate Tracking",
+          "description": "Track estate through administration",
+          "capacity": 20,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["letters_issued"],
+          "outputType": "completed",
+          "requiredSkills": ["case-management"],
+          "equipment": ["tracking-system"]
+        }
+      ]
+    },
+    {
+      "id": "marriage-licenses",
+      "name": "Marriage License Line",
+      "description": "Issue marriage licenses",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "license-application",
+          "name": "Application",
+          "description": "Accept marriage license application",
+          "capacity": 8,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["license_application"],
+          "outputType": "application_complete",
+          "requiredSkills": ["customer-service"],
+          "equipment": ["application-system"]
+        },
+        {
+          "id": "license-verification",
+          "name": "Verification",
+          "description": "Verify eligibility and ID",
+          "capacity": 4,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["application_complete"],
+          "outputType": "verified",
+          "requiredSkills": ["verification"],
+          "equipment": ["id-verification"]
+        },
+        {
+          "id": "license-issuance",
+          "name": "License Issuance",
+          "description": "Issue marriage license",
+          "capacity": 4,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["verified"],
+          "outputType": "completed",
+          "requiredSkills": ["document-issuance"],
+          "equipment": ["license-printer", "seal"]
+        }
+      ]
+    }
+  ]
+}

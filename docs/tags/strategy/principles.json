@@ -1,0 +1,58 @@
+{
+  "tagType": "CorePrinciples",
+  "id": "transformation-principles",
+  "name": "Core Transformation Principles",
+  "version": "1.0.0",
+  "principles": {
+    "serviceFirst": {
+      "name": "Service First",
+      "description": "Every decision starts with 'How does this help citizens?'",
+      "questions": [
+        "Does this reduce wait times for residents?",
+        "Does this make services more accessible?",
+        "Does this improve accuracy of what we deliver?",
+        "Does this treat people with dignity?"
+      ]
+    },
+    "empowerNotReplace": {
+      "name": "Empower, Not Replace",
+      "description": "Technology should free employees to do meaningful work, not eliminate jobs",
+      "questions": [
+        "Does this remove tedious tasks so staff can focus on people?",
+        "Does this give employees better tools to succeed?",
+        "Does this create opportunities for growth and learning?",
+        "Does this respect the expertise our staff have built?"
+      ]
+    },
+    "transparentAccountable": {
+      "name": "Transparent & Accountable",
+      "description": "The public has a right to know how their government operates",
+      "questions": [
+        "Can citizens easily see where their tax dollars go?",
+        "Are our processes documented and explainable?",
+        "Do we admit mistakes and fix them publicly?",
+        "Is data available for public scrutiny?"
+      ]
+    },
+    "collaborativeNotSiloed": {
+      "name": "Collaborative, Not Siloed",
+      "description": "Row officers working together serve citizens better than competing fiefdoms",
+      "questions": [
+        "Does this help offices share information appropriately?",
+        "Does this reduce duplicate work across departments?",
+        "Does this create shared standards that benefit everyone?",
+        "Does this build relationships between offices?"
+      ]
+    },
+    "ethicalEfficiency": {
+      "name": "Ethical Efficiency",
+      "description": "Cost savings must never come at the expense of service quality or employee dignity",
+      "questions": [
+        "Are savings reinvested in better services?",
+        "Are employees retrained, not terminated?",
+        "Does efficiency gain benefit citizens, not just budgets?",
+        "Are we cutting waste, not corners?"
+      ]
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "tagType": "UnitLines",
+  "id": "clerk-of-courts-lines",
+  "unit": "clerk-of-courts",
+  "name": "Clerk of Courts Assembly Lines",
+  "lines": [
+    {
+      "id": "criminal-filings",
+      "name": "Criminal Filings Line",
+      "description": "Process criminal case filings and dispositions",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "filing-intake",
+          "name": "Filing Intake",
+          "description": "Receive criminal case filings",
+          "capacity": 20,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["filing_received"],
+          "outputType": "filing_logged",
+          "requiredSkills": ["document-processing"],
+          "equipment": ["filing-system", "scanner"]
+        },
+        {
+          "id": "docket-entry",
+          "name": "Docket Entry",
+          "description": "Enter filing on case docket",
+          "capacity": 15,
+          "cycleTimeMinutes": 8,
+          "inputTypes": ["filing_logged"],
+          "outputType": "docketed",
+          "requiredSkills": ["data-entry"],
+          "equipment": ["docket-system"]
+        },
+        {
+          "id": "disposition-entry",
+          "name": "Disposition Entry",
+          "description": "Enter case dispositions",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["docketed"],
+          "outputType": "disposition_entered",
+          "requiredSkills": ["legal-data-entry"],
+          "equipment": ["disposition-system"]
+        },
+        {
+          "id": "state-reporting",
+          "name": "State Reporting",
+          "description": "Report dispositions to AOPC",
+          "capacity": 5,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["disposition_entered"],
+          "outputType": "completed",
+          "requiredSkills": ["reporting"],
+          "equipment": ["state-reporting-system"]
+        }
+      ]
+    },
+    {
+      "id": "appeals-processing",
+      "name": "Appeals Processing Line",
+      "description": "Process appeals to higher courts",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "appeal-filing",
+          "name": "Appeal Filing",
+          "description": "Receive notice of appeal",
+          "capacity": 5,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["appeal_filed"],
+          "outputType": "appeal_logged",
+          "requiredSkills": ["legal-filing"],
+          "equipment": ["appeal-system"]
+        },
+        {
+          "id": "record-compilation",
+          "name": "Record Compilation",
+          "description": "Compile trial court record",
+          "capacity": 3,
+          "cycleTimeMinutes": 480,
+          "inputTypes": ["appeal_logged"],
+          "outputType": "record_complete",
+          "requiredSkills": ["record-management"],
+          "equipment": ["record-system"]
+        },
+        {
+          "id": "record-transmission",
+          "name": "Record Transmission",
+          "description": "Transmit record to appellate court",
+          "capacity": 3,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["record_complete"],
+          "outputType": "completed",
+          "requiredSkills": ["transmission"],
+          "equipment": ["e-filing-system"]
+        }
+      ]
+    }
+  ]
+}

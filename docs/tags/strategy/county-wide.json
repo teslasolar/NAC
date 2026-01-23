@@ -1,0 +1,74 @@
+{
+  "tagType": "CountyWideInitiatives",
+  "id": "county-wide-transformation",
+  "name": "County-Wide Initiatives",
+  "version": "1.0.0",
+  "initiatives": [
+    {
+      "name": "Shared Services Hub",
+      "description": "Common technology platform for all row officers",
+      "timeline": "Year 1-2",
+      "participants": ["All Row Officers"],
+      "benefits": [
+        "Reduced duplicate systems",
+        "Consistent citizen experience",
+        "Lower IT costs",
+        "Better data sharing"
+      ]
+    },
+    {
+      "name": "One-Stop Citizen Portal",
+      "description": "Single website for all county services",
+      "timeline": "Year 1",
+      "participants": ["All Departments"],
+      "benefits": [
+        "Citizens find services easily",
+        "Reduced phone calls",
+        "24/7 availability",
+        "Better user experience"
+      ]
+    },
+    {
+      "name": "Cross-Training Program",
+      "description": "Staff can assist other offices during peak times",
+      "timeline": "Ongoing",
+      "participants": ["Voluntary participation"],
+      "benefits": [
+        "Better coverage",
+        "Career development",
+        "Understanding of county operations",
+        "Reduced wait times"
+      ]
+    },
+    {
+      "name": "Unified Data Standards",
+      "description": "Common data formats and definitions across offices",
+      "timeline": "Year 1",
+      "participants": ["All Row Officers"],
+      "benefits": [
+        "Better reporting",
+        "Easier integration",
+        "Improved analytics",
+        "Reduced errors"
+      ]
+    },
+    {
+      "name": "Employee Wellness Initiative",
+      "description": "Support staff well-being and work-life balance",
+      "timeline": "Ongoing",
+      "participants": ["All Employees"],
+      "benefits": [
+        "Lower turnover",
+        "Better service",
+        "Healthier workforce",
+        "Improved morale"
+      ]
+    }
+  ],
+  "governance": {
+    "steeringCommittee": "Monthly meetings with all row officers",
+    "reporting": "Quarterly progress reports to County Council",
+    "feedback": "Employee and citizen surveys",
+    "metrics": "KPI dashboard updated monthly"
+  }
+}

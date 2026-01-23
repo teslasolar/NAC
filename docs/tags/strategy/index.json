@@ -1,0 +1,21 @@
+{
+  "tagType": "TransformationPlan",
+  "id": "transformation-plan",
+  "name": "County Transformation Plan",
+  "description": "Comprehensive vision for county government improvement",
+  "version": "1.0.0",
+  "philosophy": "Government exists to serve citizens. Every improvement must ask 'Does this help us serve better?' not just 'Does this cost less?'",
+  "components": [
+    "strategy/principles",
+    "strategy/controller",
+    "strategy/sheriff",
+    "strategy/fiscal-affairs",
+    "strategy/county-wide"
+  ],
+  "timeline": {
+    "phase1": "0-90 days - Quick wins and foundation",
+    "phase2": "90-180 days - System improvements",
+    "phase3": "180-365 days - Full transformation",
+    "ongoing": "Continuous improvement culture"
+  }
+}

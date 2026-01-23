@@ -1,0 +1,29 @@
+{
+  "tagType": "AssemblyLines",
+  "id": "assembly-lines",
+  "name": "Assembly Line Definitions",
+  "description": "Assembly line configurations for all production units",
+  "version": "1.0.0",
+  "lines": [
+    "L3/lines/sheriff",
+    "L3/lines/fiscal-affairs",
+    "L3/lines/controller",
+    "L3/lines/coroner",
+    "L3/lines/district-attorney",
+    "L3/lines/recorder-of-deeds",
+    "L3/lines/register-of-wills",
+    "L3/lines/clerk-of-courts",
+    "L3/lines/prothonotary"
+  ],
+  "stationTemplate": {
+    "id": "string",
+    "name": "string",
+    "description": "string",
+    "capacity": "number",
+    "cycleTimeMinutes": "number",
+    "inputTypes": "array",
+    "outputType": "string",
+    "requiredSkills": "array",
+    "equipment": "array"
+  }
+}

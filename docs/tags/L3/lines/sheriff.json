@@ -1,0 +1,159 @@
+{
+  "tagType": "UnitLines",
+  "id": "sheriff-lines",
+  "unit": "sheriff",
+  "name": "Sheriff's Office Assembly Lines",
+  "lines": [
+    {
+      "id": "sheriff-sales",
+      "name": "Sheriff Sales Line",
+      "description": "Real estate and personal property sales process",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "sales-intake",
+          "name": "Sales Intake",
+          "description": "Receive writ of execution from court",
+          "capacity": 5,
+          "cycleTimeMinutes": 30,
+          "inputTypes": ["sale_petition"],
+          "outputType": "sale_scheduled",
+          "requiredSkills": ["legal-review", "document-processing"],
+          "equipment": ["document-scanner", "case-management-system"]
+        },
+        {
+          "id": "sales-scheduling",
+          "name": "Sale Scheduling",
+          "description": "Schedule sale date per PA Rules of Civil Procedure",
+          "capacity": 3,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["sale_scheduled"],
+          "outputType": "sale_advertised",
+          "requiredSkills": ["scheduling", "legal-compliance"],
+          "equipment": ["scheduling-system"]
+        },
+        {
+          "id": "sales-advertising",
+          "name": "Sale Advertising",
+          "description": "Publish legal notice per statutory requirements",
+          "capacity": 10,
+          "cycleTimeMinutes": 30240,
+          "inputTypes": ["sale_advertised"],
+          "outputType": "sale_conducted",
+          "requiredSkills": ["legal-advertising"],
+          "equipment": ["legal-notice-system"],
+          "note": "21-day statutory requirement"
+        },
+        {
+          "id": "sales-auction",
+          "name": "Auction Room",
+          "description": "Conduct public sale at courthouse",
+          "capacity": 1,
+          "cycleTimeMinutes": 60,
+          "inputTypes": ["sale_conducted"],
+          "outputType": "sale_distributed",
+          "requiredSkills": ["auctioneer", "bid-management"],
+          "equipment": ["auction-podium", "bid-recording-system"]
+        },
+        {
+          "id": "sales-distribution",
+          "name": "Proceeds Distribution",
+          "description": "Distribute sale proceeds per court order within 30 days",
+          "capacity": 5,
+          "cycleTimeMinutes": 120,
+          "inputTypes": ["sale_distributed"],
+          "outputType": "completed",
+          "requiredSkills": ["accounting", "disbursement"],
+          "equipment": ["accounting-system", "check-printer"]
+        }
+      ]
+    },
+    {
+      "id": "process-service",
+      "name": "Process Service Line",
+      "description": "Serving legal documents and court orders",
+      "layout": "linear",
+      "stations": [
+        {
+          "id": "process-intake",
+          "name": "Process Intake",
+          "description": "Receive writs and orders from court/attorneys",
+          "capacity": 20,
+          "cycleTimeMinutes": 10,
+          "inputTypes": ["writ_received"],
+          "outputType": "writ_assigned",
+          "requiredSkills": ["document-processing"],
+          "equipment": ["intake-system", "fee-collection"]
+        },
+        {
+          "id": "process-assignment",
+          "name": "Deputy Assignment",
+          "description": "Assign to deputy based on location/type",
+          "capacity": 10,
+          "cycleTimeMinutes": 5,
+          "inputTypes": ["writ_assigned"],
+          "outputType": "writ_served",
+          "requiredSkills": ["dispatch", "routing"],
+          "equipment": ["dispatch-system", "gps-tracking"]
+        },
+        {
+          "id": "process-service",
+          "name": "Field Service",
+          "description": "Deputy serves papers in the field",
+          "capacity": 15,
+          "cycleTimeMinutes": 240,
+          "inputTypes": ["writ_served"],
+          "outputType": "writ_returned",
+          "requiredSkills": ["field-service", "legal-process"],
+          "equipment": ["vehicle", "mobile-device", "body-camera"]
+        },
+        {
+          "id": "process-return",
+          "name": "Return Processing",
+          "description": "Complete return of service to court",
+          "capacity": 10,
+          "cycleTimeMinutes": 15,
+          "inputTypes": ["writ_returned"],
+          "outputType": "completed",
+          "requiredSkills": ["legal-documentation"],
+          "equipment": ["return-system", "e-filing"]
+        }
+      ]
+    },
+    {
+      "id": "court-security",
+      "name": "Court Security Line",
+      "description": "Courthouse security and prisoner transport",
+      "layout": "continuous",
+      "stations": [
+        {
+          "id": "entrance-screening",
+          "name": "Entrance Screening",
+          "description": "Screen all courthouse visitors",
+          "capacity": 3,
+          "cycleTimeMinutes": 2,
+          "requiredSkills": ["security-screening"],
+          "equipment": ["metal-detector", "x-ray-scanner"]
+        },
+        {
+          "id": "courtroom-security",
+          "name": "Courtroom Security",
+          "description": "Maintain order in courtrooms",
+          "capacity": 8,
+          "cycleTimeMinutes": null,
+          "requiredSkills": ["courtroom-procedures"],
+          "equipment": ["radio", "restraints"]
+        },
+        {
+          "id": "prisoner-transport",
+          "name": "Prisoner Transport",
+          "description": "Transport inmates to/from court",
+          "capacity": 4,
+          "cycleTimeMinutes": 60,
+          "requiredSkills": ["transport-security"],
+          "equipment": ["transport-vehicle", "restraints"]
+        }
+      ]
+    }
+  ]
+}

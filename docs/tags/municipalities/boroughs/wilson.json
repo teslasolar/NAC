@@ -1,0 +1,17 @@
+{
+  "tagType": "Municipality",
+  "id": "wilson",
+  "name": "Wilson",
+  "type": "borough",
+  "population": 8259,
+  "position": [12, 0, 8],
+  "size": [6, 5],
+  "risk": "low",
+  "note": "Adjacent to Easton.",
+  "findings": 1,
+  "compliance": 91,
+  "lastAudit": "2025-10",
+  "auditFindings": [
+    { "type": "internal", "desc": "IT access controls review recommended", "severity": "low" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tagType": "Municipality",
+  "id": "plainfield",
+  "name": "Plainfield Township",
+  "type": "township",
+  "population": 6257,
+  "position": [-30, 0, 5],
+  "size": [12, 11],
+  "risk": "low",
+  "note": "Organized 1762. Split from Bushkill.",
+  "findings": 1,
+  "compliance": 89,
+  "lastAudit": "2025-08",
+  "auditFindings": [
+    { "type": "reporting", "desc": "Account coding consistency review", "severity": "low" }
+  ]
+}

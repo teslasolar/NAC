@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "lower-nazareth",
+  "name": "Lower Nazareth Township",
+  "type": "township",
+  "population": 7081,
+  "position": [-12, 0, -5],
+  "size": [9, 8],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 94,
+  "lastAudit": "2025-09",
+  "auditFindings": []
+}

@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "bushkill",
+  "name": "Bushkill Township",
+  "type": "township",
+  "population": 8589,
+  "position": [-35, 0, -10],
+  "size": [14, 13],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 92,
+  "lastAudit": "2025-07",
+  "auditFindings": []
+}

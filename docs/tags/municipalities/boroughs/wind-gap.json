@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "wind-gap",
+  "name": "Wind Gap",
+  "type": "borough",
+  "population": 2728,
+  "position": [-32, 0, -8],
+  "size": [4, 4],
+  "risk": "low",
+  "note": "Named for gap in Blue Mountain ridge.",
+  "findings": 0,
+  "compliance": 95,
+  "lastAudit": "2025-04",
+  "auditFindings": []
+}

@@ -1,0 +1,17 @@
+{
+  "tagType": "Municipality",
+  "id": "northampton-boro",
+  "name": "Northampton",
+  "type": "borough",
+  "population": 10395,
+  "position": [-5, 0, -8],
+  "size": [7, 6],
+  "risk": "low",
+  "note": "Incorporated 1902. Former 'Cement Capital of the World'.",
+  "findings": 1,
+  "compliance": 89,
+  "lastAudit": "2025-06",
+  "auditFindings": [
+    { "type": "fiscal", "desc": "Pension funding actuarial review scheduled", "severity": "low" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "washington",
+  "name": "Washington Township",
+  "type": "township",
+  "population": 6200,
+  "position": [-28, 0, -25],
+  "size": [15, 14],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 91,
+  "lastAudit": "2025-06",
+  "auditFindings": []
+}

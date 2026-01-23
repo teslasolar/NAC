@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "hanover",
+  "name": "Hanover Township",
+  "type": "township",
+  "population": 11549,
+  "position": [-3, 0, -18],
+  "size": [10, 9],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 94,
+  "lastAudit": "2025-06",
+  "auditFindings": []
+}

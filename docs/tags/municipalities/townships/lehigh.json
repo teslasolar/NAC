@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "lehigh",
+  "name": "Lehigh Township",
+  "type": "township",
+  "population": 10766,
+  "position": [-20, 0, -20],
+  "size": [13, 12],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 93,
+  "lastAudit": "2025-09",
+  "auditFindings": []
+}

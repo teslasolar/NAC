@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "hellertown",
+  "name": "Hellertown",
+  "type": "borough",
+  "population": 6131,
+  "position": [5, 0, 20],
+  "size": [5, 5],
+  "risk": "low",
+  "note": "Part of Lehigh Valley metro area.",
+  "findings": 0,
+  "compliance": 94,
+  "lastAudit": "2025-09",
+  "auditFindings": []
+}

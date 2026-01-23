@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "nazareth",
+  "name": "Nazareth",
+  "type": "borough",
+  "population": 6053,
+  "position": [-15, 0, 10],
+  "size": [6, 6],
+  "risk": "low",
+  "note": "Home of Martin Guitars since 1839.",
+  "findings": 0,
+  "compliance": 98,
+  "lastAudit": "2025-10",
+  "auditFindings": []
+}

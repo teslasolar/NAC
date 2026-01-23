@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "east-allen",
+  "name": "East Allen Township",
+  "type": "township",
+  "population": 5094,
+  "position": [-15, 0, -12],
+  "size": [8, 7],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 92,
+  "lastAudit": "2025-04",
+  "auditFindings": []
+}

@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "pen-argyl",
+  "name": "Pen Argyl",
+  "type": "borough",
+  "population": 3596,
+  "position": [-28, 0, -20],
+  "size": [4, 4],
+  "risk": "low",
+  "note": "Named for slate (argillite) deposits.",
+  "findings": 0,
+  "compliance": 93,
+  "lastAudit": "2025-05",
+  "auditFindings": []
+}

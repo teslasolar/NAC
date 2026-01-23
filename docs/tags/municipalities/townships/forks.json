@@ -1,0 +1,16 @@
+{
+  "tagType": "Municipality",
+  "id": "forks",
+  "name": "Forks Township",
+  "type": "township",
+  "population": 16293,
+  "position": [30, 0, 8],
+  "size": [13, 11],
+  "risk": "low",
+  "findings": 1,
+  "compliance": 90,
+  "lastAudit": "2025-09",
+  "auditFindings": [
+    { "type": "procurement", "desc": "Professional services documentation review", "severity": "low" }
+  ]
+}

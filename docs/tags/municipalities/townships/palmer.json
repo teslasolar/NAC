@@ -1,0 +1,17 @@
+{
+  "tagType": "Municipality",
+  "id": "palmer",
+  "name": "Palmer Township",
+  "type": "township",
+  "population": 22317,
+  "position": [20, 0, -15],
+  "size": [14, 12],
+  "risk": "low",
+  "note": "Founded 1857. Named for surveyor George Palmer.",
+  "findings": 1,
+  "compliance": 91,
+  "lastAudit": "2025-07",
+  "auditFindings": [
+    { "type": "fiscal", "desc": "ACL review: duplicate vendor payment identified (refund requested)", "severity": "low" }
+  ]
+}

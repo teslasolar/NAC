@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "upper-nazareth",
+  "name": "Upper Nazareth Township",
+  "type": "township",
+  "population": 8127,
+  "position": [-18, 0, 0],
+  "size": [11, 10],
+  "risk": "low",
+  "note": "Part of historic Barony of Nazareth (25,000 acres).",
+  "findings": 0,
+  "compliance": 93,
+  "lastAudit": "2025-10",
+  "auditFindings": []
+}

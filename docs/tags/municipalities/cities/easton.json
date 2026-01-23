@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "easton",
+  "name": "Easton (County Seat)",
+  "type": "city",
+  "population": 29538,
+  "position": [25, 0, -5],
+  "size": [10, 10],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 96,
+  "lastAudit": "2025-11",
+  "note": "County seat since 1752. Home to Lafayette College.",
+  "auditFindings": []
+}

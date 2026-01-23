@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "bethlehem-twp",
+  "name": "Bethlehem Township",
+  "type": "township",
+  "population": 25989,
+  "position": [8, 0, -12],
+  "size": [14, 12],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 95,
+  "lastAudit": "2025-11",
+  "auditFindings": []
+}

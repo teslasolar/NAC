@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "allen",
+  "name": "Allen Township",
+  "type": "township",
+  "population": 5479,
+  "position": [-8, 0, -15],
+  "size": [8, 7],
+  "risk": "low",
+  "note": "Est. 1748. Named for Chief Justice William Allen.",
+  "findings": 0,
+  "compliance": 94,
+  "lastAudit": "2025-05",
+  "auditFindings": []
+}

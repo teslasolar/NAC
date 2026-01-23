@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "upper-mt-bethel",
+  "name": "Upper Mt. Bethel Township",
+  "type": "township",
+  "population": 7012,
+  "position": [42, 0, -12],
+  "size": [13, 12],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 90,
+  "lastAudit": "2025-02",
+  "auditFindings": []
+}

@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "lower-mt-bethel",
+  "name": "Lower Mt. Bethel Township",
+  "type": "township",
+  "population": 3271,
+  "position": [40, 0, 0],
+  "size": [12, 11],
+  "risk": "low",
+  "note": "Along Delaware River.",
+  "findings": 0,
+  "compliance": 91,
+  "lastAudit": "2025-03",
+  "auditFindings": []
+}

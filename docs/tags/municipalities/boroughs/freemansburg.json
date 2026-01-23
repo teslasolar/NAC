@@ -1,0 +1,14 @@
+{
+  "tagType": "Municipality",
+  "id": "freemansburg",
+  "name": "Freemansburg",
+  "type": "borough",
+  "population": 2636,
+  "position": [3, 0, 5],
+  "size": [3, 3],
+  "risk": "low",
+  "findings": 0,
+  "compliance": 94,
+  "lastAudit": "2025-08",
+  "auditFindings": []
+}

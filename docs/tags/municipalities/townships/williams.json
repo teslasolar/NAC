@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "williams",
+  "name": "Williams Township",
+  "type": "township",
+  "population": 6575,
+  "position": [35, 0, -8],
+  "size": [10, 9],
+  "risk": "low",
+  "note": "Est. 1750. Rolling hills, farmland, woodland.",
+  "findings": 0,
+  "compliance": 95,
+  "lastAudit": "2025-08",
+  "auditFindings": []
+}

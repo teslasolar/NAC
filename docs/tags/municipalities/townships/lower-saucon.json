@@ -1,0 +1,15 @@
+{
+  "tagType": "Municipality",
+  "id": "lower-saucon",
+  "name": "Lower Saucon Township",
+  "type": "township",
+  "population": 11077,
+  "position": [18, 0, 15],
+  "size": [12, 10],
+  "risk": "low",
+  "note": "Incorporated 1743. Approx. 25 sq miles.",
+  "findings": 0,
+  "compliance": 97,
+  "lastAudit": "2025-10",
+  "auditFindings": []
+}

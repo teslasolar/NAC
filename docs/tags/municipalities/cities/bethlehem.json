@@ -1,0 +1,17 @@
+{
+  "tagType": "Municipality",
+  "id": "bethlehem",
+  "name": "Bethlehem",
+  "type": "city",
+  "population": 77069,
+  "position": [0, 0, 0],
+  "size": [12, 12],
+  "risk": "low",
+  "findings": 1,
+  "compliance": 92,
+  "lastAudit": "2025-09",
+  "note": "Spans Lehigh & Northampton counties. 7th largest city in PA.",
+  "auditFindings": [
+    { "type": "fiscal", "desc": "P-Card fixed-asset threshold exceeded (4 items)", "severity": "low" }
+  ]
+}

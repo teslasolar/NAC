@@ -1,0 +1,18 @@
+{
+  "tagType": "Municipality",
+  "id": "bangor",
+  "name": "Bangor",
+  "type": "borough",
+  "population": 5187,
+  "position": [-25, 0, -15],
+  "size": [5, 5],
+  "risk": "medium",
+  "note": "Historic slate industry center.",
+  "findings": 2,
+  "compliance": 84,
+  "lastAudit": "2025-08",
+  "auditFindings": [
+    { "type": "fiscal", "desc": "ACL review: check numbering gaps identified", "severity": "low" },
+    { "type": "reporting", "desc": "Bank reconciliation delays", "severity": "medium" }
+  ]
+}

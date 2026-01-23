@@ -1,0 +1,151 @@
+{
+  "tagType": "UDT",
+  "name": "BudgetScenarios",
+  "description": "Budget simulation scenarios and baseline data - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - LehighValleyNews, Morning Call, norcopa.gov budget docs",
+  "baseline": {
+    "fiscalYear": 2026,
+    "totalBudget": 503000000,
+    "staffFTEs": 2847,
+    "taxMillage": 10.8,
+    "revenue": {
+      "propertyTax": 185200000,
+      "stateGrants": 98400000,
+      "federalGrants": 27300000,
+      "fees": 45800000,
+      "other": 46800000,
+      "note": "Federal grants dropped $25M from 2025 (no more COVID relief)"
+    },
+    "expenditures": {
+      "personnel": 198500000,
+      "benefits": 62300000,
+      "operations": 89400000,
+      "capital": 35200000,
+      "debtService": 43100000,
+      "gracedale": 74500000
+    }
+  },
+  "scenarios": {
+    "baseline": {
+      "name": "Current Budget",
+      "description": "FY2026 approved budget - 8th year no tax increase",
+      "budgetMultiplier": 1.0,
+      "staffMultiplier": 1.0,
+      "revenueMultiplier": 1.0,
+      "taxChangeMillage": 0,
+      "flags": {
+        "gracedaleClosure": false,
+        "hiringFreeze": false,
+        "capitalDefer": false
+      }
+    },
+    "austerity": {
+      "name": "Austerity",
+      "description": "10% across-the-board cuts, hiring freeze",
+      "budgetMultiplier": 0.90,
+      "staffMultiplier": 0.92,
+      "revenueMultiplier": 0.95,
+      "taxChangeMillage": 0,
+      "flags": {
+        "hiringFreeze": true,
+        "capitalDefer": true,
+        "overtimeFreeze": true
+      },
+      "impacts": [
+        "Reduced service hours at row offices",
+        "Deferred road maintenance",
+        "Staff attrition not replaced"
+      ]
+    },
+    "growth": {
+      "name": "Moderate Growth",
+      "description": "3% budget increase with strategic investments",
+      "budgetMultiplier": 1.03,
+      "staffMultiplier": 1.02,
+      "revenueMultiplier": 1.04,
+      "taxChangeMillage": 0.5,
+      "flags": {
+        "gracedaleClosure": false,
+        "capitalInvestment": true
+      },
+      "impacts": [
+        "New IT systems for row offices",
+        "Gracedale staffing improvements",
+        "Bridge repair acceleration"
+      ]
+    },
+    "crisis": {
+      "name": "Fiscal Crisis",
+      "description": "Revenue shortfall scenario with cuts and layoffs",
+      "budgetMultiplier": 0.85,
+      "staffMultiplier": 0.80,
+      "revenueMultiplier": 0.88,
+      "taxChangeMillage": 0,
+      "flags": {
+        "hiringFreeze": true,
+        "layoffs": true,
+        "capitalDefer": true,
+        "serviceReduction": true
+      },
+      "impacts": [
+        "5% workforce reduction",
+        "Reduced Gracedale county staffing",
+        "Consolidated office hours",
+        "Delayed capital projects"
+      ]
+    },
+    "efficiency": {
+      "name": "Efficiency Initiative",
+      "description": "Process improvements, shared services, technology",
+      "budgetMultiplier": 0.97,
+      "staffMultiplier": 0.98,
+      "revenueMultiplier": 1.01,
+      "taxChangeMillage": 0,
+      "flags": {
+        "technologyInvestment": true,
+        "processAutomation": true,
+        "sharedServices": true
+      },
+      "impacts": [
+        "Digital document processing",
+        "Gracedale Priority Resource Pool savings",
+        "Shared back-office services"
+      ],
+      "savingsAreas": [
+        { "area": "Gracedale staffing", "savings": 3500000 },
+        { "area": "IT consolidation", "savings": 1200000 },
+        { "area": "Process automation", "savings": 800000 }
+      ]
+    },
+    "taxIncrease": {
+      "name": "Tax Increase Scenario",
+      "description": "1 mill increase as proposed by some council members",
+      "budgetMultiplier": 1.05,
+      "staffMultiplier": 1.0,
+      "revenueMultiplier": 1.08,
+      "taxChangeMillage": 1.0,
+      "newMillage": 11.8,
+      "additionalRevenue": 17200000,
+      "flags": {
+        "capitalInvestment": true,
+        "reserveBuilding": true
+      },
+      "impacts": [
+        "Increased fund balance reserves",
+        "Deferred maintenance addressed",
+        "Gracedale stabilization funding"
+      ],
+      "note": "Rejected by council 7-2 in Dec 2025"
+    }
+  },
+  "simulationParameters": {
+    "maxYearsProjection": 5,
+    "inflationRate": 0.025,
+    "pensionGrowthRate": 0.035,
+    "healthcareGrowthRate": 0.06,
+    "propertyValueGrowthRate": 0.02
+  }
+}

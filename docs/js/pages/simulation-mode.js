@@ -85,13 +85,46 @@ function updateSlider(id) {
   else valSpan.textContent = (val >= 0 ? '+' : '') + val + '%';
 }
 
-const scenarios = {
+// Scenarios loaded from tags or fallback
+let scenarios = {
   baseline: { taxRevenue: 0, grants: 0, fees: 0, workforce: 100, salary: 0, benefits: 0, demand: 100, efficiency: 100, tech: 0, consolidation: false, outsourcing: false, automation: false, shared: false },
   austerity: { taxRevenue: -5, grants: -10, fees: 5, workforce: 90, salary: 0, benefits: -5, demand: 100, efficiency: 105, tech: 0, consolidation: true, outsourcing: false, automation: false, shared: true },
   growth: { taxRevenue: 10, grants: 15, fees: 10, workforce: 110, salary: 5, benefits: 3, demand: 115, efficiency: 110, tech: 5, consolidation: false, outsourcing: false, automation: true, shared: false },
   crisis: { taxRevenue: -15, grants: -25, fees: -10, workforce: 85, salary: -3, benefits: 10, demand: 120, efficiency: 90, tech: 0, consolidation: true, outsourcing: true, automation: false, shared: true },
   efficiency: { taxRevenue: 0, grants: 5, fees: 0, workforce: 95, salary: 2, benefits: 0, demand: 100, efficiency: 130, tech: 8, consolidation: false, outsourcing: false, automation: true, shared: true }
 };
+
+// Load scenarios from budget-scenarios tag
+async function loadScenarios() {
+  try {
+    const response = await fetch('tags/budget-scenarios.json');
+    if (response.ok) {
+      const data = await response.json();
+      // Update baseline data from tag
+      if (data.baseline) {
+        baselineData.totalBudget = data.baseline.totalBudget / 1000000; // Convert to millions
+        baselineData.staffFTEs = data.baseline.staffFTEs;
+        baselineData.revenues = {
+          propertyTax: data.baseline.revenue.propertyTax / 1000000,
+          stateGrants: data.baseline.revenue.stateGrants / 1000000,
+          federalGrants: data.baseline.revenue.federalGrants / 1000000,
+          fees: data.baseline.revenue.fees / 1000000,
+          other: data.baseline.revenue.other / 1000000
+        };
+        baselineData.expenditures = {
+          personnel: data.baseline.expenditures.personnel / 1000000,
+          benefits: data.baseline.expenditures.benefits / 1000000,
+          operations: data.baseline.expenditures.operations / 1000000,
+          capital: data.baseline.expenditures.capital / 1000000,
+          debt: data.baseline.expenditures.debtService / 1000000
+        };
+      }
+      console.log('Loaded budget scenarios from tags');
+    }
+  } catch (err) {
+    console.warn('Could not load budget-scenarios tag:', err);
+  }
+}
 
 function loadScenario(scenario) {
   document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
@@ -215,6 +248,7 @@ function updateAnalysisNotes(params, surplus, serviceCapacity, staff) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Load data from tags first
+  await loadScenarios(); // Load budget scenarios
   if (typeof TagLoader !== 'undefined') {
     await loadSimulationData();
   }

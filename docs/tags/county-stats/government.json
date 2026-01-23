@@ -1,0 +1,56 @@
+{
+  "tagType": "UDT",
+  "id": "government-structure",
+  "name": "Northampton County Government Structure",
+  "asOf": "2026-01-23",
+  "classification": {
+    "class": "Third Class",
+    "paCodeTitle": "Title 16",
+    "homeRule": true,
+    "homeRuleCharterYear": 1978,
+    "note": "Home Rule Charter changes some traditional PA county officer elections to appointments"
+  },
+  "branches": {
+    "executive": {
+      "head": "County Executive",
+      "currentHolder": "Tara Zrinski",
+      "swornIn": "2026-01-05",
+      "termYears": 4,
+      "termLimited": true,
+      "termLimit": "2 consecutive terms",
+      "salary": 105000
+    },
+    "legislative": {
+      "name": "County Council",
+      "members": 9,
+      "districts": 4,
+      "atLarge": 5,
+      "termYears": 4
+    },
+    "judicial": {
+      "courtOfCommonPleas": true,
+      "judges": 15,
+      "magisterialDistrictJudges": 12
+    }
+  },
+  "workforce": {
+    "totalEmployees": 2000,
+    "source": "WFMZ Jan 2026",
+    "note": "County Executive oversees ~2,000 employees"
+  },
+  "rowOfficers": {
+    "elected": ["District Attorney"],
+    "appointed": ["Sheriff", "Coroner"],
+    "careerService": ["Clerk of Courts", "Prothonotary", "Recorder of Deeds", "Register of Wills"],
+    "vacantPositions": ["Controller", "Fiscal Affairs Director"],
+    "note": "Northampton County's Home Rule Charter makes many traditional elected positions appointed"
+  },
+  "uniqueFeatures": [
+    "Only county in PA with non-elected Prothonotary (career service)",
+    "Sheriff is appointed, not elected",
+    "Coroner is appointed, not elected",
+    "No elected Treasurer (Fiscal Affairs under executive branch)"
+  ],
+  "verified": true,
+  "verifiedDate": "2026-01-23"
+}

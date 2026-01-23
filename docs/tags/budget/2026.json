@@ -1,0 +1,33 @@
+{
+  "tagType": "UDT",
+  "id": "budget-2026",
+  "name": "FY 2026 Budget",
+  "fiscalYear": 2026,
+  "totalBudget": 503000000,
+  "taxRateMills": 10.8,
+  "consecutiveNoIncreaseYears": 8,
+  "expenditureChange": -7.3,
+  "homeAssessedAt50k": 540,
+  "approvedDate": "2025-12-05",
+  "proposedDate": "2025-10-02",
+  "proposedBy": "County Executive Lamont McClure",
+  "approvedBy": "County Council",
+  "vote": "7-2",
+  "note": "First time since at least 1961 county went 8 years without increase",
+  "highlights": [
+    "7.3% reduction in expenditures while maintaining essential services",
+    "Gracedale operates without General Fund contribution",
+    "Continues investment in open space and farmland preservation"
+  ],
+  "opposition": {
+    "proposal": "Ron Heckman proposed increase to 11.8 mills",
+    "reason": "Continue funding county operations into the future",
+    "outcome": "Rejected"
+  },
+  "verified": true,
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "date": "2025-10-02", "topic": "Budget proposal" },
+    { "name": "LehighValleyNews", "date": "2025-12-05", "topic": "Budget approval" }
+  ]
+}

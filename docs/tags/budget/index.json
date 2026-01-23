@@ -1,0 +1,28 @@
+{
+  "tagType": "UDT-Index",
+  "name": "CountyBudget",
+  "description": "Northampton County Annual Budget Data",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "Morning Call",
+    "LehighValleyNews",
+    "WFMZ",
+    "norcopa.gov press releases"
+  ],
+  "dataSource": "src/data/db/budgets.json",
+  "files": [
+    { "id": "current", "file": "2026.json", "description": "FY 2026 budget (current)" },
+    { "id": "history", "file": "history.json", "description": "Budget history 2020-2025" },
+    { "id": "tax-rate", "file": "tax-rate.json", "description": "Tax rate history" }
+  ],
+  "current": {
+    "year": 2026,
+    "totalBudget": 503000000,
+    "taxRateMills": 10.8,
+    "consecutiveNoIncreaseYears": 8,
+    "approvedDate": "2025-12-05",
+    "note": "First time since at least 1961 county went 8 years without increase"
+  }
+}

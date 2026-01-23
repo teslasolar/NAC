@@ -1,0 +1,23 @@
+{
+  "tagType": "UDT-Index",
+  "name": "OfficialSalaries",
+  "description": "Northampton County Elected Official and Key Position Salaries",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "Morning Call",
+    "WFMZ",
+    "County Council ordinances"
+  ],
+  "dataSource": "src/data/db/salaries.json",
+  "files": [
+    { "id": "elected", "file": "elected-officials.json", "description": "Elected official salaries" },
+    { "id": "appointed", "file": "appointed-positions.json", "description": "Key appointed positions" }
+  ],
+  "current2026": [
+    { "position": "County Executive", "salary": 105000, "note": "23.5% increase effective 2026" },
+    { "position": "County Controller", "salary": 85000, "note": "Since Jan 2024" },
+    { "position": "County Council", "salary": null, "note": "Part-time, per meeting" }
+  ]
+}

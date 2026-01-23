@@ -1,0 +1,56 @@
+{
+  "tagType": "UDT",
+  "id": "elected-official-salaries",
+  "name": "Elected Official Salaries",
+  "asOf": "2026-01-23",
+  "salaries": [
+    {
+      "position": "County Executive",
+      "currentHolder": "Tara Zrinski",
+      "salary": 105000,
+      "effectiveDate": "2026-01-01",
+      "previousSalary": 85000,
+      "increasePercent": 23.5,
+      "approvedBy": "County Council",
+      "termLimited": true,
+      "termLimit": "2 consecutive 4-year terms",
+      "verified": true
+    },
+    {
+      "position": "County Controller",
+      "currentHolder": "VACANT",
+      "salary": 85000,
+      "effectiveDate": "2024-01-01",
+      "previousSalary": 75000,
+      "increaseAmount": 10000,
+      "approvedDate": "2022-09-15",
+      "approvedBy": "County Council (unanimous)",
+      "verified": true
+    },
+    {
+      "position": "District Attorney",
+      "currentHolder": "Stephen G. Baratta",
+      "salary": null,
+      "note": "Salary not verified in web search",
+      "verified": false
+    },
+    {
+      "position": "Sheriff",
+      "currentHolder": "Christopher Zieger",
+      "salary": null,
+      "note": "Appointed position (Home Rule); $89,235 in 2018 per Morning Call",
+      "verified": false
+    },
+    {
+      "position": "Coroner",
+      "currentHolder": "Zachary Lysek",
+      "salary": null,
+      "note": "Appointed position (Home Rule)",
+      "verified": false
+    }
+  ],
+  "sources": [
+    { "name": "Morning Call", "date": "Oct 2023", "topic": "Controller salary" },
+    { "name": "WFMZ", "date": "Jan 2026", "topic": "County Executive salary" }
+  ]
+}

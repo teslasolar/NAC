@@ -1,0 +1,29 @@
+{
+  "tagType": "UDT-Index",
+  "name": "CountyStatistics",
+  "description": "Northampton County Key Statistics and Demographics",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "US Census Bureau",
+    "WFMZ",
+    "norcopa.gov"
+  ],
+  "files": [
+    { "id": "demographics", "file": "demographics.json", "description": "Population and demographics" },
+    { "id": "government", "file": "government.json", "description": "Government structure and workforce" }
+  ],
+  "quickStats": {
+    "population": 349819,
+    "populationSource": "US Census Bureau 2024",
+    "countyClass": "Third Class",
+    "homeRule": true,
+    "homeRuleCharterYear": 1978,
+    "employees": 2000,
+    "budget2026": 503000000,
+    "taxRateMills": 10.8,
+    "countyExecutive": "Tara Zrinski",
+    "countyExecutiveFirstWoman": true
+  }
+}

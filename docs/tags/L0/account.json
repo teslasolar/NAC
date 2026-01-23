@@ -1,0 +1,30 @@
+{
+  "tagType": "UDT",
+  "id": "L0.Account",
+  "name": "Chart of Accounts Structure",
+  "description": "Account numbering and hierarchy configuration",
+  "version": "1.0.0",
+  "structure": {
+    "format": "FF-DDD-OOOO",
+    "segments": {
+      "fund": { "position": 1, "length": 2, "description": "Fund code" },
+      "department": { "position": 2, "length": 3, "description": "Department code" },
+      "object": { "position": 3, "length": 4, "description": "Object code" }
+    }
+  },
+  "fundTypes": {
+    "01": { "name": "General Fund", "type": "GENERAL" },
+    "02": { "name": "Special Revenue", "type": "SPECIAL_REVENUE" },
+    "03": { "name": "Debt Service", "type": "DEBT_SERVICE" },
+    "04": { "name": "Capital Projects", "type": "CAPITAL_PROJECTS" },
+    "05": { "name": "Enterprise", "type": "ENTERPRISE" }
+  },
+  "objectCategories": {
+    "1000-1999": "Personnel Services",
+    "2000-2999": "Supplies",
+    "3000-3999": "Services",
+    "4000-4999": "Capital Outlay",
+    "5000-5999": "Debt Service",
+    "6000-6999": "Transfers"
+  }
+}

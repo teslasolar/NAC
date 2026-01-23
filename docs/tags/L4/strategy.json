@@ -1,0 +1,65 @@
+{
+  "tagType": "UDT",
+  "id": "L4.Strategy",
+  "name": "Strategic Goals",
+  "description": "Multi-year strategic planning and goals",
+  "version": "1.0.0",
+  "planPeriod": {
+    "start": "2024-01-01",
+    "end": "2027-12-31",
+    "name": "2024-2027 Strategic Plan"
+  },
+  "goals": {
+    "transparency": {
+      "name": "Enhance Transparency",
+      "description": "Increase public access to financial information",
+      "status": "IN_PROGRESS",
+      "progress": 35,
+      "milestones": [
+        { "name": "Launch Open Checkbook", "status": "COMPLETE" },
+        { "name": "Publish Monthly Reports", "status": "IN_PROGRESS" },
+        { "name": "Create Public Dashboard", "status": "NOT_STARTED" }
+      ]
+    },
+    "modernization": {
+      "name": "Technology Modernization",
+      "description": "Upgrade legacy financial systems",
+      "status": "IN_PROGRESS",
+      "progress": 20,
+      "milestones": [
+        { "name": "Assess Current Systems", "status": "COMPLETE" },
+        { "name": "Select ERP Platform", "status": "NOT_STARTED" },
+        { "name": "Implement New System", "status": "NOT_STARTED" }
+      ]
+    },
+    "efficiency": {
+      "name": "Operational Efficiency",
+      "description": "Reduce processing times and costs",
+      "status": "NOT_STARTED",
+      "progress": 0,
+      "milestones": [
+        { "name": "Baseline Metrics", "status": "NOT_STARTED" },
+        { "name": "Process Automation", "status": "NOT_STARTED" },
+        { "name": "Achieve 20% Improvement", "status": "NOT_STARTED" }
+      ]
+    },
+    "compliance": {
+      "name": "Strengthen Compliance",
+      "description": "Expand audit coverage and internal controls",
+      "status": "IN_PROGRESS",
+      "progress": 50,
+      "milestones": [
+        { "name": "Risk Assessment", "status": "COMPLETE" },
+        { "name": "Audit Plan Expansion", "status": "COMPLETE" },
+        { "name": "Zero Material Findings", "status": "IN_PROGRESS" }
+      ]
+    }
+  },
+  "summary": {
+    "totalGoals": 4,
+    "complete": 0,
+    "inProgress": 3,
+    "notStarted": 1,
+    "atRisk": 0
+  }
+}

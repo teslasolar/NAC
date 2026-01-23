@@ -1,0 +1,41 @@
+{
+  "tagType": "UDT",
+  "id": "L3.OEE",
+  "name": "Overall Equipment Effectiveness",
+  "description": "OEE metrics for all production units",
+  "version": "1.0.0",
+  "formula": {
+    "description": "OEE = Availability × Performance × Quality",
+    "availability": "Actual Run Time / Planned Production Time",
+    "performance": "Actual Throughput / Maximum Throughput",
+    "quality": "Good Units / Total Units"
+  },
+  "targets": {
+    "oee": 85,
+    "availability": 90,
+    "performance": 95,
+    "quality": 99
+  },
+  "benchmarks": {
+    "worldClass": 85,
+    "good": 70,
+    "acceptable": 60,
+    "poor": 40
+  },
+  "byUnit": {
+    "Sheriff": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "Treasurer": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "Coroner": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "DistrictAttorney": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "RecorderOfDeeds": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "RegisterOfWills": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "ClerkOfCourts": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 },
+    "Prothonotary": { "oee": 0, "availability": 100, "performance": 100, "quality": 100 }
+  },
+  "overall": {
+    "oee": 0,
+    "availability": 100,
+    "performance": 100,
+    "quality": 100
+  }
+}

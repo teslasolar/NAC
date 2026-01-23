@@ -1,0 +1,25 @@
+{
+  "tagType": "Level",
+  "id": "L3",
+  "name": "Operations Layer",
+  "description": "Production units, assembly lines, and operational metrics",
+  "version": "1.0.0",
+  "tags": [
+    "L3/units",
+    "L3/oee",
+    "L3/wip",
+    "L3/capacity"
+  ],
+  "moduleCount": 25,
+  "color": "#f59e0b",
+  "units": [
+    "Sheriff",
+    "Treasurer",
+    "Coroner",
+    "DistrictAttorney",
+    "RecorderOfDeeds",
+    "RegisterOfWills",
+    "ClerkOfCourts",
+    "Prothonotary"
+  ]
+}

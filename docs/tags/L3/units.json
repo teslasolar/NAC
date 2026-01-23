@@ -1,0 +1,73 @@
+{
+  "tagType": "UDT",
+  "id": "L3.Units",
+  "name": "Production Units",
+  "description": "Row officer production unit configuration",
+  "version": "1.0.0",
+  "unitTemplate": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "status": { "type": "UnitStatus", "default": "ONLINE" },
+    "state": { "type": "PackMLState", "default": "IDLE" },
+    "mode": { "type": "PackMLMode", "default": "PRODUCTION" },
+    "staffCount": { "type": "integer" },
+    "staffAvailable": { "type": "integer" },
+    "lines": { "type": "array", "items": "AssemblyLine" }
+  },
+  "units": {
+    "Sheriff": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 156,
+      "lines": ["CivilProcess", "CourtSecurity", "SheriffSales", "WarrantService"]
+    },
+    "Treasurer": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 25,
+      "lines": ["TaxCollection", "DogLicenses", "Investments"]
+    },
+    "Coroner": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 12,
+      "lines": ["DeathInvestigation", "AutopsyServices", "Cremations"]
+    },
+    "DistrictAttorney": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 85,
+      "lines": ["CriminalProsecution", "JuvenileCases", "DivertPrograms"]
+    },
+    "RecorderOfDeeds": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 18,
+      "lines": ["DeedRecording", "DocumentRetrieval", "VeteransServices"]
+    },
+    "RegisterOfWills": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 15,
+      "lines": ["ProbateProcessing", "MarriageLicenses", "PassportServices"]
+    },
+    "ClerkOfCourts": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 32,
+      "lines": ["CriminalFilings", "AppealProcessing", "RecordManagement"]
+    },
+    "Prothonotary": {
+      "status": "ONLINE",
+      "state": "IDLE",
+      "staffCount": 22,
+      "lines": ["CivilFilings", "JudgmentProcessing", "Naturalizations"]
+    }
+  },
+  "globalMetrics": {
+    "totalUnits": 8,
+    "unitsOnline": 8,
+    "unitsOffline": 0,
+    "totalStaff": 365
+  }
+}

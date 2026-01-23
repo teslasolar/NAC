@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "L2.Process",
+  "name": "Process Control",
+  "description": "PackML process state management",
+  "version": "1.0.0",
+  "packml": {
+    "standard": "ISA-88",
+    "currentState": "IDLE",
+    "currentMode": "PRODUCTION",
+    "health": 100
+  },
+  "states": {
+    "STOPPED": { "description": "System stopped", "transitions": ["IDLE"] },
+    "IDLE": { "description": "Ready to execute", "transitions": ["STARTING", "STOPPED"] },
+    "STARTING": { "description": "Starting operations", "transitions": ["EXECUTE", "ABORTING"] },
+    "EXECUTE": { "description": "Normal operation", "transitions": ["COMPLETING", "HOLDING", "SUSPENDING", "ABORTING"] },
+    "COMPLETING": { "description": "Finishing work", "transitions": ["COMPLETE"] },
+    "COMPLETE": { "description": "Work complete", "transitions": ["IDLE"] },
+    "HOLDING": { "description": "Pausing for issue", "transitions": ["HELD", "ABORTING"] },
+    "HELD": { "description": "Paused", "transitions": ["EXECUTE", "ABORTING"] },
+    "SUSPENDING": { "description": "External pause", "transitions": ["SUSPENDED"] },
+    "SUSPENDED": { "description": "Externally paused", "transitions": ["EXECUTE"] },
+    "ABORTING": { "description": "Emergency stop", "transitions": ["ABORTED"] },
+    "ABORTED": { "description": "Stopped due to error", "transitions": ["STOPPED"] }
+  },
+  "modes": {
+    "PRODUCTION": { "description": "Normal operations" },
+    "MAINTENANCE": { "description": "System maintenance" },
+    "MANUAL": { "description": "Manual control" },
+    "AUDIT": { "description": "Audit mode - enhanced logging" },
+    "TRAINING": { "description": "Training/sandbox mode" }
+  }
+}

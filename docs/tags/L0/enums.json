@@ -1,0 +1,39 @@
+{
+  "tagType": "UDT",
+  "id": "L0.Enums",
+  "name": "System Enumerations",
+  "description": "All enumeration types used throughout the system",
+  "version": "1.0.0",
+  "enums": {
+    "ClaimStatus": {
+      "values": ["DRAFT", "SUBMITTED", "UNDER_REVIEW", "APPROVED", "REJECTED", "PAID", "VOIDED"],
+      "default": "DRAFT",
+      "description": "Lifecycle states for claims against the county"
+    },
+    "AuditType": {
+      "values": ["FINANCIAL", "COMPLIANCE", "PERFORMANCE", "SPECIAL", "FOLLOW_UP"],
+      "default": "FINANCIAL",
+      "description": "Categories of audits per Government Auditing Standards"
+    },
+    "FindingSeverity": {
+      "values": ["MATERIAL_WEAKNESS", "SIGNIFICANT_DEFICIENCY", "CONTROL_DEFICIENCY", "OBSERVATION"],
+      "default": "OBSERVATION",
+      "description": "Audit finding severity levels"
+    },
+    "FundType": {
+      "values": ["GENERAL", "SPECIAL_REVENUE", "CAPITAL_PROJECTS", "DEBT_SERVICE", "ENTERPRISE", "INTERNAL_SERVICE"],
+      "default": "GENERAL",
+      "description": "Governmental fund classification"
+    },
+    "PaymentMethod": {
+      "values": ["CHECK", "ACH", "WIRE", "CASH", "CREDIT_CARD"],
+      "default": "CHECK",
+      "description": "Payment disbursement methods"
+    },
+    "DocumentStatus": {
+      "values": ["DRAFT", "PENDING_REVIEW", "APPROVED", "PUBLISHED", "ARCHIVED", "DELETED"],
+      "default": "DRAFT",
+      "description": "Document lifecycle states"
+    }
+  }
+}

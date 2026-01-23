@@ -1,0 +1,37 @@
+{
+  "tagType": "UDT",
+  "id": "L3.WIP",
+  "name": "Work In Progress",
+  "description": "Active work items across all units",
+  "version": "1.0.0",
+  "summary": {
+    "totalItems": 0,
+    "inQueue": 0,
+    "inProcess": 0,
+    "awaitingApproval": 0,
+    "completed24h": 0
+  },
+  "byUnit": {
+    "Sheriff": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "Treasurer": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "Coroner": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "DistrictAttorney": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "RecorderOfDeeds": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "RegisterOfWills": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "ClerkOfCourts": { "backlog": 0, "inProgress": 0, "completed": 0 },
+    "Prothonotary": { "backlog": 0, "inProgress": 0, "completed": 0 }
+  },
+  "aging": {
+    "under1Day": 0,
+    "1to3Days": 0,
+    "3to7Days": 0,
+    "7to14Days": 0,
+    "over14Days": 0
+  },
+  "thresholds": {
+    "backlogWarning": 100,
+    "backlogCritical": 250,
+    "cycleTimeWarning": 5,
+    "cycleTimeCritical": 10
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "L2.AuditPlan",
+  "name": "Audit Plan Control",
+  "description": "Annual audit plan and schedule management",
+  "version": "1.0.0",
+  "current": {
+    "year": 2026,
+    "status": "ACTIVE",
+    "engagementsPlanned": 12,
+    "engagementsComplete": 0,
+    "engagementsInProgress": 0
+  },
+  "riskAssessment": {
+    "lastPerformed": "2025-10-15",
+    "methodology": "COSO-ERM",
+    "highRiskAreas": [
+      "Gracedale Operations",
+      "ARPA Fund Management",
+      "Payroll Processing",
+      "Procurement Card Program"
+    ]
+  },
+  "schedule": {
+    "Q1": ["Payroll Audit", "Cash Receipts Review"],
+    "Q2": ["Procurement Audit", "IT Controls"],
+    "Q3": ["Gracedale Financial Review", "ARPA Compliance"],
+    "Q4": ["Annual Financial Statements", "Single Audit"]
+  },
+  "resources": {
+    "auditors": 4,
+    "hoursAvailable": 7200,
+    "hoursAllocated": 0,
+    "contractedHours": 1200
+  }
+}

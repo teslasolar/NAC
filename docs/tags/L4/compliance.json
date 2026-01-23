@@ -1,0 +1,51 @@
+{
+  "tagType": "UDT",
+  "id": "L4.Compliance",
+  "name": "Compliance Status",
+  "description": "Regulatory and policy compliance tracking",
+  "version": "1.0.0",
+  "frameworks": {
+    "paCode": {
+      "name": "PA County Code Title 16",
+      "status": "COMPLIANT",
+      "lastReview": "2025-12-15",
+      "nextReview": "2026-12-15",
+      "findings": 0
+    },
+    "charter": {
+      "name": "Northampton County Home Rule Charter",
+      "status": "COMPLIANT",
+      "lastReview": "2025-11-01",
+      "nextReview": "2026-11-01",
+      "findings": 0
+    },
+    "gaap": {
+      "name": "GAAP / GASB Standards",
+      "status": "COMPLIANT",
+      "lastReview": "2025-06-30",
+      "nextReview": "2026-06-30",
+      "findings": 0
+    },
+    "singleAudit": {
+      "name": "Single Audit (2 CFR 200)",
+      "status": "COMPLIANT",
+      "lastReview": "2025-03-31",
+      "nextReview": "2026-03-31",
+      "findings": 0
+    },
+    "arpa": {
+      "name": "ARPA Compliance",
+      "status": "COMPLIANT",
+      "lastReview": "2025-09-30",
+      "nextReview": "2026-09-30",
+      "findings": 0
+    }
+  },
+  "summary": {
+    "totalFrameworks": 5,
+    "compliant": 5,
+    "nonCompliant": 0,
+    "pendingReview": 0,
+    "openFindings": 0
+  }
+}

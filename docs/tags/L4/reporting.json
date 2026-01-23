@@ -1,0 +1,61 @@
+{
+  "tagType": "UDT",
+  "id": "L4.Reporting",
+  "name": "Reporting Status",
+  "description": "Required reports and publication status",
+  "version": "1.0.0",
+  "reports": {
+    "acfr": {
+      "name": "Annual Comprehensive Financial Report",
+      "frequency": "Annual",
+      "dueDate": "2026-06-30",
+      "status": "PENDING",
+      "lastPublished": "2025-06-28",
+      "authority": "GASB 34"
+    },
+    "singleAudit": {
+      "name": "Single Audit Report",
+      "frequency": "Annual",
+      "dueDate": "2026-03-31",
+      "status": "PENDING",
+      "lastPublished": "2025-03-28",
+      "authority": "2 CFR 200"
+    },
+    "monthlyFinancial": {
+      "name": "Monthly Financial Statement",
+      "frequency": "Monthly",
+      "dueDate": "2026-02-15",
+      "status": "PENDING",
+      "lastPublished": "2026-01-14",
+      "authority": "16 P.S. § 1725"
+    },
+    "quarterlyBudget": {
+      "name": "Quarterly Budget Report",
+      "frequency": "Quarterly",
+      "dueDate": "2026-04-15",
+      "status": "PENDING",
+      "lastPublished": "2026-01-10",
+      "authority": "Charter"
+    },
+    "arpaQuarterly": {
+      "name": "ARPA Project & Expenditure Report",
+      "frequency": "Quarterly",
+      "dueDate": "2026-04-30",
+      "status": "PENDING",
+      "lastPublished": "2025-10-28",
+      "authority": "Treasury Guidance"
+    }
+  },
+  "summary": {
+    "totalReports": 5,
+    "published": 0,
+    "pending": 5,
+    "overdue": 0
+  },
+  "distribution": {
+    "countyCouncil": true,
+    "countyExecutive": true,
+    "publicWebsite": true,
+    "stateAgencies": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "tagType": "Level",
+  "id": "L0",
+  "name": "Base Data Types",
+  "description": "Foundational types and enumerations for the ISA-95 system",
+  "version": "1.0.0",
+  "tags": [
+    "L0/enums",
+    "L0/money",
+    "L0/person",
+    "L0/account",
+    "L0/legal"
+  ],
+  "moduleCount": 11,
+  "color": "#64748b"
+}

@@ -1,0 +1,79 @@
+{
+  "tagType": "UDT",
+  "id": "L4.Boards",
+  "name": "Board Memberships",
+  "description": "Boards the Controller serves on per PA Code",
+  "version": "1.0.0",
+  "boards": {
+    "retirement": {
+      "name": "Retirement Board",
+      "authority": "16 P.S. § 4713",
+      "role": "Voting Member",
+      "meetingFrequency": "Monthly",
+      "nextMeeting": null,
+      "status": "Active",
+      "responsibilities": [
+        "Oversee pension fund investments",
+        "Approve benefit calculations",
+        "Set contribution rates"
+      ]
+    },
+    "salary": {
+      "name": "Salary Board",
+      "authority": "16 P.S. § 1622",
+      "role": "Voting Member",
+      "meetingFrequency": "As Needed",
+      "nextMeeting": null,
+      "status": "Active",
+      "responsibilities": [
+        "Set salaries for row officers",
+        "Approve salary adjustments",
+        "Review classification changes"
+      ]
+    },
+    "prison": {
+      "name": "Prison Board",
+      "authority": "61 P.S. § 499",
+      "role": "Voting Member",
+      "meetingFrequency": "Monthly",
+      "nextMeeting": null,
+      "status": "Active",
+      "responsibilities": [
+        "Oversee corrections operations",
+        "Approve prison policies",
+        "Review inmate welfare"
+      ]
+    },
+    "elections": {
+      "name": "Elections Board",
+      "authority": "25 P.S. § 2641",
+      "role": "Ex Officio",
+      "meetingFrequency": "As Needed",
+      "nextMeeting": null,
+      "status": "Active",
+      "responsibilities": [
+        "Certify election results",
+        "Review election procedures",
+        "Approve voting equipment"
+      ]
+    },
+    "constable": {
+      "name": "Constable Review Board",
+      "authority": "44 Pa. Code § 7.1",
+      "role": "Member",
+      "meetingFrequency": "Quarterly",
+      "nextMeeting": null,
+      "status": "Active",
+      "responsibilities": [
+        "Review constable fees",
+        "Handle complaints",
+        "Oversee certifications"
+      ]
+    }
+  },
+  "summary": {
+    "totalBoards": 5,
+    "activeBoards": 5,
+    "votingMemberships": 4
+  }
+}

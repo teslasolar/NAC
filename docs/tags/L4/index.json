@@ -1,0 +1,16 @@
+{
+  "tagType": "Level",
+  "id": "L4",
+  "name": "Enterprise Layer",
+  "description": "Strategic KPIs, compliance, and governance",
+  "version": "1.0.0",
+  "tags": [
+    "L4/kpis",
+    "L4/compliance",
+    "L4/boards",
+    "L4/strategy",
+    "L4/reporting"
+  ],
+  "moduleCount": 7,
+  "color": "#8b5cf6"
+}

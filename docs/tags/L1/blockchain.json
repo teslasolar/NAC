@@ -1,0 +1,35 @@
+{
+  "tagType": "UDT",
+  "id": "L1.Blockchain",
+  "name": "Blockchain Signing",
+  "description": "Cryptographic transaction signing configuration",
+  "version": "1.0.0",
+  "config": {
+    "algorithm": "SHA-256",
+    "enabled": true,
+    "autoSign": false,
+    "requireSignature": ["WARRANT", "DISBURSEMENT", "PAYROLL"]
+  },
+  "chain": {
+    "lastBlock": null,
+    "length": 0,
+    "verified": true,
+    "lastVerified": null
+  },
+  "blockSchema": {
+    "index": { "type": "integer" },
+    "timestamp": { "type": "datetime" },
+    "transactionType": { "type": "string" },
+    "transactionId": { "type": "string" },
+    "data": { "type": "object" },
+    "previousHash": { "type": "string" },
+    "hash": { "type": "string" },
+    "signature": { "type": "string" }
+  },
+  "metrics": {
+    "totalBlocks": 0,
+    "transactionsSigned": 0,
+    "verificationsPassed": 0,
+    "verificationsFailed": 0
+  }
+}

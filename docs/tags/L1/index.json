@@ -1,0 +1,16 @@
+{
+  "tagType": "Level",
+  "id": "L1",
+  "name": "Transaction Layer",
+  "description": "Individual work items flowing through the system",
+  "version": "1.0.0",
+  "tags": [
+    "L1/claims",
+    "L1/warrants",
+    "L1/audits",
+    "L1/payments",
+    "L1/blockchain"
+  ],
+  "moduleCount": 10,
+  "color": "#ec4899"
+}

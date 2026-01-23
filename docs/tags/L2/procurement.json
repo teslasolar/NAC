@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "L2.Procurement",
+  "name": "Procurement Control",
+  "description": "Purchasing and contract management controls",
+  "version": "1.0.0",
+  "thresholds": {
+    "micropurchase": 3500,
+    "smallPurchase": 21900,
+    "formalBid": 21901,
+    "professionalServices": 50000
+  },
+  "current": {
+    "activeBids": 5,
+    "pendingAwards": 2,
+    "contractsExpiring30": 8,
+    "contractsExpiring90": 15
+  },
+  "approvals": {
+    "under5000": "Department Head",
+    "under25000": "Division Director",
+    "under100000": "County Administrator",
+    "over100000": "County Council"
+  },
+  "requirements": {
+    "quotes3Required": 3500,
+    "formalBidRequired": 21900,
+    "bondRequired": 100000,
+    "insuranceRequired": 50000
+  },
+  "metrics": {
+    "avgBidDays": 0,
+    "avgAwardDays": 0,
+    "savingsPercentage": 0
+  }
+}

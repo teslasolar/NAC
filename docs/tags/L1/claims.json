@@ -1,0 +1,40 @@
+{
+  "tagType": "UDT",
+  "id": "L1.Claims",
+  "name": "Claims Configuration",
+  "description": "Claim transaction configuration and current state",
+  "version": "1.0.0",
+  "schema": {
+    "id": { "type": "string", "format": "CLM-YYYY-NNNNNN" },
+    "vendor": { "type": "Vendor", "required": true },
+    "amount": { "type": "Money", "required": true },
+    "account": { "type": "Account", "required": true },
+    "description": { "type": "string", "required": true },
+    "invoiceDate": { "type": "date", "required": true },
+    "dueDate": { "type": "date", "required": false },
+    "documents": { "type": "array", "items": "Document" },
+    "status": { "type": "ClaimStatus", "default": "DRAFT" }
+  },
+  "workflow": {
+    "DRAFT": ["SUBMITTED"],
+    "SUBMITTED": ["UNDER_REVIEW"],
+    "UNDER_REVIEW": ["APPROVED", "REJECTED"],
+    "APPROVED": ["PAID"],
+    "REJECTED": ["DRAFT"],
+    "PAID": ["VOIDED"],
+    "VOIDED": []
+  },
+  "metrics": {
+    "pending": 0,
+    "approved": 0,
+    "rejected": 0,
+    "totalValue": 0,
+    "avgProcessingDays": 0
+  },
+  "thresholds": {
+    "autoApprove": 500,
+    "managerApproval": 5000,
+    "directorApproval": 25000,
+    "controllerApproval": 100000
+  }
+}

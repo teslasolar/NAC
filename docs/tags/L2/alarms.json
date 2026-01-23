@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "L2.Alarms",
+  "name": "Alarm Management",
+  "description": "ISA-18.2 compliant alarm configuration",
+  "version": "1.0.0",
+  "config": {
+    "standard": "ISA-18.2",
+    "suppressionEnabled": true,
+    "shelvingMaxDays": 7,
+    "acknowledgeRequired": true
+  },
+  "priorities": {
+    "CRITICAL": { "color": "#ef4444", "sound": true, "notification": "immediate" },
+    "HIGH": { "color": "#f97316", "sound": true, "notification": "5min" },
+    "MEDIUM": { "color": "#eab308", "sound": false, "notification": "15min" },
+    "LOW": { "color": "#3b82f6", "sound": false, "notification": "hourly" },
+    "INFO": { "color": "#6b7280", "sound": false, "notification": "daily" }
+  },
+  "current": {
+    "total": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "unacknowledged": 0,
+    "shelved": 0
+  },
+  "definitions": [
+    { "id": "BUDGET_EXCEED", "priority": "HIGH", "message": "Budget line exceeded" },
+    { "id": "CLAIM_OVERDUE", "priority": "MEDIUM", "message": "Claim processing overdue" },
+    { "id": "AUDIT_FINDING", "priority": "HIGH", "message": "New audit finding" },
+    { "id": "PAYROLL_ERROR", "priority": "CRITICAL", "message": "Payroll calculation error" },
+    { "id": "COMPLIANCE_VIOLATION", "priority": "CRITICAL", "message": "Compliance violation detected" }
+  ]
+}

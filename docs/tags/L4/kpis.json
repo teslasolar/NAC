@@ -1,0 +1,67 @@
+{
+  "tagType": "UDT",
+  "id": "L4.KPIs",
+  "name": "Key Performance Indicators",
+  "description": "Strategic performance metrics",
+  "version": "1.0.0",
+  "kpis": {
+    "budgetVariance": {
+      "name": "Budget Variance",
+      "category": "Financial",
+      "current": 0,
+      "target": 0,
+      "unit": "%",
+      "trend": "stable",
+      "status": "on-target"
+    },
+    "auditCoverage": {
+      "name": "Audit Coverage",
+      "category": "Compliance",
+      "current": 100,
+      "target": 100,
+      "unit": "%",
+      "trend": "stable",
+      "status": "on-target"
+    },
+    "complianceRate": {
+      "name": "Compliance Rate",
+      "category": "Compliance",
+      "current": 100,
+      "target": 100,
+      "unit": "%",
+      "trend": "stable",
+      "status": "on-target"
+    },
+    "processingEfficiency": {
+      "name": "Processing Efficiency",
+      "category": "Operations",
+      "current": 0,
+      "target": 95,
+      "unit": "%",
+      "trend": "stable",
+      "status": "pending"
+    },
+    "citizenSatisfaction": {
+      "name": "Citizen Satisfaction",
+      "category": "Service",
+      "current": 0,
+      "target": 85,
+      "unit": "%",
+      "trend": "stable",
+      "status": "pending"
+    },
+    "costPerTransaction": {
+      "name": "Cost Per Transaction",
+      "category": "Efficiency",
+      "current": 0,
+      "target": 15,
+      "unit": "$",
+      "trend": "stable",
+      "status": "pending"
+    }
+  },
+  "thresholds": {
+    "onTarget": 0.05,
+    "atRisk": 0.15
+  }
+}

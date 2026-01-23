@@ -1,0 +1,37 @@
+{
+  "tagType": "UDT",
+  "id": "L1.Audits",
+  "name": "Audit Engagements",
+  "description": "Audit engagement and finding configuration",
+  "version": "1.0.0",
+  "engagementSchema": {
+    "id": { "type": "string", "format": "AUD-YYYY-NNN" },
+    "type": { "type": "AuditType", "required": true },
+    "subject": { "type": "string", "required": true },
+    "scope": { "type": "string", "required": true },
+    "startDate": { "type": "date", "required": true },
+    "endDate": { "type": "date", "required": false },
+    "auditor": { "type": "Person", "required": true },
+    "status": { "type": "AuditStatus", "default": "PLANNING" }
+  },
+  "findingSchema": {
+    "id": { "type": "string", "format": "FND-YYYY-NNNN" },
+    "engagement": { "type": "AuditEngagement", "required": true },
+    "severity": { "type": "FindingSeverity", "required": true },
+    "condition": { "type": "string", "required": true },
+    "criteria": { "type": "string", "required": true },
+    "cause": { "type": "string", "required": true },
+    "effect": { "type": "string", "required": true },
+    "recommendation": { "type": "string", "required": true },
+    "managementResponse": { "type": "string" },
+    "status": { "type": "FindingStatus", "default": "OPEN" }
+  },
+  "auditStatuses": ["PLANNING", "FIELDWORK", "REPORTING", "ISSUED", "FOLLOW_UP", "CLOSED"],
+  "findingStatuses": ["OPEN", "IN_PROGRESS", "IMPLEMENTED", "CLOSED", "WAIVED"],
+  "metrics": {
+    "activeEngagements": 0,
+    "openFindings": 0,
+    "closedFindings": 0,
+    "avgResolutionDays": 0
+  }
+}

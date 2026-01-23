@@ -1,0 +1,26 @@
+{
+  "tagType": "UDT",
+  "id": "L0.Money",
+  "name": "Money Type Configuration",
+  "description": "Configuration for monetary value handling",
+  "version": "1.0.0",
+  "config": {
+    "currency": "USD",
+    "precision": 2,
+    "locale": "en-US",
+    "symbol": "$",
+    "thousandsSeparator": ",",
+    "decimalSeparator": "."
+  },
+  "formats": {
+    "standard": "$#,##0.00",
+    "accounting": "(#,##0.00)",
+    "compact": "$#.##K/M/B",
+    "noSymbol": "#,##0.00"
+  },
+  "rounding": {
+    "mode": "HALF_UP",
+    "budgetRounding": "DOWN",
+    "taxRounding": "HALF_EVEN"
+  }
+}

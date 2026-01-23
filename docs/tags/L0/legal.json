@@ -1,0 +1,39 @@
+{
+  "tagType": "UDT",
+  "id": "L0.Legal",
+  "name": "Legal Reference Configuration",
+  "description": "Legal citation formats and authorities",
+  "version": "1.0.0",
+  "authorities": {
+    "PA_CODE": {
+      "name": "Pennsylvania Consolidated Statutes",
+      "format": "## Pa.C.S. § ####",
+      "baseUrl": "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm"
+    },
+    "PA_STATUTES": {
+      "name": "Pennsylvania Statutes",
+      "format": "## P.S. § ####",
+      "baseUrl": "https://www.legis.state.pa.us/cfdocs/legis/LI/uconsCheck.cfm"
+    },
+    "CHARTER": {
+      "name": "Northampton County Home Rule Charter",
+      "format": "Charter § ###",
+      "baseUrl": "https://norcopa.gov/executive-resources"
+    },
+    "ORDINANCE": {
+      "name": "County Ordinance",
+      "format": "Ord. ####-##",
+      "baseUrl": null
+    }
+  },
+  "controllerStatutes": [
+    { "cite": "16 P.S. § 1602", "title": "Controller Office Establishment" },
+    { "cite": "16 P.S. § 1704", "title": "Controller Bond" },
+    { "cite": "16 P.S. § 1705", "title": "Controller Deputies" },
+    { "cite": "16 P.S. § 1720", "title": "Controller Duties - Claims" },
+    { "cite": "16 P.S. § 1721", "title": "Account Prescription" },
+    { "cite": "16 P.S. § 1725", "title": "Monthly Statements" },
+    { "cite": "16 P.S. § 1730", "title": "Auditing Officers" },
+    { "cite": "16 P.S. § 1750-1764", "title": "Fiscal Affairs" }
+  ]
+}

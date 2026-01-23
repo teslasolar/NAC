@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "L2.Payroll",
+  "name": "Payroll Control",
+  "description": "Payroll cycle management and processing",
+  "version": "1.0.0",
+  "config": {
+    "cycle": "BIWEEKLY",
+    "dayOfWeek": "FRIDAY",
+    "cutoffDays": 3,
+    "directDepositLead": 2
+  },
+  "current": {
+    "period": "2026-02",
+    "status": "PENDING",
+    "nextPayDate": "2026-01-31",
+    "employeeCount": 2850,
+    "estimatedGross": 8500000
+  },
+  "ytd": {
+    "grossPay": 0,
+    "federalWithholding": 0,
+    "stateWithholding": 0,
+    "localWithholding": 0,
+    "fica": 0,
+    "retirement": 0,
+    "healthInsurance": 0,
+    "netPay": 0
+  },
+  "controls": {
+    "maxHoursRegular": 80,
+    "overtimeApprovalRequired": true,
+    "retroactiveLimit": 2,
+    "terminationHoldDays": 30
+  }
+}

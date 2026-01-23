@@ -1,0 +1,43 @@
+{
+  "tagType": "UDT",
+  "id": "L1.Payments",
+  "name": "Payment Transactions",
+  "description": "Disbursement, payroll, and receipt configuration",
+  "version": "1.0.0",
+  "disbursementSchema": {
+    "id": { "type": "string", "format": "DSB-YYYY-NNNNNN" },
+    "warrant": { "type": "Warrant", "required": true },
+    "method": { "type": "PaymentMethod", "required": true },
+    "reference": { "type": "string", "description": "Check #, ACH ref, wire ref" },
+    "amount": { "type": "Money", "required": true },
+    "date": { "type": "date", "required": true },
+    "clearedDate": { "type": "date" },
+    "status": { "type": "DisbursementStatus", "default": "PENDING" }
+  },
+  "payrollSchema": {
+    "id": { "type": "string", "format": "PAY-YYYY-PP" },
+    "period": { "type": "DateRange", "required": true },
+    "payDate": { "type": "date", "required": true },
+    "employeeCount": { "type": "integer", "required": true },
+    "grossPay": { "type": "Money", "required": true },
+    "deductions": { "type": "Money", "required": true },
+    "netPay": { "type": "Money", "required": true },
+    "status": { "type": "PayrollStatus", "default": "DRAFT" }
+  },
+  "receiptSchema": {
+    "id": { "type": "string", "format": "RCP-YYYY-NNNNNN" },
+    "source": { "type": "string", "required": true },
+    "amount": { "type": "Money", "required": true },
+    "account": { "type": "Account", "required": true },
+    "date": { "type": "date", "required": true },
+    "category": { "type": "RevenueCategory" }
+  },
+  "metrics": {
+    "disbursementsToday": 0,
+    "disbursementsMTD": 0,
+    "disbursementsYTD": 0,
+    "receiptsToday": 0,
+    "receiptsMTD": 0,
+    "receiptsYTD": 0
+  }
+}

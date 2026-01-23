@@ -1,0 +1,17 @@
+{
+  "tagType": "Level",
+  "id": "L2",
+  "name": "Control Layer",
+  "description": "Process control, alarms, and supervisory functions",
+  "version": "1.0.0",
+  "tags": [
+    "L2/budget",
+    "L2/audit-plan",
+    "L2/payroll",
+    "L2/procurement",
+    "L2/alarms",
+    "L2/process"
+  ],
+  "moduleCount": 21,
+  "color": "#4ade80"
+}

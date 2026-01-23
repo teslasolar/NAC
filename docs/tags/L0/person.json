@@ -1,0 +1,26 @@
+{
+  "tagType": "UDT",
+  "id": "L0.Person",
+  "name": "Person Type Schema",
+  "description": "Base person record structure",
+  "version": "1.0.0",
+  "schema": {
+    "id": { "type": "string", "required": true },
+    "firstName": { "type": "string", "required": true },
+    "lastName": { "type": "string", "required": true },
+    "middleName": { "type": "string", "required": false },
+    "suffix": { "type": "string", "required": false },
+    "email": { "type": "email", "required": false },
+    "phone": { "type": "phone", "required": false },
+    "address": { "type": "Address", "required": false },
+    "roles": { "type": "array", "items": "string", "required": false }
+  },
+  "roles": [
+    "EMPLOYEE",
+    "ELECTED_OFFICIAL",
+    "APPOINTED_OFFICIAL",
+    "VENDOR_CONTACT",
+    "CITIZEN",
+    "CONTRACTOR"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "tagType": "UDT",
+  "id": "L1.Warrants",
+  "name": "Warrants Configuration",
+  "description": "Payment warrant configuration per PA Code §1720",
+  "version": "1.0.0",
+  "schema": {
+    "id": { "type": "string", "format": "WRT-YYYY-NNNNNN" },
+    "claims": { "type": "array", "items": "Claim", "required": true },
+    "totalAmount": { "type": "Money", "required": true },
+    "payee": { "type": "Vendor", "required": true },
+    "authorizedBy": { "type": "Person", "required": true },
+    "authorizedDate": { "type": "datetime", "required": true },
+    "status": { "type": "WarrantStatus", "default": "PENDING" }
+  },
+  "statuses": ["PENDING", "AUTHORIZED", "ISSUED", "CLEARED", "VOIDED", "STALE"],
+  "requirements": {
+    "controllerSignature": true,
+    "treasurerCountersign": true,
+    "legalAuthority": "16 P.S. § 1720"
+  },
+  "metrics": {
+    "pending": 0,
+    "issued": 0,
+    "totalValue": 0,
+    "avgDaysToIssue": 0
+  },
+  "staleAfterDays": 180
+}

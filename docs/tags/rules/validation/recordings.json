@@ -1,0 +1,28 @@
+{
+  "tagType": "ValidationRules",
+  "category": "recordings",
+  "description": "Deed recording validation rules",
+  "rules": [
+    {
+      "id": "DEED-001",
+      "name": "Notarization Required",
+      "description": "Deed must be properly notarized",
+      "condition": "notarization_valid",
+      "severity": "blocking"
+    },
+    {
+      "id": "DEED-002",
+      "name": "Transfer Tax Statement",
+      "description": "Transfer tax statement required if consideration > 0",
+      "condition": "if consideration > 0 then transfer_tax_statement_present",
+      "severity": "blocking"
+    },
+    {
+      "id": "DEED-003",
+      "name": "UPI Required",
+      "description": "Uniform Parcel Identifier required",
+      "condition": "upi_present",
+      "severity": "blocking"
+    }
+  ]
+}

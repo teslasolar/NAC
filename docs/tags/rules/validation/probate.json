@@ -1,0 +1,28 @@
+{
+  "tagType": "ValidationRules",
+  "category": "probate",
+  "description": "Probate validation rules",
+  "rules": [
+    {
+      "id": "PRO-001",
+      "name": "Original Will Required",
+      "description": "Original will must be presented",
+      "condition": "original_will_presented",
+      "severity": "blocking"
+    },
+    {
+      "id": "PRO-002",
+      "name": "Death Certificate",
+      "description": "Certified death certificate required",
+      "condition": "death_certificate_present",
+      "severity": "blocking"
+    },
+    {
+      "id": "PRO-003",
+      "name": "Executor Bond",
+      "description": "Bond required unless waived in will",
+      "condition": "bond_posted or bond_waived_in_will",
+      "severity": "blocking"
+    }
+  ]
+}

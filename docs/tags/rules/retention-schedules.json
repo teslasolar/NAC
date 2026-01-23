@@ -1,0 +1,27 @@
+{
+  "tagType": "RetentionSchedules",
+  "description": "Record retention per PA Municipal Records Act",
+  "schedules": {
+    "financial_records": {
+      "warrants": { "years": 7, "afterEvent": "fiscal_year_end" },
+      "receipts": { "years": 7, "afterEvent": "fiscal_year_end" },
+      "bank_statements": { "years": 7, "afterEvent": "fiscal_year_end" },
+      "audit_reports": { "years": "permanent", "afterEvent": null }
+    },
+    "court_records": {
+      "criminal_cases": { "years": "permanent", "afterEvent": null },
+      "civil_cases": { "years": 10, "afterEvent": "case_closed" },
+      "judgments": { "years": 20, "afterEvent": "judgment_satisfied" }
+    },
+    "property_records": {
+      "deeds": { "years": "permanent", "afterEvent": null },
+      "mortgages": { "years": "permanent", "afterEvent": null },
+      "liens": { "years": 20, "afterEvent": "lien_released" }
+    },
+    "vital_records": {
+      "death_certificates": { "years": "permanent", "afterEvent": null },
+      "wills": { "years": "permanent", "afterEvent": null },
+      "marriage_licenses": { "years": "permanent", "afterEvent": null }
+    }
+  }
+}

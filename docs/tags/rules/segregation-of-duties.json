@@ -1,0 +1,30 @@
+{
+  "tagType": "SegregationOfDuties",
+  "description": "Required separation of functions",
+  "rules": [
+    {
+      "id": "SOD-001",
+      "function1": "receipt_collection",
+      "function2": "receipt_recording",
+      "mustBeDifferent": true
+    },
+    {
+      "id": "SOD-002",
+      "function1": "warrant_preparation",
+      "function2": "warrant_approval",
+      "mustBeDifferent": true
+    },
+    {
+      "id": "SOD-003",
+      "function1": "check_signing",
+      "function2": "bank_reconciliation",
+      "mustBeDifferent": true
+    },
+    {
+      "id": "SOD-004",
+      "function1": "payroll_entry",
+      "function2": "payroll_approval",
+      "mustBeDifferent": true
+    }
+  ]
+}

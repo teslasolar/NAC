@@ -1,0 +1,16 @@
+{
+  "tagType": "Calculation",
+  "id": "transfer_tax",
+  "name": "Transfer Tax",
+  "formula": "consideration * (stateRate + countyRate)",
+  "parameters": {
+    "stateRate": 0.01,
+    "countyRate": 0.005
+  },
+  "exemptions": [
+    { "code": "EX01", "description": "Gift between family members" },
+    { "code": "EX02", "description": "Will or intestate" },
+    { "code": "EX03", "description": "Mortgage foreclosure" },
+    { "code": "EX04", "description": "Government entity" }
+  ]
+}

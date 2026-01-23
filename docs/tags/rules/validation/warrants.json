@@ -1,0 +1,36 @@
+{
+  "tagType": "ValidationRules",
+  "category": "warrants",
+  "description": "Warrant validation rules",
+  "rules": [
+    {
+      "id": "WAR-001",
+      "name": "Controller Signature Required",
+      "description": "All warrants must have Controller signature",
+      "field": "controllerSignature",
+      "condition": "required",
+      "severity": "blocking"
+    },
+    {
+      "id": "WAR-002",
+      "name": "Fund Balance Check",
+      "description": "Sufficient fund balance must exist",
+      "condition": "fund.balance >= warrant.amount",
+      "severity": "blocking"
+    },
+    {
+      "id": "WAR-003",
+      "name": "Appropriation Check",
+      "description": "Warrant must not exceed line item appropriation",
+      "condition": "lineItem.available >= warrant.amount",
+      "severity": "blocking"
+    },
+    {
+      "id": "WAR-004",
+      "name": "Duplicate Check",
+      "description": "No duplicate payment for same invoice",
+      "condition": "no_duplicate_invoice",
+      "severity": "blocking"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tagType": "Calculation",
+  "id": "recording_fees",
+  "name": "Recording Fees",
+  "formula": "baseFee + (additionalPages * perPageFee) + techFee + upiFee",
+  "parameters": {
+    "baseFee": 48.00,
+    "perPageFee": 2.00,
+    "techFee": 10.00,
+    "upiFee": 13.50
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "tagType": "ValidationRules",
+  "category": "receipts",
+  "description": "Receipt validation rules",
+  "rules": [
+    {
+      "id": "REC-001",
+      "name": "Same Day Deposit",
+      "description": "Receipts must be deposited same day",
+      "condition": "depositDate == receiptDate",
+      "severity": "warning"
+    },
+    {
+      "id": "REC-002",
+      "name": "Valid Fund Code",
+      "description": "Fund code must be valid and active",
+      "field": "fund",
+      "condition": "exists_in_chart_of_accounts",
+      "severity": "blocking"
+    }
+  ]
+}

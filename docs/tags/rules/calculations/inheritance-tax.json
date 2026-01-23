@@ -1,0 +1,24 @@
+{
+  "tagType": "Calculation",
+  "id": "inheritance_tax",
+  "name": "Inheritance Tax",
+  "rates": {
+    "lineal_descendant": 0.045,
+    "sibling": 0.12,
+    "other": 0.15
+  },
+  "discounts": {
+    "early_payment": {
+      "description": "5% discount if paid within 3 months",
+      "withinDays": 90,
+      "discountRate": 0.05
+    }
+  },
+  "penalties": {
+    "late_payment": {
+      "description": "Penalty for late payment",
+      "afterDays": 270,
+      "penaltyRate": 0.10
+    }
+  }
+}

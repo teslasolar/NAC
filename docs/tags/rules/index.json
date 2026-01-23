@@ -1,0 +1,19 @@
+{
+  "tagType": "BusinessRulesIndex",
+  "title": "County Business Rules",
+  "description": "Business rules and validation logic for county operations",
+  "version": "1.0.0",
+  "validation": [
+    { "$ref": "./validation/warrants.json" },
+    { "$ref": "./validation/receipts.json" },
+    { "$ref": "./validation/recordings.json" },
+    { "$ref": "./validation/probate.json" }
+  ],
+  "calculations": [
+    { "$ref": "./calculations/transfer-tax.json" },
+    { "$ref": "./calculations/inheritance-tax.json" },
+    { "$ref": "./calculations/recording-fees.json" }
+  ],
+  "segregationOfDuties": { "$ref": "./segregation-of-duties.json" },
+  "retentionSchedules": { "$ref": "./retention-schedules.json" }
+}

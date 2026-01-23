@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a1a">
+  <title>L1 - Transaction Layer | NAC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a1a;
+      color: #d4d4d4;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-medium: #242424;
+      --bg-light: #2e2e2e;
+      --border: #3a3a3a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #ec4899;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 40px;
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      color: var(--text-primary);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    h1 .level-badge {
+      font-size: 14px;
+      padding: 4px 10px;
+      background: var(--accent);
+      color: #1a1a1a;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .module-card {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 3px solid var(--accent);
+    }
+    .module-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .module-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .module-card .file-path {
+      font-size: 11px;
+      font-family: 'SF Mono', Monaco, monospace;
+      color: var(--text-muted);
+      background: var(--bg-light);
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .features span {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / L1 Transaction Layer
+      </div>
+      <h1><span class="level-badge">L1</span> Transaction Layer</h1>
+      <p class="subtitle">
+        Individual work items that flow through the system: claims, warrants, audit findings, and payments.
+        Each transaction is discrete, trackable, and can be cryptographically signed for integrity.
+      </p>
+    </header>
+
+    <div class="section-title">Claims</div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <h3>Claim</h3>
+        <p>Base claim model representing any request for payment against the county. Includes vendor info, amount, supporting documentation references.</p>
+        <span class="file-path">src/isa95/L1_Transactions/claims/Claim.js</span>
+        <div class="features">
+          <span>Vendor</span>
+          <span>Amount</span>
+          <span>Documentation</span>
+          <span>Status</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>ClaimWorkflow</h3>
+        <p>State machine for claim processing: submitted → reviewed → approved/rejected → paid. Tracks all state transitions with timestamps.</p>
+        <span class="file-path">src/isa95/L1_Transactions/claims/ClaimWorkflow.js</span>
+        <div class="features">
+          <span>State Machine</span>
+          <span>Transitions</span>
+          <span>Audit Trail</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Audits</div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <h3>AuditEngagement</h3>
+        <p>Represents a single audit engagement with scope, timeline, and assigned personnel. Links to findings and final report.</p>
+        <span class="file-path">src/isa95/L1_Transactions/audits/AuditEngagement.js</span>
+        <div class="features">
+          <span>Scope</span>
+          <span>Timeline</span>
+          <span>Personnel</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>Finding</h3>
+        <p>Individual audit finding with severity, recommendation, and management response tracking. Supports finding lifecycle management.</p>
+        <span class="file-path">src/isa95/L1_Transactions/audits/Finding.js</span>
+        <div class="features">
+          <span>Severity</span>
+          <span>Recommendation</span>
+          <span>Response</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>AuditReport</h3>
+        <p>Final audit report aggregating findings, conclusions, and recommendations. Supports draft/final states and distribution tracking.</p>
+        <span class="file-path">src/isa95/L1_Transactions/audits/AuditReport.js</span>
+        <div class="features">
+          <span>Findings</span>
+          <span>Conclusions</span>
+          <span>Distribution</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Payments</div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <h3>Warrant</h3>
+        <p>Payment authorization document. Links approved claims to actual disbursement. Requires Controller signature per PA Code §1720.</p>
+        <span class="file-path">src/isa95/L1_Transactions/payments/Warrant.js</span>
+        <div class="features">
+          <span>Authorization</span>
+          <span>Signature</span>
+          <span>§1720</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>Disbursement</h3>
+        <p>Actual payment record: check number, wire reference, or ACH transaction. Reconciles against warrant and bank statement.</p>
+        <span class="file-path">src/isa95/L1_Transactions/payments/Disbursement.js</span>
+        <div class="features">
+          <span>Check/Wire/ACH</span>
+          <span>Reconciliation</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>PayrollRun</h3>
+        <p>Batch payroll processing record. Aggregates individual employee payments, tax withholdings, and benefit deductions.</p>
+        <span class="file-path">src/isa95/L1_Transactions/payments/PayrollRun.js</span>
+        <div class="features">
+          <span>Batch</span>
+          <span>Withholdings</span>
+          <span>Deductions</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <h3>Receipt</h3>
+        <p>Incoming payment record. Tracks revenue from fees, taxes, grants, and other sources. Links to appropriate fund and account.</p>
+        <span class="file-path">src/isa95/L1_Transactions/payments/Receipt.js</span>
+        <div class="features">
+          <span>Revenue</span>
+          <span>Fund</span>
+          <span>Account</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Signing</div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <h3>BlockchainSigner</h3>
+        <p>Cryptographic signing for transaction integrity. Creates immutable audit trail using hash chains. Optional but recommended for high-value transactions.</p>
+        <span class="file-path">src/isa95/L1_Transactions/signing/BlockchainSigner.js</span>
+        <div class="features">
+          <span>Hash Chain</span>
+          <span>Signatures</span>
+          <span>Verification</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

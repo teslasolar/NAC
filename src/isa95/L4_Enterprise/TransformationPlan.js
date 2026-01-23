@@ -194,7 +194,7 @@ export const CrossOfficeStrategies = {
 
   'fiscal-affairs-revenue': {
     office: 'Fiscal Affairs - Revenue',
-    officer: 'Anthony Morris',
+    officer: 'VACANT (Brandon Dunstane acting)',
     currentOEE: 0.864,
     targetOEE: 0.85,
     gap: 0.014,

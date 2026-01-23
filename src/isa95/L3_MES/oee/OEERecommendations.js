@@ -228,7 +228,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Fiscal Affairs - Revenue - Anthony Morris
+   * Fiscal Affairs - Revenue - VACANT (Brandon Dunstane acting)
    * Current: 86.4% | Target: 85% | Gap: +1.4%
    * EXCEEDS TARGET - World Class
    */
@@ -237,7 +237,7 @@ export const OfficeRecommendations = {
     currentOEE: 86.4,
     targetOEE: 85,
     gap: 1.4,
-    officer: 'Anthony Morris',
+    officer: 'VACANT (Brandon Dunstane acting)',
     summary: 'Exceeds target - maintain excellence and share best practices',
     recommendations: [
       {

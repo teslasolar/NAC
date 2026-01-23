@@ -99,5 +99,26 @@
     "priorityResourcePool": "Centralizing agency nursing staff",
     "expectedAnnualSavings": 3500000,
     "partnerships": "Developing referral relationships with area health networks"
+  },
+  "budget2026": {
+    "generalFundContribution": 0,
+    "note": "Gracedale will operate without contributions from County General Fund in 2026",
+    "status": "Self-sustaining operations target",
+    "commitments": [
+      "County-owned and county-operated",
+      "Holding agency nursing pools accountable",
+      "Managing costs",
+      "Maintaining high standard of care"
+    ]
+  },
+  "administratorHistory": {
+    "current": "Michelle Morton",
+    "startDate": "2025-03-17",
+    "initiatives": [
+      "Priority resource pool centralization",
+      "Revamped hiring and onboarding",
+      "Staff recognition programs",
+      "Health network partnerships"
+    ]
   }
 }

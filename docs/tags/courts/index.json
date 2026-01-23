@@ -1,0 +1,32 @@
+{
+  "tagType": "UDT-Index",
+  "name": "Courts",
+  "description": "Northampton County Court System - January 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "nccpa.org",
+    "Ballotpedia",
+    "PA Unified Judicial System"
+  ],
+  "courts": [
+    { "id": "common-pleas", "file": "common-pleas.json", "name": "Court of Common Pleas" },
+    { "id": "magisterial-district", "file": "magisterial-district.json", "name": "Magisterial District Courts" },
+    { "id": "problem-solving", "file": "problem-solving.json", "name": "Problem-Solving Courts" }
+  ],
+  "administration": {
+    "department": "Department of Court Administration",
+    "location": "669 Washington St, Easton, PA 18042",
+    "phone": "610-829-6500",
+    "website": "https://norcopa.gov/court-administration",
+    "budget": 12500000
+  },
+  "relatedRowOfficers": [
+    { "office": "District Attorney", "role": "Criminal prosecution" },
+    { "office": "Clerk of Courts", "role": "Criminal Division records" },
+    { "office": "Prothonotary", "role": "Civil Division records" },
+    { "office": "Register of Wills", "role": "Orphans' Court records" },
+    { "office": "Sheriff", "role": "Court security, process service" }
+  ]
+}

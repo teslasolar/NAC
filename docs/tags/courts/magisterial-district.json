@@ -1,0 +1,43 @@
+{
+  "tagType": "UDT",
+  "id": "magisterial-district",
+  "name": "Magisterial District Courts",
+  "type": "Minor judiciary",
+  "description": "Local courts handling preliminary hearings, small claims, and summary offenses",
+  "jurisdiction": {
+    "civilLimit": 12000,
+    "civilMatters": ["Small claims", "Landlord-tenant disputes", "Civil claims up to $12,000"],
+    "criminalMatters": ["Preliminary hearings", "Arraignments", "Summary offenses", "Traffic violations"],
+    "other": ["Emergency PFA orders", "Search warrant applications"]
+  },
+  "judgeSelection": {
+    "title": "Magisterial District Judge",
+    "termLength": 6,
+    "electionType": "Partisan",
+    "requirements": "No law degree required, must pass certification exam"
+  },
+  "districts": {
+    "note": "Northampton County has multiple magisterial districts covering different municipalities",
+    "coverage": "Each district covers specific municipalities or portions thereof",
+    "directoryUrl": "https://www.pacourts.us/courts/minor-courts/magisterial-district-judges"
+  },
+  "functions": [
+    "Issue arrest and search warrants",
+    "Set bail for criminal defendants",
+    "Conduct preliminary hearings",
+    "Hear small claims cases",
+    "Adjudicate landlord-tenant disputes",
+    "Handle traffic citations",
+    "Process summary criminal offenses"
+  ],
+  "appeals": {
+    "civilAppeals": "Court of Common Pleas Civil Division",
+    "criminalAppeals": "Court of Common Pleas Criminal Division",
+    "appealPeriod": "30 days from judgment"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "PA UJS Minor Courts", "url": "https://www.pacourts.us/courts/minor-courts" },
+    { "name": "Ballotpedia", "url": "https://ballotpedia.org/Magisterial_district_courts_in_Pennsylvania" }
+  ]
+}

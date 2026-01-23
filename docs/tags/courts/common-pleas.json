@@ -1,0 +1,74 @@
+{
+  "tagType": "UDT",
+  "id": "common-pleas",
+  "name": "Northampton County Court of Common Pleas",
+  "type": "Trial court of general jurisdiction",
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-829-6500",
+  "website": "https://www.nccpa.org",
+  "divisions": [
+    {
+      "id": "criminal",
+      "name": "Criminal Division",
+      "functions": ["Criminal prosecutions", "Homicides", "Felonies", "Misdemeanors"],
+      "rowOfficer": "Clerk of Courts",
+      "description": "Handles all criminal cases beyond minor summary offenses"
+    },
+    {
+      "id": "civil",
+      "name": "Civil Division",
+      "functions": ["Money damages over $12,000", "Complex civil litigation", "Property disputes", "Equity matters", "Appeals from MDJ"],
+      "rowOfficer": "Prothonotary",
+      "description": "General civil jurisdiction for disputes exceeding MDJ limits"
+    },
+    {
+      "id": "family",
+      "name": "Family Division",
+      "functions": ["Divorce", "Custody", "Support", "PFA orders", "Domestic relations"],
+      "rowOfficer": "Prothonotary",
+      "description": "All family law matters including protection from abuse"
+    },
+    {
+      "id": "orphans",
+      "name": "Orphans' Court",
+      "functions": ["Probate", "Estate administration", "Adoptions", "Guardianships", "Incapacity proceedings"],
+      "rowOfficer": "Register of Wills",
+      "description": "Specialized court for estate and guardianship matters"
+    },
+    {
+      "id": "juvenile",
+      "name": "Juvenile Court",
+      "functions": ["Juvenile delinquency", "Dependency cases", "Truancy"],
+      "rowOfficer": "Clerk of Courts",
+      "description": "Matters involving minors"
+    }
+  ],
+  "judges": {
+    "note": "Judges elected to 10-year terms with retention elections",
+    "confirmed": [
+      { "name": "Brian J. Panella", "title": "Judge", "note": "Administered oath to County Executive Zrinski" },
+      { "name": "Anthony S. Beltrami", "title": "Judge" }
+    ],
+    "fullRosterUrl": "https://www.nccpa.org/judges/"
+  },
+  "judgeSelection": {
+    "termLength": 10,
+    "electionType": "Partisan with cross-filing",
+    "primaryElection": "Both party primaries (cross-filing permitted)",
+    "retentionElection": true,
+    "retentionProcess": "Yes/No ballot separate from partisan section",
+    "mandatoryRetirement": 75,
+    "seniorJudgeLimit": 78,
+    "presidentJudgeSelection": "Peer vote (courts with 7+ judges)"
+  },
+  "caseSearch": {
+    "url": "https://web.northamptoncounty.org/CountySuite.EServices/CaseSearch",
+    "description": "Online portal for case information lookup"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "NCCPA Official", "url": "https://www.nccpa.org/judges/" },
+    { "name": "Ballotpedia", "url": "https://ballotpedia.org/Northampton_County_Court_of_Common_Pleas,_Pennsylvania" },
+    { "name": "PA UJS", "url": "https://www.pacourts.us/courts/courts-of-common-pleas" }
+  ]
+}

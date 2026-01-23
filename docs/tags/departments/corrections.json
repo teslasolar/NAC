@@ -8,8 +8,13 @@
   "location": "666 Walnut St, Easton, PA 18042",
   "phone": "610-923-4300",
   "leadership": {
-    "director": "Michael Pittaro",
+    "director": "DeAnn L. Lawrence",
     "directorTitle": "Director of Corrections",
+    "directorAppointedDate": "2026-01-16",
+    "directorStatus": "New appointment by County Executive Zrinski",
+    "directorBackground": "25+ years legal and law enforcement experience in rehabilitative services",
+    "directorFocus": ["Facility security", "Staff development", "Inmate programming modernization", "Community re-entry partnerships"],
+    "previousDirector": "Michael Pittaro",
     "warden": "David Penchishen",
     "wardenTitle": "Warden",
     "deputyWardens": [

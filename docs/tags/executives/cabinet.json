@@ -1,0 +1,111 @@
+{
+  "tagType": "UDT",
+  "id": "cabinet",
+  "name": "Executive Cabinet",
+  "description": "County Executive Tara Zrinski's Cabinet - Announced January 16, 2026",
+  "appointmentDate": "2026-01-16",
+  "confirmationBody": "County Council Personnel Committee",
+  "members": [
+    {
+      "id": "administration",
+      "title": "Director of Administration",
+      "name": "Mark Aurand",
+      "status": "new-appointment",
+      "background": "30+ years legal, nonprofit, public-sector leadership",
+      "previousRole": "Deputy Controller, Northampton County",
+      "responsibilities": ["Staff supervision", "Audit management", "State reporting compliance"]
+    },
+    {
+      "id": "corrections",
+      "title": "Director of Corrections",
+      "name": "DeAnn L. Lawrence",
+      "status": "new-appointment",
+      "background": "25+ years legal and law enforcement experience",
+      "focus": ["Facility security", "Staff development", "Inmate programming modernization", "Community re-entry partnerships"]
+    },
+    {
+      "id": "court-services",
+      "title": "Director of Court Services",
+      "name": "Ken Brown",
+      "status": "reappointment",
+      "yearsInRole": 8
+    },
+    {
+      "id": "public-works",
+      "title": "Director of Public Works",
+      "name": "Michael Emili",
+      "status": "reappointment",
+      "startYear": 2018,
+      "background": "Licensed Professional Engineer, Masters in Civil Engineering",
+      "previousRole": "Project Engineer, City of Bethlehem"
+    },
+    {
+      "id": "human-services",
+      "title": "Director of Human Services",
+      "name": "Susan Wandalowski",
+      "status": "reappointment"
+    },
+    {
+      "id": "human-resources",
+      "title": "Director of Human Resources",
+      "name": "Mary Lou Zieger",
+      "status": "reappointment"
+    },
+    {
+      "id": "community-development",
+      "title": "Director of Community and Economic Development",
+      "name": "Tina Smith",
+      "status": "reappointment",
+      "startYear": 2018,
+      "achievements": ["Northampton County Festival launch", "Digital Navigator Coalition (award-winning)"]
+    },
+    {
+      "id": "fiscal-affairs",
+      "title": "Director of Fiscal Affairs",
+      "name": "VACANT",
+      "status": "unfilled",
+      "acting": "Brandon Dunstane",
+      "actingTitle": "Budget Administrator",
+      "previousDirector": "Stephen Barron",
+      "previousDirectorDeparture": "October 2025",
+      "previousTenure": "7 years",
+      "note": "Decision not yet finalized as of Jan 16, 2026"
+    },
+    {
+      "id": "solicitor",
+      "title": "County Solicitor",
+      "name": "Melissa M. Rudas",
+      "status": "reappointment",
+      "startYear": 2018,
+      "education": ["Dickinson School of Law (cum laude)", "Duke University"]
+    },
+    {
+      "id": "sheriff",
+      "title": "Sheriff",
+      "name": "Christopher Zieger",
+      "status": "reappointment",
+      "startYear": "June 2025",
+      "experience": "33+ years law enforcement"
+    },
+    {
+      "id": "coroner",
+      "title": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "reappointment",
+      "startYear": 1992,
+      "tenure": "34+ years"
+    }
+  ],
+  "summary": {
+    "totalPositions": 11,
+    "newAppointments": 2,
+    "reappointments": 8,
+    "vacant": 1
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "url": "https://www.mcall.com/2026/01/16/zrinski-northampton-county-cabinet/", "date": "2026-01-16" },
+    { "name": "WDIY", "url": "https://www.wdiy.org/wdiy-headlines/2026-01-20/zrinski-names-county-cabinet-members-wdiy-local-news", "date": "2026-01-20" },
+    { "name": "Valley Ledger", "url": "https://www.thevalleyledger.com/?p=147157" }
+  ]
+}

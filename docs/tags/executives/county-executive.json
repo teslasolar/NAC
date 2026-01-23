@@ -1,0 +1,53 @@
+{
+  "tagType": "UDT",
+  "id": "county-executive",
+  "title": "County Executive",
+  "name": "Tara Zrinski",
+  "historic": "First female County Executive in Northampton County history",
+  "party": "Democrat",
+  "termStart": "2026-01-05",
+  "termEnd": "2030-01-05",
+  "swornInBy": "Judge Brian Panella",
+  "swornInLocation": "Northampton County Courthouse, Easton",
+  "predecessor": "Lamont G. McClure",
+  "electionResult": {
+    "date": "2025-11-04",
+    "opponent": "Tom Giovanni (R)",
+    "marginOfVictory": "19 percentage points",
+    "turnout": "40%",
+    "note": "Unusually high turnout for non-presidential election"
+  },
+  "previousRoles": [
+    { "title": "County Controller", "years": "2024-2025", "note": "Elected 2023" },
+    { "title": "County Council Member", "years": "2018-2023", "note": "Elected 2017" }
+  ],
+  "priorities": [
+    "Open space preservation",
+    "Farmland preservation",
+    "Environmental issues",
+    "Economic development",
+    "Public safety",
+    "Gracedale nursing home - county control",
+    "Employee compensation review"
+  ],
+  "initiatives": {
+    "first100Days": {
+      "name": "Inaugural Executive Summit",
+      "location": "Northampton Community College",
+      "purpose": "Build first 100-day roadmap with community leaders"
+    },
+    "vision": "We will rise as a county government determined to build, to heal and to leave this place stronger than we found it"
+  },
+  "contact": {
+    "office": "Government Center, 669 Washington St, Easton PA 18042",
+    "phone": "610-559-3100"
+  },
+  "staff": 28,
+  "budget": 3200000,
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "url": "https://www.mcall.com/2026/01/05/northampton-county-executive-tara-zrinski-sworn-in-photos/", "date": "2026-01-05" },
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/elections/up-for-the-task-zrinski-sworn-in-as-first-female-northampton-county-executive", "date": "2026-01-05" },
+    { "name": "WFMZ", "url": "https://www.wfmz.com/news/area/lehighvalley/a-new-era-in-northampton-county-government-zrinski-commissioners-take-office/article_1c992154-2944-437d-b5f2-4fb7bc169176.html", "date": "2026-01-06" }
+  ]
+}

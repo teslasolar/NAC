@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT-Index",
+  "name": "Executives",
+  "description": "Northampton County Executive branch - January 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "Morning Call - Jan 16, 2026",
+    "WFMZ - Jan 6, 2026",
+    "LehighValleyNews.com",
+    "norcopa.gov"
+  ],
+  "structure": {
+    "countyExecutive": { "file": "county-executive.json", "name": "Tara Zrinski" },
+    "countyCouncil": { "file": "county-council.json", "members": 9 },
+    "cabinet": { "file": "cabinet.json", "positions": 11 }
+  },
+  "departments": [
+    { "id": "administration", "file": "administration.json", "director": "Mark Aurand" },
+    { "id": "corrections", "file": "corrections.json", "director": "DeAnn L. Lawrence" },
+    { "id": "court-services", "file": "court-services.json", "director": "Ken Brown" },
+    { "id": "public-works", "file": "public-works.json", "director": "Michael Emili" },
+    { "id": "human-services", "file": "human-services.json", "director": "Susan Wandalowski" },
+    { "id": "human-resources", "file": "human-resources.json", "director": "Mary Lou Zieger" },
+    { "id": "community-development", "file": "community-development.json", "director": "Tina Smith" },
+    { "id": "fiscal-affairs", "file": "fiscal-affairs.json", "director": "VACANT", "acting": "Brandon Dunstane" }
+  ],
+  "keyDates": {
+    "inauguralCeremony": "2026-01-05",
+    "cabinetAnnouncement": "2026-01-16",
+    "councilReorganization": "2026-01-06"
+  }
+}

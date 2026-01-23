@@ -1,0 +1,107 @@
+{
+  "tagType": "UDT",
+  "id": "county-council",
+  "name": "Northampton County Council",
+  "description": "Nine-member legislative body - Reorganized January 2026",
+  "authority": "Northampton County Home Rule Charter",
+  "composition": {
+    "totalMembers": 9,
+    "atLargeMembers": 5,
+    "districtMembers": 4,
+    "termLength": "4 years",
+    "electionCycle": "Alternating odd years"
+  },
+  "leadership": {
+    "president": {
+      "name": "Ken Kraft",
+      "district": "1",
+      "electedPresident": "2026-01-06",
+      "previousPresidency": "2016-2018",
+      "background": "US Marine Corps veteran, Cryptologist, co-owner Lake Hydra diving business"
+    },
+    "vicePresident": {
+      "name": "Jeff Warren",
+      "district": "At-Large",
+      "electedVP": "2026-01-06"
+    }
+  },
+  "members": [
+    {
+      "name": "Ken Kraft",
+      "district": "1",
+      "role": "President",
+      "termStart": "2024-01",
+      "note": "Re-elected 2023, previously served 2011-2018"
+    },
+    {
+      "name": "Jeff Warren",
+      "district": "At-Large",
+      "role": "Vice President",
+      "termStart": "2024-01"
+    },
+    {
+      "name": "Thomas Giovanni",
+      "district": "4",
+      "role": "Member",
+      "termStart": "2022-01",
+      "note": "IT Consultant, ran for County Executive 2025"
+    },
+    {
+      "name": "Jason Boulette",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2026-01",
+      "note": "New member, 25+ years finance/banking, former Wind Gap Borough Council"
+    },
+    {
+      "name": "Theresa Fadem",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2026-01",
+      "note": "New member, former Hellertown Borough Council Vice President"
+    },
+    {
+      "name": "Lori Vargo Heffner",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2020-01",
+      "note": "Incumbent"
+    },
+    {
+      "name": "John Cusick",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2020-01",
+      "note": "Incumbent"
+    },
+    {
+      "name": "Ron Heckman",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2020-01"
+    },
+    {
+      "name": "Kevin Lott",
+      "district": "At-Large",
+      "role": "Member",
+      "termStart": "2020-01"
+    }
+  ],
+  "meetings": {
+    "schedule": "1st and 3rd Thursday of each month",
+    "time": "6:30 PM",
+    "location": "Government Center, Easton"
+  },
+  "committees": [
+    "Finance",
+    "Personnel",
+    "Public Works",
+    "Human Services",
+    "Public Safety"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://www.norcopa.gov/county-council" },
+    { "name": "WFMZ", "url": "https://www.wfmz.com/news/area/lehighvalley/a-new-era-in-northampton-county-government-zrinski-commissioners-take-office/article_1c992154-2944-437d-b5f2-4fb7bc169176.html" }
+  ]
+}

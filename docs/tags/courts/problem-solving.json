@@ -1,0 +1,67 @@
+{
+  "tagType": "UDT",
+  "id": "problem-solving",
+  "name": "Problem-Solving Courts",
+  "type": "Specialty courts",
+  "description": "Alternative courts focused on rehabilitation and addressing root causes of criminal behavior",
+  "establishedBy": "Created under DA Stephen Baratta when he was President Judge",
+  "philosophy": "Treatment and rehabilitation as alternative to traditional punishment for eligible defendants",
+  "courts": [
+    {
+      "id": "drug-court",
+      "name": "Drug Court",
+      "purpose": "Treatment alternative for non-violent drug offenders",
+      "eligibility": ["Non-violent offenders", "Drug-related charges", "No prior violent convictions"],
+      "components": [
+        "Substance abuse treatment",
+        "Regular court appearances",
+        "Drug testing",
+        "Case management",
+        "Graduated sanctions and incentives"
+      ],
+      "duration": "12-24 months typically",
+      "successMetrics": ["Sobriety", "Employment", "No new charges"]
+    },
+    {
+      "id": "mental-health-court",
+      "name": "Mental Health Court",
+      "purpose": "Diversion and treatment for defendants with mental illness",
+      "eligibility": ["Diagnosed mental health condition", "Condition contributed to offense", "Voluntary participation"],
+      "components": [
+        "Mental health treatment",
+        "Medication compliance monitoring",
+        "Regular court check-ins",
+        "Case management",
+        "Housing and employment support"
+      ],
+      "partnerships": ["Mental Health/Developmental Programs", "Local mental health providers"]
+    },
+    {
+      "id": "veterans-court",
+      "name": "Veterans Court",
+      "purpose": "Specialized services for military veteran defendants",
+      "eligibility": ["Military service verified", "Service-related issues contributing to charges"],
+      "components": [
+        "VA services coordination",
+        "Veteran mentors",
+        "PTSD and trauma treatment",
+        "Substance abuse treatment",
+        "Employment assistance"
+      ],
+      "partnerships": ["Veterans Affairs Office", "VA Medical Center", "Veteran service organizations"]
+    }
+  ],
+  "outcomes": {
+    "goals": [
+      "Reduce recidivism",
+      "Address underlying causes of criminal behavior",
+      "Reduce incarceration costs",
+      "Improve public safety through rehabilitation"
+    ]
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "nccpa.org", "url": "https://www.nccpa.org" },
+    { "name": "PA Problem-Solving Courts", "url": "https://www.pacourts.us/judicial-administration/problem-solving-courts" }
+  ]
+}

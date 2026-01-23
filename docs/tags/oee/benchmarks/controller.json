@@ -1,0 +1,46 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "controller-benchmark",
+  "office": "controller",
+  "name": "County Controller",
+  "description": "Fiscal oversight, audit, payroll - accuracy and timeliness critical",
+  "targetOEE": 0.83,
+  "targets": {
+    "availability": 0.95,
+    "performance": 0.88,
+    "quality": 0.995
+  },
+  "targetNotes": {
+    "availability": "Standard office hours",
+    "performance": "Audit cycles and payroll deadlines",
+    "quality": "Financial accuracy paramount"
+  },
+  "cycleTimeMinutes": {
+    "payroll-processing": 480,
+    "voucher-audit": 15,
+    "department-audit": 2400,
+    "warrant-approval": 30,
+    "board-report": 120
+  },
+  "slaHours": {
+    "payrollDeadline": 48,
+    "voucherReview": 24,
+    "auditReport": 720,
+    "annualReport": 2160
+  },
+  "keyMetrics": [
+    "payroll_accuracy_rate",
+    "audit_finding_resolution",
+    "voucher_rejection_rate",
+    "board_attendance_rate",
+    "report_timeliness"
+  ],
+  "statutoryDuties": [
+    "16 P.S. § 1701 - General powers",
+    "16 P.S. § 1702 - Audit county accounts",
+    "16 P.S. § 1703 - Examine accounts of officers",
+    "16 P.S. § 1705 - Pre-audit all vouchers",
+    "16 P.S. § 1706 - Countersign warrants",
+    "16 P.S. § 1720 - Board memberships"
+  ]
+}

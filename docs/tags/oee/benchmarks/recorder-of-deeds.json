@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "recorder-of-deeds-benchmark",
+  "office": "recorder-of-deeds",
+  "name": "Recorder of Deeds",
+  "description": "High volume, precision recording",
+  "targetOEE": 0.82,
+  "targets": {
+    "availability": 0.95,
+    "performance": 0.88,
+    "quality": 0.99
+  },
+  "targetNotes": {
+    "availability": "Standard hours",
+    "performance": "Batch processing efficient",
+    "quality": "Recording accuracy critical"
+  },
+  "cycleTimeMinutes": {
+    "deed-recording": 10,
+    "mortgage-recording": 12,
+    "ucc-filing": 8,
+    "plat-recording": 20
+  },
+  "slaHours": {
+    "standardRecording": 48,
+    "expeditedRecording": 4,
+    "copyRequest": 24
+  },
+  "keyMetrics": [
+    "recording_turnaround",
+    "indexing_accuracy",
+    "search_completion_time"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "register-of-wills-benchmark",
+  "office": "register-of-wills",
+  "name": "Register of Wills",
+  "description": "Variable complexity, sensitive matters",
+  "targetOEE": 0.75,
+  "targets": {
+    "availability": 0.93,
+    "performance": 0.82,
+    "quality": 0.98
+  },
+  "targetNotes": {
+    "availability": "Standard hours",
+    "performance": "Estate complexity varies",
+    "quality": "Legal compliance"
+  },
+  "cycleTimeMinutes": {
+    "marriage-license": 20,
+    "will-probate": 60,
+    "estate-administration": 180,
+    "inheritance-tax": 120
+  },
+  "slaHours": {
+    "marriageLicense": 1,
+    "willProbate": 240,
+    "inheritanceTax": 2160
+  },
+  "keyMetrics": [
+    "probate_completion_rate",
+    "marriage_license_time",
+    "tax_filing_accuracy"
+  ]
+}

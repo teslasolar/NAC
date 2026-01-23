@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "sheriff-benchmark",
+  "office": "sheriff",
+  "name": "Sheriff's Office",
+  "description": "High-volume, time-sensitive operations (warrants, process service)",
+  "targetOEE": 0.78,
+  "targets": {
+    "availability": 0.90,
+    "performance": 0.88,
+    "quality": 0.98
+  },
+  "targetNotes": {
+    "availability": "24/7 operations reduce target",
+    "performance": "Field operations variable",
+    "quality": "High accuracy required"
+  },
+  "cycleTimeMinutes": {
+    "process-service": 45,
+    "warrant-execution": 60,
+    "civil-process": 30,
+    "inmate-processing": 20
+  },
+  "slaHours": {
+    "urgentWarrant": 4,
+    "civilProcess": 72,
+    "subpoena": 48
+  },
+  "keyMetrics": [
+    "warrants_served_rate",
+    "process_service_time",
+    "civil_paper_return_rate"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "district-attorney-benchmark",
+  "office": "district-attorney",
+  "name": "District Attorney",
+  "description": "Complex cases, high quality requirements",
+  "targetOEE": 0.70,
+  "targets": {
+    "availability": 0.92,
+    "performance": 0.78,
+    "quality": 0.97
+  },
+  "targetNotes": {
+    "availability": "Court schedules",
+    "performance": "Case complexity varies",
+    "quality": "Legal accuracy critical"
+  },
+  "cycleTimeMinutes": {
+    "case-review": 120,
+    "charging-decision": 480,
+    "plea-preparation": 60,
+    "trial-preparation": 2400
+  },
+  "slaHours": {
+    "preliminaryHearing": 240,
+    "speedyTrial": 4320,
+    "victimNotification": 48
+  },
+  "keyMetrics": [
+    "conviction_rate",
+    "case_disposition_time",
+    "speedy_trial_compliance"
+  ]
+}

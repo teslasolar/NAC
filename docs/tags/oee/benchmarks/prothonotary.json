@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "prothonotary-benchmark",
+  "office": "prothonotary",
+  "name": "Prothonotary",
+  "description": "Civil court records, high precision",
+  "targetOEE": 0.80,
+  "targets": {
+    "availability": 0.94,
+    "performance": 0.86,
+    "quality": 0.99
+  },
+  "targetNotes": {
+    "availability": "Standard court hours",
+    "performance": "Steady civil filings",
+    "quality": "Legal record integrity"
+  },
+  "cycleTimeMinutes": {
+    "civil-filing": 12,
+    "judgment-entry": 15,
+    "lien-filing": 10,
+    "passport-application": 25
+  },
+  "slaHours": {
+    "civilFiling": 24,
+    "judgmentEntry": 48,
+    "lienFiling": 24
+  },
+  "keyMetrics": [
+    "civil_filing_accuracy",
+    "judgment_entry_time",
+    "lien_search_time"
+  ]
+}

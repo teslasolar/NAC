@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "treasurer-benchmark",
+  "office": "treasurer",
+  "name": "County Treasurer",
+  "description": "Financial precision critical, moderate volume",
+  "targetOEE": 0.85,
+  "targets": {
+    "availability": 0.95,
+    "performance": 0.90,
+    "quality": 0.995
+  },
+  "targetNotes": {
+    "availability": "Standard office hours",
+    "performance": "Steady transaction flow",
+    "quality": "Financial accuracy critical"
+  },
+  "cycleTimeMinutes": {
+    "cash-receipt": 5,
+    "tax-payment": 8,
+    "investment-transaction": 30,
+    "reconciliation": 120
+  },
+  "slaHours": {
+    "depositPosting": 24,
+    "taxRefund": 720,
+    "reportGeneration": 8
+  },
+  "keyMetrics": [
+    "deposit_accuracy_rate",
+    "reconciliation_variance",
+    "investment_yield"
+  ]
+}

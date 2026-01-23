@@ -1,0 +1,62 @@
+{
+  "tagType": "OfficeBenchmarksIndex",
+  "id": "office-benchmarks-index",
+  "name": "Office OEE Benchmarks Index",
+  "description": "OEE targets for county row officers based on industry standards, workload characteristics, and regulatory requirements",
+  "offices": [
+    {
+      "id": "sheriff",
+      "name": "Sheriff's Office",
+      "file": "sheriff.json",
+      "targetOEE": 0.78
+    },
+    {
+      "id": "treasurer",
+      "name": "County Treasurer",
+      "file": "treasurer.json",
+      "targetOEE": 0.85
+    },
+    {
+      "id": "coroner",
+      "name": "Coroner's Office",
+      "file": "coroner.json",
+      "targetOEE": 0.72
+    },
+    {
+      "id": "district-attorney",
+      "name": "District Attorney",
+      "file": "district-attorney.json",
+      "targetOEE": 0.70
+    },
+    {
+      "id": "recorder-of-deeds",
+      "name": "Recorder of Deeds",
+      "file": "recorder-of-deeds.json",
+      "targetOEE": 0.82
+    },
+    {
+      "id": "register-of-wills",
+      "name": "Register of Wills",
+      "file": "register-of-wills.json",
+      "targetOEE": 0.75
+    },
+    {
+      "id": "clerk-of-courts",
+      "name": "Clerk of Courts",
+      "file": "clerk-of-courts.json",
+      "targetOEE": 0.76
+    },
+    {
+      "id": "prothonotary",
+      "name": "Prothonotary",
+      "file": "prothonotary.json",
+      "targetOEE": 0.80
+    },
+    {
+      "id": "controller",
+      "name": "County Controller",
+      "file": "controller.json",
+      "targetOEE": 0.83
+    }
+  ]
+}

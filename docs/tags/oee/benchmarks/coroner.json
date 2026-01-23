@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "coroner-benchmark",
+  "office": "coroner",
+  "name": "Coroner's Office",
+  "description": "Unpredictable workload, quality paramount",
+  "targetOEE": 0.72,
+  "targets": {
+    "availability": 0.95,
+    "performance": 0.78,
+    "quality": 0.97
+  },
+  "targetNotes": {
+    "availability": "24/7 on-call",
+    "performance": "Case complexity varies",
+    "quality": "Legal/medical accuracy"
+  },
+  "cycleTimeMinutes": {
+    "death-investigation": 180,
+    "autopsy": 240,
+    "cremation-permit": 15,
+    "death-certificate": 30
+  },
+  "slaHours": {
+    "sceneResponse": 1,
+    "deathCertificate": 72,
+    "cremationPermit": 24
+  },
+  "keyMetrics": [
+    "response_time_minutes",
+    "autopsy_completion_rate",
+    "certificate_accuracy"
+  ]
+}

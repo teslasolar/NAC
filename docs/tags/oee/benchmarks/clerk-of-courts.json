@@ -1,0 +1,34 @@
+{
+  "tagType": "OfficeBenchmark",
+  "id": "clerk-of-courts-benchmark",
+  "office": "clerk-of-courts",
+  "name": "Clerk of Courts",
+  "description": "High volume, court-dependent scheduling",
+  "targetOEE": 0.76,
+  "targets": {
+    "availability": 0.90,
+    "performance": 0.86,
+    "quality": 0.98
+  },
+  "targetNotes": {
+    "availability": "Court calendar driven",
+    "performance": "Batch filings efficient",
+    "quality": "Legal record accuracy"
+  },
+  "cycleTimeMinutes": {
+    "case-filing": 15,
+    "docket-entry": 5,
+    "judgment-entry": 20,
+    "certified-copy": 10
+  },
+  "slaHours": {
+    "caseFiling": 24,
+    "docketEntry": 4,
+    "certifiedCopy": 48
+  },
+  "keyMetrics": [
+    "filing_turnaround",
+    "docket_accuracy",
+    "court_support_rating"
+  ]
+}

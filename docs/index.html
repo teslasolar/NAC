@@ -557,6 +557,211 @@
       header h1 { font-size: 20px; }
       .guide-grid { grid-template-columns: 1fr; }
     }
+
+    /* LLM Chat Component */
+    .chat-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      z-index: 1000;
+      transition: all 0.3s;
+    }
+    .chat-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+    }
+    .chat-fab svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    .chat-panel {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 380px;
+      max-height: 500px;
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 1001;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-panel.open { display: flex; }
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+    }
+    .chat-header h4 {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-header h4::before {
+      content: '🤖';
+    }
+    .chat-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-close:hover { background: rgba(255,255,255,0.3); }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      max-height: 320px;
+      min-height: 200px;
+    }
+    .chat-message {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-message.user {
+      align-items: flex-end;
+    }
+    .chat-message.assistant {
+      align-items: flex-start;
+    }
+    .chat-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .chat-message.user .chat-bubble {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-message.assistant .chat-bubble {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      border-bottom-left-radius: 4px;
+    }
+    .chat-input-area {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-dark);
+    }
+    .chat-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--bg-medium);
+      color: var(--text-primary);
+      font-size: 13px;
+      outline: none;
+    }
+    .chat-input:focus {
+      border-color: #3b82f6;
+    }
+    .chat-input::placeholder {
+      color: var(--text-muted);
+    }
+    .chat-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .chat-send:hover {
+      transform: scale(1.05);
+    }
+    .chat-send:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .chat-send svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+    .chat-typing {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+    }
+    .chat-typing span {
+      width: 8px;
+      height: 8px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+    .chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 16px 12px;
+    }
+    .chat-suggestion {
+      font-size: 11px;
+      padding: 6px 10px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-suggestion:hover {
+      background: var(--accent);
+      border-color: var(--text-muted);
+      color: var(--text-primary);
+    }
+    @media (max-width: 500px) {
+      .chat-panel {
+        width: calc(100% - 32px);
+        right: 16px;
+        bottom: 80px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -854,6 +1059,35 @@
     </div>
   </aside>
 
+  <!-- LLM Chat Component -->
+  <button class="chat-fab" onclick="toggleChat()" title="Ask NAC Assistant">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+  </button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h4>NAC Assistant</h4>
+      <button class="chat-close" onclick="toggleChat()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message assistant">
+        <div class="chat-bubble">Hi! I'm the NAC Assistant. Ask me about Northampton County government, ISA-95 architecture, row officers, or anything else about this system.</div>
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <span class="chat-suggestion" onclick="askSuggestion(this)">What is ISA-95?</span>
+      <span class="chat-suggestion" onclick="askSuggestion(this)">List row officers</span>
+      <span class="chat-suggestion" onclick="askSuggestion(this)">How does OEE work?</span>
+      <span class="chat-suggestion" onclick="askSuggestion(this)">What is a digital twin?</span>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask a question..." onkeypress="if(event.key==='Enter')sendMessage()">
+      <button class="chat-send" onclick="sendMessage()" id="chatSend">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
   <script>
     function toggleGuide() {
       const content = document.getElementById('guideContent');
@@ -865,6 +1099,115 @@
         content.classList.add('expanded');
         toggle.textContent = '−';
       }
+    }
+
+    // Chat functionality
+    function toggleChat() {
+      document.getElementById('chatPanel').classList.toggle('open');
+    }
+
+    function askSuggestion(el) {
+      document.getElementById('chatInput').value = el.textContent;
+      sendMessage();
+    }
+
+    function addMessage(text, role) {
+      const messages = document.getElementById('chatMessages');
+      const msg = document.createElement('div');
+      msg.className = 'chat-message ' + role;
+      msg.innerHTML = '<div class="chat-bubble">' + escapeHtml(text) + '</div>';
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function addTypingIndicator() {
+      const messages = document.getElementById('chatMessages');
+      const typing = document.createElement('div');
+      typing.id = 'typingIndicator';
+      typing.className = 'chat-message assistant';
+      typing.innerHTML = '<div class="chat-bubble"><div class="chat-typing"><span></span><span></span><span></span></div></div>';
+      messages.appendChild(typing);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Knowledge base for local responses
+    const knowledge = {
+      'isa-95': 'ISA-95 is an international standard for integrating enterprise and control systems. It defines 5 levels: L0 (Physical Process), L1 (Sensing/Manipulation), L2 (Monitoring/Control), L3 (Manufacturing Operations), and L4 (Business Planning). NAC adapts this framework for county government operations.',
+      'row officers': 'Northampton County has 8 row officers: Sheriff (Christopher Zieger), Coroner (Zachary Lysek - 34 years!), District Attorney (Stephen Baratta), Clerk of Courts (Leigh Ann Fisher), Prothonotary (Holly Ruggiero), Recorder of Deeds (Dorothy Edelman), Register of Wills (Patricia Manento), and the vacant Controller position.',
+      'oee': 'OEE (Overall Equipment Effectiveness) measures operational efficiency: Availability × Performance × Quality. For government, this translates to: staff availability, processing speed vs. targets, and first-pass accuracy. Target OEE varies by office (72-85%).',
+      'digital twin': 'A digital twin is a virtual model of a physical system. NAC creates a digital twin of Northampton County government, modeling each row officer as a "production unit" with assembly lines (workflows), stations (process steps), and work items (cases, filings, permits).',
+      'controller': 'The County Controller position is currently VACANT after Tara Zrinski became County Executive on Jan 5, 2026. The Controller audits county accounts, pre-audits vouchers, countersigns warrants, and serves on various boards per 16 P.S. §1701-1720.',
+      'packml': 'PackML (Packaging Machine Language) defines 17 standard states for equipment control. NAC uses these states (Idle, Running, Held, Complete, etc.) to track the status of each production unit and work station.',
+      'modules': 'NAC has 74 modules across 5 ISA-95 levels, covering: L4 (Enterprise planning, budgets, HR), L3 (Operations management, MES execution), L2 (SCADA dashboards, alarms, KPIs), L1 (Transactions, blockchain signing), and L0 (Base data types, schemas).'
+    };
+
+    async function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = '';
+      document.getElementById('chatSend').disabled = true;
+      document.getElementById('chatSuggestions').style.display = 'none';
+
+      addMessage(text, 'user');
+      addTypingIndicator();
+
+      // Simulate thinking delay
+      await new Promise(r => setTimeout(r, 800 + Math.random() * 700));
+
+      removeTypingIndicator();
+
+      // Find best matching response from knowledge base
+      const response = getResponse(text.toLowerCase());
+      addMessage(response, 'assistant');
+
+      document.getElementById('chatSend').disabled = false;
+    }
+
+    function getResponse(query) {
+      // Check for keyword matches
+      if (query.includes('isa-95') || query.includes('isa95') || query.includes('what is isa')) {
+        return knowledge['isa-95'];
+      }
+      if (query.includes('row officer') || query.includes('list officer') || query.includes('who are')) {
+        return knowledge['row officers'];
+      }
+      if (query.includes('oee') || query.includes('effectiveness') || query.includes('efficiency')) {
+        return knowledge['oee'];
+      }
+      if (query.includes('digital twin') || query.includes('twin')) {
+        return knowledge['digital twin'];
+      }
+      if (query.includes('controller') || query.includes('vacant') || query.includes('zrinski')) {
+        return knowledge['controller'];
+      }
+      if (query.includes('packml') || query.includes('state machine') || query.includes('17 state')) {
+        return knowledge['packml'];
+      }
+      if (query.includes('module') || query.includes('how many') || query.includes('74')) {
+        return knowledge['modules'];
+      }
+      if (query.includes('hello') || query.includes('hi') || query.includes('hey')) {
+        return 'Hello! I can help you learn about Northampton County\'s digital twin system. Try asking about ISA-95, row officers, OEE metrics, or the Controller position.';
+      }
+      if (query.includes('thank')) {
+        return 'You\'re welcome! Let me know if you have any other questions about the NAC system.';
+      }
+
+      // Default response
+      return 'I can help with questions about ISA-95 architecture, the 8 row officers, OEE metrics, digital twin concepts, PackML states, or the 74 modules in this system. What would you like to know?';
     }
   </script>
 </body>

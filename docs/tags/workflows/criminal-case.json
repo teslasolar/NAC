@@ -1,0 +1,51 @@
+{
+  "tagType": "Workflow",
+  "id": "criminal_case",
+  "description": "Criminal case prosecution workflow",
+  "slaBusinessDays": 365,
+  "states": ["referred", "reviewed", "charged", "preliminary", "trial_prep", "adjudicated", "closed"],
+  "transitions": [
+    {
+      "from": "referred",
+      "to": "reviewed",
+      "action": "review_case",
+      "conditions": ["complete_file"],
+      "slaHours": 72
+    },
+    {
+      "from": "reviewed",
+      "to": "charged",
+      "action": "file_charges",
+      "conditions": ["probable_cause", "within_sol"],
+      "slaHours": 168,
+      "alternativeTo": "declined"
+    },
+    {
+      "from": "charged",
+      "to": "preliminary",
+      "action": "preliminary_hearing",
+      "slaHours": 240,
+      "note": "10-day rule if incarcerated"
+    },
+    {
+      "from": "preliminary",
+      "to": "trial_prep",
+      "action": "bind_over",
+      "conditions": ["prima_facie_established"],
+      "slaHours": 720
+    },
+    {
+      "from": "trial_prep",
+      "to": "adjudicated",
+      "action": "resolve_case",
+      "slaHours": 4320,
+      "note": "180-day speedy trial rule"
+    },
+    {
+      "from": "adjudicated",
+      "to": "closed",
+      "action": "close_case",
+      "slaHours": 168
+    }
+  ]
+}

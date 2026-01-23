@@ -1,0 +1,28 @@
+{
+  "tagType": "Workflow",
+  "id": "cash_receipt",
+  "description": "Cash receipt processing",
+  "slaBusinessDays": 0,
+  "states": ["received", "recorded", "deposited", "reconciled"],
+  "transitions": [
+    {
+      "from": "received",
+      "to": "recorded",
+      "action": "record_receipt",
+      "slaHours": 0.5
+    },
+    {
+      "from": "recorded",
+      "to": "deposited",
+      "action": "deposit_funds",
+      "slaHours": 4,
+      "note": "Same-day deposit requirement"
+    },
+    {
+      "from": "deposited",
+      "to": "reconciled",
+      "action": "reconcile",
+      "slaHours": 24
+    }
+  ]
+}

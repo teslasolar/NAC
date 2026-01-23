@@ -1,0 +1,36 @@
+{
+  "tagType": "Workflow",
+  "id": "process_service",
+  "description": "Legal process service workflow",
+  "slaBusinessDays": 30,
+  "states": ["received", "assigned", "attempted", "served", "returned"],
+  "transitions": [
+    {
+      "from": "received",
+      "to": "assigned",
+      "action": "assign_deputy",
+      "conditions": ["valid_address", "fee_paid"],
+      "slaHours": 4
+    },
+    {
+      "from": "assigned",
+      "to": "attempted",
+      "action": "attempt_service",
+      "maxAttempts": 3,
+      "slaHours": 72
+    },
+    {
+      "from": "attempted",
+      "to": "served",
+      "action": "complete_service",
+      "conditions": ["service_successful"],
+      "slaHours": 1
+    },
+    {
+      "from": ["served", "attempted"],
+      "to": "returned",
+      "action": "file_return",
+      "slaHours": 24
+    }
+  ]
+}

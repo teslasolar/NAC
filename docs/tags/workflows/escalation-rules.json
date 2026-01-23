@@ -1,0 +1,20 @@
+{
+  "tagType": "EscalationRules",
+  "rules": [
+    {
+      "trigger": "sla_warning",
+      "threshold": 0.75,
+      "action": "notify_supervisor"
+    },
+    {
+      "trigger": "sla_breach",
+      "threshold": 1.0,
+      "action": "escalate_to_officer"
+    },
+    {
+      "trigger": "sla_critical",
+      "threshold": 1.5,
+      "action": "escalate_to_controller"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "tagType": "ApprovalThresholds",
+  "claims": [
+    { "maxAmount": 10000, "approver": "department_head", "level": 1 },
+    { "maxAmount": 50000, "approver": "controller", "level": 2 },
+    { "maxAmount": null, "approver": "council", "level": 3 }
+  ],
+  "contracts": [
+    { "maxAmount": 10000, "approver": "department_head", "level": 1 },
+    { "maxAmount": 25000, "approver": "controller", "level": 2 },
+    { "maxAmount": null, "approver": "council", "level": 3, "bidRequired": true }
+  ],
+  "budget_transfers": [
+    { "maxAmount": 5000, "approver": "department_head", "level": 1 },
+    { "maxAmount": 25000, "approver": "controller", "level": 2 },
+    { "maxAmount": null, "approver": "council", "level": 3 }
+  ]
+}

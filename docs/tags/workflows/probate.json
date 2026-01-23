@@ -1,0 +1,44 @@
+{
+  "tagType": "Workflow",
+  "id": "probate",
+  "description": "Estate probate workflow",
+  "slaBusinessDays": 365,
+  "states": ["filed", "examined", "letters_issued", "inventory", "accounting", "closed"],
+  "transitions": [
+    {
+      "from": "filed",
+      "to": "examined",
+      "action": "examine_will",
+      "conditions": ["original_will", "death_certificate"],
+      "slaHours": 24
+    },
+    {
+      "from": "examined",
+      "to": "letters_issued",
+      "action": "issue_letters",
+      "conditions": ["will_valid", "executor_qualified", "bond_posted"],
+      "slaHours": 4
+    },
+    {
+      "from": "letters_issued",
+      "to": "inventory",
+      "action": "file_inventory",
+      "slaHours": 2160,
+      "note": "90-day inventory requirement"
+    },
+    {
+      "from": "inventory",
+      "to": "accounting",
+      "action": "file_accounting",
+      "slaHours": 8760,
+      "note": "First accounting within 1 year"
+    },
+    {
+      "from": "accounting",
+      "to": "closed",
+      "action": "close_estate",
+      "conditions": ["all_distributed", "inheritance_tax_paid"],
+      "slaHours": 720
+    }
+  ]
+}

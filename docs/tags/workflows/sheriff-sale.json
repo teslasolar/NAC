@@ -1,0 +1,58 @@
+{
+  "tagType": "Workflow",
+  "id": "sheriff_sale",
+  "description": "Sheriff sale process per PA Rules of Civil Procedure",
+  "slaBusinessDays": 90,
+  "states": ["petition_received", "scheduled", "advertised", "conducted", "distributed", "completed"],
+  "transitions": [
+    {
+      "from": "petition_received",
+      "to": "scheduled",
+      "action": "schedule_sale",
+      "conditions": ["valid_writ", "property_verified"],
+      "slaHours": 168
+    },
+    {
+      "from": "scheduled",
+      "to": "advertised",
+      "action": "publish_notice",
+      "conditions": ["sale_date_set"],
+      "slaHours": 504,
+      "note": "21-day statutory advertising requirement"
+    },
+    {
+      "from": "advertised",
+      "to": "conducted",
+      "action": "conduct_auction",
+      "conditions": ["advertising_complete", "auction_date_reached"],
+      "slaHours": 24
+    },
+    {
+      "from": "conducted",
+      "to": "distributed",
+      "action": "distribute_proceeds",
+      "conditions": ["successful_bid", "deed_prepared"],
+      "slaHours": 720,
+      "note": "30-day distribution requirement"
+    },
+    {
+      "from": "distributed",
+      "to": "completed",
+      "action": "close_case",
+      "conditions": ["all_proceeds_distributed"],
+      "slaHours": 24
+    }
+  ],
+  "exceptions": [
+    {
+      "name": "stay_ordered",
+      "action": "suspend",
+      "resumeCondition": "stay_lifted"
+    },
+    {
+      "name": "bankruptcy_filed",
+      "action": "abort",
+      "note": "Automatic stay applies"
+    }
+  ]
+}

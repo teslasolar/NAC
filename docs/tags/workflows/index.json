@@ -1,0 +1,22 @@
+{
+  "tagType": "WorkflowRulesIndex",
+  "title": "Workflow Rules and Transitions",
+  "description": "State transitions and workflow rules for work items",
+  "version": "1.0.0",
+  "globalRules": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "escalationThresholdHours": 4,
+    "auditLogRequired": true
+  },
+  "workflows": [
+    { "$ref": "./sheriff-sale.json" },
+    { "$ref": "./process-service.json" },
+    { "$ref": "./criminal-case.json" },
+    { "$ref": "./probate.json" },
+    { "$ref": "./document-recording.json" },
+    { "$ref": "./cash-receipt.json" }
+  ],
+  "approvalThresholds": { "$ref": "./approval-thresholds.json" },
+  "escalationRules": { "$ref": "./escalation-rules.json" }
+}

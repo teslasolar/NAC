@@ -1,0 +1,27 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "register-of-wills",
+  "types": {
+    "will_filed": {
+      "category": "estate",
+      "description": "Will submitted for probate",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["decedent", "executor", "dateOfDeath"]
+    },
+    "marriage_application": {
+      "category": "vital_records",
+      "description": "Marriage license application",
+      "defaultPriority": "normal",
+      "slaHours": 72,
+      "requiredFields": ["applicant1", "applicant2"]
+    },
+    "inheritance_tax_return": {
+      "category": "financial",
+      "description": "PA inheritance tax return (REV-1500)",
+      "defaultPriority": "normal",
+      "slaHours": 168,
+      "requiredFields": ["estate", "taxableValue", "beneficiaries"]
+    }
+  }
+}

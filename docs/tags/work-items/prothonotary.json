@@ -1,0 +1,34 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "prothonotary",
+  "types": {
+    "complaint_filed": {
+      "category": "legal_process",
+      "description": "Civil complaint filing",
+      "defaultPriority": "normal",
+      "slaHours": 4,
+      "requiredFields": ["plaintiff", "defendant", "claimAmount"]
+    },
+    "judgment_entered": {
+      "category": "legal_process",
+      "description": "Judgment for entry on docket",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["creditor", "debtor", "amount", "caseNumber"]
+    },
+    "lien_filed": {
+      "category": "property",
+      "description": "Lien filing (mechanic, tax, municipal)",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["lienType", "property", "amount", "claimant"]
+    },
+    "escrow_deposited": {
+      "category": "financial",
+      "description": "Funds deposited in escrow",
+      "defaultPriority": "normal",
+      "slaHours": 4,
+      "requiredFields": ["caseNumber", "amount", "depositor"]
+    }
+  }
+}

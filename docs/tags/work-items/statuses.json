@@ -1,0 +1,11 @@
+{
+  "tagType": "WorkItemStatuses",
+  "statuses": {
+    "queued": { "description": "Waiting in queue", "active": false },
+    "processing": { "description": "Currently being processed", "active": true },
+    "completed": { "description": "Successfully completed", "active": false },
+    "rejected": { "description": "Rejected/returned", "active": false },
+    "on_hold": { "description": "On hold pending action", "active": false },
+    "cancelled": { "description": "Cancelled", "active": false }
+  }
+}

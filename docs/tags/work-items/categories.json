@@ -1,0 +1,29 @@
+{
+  "tagType": "WorkItemCategories",
+  "categories": {
+    "legal_process": {
+      "description": "Legal documents and court processes",
+      "officers": ["sheriff", "clerk-of-courts", "prothonotary"]
+    },
+    "financial": {
+      "description": "Financial transactions and records",
+      "officers": ["treasurer", "all"]
+    },
+    "property": {
+      "description": "Real property records",
+      "officers": ["recorder-of-deeds", "prothonotary", "sheriff"]
+    },
+    "vital_records": {
+      "description": "Birth, death, marriage records",
+      "officers": ["coroner", "register-of-wills"]
+    },
+    "estate": {
+      "description": "Probate and estate matters",
+      "officers": ["register-of-wills"]
+    },
+    "criminal": {
+      "description": "Criminal case processing",
+      "officers": ["district-attorney", "clerk-of-courts", "sheriff"]
+    }
+  }
+}

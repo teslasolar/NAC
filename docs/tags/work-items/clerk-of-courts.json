@@ -1,0 +1,27 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "clerk-of-courts",
+  "types": {
+    "criminal_filed": {
+      "category": "criminal",
+      "description": "Criminal case filing",
+      "defaultPriority": "normal",
+      "slaHours": 4,
+      "requiredFields": ["defendant", "charges", "docketNumber"]
+    },
+    "bail_posted": {
+      "category": "financial",
+      "description": "Bail money posted",
+      "defaultPriority": "high",
+      "slaHours": 1,
+      "requiredFields": ["defendant", "amount", "postedBy"]
+    },
+    "certification_request": {
+      "category": "legal_process",
+      "description": "Request for certified court document",
+      "defaultPriority": "normal",
+      "slaHours": 8,
+      "requiredFields": ["caseNumber", "documentType"]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "treasurer",
+  "types": {
+    "receipt_incoming": {
+      "category": "financial",
+      "description": "Incoming cash/check receipt",
+      "defaultPriority": "normal",
+      "slaHours": 4,
+      "requiredFields": ["source", "amount", "fund"]
+    },
+    "warrant_received": {
+      "category": "financial",
+      "description": "Controller warrant for payment",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["payee", "amount", "fund", "controllerSignature"]
+    },
+    "tax_payment": {
+      "category": "financial",
+      "description": "Real estate tax payment",
+      "defaultPriority": "normal",
+      "slaHours": 1,
+      "requiredFields": ["parcelId", "amount", "taxYear"]
+    },
+    "investment_order": {
+      "category": "financial",
+      "description": "Investment purchase/sale order",
+      "defaultPriority": "normal",
+      "slaHours": 8,
+      "requiredFields": ["instrumentType", "amount", "maturityDate"]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "recorder-of-deeds",
+  "types": {
+    "document_submitted": {
+      "category": "property",
+      "description": "Document for recording",
+      "defaultPriority": "normal",
+      "slaHours": 8,
+      "requiredFields": ["docType", "grantor", "grantee"]
+    },
+    "transfer_tax": {
+      "category": "financial",
+      "description": "Realty transfer tax calculation",
+      "defaultPriority": "normal",
+      "slaHours": 1,
+      "requiredFields": ["consideration", "propertyAddress", "exemptions"]
+    }
+  }
+}

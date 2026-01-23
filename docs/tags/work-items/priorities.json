@@ -1,0 +1,9 @@
+{
+  "tagType": "WorkItemPriorities",
+  "priorities": {
+    "urgent": { "level": 0, "sla_multiplier": 0.25, "color": "#dc3545" },
+    "high": { "level": 1, "sla_multiplier": 0.5, "color": "#fd7e14" },
+    "normal": { "level": 2, "sla_multiplier": 1.0, "color": "#17a2b8" },
+    "low": { "level": 3, "sla_multiplier": 2.0, "color": "#6c757d" }
+  }
+}

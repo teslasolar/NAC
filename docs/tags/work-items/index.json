@@ -1,0 +1,19 @@
+{
+  "tagType": "WorkItemTypesIndex",
+  "title": "Work Item Type Definitions",
+  "description": "All work item types that flow through the county production system",
+  "version": "1.0.0",
+  "priorities": { "$ref": "./priorities.json" },
+  "statuses": { "$ref": "./statuses.json" },
+  "categories": { "$ref": "./categories.json" },
+  "types": [
+    { "$ref": "./sheriff.json" },
+    { "$ref": "./treasurer.json" },
+    { "$ref": "./coroner.json" },
+    { "$ref": "./district-attorney.json" },
+    { "$ref": "./recorder-of-deeds.json" },
+    { "$ref": "./register-of-wills.json" },
+    { "$ref": "./clerk-of-courts.json" },
+    { "$ref": "./prothonotary.json" }
+  ]
+}

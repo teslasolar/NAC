@@ -1,0 +1,27 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "district-attorney",
+  "types": {
+    "case_referred": {
+      "category": "criminal",
+      "description": "Criminal case referral from police",
+      "defaultPriority": "normal",
+      "slaHours": 72,
+      "requiredFields": ["defendant", "charges", "arrestingAgency"]
+    },
+    "asset_seized": {
+      "category": "financial",
+      "description": "Asset seizure for forfeiture",
+      "defaultPriority": "normal",
+      "slaHours": 720,
+      "requiredFields": ["assetDescription", "value", "caseNumber"]
+    },
+    "restitution_payment": {
+      "category": "financial",
+      "description": "Restitution payment from defendant",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["defendant", "victim", "amount", "caseNumber"]
+    }
+  }
+}

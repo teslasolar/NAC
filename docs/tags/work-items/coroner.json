@@ -1,0 +1,27 @@
+{
+  "tagType": "WorkItemTypes",
+  "office": "coroner",
+  "types": {
+    "death_reported": {
+      "category": "vital_records",
+      "description": "Death report requiring investigation",
+      "defaultPriority": "urgent",
+      "slaHours": 2,
+      "requiredFields": ["decedentName", "location", "reportedBy"]
+    },
+    "autopsy_ordered": {
+      "category": "vital_records",
+      "description": "Autopsy examination order",
+      "defaultPriority": "high",
+      "slaHours": 48,
+      "requiredFields": ["decedentName", "caseNumber", "orderingAuthority"]
+    },
+    "cremation_permit_request": {
+      "category": "vital_records",
+      "description": "Request for cremation authorization",
+      "defaultPriority": "normal",
+      "slaHours": 24,
+      "requiredFields": ["decedentName", "funeralHome", "nextOfKin"]
+    }
+  }
+}

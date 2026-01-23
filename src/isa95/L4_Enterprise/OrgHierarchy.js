@@ -6,8 +6,9 @@
  *
  * Data sources:
  * - norcopa.gov organizational charts
- * - County budget documents (FY 2024)
+ * - County budget documents (FY 2026)
  * - PA County Code Title 16 statutory requirements
+ * - Web-verified data Jan 2026 (Morning Call, WFMZ, LehighValleyNews)
  *
  * @module L4_Enterprise/OrgHierarchy
  */
@@ -43,9 +44,9 @@ export const CountyHierarchy = {
   id: 'northampton-county',
   name: 'Northampton County Government',
   type: 'enterprise',
-  population: 312274,  // 2020 Census
-  totalEmployees: 2847,
-  budget: 583000000,
+  population: 349819,  // US Census Bureau 2024
+  totalEmployees: 2000,  // Approx per WFMZ Jan 2026
+  budget: 503000000,  // FY 2026 budget (8th year no tax increase)
   children: [
     // ═══════════════════════════════════════════════════════════════
     // ELECTED ROW OFFICERS (8 independently elected)
@@ -56,12 +57,14 @@ export const CountyHierarchy = {
       type: 'division',
       description: 'Independently elected constitutional officers',
       children: [
-        // SHERIFF
+        // SHERIFF (Appointed in Northampton County - Home Rule)
         {
           id: 'sheriff',
           name: "Sheriff's Office",
           officerName: 'Christopher Zieger',
-          type: PositionType.ELECTED,
+          appointed: '2025-06',
+          reappointed: '2026-01-16',
+          type: PositionType.APPOINTED,  // Home Rule county
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 4201-4234',
           budget: 11200000,
@@ -126,12 +129,13 @@ export const CountyHierarchy = {
           ]
         },
 
-        // FISCAL AFFAIRS - REVENUE
+        // FISCAL AFFAIRS - REVENUE (Home Rule - no elected Treasurer)
         {
           id: 'fiscal-affairs-revenue',
           name: 'Fiscal Affairs - Revenue',
-          officerName: 'Anthony Morris',
-          type: PositionType.ELECTED,
+          officerName: 'VACANT',
+          actingOfficer: 'Brandon Dunstane (Budget Administrator)',
+          type: PositionType.APPOINTED,  // Home Rule county
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 5301-5352',
           budget: 1850000,
@@ -179,11 +183,12 @@ export const CountyHierarchy = {
           ]
         },
 
-        // CONTROLLER
+        // CONTROLLER (Vacant since Jan 5, 2026 - Zrinski became Exec)
         {
           id: 'controller',
           name: 'County Controller',
-          officerName: 'Acting Controller',
+          officerName: 'VACANT',
+          vacancyReason: 'Tara Zrinski resigned Jan 5, 2026 to become County Executive',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 1701-1780',
@@ -221,12 +226,14 @@ export const CountyHierarchy = {
           ]
         },
 
-        // CORONER
+        // CORONER (Appointed - not elected in Northampton County)
         {
           id: 'coroner',
           name: "Coroner's Office",
           officerName: 'Zachary Lysek',
-          type: PositionType.ELECTED,
+          tenure: 34,  // Since 1992
+          reappointed: '2026-01-16',
+          type: PositionType.APPOINTED,  // Home Rule county
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 4501-4526',
           budget: 2100000,
@@ -439,12 +446,13 @@ export const CountyHierarchy = {
           ]
         },
 
-        // CLERK OF COURTS
+        // CLERK OF COURTS (Career Service position)
         {
           id: 'clerk-of-courts',
           name: 'Clerk of Courts',
           officerName: 'Leigh Ann Fisher',
-          type: PositionType.ELECTED,
+          tenure: 19,  // Since 2007
+          type: PositionType.CIVIL_SERVICE,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 2701-2755',
           budget: 2800000,
@@ -495,12 +503,13 @@ export const CountyHierarchy = {
           ]
         },
 
-        // PROTHONOTARY
+        // PROTHONOTARY (Career Service - only non-elected in PA)
         {
           id: 'prothonotary',
           name: 'Prothonotary',
           officerName: 'Holly Ruggiero',
-          type: PositionType.ELECTED,
+          tenure: 25,  // Since 2001
+          type: PositionType.CIVIL_SERVICE,  // Only non-elected prothonotary in PA
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 2801-2850',
           budget: 1680000,
@@ -563,6 +572,10 @@ export const CountyHierarchy = {
           id: 'county-executive',
           name: 'County Executive Office',
           officerName: 'Tara Zrinski',
+          swornIn: '2026-01-05',
+          salary: 105000,  // 23.5% increase approved by council
+          termLimited: true,  // 2 consecutive 4-year terms (2023 referendum)
+          note: 'First woman County Executive; previously Controller',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ADMINISTRATIVE,
           budget: 3200000,
@@ -594,7 +607,9 @@ export const CountyHierarchy = {
         {
           id: 'fiscal-affairs',
           name: 'Fiscal Affairs',
-          head: 'Fiscal Affairs Director',
+          head: 'VACANT - Fiscal Affairs Director',
+          actingHead: 'Brandon Dunstane (Budget Administrator)',
+          previousDirector: 'Stephen Barron (departed Oct 2025)',
           type: PositionType.APPOINTED,
           category: DepartmentCategory.ADMINISTRATIVE,
           budget: 2100000,

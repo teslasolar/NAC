@@ -1,22 +1,42 @@
-// Digital Twin Data Model
-const countyData = {
+// Digital Twin Data Model - Can load staffing from tags
+let countyData = {
   units: [
-    { id: 'sheriff', name: "Sheriff's Office", position: { x: 0, y: 0, z: 0 }, dimensions: { width: 60, height: 8, depth: 40 }, color: 0x3498db, lines: [{ id: 'sheriff-sales', name: 'Sheriff Sales', stations: 5 }, { id: 'process-service', name: 'Process Service', stations: 4 }, { id: 'inmate-accounts', name: 'Inmate Accounts', stations: 4 }, { id: 'court-security', name: 'Court Security', stations: 4 }], staffing: 45 },
-    { id: 'treasurer', name: 'County Treasurer', position: { x: 80, y: 0, z: 0 }, dimensions: { width: 50, height: 6, depth: 30 }, color: 0x27ae60, lines: [{ id: 'cash-receipts', name: 'Cash Receipts', stations: 3 }, { id: 'disbursements', name: 'Disbursements', stations: 3 }, { id: 'investments', name: 'Investments', stations: 4 }, { id: 'tax-collection', name: 'Tax Collection', stations: 3 }, { id: 'bank-reconciliation', name: 'Bank Reconciliation', stations: 3 }], staffing: 15 },
-    { id: 'coroner', name: "Coroner's Office", position: { x: 160, y: 0, z: 0 }, dimensions: { width: 40, height: 6, depth: 25 }, color: 0x9b59b6, lines: [{ id: 'death-investigation', name: 'Death Investigation', stations: 4 }, { id: 'autopsy', name: 'Autopsy', stations: 4 }, { id: 'cremation-permits', name: 'Cremation Permits', stations: 3 }, { id: 'property-control', name: 'Property Control', stations: 3 }], staffing: 8 },
-    { id: 'district-attorney', name: "District Attorney's Office", position: { x: 240, y: 0, z: 0 }, dimensions: { width: 55, height: 7, depth: 35 }, color: 0xe74c3c, lines: [{ id: 'prosecution', name: 'Criminal Prosecution', stations: 5 }, { id: 'forfeiture', name: 'Asset Forfeiture', stations: 5 }, { id: 'grants', name: 'Grant Management', stations: 4 }, { id: 'restitution', name: 'Victim Restitution', stations: 3 }], staffing: 35 },
-    { id: 'recorder-of-deeds', name: 'Recorder of Deeds', position: { x: 0, y: 0, z: 60 }, dimensions: { width: 35, height: 5, depth: 25 }, color: 0xf39c12, lines: [{ id: 'recording', name: 'Document Recording', stations: 4 }, { id: 'transfer-tax', name: 'Transfer Tax', stations: 4 }, { id: 'public-records', name: 'Public Records', stations: 3 }, { id: 'technology-fund', name: 'Technology Fund', stations: 2 }], staffing: 12 },
+    { id: 'sheriff', name: "Sheriff's Office", position: { x: 0, y: 0, z: 0 }, dimensions: { width: 60, height: 8, depth: 40 }, color: 0x3498db, lines: [{ id: 'sheriff-sales', name: 'Sheriff Sales', stations: 5 }, { id: 'process-service', name: 'Process Service', stations: 4 }, { id: 'inmate-accounts', name: 'Inmate Accounts', stations: 4 }, { id: 'court-security', name: 'Court Security', stations: 4 }], staffing: 156 },
+    { id: 'fiscal-affairs-revenue', name: 'Fiscal Affairs - Revenue', position: { x: 80, y: 0, z: 0 }, dimensions: { width: 50, height: 6, depth: 30 }, color: 0x27ae60, lines: [{ id: 'cash-receipts', name: 'Cash Receipts', stations: 3 }, { id: 'disbursements', name: 'Disbursements', stations: 3 }, { id: 'investments', name: 'Investments', stations: 4 }, { id: 'tax-collection', name: 'Tax Collection', stations: 3 }, { id: 'bank-reconciliation', name: 'Bank Reconciliation', stations: 3 }], staffing: 18 },
+    { id: 'coroner', name: "Coroner's Office", position: { x: 160, y: 0, z: 0 }, dimensions: { width: 40, height: 6, depth: 25 }, color: 0x9b59b6, lines: [{ id: 'death-investigation', name: 'Death Investigation', stations: 4 }, { id: 'autopsy', name: 'Autopsy', stations: 4 }, { id: 'cremation-permits', name: 'Cremation Permits', stations: 3 }, { id: 'property-control', name: 'Property Control', stations: 3 }], staffing: 14 },
+    { id: 'district-attorney', name: "District Attorney's Office", position: { x: 240, y: 0, z: 0 }, dimensions: { width: 55, height: 7, depth: 35 }, color: 0xe74c3c, lines: [{ id: 'prosecution', name: 'Criminal Prosecution', stations: 5 }, { id: 'forfeiture', name: 'Asset Forfeiture', stations: 5 }, { id: 'grants', name: 'Grant Management', stations: 4 }, { id: 'restitution', name: 'Victim Restitution', stations: 3 }], staffing: 89 },
+    { id: 'recorder-of-deeds', name: 'Recorder of Deeds', position: { x: 0, y: 0, z: 60 }, dimensions: { width: 35, height: 5, depth: 25 }, color: 0xf39c12, lines: [{ id: 'recording', name: 'Document Recording', stations: 4 }, { id: 'transfer-tax', name: 'Transfer Tax', stations: 4 }, { id: 'public-records', name: 'Public Records', stations: 3 }, { id: 'technology-fund', name: 'Technology Fund', stations: 2 }], staffing: 15 },
     { id: 'register-of-wills', name: 'Register of Wills', position: { x: 80, y: 0, z: 60 }, dimensions: { width: 45, height: 6, depth: 30 }, color: 0x1abc9c, lines: [{ id: 'probate', name: 'Probate', stations: 4 }, { id: 'estate-admin', name: 'Estate Administration', stations: 5 }, { id: 'inheritance-tax', name: 'Inheritance Tax', stations: 4 }, { id: 'marriage-licenses', name: 'Marriage Licenses', stations: 4 }, { id: 'guardian-accounts', name: 'Guardian Accounts', stations: 3 }], staffing: 14 },
-    { id: 'clerk-of-courts', name: 'Clerk of Courts', position: { x: 160, y: 0, z: 60 }, dimensions: { width: 45, height: 6, depth: 30 }, color: 0x3498db, lines: [{ id: 'criminal-filing', name: 'Criminal Cases', stations: 5 }, { id: 'fee-collection', name: 'Fee Collection', stations: 4 }, { id: 'records-management', name: 'Records Management', stations: 4 }, { id: 'bail-bond', name: 'Bail/Bond', stations: 3 }], staffing: 18 },
-    { id: 'prothonotary', name: 'Prothonotary', position: { x: 240, y: 0, z: 60 }, dimensions: { width: 45, height: 6, depth: 30 }, color: 0xe67e22, lines: [{ id: 'civil-filing', name: 'Civil Filing', stations: 4 }, { id: 'judgments', name: 'Judgments', stations: 3 }, { id: 'liens', name: 'Lien Docket', stations: 4 }, { id: 'escrow', name: 'Escrow Accounts', stations: 3 }, { id: 'fees', name: 'Fee Collection', stations: 3 }], staffing: 16 }
+    { id: 'clerk-of-courts', name: 'Clerk of Courts', position: { x: 160, y: 0, z: 60 }, dimensions: { width: 45, height: 6, depth: 30 }, color: 0x3498db, lines: [{ id: 'criminal-filing', name: 'Criminal Cases', stations: 5 }, { id: 'fee-collection', name: 'Fee Collection', stations: 4 }, { id: 'records-management', name: 'Records Management', stations: 4 }, { id: 'bail-bond', name: 'Bail/Bond', stations: 3 }], staffing: 32 },
+    { id: 'prothonotary', name: 'Prothonotary', position: { x: 240, y: 0, z: 60 }, dimensions: { width: 45, height: 6, depth: 30 }, color: 0xe67e22, lines: [{ id: 'civil-filing', name: 'Civil Filing', stations: 4 }, { id: 'judgments', name: 'Judgments', stations: 3 }, { id: 'liens', name: 'Lien Docket', stations: 4 }, { id: 'escrow', name: 'Escrow Accounts', stations: 3 }, { id: 'fees', name: 'Fee Collection', stations: 3 }], staffing: 18 }
   ],
   connections: [
-    { from: 'sheriff', to: 'treasurer', label: 'Fees' }, { from: 'clerk-of-courts', to: 'treasurer', label: 'Fees' },
-    { from: 'prothonotary', to: 'treasurer', label: 'Fees' }, { from: 'recorder-of-deeds', to: 'treasurer', label: 'Fees' },
-    { from: 'register-of-wills', to: 'treasurer', label: 'Fees' }, { from: 'district-attorney', to: 'clerk-of-courts', label: 'Cases' },
+    { from: 'sheriff', to: 'fiscal-affairs-revenue', label: 'Fees' }, { from: 'clerk-of-courts', to: 'fiscal-affairs-revenue', label: 'Fees' },
+    { from: 'prothonotary', to: 'fiscal-affairs-revenue', label: 'Fees' }, { from: 'recorder-of-deeds', to: 'fiscal-affairs-revenue', label: 'Fees' },
+    { from: 'register-of-wills', to: 'fiscal-affairs-revenue', label: 'Fees' }, { from: 'district-attorney', to: 'clerk-of-courts', label: 'Cases' },
     { from: 'prothonotary', to: 'sheriff', label: 'Writs' }, { from: 'coroner', to: 'district-attorney', label: 'Referrals' }
   ]
 };
+
+// Load staffing data from tags (optional enhancement)
+async function loadStaffingFromTags() {
+  if (typeof TagLoader === 'undefined') return;
+  try {
+    const tags = new TagLoader();
+    const rowOfficers = await tags.load('row-officers');
+
+    // Update staffing from tag data
+    countyData.units.forEach(unit => {
+      const officer = rowOfficers.officers.find(o => o.id === unit.id);
+      if (officer) {
+        unit.staffing = officer.staff;
+      }
+    });
+    console.log('Digital twin staffing loaded from tags');
+  } catch (err) {
+    console.warn('Could not load staffing from tags:', err);
+  }
+}
 
 let scene, camera, renderer;
 let unitMeshes = new Map();
@@ -227,4 +247,8 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-init();
+// Initialize with optional tag loading
+(async function() {
+  await loadStaffingFromTags();
+  init();
+})();

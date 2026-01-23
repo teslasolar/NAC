@@ -257,22 +257,22 @@
 
   <div class="kpi-row">
     <div class="kpi-card">
-      <div class="value county">120</div>
+      <div class="value county" id="kpi-county">--</div>
       <div class="label">County Staff</div>
-      <div class="trend bad">20% of positions</div>
+      <div class="trend bad" id="kpi-county-pct">--% of positions</div>
     </div>
     <div class="kpi-card">
-      <div class="value agency">470</div>
+      <div class="value agency" id="kpi-agency">--</div>
       <div class="label">Agency Staff</div>
-      <div class="trend bad">80% of positions</div>
+      <div class="trend bad" id="kpi-agency-pct">--% of positions</div>
     </div>
     <div class="kpi-card">
-      <div class="value total">$10M</div>
+      <div class="value total" id="kpi-transfer">--</div>
       <div class="label">Fund Transfer</div>
       <div class="trend bad">from General Fund</div>
     </div>
     <div class="kpi-card">
-      <div class="value agency">$7.3M</div>
+      <div class="value agency" id="kpi-overtime">--</div>
       <div class="label">Overtime (2022-24)</div>
       <div class="trend bad">per audit</div>
     </div>
@@ -402,66 +402,95 @@
     <br><em>Note: Historical trend chart is illustrative based on reported data points. Position breakdown is proportional estimate.</em>
   </div>
 
+  <script src="js/tag-loader.js"></script>
   <script>
-    // Staffing trend chart
-    const ctx = document.getElementById('staffingChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Q1 2020', 'Q3 2020', 'Q1 2021', 'Q3 2021', 'Q1 2022', 'Q3 2022', 'Q1 2023', 'Q3 2023', 'Q1 2024', 'Q3 2024', 'Q1 2025', 'Q3 2025', 'Q1 2026'],
-        datasets: [
-          {
-            label: 'County Employees',
-            data: [310, 285, 260, 230, 200, 180, 165, 155, 145, 135, 130, 125, 120],
-            borderColor: '#4ade80',
-            backgroundColor: 'rgba(74, 222, 128, 0.1)',
-            fill: true,
-            tension: 0.3
-          },
-          {
-            label: 'Agency Staff',
-            data: [95, 120, 150, 185, 220, 260, 300, 340, 380, 420, 450, 465, 470],
-            borderColor: '#f87171',
-            backgroundColor: 'rgba(248, 113, 113, 0.1)',
-            fill: true,
-            tension: 0.3
-          },
-          {
-            label: 'Total Staff',
-            data: [405, 405, 410, 415, 420, 440, 465, 495, 525, 555, 580, 590, 590],
-            borderColor: '#60a5fa',
-            borderDash: [5, 5],
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: { color: '#a3a3a3', usePointStyle: true }
-          }
+    let gracedale = null;
+    let staffingChart = null;
+
+    async function initFromTags() {
+      const tags = new TagLoader();
+      gracedale = await tags.load('gracedale');
+
+      // Update KPI cards
+      const s = gracedale.staffing;
+      document.getElementById('kpi-county').textContent = s.countyEmployees;
+      document.getElementById('kpi-agency').textContent = s.agencyStaff;
+      document.getElementById('kpi-county-pct').textContent = `${s.countyPct}% of positions`;
+      document.getElementById('kpi-agency-pct').textContent = `${s.agencyPct}% of positions`;
+
+      const f = gracedale.financials;
+      document.getElementById('kpi-transfer').textContent = '$' + (f.fundTransfer / 1000000) + 'M';
+      document.getElementById('kpi-overtime').textContent = '$' + (f.overtime2022to2024 / 1000000).toFixed(1) + 'M';
+
+      // Build chart from trend data
+      const trend = gracedale.staffingTrend.data;
+      // Sample every other quarter for chart readability
+      const sampled = trend.filter((_, i) => i % 2 === 0);
+
+      const ctx = document.getElementById('staffingChart').getContext('2d');
+      staffingChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: sampled.map(d => d.period),
+          datasets: [
+            {
+              label: 'County Employees',
+              data: sampled.map(d => d.county),
+              borderColor: '#4ade80',
+              backgroundColor: 'rgba(74, 222, 128, 0.1)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Agency Staff',
+              data: sampled.map(d => d.agency),
+              borderColor: '#f87171',
+              backgroundColor: 'rgba(248, 113, 113, 0.1)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Total Staff',
+              data: sampled.map(d => d.total),
+              borderColor: '#60a5fa',
+              borderDash: [5, 5],
+              fill: false,
+              tension: 0.3
+            }
+          ]
         },
-        scales: {
-          x: {
-            grid: { color: '#3a3a3a' },
-            ticks: { color: '#737373' }
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { color: '#a3a3a3', usePointStyle: true }
+            }
           },
-          y: {
-            grid: { color: '#3a3a3a' },
-            ticks: { color: '#737373' },
-            min: 0,
-            max: 650
+          scales: {
+            x: {
+              grid: { color: '#3a3a3a' },
+              ticks: { color: '#737373' }
+            },
+            y: {
+              grid: { color: '#3a3a3a' },
+              ticks: { color: '#737373' },
+              min: 0,
+              max: 650
+            }
+          },
+          interaction: {
+            intersect: false,
+            mode: 'index'
           }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index'
         }
-      }
+      });
+    }
+
+    // Initialize
+    initFromTags().catch(err => {
+      console.error('Failed to load Gracedale data:', err);
     });
   </script>
 </body>

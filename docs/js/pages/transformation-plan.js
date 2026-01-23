@@ -1,5 +1,5 @@
-// Transformation Plan Data
-const TP = {
+// Transformation Plan Data - Loads officer data from tags
+let TP = {
   principles: [
     { title: 'Service First', desc: 'Every decision starts with "How does this help citizens?" Reduce wait times, increase accessibility, improve accuracy, treat people with dignity.' },
     { title: 'Empower, Not Replace', desc: 'Technology should free employees to do meaningful work, not eliminate jobs. Remove tedium so staff can focus on people.' },
@@ -140,4 +140,46 @@ function render() {
     metricsHTML('Transparency Outcomes', TP.metrics.transparency);
 }
 
-document.addEventListener('DOMContentLoaded', render);
+// Load officer data from tags and update TP.offices
+async function loadFromTags() {
+  try {
+    const tags = new TagLoader();
+    const [rowOfficers, oee] = await Promise.all([
+      tags.load('row-officers'),
+      tags.load('oee-benchmarks')
+    ]);
+
+    // Update offices array with tag data
+    TP.offices = TP.offices.map(office => {
+      // Find matching officer
+      const officerData = rowOfficers.officers.find(o =>
+        o.office === office.name || o.office.includes(office.name.split("'s")[0])
+      );
+      const oeeData = oee.offices.find(o =>
+        o.name === office.name || o.name.includes(office.name.split("'s")[0])
+      );
+
+      if (officerData) {
+        office.officer = officerData.name;
+      }
+      if (oeeData) {
+        office.oee = oeeData.oee;
+        office.target = oeeData.target;
+        office.status = oeeData.oee >= oeeData.target ? 'positive' :
+                        (oeeData.target - oeeData.oee <= 2) ? 'close' : 'gap';
+      }
+      return office;
+    });
+
+    console.log('Transformation plan loaded from tags');
+  } catch (err) {
+    console.warn('Could not load transformation plan from tags:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  if (typeof TagLoader !== 'undefined') {
+    await loadFromTags();
+  }
+  render();
+});

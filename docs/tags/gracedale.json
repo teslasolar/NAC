@@ -1,0 +1,86 @@
+{
+  "tagType": "UDT",
+  "name": "Gracedale",
+  "description": "Gracedale Nursing Home staffing and financial data",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-22",
+  "facility": {
+    "name": "Gracedale Nursing Home",
+    "type": "County-owned skilled nursing facility",
+    "beds": 650,
+    "location": "Nazareth, PA"
+  },
+  "staffing": {
+    "total": 590,
+    "countyEmployees": 120,
+    "agencyStaff": 470,
+    "countyPct": 20,
+    "agencyPct": 80,
+    "agencyCount": 14,
+    "strategicGoal": "70% county staffed by end 2026",
+    "byPosition": [
+      { "position": "RN", "required": 95, "county": 19, "agency": 76, "countyPct": 20 },
+      { "position": "LPN", "required": 120, "county": 24, "agency": 96, "countyPct": 20 },
+      { "position": "CNA", "required": 280, "county": 56, "agency": 224, "countyPct": 20 },
+      { "position": "Other Clinical", "required": 95, "county": 21, "agency": 74, "countyPct": 22 }
+    ],
+    "agencyCNARate": 26,
+    "estimatedAnnualSavings": 3500000
+  },
+  "financials": {
+    "fundTransfer": 10000000,
+    "overtime2022to2024": 7300000,
+    "arpaAllocated": 5000000,
+    "arpaPaidAsBonuses": 2300000,
+    "budget": {
+      "expenses": [
+        { "category": "Personnel (County)", "amount": 18200000 },
+        { "category": "Agency Staffing", "amount": 42000000 },
+        { "category": "Medical Supplies", "amount": 6800000 },
+        { "category": "Food Services", "amount": 4100000 },
+        { "category": "Utilities", "amount": 3300000 }
+      ],
+      "revenue": [
+        { "category": "Medicaid", "amount": 52100000 },
+        { "category": "Medicare", "amount": 8400000 },
+        { "category": "Private Pay", "amount": 3100000 }
+      ],
+      "netDeficit": -10800000
+    }
+  },
+  "staffingTrend": {
+    "note": "Illustrative trend data showing county/agency shift",
+    "data": [
+      { "period": "Q1 2020", "county": 310, "agency": 95, "total": 405 },
+      { "period": "Q2 2020", "county": 295, "agency": 120, "total": 415 },
+      { "period": "Q3 2020", "county": 280, "agency": 150, "total": 430 },
+      { "period": "Q4 2020", "county": 265, "agency": 185, "total": 450 },
+      { "period": "Q1 2021", "county": 250, "agency": 210, "total": 460 },
+      { "period": "Q2 2021", "county": 235, "agency": 240, "total": 475 },
+      { "period": "Q3 2021", "county": 220, "agency": 270, "total": 490 },
+      { "period": "Q4 2021", "county": 200, "agency": 300, "total": 500 },
+      { "period": "Q1 2022", "county": 185, "agency": 330, "total": 515 },
+      { "period": "Q2 2022", "county": 170, "agency": 360, "total": 530 },
+      { "period": "Q3 2022", "county": 160, "agency": 385, "total": 545 },
+      { "period": "Q4 2022", "county": 150, "agency": 405, "total": 555 },
+      { "period": "Q1 2023", "county": 145, "agency": 420, "total": 565 },
+      { "period": "Q2 2023", "county": 140, "agency": 430, "total": 570 },
+      { "period": "Q3 2023", "county": 135, "agency": 440, "total": 575 },
+      { "period": "Q4 2023", "county": 130, "agency": 450, "total": 580 },
+      { "period": "Q1 2024", "county": 128, "agency": 455, "total": 583 },
+      { "period": "Q2 2024", "county": 125, "agency": 460, "total": 585 },
+      { "period": "Q3 2024", "county": 123, "agency": 465, "total": 588 },
+      { "period": "Q4 2024", "county": 122, "agency": 468, "total": 590 },
+      { "period": "Q1 2025", "county": 121, "agency": 469, "total": 590 },
+      { "period": "Q2 2025", "county": 120, "agency": 470, "total": 590 },
+      { "period": "Q3 2025", "county": 120, "agency": 470, "total": 590 },
+      { "period": "Q4 2025", "county": 120, "agency": 470, "total": 590 }
+    ]
+  },
+  "sources": [
+    { "name": "Morning Call", "date": "Sep 2025", "topic": "Staffing crisis coverage" },
+    { "name": "LehighValleyNews", "date": "2025", "topic": "Budget analysis" },
+    { "name": "Gracedale Audit", "date": "Jun 2025", "topic": "Financial review" },
+    { "name": "WFMZ", "date": "2022", "topic": "ARPA allocation" }
+  ]
+}

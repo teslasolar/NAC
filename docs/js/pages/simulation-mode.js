@@ -1,20 +1,52 @@
-// Simulation Mode
-const baselineData = {
+// Simulation Mode - Loads data from tag files
+let baselineData = {
   totalBudget: 428.5, staffFTEs: 1847,
   revenues: { propertyTax: 185.2, stateGrants: 98.4, federalGrants: 52.3, fees: 45.8, other: 46.8 },
   expenditures: { personnel: 198.5, benefits: 62.3, operations: 89.4, capital: 35.2, debt: 43.1 },
-  officers: [
-    { name: 'Controller - Tara Zrinski', budget: 1.8, staff: 12 },
-    { name: 'Sheriff - Christopher Zieger', budget: 15.2, staff: 85 },
-    { name: 'District Attorney - Stephen Baratta', budget: 8.4, staff: 65 },
-    { name: 'Prothonotary - Holly Ruggiero', budget: 1.2, staff: 14 },
-    { name: 'Clerk of Courts - Leigh Ann Fisher', budget: 1.5, staff: 18 },
-    { name: 'Register of Wills - Patricia J. Manento', budget: 0.9, staff: 11 },
-    { name: 'Recorder of Deeds - Dorothy Edelman', budget: 1.1, staff: 13 },
-    { name: 'Coroner - Zachary Lysek', budget: 1.4, staff: 8 },
-    { name: 'Treasurer', budget: 2.1, staff: 15 }
-  ]
+  officers: []
 };
+
+// Load data from tags
+async function loadSimulationData() {
+  try {
+    const tags = new TagLoader();
+    const [financial, rowOfficers] = await Promise.all([
+      tags.load('financial-data'),
+      tags.load('row-officers')
+    ]);
+
+    // Update baseline from financial data
+    if (financial?.acfr?.highlights) {
+      baselineData.totalBudget = financial.acfr.highlights.totalRevenues / 1000000;
+    }
+    if (financial?.workforce?.totalEmployees) {
+      baselineData.staffFTEs = financial.workforce.totalEmployees;
+    }
+
+    // Build officers array from row officers tag
+    baselineData.officers = rowOfficers.officers.map(o => ({
+      name: `${o.office} - ${o.name}`,
+      budget: o.budget / 1000000,
+      staff: o.staff
+    }));
+
+    console.log('Simulation data loaded from tags');
+  } catch (err) {
+    console.warn('Could not load simulation data from tags, using defaults:', err);
+    // Fallback to hardcoded data
+    baselineData.officers = [
+      { name: 'Controller - Acting Controller', budget: 0.98, staff: 12 },
+      { name: 'Sheriff - Christopher Zieger', budget: 11.2, staff: 156 },
+      { name: 'District Attorney - Stephen G. Baratta', budget: 8.5, staff: 89 },
+      { name: 'Prothonotary - Holly Ruggiero', budget: 1.68, staff: 18 },
+      { name: 'Clerk of Courts - Leigh Ann Fisher', budget: 2.8, staff: 32 },
+      { name: 'Register of Wills - Patricia J. Manento', budget: 1.32, staff: 14 },
+      { name: 'Recorder of Deeds - Dorothy Edelman', budget: 1.45, staff: 15 },
+      { name: 'Coroner - Zachary Lysek', budget: 2.1, staff: 14 },
+      { name: 'Fiscal Affairs - Anthony Morris', budget: 1.85, staff: 18 }
+    ];
+  }
+}
 
 let budgetChart = null, departmentChart = null;
 
@@ -181,4 +213,11 @@ function updateAnalysisNotes(params, surplus, serviceCapacity, staff) {
   document.getElementById('notesList').innerHTML = notes.map(n => `<li>${n}</li>`).join('');
 }
 
-document.addEventListener('DOMContentLoaded', () => { initCharts(); loadScenario('baseline'); });
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load data from tags first
+  if (typeof TagLoader !== 'undefined') {
+    await loadSimulationData();
+  }
+  initCharts();
+  loadScenario('baseline');
+});

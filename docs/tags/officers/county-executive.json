@@ -1,0 +1,26 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "County Executive",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Tara Zrinski",
+      "status": "active",
+      "startDate": "2026-01-05",
+      "type": "elected",
+      "party": "Democrat",
+      "note": "First woman County Executive; previously Controller",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Lamont McClure",
+      "status": "active",
+      "type": "elected",
+      "party": "Democrat",
+      "termNumber": 2,
+      "note": "Did not seek 3rd term",
+      "verified": true
+    }
+  ]
+}

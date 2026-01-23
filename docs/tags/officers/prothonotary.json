@@ -1,0 +1,16 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Prothonotary",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "type": "career-service",
+      "inOfficeSince": 2001,
+      "tenure": 25,
+      "note": "Only non-elected prothonotary in PA (67 counties)",
+      "verified": true
+    }
+  ]
+}

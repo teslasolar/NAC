@@ -1,0 +1,60 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Coroner",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "type": "appointed",
+      "inOfficeSince": 1992,
+      "tenure": 34,
+      "reappointedDate": "2026-01-16",
+      "reappointedBy": "Tara Zrinski",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "type": "appointed",
+      "tenure": 33,
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "tenure": 32,
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "tenure": 31,
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "tenure": 30,
+      "verified": true
+    },
+    {
+      "year": 2021,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "tenure": 29,
+      "verified": true
+    },
+    {
+      "year": 2020,
+      "name": "Zachary Lysek",
+      "status": "active",
+      "tenure": 28,
+      "verified": true
+    }
+  ]
+}

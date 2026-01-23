@@ -1,0 +1,64 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Controller",
+  "records": [
+    {
+      "year": 2026,
+      "name": "VACANT",
+      "status": "vacant",
+      "vacancyReason": "Zrinski became County Executive",
+      "vacancyDate": "2026-01-05",
+      "appointmentDeadline": "2026-02-05",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Tara Zrinski",
+      "status": "active",
+      "type": "elected",
+      "party": "Democrat",
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "name": "Tara Zrinski",
+      "status": "active",
+      "startDate": "2024-01-06",
+      "type": "elected",
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "name": "Scott Parsons",
+      "status": "interim",
+      "startDate": "2023-07",
+      "type": "appointed",
+      "note": "Appointed after Szulborski death",
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "name": "Richard 'Bucky' Szulborski",
+      "status": "active",
+      "type": "appointed",
+      "verified": true
+    },
+    {
+      "year": 2021,
+      "name": "Richard 'Bucky' Szulborski",
+      "status": "active",
+      "startDate": "2021-09",
+      "type": "appointed",
+      "note": "Reappointed after Bassil death",
+      "verified": true
+    },
+    {
+      "year": 2020,
+      "name": "Antoine 'Tony' Bassil",
+      "status": "active",
+      "startDate": "2020-01-06",
+      "type": "elected",
+      "verified": true
+    }
+  ]
+}

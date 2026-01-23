@@ -1,0 +1,13 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Register of Wills",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Patricia J. Manento",
+      "status": "active",
+      "type": "career-service",
+      "verified": true
+    }
+  ]
+}

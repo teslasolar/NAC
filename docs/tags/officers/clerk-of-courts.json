@@ -1,0 +1,15 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Clerk of Courts",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "type": "career-service",
+      "inOfficeSince": 2007,
+      "tenure": 19,
+      "verified": true
+    }
+  ]
+}

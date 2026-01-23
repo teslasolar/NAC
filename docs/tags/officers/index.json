@@ -1,0 +1,25 @@
+{
+  "tagType": "OfficerHistoryIndex",
+  "table": "officers",
+  "description": "Northampton County row officers and key officials by year",
+  "primaryKey": ["position", "year"],
+  "sources": [
+    "Morning Call",
+    "WFMZ",
+    "LehighValleyNews",
+    "norcopa.gov",
+    "PA Coroners Association"
+  ],
+  "positions": [
+    { "$ref": "./county-executive.json" },
+    { "$ref": "./controller.json" },
+    { "$ref": "./district-attorney.json" },
+    { "$ref": "./sheriff.json" },
+    { "$ref": "./coroner.json" },
+    { "$ref": "./fiscal-affairs.json" },
+    { "$ref": "./clerk-of-courts.json" },
+    { "$ref": "./prothonotary.json" },
+    { "$ref": "./recorder-of-deeds.json" },
+    { "$ref": "./register-of-wills.json" }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Sheriff",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Christopher Zieger",
+      "status": "active",
+      "type": "appointed",
+      "reappointedDate": "2026-01-16",
+      "reappointedBy": "Tara Zrinski",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Christopher Zieger",
+      "status": "active",
+      "startDate": "2025-06",
+      "type": "appointed",
+      "note": "Appointed after Johnston retirement",
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "name": "Richard Johnston",
+      "status": "active",
+      "type": "appointed",
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "name": "Richard Johnston",
+      "status": "active",
+      "type": "appointed",
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "name": "Richard Johnston",
+      "status": "active",
+      "type": "appointed",
+      "note": "Deputy sheriffs complained about staffing/morale",
+      "verified": true
+    },
+    {
+      "year": 2021,
+      "name": "Richard Johnston",
+      "status": "active",
+      "type": "appointed",
+      "verified": true
+    },
+    {
+      "year": 2020,
+      "name": "Richard Johnston",
+      "status": "active",
+      "type": "appointed",
+      "verified": true
+    }
+  ]
+}

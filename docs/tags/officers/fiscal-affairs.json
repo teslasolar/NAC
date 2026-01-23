@@ -1,0 +1,56 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Fiscal Affairs Director",
+  "records": [
+    {
+      "year": 2026,
+      "name": "VACANT",
+      "status": "vacant",
+      "actingOfficer": "Brandon Dunstane",
+      "actingTitle": "Budget Administrator",
+      "vacancyDate": "2025-10-03",
+      "note": "Zrinski has not finalized appointment",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Stephen Barron",
+      "status": "departed",
+      "endDate": "2025-10-03",
+      "newRole": "CFO, Workforce Board Lehigh Valley",
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "name": "Stephen Barron",
+      "status": "active",
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "name": "Stephen Barron",
+      "status": "active",
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "name": "Stephen Barron",
+      "status": "active",
+      "verified": true
+    },
+    {
+      "year": 2021,
+      "name": "Stephen Barron",
+      "status": "active",
+      "verified": true
+    },
+    {
+      "year": 2020,
+      "name": "Stephen Barron",
+      "status": "active",
+      "inOfficeSince": 2018,
+      "note": "Former 10-year Controller",
+      "verified": true
+    }
+  ]
+}

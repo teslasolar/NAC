@@ -1,0 +1,61 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "District Attorney",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "type": "elected",
+      "party": "Democrat",
+      "verified": true
+    },
+    {
+      "year": 2025,
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "type": "elected",
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "startDate": "2024-01-02",
+      "type": "elected",
+      "note": "Former judge; resigned judgeship to run for DA",
+      "verified": true
+    },
+    {
+      "year": 2023,
+      "name": "Terry Houck",
+      "status": "active",
+      "type": "elected",
+      "note": "Lost primary to Baratta; dropped reelection bid Aug 2023",
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "name": "Terry Houck",
+      "status": "active",
+      "type": "elected",
+      "verified": true
+    },
+    {
+      "year": 2021,
+      "name": "Terry Houck",
+      "status": "active",
+      "type": "elected",
+      "verified": true
+    },
+    {
+      "year": 2020,
+      "name": "Terry Houck",
+      "status": "active",
+      "startDate": "2020-01-06",
+      "type": "elected",
+      "note": "First new DA in 28 years; succeeded Morganelli",
+      "verified": true
+    }
+  ]
+}

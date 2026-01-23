@@ -1,0 +1,14 @@
+{
+  "tagType": "OfficerHistory",
+  "position": "Recorder of Deeds",
+  "records": [
+    {
+      "year": 2026,
+      "name": "Dorothy Edelman",
+      "status": "active",
+      "type": "career-service",
+      "note": "Former Lead Deputy under Andrea Suter",
+      "verified": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "tagType": "SkillCategory",
+  "category": "administrative",
+  "skills": {
+    "document-processing": {
+      "description": "General document intake and processing",
+      "trainingHours": 8,
+      "certificationRequired": false
+    },
+    "data-entry": {
+      "description": "Accurate data entry skills",
+      "trainingHours": 4,
+      "certificationRequired": false
+    },
+    "customer-service": {
+      "description": "Public-facing customer service",
+      "trainingHours": 8,
+      "certificationRequired": false
+    },
+    "indexing": {
+      "description": "Document indexing for searchability",
+      "trainingHours": 16,
+      "certificationRequired": false
+    },
+    "records-management": {
+      "description": "Records retention and management",
+      "trainingHours": 24,
+      "certificationRequired": false
+    },
+    "scheduling": {
+      "description": "Calendar and scheduling management",
+      "trainingHours": 8,
+      "certificationRequired": false
+    }
+  }
+}

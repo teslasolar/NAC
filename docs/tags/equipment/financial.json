@@ -1,0 +1,31 @@
+{
+  "tagType": "EquipmentCategory",
+  "category": "financial",
+  "equipment": {
+    "cash-register": {
+      "description": "Point of sale cash register",
+      "category": "hardware",
+      "maintenanceFrequency": "quarterly"
+    },
+    "safe": {
+      "description": "Secure cash/document safe",
+      "category": "hardware",
+      "maintenanceFrequency": "annual"
+    },
+    "accounting-system": {
+      "description": "Governmental accounting software",
+      "category": "software",
+      "maintenanceFrequency": "monthly"
+    },
+    "payment-gateway": {
+      "description": "Online payment processing",
+      "category": "software",
+      "maintenanceFrequency": "monthly"
+    },
+    "positive-pay-system": {
+      "description": "Check fraud prevention system",
+      "category": "software",
+      "maintenanceFrequency": "monthly"
+    }
+  }
+}

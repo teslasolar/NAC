@@ -1,0 +1,41 @@
+{
+  "tagType": "SkillCategory",
+  "category": "financial",
+  "skills": {
+    "cash-handling": {
+      "description": "Proper cash handling and receipting",
+      "trainingHours": 8,
+      "certificationRequired": false
+    },
+    "accounting": {
+      "description": "Basic governmental accounting",
+      "trainingHours": 40,
+      "certificationRequired": false
+    },
+    "fund-accounting": {
+      "description": "Governmental fund accounting",
+      "trainingHours": 80,
+      "certificationRequired": false
+    },
+    "reconciliation": {
+      "description": "Bank and account reconciliation",
+      "trainingHours": 16,
+      "certificationRequired": false
+    },
+    "investment-analysis": {
+      "description": "Public fund investment per 16 Pa.C.S. §1307",
+      "trainingHours": 40,
+      "certificationRequired": false
+    },
+    "tax-calculation": {
+      "description": "Transfer and inheritance tax calculation",
+      "trainingHours": 24,
+      "certificationRequired": false
+    },
+    "grant-accounting": {
+      "description": "Federal/state grant accounting and compliance",
+      "trainingHours": 40,
+      "certificationRequired": false
+    }
+  }
+}

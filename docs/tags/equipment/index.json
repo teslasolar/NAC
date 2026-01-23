@@ -1,0 +1,13 @@
+{
+  "tagType": "EquipmentIndex",
+  "title": "Equipment Definitions",
+  "description": "Equipment for county workstations",
+  "version": "1.0.0",
+  "categories": [
+    { "$ref": "./office.json" },
+    { "$ref": "./financial.json" },
+    { "$ref": "./security.json" },
+    { "$ref": "./medical.json" },
+    { "$ref": "./vehicles.json" }
+  ]
+}

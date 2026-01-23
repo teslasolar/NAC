@@ -1,0 +1,28 @@
+{
+  "tagType": "SkillCategory",
+  "category": "specialized",
+  "skills": {
+    "auctioneer": {
+      "description": "Conducting public auctions",
+      "trainingHours": 24,
+      "certificationRequired": false
+    },
+    "pathology": {
+      "description": "Forensic pathology",
+      "trainingHours": 0,
+      "certificationRequired": true,
+      "certificationName": "Board Certified Pathologist"
+    },
+    "toxicology": {
+      "description": "Toxicology analysis",
+      "trainingHours": 0,
+      "certificationRequired": true
+    },
+    "notary": {
+      "description": "Notary public services",
+      "trainingHours": 0,
+      "certificationRequired": true,
+      "certificationName": "PA Notary Commission"
+    }
+  }
+}

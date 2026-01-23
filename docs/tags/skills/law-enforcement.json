@@ -1,0 +1,31 @@
+{
+  "tagType": "SkillCategory",
+  "category": "law_enforcement",
+  "skills": {
+    "field-service": {
+      "description": "Process service in the field",
+      "trainingHours": 40,
+      "certificationRequired": true
+    },
+    "courtroom-security": {
+      "description": "Courthouse security procedures",
+      "trainingHours": 80,
+      "certificationRequired": true
+    },
+    "transport": {
+      "description": "Prisoner transport protocols",
+      "trainingHours": 40,
+      "certificationRequired": true
+    },
+    "emergency-response": {
+      "description": "Emergency response procedures",
+      "trainingHours": 40,
+      "certificationRequired": true
+    },
+    "death-investigation": {
+      "description": "Death scene investigation",
+      "trainingHours": 120,
+      "certificationRequired": true
+    }
+  }
+}

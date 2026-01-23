@@ -1,0 +1,21 @@
+{
+  "tagType": "EquipmentCategory",
+  "category": "vehicles",
+  "equipment": {
+    "patrol-vehicle": {
+      "description": "Deputy patrol vehicle",
+      "category": "vehicle",
+      "maintenanceFrequency": "monthly"
+    },
+    "transport-vehicle": {
+      "description": "Prisoner transport vehicle",
+      "category": "vehicle",
+      "maintenanceFrequency": "monthly"
+    },
+    "investigation-vehicle": {
+      "description": "Investigator vehicle",
+      "category": "vehicle",
+      "maintenanceFrequency": "monthly"
+    }
+  }
+}

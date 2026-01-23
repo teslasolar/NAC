@@ -1,0 +1,31 @@
+{
+  "tagType": "EquipmentCategory",
+  "category": "security",
+  "equipment": {
+    "metal-detector": {
+      "description": "Walk-through metal detector",
+      "category": "hardware",
+      "maintenanceFrequency": "monthly"
+    },
+    "x-ray-scanner": {
+      "description": "Baggage x-ray scanner",
+      "category": "hardware",
+      "maintenanceFrequency": "monthly"
+    },
+    "body-camera": {
+      "description": "Body-worn camera",
+      "category": "hardware",
+      "maintenanceFrequency": "weekly"
+    },
+    "radio": {
+      "description": "Two-way radio communication",
+      "category": "hardware",
+      "maintenanceFrequency": "monthly"
+    },
+    "restraints": {
+      "description": "Handcuffs and restraints",
+      "category": "hardware",
+      "maintenanceFrequency": "monthly"
+    }
+  }
+}

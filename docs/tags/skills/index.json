@@ -1,0 +1,13 @@
+{
+  "tagType": "SkillsIndex",
+  "title": "Skills Definitions",
+  "description": "Required skills for county staff positions",
+  "version": "1.0.0",
+  "categories": [
+    { "$ref": "./legal.json" },
+    { "$ref": "./financial.json" },
+    { "$ref": "./administrative.json" },
+    { "$ref": "./law-enforcement.json" },
+    { "$ref": "./specialized.json" }
+  ]
+}

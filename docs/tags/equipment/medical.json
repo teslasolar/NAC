@@ -1,0 +1,26 @@
+{
+  "tagType": "EquipmentCategory",
+  "category": "medical",
+  "equipment": {
+    "morgue": {
+      "description": "Morgue facility",
+      "category": "facility",
+      "maintenanceFrequency": "daily"
+    },
+    "autopsy-suite": {
+      "description": "Autopsy examination room",
+      "category": "facility",
+      "maintenanceFrequency": "daily"
+    },
+    "refrigeration": {
+      "description": "Body storage refrigeration",
+      "category": "hardware",
+      "maintenanceFrequency": "daily"
+    },
+    "lab-equipment": {
+      "description": "Toxicology laboratory equipment",
+      "category": "hardware",
+      "maintenanceFrequency": "weekly"
+    }
+  }
+}

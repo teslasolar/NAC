@@ -1,0 +1,36 @@
+{
+  "tagType": "SkillCategory",
+  "category": "legal",
+  "skills": {
+    "legal-review": {
+      "description": "Review legal documents for compliance",
+      "trainingHours": 40,
+      "certificationRequired": false
+    },
+    "probate-law": {
+      "description": "Pennsylvania probate law expertise",
+      "trainingHours": 80,
+      "certificationRequired": false
+    },
+    "forfeiture-law": {
+      "description": "Asset forfeiture procedures per 42 Pa.C.S. §6801",
+      "trainingHours": 40,
+      "certificationRequired": false
+    },
+    "civil-procedure": {
+      "description": "PA Rules of Civil Procedure",
+      "trainingHours": 60,
+      "certificationRequired": false
+    },
+    "criminal-procedure": {
+      "description": "PA Rules of Criminal Procedure",
+      "trainingHours": 60,
+      "certificationRequired": false
+    },
+    "trial-advocacy": {
+      "description": "Courtroom trial skills",
+      "trainingHours": 200,
+      "certificationRequired": true
+    }
+  }
+}

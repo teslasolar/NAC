@@ -1,0 +1,31 @@
+{
+  "tagType": "EquipmentCategory",
+  "category": "office",
+  "equipment": {
+    "case-management-system": {
+      "description": "Electronic case management software",
+      "category": "software",
+      "maintenanceFrequency": "monthly"
+    },
+    "document-scanner": {
+      "description": "High-speed document scanner",
+      "category": "hardware",
+      "maintenanceFrequency": "quarterly"
+    },
+    "receipt-printer": {
+      "description": "Thermal receipt printer",
+      "category": "hardware",
+      "maintenanceFrequency": "quarterly"
+    },
+    "check-printer": {
+      "description": "MICR check printer",
+      "category": "hardware",
+      "maintenanceFrequency": "monthly"
+    },
+    "seal": {
+      "description": "Official office seal",
+      "category": "hardware",
+      "maintenanceFrequency": "annual"
+    }
+  }
+}

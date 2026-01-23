@@ -67,6 +67,7 @@ const GD = {
   ],
 
   resources: [
+    { label: 'County vs Agency Analysis', url: 'gracedale-staffing.html' },
     { label: '2025 Strategic Plan', url: '#' },
     { label: 'AFSCME Contract Terms', url: '#' },
     { label: 'CMS Compare Data', url: 'https://www.medicare.gov/care-compare/' },

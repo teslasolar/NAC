@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gracedale Staffing Analysis - County vs Agency</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-medium: #242424;
+      --bg-light: #2e2e2e;
+      --border: #3a3a3a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --county: #4ade80;
+      --agency: #f87171;
+      --total: #60a5fa;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    .header {
+      background: var(--bg-medium);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .header .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .back-link:hover {
+      background: var(--bg-light);
+      border-color: var(--text-muted);
+    }
+
+    .alert-banner {
+      background: rgba(248, 113, 113, 0.15);
+      border: 1px solid var(--agency);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 20px 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .alert-banner .icon {
+      font-size: 24px;
+    }
+    .alert-banner .text {
+      flex: 1;
+    }
+    .alert-banner .title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .alert-banner .desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 0 30px 20px;
+    }
+    .kpi-card {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .kpi-card .value {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .kpi-card .value.county { color: var(--county); }
+    .kpi-card .value.agency { color: var(--agency); }
+    .kpi-card .value.total { color: var(--total); }
+    .kpi-card .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .kpi-card .trend {
+      font-size: 11px;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .kpi-card .trend.bad {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--agency);
+    }
+    .kpi-card .trend.good {
+      background: rgba(74, 222, 128, 0.15);
+      color: var(--county);
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      padding: 0 30px 30px;
+    }
+    .panel {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-header .badge {
+      font-size: 10px;
+      padding: 4px 8px;
+      background: var(--bg-light);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .panel-content {
+      padding: 20px;
+    }
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .breakdown-table th,
+    .breakdown-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .breakdown-table th {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .breakdown-table .county-cell { color: var(--county); }
+    .breakdown-table .agency-cell { color: var(--agency); }
+
+    .cost-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cost-card {
+      background: var(--bg-light);
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .cost-card .amount {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .cost-card .per {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .cost-card.county { border-left: 3px solid var(--county); }
+    .cost-card.agency { border-left: 3px solid var(--agency); }
+
+    .timeline {
+      padding: 0;
+      list-style: none;
+    }
+    .timeline li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .timeline li:last-child { border-bottom: none; }
+    .timeline .date {
+      color: var(--text-muted);
+      font-size: 11px;
+      min-width: 70px;
+    }
+
+    .source-note {
+      text-align: center;
+      padding: 20px 30px;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+    .source-note a {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .main-content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>Gracedale Staffing Analysis</h1>
+      <div class="subtitle">County Employees vs Agency Staff Over Time</div>
+    </div>
+    <a href="index.html" class="back-link">Back to Dashboard</a>
+  </div>
+
+  <div class="alert-banner">
+    <span class="icon">⚠</span>
+    <div class="text">
+      <div class="title">Critical Staffing Imbalance</div>
+      <div class="desc">Only 20% of nursing positions are filled by county employees. 80% reliance on agency staff creates cost, quality, and reliability risks.</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="value county">120</div>
+      <div class="label">County Staff</div>
+      <div class="trend bad">-60% since 2020</div>
+    </div>
+    <div class="kpi-card">
+      <div class="value agency">470</div>
+      <div class="label">Agency Staff</div>
+      <div class="trend bad">+340% since 2020</div>
+    </div>
+    <div class="kpi-card">
+      <div class="value total">590</div>
+      <div class="label">Total Nursing</div>
+      <div class="trend bad">-15% capacity</div>
+    </div>
+    <div class="kpi-card">
+      <div class="value agency">$42M</div>
+      <div class="label">Agency Cost/Year</div>
+      <div class="trend bad">vs $18M county</div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="panel">
+      <div class="panel-header">
+        Staffing Trend (2020-2026)
+        <span class="badge">Quarterly Data</span>
+      </div>
+      <div class="panel-content">
+        <div class="chart-container">
+          <canvas id="staffingChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Cost Per Hour</div>
+      <div class="panel-content">
+        <div class="cost-comparison">
+          <div class="cost-card county">
+            <div class="amount">$32</div>
+            <div class="per">County Employee</div>
+            <div class="per" style="margin-top: 8px; font-size: 10px;">Includes benefits</div>
+          </div>
+          <div class="cost-card agency">
+            <div class="amount">$58</div>
+            <div class="per">Agency Staff</div>
+            <div class="per" style="margin-top: 8px; font-size: 10px;">81% premium</div>
+          </div>
+        </div>
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Estimated Annual Savings if 50% County</div>
+          <div style="font-size: 28px; font-weight: 700; color: var(--county);">$12.4M</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Staffing by Position</div>
+      <div class="panel-content">
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>County</th>
+              <th>Agency</th>
+              <th>Gap</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Registered Nurses (RN)</td>
+              <td class="county-cell">19</td>
+              <td class="agency-cell">76</td>
+              <td>20% county</td>
+            </tr>
+            <tr>
+              <td>Licensed Practical Nurses (LPN)</td>
+              <td class="county-cell">24</td>
+              <td class="agency-cell">96</td>
+              <td>20% county</td>
+            </tr>
+            <tr>
+              <td>Certified Nursing Assistants (CNA)</td>
+              <td class="county-cell">56</td>
+              <td class="agency-cell">224</td>
+              <td>20% county</td>
+            </tr>
+            <tr>
+              <td>Other Clinical</td>
+              <td class="county-cell">21</td>
+              <td class="agency-cell">74</td>
+              <td>22% county</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Recent Actions</div>
+      <div class="panel-content">
+        <ul class="timeline">
+          <li>
+            <span class="date">Jan 2026</span>
+            <span>Snowstorm call-out issue raised at Council meeting</span>
+          </li>
+          <li>
+            <span class="date">Dec 2025</span>
+            <span>AFSCME contract approved (4%/3.5%/3% COLA)</span>
+          </li>
+          <li>
+            <span class="date">Nov 2025</span>
+            <span>Tallavera selected as master staffing vendor</span>
+          </li>
+          <li>
+            <span class="date">Sep 2025</span>
+            <span>Strategic plan to consolidate 14 agencies</span>
+          </li>
+          <li>
+            <span class="date">Jul 2024</span>
+            <span>PA nursing home staffing regs increased to 3.2 hrs/resident</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-note">
+    Data compiled from public sources: <a href="https://www.mcall.com/2025/09/12/gracedale-nursing-home-staffing/">Morning Call</a>,
+    <a href="https://www.lehighvalleynews.com/northampton-county/with-80-of-nursing-positions-unfilled-gracedale-administration-shares-new-strategic-plan">LehighValleyNews</a>,
+    County Council meeting records. Last updated: January 2026.
+  </div>
+
+  <script>
+    // Staffing trend chart
+    const ctx = document.getElementById('staffingChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Q1 2020', 'Q3 2020', 'Q1 2021', 'Q3 2021', 'Q1 2022', 'Q3 2022', 'Q1 2023', 'Q3 2023', 'Q1 2024', 'Q3 2024', 'Q1 2025', 'Q3 2025', 'Q1 2026'],
+        datasets: [
+          {
+            label: 'County Employees',
+            data: [310, 285, 260, 230, 200, 180, 165, 155, 145, 135, 130, 125, 120],
+            borderColor: '#4ade80',
+            backgroundColor: 'rgba(74, 222, 128, 0.1)',
+            fill: true,
+            tension: 0.3
+          },
+          {
+            label: 'Agency Staff',
+            data: [95, 120, 150, 185, 220, 260, 300, 340, 380, 420, 450, 465, 470],
+            borderColor: '#f87171',
+            backgroundColor: 'rgba(248, 113, 113, 0.1)',
+            fill: true,
+            tension: 0.3
+          },
+          {
+            label: 'Total Staff',
+            data: [405, 405, 410, 415, 420, 440, 465, 495, 525, 555, 580, 590, 590],
+            borderColor: '#60a5fa',
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#a3a3a3', usePointStyle: true }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#3a3a3a' },
+            ticks: { color: '#737373' }
+          },
+          y: {
+            grid: { color: '#3a3a3a' },
+            ticks: { color: '#737373' },
+            min: 0,
+            max: 650
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        }
+      }
+    });
+  </script>
+</body>
+</html>

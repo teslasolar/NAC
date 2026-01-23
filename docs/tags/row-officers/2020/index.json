@@ -1,0 +1,90 @@
+{
+  "year": 2020,
+  "asOf": "2020-12-31",
+  "description": "Northampton County Row Officers - Year End 2020",
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Richard Johnston",
+      "status": "active",
+      "inOfficeSince": 2018,
+      "note": "Confirmed by council in 2018; replaced David Dalrymple"
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Terry Houck",
+      "status": "active",
+      "termStart": "2020-01-06",
+      "note": "First new DA in 28 years; succeeded John Morganelli"
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "Antoine 'Tony' Bassil",
+      "status": "active",
+      "termStart": "2020-01-06",
+      "note": "Elected Nov 2019"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "active",
+      "inOfficeSince": 1992
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "inOfficeSince": 2007
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "inOfficeSince": 2001
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "status": "active"
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "status": "active"
+    },
+    {
+      "id": "fiscal-affairs",
+      "office": "Director of Fiscal Affairs",
+      "name": "Stephen Barron",
+      "status": "active",
+      "inOfficeSince": 2018,
+      "note": "Former 10-year Controller; resigned to join McClure administration"
+    }
+  ],
+  "keyEvents": [
+    { "date": "2020-01-06", "event": "Terry Houck sworn in as DA - first new DA in 28 years (replaced Morganelli)" },
+    { "date": "2020-01-06", "event": "Tony Bassil sworn in as Controller" },
+    { "date": "2020-03", "event": "COVID-19 pandemic begins affecting county operations" }
+  ],
+  "previousDA": {
+    "name": "John Morganelli",
+    "tenure": "1992-2019 (28 years)",
+    "note": "Elected county judge in 2019"
+  },
+  "previousController": {
+    "name": "Richard 'Bucky' Szulborski",
+    "tenure": "2018-2019 (interim)",
+    "note": "Filled remainder of Barron's term after he became Fiscal Affairs Director"
+  },
+  "sources": [
+    { "name": "WFMZ", "url": "https://www.wfmz.com/news/area/lehighvalley/new-northampton-county-da-says-his-office-will-continue-to-be-transparent-have-open-line/article_63cb7df6-2e6f-11ea-a1e2-97eb011ee1b7.html" }
+  ]
+}

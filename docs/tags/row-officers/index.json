@@ -24,7 +24,31 @@
       "year": 2024,
       "path": "2024/",
       "status": "archived",
-      "description": "Zrinski elected Controller; Baratta elected DA"
+      "description": "Zrinski sworn in as Controller; Baratta sworn in as DA"
+    },
+    {
+      "year": 2023,
+      "path": "2023/",
+      "status": "archived",
+      "description": "Controller Szulborski dies; Parsons appointed; Houck loses DA primary"
+    },
+    {
+      "year": 2022,
+      "path": "2022/",
+      "status": "archived",
+      "description": "Szulborski serves as Controller; Controller salary raised to $85k"
+    },
+    {
+      "year": 2021,
+      "path": "2021/",
+      "status": "archived",
+      "description": "Controller Tony Bassil dies; Szulborski reappointed"
+    },
+    {
+      "year": 2020,
+      "path": "2020/",
+      "status": "archived",
+      "description": "Houck becomes DA (first in 28 yrs); Bassil becomes Controller"
     }
   ],
   "currentOfficers": [

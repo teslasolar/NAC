@@ -1,0 +1,87 @@
+{
+  "year": 2023,
+  "asOf": "2023-12-31",
+  "description": "Northampton County Row Officers - Year End 2023",
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Richard Johnston",
+      "status": "active",
+      "inOfficeSince": 2018
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Terry Houck",
+      "status": "active",
+      "termEnd": "2023-12-31",
+      "note": "Lost primary to Baratta May 2023; dropped reelection bid Aug 2023"
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "Scott Parsons",
+      "status": "interim",
+      "appointed": "July 2023",
+      "note": "Appointed after Szulborski death; serving until Zrinski sworn in Jan 2024"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "active",
+      "inOfficeSince": 1992,
+      "note": "Appointed position (not elected)"
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "inOfficeSince": 2007,
+      "note": "Career service position"
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "inOfficeSince": 2001,
+      "note": "Career service position - only non-elected prothonotary in PA"
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "status": "active",
+      "note": "Former Lead Deputy under Andrea Suter"
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "status": "active"
+    },
+    {
+      "id": "fiscal-affairs",
+      "office": "Director of Fiscal Affairs",
+      "name": "Stephen Barron",
+      "status": "active",
+      "inOfficeSince": 2018,
+      "note": "Former County Controller (10 years)"
+    }
+  ],
+  "keyEvents": [
+    { "date": "2023-05", "event": "DA Terry Houck loses Democratic primary to Stephen Baratta" },
+    { "date": "2023-06-30", "event": "Controller Richard 'Bucky' Szulborski dies" },
+    { "date": "2023-07", "event": "Scott Parsons appointed interim Controller" },
+    { "date": "2023-08-14", "event": "DA Terry Houck drops reelection bid" },
+    { "date": "2023-11-07", "event": "Tara Zrinski (D) defeats John Cusick (R) for Controller" },
+    { "date": "2023-11-07", "event": "Stephen Baratta elected District Attorney" }
+  ],
+  "sources": [
+    { "name": "Morning Call", "url": "https://www.mcall.com/2023/06/30/northampton-county-controller-richard-bucky-szulborski-dies/" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2023/08/14/northampton-county-district-attorney-terry-houck-drops-reelection-bid/" }
+  ]
+}

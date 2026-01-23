@@ -1,0 +1,81 @@
+{
+  "table": "budgets",
+  "description": "Northampton County annual budget data",
+  "primaryKey": "year",
+  "sources": [
+    "Morning Call",
+    "LehighValleyNews",
+    "WFMZ",
+    "norcopa.gov press releases"
+  ],
+  "records": [
+    {
+      "year": 2026,
+      "totalBudget": 503000000,
+      "taxRateMills": 10.8,
+      "taxIncreaseYears": 0,
+      "consecutiveNoIncreaseYears": 8,
+      "expenditureChange": -7.3,
+      "homeAssessedAt50k": 540,
+      "approvedDate": "2025-12-05",
+      "proposedDate": "2025-10-02",
+      "approvedBy": "County Council",
+      "vote": "7-2",
+      "executive": "Lamont McClure",
+      "note": "First time since at least 1961 county went 8 years without increase",
+      "verified": true,
+      "verifiedDate": "2026-01-23"
+    },
+    {
+      "year": 2025,
+      "totalBudget": 502000000,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 7,
+      "executive": "Lamont McClure",
+      "farmlandPreserved": 20000,
+      "note": "Celebrated 20,000 acres farmland preserved",
+      "verified": true
+    },
+    {
+      "year": 2024,
+      "totalBudget": null,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 6,
+      "executive": "Lamont McClure",
+      "verified": false
+    },
+    {
+      "year": 2023,
+      "totalBudget": null,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 5,
+      "executive": "Lamont McClure",
+      "verified": false
+    },
+    {
+      "year": 2022,
+      "totalBudget": null,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 4,
+      "executive": "Lamont McClure",
+      "verified": false
+    },
+    {
+      "year": 2021,
+      "totalBudget": null,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 3,
+      "executive": "Lamont McClure",
+      "verified": false
+    },
+    {
+      "year": 2020,
+      "totalBudget": null,
+      "taxRateMills": 10.8,
+      "consecutiveNoIncreaseYears": 2,
+      "executive": "Lamont McClure",
+      "note": "COVID-19 pandemic year",
+      "verified": false
+    }
+  ]
+}

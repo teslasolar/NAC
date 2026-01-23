@@ -1,0 +1,224 @@
+{
+  "table": "events",
+  "description": "Northampton County government key events timeline",
+  "primaryKey": "id",
+  "sources": [
+    "Morning Call",
+    "WFMZ",
+    "LehighValleyNews",
+    "WDIY"
+  ],
+  "records": [
+    {
+      "id": 1,
+      "date": "2026-01-21",
+      "type": "meeting",
+      "title": "County Council personnel committee reviews Zrinski appointments",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "date": "2026-01-16",
+      "type": "appointment",
+      "title": "Zrinski announces Cabinet picks",
+      "details": "Sheriff Zieger, Coroner Lysek reappointed; Mark Aurand named Admin Director; DeAnn Lawrence named Corrections Director",
+      "location": "Government Center Rotunda, Easton",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "date": "2026-01-05",
+      "type": "inauguration",
+      "title": "Tara Zrinski sworn in as County Executive",
+      "details": "First woman to serve as Northampton County Executive",
+      "location": "Northampton County Courthouse",
+      "verified": true
+    },
+    {
+      "id": 4,
+      "date": "2025-12-05",
+      "type": "budget",
+      "title": "County Council passes $503M 2026 budget",
+      "details": "7-2 vote; 8th consecutive year no tax increase",
+      "verified": true
+    },
+    {
+      "id": 5,
+      "date": "2025-11-04",
+      "type": "election",
+      "title": "Tara Zrinski wins County Executive election",
+      "details": "Defeated Republican Giovanni",
+      "verified": true
+    },
+    {
+      "id": 6,
+      "date": "2025-11-03",
+      "type": "opening",
+      "title": "Learning Locomotion childcare center opens at Gracedale",
+      "details": "On-site childcare for healthcare workers",
+      "verified": true
+    },
+    {
+      "id": 7,
+      "date": "2025-10-03",
+      "type": "departure",
+      "title": "Fiscal Affairs Director Stephen Barron departs",
+      "details": "Leaves for CFO role at Workforce Board Lehigh Valley after 7 years",
+      "verified": true
+    },
+    {
+      "id": 8,
+      "date": "2025-10-02",
+      "type": "budget",
+      "title": "McClure proposes 2026 budget at Gracedale",
+      "details": "$503M budget with no tax increase",
+      "verified": true
+    },
+    {
+      "id": 9,
+      "date": "2025-06",
+      "type": "appointment",
+      "title": "Christopher Zieger appointed Sheriff",
+      "details": "Following Richard Johnston retirement",
+      "verified": true
+    },
+    {
+      "id": 10,
+      "date": "2025-04-14",
+      "type": "event",
+      "title": "Donate Life Month ceremony at Forensic Center",
+      "details": "Coroner Lysek participates with Gift of Life Donor Program",
+      "verified": true
+    },
+    {
+      "id": 11,
+      "date": "2024-01-06",
+      "type": "inauguration",
+      "title": "Tara Zrinski sworn in as Controller",
+      "verified": true
+    },
+    {
+      "id": 12,
+      "date": "2024-01-02",
+      "type": "inauguration",
+      "title": "Stephen Baratta sworn in as District Attorney",
+      "verified": true
+    },
+    {
+      "id": 13,
+      "date": "2023-11-07",
+      "type": "election",
+      "title": "Zrinski defeats Cusick for Controller; Baratta wins DA",
+      "verified": true
+    },
+    {
+      "id": 14,
+      "date": "2023-08-14",
+      "type": "withdrawal",
+      "title": "DA Terry Houck drops reelection bid",
+      "details": "Withdrew due to campaign expense concerns",
+      "verified": true
+    },
+    {
+      "id": 15,
+      "date": "2023-07",
+      "type": "appointment",
+      "title": "Scott Parsons appointed interim Controller",
+      "details": "Following Szulborski death",
+      "verified": true
+    },
+    {
+      "id": 16,
+      "date": "2023-06-30",
+      "type": "death",
+      "title": "Controller Richard 'Bucky' Szulborski dies",
+      "details": "Former Bethlehem city council member; served as controller twice",
+      "verified": true
+    },
+    {
+      "id": 17,
+      "date": "2023-05",
+      "type": "election",
+      "title": "Stephen Baratta defeats Terry Houck in DA Democratic primary",
+      "verified": true
+    },
+    {
+      "id": 18,
+      "date": "2022-09-15",
+      "type": "ordinance",
+      "title": "County Council raises Controller salary to $85,000",
+      "details": "Unanimous vote; $10,000 increase effective Jan 2024",
+      "verified": true
+    },
+    {
+      "id": 19,
+      "date": "2022-03",
+      "type": "complaint",
+      "title": "Deputy sheriffs complain to County Council",
+      "details": "Concerns about staffing and morale under Sheriff Johnston",
+      "verified": true
+    },
+    {
+      "id": 20,
+      "date": "2021-09",
+      "type": "death",
+      "title": "Controller Antoine 'Tony' Bassil dies",
+      "details": "Served less than 2 years; Szulborski reappointed",
+      "verified": true
+    },
+    {
+      "id": 21,
+      "date": "2020-03",
+      "type": "crisis",
+      "title": "COVID-19 pandemic begins affecting county operations",
+      "verified": true
+    },
+    {
+      "id": 22,
+      "date": "2020-01-06",
+      "type": "inauguration",
+      "title": "Terry Houck sworn in as District Attorney",
+      "details": "First new DA in 28 years; succeeded John Morganelli",
+      "verified": true
+    },
+    {
+      "id": 23,
+      "date": "2020-01-06",
+      "type": "inauguration",
+      "title": "Tony Bassil sworn in as Controller",
+      "verified": true
+    },
+    {
+      "id": 24,
+      "date": "2019-11",
+      "type": "election",
+      "title": "John Morganelli elected county judge",
+      "details": "Ending 28-year tenure as DA (1992-2019)",
+      "verified": true
+    },
+    {
+      "id": 25,
+      "date": "2018-07",
+      "type": "appointment",
+      "title": "Richard Johnston confirmed as Sheriff",
+      "details": "8-0 council vote; replaced David Dalrymple",
+      "verified": true
+    },
+    {
+      "id": 26,
+      "date": "2018-01",
+      "type": "appointment",
+      "title": "Stephen Barron becomes Fiscal Affairs Director",
+      "details": "Resigned as Controller to join McClure administration",
+      "verified": true
+    },
+    {
+      "id": 27,
+      "date": "1992",
+      "type": "appointment",
+      "title": "Zachary Lysek appointed Coroner",
+      "details": "Appointed by County Executive Gerald Seyfried",
+      "verified": true
+    }
+  ]
+}

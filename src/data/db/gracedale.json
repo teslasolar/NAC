@@ -1,0 +1,57 @@
+{
+  "table": "gracedale",
+  "description": "Gracedale Nursing Home data - county-owned facility",
+  "primaryKey": "year",
+  "location": "2 Gracedale Avenue, Nazareth, PA 18064",
+  "type": "County-owned and operated nursing home",
+  "sources": [
+    "LehighValleyNews",
+    "WFMZ",
+    "gracedale.org",
+    "norcopa.gov"
+  ],
+  "records": [
+    {
+      "year": 2026,
+      "generalFundContribution": 0,
+      "staffingGoal": 0.70,
+      "currentStaffingRate": 0.41,
+      "nursingPositionsFilled": 0.20,
+      "administrator": "Michelle Morton",
+      "childcareCenter": {
+        "name": "Learning Locomotion",
+        "openedDate": "2025-11-03",
+        "purpose": "On-site childcare for healthcare workers"
+      },
+      "goals": [
+        "Fill 70% of all positions by end of 2026",
+        "Gracedale income to cover all expenses by end of 2026",
+        "Reduce reliance on expensive agency nurses"
+      ],
+      "initiatives": [
+        "Revamp hiring and onboarding processes",
+        "Create recognition and engagement programs",
+        "Centralize pool of agency nurses"
+      ],
+      "verified": true,
+      "verifiedDate": "2026-01-23"
+    },
+    {
+      "year": 2025,
+      "staffingRate": 0.41,
+      "nursingPositionsFilled": 0.20,
+      "administrator": "Michelle Morton",
+      "note": "80% nursing positions unfilled; new strategic plan shared",
+      "verified": true
+    },
+    {
+      "year": 2022,
+      "note": "Officials painted bleak picture of staffing outlook",
+      "verified": true
+    }
+  ],
+  "historicalContext": {
+    "savedFrom": "Stephen Barron helped make the case that Gracedale should stay county-owned and operated",
+    "commitment": "McClure administration committed to keeping Gracedale county-owned and operated"
+  }
+}

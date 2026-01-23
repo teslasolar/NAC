@@ -1,0 +1,102 @@
+{
+  "database": "NorthamptonCountyData",
+  "version": "2026.01",
+  "description": "SQL-like JSON database for Northampton County PA government data",
+  "lastUpdated": "2026-01-23",
+  "verificationMethod": "Web search audit using Morning Call, WFMZ, LehighValleyNews, norcopa.gov",
+  "tables": [
+    {
+      "name": "budgets",
+      "file": "budgets.json",
+      "description": "Annual county budget data",
+      "primaryKey": "year",
+      "recordCount": 7,
+      "yearRange": "2020-2026"
+    },
+    {
+      "name": "salaries",
+      "file": "salaries.json",
+      "description": "Elected official and appointed position salaries",
+      "primaryKey": ["position", "effectiveDate"],
+      "recordCount": 7
+    },
+    {
+      "name": "officers",
+      "file": "officers.json",
+      "description": "Row officers and key officials by year",
+      "primaryKey": ["position", "year"],
+      "recordCount": 40,
+      "yearRange": "2020-2026"
+    },
+    {
+      "name": "events",
+      "file": "events.json",
+      "description": "Key government events timeline",
+      "primaryKey": "id",
+      "recordCount": 27,
+      "yearRange": "1992-2026"
+    },
+    {
+      "name": "gracedale",
+      "file": "gracedale.json",
+      "description": "Gracedale Nursing Home operational data",
+      "primaryKey": "year",
+      "recordCount": 3
+    }
+  ],
+  "relationships": [
+    {
+      "from": "officers.position",
+      "to": "salaries.position",
+      "type": "many-to-one"
+    },
+    {
+      "from": "events.date",
+      "to": "officers.year",
+      "type": "contextual"
+    },
+    {
+      "from": "budgets.year",
+      "to": "officers.year",
+      "type": "one-to-many"
+    }
+  ],
+  "verifiedData": {
+    "budget2026": {
+      "total": 503000000,
+      "taxRateMills": 10.8,
+      "noTaxIncreaseYears": 8,
+      "source": "Morning Call, LehighValleyNews Dec 2025"
+    },
+    "countyExecutiveSalary2026": {
+      "amount": 105000,
+      "source": "WFMZ Jan 2026"
+    },
+    "controllerSalary2024": {
+      "amount": 85000,
+      "source": "Morning Call Oct 2023"
+    },
+    "countyEmployees": {
+      "approximate": 2000,
+      "source": "WFMZ Jan 2026"
+    },
+    "population": {
+      "total": 349819,
+      "source": "US Census Bureau"
+    }
+  },
+  "queryExamples": [
+    {
+      "description": "Get all controllers from 2020-2026",
+      "pseudo": "SELECT * FROM officers WHERE position = 'Controller' AND year BETWEEN 2020 AND 2026"
+    },
+    {
+      "description": "Get budget trend",
+      "pseudo": "SELECT year, totalBudget, taxRateMills FROM budgets ORDER BY year"
+    },
+    {
+      "description": "Get all 2026 appointments",
+      "pseudo": "SELECT * FROM events WHERE type = 'appointment' AND date LIKE '2026%'"
+    }
+  ]
+}

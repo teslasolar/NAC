@@ -8,162 +8,68 @@ import { PointerLockControls } from 'three/addons/controls/PointerLockControls.j
 // County seat: Easton (est. 1752 from Bucks County)
 // Total county population: 312,951 (2020 Census)
 // Sources: census.gov, norcopa.gov, Wikipedia
+// Data loaded from centralized tag files
 // ============================================
 
-// Municipalities and townships with audit data
-// Note: Audit findings are illustrative based on typical
-// Controller's Office audit categories (P-Card, ACL Vendor reviews, etc.)
-const countyZones = [
-  // Cities (2 total in Northampton County)
-  { id: 'bethlehem', name: 'Bethlehem', type: 'city', population: 77069,
-    position: [0, 0, 0], size: [12, 12], risk: 'low',
-    findings: 1, compliance: 92, lastAudit: '2025-09',
-    note: 'Spans Lehigh & Northampton counties. 7th largest city in PA.',
-    auditFindings: [
-      { type: 'fiscal', desc: 'P-Card fixed-asset threshold exceeded (4 items)', severity: 'low' }
-    ]},
-  { id: 'easton', name: 'Easton (County Seat)', type: 'city', population: 29538,
-    position: [25, 0, -5], size: [10, 10], risk: 'low',
-    findings: 0, compliance: 96, lastAudit: '2025-11',
-    note: 'County seat since 1752. Home to Lafayette College.',
-    auditFindings: [] },
+// Municipalities and townships with audit data - loaded from tags
+let countyZones = [];
 
-  // Boroughs (21 total - showing major ones)
-  { id: 'nazareth', name: 'Nazareth', type: 'borough', population: 6053,
-    position: [-15, 0, 10], size: [6, 6], risk: 'low',
-    note: 'Home of Martin Guitars since 1839.',
-    findings: 0, compliance: 98, lastAudit: '2025-10', auditFindings: [] },
-  { id: 'bangor', name: 'Bangor', type: 'borough', population: 5187,
-    position: [-25, 0, -15], size: [5, 5], risk: 'medium',
-    note: 'Historic slate industry center.',
-    findings: 2, compliance: 84, lastAudit: '2025-08',
-    auditFindings: [
-      { type: 'fiscal', desc: 'ACL review: check numbering gaps identified', severity: 'low' },
-      { type: 'reporting', desc: 'Bank reconciliation delays', severity: 'medium' }
-    ]},
-  { id: 'bath', name: 'Bath', type: 'borough', population: 2808,
-    position: [-8, 0, -20], size: [4, 4], risk: 'low',
-    findings: 0, compliance: 96, lastAudit: '2025-07', auditFindings: [] },
-  { id: 'wilson', name: 'Wilson', type: 'borough', population: 8259,
-    position: [12, 0, 8], size: [6, 5], risk: 'low',
-    note: 'Adjacent to Easton.',
-    findings: 1, compliance: 91, lastAudit: '2025-10',
-    auditFindings: [
-      { type: 'internal', desc: 'IT access controls review recommended', severity: 'low' }
-    ]},
-  { id: 'hellertown', name: 'Hellertown', type: 'borough', population: 6131,
-    position: [5, 0, 20], size: [5, 5], risk: 'low',
-    note: 'Part of Lehigh Valley metro area.',
-    findings: 0, compliance: 94, lastAudit: '2025-09', auditFindings: [] },
-  { id: 'northampton-boro', name: 'Northampton', type: 'borough', population: 10395,
-    position: [-5, 0, -8], size: [7, 6], risk: 'low',
-    note: 'Incorporated 1902. Former "Cement Capital of the World".',
-    findings: 1, compliance: 89, lastAudit: '2025-06',
-    auditFindings: [
-      { type: 'fiscal', desc: 'Pension funding actuarial review scheduled', severity: 'low' }
-    ]},
-  { id: 'pen-argyl', name: 'Pen Argyl', type: 'borough', population: 3596,
-    position: [-28, 0, -20], size: [4, 4], risk: 'low',
-    note: 'Named for slate (argillite) deposits.',
-    findings: 0, compliance: 93, lastAudit: '2025-05', auditFindings: [] },
-  { id: 'wind-gap', name: 'Wind Gap', type: 'borough', population: 2728,
-    position: [-32, 0, -8], size: [4, 4], risk: 'low',
-    note: 'Named for gap in Blue Mountain ridge.',
-    findings: 0, compliance: 95, lastAudit: '2025-04', auditFindings: [] },
-  { id: 'freemansburg', name: 'Freemansburg', type: 'borough', population: 2636,
-    position: [3, 0, 5], size: [3, 3], risk: 'low',
-    findings: 0, compliance: 94, lastAudit: '2025-08', auditFindings: [] },
+// Row Officers at County Courthouse - loaded from tags
+let rowOfficers = [];
 
-  // Townships (15 total)
-  { id: 'bethlehem-twp', name: 'Bethlehem Township', type: 'township', population: 25989,
-    position: [8, 0, -12], size: [14, 12], risk: 'low',
-    findings: 0, compliance: 95, lastAudit: '2025-11', auditFindings: [] },
-  { id: 'lower-saucon', name: 'Lower Saucon Township', type: 'township', population: 11077,
-    position: [18, 0, 15], size: [12, 10], risk: 'low',
-    note: 'Incorporated 1743. Approx. 25 sq miles.',
-    findings: 0, compliance: 97, lastAudit: '2025-10', auditFindings: [] },
-  { id: 'forks', name: 'Forks Township', type: 'township', population: 16293,
-    position: [30, 0, 8], size: [13, 11], risk: 'low',
-    findings: 1, compliance: 90, lastAudit: '2025-09',
-    auditFindings: [
-      { type: 'procurement', desc: 'Professional services documentation review', severity: 'low' }
-    ]},
-  { id: 'palmer', name: 'Palmer Township', type: 'township', population: 22317,
-    position: [20, 0, -15], size: [14, 12], risk: 'low',
-    note: 'Founded 1857. Named for surveyor George Palmer.',
-    findings: 1, compliance: 91, lastAudit: '2025-07',
-    auditFindings: [
-      { type: 'fiscal', desc: 'ACL review: duplicate vendor payment identified (refund requested)', severity: 'low' }
-    ]},
-  { id: 'williams', name: 'Williams Township', type: 'township', population: 6575,
-    position: [35, 0, -8], size: [10, 9], risk: 'low',
-    note: 'Est. 1750. Rolling hills, farmland, woodland.',
-    findings: 0, compliance: 95, lastAudit: '2025-08', auditFindings: [] },
-  { id: 'upper-nazareth', name: 'Upper Nazareth Township', type: 'township', population: 8127,
-    position: [-18, 0, 0], size: [11, 10], risk: 'low',
-    note: 'Part of historic Barony of Nazareth (25,000 acres).',
-    findings: 0, compliance: 93, lastAudit: '2025-10', auditFindings: [] },
-  { id: 'lower-nazareth', name: 'Lower Nazareth Township', type: 'township', population: 7081,
-    position: [-12, 0, -5], size: [9, 8], risk: 'low',
-    findings: 0, compliance: 94, lastAudit: '2025-09', auditFindings: [] },
-  { id: 'plainfield', name: 'Plainfield Township', type: 'township', population: 6257,
-    position: [-30, 0, 5], size: [12, 11], risk: 'low',
-    note: 'Organized 1762. Split from Bushkill.',
-    findings: 1, compliance: 89, lastAudit: '2025-08',
-    auditFindings: [
-      { type: 'reporting', desc: 'Account coding consistency review', severity: 'low' }
-    ]},
-  { id: 'bushkill', name: 'Bushkill Township', type: 'township', population: 8589,
-    position: [-35, 0, -10], size: [14, 13], risk: 'low',
-    findings: 0, compliance: 92, lastAudit: '2025-07', auditFindings: [] },
-    position: [-28, 0, -25], size: [15, 14], risk: 'low',
-    findings: 0, compliance: 91, lastAudit: '2025-06', auditFindings: [] },
-  { id: 'lehigh', name: 'Lehigh Township', type: 'township', population: 10766,
-    position: [-20, 0, -20], size: [13, 12], risk: 'low',
-    findings: 0, compliance: 93, lastAudit: '2025-09', auditFindings: [] },
-  { id: 'allen', name: 'Allen Township', type: 'township', population: 5479,
-    position: [-8, 0, -15], size: [8, 7], risk: 'low',
-    note: 'Est. 1748. Named for Chief Justice William Allen.',
-    findings: 0, compliance: 94, lastAudit: '2025-05', auditFindings: [] },
-  { id: 'east-allen', name: 'East Allen Township', type: 'township', population: 5094,
-    position: [-15, 0, -12], size: [8, 7], risk: 'low',
-    findings: 0, compliance: 92, lastAudit: '2025-04', auditFindings: [] },
-  { id: 'hanover', name: 'Hanover Township', type: 'township', population: 11549,
-    position: [-3, 0, -18], size: [10, 9], risk: 'low',
-    findings: 0, compliance: 94, lastAudit: '2025-06', auditFindings: [] },
-  { id: 'lower-mt-bethel', name: 'Lower Mt. Bethel Township', type: 'township', population: 3271,
-    position: [40, 0, 0], size: [12, 11], risk: 'low',
-    note: 'Along Delaware River.',
-    findings: 0, compliance: 91, lastAudit: '2025-03', auditFindings: [] },
-  { id: 'upper-mt-bethel', name: 'Upper Mt. Bethel Township', type: 'township', population: 7012,
-    position: [42, 0, -12], size: [13, 12], risk: 'low',
-    findings: 0, compliance: 90, lastAudit: '2025-02', auditFindings: [] },
-];
+// Load data from tag files
+async function loadCountyData() {
+  try {
+    const [muniResponse, officersResponse] = await Promise.all([
+      fetch('tags/municipalities.json'),
+      fetch('tags/row-officers.json')
+    ]);
 
-// Row Officers at County Courthouse - 669 Washington St, Easton, PA 18042
-// Note: Northampton County operates under Home Rule Charter (1978)
-// Some positions are appointed rather than elected
-// Source: norcopa.gov, ballotpedia.org, paauditor.gov
-const rowOfficers = [
-  { id: 'controller', name: 'Controller - Tara Zrinski', position: [25, 0, -3], color: 0x4a9eff,
-    note: 'Elected 2023. Former County Council member. Fiscal watchdog.' },
-  { id: 'fiscal', name: 'Fiscal Affairs', position: [27, 0, -3], color: 0x4a9eff,
-    note: 'Dept. of Fiscal Affairs handles treasury functions under Home Rule.' },
-  { id: 'sheriff', name: 'Sheriff - Christopher Zieger', position: [23, 0, -5], color: 0x4a9eff,
-    note: 'Appointed 2024. 30 years with Sheriff Dept. Succeeded Richard Johnston.' },
-  { id: 'recorder', name: 'Recorder of Deeds - Dorothy Edelman', position: [27, 0, -7], color: 0x4a9eff,
-    note: '669 Washington St, Easton. Land records since 1752.' },
-  { id: 'register', name: 'Register of Wills - Patricia J. Manento', position: [23, 0, -7], color: 0x4a9eff,
-    note: 'Estate documents, inheritance tax. Records from 1752.' },
-  { id: 'prothonotary', name: 'Prothonotary - Holly Ruggiero', position: [25, 0, -7], color: 0x4a9eff,
-    note: 'Appointed (not elected in Northampton Co.). Civil court records.' },
-  { id: 'clerk', name: 'Clerk of Courts - Leigh Ann Fisher', position: [29, 0, -5], color: 0x4a9eff,
-    note: 'Criminal Division records. Appointed under Home Rule.' },
-  { id: 'da', name: 'District Attorney - Stephen Baratta', position: [21, 0, -5], color: 0x4a9eff,
-    note: 'Elected 2023. Former judge, 25 years on bench.' },
-  { id: 'coroner', name: 'Coroner - Zachary Lysek', position: [21, 0, -7], color: 0x4a9eff,
-    note: 'PA State Coroners Assoc. Board Member. Class 3, Region 4.' },
-];
+    if (muniResponse.ok) {
+      const muniData = await muniResponse.json();
+      countyZones = muniData.municipalities || [];
+      console.log('Loaded municipalities from tags:', countyZones.length);
+    }
+
+    if (officersResponse.ok) {
+      const officersData = await officersResponse.json();
+      // Transform row officers data for 3D map display
+      rowOfficers = officersData.officers.map((o, i) => ({
+        id: o.id,
+        name: `${o.office} - ${o.name}`,
+        position: [25 + (i % 3) * 2 - 2, 0, -3 - Math.floor(i / 3) * 2],
+        color: 0x4a9eff,
+        note: o.mapNote || `${o.office} - ${o.divisions?.[0] || 'County office'}`
+      }));
+      console.log('Loaded row officers from tags:', rowOfficers.length);
+    }
+  } catch (err) {
+    console.warn('Could not load from tags, using fallback data:', err);
+    loadFallbackData();
+  }
+}
+
+// Fallback data if tags unavailable
+function loadFallbackData() {
+  countyZones = [
+    { id: 'bethlehem', name: 'Bethlehem', type: 'city', population: 77069,
+      position: [0, 0, 0], size: [12, 12], risk: 'low',
+      findings: 1, compliance: 92, lastAudit: '2025-09',
+      note: 'Spans Lehigh & Northampton counties. 7th largest city in PA.',
+      auditFindings: [{ type: 'fiscal', desc: 'P-Card fixed-asset threshold exceeded', severity: 'low' }]},
+    { id: 'easton', name: 'Easton (County Seat)', type: 'city', population: 29538,
+      position: [25, 0, -5], size: [10, 10], risk: 'low',
+      findings: 0, compliance: 96, lastAudit: '2025-11',
+      note: 'County seat since 1752. Home to Lafayette College.', auditFindings: [] }
+  ];
+
+  rowOfficers = [
+    { id: 'controller', name: 'Controller - Tara Zrinski', position: [25, 0, -3], color: 0x4a9eff,
+      note: 'Elected 2023. Fiscal watchdog.' },
+    { id: 'sheriff', name: 'Sheriff - Christopher Zieger', position: [23, 0, -5], color: 0x4a9eff,
+      note: 'Appointed 2024. Law enforcement.' }
+  ];
+}
 
 // Risk colors
 const riskColors = {
@@ -798,7 +704,9 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Initialize
-init();
+// Initialize - load data from tags first
+loadCountyData().then(() => {
+  init();
+});
   </script>
 </body>

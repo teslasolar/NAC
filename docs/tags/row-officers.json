@@ -3,7 +3,9 @@
   "name": "RowOfficers",
   "description": "Elected row officers per PA County Code Title 16 - Jan 2026",
   "version": "2026.01",
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search audit - norcopa.gov, Morning Call, WFMZ, PA Associations",
   "countyClass": "Third Class",
   "homeRule": true,
   "officers": [
@@ -17,6 +19,7 @@
       "termEnd": "2028-01-01",
       "budget": 11200000,
       "staff": 156,
+      "salary": 111868,
       "divisions": [
         { "name": "Administration", "staff": 8 },
         { "name": "Patrol Division", "staff": 45 },
@@ -24,7 +27,9 @@
         { "name": "Court Security", "staff": 35 },
         { "name": "Corrections Division", "staff": 42 }
       ],
-      "duties": ["Court security", "Civil process service", "Warrant service", "Prisoner transport", "Sheriff sales"]
+      "duties": ["Court security", "Civil process service", "Warrant service", "Prisoner transport", "Sheriff sales"],
+      "note": "Reappointed Jan 16, 2026 by County Executive Zrinski. Originally appointed June 2025 following retirement of Richard Johnston. 30+ years law enforcement experience.",
+      "mapNote": "Appointed 2024. 30 years with Sheriff Dept."
     },
     {
       "id": "district-attorney",
@@ -49,7 +54,7 @@
     {
       "id": "controller",
       "office": "County Controller",
-      "name": "Acting Controller",
+      "name": "VACANT - Pending Appointment",
       "elected": true,
       "paCode": "16 P.S. § 1701-1780",
       "termStart": "2026-01-06",
@@ -62,7 +67,8 @@
         { "name": "Payroll Division", "staff": 4 }
       ],
       "duties": ["Audit county accounts", "Pre-audit vouchers", "Process payroll", "Custody of contracts", "Board memberships"],
-      "note": "Position transitioning - previous controller elected County Executive"
+      "note": "VACANT as of Jan 5, 2026. Tara Zrinski resigned to become County Executive. County Council must appoint replacement per Home Rule Charter within 30 days.",
+      "previousOfficer": "Tara Zrinski (2024-2026, elected County Executive)"
     },
     {
       "id": "coroner",
@@ -79,7 +85,9 @@
         { "name": "Investigations", "staff": 6 },
         { "name": "Medical Services", "staff": 4 }
       ],
-      "duties": ["Death investigations", "Autopsies", "Cremation permits", "Death certificates"]
+      "duties": ["Death investigations", "Autopsies", "Cremation permits", "Death certificates"],
+      "note": "In office since 1992 (30+ years). Reappointed in Zrinski cabinet Jan 2026. Board Member At Large Region 4, PA State Coroners Association.",
+      "mapNote": "PA State Coroners Assoc. Board Member. Class 3, Region 4."
     },
     {
       "id": "clerk-of-courts",

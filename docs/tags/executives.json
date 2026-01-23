@@ -3,7 +3,9 @@
   "name": "Executives",
   "description": "County Executive branch leadership - Jan 2026",
   "version": "2026.01",
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search audit - Morning Call, WFMZ, LehighValleyNews, norcopa.gov",
   "countyExecutive": {
     "id": "county-executive",
     "title": "County Executive",
@@ -18,15 +20,15 @@
     "budget": 3200000
   },
   "countyCouncil": {
-    "description": "Nine-member legislative body",
+    "description": "Nine-member legislative body - Sworn in January 2026",
     "members": [
-      { "name": "Lori Vargo Heffner", "district": "At-Large", "role": "President" },
-      { "name": "Kerry Myers", "district": "At-Large", "role": "Vice President" },
-      { "name": "John Cusick", "district": "1", "role": "Member" },
-      { "name": "Tara Zrinski", "district": "2", "role": "Member", "note": "Now County Executive" },
-      { "name": "John Brown", "district": "3", "role": "Member" },
-      { "name": "Peg Ferraro", "district": "4", "role": "Member" },
-      { "name": "Thomas Giovanni", "district": "At-Large", "role": "Member" },
+      { "name": "Ken Kraft", "district": "1", "role": "President", "note": "Elected president Jan 2026, second term" },
+      { "name": "Lori Vargo Heffner", "district": "At-Large", "role": "Vice President", "note": "Incumbent" },
+      { "name": "John Cusick", "district": "At-Large", "role": "Member" },
+      { "name": "David Holland", "district": "At-Large", "role": "Member", "note": "New member Jan 2026" },
+      { "name": "Jason B. Boulette", "district": "At-Large", "role": "Member", "note": "New member Jan 2026" },
+      { "name": "Theresa Fadem", "district": "At-Large", "role": "Member", "note": "New member Jan 2026" },
+      { "name": "Nadeem Qayyum", "district": "At-Large", "role": "Member", "note": "New member Jan 2026" },
       { "name": "Ron Heckman", "district": "At-Large", "role": "Member" },
       { "name": "Kevin Lott", "district": "At-Large", "role": "Member" }
     ],

@@ -1,0 +1,48 @@
+{
+  "tagType": "UDT",
+  "id": "arpa-overview",
+  "name": "ARPA Funding Overview",
+  "county": "Northampton County, PA",
+  "program": "American Rescue Plan Act (ARPA) - State and Local Fiscal Recovery Fund (SLFRF)",
+  "totalAllocation": 61200000,
+  "timeline": {
+    "arpaEnacted": "2021-03-11",
+    "round1Payment": "2021-06 to 2021-09",
+    "round1Reallocation": "2022-07",
+    "round2Payment": "2022-09",
+    "allocationDeadline": "2024-12-31",
+    "spendingDeadline": "2026-12-31"
+  },
+  "status": {
+    "asOf": "2025-early",
+    "spent": 57000000,
+    "percentSpent": 93.1,
+    "returnedToState": 1600000,
+    "returnReason": "State pressed by federal government to remit unspent dollars",
+    "complianceStatus": "All ARPA money accounted for; no issues anticipated with reporting requirements"
+  },
+  "administration": {
+    "countyExecutive": "Lamont G. McClure",
+    "fiscalDirector": "Stephen J. Barron Jr.",
+    "approach": "Brought in stakeholders including County Council and Greater Lehigh Valley Chamber of Commerce",
+    "priority": "Help small businesses most directly affected by pandemic"
+  },
+  "allowedUses": [
+    "COVID-19 response efforts",
+    "Replace lost revenue",
+    "Support economic stabilization for households and businesses",
+    "Address systemic public health and economic challenges"
+  ],
+  "reportingRequirements": {
+    "quarterly": "Project and Expenditure Reports to US Treasury",
+    "annual": "Recovery Plan Reports",
+    "firstReport": "2022-01-28"
+  },
+  "verified": true,
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "GovTech", "url": "https://www.govtech.com/elections/arpa-funds-cover-broadband-election-security-in-penn-county" },
+    { "name": "Spotlight PA", "date": "2024-11", "topic": "ARPA funding decisions" },
+    { "name": "PA Treasury", "url": "https://www.patreasury.gov/chart/arpa.html" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT-Index",
+  "name": "ARPA",
+  "description": "Northampton County American Rescue Plan Act (ARPA) Funding",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "GovTech",
+    "Morning Call",
+    "WFMZ",
+    "Spotlight PA",
+    "PA Treasury"
+  ],
+  "files": [
+    { "id": "overview", "file": "overview.json", "description": "ARPA funding overview and timeline" },
+    { "id": "projects", "file": "projects.json", "description": "Detailed project allocations" },
+    { "id": "audits", "file": "audits.json", "description": "Controller audit findings" }
+  ],
+  "summary": {
+    "totalAllocation": 61200000,
+    "spent": 57000000,
+    "returnedToState": 1600000,
+    "allocationDeadline": "2024-12-31",
+    "spendingDeadline": "2026-12-31",
+    "status": "On track - all funds allocated"
+  },
+  "keyProjects": [
+    { "name": "Gracedale Nursing Home", "amount": 15000000 },
+    { "name": "Small Business Grants", "amount": 15400000 },
+    { "name": "Broadband/Infrastructure", "amount": 20600000 },
+    { "name": "Emergency Radio", "amount": 5000000 },
+    { "name": "Election Security", "amount": 1600000 },
+    { "name": "Affordable Housing", "amount": 1500000 }
+  ]
+}

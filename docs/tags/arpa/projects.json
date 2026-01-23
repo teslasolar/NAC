@@ -1,0 +1,121 @@
+{
+  "tagType": "UDT",
+  "id": "arpa-projects",
+  "name": "ARPA Project Allocations",
+  "county": "Northampton County, PA",
+  "totalAllocation": 61200000,
+  "projects": [
+    {
+      "id": "gracedale",
+      "name": "Gracedale Nursing Home Support",
+      "category": "Public Health",
+      "amount": 15000000,
+      "percentOfTotal": 24.5,
+      "description": "Staff support and operations for county-owned nursing home",
+      "subProjects": [
+        {
+          "name": "Retention Bonuses",
+          "budgeted": 5000000,
+          "actualPaid": 2360891.18,
+          "note": "Remainder commingled with other Gracedale funds (per 2025 audit)"
+        }
+      ],
+      "status": "Completed",
+      "verified": true
+    },
+    {
+      "id": "small-business",
+      "name": "Small Business Grants",
+      "category": "Economic Support",
+      "amount": 15400000,
+      "percentOfTotal": 25.2,
+      "description": "$15,000 grants to small businesses affected by pandemic",
+      "additionalFunding": {
+        "source": "Earlier federal pandemic relief",
+        "amount": 5000000
+      },
+      "administration": {
+        "taskForce": "Northampton County + Greater Lehigh Valley Chamber representatives",
+        "method": "Application review, first come first served"
+      },
+      "status": "Completed",
+      "verified": true
+    },
+    {
+      "id": "broadband-infrastructure",
+      "name": "Broadband & Infrastructure",
+      "category": "Infrastructure",
+      "amount": 20600000,
+      "percentOfTotal": 33.7,
+      "description": "Broadband deployment, mobile health vehicles, lead paint remediation, emergency services, county records",
+      "subProjects": [
+        { "name": "Broadband Deployment", "amount": null },
+        { "name": "Mobile Health Vehicles", "amount": null },
+        { "name": "Lead Paint Remediation", "amount": null, "note": "Free remediation for homes and home-based childcare" },
+        { "name": "Emergency Services", "amount": null },
+        { "name": "County Records", "amount": null },
+        { "name": "Digital Navigator Training", "amount": 10000 }
+      ],
+      "status": "In Progress",
+      "verified": true
+    },
+    {
+      "id": "emergency-radio",
+      "name": "Emergency Radio Infrastructure",
+      "category": "Public Safety",
+      "amount": 5000000,
+      "percentOfTotal": 8.2,
+      "description": "Emergency radio system improvements",
+      "status": "Completed",
+      "verified": true
+    },
+    {
+      "id": "election-security",
+      "name": "Election Security",
+      "category": "Government Operations",
+      "amount": 1600000,
+      "percentOfTotal": 2.6,
+      "description": "Election infrastructure and security improvements",
+      "status": "Completed",
+      "verified": true
+    },
+    {
+      "id": "affordable-housing",
+      "name": "Affordable Housing",
+      "category": "Housing",
+      "amount": 1500000,
+      "percentOfTotal": 2.5,
+      "description": "Partnership with Habitat for Humanity",
+      "partner": "Habitat for Humanity",
+      "status": "In Progress",
+      "verified": true
+    },
+    {
+      "id": "other-nonprofits",
+      "name": "Other Nonprofits and Programs",
+      "category": "Community Support",
+      "amount": 2100000,
+      "percentOfTotal": 3.4,
+      "description": "Various nonprofit support and community programs",
+      "note": "Remaining balance after major allocations",
+      "status": "Various",
+      "verified": false
+    }
+  ],
+  "categoryBreakdown": [
+    { "category": "Public Health", "amount": 15000000, "percent": 24.5 },
+    { "category": "Economic Support", "amount": 15400000, "percent": 25.2 },
+    { "category": "Infrastructure", "amount": 20600000, "percent": 33.7 },
+    { "category": "Public Safety", "amount": 5000000, "percent": 8.2 },
+    { "category": "Government Operations", "amount": 1600000, "percent": 2.6 },
+    { "category": "Housing", "amount": 1500000, "percent": 2.5 },
+    { "category": "Community Support", "amount": 2100000, "percent": 3.4 }
+  ],
+  "verified": true,
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "GovTech", "topic": "Broadband and election security" },
+    { "name": "Morning Call", "topic": "Small business grants" },
+    { "name": "WFMZ", "topic": "Gracedale audit findings" }
+  ]
+}

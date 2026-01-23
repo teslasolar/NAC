@@ -1,0 +1,63 @@
+{
+  "tagType": "UDT",
+  "id": "arpa-audits",
+  "name": "ARPA Audit Findings",
+  "county": "Northampton County, PA",
+  "audits": [
+    {
+      "id": "gracedale-retention-2025",
+      "title": "Gracedale Retention Bonus Audit",
+      "auditor": "Northampton County Controller's Office",
+      "controller": "Tara Zrinski",
+      "periodCovered": "2022-01 to 2025-04",
+      "releaseDate": "2025",
+      "subject": "ARPA-funded retention bonuses for Gracedale employees",
+      "findings": [
+        {
+          "finding": "Less than half of $5 million allocated for retention bonuses was used for that purpose",
+          "detail": "Total retention bonuses paid: $2,360,891.18 of $5,000,000 budgeted",
+          "percentUsed": 47.2
+        },
+        {
+          "finding": "Remainder of funds could not be specifically tracked",
+          "detail": "Funds commingled with other Gracedale funds once transferred in 2023"
+        }
+      ],
+      "originalPlan": {
+        "authorized": "2022 County Council",
+        "amount": 5000000,
+        "source": "ARPA funds",
+        "eligibility": "Gracedale employees",
+        "bonusAmount": 2500,
+        "frequency": "Annually through 2026"
+      },
+      "conclusion": {
+        "federalCompliance": "All ARPA money accounted for",
+        "returnRequired": false,
+        "futureIssues": "County does not anticipate issues with reporting requirements beyond 2026"
+      },
+      "verified": true,
+      "source": {
+        "name": "WFMZ",
+        "url": "https://www.wfmz.com/news/area/lehighvalley/northampton-county/easton-area/money-intended-for-gracedale-bonuses-used-for-other-purposes-audit-finds/article_c62b40cd-6481-443a-95c3-8e9a7ae3b071.html"
+      }
+    }
+  ],
+  "complianceStatus": {
+    "allFundsAccountedFor": true,
+    "federalReportingCompliant": true,
+    "returnedFunds": {
+      "amount": 1600000,
+      "reason": "State request due to federal pressure to remit unspent dollars",
+      "date": "2024"
+    }
+  },
+  "upcomingDeadlines": [
+    {
+      "deadline": "2026-12-31",
+      "requirement": "All ARPA SLFRF funds must be spent"
+    }
+  ],
+  "verified": true,
+  "verifiedDate": "2026-01-23"
+}

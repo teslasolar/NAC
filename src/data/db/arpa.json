@@ -1,0 +1,144 @@
+{
+  "table": "arpa",
+  "description": "Northampton County ARPA (American Rescue Plan Act) funding data",
+  "primaryKey": "projectId",
+  "sources": [
+    "GovTech",
+    "Morning Call",
+    "WFMZ",
+    "Spotlight PA",
+    "PA Treasury"
+  ],
+  "summary": {
+    "totalAllocation": 61200000,
+    "spent": 57000000,
+    "returned": 1600000,
+    "allocationDeadline": "2024-12-31",
+    "spendingDeadline": "2026-12-31"
+  },
+  "records": [
+    {
+      "projectId": "ARPA-001",
+      "name": "Gracedale Nursing Home Support",
+      "category": "Public Health",
+      "amount": 15000000,
+      "year": 2021,
+      "status": "completed",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-002",
+      "name": "Small Business Grants",
+      "category": "Economic Support",
+      "amount": 15400000,
+      "year": 2021,
+      "grantSize": 15000,
+      "status": "completed",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-003",
+      "name": "Broadband Deployment",
+      "category": "Infrastructure",
+      "amount": null,
+      "parentAllocation": 20600000,
+      "year": 2022,
+      "status": "in_progress",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-004",
+      "name": "Mobile Health Vehicles",
+      "category": "Public Health",
+      "amount": null,
+      "parentAllocation": 20600000,
+      "year": 2022,
+      "status": "in_progress",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-005",
+      "name": "Lead Paint Remediation",
+      "category": "Public Health",
+      "amount": null,
+      "parentAllocation": 20600000,
+      "year": 2022,
+      "description": "Free remediation for homes and home-based childcare",
+      "status": "in_progress",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-006",
+      "name": "Emergency Radio Infrastructure",
+      "category": "Public Safety",
+      "amount": 5000000,
+      "year": 2022,
+      "status": "completed",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-007",
+      "name": "Election Security",
+      "category": "Government Operations",
+      "amount": 1600000,
+      "year": 2022,
+      "status": "completed",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-008",
+      "name": "Affordable Housing - Habitat for Humanity",
+      "category": "Housing",
+      "amount": 1500000,
+      "year": 2023,
+      "partner": "Habitat for Humanity",
+      "status": "in_progress",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-009",
+      "name": "Digital Navigator Training",
+      "category": "Infrastructure",
+      "amount": 10000,
+      "year": 2023,
+      "department": "Community & Economic Development",
+      "status": "completed",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-010",
+      "name": "County Records Digitization",
+      "category": "Government Operations",
+      "amount": null,
+      "parentAllocation": 20600000,
+      "year": 2022,
+      "status": "in_progress",
+      "verified": true
+    },
+    {
+      "projectId": "ARPA-011",
+      "name": "Gracedale Retention Bonuses",
+      "category": "Public Health",
+      "budgeted": 5000000,
+      "actualSpent": 2360891.18,
+      "year": 2022,
+      "note": "Part of Gracedale allocation; audit found funds commingled",
+      "status": "completed",
+      "auditFinding": true,
+      "verified": true
+    }
+  ],
+  "timeline": [
+    { "date": "2021-03-11", "event": "ARPA enacted by Congress" },
+    { "date": "2021-06", "event": "Round 1 payments begin" },
+    { "date": "2021-09", "event": "Round 1 payments complete" },
+    { "date": "2022-01-28", "event": "First Project & Expenditure Report submitted" },
+    { "date": "2022-07", "event": "Round 1 reallocation payments" },
+    { "date": "2022-09", "event": "Round 2 payments" },
+    { "date": "2024-12-31", "event": "Allocation deadline" },
+    { "date": "2025", "event": "Gracedale retention bonus audit released" },
+    { "date": "2026-12-31", "event": "Spending deadline" }
+  ],
+  "verified": true,
+  "verifiedDate": "2026-01-23"
+}

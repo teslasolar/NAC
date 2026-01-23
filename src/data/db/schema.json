@@ -42,6 +42,15 @@
       "description": "Gracedale Nursing Home operational data",
       "primaryKey": "year",
       "recordCount": 3
+    },
+    {
+      "name": "arpa",
+      "file": "arpa.json",
+      "description": "American Rescue Plan Act funding and projects",
+      "primaryKey": "projectId",
+      "recordCount": 11,
+      "totalAllocation": 61200000,
+      "yearRange": "2021-2026"
     }
   ],
   "relationships": [
@@ -83,6 +92,12 @@
     "population": {
       "total": 349819,
       "source": "US Census Bureau"
+    },
+    "arpa": {
+      "totalAllocation": 61200000,
+      "spent": 57000000,
+      "returned": 1600000,
+      "source": "GovTech, Spotlight PA, Morning Call"
     }
   },
   "queryExamples": [

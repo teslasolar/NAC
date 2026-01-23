@@ -1,0 +1,27 @@
+{
+  "tagType": "UDT-Index",
+  "name": "RowOfficers",
+  "description": "Index of elected row officers per PA County Code Title 16 - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search audit - norcopa.gov, Morning Call, WFMZ, PA Associations",
+  "countyClass": "Third Class",
+  "homeRule": true,
+  "officers": [
+    { "id": "sheriff", "file": "sheriff.json", "name": "Christopher Zieger", "office": "Sheriff" },
+    { "id": "district-attorney", "file": "district-attorney.json", "name": "Stephen G. Baratta", "office": "District Attorney" },
+    { "id": "controller", "file": "controller.json", "name": "VACANT - Pending Appointment", "office": "County Controller" },
+    { "id": "coroner", "file": "coroner.json", "name": "Zachary Lysek", "office": "Coroner" },
+    { "id": "clerk-of-courts", "file": "clerk-of-courts.json", "name": "Leigh Ann Fisher", "office": "Clerk of Courts" },
+    { "id": "prothonotary", "file": "prothonotary.json", "name": "Holly Ruggiero", "office": "Prothonotary" },
+    { "id": "recorder-of-deeds", "file": "recorder-of-deeds.json", "name": "Dorothy Edelman", "office": "Recorder of Deeds" },
+    { "id": "register-of-wills", "file": "register-of-wills.json", "name": "Patricia J. Manento", "office": "Register of Wills" },
+    { "id": "fiscal-affairs", "file": "fiscal-affairs.json", "name": "Anthony Morris", "office": "Fiscal Affairs - Revenue" }
+  ],
+  "totals": {
+    "totalOfficers": 9,
+    "totalStaff": 368,
+    "totalBudget": 41880000
+  }
+}

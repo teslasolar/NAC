@@ -1,0 +1,46 @@
+{
+  "tagType": "UDT",
+  "id": "controller",
+  "office": "County Controller",
+  "name": "VACANT - Pending Appointment",
+  "elected": true,
+  "paCode": "16 P.S. § 1701-1780",
+  "termStart": "2026-01-06",
+  "termEnd": "2030-01-05",
+  "budget": 980000,
+  "staff": 12,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3190",
+  "divisions": [
+    { "name": "Administration", "staff": 2 },
+    { "name": "Audit Division", "staff": 5 },
+    { "name": "Payroll Division", "staff": 4 }
+  ],
+  "duties": [
+    "Audit county accounts",
+    "Pre-audit vouchers",
+    "Process payroll",
+    "Custody of contracts",
+    "Board memberships"
+  ],
+  "boardMemberships": [
+    { "board": "County Retirement Board", "role": "Secretary" },
+    { "board": "Salary Board", "role": "Member" },
+    { "board": "Prison Board", "role": "Member" },
+    { "board": "Constable Review Board", "role": "Member" }
+  ],
+  "status": "VACANT",
+  "vacancyReason": "Tara Zrinski resigned to become County Executive on Jan 5, 2026",
+  "appointmentDeadline": "Feb 5, 2026 (30 days per Home Rule Charter)",
+  "previousOfficer": {
+    "name": "Tara Zrinski",
+    "term": "2024-2026",
+    "currentPosition": "County Executive"
+  },
+  "note": "County Council must appoint replacement per Home Rule Charter within 30 days or matter goes to court.",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "url": "https://www.mcall.com/2026/01/05/northampton-county-executive-tara-zrinski-sworn-in-photos/", "date": "Jan 5, 2026" },
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/northampton-countys-new-controller-a-familiar-face-to-county-government" }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "tagType": "UDT",
+  "id": "plainfield",
+  "name": "Plainfield Township",
+  "type": "township",
+  "class": "second",
+  "population": 6257,
+  "censusSource": "2020 U.S. Census",
+  "position": [-30, 0, 5],
+  "size": [12, 11],
+  "established": 1762,
+  "areaSquareMiles": 24.3,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://plainfieldtownship.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 89,
+    "lastAudit": "2025-08",
+    "auditFindings": [
+      { "type": "reporting", "desc": "Account coding consistency review", "severity": "low" }
+    ]
+  },
+  "note": "Organized 1762. Split from Bushkill. Named for flat terrain.",
+  "features": [
+    "Pen Argyl Area School District",
+    "Rural agriculture",
+    "Blue Mountain views"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Plainfield Township", "url": "https://plainfieldtownship.org" }
+  ]
+}

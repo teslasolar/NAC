@@ -1,0 +1,38 @@
+{
+  "tagType": "UDT",
+  "id": "northampton-boro",
+  "name": "Northampton",
+  "type": "borough",
+  "population": 10395,
+  "censusSource": "2020 U.S. Census",
+  "position": [-5, 0, -8],
+  "size": [7, 6],
+  "established": 1902,
+  "incorporated": 1902,
+  "areaSquareMiles": 3.8,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members",
+    "website": "https://northamptonboro.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 89,
+    "lastAudit": "2025-06",
+    "auditFindings": [
+      { "type": "fiscal", "desc": "Pension funding actuarial review scheduled", "severity": "low" }
+    ]
+  },
+  "note": "Former 'Cement Capital of the World'. Once home to 30 cement plants.",
+  "features": [
+    "Atlas Cement Company heritage",
+    "Northampton Area School District",
+    "Canal Street district"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Northampton Borough", "url": "https://northamptonboro.com" }
+  ]
+}

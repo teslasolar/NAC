@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "bethlehem-twp",
+  "name": "Bethlehem Township",
+  "type": "township",
+  "class": "first",
+  "population": 25989,
+  "censusSource": "2020 U.S. Census",
+  "position": [8, 0, -12],
+  "size": [14, 12],
+  "established": 1746,
+  "areaSquareMiles": 13.6,
+  "government": {
+    "type": "Board of Commissioners",
+    "commissioners": 5,
+    "website": "https://www.bethlehemtwp.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 95,
+    "lastAudit": "2025-11",
+    "auditFindings": []
+  },
+  "note": "Largest township by population. Major commercial development including Lehigh Valley Mall area.",
+  "features": [
+    "Lehigh Valley Mall",
+    "Industrial parks",
+    "Bethlehem Area School District"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Bethlehem Township", "url": "https://www.bethlehemtwp.com" }
+  ]
+}

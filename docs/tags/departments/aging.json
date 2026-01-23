@@ -1,0 +1,51 @@
+{
+  "tagType": "UDT",
+  "id": "aging",
+  "name": "Area Agency on Aging",
+  "type": "human-services",
+  "budget": 18500000,
+  "staff": 65,
+  "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+  "phone": "610-829-4510",
+  "paCode": "71 P.S. § 581-1 (Older Adults Protective Services)",
+  "divisions": [
+    { "name": "Administration", "staff": 8 },
+    { "name": "Care Management", "staff": 22 },
+    { "name": "Protective Services", "staff": 12 },
+    { "name": "Nutrition Programs", "staff": 10 },
+    { "name": "Information & Assistance", "staff": 8 },
+    { "name": "Ombudsman", "staff": 5 }
+  ],
+  "functions": [
+    "Senior services coordination",
+    "Meals on Wheels",
+    "Transportation assistance",
+    "Care management",
+    "Long-term care ombudsman",
+    "Older adult protective services"
+  ],
+  "services": [
+    { "name": "APPRISE", "description": "Medicare counseling and assistance" },
+    { "name": "Meals on Wheels", "description": "Home-delivered nutrition" },
+    { "name": "Senior Centers", "description": "Congregate meals and activities" },
+    { "name": "OPTIONS", "description": "In-home support services" },
+    { "name": "PACE/PACENET", "description": "Prescription assistance enrollment" },
+    { "name": "Ombudsman", "description": "Long-term care facility advocacy" }
+  ],
+  "statistics": {
+    "note": "FY2025 estimated",
+    "mealsServed": 425000,
+    "clientsServed": 8500,
+    "protectiveInvestigations": 650
+  },
+  "relatedFacility": {
+    "name": "Gracedale",
+    "relationship": "County nursing home - separate administration",
+    "note": "AAA provides ombudsman services to Gracedale residents"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/aging" },
+    { "name": "PA Department of Aging", "url": "https://www.aging.pa.gov" }
+  ]
+}

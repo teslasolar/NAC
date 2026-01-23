@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "wind-gap",
+  "name": "Wind Gap",
+  "type": "borough",
+  "population": 2728,
+  "censusSource": "2020 U.S. Census",
+  "position": [-32, 0, -8],
+  "size": [4, 4],
+  "established": 1893,
+  "incorporated": 1893,
+  "areaSquareMiles": 1.0,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 95,
+    "lastAudit": "2025-04",
+    "auditFindings": []
+  },
+  "note": "Named for gap in Blue Mountain ridge. Appalachian Trail passes nearby.",
+  "features": [
+    "Blue Mountain gap",
+    "Appalachian Trail access",
+    "Slate Belt Museum"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "tagType": "UDT",
+  "id": "district-attorney",
+  "office": "District Attorney",
+  "name": "Stephen G. Baratta",
+  "elected": true,
+  "paCode": "16 P.S. § 1401-1409",
+  "termStart": "2024-01-01",
+  "termEnd": "2028-01-01",
+  "budget": 8500000,
+  "staff": 89,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3020",
+  "divisions": [
+    { "name": "Administration", "staff": 8 },
+    { "name": "Major Crimes Unit", "staff": 18 },
+    { "name": "General Crimes Unit", "staff": 15 },
+    { "name": "Juvenile Unit", "staff": 8 },
+    { "name": "Detective Division", "staff": 25 },
+    { "name": "Support Services", "staff": 14 }
+  ],
+  "duties": [
+    "Criminal prosecution",
+    "Grand jury proceedings",
+    "Victim services",
+    "Investigations",
+    "Child abuse prosecution"
+  ],
+  "background": {
+    "education": ["Bangor Area High School (1974)", "Lafayette College (1978)", "Fordham University School of Law (1981)"],
+    "priorPositions": ["Private practice (1981-1992)", "First ADA (1992)", "Judge (1997-2023)", "President Judge (2013-2018)"]
+  },
+  "achievements": [
+    "Created Drug Court",
+    "Created Mental Health Court",
+    "Reformed bail system",
+    "Improved juvenile system"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/district-attorney" },
+    { "name": "barattaforda.com", "url": "https://www.barattaforda.com/about" },
+    { "name": "knowyourdainpa.org", "url": "https://www.knowyourdainpa.org/district-attorney/baratta" }
+  ]
+}

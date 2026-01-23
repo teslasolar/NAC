@@ -1,0 +1,52 @@
+{
+  "tagType": "UDT",
+  "id": "veterans-affairs",
+  "name": "Veterans Affairs",
+  "type": "human-services",
+  "budget": 1200000,
+  "staff": 8,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3198",
+  "paCode": "51 Pa.C.S. § 1701 (Military Affairs)",
+  "divisions": [
+    { "name": "Administration", "staff": 2 },
+    { "name": "Claims & Benefits", "staff": 4 },
+    { "name": "Outreach", "staff": 2 }
+  ],
+  "functions": [
+    "Veterans benefit assistance",
+    "VA claims counseling",
+    "Grave registration",
+    "Memorial services",
+    "Emergency financial assistance",
+    "Referral services"
+  ],
+  "services": [
+    { "name": "Claims Assistance", "description": "Help filing VA disability and pension claims" },
+    { "name": "Benefits Counseling", "description": "Education, healthcare, housing benefit info" },
+    { "name": "Grave Registration", "description": "Recording and maintaining veteran grave locations" },
+    { "name": "Emergency Fund", "description": "One-time financial assistance for veterans in crisis" },
+    { "name": "Transportation", "description": "Rides to VA medical appointments" }
+  ],
+  "programs": [
+    { "name": "Veterans Court", "description": "Support for veterans in criminal justice system" },
+    { "name": "Stand Down", "description": "Annual event for homeless and at-risk veterans" },
+    { "name": "Memorial Day Ceremonies", "description": "County-wide memorial observances" }
+  ],
+  "statistics": {
+    "note": "Estimated",
+    "veteransInCounty": 22000,
+    "claimsAssistedAnnual": 850,
+    "transportationTrips": 1200
+  },
+  "partnerships": [
+    { "name": "VA Medical Center", "location": "Wilkes-Barre" },
+    { "name": "Veterans Multi-Service Center", "type": "Non-profit" },
+    { "name": "American Legion/VFW Posts", "type": "Service organizations" }
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/veterans-affairs" },
+    { "name": "PA DMVA", "url": "https://www.dmva.pa.gov" }
+  ]
+}

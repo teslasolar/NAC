@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "bushkill",
+  "name": "Bushkill Township",
+  "type": "township",
+  "class": "second",
+  "population": 8589,
+  "censusSource": "2020 U.S. Census",
+  "position": [-35, 0, -10],
+  "size": [14, 13],
+  "established": 1749,
+  "areaSquareMiles": 33.9,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 92,
+    "lastAudit": "2025-07",
+    "auditFindings": []
+  },
+  "note": "One of largest townships by area. Named for Bushkill Creek.",
+  "features": [
+    "Jacobsburg Environmental Education Center",
+    "Bushkill Creek watershed",
+    "Nazareth Area School District"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

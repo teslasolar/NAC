@@ -1,0 +1,35 @@
+{
+  "tagType": "UDT",
+  "id": "upper-mt-bethel",
+  "name": "Upper Mt. Bethel Township",
+  "type": "township",
+  "class": "second",
+  "population": 7012,
+  "censusSource": "2020 U.S. Census",
+  "position": [42, 0, -12],
+  "size": [13, 12],
+  "established": 1744,
+  "areaSquareMiles": 44.2,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 90,
+    "lastAudit": "2025-02",
+    "auditFindings": []
+  },
+  "note": "Largest township by area (44+ sq miles). Delaware Water Gap area.",
+  "features": [
+    "Delaware Water Gap access",
+    "Bangor Area School District",
+    "Rural character",
+    "Blue Mountain"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

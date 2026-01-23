@@ -1,0 +1,38 @@
+{
+  "tagType": "UDT",
+  "id": "palmer",
+  "name": "Palmer Township",
+  "type": "township",
+  "class": "first",
+  "population": 22317,
+  "censusSource": "2020 U.S. Census",
+  "position": [20, 0, -15],
+  "size": [14, 12],
+  "established": 1857,
+  "areaSquareMiles": 10.4,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://palmertownship.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 91,
+    "lastAudit": "2025-07",
+    "auditFindings": [
+      { "type": "fiscal", "desc": "ACL review: duplicate vendor payment identified (refund requested)", "severity": "low" }
+    ]
+  },
+  "note": "Founded 1857. Named for surveyor George Palmer. Major retail development.",
+  "features": [
+    "Palmer Park Mall",
+    "25th Street Shopping",
+    "Easton Area School District"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Palmer Township", "url": "https://palmertownship.com" }
+  ]
+}

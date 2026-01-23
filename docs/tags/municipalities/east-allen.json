@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "east-allen",
+  "name": "East Allen Township",
+  "type": "township",
+  "class": "second",
+  "population": 5094,
+  "censusSource": "2020 U.S. Census",
+  "position": [-15, 0, -12],
+  "size": [8, 7],
+  "established": 1846,
+  "areaSquareMiles": 8.4,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 92,
+    "lastAudit": "2025-04",
+    "auditFindings": []
+  },
+  "note": "Split from Allen Township in 1846. Mix of agriculture and residential.",
+  "features": [
+    "Northampton Area School District",
+    "Rural residential",
+    "Farmland"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

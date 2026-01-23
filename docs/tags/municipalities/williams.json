@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "williams",
+  "name": "Williams Township",
+  "type": "township",
+  "class": "second",
+  "population": 6575,
+  "censusSource": "2020 U.S. Census",
+  "position": [35, 0, -8],
+  "size": [10, 9],
+  "established": 1750,
+  "areaSquareMiles": 22.0,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3,
+    "website": "https://williamstownship.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 95,
+    "lastAudit": "2025-08",
+    "auditFindings": []
+  },
+  "note": "Est. 1750. Rolling hills, farmland, woodland. Rural character.",
+  "features": [
+    "Agricultural preservation",
+    "Morgan Hill area",
+    "Easton Area School District"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Williams Township", "url": "https://williamstownship.org" }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "tagType": "UDT",
+  "id": "recorder-of-deeds",
+  "office": "Recorder of Deeds",
+  "name": "Dorothy Edelman",
+  "elected": true,
+  "paCode": "16 P.S. § 4901-4925",
+  "termStart": "2024-01-01",
+  "termEnd": "2028-01-01",
+  "budget": 1450000,
+  "staff": 15,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3180",
+  "divisions": [
+    { "name": "Administration", "staff": 3 },
+    { "name": "Recording Division", "staff": 6 },
+    { "name": "Indexing & Search", "staff": 5 }
+  ],
+  "duties": [
+    "Record deeds",
+    "Record mortgages",
+    "Maintain land records",
+    "Title searches",
+    "Collect transfer taxes"
+  ],
+  "services": [
+    { "name": "Document Recording", "description": "Deeds, mortgages, liens, releases" },
+    { "name": "Title Search", "description": "Property ownership history" },
+    { "name": "Transfer Tax Collection", "description": "Real estate transfer taxes" }
+  ],
+  "fees": {
+    "note": "Fee schedule available on county website",
+    "transferTaxRate": "1% state + 1% local"
+  },
+  "historicalNote": "Land records maintained since county founding in 1752",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/recorder-of-deeds" },
+    { "name": "PA Recorders Association", "url": "https://padeeds.com/county-officials" }
+  ]
+}

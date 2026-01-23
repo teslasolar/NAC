@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "hellertown",
+  "name": "Hellertown",
+  "type": "borough",
+  "population": 6131,
+  "censusSource": "2020 U.S. Census",
+  "position": [5, 0, 20],
+  "size": [5, 5],
+  "established": 1872,
+  "incorporated": 1872,
+  "areaSquareMiles": 1.8,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members",
+    "website": "https://hellertownborough.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 94,
+    "lastAudit": "2025-09",
+    "auditFindings": []
+  },
+  "note": "Part of Lehigh Valley metro area. Gateway to Lower Saucon Township.",
+  "features": [
+    "Lost River Caverns",
+    "Saucon Valley School District",
+    "Water Street historic district"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Hellertown Borough", "url": "https://hellertownborough.org" }
+  ]
+}

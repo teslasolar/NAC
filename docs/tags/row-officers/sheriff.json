@@ -1,0 +1,43 @@
+{
+  "tagType": "UDT",
+  "id": "sheriff",
+  "office": "Sheriff",
+  "name": "Christopher Zieger",
+  "elected": true,
+  "paCode": "16 P.S. § 4201-4234",
+  "termStart": "2024-01-01",
+  "termEnd": "2028-01-01",
+  "budget": 11200000,
+  "staff": 156,
+  "salary": 111868,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3100",
+  "divisions": [
+    { "name": "Administration", "staff": 8 },
+    { "name": "Patrol Division", "staff": 45 },
+    { "name": "Civil Division", "staff": 24 },
+    { "name": "Court Security", "staff": 35 },
+    { "name": "Corrections Division", "staff": 42 }
+  ],
+  "duties": [
+    "Court security",
+    "Civil process service",
+    "Warrant service",
+    "Prisoner transport",
+    "Sheriff sales",
+    "Protection from Abuse orders"
+  ],
+  "services": [
+    { "name": "Sheriff Sales", "description": "Real estate and personal property sales" },
+    { "name": "Civil Process", "description": "Service of legal documents" },
+    { "name": "Background Checks", "description": "Gun permit processing" },
+    { "name": "Prisoner Transport", "description": "Court appearances, medical trips" }
+  ],
+  "note": "Reappointed Jan 16, 2026 by County Executive Zrinski. Originally appointed June 2025 following retirement of Richard Johnston. 30+ years law enforcement experience.",
+  "mapNote": "Appointed 2024. 30 years with Sheriff Dept.",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "date": "Jan 2026", "topic": "Zrinski cabinet appointments" },
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/sheriff" }
+  ]
+}

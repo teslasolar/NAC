@@ -1,0 +1,47 @@
+{
+  "tagType": "UDT",
+  "id": "children-youth",
+  "name": "Children, Youth & Family Services",
+  "type": "human-services",
+  "budget": 42000000,
+  "staff": 180,
+  "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+  "phone": "610-829-4690",
+  "hotline": "1-800-982-4453",
+  "paCode": "23 Pa.C.S. § 6301 (CPSL)",
+  "divisions": [
+    { "name": "Administration", "staff": 15 },
+    { "name": "Intake & Investigation", "staff": 35 },
+    { "name": "Ongoing Services", "staff": 50 },
+    { "name": "Foster Care", "staff": 40 },
+    { "name": "Adoption Services", "staff": 20 },
+    { "name": "Independent Living", "staff": 10 },
+    { "name": "Prevention Services", "staff": 10 }
+  ],
+  "functions": [
+    "Child protective services investigations",
+    "Foster care placement and monitoring",
+    "Family preservation services",
+    "Adoption services",
+    "Independent living for aging-out youth",
+    "Kinship care support"
+  ],
+  "services": [
+    { "name": "ChildLine Reports", "description": "24/7 abuse/neglect reporting via state hotline" },
+    { "name": "Family Finding", "description": "Locating relatives for kinship placement" },
+    { "name": "Family Group Decision Making", "description": "Family-centered case planning" },
+    { "name": "Truancy Intervention", "description": "School attendance support" }
+  ],
+  "statistics": {
+    "note": "FY2025 estimated",
+    "investigationsAnnual": 2800,
+    "childrenInCare": 280,
+    "fosterHomes": 145
+  },
+  "note": "Part of consolidated Human Services building for interdisciplinary collaboration",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/children-youth-families" },
+    { "name": "PA DHS", "url": "https://www.dhs.pa.gov/Services/Children/Pages/default.aspx" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "lower-saucon",
+  "name": "Lower Saucon Township",
+  "type": "township",
+  "class": "second",
+  "population": 11077,
+  "censusSource": "2020 U.S. Census",
+  "position": [18, 0, 15],
+  "size": [12, 10],
+  "established": 1743,
+  "areaSquareMiles": 24.5,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://www.lowersaucontownship.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 97,
+    "lastAudit": "2025-10",
+    "auditFindings": []
+  },
+  "note": "Incorporated 1743. Approx. 25 sq miles. South Mountain area.",
+  "features": [
+    "Lost River Caverns",
+    "Saucon Valley School District",
+    "Steel Club golf course"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Lower Saucon Township", "url": "https://www.lowersaucontownship.org" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "upper-nazareth",
+  "name": "Upper Nazareth Township",
+  "type": "township",
+  "class": "second",
+  "population": 8127,
+  "censusSource": "2020 U.S. Census",
+  "position": [-18, 0, 0],
+  "size": [11, 10],
+  "established": 1756,
+  "areaSquareMiles": 12.0,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://uppernazareth.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 93,
+    "lastAudit": "2025-10",
+    "auditFindings": []
+  },
+  "note": "Part of historic Barony of Nazareth (25,000 acres). Moravian heritage.",
+  "features": [
+    "Moravian Historical Society",
+    "Nazareth Area School District",
+    "Rural-suburban mix"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Upper Nazareth Township", "url": "https://uppernazareth.org" }
+  ]
+}

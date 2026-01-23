@@ -1,0 +1,41 @@
+{
+  "tagType": "UDT",
+  "id": "bethlehem",
+  "name": "Bethlehem",
+  "type": "city",
+  "class": "third",
+  "population": 77069,
+  "censusSource": "2020 U.S. Census",
+  "position": [0, 0, 0],
+  "size": [12, 12],
+  "established": 1741,
+  "incorporated": 1917,
+  "areaSquareMiles": 19.4,
+  "government": {
+    "type": "Mayor-Council",
+    "mayor": "J. William Reynolds",
+    "council": "7 members",
+    "website": "https://www.bethlehem-pa.gov"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 92,
+    "lastAudit": "2025-09",
+    "auditFindings": [
+      { "type": "fiscal", "desc": "P-Card fixed-asset threshold exceeded (4 items)", "severity": "low" }
+    ]
+  },
+  "note": "Spans Lehigh & Northampton counties. 7th largest city in PA. Founded by Moravians on Christmas Eve 1741.",
+  "features": [
+    "Moravian historic district",
+    "SteelStacks arts campus",
+    "Lehigh University",
+    "Musikfest venue"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "City of Bethlehem", "url": "https://www.bethlehem-pa.gov" }
+  ]
+}

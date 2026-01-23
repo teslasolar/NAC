@@ -1,0 +1,37 @@
+{
+  "tagType": "UDT",
+  "id": "clerk-of-courts",
+  "office": "Clerk of Courts",
+  "name": "Leigh Ann Fisher",
+  "elected": false,
+  "paCode": "16 P.S. § 2701-2755",
+  "termStart": "2007-02-01",
+  "budget": 2800000,
+  "staff": 32,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3055",
+  "divisions": [
+    { "name": "Administration", "staff": 4 },
+    { "name": "Criminal Division", "staff": 12 },
+    { "name": "Jury Management", "staff": 6 },
+    { "name": "Records Management", "staff": 8 }
+  ],
+  "duties": [
+    "Criminal court records",
+    "Jury management",
+    "Case filing",
+    "Docket maintenance",
+    "Criminal Division records"
+  ],
+  "tenure": {
+    "startYear": 2007,
+    "appointmentType": "Career service (not elected)",
+    "priorExperience": "Worked in office since 1991"
+  },
+  "note": "Appointed position under Home Rule Charter, not elected. In office since February 2007.",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/clerk-of-courts" },
+    { "name": "PA Courts", "url": "https://www.pacourts.us/courts/courts-of-common-pleas/clerks-of-courts" }
+  ]
+}

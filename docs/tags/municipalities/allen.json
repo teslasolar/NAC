@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "allen",
+  "name": "Allen Township",
+  "type": "township",
+  "class": "second",
+  "population": 5479,
+  "censusSource": "2020 U.S. Census",
+  "position": [-8, 0, -15],
+  "size": [8, 7],
+  "established": 1748,
+  "areaSquareMiles": 11.9,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3,
+    "website": "https://allentownship.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 94,
+    "lastAudit": "2025-05",
+    "auditFindings": []
+  },
+  "note": "Est. 1748. Named for Chief Justice William Allen of PA. FedEx hub location.",
+  "features": [
+    "FedEx Ground hub",
+    "Northampton Area School District",
+    "Industrial development"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Allen Township", "url": "https://allentownship.org" }
+  ]
+}

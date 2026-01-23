@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "pen-argyl",
+  "name": "Pen Argyl",
+  "type": "borough",
+  "population": 3596,
+  "censusSource": "2020 U.S. Census",
+  "position": [-28, 0, -20],
+  "size": [4, 4],
+  "established": 1882,
+  "incorporated": 1882,
+  "areaSquareMiles": 1.2,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 93,
+    "lastAudit": "2025-05",
+    "auditFindings": []
+  },
+  "note": "Named for slate (argillite) deposits. 'Pen' means 'head' in Welsh.",
+  "features": [
+    "Slate Belt heritage",
+    "Pen Argyl Area School District",
+    "Weona Park"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

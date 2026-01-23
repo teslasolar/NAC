@@ -1,0 +1,43 @@
+{
+  "tagType": "UDT",
+  "id": "fiscal-affairs",
+  "office": "Fiscal Affairs - Revenue",
+  "name": "Anthony Morris",
+  "title": "Revenue Manager / Tax Claim Director",
+  "elected": false,
+  "paCode": "16 P.S. § 5301-5352",
+  "budget": 1850000,
+  "staff": 18,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3140",
+  "divisions": [
+    { "name": "Administration", "staff": 3 },
+    { "name": "Tax Collection", "staff": 6 },
+    { "name": "Investments", "staff": 3 },
+    { "name": "Cash Management", "staff": 5 }
+  ],
+  "duties": [
+    "County fund custody",
+    "Tax collection",
+    "Investment management",
+    "Cash management",
+    "Tax claim sales"
+  ],
+  "services": [
+    { "name": "Tax Collection", "description": "Property tax collection and disbursement" },
+    { "name": "Tax Claim", "description": "Delinquent tax collection, upset sales" },
+    { "name": "Treasury", "description": "Fund management and investments" }
+  ],
+  "note": "Home rule county - no elected Treasurer. Treasury functions handled by Fiscal Affairs department under executive branch.",
+  "homeRuleNote": "Under Northampton County's 1978 Home Rule Charter, traditional treasurer functions are performed by the Department of Fiscal Affairs",
+  "previousDirector": {
+    "name": "Stephen Barron",
+    "departed": "October 2025",
+    "tenure": "10 years as Controller then Fiscal Affairs Director"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/fiscal-affairs" },
+    { "name": "WFMZ", "date": "Oct 2025", "topic": "Barron departure" }
+  ]
+}

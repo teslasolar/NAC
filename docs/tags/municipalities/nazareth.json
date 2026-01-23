@@ -1,0 +1,37 @@
+{
+  "tagType": "UDT",
+  "id": "nazareth",
+  "name": "Nazareth",
+  "type": "borough",
+  "population": 6053,
+  "censusSource": "2020 U.S. Census",
+  "position": [-15, 0, 10],
+  "size": [6, 6],
+  "established": 1740,
+  "incorporated": 1856,
+  "areaSquareMiles": 2.0,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members",
+    "website": "https://nazarethborough.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 98,
+    "lastAudit": "2025-10",
+    "auditFindings": []
+  },
+  "note": "Home of Martin Guitars since 1839. Founded by Moravians as part of 5,000-acre Barony of Nazareth.",
+  "features": [
+    "Martin Guitar factory & museum",
+    "Moravian heritage",
+    "Historic downtown",
+    "Nazareth Speedway (closed)"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Nazareth Borough", "url": "https://nazarethborough.com" }
+  ]
+}

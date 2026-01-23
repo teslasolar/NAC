@@ -1,0 +1,44 @@
+{
+  "tagType": "UDT",
+  "id": "mental-health",
+  "name": "Mental Health/Developmental Programs",
+  "type": "human-services",
+  "budget": 28000000,
+  "staff": 85,
+  "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+  "phone": "610-829-4800",
+  "crisisLine": "988",
+  "paCode": "50 P.S. § 7101 (MH Procedures Act)",
+  "divisions": [
+    { "name": "Administration", "staff": 10 },
+    { "name": "Mental Health Services", "staff": 35 },
+    { "name": "Developmental Programs", "staff": 25 },
+    { "name": "Crisis Services", "staff": 15 }
+  ],
+  "functions": [
+    "Mental health case management",
+    "Intellectual disability services",
+    "Autism services",
+    "Crisis intervention",
+    "Outpatient treatment coordination",
+    "Housing support"
+  ],
+  "services": [
+    { "name": "988 Crisis Line", "description": "24/7 mental health crisis response" },
+    { "name": "Mobile Crisis", "description": "In-person crisis intervention" },
+    { "name": "Case Management", "description": "Ongoing mental health support coordination" },
+    { "name": "ID/A Waiver Services", "description": "Home and community-based services for ID/Autism" },
+    { "name": "Peer Support", "description": "Certified peer specialist programs" }
+  ],
+  "programs": [
+    { "name": "Assertive Community Treatment (ACT)", "description": "Intensive community-based treatment teams" },
+    { "name": "Supported Employment", "description": "Job placement and coaching" },
+    { "name": "Residential Programs", "description": "Group homes and supervised living" }
+  ],
+  "note": "Operates in central Human Services building for interdisciplinary collaboration",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/mental-health" },
+    { "name": "OMHSAS", "url": "https://www.dhs.pa.gov/Services/Mental-Health-In-PA/Pages/default.aspx" }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "tagType": "UDT",
+  "id": "coroner",
+  "office": "Coroner",
+  "name": "Zachary Lysek",
+  "elected": true,
+  "paCode": "16 P.S. § 4501-4526",
+  "termStart": "2024-01-01",
+  "termEnd": "2028-01-01",
+  "budget": 2100000,
+  "staff": 14,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3195",
+  "divisions": [
+    { "name": "Administration", "staff": 3 },
+    { "name": "Investigations", "staff": 6 },
+    { "name": "Medical Services", "staff": 4 }
+  ],
+  "duties": [
+    "Death investigations",
+    "Autopsies",
+    "Cremation permits",
+    "Death certificates",
+    "Organ/tissue donation coordination"
+  ],
+  "tenure": {
+    "startYear": 1992,
+    "yearsInOffice": 34,
+    "appointedBy": "Succeeded Joseph Reichel"
+  },
+  "professionalAffiliations": [
+    { "organization": "PA State Coroners' Association", "role": "Board Member At Large, Region 4" },
+    { "organization": "Class 3 County Coroner", "note": "Northampton County classification" }
+  ],
+  "note": "In office since 1992 (30+ years). Reappointed in Zrinski cabinet Jan 2026.",
+  "mapNote": "PA State Coroners Assoc. Board Member. Class 3, Region 4.",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "PA Coroners Association", "url": "https://www.pacoroners.org/cms/user/zachary.lysek/" },
+    { "name": "WDIY", "url": "https://www.wdiy.org/wdiy-headlines/2026-01-20/zrinski-names-county-cabinet-members-wdiy-local-news", "date": "Jan 20, 2026" }
+  ]
+}

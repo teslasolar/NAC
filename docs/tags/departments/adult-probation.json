@@ -1,0 +1,52 @@
+{
+  "tagType": "UDT",
+  "id": "adult-probation",
+  "name": "Adult Probation/Parole",
+  "type": "judicial",
+  "budget": 6800000,
+  "staff": 75,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3075",
+  "paCode": "42 Pa.C.S. § 9912 (County Probation)",
+  "governingAuthority": "Court of Common Pleas",
+  "divisions": [
+    { "name": "Administration", "staff": 8 },
+    { "name": "General Supervision", "staff": 35 },
+    { "name": "Specialized Caseloads", "staff": 18 },
+    { "name": "Pre-Sentence Investigation", "staff": 8 },
+    { "name": "Interstate Compact", "staff": 6 }
+  ],
+  "functions": [
+    "Probation supervision",
+    "State parole monitoring (contract)",
+    "Pre-sentence investigations",
+    "Court services",
+    "Interstate compact transfers",
+    "Specialized court support"
+  ],
+  "services": [
+    { "name": "Supervision", "description": "Monitoring probationers and parolees" },
+    { "name": "Pre-Sentence Reports", "description": "Investigation reports for sentencing judges" },
+    { "name": "Drug Testing", "description": "Random and scheduled testing" },
+    { "name": "GPS Monitoring", "description": "Electronic monitoring program" },
+    { "name": "Problem-Solving Court Support", "description": "Drug court, mental health court teams" }
+  ],
+  "specializedCaseloads": [
+    { "name": "Drug Court", "description": "Intensive supervision for treatment court participants" },
+    { "name": "Mental Health Court", "description": "Supervision with mental health treatment focus" },
+    { "name": "Veterans Court", "description": "Veteran-focused supervision and services" },
+    { "name": "DUI Court", "description": "Repeat DUI offender intensive supervision" },
+    { "name": "Sex Offender Unit", "description": "Specialized sex offender supervision" }
+  ],
+  "statistics": {
+    "note": "FY2025 estimated",
+    "activeCaseload": 3200,
+    "newCasesAnnual": 1800,
+    "psiReportsAnnual": 950
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/adult-probation" },
+    { "name": "PA Courts", "url": "https://www.pacourts.us/courts/problem-solving-courts" }
+  ]
+}

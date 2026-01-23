@@ -1,0 +1,30 @@
+{
+  "tagType": "UDT-Index",
+  "name": "Departments Index",
+  "description": "Northampton County executive departments and facilities",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - norcopa.gov, PA County Prison Directory, PA DHS",
+  "departments": [
+    { "id": "corrections", "file": "corrections.json", "name": "Department of Corrections", "type": "public-safety" },
+    { "id": "children-youth", "file": "children-youth.json", "name": "Children, Youth & Family Services", "type": "human-services" },
+    { "id": "mental-health", "file": "mental-health.json", "name": "Mental Health/Developmental Programs", "type": "human-services" },
+    { "id": "aging", "file": "aging.json", "name": "Area Agency on Aging", "type": "human-services" },
+    { "id": "public-works", "file": "public-works.json", "name": "Department of Public Works", "type": "infrastructure" },
+    { "id": "drug-alcohol", "file": "drug-alcohol.json", "name": "Drug & Alcohol Services", "type": "human-services" },
+    { "id": "adult-probation", "file": "adult-probation.json", "name": "Adult Probation/Parole", "type": "judicial" },
+    { "id": "emergency-management", "file": "emergency-management.json", "name": "Emergency Management", "type": "public-safety" },
+    { "id": "veterans-affairs", "file": "veterans-affairs.json", "name": "Veterans Affairs", "type": "human-services" },
+    { "id": "planning", "file": "planning.json", "name": "Department of Planning", "type": "administrative" }
+  ],
+  "humanServicesBuilding": {
+    "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+    "note": "County operates entire Department of Human Services in one central building for interdisciplinary collaboration",
+    "departments": ["children-youth", "mental-health", "drug-alcohol", "aging"]
+  },
+  "totals": {
+    "totalDepartments": 10,
+    "totalBudget": 168000000
+  }
+}

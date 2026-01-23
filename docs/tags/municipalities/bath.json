@@ -1,0 +1,33 @@
+{
+  "tagType": "UDT",
+  "id": "bath",
+  "name": "Bath",
+  "type": "borough",
+  "population": 2808,
+  "censusSource": "2020 U.S. Census",
+  "position": [-8, 0, -20],
+  "size": [4, 4],
+  "established": 1737,
+  "incorporated": 1848,
+  "areaSquareMiles": 0.7,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 96,
+    "lastAudit": "2025-07",
+    "auditFindings": []
+  },
+  "note": "Named after Bath, England. One of oldest settlements in county.",
+  "features": [
+    "Historic Main Street",
+    "Allen Township partnership"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

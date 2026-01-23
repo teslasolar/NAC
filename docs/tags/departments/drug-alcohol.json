@@ -1,0 +1,49 @@
+{
+  "tagType": "UDT",
+  "id": "drug-alcohol",
+  "name": "Drug & Alcohol Services",
+  "type": "human-services",
+  "budget": 8500000,
+  "staff": 35,
+  "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+  "phone": "610-829-4750",
+  "helpline": "1-800-982-4412",
+  "paCode": "71 P.S. § 1690.101 (Drug and Alcohol Abuse Control Act)",
+  "divisions": [
+    { "name": "Administration", "staff": 5 },
+    { "name": "Prevention", "staff": 8 },
+    { "name": "Treatment Services", "staff": 15 },
+    { "name": "Recovery Support", "staff": 7 }
+  ],
+  "functions": [
+    "Substance abuse treatment coordination",
+    "Prevention programs",
+    "Recovery support services",
+    "Case management",
+    "Opioid response initiatives"
+  ],
+  "services": [
+    { "name": "Assessment", "description": "Substance use disorder evaluation" },
+    { "name": "Treatment Referral", "description": "Connection to detox, rehab, MAT providers" },
+    { "name": "Case Management", "description": "Ongoing recovery support coordination" },
+    { "name": "Prevention Education", "description": "School and community prevention programs" },
+    { "name": "Narcan Distribution", "description": "Free naloxone for opioid overdose reversal" }
+  ],
+  "programs": [
+    { "name": "Student Assistance Program", "description": "School-based intervention and referral" },
+    { "name": "Recovery Centers", "description": "Peer-run recovery support centers" },
+    { "name": "MAT Coordination", "description": "Medication-assisted treatment access" },
+    { "name": "DUI Program", "description": "Court-ordered DUI assessment and education" }
+  ],
+  "opioidResponse": {
+    "note": "County participates in regional opioid task force",
+    "narcanDistributed": 2500,
+    "overdoseDeaths2024": 78,
+    "trend": "Declining from peak of 112 in 2021"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/drug-alcohol" },
+    { "name": "DDAP", "url": "https://www.ddap.pa.gov" }
+  ]
+}

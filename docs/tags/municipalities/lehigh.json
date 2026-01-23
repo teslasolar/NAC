@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "lehigh",
+  "name": "Lehigh Township",
+  "type": "township",
+  "class": "second",
+  "population": 10766,
+  "censusSource": "2020 U.S. Census",
+  "position": [-20, 0, -20],
+  "size": [13, 12],
+  "established": 1756,
+  "areaSquareMiles": 24.3,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://lehightownship.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 93,
+    "lastAudit": "2025-09",
+    "auditFindings": []
+  },
+  "note": "Named for Lehigh River and Valley. Not to be confused with Lehigh County.",
+  "features": [
+    "Northampton Area School District",
+    "Indian Trail Park",
+    "Mix of development types"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Lehigh Township", "url": "https://lehightownship.com" }
+  ]
+}

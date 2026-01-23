@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "lower-mt-bethel",
+  "name": "Lower Mt. Bethel Township",
+  "type": "township",
+  "class": "second",
+  "population": 3271,
+  "censusSource": "2020 U.S. Census",
+  "position": [40, 0, 0],
+  "size": [12, 11],
+  "established": 1741,
+  "areaSquareMiles": 24.2,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 91,
+    "lastAudit": "2025-03",
+    "auditFindings": []
+  },
+  "note": "Along Delaware River. Rural agricultural area.",
+  "features": [
+    "Delaware River access",
+    "Bangor Area School District",
+    "Farmland"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

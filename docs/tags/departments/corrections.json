@@ -1,0 +1,58 @@
+{
+  "tagType": "UDT",
+  "id": "corrections",
+  "name": "Department of Corrections",
+  "type": "public-safety",
+  "budget": 45000000,
+  "staff": 320,
+  "location": "666 Walnut St, Easton, PA 18042",
+  "phone": "610-923-4300",
+  "leadership": {
+    "director": "Michael Pittaro",
+    "directorTitle": "Director of Corrections",
+    "warden": "David Penchishen",
+    "wardenTitle": "Warden",
+    "deputyWardens": [
+      { "name": "Mark Bartholomew", "role": "Deputy Warden of Classification" },
+      { "name": "Nathan Stahlnecker", "role": "Deputy Warden of Operations" },
+      { "name": "Michael Diacogiannis", "role": "Deputy Warden of Safety & Security" }
+    ]
+  },
+  "facility": {
+    "name": "Northampton County Prison",
+    "capacity": 900,
+    "avgPopulation": 550,
+    "type": "County detention facility",
+    "securityLevels": ["Maximum", "Medium", "Minimum"],
+    "workRelease": true,
+    "governingBody": "Northampton County Jail Advisory Board",
+    "boardChair": "Jodi Ruggiero"
+  },
+  "divisions": [
+    { "name": "Administration", "staff": 25 },
+    { "name": "Custody Operations", "staff": 180 },
+    { "name": "Classification", "staff": 20 },
+    { "name": "Programs & Rehabilitation", "staff": 35 },
+    { "name": "Medical/Mental Health", "staff": 40 },
+    { "name": "Maintenance & Food Service", "staff": 20 }
+  ],
+  "functions": [
+    "Inmate custody and security",
+    "Community corrections",
+    "Work release program",
+    "Rehabilitation programs",
+    "Inmate classification",
+    "Medical and mental health services"
+  ],
+  "programs": [
+    { "name": "Work Release", "description": "Employment reintegration for minimum security inmates" },
+    { "name": "GED Education", "description": "High school equivalency preparation" },
+    { "name": "Substance Abuse Treatment", "description": "Addiction recovery programs" },
+    { "name": "Vocational Training", "description": "Job skills and certifications" }
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "PA County Prison Directory", "url": "https://www.pacounties.org/getmedia/b5f5d41b-f4c8-4855-aae8-f5a11f733e3b/PIMCC-Prison-Directory-11-2025.pdf", "date": "Nov 2025" },
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/corrections" }
+  ]
+}

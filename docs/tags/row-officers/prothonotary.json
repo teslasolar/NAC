@@ -1,0 +1,42 @@
+{
+  "tagType": "UDT",
+  "id": "prothonotary",
+  "office": "Prothonotary",
+  "name": "Holly Ruggiero",
+  "elected": false,
+  "paCode": "16 P.S. § 2801-2850",
+  "termStart": "2001-01-01",
+  "budget": 1680000,
+  "staff": 18,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3060",
+  "divisions": [
+    { "name": "Administration", "staff": 3 },
+    { "name": "Civil Filing Division", "staff": 7 },
+    { "name": "Judgments & Liens", "staff": 4 },
+    { "name": "Passport Services", "staff": 3 }
+  ],
+  "duties": [
+    "Civil court records",
+    "Judgment liens",
+    "Passport services",
+    "Civil case filing",
+    "PFA orders"
+  ],
+  "services": [
+    { "name": "Civil Filing", "description": "Lawsuits, appeals, name changes" },
+    { "name": "Judgment Search", "description": "Lien and judgment lookups" },
+    { "name": "Passport Services", "description": "Application acceptance facility" }
+  ],
+  "tenure": {
+    "startYear": 2001,
+    "appointmentType": "Career service appointment",
+    "note": "Northampton is only PA county where Prothonotary is appointed, not elected"
+  },
+  "note": "Unique in Pennsylvania - appointed through career service process rather than elected.",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/prothonotary" },
+    { "name": "PA Prothonotary Association", "url": "https://www.papcca.org/public-officials" }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "tagType": "UDT",
+  "id": "wilson",
+  "name": "Wilson",
+  "type": "borough",
+  "population": 8259,
+  "censusSource": "2020 U.S. Census",
+  "position": [12, 0, 8],
+  "size": [6, 5],
+  "established": 1930,
+  "incorporated": 1930,
+  "areaSquareMiles": 1.1,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members",
+    "website": "https://wilsonborough.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 91,
+    "lastAudit": "2025-10",
+    "auditFindings": [
+      { "type": "internal", "desc": "IT access controls review recommended", "severity": "low" }
+    ]
+  },
+  "note": "Adjacent to Easton. Named for James Wilson, signer of Declaration of Independence.",
+  "features": [
+    "Wilson Area School District",
+    "25th Street shopping corridor"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Wilson Borough", "url": "https://wilsonborough.org" }
+  ]
+}

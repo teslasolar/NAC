@@ -1,0 +1,38 @@
+{
+  "tagType": "UDT",
+  "id": "forks",
+  "name": "Forks Township",
+  "type": "township",
+  "class": "second",
+  "population": 16293,
+  "censusSource": "2020 U.S. Census",
+  "position": [30, 0, 8],
+  "size": [13, 11],
+  "established": 1752,
+  "areaSquareMiles": 22.3,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 5,
+    "website": "https://forkstownship.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 1,
+    "compliance": 90,
+    "lastAudit": "2025-09",
+    "auditFindings": [
+      { "type": "procurement", "desc": "Professional services documentation review", "severity": "low" }
+    ]
+  },
+  "note": "Named for forks of Delaware and Lehigh rivers. Growing residential area.",
+  "features": [
+    "Forks Township Community Center",
+    "Easton Area School District",
+    "Suburban development"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Forks Township", "url": "https://forkstownship.org" }
+  ]
+}

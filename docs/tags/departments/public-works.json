@@ -1,0 +1,49 @@
+{
+  "tagType": "UDT",
+  "id": "public-works",
+  "name": "Department of Public Works",
+  "type": "infrastructure",
+  "budget": 12000000,
+  "staff": 95,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3195",
+  "divisions": [
+    { "name": "Administration", "staff": 8 },
+    { "name": "Roads & Bridges", "staff": 45 },
+    { "name": "Fleet Services", "staff": 12 },
+    { "name": "Building Maintenance", "staff": 20 },
+    { "name": "Parks & Grounds", "staff": 10 }
+  ],
+  "functions": [
+    "County road maintenance",
+    "Bridge inspection and repair",
+    "Fleet vehicle management",
+    "County building maintenance",
+    "Parks and grounds upkeep",
+    "Snow removal"
+  ],
+  "infrastructure": {
+    "countyRoadMiles": 48,
+    "bridges": 52,
+    "countyBuildings": 15,
+    "fleetVehicles": 180
+  },
+  "services": [
+    { "name": "Road Maintenance", "description": "Paving, patching, signage on county roads" },
+    { "name": "Bridge Program", "description": "Inspection and rehabilitation of county bridges" },
+    { "name": "Building Services", "description": "HVAC, electrical, plumbing for county facilities" },
+    { "name": "Fleet Management", "description": "Vehicle maintenance and procurement" }
+  ],
+  "capitalProjects": {
+    "note": "Funded through separate capital budget",
+    "recentProjects": [
+      "Courthouse HVAC upgrade",
+      "Bridge rehabilitation program",
+      "County vehicle electrification"
+    ]
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/public-works" }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "tagType": "UDT",
+  "id": "easton",
+  "name": "Easton",
+  "type": "city",
+  "class": "third",
+  "isCountySeat": true,
+  "population": 29538,
+  "censusSource": "2020 U.S. Census",
+  "position": [25, 0, -5],
+  "size": [10, 10],
+  "established": 1739,
+  "incorporated": 1887,
+  "areaSquareMiles": 4.8,
+  "government": {
+    "type": "Mayor-Council",
+    "mayor": "Sal Panto Jr.",
+    "council": "7 members",
+    "website": "https://www.easton-pa.com"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 96,
+    "lastAudit": "2025-11",
+    "auditFindings": []
+  },
+  "note": "County seat since 1752. Home to Lafayette College. Declaration of Independence read publicly here July 8, 1776.",
+  "features": [
+    "Confluence of Delaware & Lehigh Rivers",
+    "Lafayette College",
+    "Crayola Experience",
+    "Two Rivers Landing"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "City of Easton", "url": "https://www.easton-pa.com" }
+  ]
+}

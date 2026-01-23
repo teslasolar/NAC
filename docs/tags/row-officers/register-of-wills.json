@@ -1,0 +1,44 @@
+{
+  "tagType": "UDT",
+  "id": "register-of-wills",
+  "office": "Register of Wills",
+  "name": "Patricia J. Manento",
+  "elected": true,
+  "paCode": "16 P.S. § 5101-5136",
+  "termStart": "2024-01-01",
+  "termEnd": "2028-01-01",
+  "budget": 1320000,
+  "staff": 14,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3170",
+  "divisions": [
+    { "name": "Administration", "staff": 3 },
+    { "name": "Probate Division", "staff": 5 },
+    { "name": "Marriage Licenses", "staff": 3 },
+    { "name": "Inheritance Tax", "staff": 2 }
+  ],
+  "duties": [
+    "Probate estates",
+    "Marriage licenses",
+    "Inheritance tax",
+    "Will registration",
+    "Clerk of Orphans' Court"
+  ],
+  "services": [
+    { "name": "Probate", "description": "Estate administration, Letters Testamentary" },
+    { "name": "Marriage Licenses", "description": "License applications and ceremonies" },
+    { "name": "Inheritance Tax", "description": "PA inheritance tax collection" },
+    { "name": "Will Filing", "description": "Safe deposit of wills" }
+  ],
+  "fees": {
+    "marriageLicense": 65,
+    "probateFiling": "Varies by estate value"
+  },
+  "dualRole": "Also serves as Clerk of Orphans' Court",
+  "historicalNote": "Records maintained since 1752",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/register-of-wills" },
+    { "name": "PA Register of Wills Association", "url": "https://rwocap.org/county-officials" }
+  ]
+}

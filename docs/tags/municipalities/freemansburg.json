@@ -1,0 +1,33 @@
+{
+  "tagType": "UDT",
+  "id": "freemansburg",
+  "name": "Freemansburg",
+  "type": "borough",
+  "population": 2636,
+  "censusSource": "2020 U.S. Census",
+  "position": [3, 0, 5],
+  "size": [3, 3],
+  "established": 1856,
+  "incorporated": 1856,
+  "areaSquareMiles": 0.5,
+  "government": {
+    "type": "Borough Council",
+    "council": "7 members"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 94,
+    "lastAudit": "2025-08",
+    "auditFindings": []
+  },
+  "note": "One of smallest boroughs by area. Named for George Freeman.",
+  "features": [
+    "Lehigh River access",
+    "Bethlehem Area School District"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

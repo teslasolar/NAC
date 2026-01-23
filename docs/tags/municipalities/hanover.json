@@ -1,0 +1,36 @@
+{
+  "tagType": "UDT",
+  "id": "hanover",
+  "name": "Hanover Township",
+  "type": "township",
+  "class": "first",
+  "population": 11549,
+  "censusSource": "2020 U.S. Census",
+  "position": [-3, 0, -18],
+  "size": [10, 9],
+  "established": 1755,
+  "areaSquareMiles": 12.9,
+  "government": {
+    "type": "Board of Commissioners",
+    "commissioners": 5,
+    "website": "https://hanovertwp-nc.org"
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 94,
+    "lastAudit": "2025-06",
+    "auditFindings": []
+  },
+  "note": "Adjacent to Bethlehem. Growing suburban area.",
+  "features": [
+    "Hanover Township Community Center",
+    "Bethlehem Area School District",
+    "Commercial development"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" },
+    { "name": "Hanover Township", "url": "https://hanovertwp-nc.org" }
+  ]
+}

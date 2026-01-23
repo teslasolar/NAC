@@ -1,0 +1,34 @@
+{
+  "tagType": "UDT",
+  "id": "washington",
+  "name": "Washington Township",
+  "type": "township",
+  "class": "second",
+  "population": 6200,
+  "censusSource": "2020 U.S. Census",
+  "position": [-28, 0, -25],
+  "size": [15, 14],
+  "established": 1767,
+  "areaSquareMiles": 32.8,
+  "government": {
+    "type": "Board of Supervisors",
+    "supervisors": 3
+  },
+  "audit": {
+    "risk": "low",
+    "findings": 0,
+    "compliance": 91,
+    "lastAudit": "2025-06",
+    "auditFindings": []
+  },
+  "note": "Named for George Washington. Large rural township.",
+  "features": [
+    "Bangor Area School District",
+    "Farmland preservation",
+    "Slate Belt region"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "U.S. Census", "url": "https://www.census.gov" }
+  ]
+}

@@ -452,20 +452,35 @@
     <p style="margin-top: 0.5rem;">Northampton County Digital Twin - ISA-95 L3 MES Layer</p>
   </div>
 
+  <script src="js/tag-loader.js"></script>
   <script>
-    // Office OEE Data (simulated based on benchmarks)
-    // Includes Controller (Tara Zrinski) for grading current performance
-    const officeData = [
-      { id: 'fiscal-affairs-revenue', name: 'Fiscal Affairs - Revenue', oee: 86.4, target: 85, availability: 94, performance: 92, quality: 99.8, officer: 'Anthony Morris' },
-      { id: 'recorder-of-deeds', name: 'Recorder of Deeds', oee: 82.1, target: 82, availability: 93, performance: 89, quality: 99.2, officer: 'Dorothy Edelman' },
-      { id: 'prothonotary', name: 'Prothonotary', oee: 79.5, target: 80, availability: 92, performance: 87, quality: 99.1, officer: 'Holly Ruggiero' },
-      { id: 'sheriff', name: "Sheriff's Office", oee: 77.8, target: 78, availability: 88, performance: 89, quality: 99.3, officer: 'Christopher Zieger' },
-      { id: 'controller', name: 'County Controller', oee: 74.2, target: 83, availability: 92, performance: 82, quality: 98.2, officer: 'Acting Controller' },
-      { id: 'clerk-of-courts', name: 'Clerk of Courts', oee: 74.2, target: 76, availability: 88, performance: 85, quality: 99.1, officer: 'Leigh Ann Fisher' },
-      { id: 'register-of-wills', name: 'Register of Wills', oee: 73.5, target: 75, availability: 91, performance: 82, quality: 98.5, officer: 'Patricia J. Manento' },
-      { id: 'coroner', name: "Coroner's Office", oee: 71.2, target: 72, availability: 93, performance: 78, quality: 98.2, officer: 'Zachary Lysek' },
-      { id: 'district-attorney', name: 'District Attorney', oee: 68.2, target: 70, availability: 90, performance: 77, quality: 98.4, officer: 'Stephen G. Baratta' }
-    ];
+    // Data loaded from tags/oee-benchmarks.json
+    let officeData = [];
+    let tagData = null;
+
+    // Initialize from tag file
+    async function initFromTags() {
+      const tags = new TagLoader();
+      tagData = await tags.load('oee-benchmarks');
+      officeData = tagData.offices;
+
+      // Update summary cards from tag data
+      document.getElementById('avgOEE').textContent = tagData.summary.averageOEE + '%';
+      document.getElementById('meetingTarget').textContent = `${tagData.summary.officesMeetingTarget}/${tagData.summary.totalOffices}`;
+      document.querySelector('#meetingTarget + .subtitle').textContent = `${tagData.summary.complianceRate}% compliance`;
+
+      const topPerformer = officeData.find(o => o.id === tagData.summary.topPerformer);
+      document.getElementById('topPerformer').textContent = topPerformer?.name.replace(' - Revenue', '') || 'N/A';
+
+      const needsAttention = officeData.find(o => o.id === tagData.summary.needsAttention);
+      document.getElementById('needsAttention').textContent = needsAttention?.name.replace('District Attorney', 'DA') || 'N/A';
+
+      // Render all components
+      renderOfficeCards();
+      renderOEEChart();
+      renderComponentsChart();
+      renderRecommendations();
+    }
 
     function getOEEColor(oee) {
       if (oee >= 85) return '#22c55e';
@@ -801,11 +816,12 @@
       `).join('');
     }
 
-    // Initialize
-    renderOfficeCards();
-    renderOEEChart();
-    renderComponentsChart();
-    renderRecommendations();
+    // Initialize from tags
+    initFromTags().catch(err => {
+      console.error('Failed to load OEE data from tags:', err);
+      // Fallback: render with empty data
+      document.getElementById('officeGrid').innerHTML = '<p style="color:#ef4444;padding:20px;">Failed to load data. Check console.</p>';
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,146 @@
+{
+  "tagType": "UDT",
+  "name": "OEEBenchmarks",
+  "description": "Overall Equipment Effectiveness benchmarks for row officers",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-22",
+  "methodology": {
+    "formula": "OEE = Availability x Performance x Quality",
+    "source": "ISA-95 / oee.com adaptation for government",
+    "ratings": {
+      "worldClass": { "min": 85, "color": "#22c55e", "label": "World Class" },
+      "good": { "min": 75, "max": 84.99, "color": "#84cc16", "label": "Good" },
+      "acceptable": { "min": 65, "max": 74.99, "color": "#eab308", "label": "Acceptable" },
+      "needsImprovement": { "min": 50, "max": 64.99, "color": "#f97316", "label": "Needs Improvement" },
+      "critical": { "max": 49.99, "color": "#ef4444", "label": "Critical" }
+    }
+  },
+  "countyTarget": 78,
+  "offices": [
+    {
+      "id": "fiscal-affairs-revenue",
+      "name": "Fiscal Affairs - Revenue",
+      "officer": "Anthony Morris",
+      "oee": 86.4,
+      "target": 85,
+      "gap": 1.4,
+      "availability": 94,
+      "performance": 92,
+      "quality": 99.8,
+      "rating": "worldClass",
+      "status": "exceeds"
+    },
+    {
+      "id": "recorder-of-deeds",
+      "name": "Recorder of Deeds",
+      "officer": "Dorothy Edelman",
+      "oee": 82.1,
+      "target": 82,
+      "gap": 0.1,
+      "availability": 93,
+      "performance": 89,
+      "quality": 99.2,
+      "rating": "good",
+      "status": "meets"
+    },
+    {
+      "id": "prothonotary",
+      "name": "Prothonotary",
+      "officer": "Holly Ruggiero",
+      "oee": 79.5,
+      "target": 80,
+      "gap": -0.5,
+      "availability": 92,
+      "performance": 87,
+      "quality": 99.1,
+      "rating": "good",
+      "status": "near"
+    },
+    {
+      "id": "sheriff",
+      "name": "Sheriff's Office",
+      "officer": "Christopher Zieger",
+      "oee": 77.8,
+      "target": 78,
+      "gap": -0.2,
+      "availability": 88,
+      "performance": 89,
+      "quality": 99.3,
+      "rating": "good",
+      "status": "near"
+    },
+    {
+      "id": "controller",
+      "name": "County Controller",
+      "officer": "Acting Controller",
+      "oee": 74.2,
+      "target": 83,
+      "gap": -8.8,
+      "availability": 92,
+      "performance": 82,
+      "quality": 98.2,
+      "rating": "acceptable",
+      "status": "below"
+    },
+    {
+      "id": "clerk-of-courts",
+      "name": "Clerk of Courts",
+      "officer": "Leigh Ann Fisher",
+      "oee": 74.2,
+      "target": 76,
+      "gap": -1.8,
+      "availability": 88,
+      "performance": 85,
+      "quality": 99.1,
+      "rating": "acceptable",
+      "status": "below"
+    },
+    {
+      "id": "register-of-wills",
+      "name": "Register of Wills",
+      "officer": "Patricia J. Manento",
+      "oee": 73.5,
+      "target": 75,
+      "gap": -1.5,
+      "availability": 91,
+      "performance": 82,
+      "quality": 98.5,
+      "rating": "acceptable",
+      "status": "below"
+    },
+    {
+      "id": "coroner",
+      "name": "Coroner's Office",
+      "officer": "Zachary Lysek",
+      "oee": 71.2,
+      "target": 72,
+      "gap": -0.8,
+      "availability": 93,
+      "performance": 78,
+      "quality": 98.2,
+      "rating": "acceptable",
+      "status": "near"
+    },
+    {
+      "id": "district-attorney",
+      "name": "District Attorney",
+      "officer": "Stephen G. Baratta",
+      "oee": 68.2,
+      "target": 70,
+      "gap": -1.8,
+      "availability": 90,
+      "performance": 77,
+      "quality": 98.4,
+      "rating": "acceptable",
+      "status": "below"
+    }
+  ],
+  "summary": {
+    "averageOEE": 76.2,
+    "officesMeetingTarget": 5,
+    "totalOffices": 9,
+    "complianceRate": 55.6,
+    "topPerformer": "fiscal-affairs-revenue",
+    "needsAttention": "district-attorney"
+  }
+}

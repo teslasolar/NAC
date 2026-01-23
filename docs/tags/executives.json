@@ -1,0 +1,74 @@
+{
+  "tagType": "UDT",
+  "name": "Executives",
+  "description": "County Executive branch leadership - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-22",
+  "countyExecutive": {
+    "id": "county-executive",
+    "title": "County Executive",
+    "name": "Tara Zrinski",
+    "termStart": "2026-01-06",
+    "termEnd": "2030-01-05",
+    "contact": {
+      "office": "Government Center, 669 Washington St, Easton PA",
+      "phone": "610-559-3100"
+    },
+    "staff": 28,
+    "budget": 3200000
+  },
+  "countyCouncil": {
+    "description": "Nine-member legislative body",
+    "members": [
+      { "name": "Lori Vargo Heffner", "district": "At-Large", "role": "President" },
+      { "name": "Kerry Myers", "district": "At-Large", "role": "Vice President" },
+      { "name": "John Cusick", "district": "1", "role": "Member" },
+      { "name": "Tara Zrinski", "district": "2", "role": "Member", "note": "Now County Executive" },
+      { "name": "John Brown", "district": "3", "role": "Member" },
+      { "name": "Peg Ferraro", "district": "4", "role": "Member" },
+      { "name": "Thomas Giovanni", "district": "At-Large", "role": "Member" },
+      { "name": "Ron Heckman", "district": "At-Large", "role": "Member" },
+      { "name": "Kevin Lott", "district": "At-Large", "role": "Member" }
+    ],
+    "meetingSchedule": "1st and 3rd Thursday, 6:30 PM",
+    "location": "Government Center"
+  },
+  "administrativeDepartments": [
+    {
+      "id": "human-resources",
+      "name": "Human Resources",
+      "head": "HR Director",
+      "type": "appointed",
+      "budget": 1450000,
+      "staff": 18,
+      "divisions": ["Recruitment", "Benefits Administration", "Labor Relations", "Training & Development"]
+    },
+    {
+      "id": "fiscal-affairs",
+      "name": "Fiscal Affairs",
+      "head": "Fiscal Affairs Director",
+      "type": "appointed",
+      "budget": 2100000,
+      "staff": 24,
+      "divisions": ["Budget Office", "Accounting", "Purchasing", "Grants Management"]
+    },
+    {
+      "id": "information-technology",
+      "name": "Information Technology",
+      "head": "IT Director",
+      "type": "appointed",
+      "budget": 4800000,
+      "staff": 42,
+      "divisions": ["Infrastructure", "Applications", "Cybersecurity", "Help Desk", "GIS Services"]
+    },
+    {
+      "id": "public-works",
+      "name": "Public Works",
+      "head": "Public Works Director",
+      "type": "appointed",
+      "budget": 12000000,
+      "staff": 85,
+      "divisions": ["Roads & Bridges", "Facilities Management", "Fleet Management"]
+    }
+  ]
+}

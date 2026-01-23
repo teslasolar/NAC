@@ -1,0 +1,179 @@
+{
+  "tagType": "UDT",
+  "name": "RowOfficers",
+  "description": "Elected row officers per PA County Code Title 16 - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-22",
+  "countyClass": "Third Class",
+  "homeRule": true,
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Christopher Zieger",
+      "elected": true,
+      "paCode": "16 P.S. § 4201-4234",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 11200000,
+      "staff": 156,
+      "divisions": [
+        { "name": "Administration", "staff": 8 },
+        { "name": "Patrol Division", "staff": 45 },
+        { "name": "Civil Division", "staff": 24 },
+        { "name": "Court Security", "staff": 35 },
+        { "name": "Corrections Division", "staff": 42 }
+      ],
+      "duties": ["Court security", "Civil process service", "Warrant service", "Prisoner transport", "Sheriff sales"]
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Stephen G. Baratta",
+      "elected": true,
+      "paCode": "16 P.S. § 1401-1409",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 8500000,
+      "staff": 89,
+      "divisions": [
+        { "name": "Administration", "staff": 8 },
+        { "name": "Major Crimes Unit", "staff": 18 },
+        { "name": "General Crimes Unit", "staff": 15 },
+        { "name": "Juvenile Unit", "staff": 8 },
+        { "name": "Detective Division", "staff": 25 },
+        { "name": "Support Services", "staff": 14 }
+      ],
+      "duties": ["Criminal prosecution", "Grand jury proceedings", "Victim services", "Investigations"]
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "Acting Controller",
+      "elected": true,
+      "paCode": "16 P.S. § 1701-1780",
+      "termStart": "2026-01-06",
+      "termEnd": "2030-01-05",
+      "budget": 980000,
+      "staff": 12,
+      "divisions": [
+        { "name": "Administration", "staff": 2 },
+        { "name": "Audit Division", "staff": 5 },
+        { "name": "Payroll Division", "staff": 4 }
+      ],
+      "duties": ["Audit county accounts", "Pre-audit vouchers", "Process payroll", "Custody of contracts", "Board memberships"],
+      "note": "Position transitioning - previous controller elected County Executive"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "elected": true,
+      "paCode": "16 P.S. § 4501-4526",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 2100000,
+      "staff": 14,
+      "divisions": [
+        { "name": "Administration", "staff": 3 },
+        { "name": "Investigations", "staff": 6 },
+        { "name": "Medical Services", "staff": 4 }
+      ],
+      "duties": ["Death investigations", "Autopsies", "Cremation permits", "Death certificates"]
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "elected": true,
+      "paCode": "16 P.S. § 2701-2755",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 2800000,
+      "staff": 32,
+      "divisions": [
+        { "name": "Administration", "staff": 4 },
+        { "name": "Criminal Division", "staff": 12 },
+        { "name": "Jury Management", "staff": 6 },
+        { "name": "Records Management", "staff": 8 }
+      ],
+      "duties": ["Criminal court records", "Jury management", "Case filing", "Docket maintenance"]
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "elected": false,
+      "paCode": "16 P.S. § 2801-2850",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 1680000,
+      "staff": 18,
+      "divisions": [
+        { "name": "Administration", "staff": 3 },
+        { "name": "Civil Filing Division", "staff": 7 },
+        { "name": "Judgments & Liens", "staff": 4 },
+        { "name": "Passport Services", "staff": 3 }
+      ],
+      "duties": ["Civil court records", "Judgment liens", "Passport services", "Civil case filing"],
+      "note": "Northampton is only PA county where Prothonotary is appointed, not elected"
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "elected": true,
+      "paCode": "16 P.S. § 4901-4925",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 1450000,
+      "staff": 15,
+      "divisions": [
+        { "name": "Administration", "staff": 3 },
+        { "name": "Recording Division", "staff": 6 },
+        { "name": "Indexing & Search", "staff": 5 }
+      ],
+      "duties": ["Record deeds", "Record mortgages", "Maintain land records", "Title searches"]
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "elected": true,
+      "paCode": "16 P.S. § 5101-5136",
+      "termStart": "2024-01-01",
+      "termEnd": "2028-01-01",
+      "budget": 1320000,
+      "staff": 14,
+      "divisions": [
+        { "name": "Administration", "staff": 3 },
+        { "name": "Probate Division", "staff": 5 },
+        { "name": "Marriage Licenses", "staff": 3 },
+        { "name": "Inheritance Tax", "staff": 2 }
+      ],
+      "duties": ["Probate estates", "Marriage licenses", "Inheritance tax", "Will registration"]
+    },
+    {
+      "id": "fiscal-affairs-revenue",
+      "office": "Fiscal Affairs - Revenue",
+      "name": "Anthony Morris",
+      "elected": false,
+      "paCode": "16 P.S. § 5301-5352",
+      "budget": 1850000,
+      "staff": 18,
+      "divisions": [
+        { "name": "Administration", "staff": 3 },
+        { "name": "Tax Collection", "staff": 6 },
+        { "name": "Investments", "staff": 3 },
+        { "name": "Cash Management", "staff": 5 }
+      ],
+      "duties": ["County fund custody", "Tax collection", "Investment management", "Cash management"],
+      "note": "Home rule county - no elected Treasurer; treasury functions handled by Fiscal Affairs"
+    }
+  ],
+  "totals": {
+    "totalOfficers": 9,
+    "totalStaff": 368,
+    "totalBudget": 41880000
+  }
+}

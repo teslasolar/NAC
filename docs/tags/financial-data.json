@@ -1,0 +1,89 @@
+{
+  "tagType": "UDT",
+  "name": "FinancialData",
+  "description": "County financial data - FY 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-22",
+  "fiscalYear": 2026,
+  "budget": {
+    "total": 503000000,
+    "generalFund": 215000000,
+    "propertyTaxMillage": 10.8,
+    "effectiveDate": "2026-01-01"
+  },
+  "workforce": {
+    "totalEmployees": 2847,
+    "fullTimeEquivalent": 2650,
+    "byCategory": {
+      "rowOfficers": 368,
+      "executive": 112,
+      "judicial": 347,
+      "humanServices": 643,
+      "publicSafety": 453,
+      "infrastructure": 135,
+      "other": 789
+    }
+  },
+  "gracedale": {
+    "type": "county-owned nursing home",
+    "totalStaff": 590,
+    "countyStaff": 120,
+    "agencyStaff": 470,
+    "countyStaffPct": 20,
+    "fundTransfer": 10000000,
+    "overtime2022to2024": 7300000,
+    "arpaAllocated": 5000000,
+    "arpaPaidAsBonuses": 2300000,
+    "agencyCNARate": 26,
+    "strategicGoal": "70% county staffed by end 2026",
+    "sources": [
+      "Morning Call (Sep 2025)",
+      "LehighValleyNews",
+      "Gracedale Audit (Jun 2025)",
+      "WFMZ (2022)"
+    ]
+  },
+  "acfr": {
+    "fiscalYearEnd": "2023-12-31",
+    "reportingEntity": "County of Northampton, Pennsylvania",
+    "auditor": "Baker Tilly US, LLP",
+    "opinionType": "Unmodified",
+    "statementOfNetPosition": {
+      "assets": {
+        "cashAndInvestments": 97690000,
+        "receivablesNet": 45390000,
+        "capitalAssetsNet": 341356000,
+        "totalAssets": 484436000
+      },
+      "liabilities": {
+        "accountsPayable": 19690000,
+        "longTermDebt": 154578000,
+        "netPensionLiability": 56468000,
+        "totalLiabilities": 230736000
+      },
+      "netPosition": {
+        "governmental": 223589000,
+        "businessType": 30111000,
+        "total": 253700000
+      }
+    },
+    "highlights": {
+      "totalRevenues": 428500000,
+      "totalExpenses": 416100000,
+      "changeInNetPosition": 12400000,
+      "generalFundBalance": 48200000
+    }
+  },
+  "departmentBudgets": [
+    { "id": "corrections", "name": "Department of Corrections", "budget": 45000000 },
+    { "id": "children-youth", "name": "Children, Youth & Families", "budget": 42000000 },
+    { "id": "mental-health", "name": "Mental Health/Dev Programs", "budget": 28000000 },
+    { "id": "aging", "name": "Area Agency on Aging", "budget": 18500000 },
+    { "id": "court-common-pleas", "name": "Court of Common Pleas", "budget": 12500000 },
+    { "id": "public-works", "name": "Public Works", "budget": 12000000 },
+    { "id": "sheriff", "name": "Sheriff's Office", "budget": 11200000 },
+    { "id": "district-attorney", "name": "District Attorney", "budget": 8500000 },
+    { "id": "drug-alcohol", "name": "Drug & Alcohol Services", "budget": 8500000 },
+    { "id": "adult-probation", "name": "Adult Probation", "budget": 6800000 }
+  ]
+}

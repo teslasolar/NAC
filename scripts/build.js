@@ -168,11 +168,14 @@ export const LEVELS = {
 fs.writeFileSync(path.join(isa95JsDir, 'manifest.js'), structureJS);
 console.log('  ✓ js/isa95/manifest.js');
 
-// Copy data files
+// Copy data files (skip directories)
 const srcDataDir = path.join(srcDir, 'data');
 if (fs.existsSync(srcDataDir)) {
   fs.readdirSync(srcDataDir).forEach(file => {
-    fs.copyFileSync(path.join(srcDataDir, file), path.join(dataDir, file));
+    const filePath = path.join(srcDataDir, file);
+    if (fs.statSync(filePath).isFile()) {
+      fs.copyFileSync(filePath, path.join(dataDir, file));
+    }
   });
   console.log('  ✓ data/*.json');
 }

@@ -1,0 +1,17 @@
+{
+  "tagType": "FeeScheduleIndex",
+  "title": "County Fee Schedules",
+  "description": "Fee schedules for all row officer services per PA statutes",
+  "version": "1.0.0",
+  "effectiveDate": "2024-01-01",
+  "offices": [
+    { "$ref": "./sheriff.json" },
+    { "$ref": "./treasurer.json" },
+    { "$ref": "./coroner.json" },
+    { "$ref": "./district-attorney.json" },
+    { "$ref": "./recorder-of-deeds.json" },
+    { "$ref": "./register-of-wills.json" },
+    { "$ref": "./clerk-of-courts.json" },
+    { "$ref": "./prothonotary.json" }
+  ]
+}

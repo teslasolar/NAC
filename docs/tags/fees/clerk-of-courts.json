@@ -1,0 +1,28 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "clerk-of-courts",
+  "name": "Clerk of Courts",
+  "authority": "42 Pa.C.S. §1725",
+  "fees": {
+    "criminal_filing": {
+      "description": "Criminal case filing",
+      "amount": 75.00,
+      "per": "case"
+    },
+    "certified_copy": {
+      "description": "Certified copy",
+      "amount": 10.00,
+      "per": "document"
+    },
+    "subpoena": {
+      "description": "Subpoena issuance",
+      "amount": 10.00,
+      "per": "subpoena"
+    },
+    "appeal_filing": {
+      "description": "Appeal filing fee",
+      "amount": 75.00,
+      "per": "appeal"
+    }
+  }
+}

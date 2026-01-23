@@ -1,0 +1,19 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "district-attorney",
+  "name": "District Attorney",
+  "authority": "16 Pa.C.S. §801 et seq.",
+  "fees": {
+    "discovery_copy": {
+      "description": "Discovery document copies",
+      "amount": 0.25,
+      "per": "page"
+    },
+    "ard_fee": {
+      "description": "ARD program fee",
+      "amount": 500.00,
+      "per": "case",
+      "note": "Variable based on case"
+    }
+  }
+}

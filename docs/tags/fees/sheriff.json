@@ -1,0 +1,34 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "sheriff",
+  "name": "Sheriff's Office",
+  "authority": "42 Pa.C.S. §21101 et seq.",
+  "fees": {
+    "service_of_process": {
+      "description": "Service of legal process",
+      "amount": 45.00,
+      "per": "service"
+    },
+    "posting": {
+      "description": "Posting notice",
+      "amount": 35.00,
+      "per": "posting"
+    },
+    "sheriff_sale_deed": {
+      "description": "Sheriff's deed preparation",
+      "amount": 75.00,
+      "per": "deed"
+    },
+    "return_of_service": {
+      "description": "Filing return of service",
+      "amount": 15.00,
+      "per": "return"
+    },
+    "mileage": {
+      "description": "Mileage for service",
+      "amount": 0.67,
+      "per": "mile",
+      "note": "IRS rate"
+    }
+  }
+}

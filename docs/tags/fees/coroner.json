@@ -1,0 +1,23 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "coroner",
+  "name": "Coroner's Office",
+  "authority": "16 Pa.C.S. §701 et seq.",
+  "fees": {
+    "cremation_permit": {
+      "description": "Cremation authorization",
+      "amount": 50.00,
+      "per": "permit"
+    },
+    "certified_copy": {
+      "description": "Certified copy of report",
+      "amount": 10.00,
+      "per": "copy"
+    },
+    "body_view": {
+      "description": "Body viewing arrangement",
+      "amount": 25.00,
+      "per": "viewing"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "treasurer",
+  "name": "County Treasurer",
+  "authority": "16 Pa.C.S. §1301 et seq.",
+  "fees": {
+    "tax_certification": {
+      "description": "Tax certification letter",
+      "amount": 25.00,
+      "per": "parcel"
+    },
+    "duplicate_tax_bill": {
+      "description": "Duplicate tax bill",
+      "amount": 5.00,
+      "per": "bill"
+    },
+    "returned_check": {
+      "description": "Returned check fee",
+      "amount": 35.00,
+      "per": "check"
+    }
+  }
+}

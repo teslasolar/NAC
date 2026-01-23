@@ -1,0 +1,44 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "recorder-of-deeds",
+  "name": "Recorder of Deeds",
+  "authority": "21 P.S. §443",
+  "fees": {
+    "recording_base": {
+      "description": "Base recording fee",
+      "amount": 48.00,
+      "per": "document"
+    },
+    "recording_additional_page": {
+      "description": "Additional pages",
+      "amount": 2.00,
+      "per": "page"
+    },
+    "uniform_parcel_identifier": {
+      "description": "UPI fee",
+      "amount": 13.50,
+      "per": "parcel"
+    },
+    "technology_fee": {
+      "description": "Technology improvement fund",
+      "amount": 10.00,
+      "per": "document"
+    },
+    "jlwop_fee": {
+      "description": "JLW/OP fund fee",
+      "amount": 5.00,
+      "per": "document"
+    },
+    "certified_copy": {
+      "description": "Certified copy",
+      "amount": 5.00,
+      "per": "document",
+      "additionalPages": 1.00
+    }
+  },
+  "transfer_tax": {
+    "state_rate": 0.01,
+    "county_rate": 0.005,
+    "note": "1% state + 0.5% county on consideration"
+  }
+}

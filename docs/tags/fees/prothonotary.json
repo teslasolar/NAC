@@ -1,0 +1,43 @@
+{
+  "tagType": "FeeSchedule",
+  "office": "prothonotary",
+  "name": "Prothonotary",
+  "authority": "42 Pa.C.S. §1725",
+  "fees": {
+    "civil_complaint": {
+      "description": "Civil complaint filing",
+      "amount": 225.00,
+      "per": "case"
+    },
+    "writ_of_summons": {
+      "description": "Writ of summons",
+      "amount": 175.00,
+      "per": "writ"
+    },
+    "judgment_entry": {
+      "description": "Judgment entry",
+      "amount": 50.00,
+      "per": "judgment"
+    },
+    "lien_filing": {
+      "description": "Lien filing",
+      "amount": 55.00,
+      "per": "lien"
+    },
+    "satisfaction": {
+      "description": "Satisfaction of judgment",
+      "amount": 20.00,
+      "per": "satisfaction"
+    },
+    "exemplification": {
+      "description": "Exemplification of record",
+      "amount": 25.00,
+      "per": "document"
+    },
+    "certified_copy": {
+      "description": "Certified copy",
+      "amount": 10.00,
+      "per": "document"
+    }
+  }
+}

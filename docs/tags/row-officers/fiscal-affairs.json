@@ -1,9 +1,14 @@
 {
   "tagType": "UDT",
   "id": "fiscal-affairs",
-  "office": "Fiscal Affairs - Revenue",
-  "name": "Anthony Morris",
-  "title": "Revenue Manager / Tax Claim Director",
+  "office": "Department of Fiscal Affairs",
+  "name": "VACANT - Director Position",
+  "title": "Director of Fiscal Affairs",
+  "actingOfficer": {
+    "name": "Brandon Dunstane",
+    "title": "Budget Administrator",
+    "note": "Serving in acting capacity since Oct 2025"
+  },
   "elected": false,
   "paCode": "16 P.S. § 5301-5352",
   "budget": 1850000,
@@ -28,16 +33,18 @@
     { "name": "Tax Claim", "description": "Delinquent tax collection, upset sales" },
     { "name": "Treasury", "description": "Fund management and investments" }
   ],
-  "note": "Home rule county - no elected Treasurer. Treasury functions handled by Fiscal Affairs department under executive branch.",
+  "note": "Home rule county - no elected Treasurer. Treasury functions handled by Fiscal Affairs department under executive branch. Director position VACANT as of Jan 2026 - Zrinski administration has not yet finalized appointment.",
   "homeRuleNote": "Under Northampton County's 1978 Home Rule Charter, traditional treasurer functions are performed by the Department of Fiscal Affairs",
   "previousDirector": {
     "name": "Stephen Barron",
-    "departed": "October 2025",
-    "tenure": "10 years as Controller then Fiscal Affairs Director"
+    "departed": "October 3, 2025",
+    "tenure": "7 years as Fiscal Affairs Director (previously 10 years as Controller)",
+    "newRole": "CFO, Workforce Board Lehigh Valley"
   },
   "verifiedDate": "2026-01-23",
   "sources": [
     { "name": "norcopa.gov", "url": "https://norcopa.gov/fiscal-affairs" },
-    { "name": "WFMZ", "date": "Oct 2025", "topic": "Barron departure" }
+    { "name": "WFMZ", "date": "Oct 2025", "topic": "Barron departure" },
+    { "name": "Morning Call", "date": "Jan 16, 2026", "topic": "Zrinski cabinet - fiscal director TBD" }
   ]
 }

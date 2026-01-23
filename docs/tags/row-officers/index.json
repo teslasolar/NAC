@@ -17,7 +17,7 @@
     { "id": "prothonotary", "file": "prothonotary.json", "name": "Holly Ruggiero", "office": "Prothonotary" },
     { "id": "recorder-of-deeds", "file": "recorder-of-deeds.json", "name": "Dorothy Edelman", "office": "Recorder of Deeds" },
     { "id": "register-of-wills", "file": "register-of-wills.json", "name": "Patricia J. Manento", "office": "Register of Wills" },
-    { "id": "fiscal-affairs", "file": "fiscal-affairs.json", "name": "Anthony Morris", "office": "Fiscal Affairs - Revenue" }
+    { "id": "fiscal-affairs", "file": "fiscal-affairs.json", "name": "VACANT (Brandon Dunstane acting)", "office": "Department of Fiscal Affairs" }
   ],
   "totals": {
     "totalOfficers": 9,

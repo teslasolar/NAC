@@ -1,27 +1,48 @@
 {
   "tagType": "UDT-Index",
   "name": "RowOfficers",
-  "description": "Index of elected row officers per PA County Code Title 16 - Jan 2026",
-  "version": "2026.01",
+  "description": "Northampton County Row Officers - Historical Archive",
+  "currentYear": 2026,
+  "currentYearPath": "2026/index.json",
   "lastUpdated": "2026-01-23",
-  "verifiedDate": "2026-01-23",
-  "verificationSource": "Web search audit - norcopa.gov, Morning Call, WFMZ, PA Associations",
   "countyClass": "Third Class",
   "homeRule": true,
-  "officers": [
-    { "id": "sheriff", "file": "sheriff.json", "name": "Christopher Zieger", "office": "Sheriff" },
-    { "id": "district-attorney", "file": "district-attorney.json", "name": "Stephen G. Baratta", "office": "District Attorney" },
-    { "id": "controller", "file": "controller.json", "name": "VACANT - Pending Appointment", "office": "County Controller" },
-    { "id": "coroner", "file": "coroner.json", "name": "Zachary Lysek", "office": "Coroner" },
-    { "id": "clerk-of-courts", "file": "clerk-of-courts.json", "name": "Leigh Ann Fisher", "office": "Clerk of Courts" },
-    { "id": "prothonotary", "file": "prothonotary.json", "name": "Holly Ruggiero", "office": "Prothonotary" },
-    { "id": "recorder-of-deeds", "file": "recorder-of-deeds.json", "name": "Dorothy Edelman", "office": "Recorder of Deeds" },
-    { "id": "register-of-wills", "file": "register-of-wills.json", "name": "Patricia J. Manento", "office": "Register of Wills" },
-    { "id": "fiscal-affairs", "file": "fiscal-affairs.json", "name": "VACANT (Brandon Dunstane acting)", "office": "Department of Fiscal Affairs" }
+  "years": [
+    {
+      "year": 2026,
+      "path": "2026/",
+      "status": "current",
+      "description": "Zrinski administration begins; Controller & Fiscal Affairs Director vacant"
+    },
+    {
+      "year": 2025,
+      "path": "2025/",
+      "status": "archived",
+      "description": "Sheriff Johnston retires; Barron departs Fiscal Affairs"
+    },
+    {
+      "year": 2024,
+      "path": "2024/",
+      "status": "archived",
+      "description": "Zrinski elected Controller; Baratta elected DA"
+    }
+  ],
+  "currentOfficers": [
+    { "office": "Sheriff", "name": "Christopher Zieger", "status": "active" },
+    { "office": "District Attorney", "name": "Stephen G. Baratta", "status": "active" },
+    { "office": "County Controller", "name": "VACANT", "status": "vacant" },
+    { "office": "Coroner", "name": "Zachary Lysek", "status": "active" },
+    { "office": "Clerk of Courts", "name": "Leigh Ann Fisher", "status": "active" },
+    { "office": "Prothonotary", "name": "Holly Ruggiero", "status": "active" },
+    { "office": "Recorder of Deeds", "name": "Dorothy Edelman", "status": "active" },
+    { "office": "Register of Wills", "name": "Patricia J. Manento", "status": "active" },
+    { "office": "Fiscal Affairs Director", "name": "VACANT", "status": "vacant", "acting": "Brandon Dunstane" }
   ],
   "totals": {
     "totalOfficers": 9,
+    "vacantPositions": 2,
     "totalStaff": 368,
     "totalBudget": 41880000
-  }
+  },
+  "verificationSource": "Web search audit - norcopa.gov, Morning Call, WFMZ, PA Associations"
 }

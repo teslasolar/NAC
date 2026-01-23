@@ -1,0 +1,81 @@
+{
+  "year": 2026,
+  "asOf": "2026-01-23",
+  "description": "Northampton County Row Officers - Current (Jan 2026)",
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Christopher Zieger",
+      "status": "active",
+      "file": "sheriff.json",
+      "note": "Reappointed Jan 16, 2026 by County Executive Zrinski"
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "file": "district-attorney.json"
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "VACANT",
+      "status": "vacant",
+      "file": "controller.json",
+      "note": "Tara Zrinski resigned Jan 5, 2026 to become County Executive"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "active",
+      "file": "coroner.json",
+      "note": "Reappointed Jan 2026. In office since 1992"
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "file": "clerk-of-courts.json"
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "file": "prothonotary.json"
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "status": "active",
+      "file": "recorder-of-deeds.json"
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "status": "active",
+      "file": "register-of-wills.json"
+    },
+    {
+      "id": "fiscal-affairs",
+      "office": "Director of Fiscal Affairs",
+      "name": "VACANT",
+      "status": "vacant",
+      "actingOfficer": "Brandon Dunstane (Budget Administrator)",
+      "file": "fiscal-affairs.json",
+      "note": "Zrinski administration has not yet finalized appointment"
+    }
+  ],
+  "keyEvents": [
+    { "date": "2026-01-05", "event": "Tara Zrinski sworn in as County Executive; Controller position vacant" },
+    { "date": "2026-01-16", "event": "Zrinski announces cabinet; Sheriff Zieger, Coroner Lysek reappointed" },
+    { "date": "2026-01-21", "event": "County Council personnel committee reviews appointments" }
+  ],
+  "verifiedDate": "2026-01-23"
+}

@@ -1,0 +1,76 @@
+{
+  "year": 2025,
+  "asOf": "2025-12-31",
+  "description": "Northampton County Row Officers - Year End 2025",
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Christopher Zieger",
+      "status": "active",
+      "appointed": "June 2025",
+      "note": "Appointed following Richard Johnston retirement"
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "termStart": "2024-01-01"
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "Tara Zrinski",
+      "status": "active",
+      "termStart": "2024-01-06",
+      "note": "Elected Nov 2023. Resigned Jan 5, 2026 to become County Executive"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "active",
+      "inOfficeSince": 1992
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "appointed": 2007
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "appointed": 2001
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "status": "active"
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "status": "active"
+    },
+    {
+      "id": "fiscal-affairs",
+      "office": "Director of Fiscal Affairs",
+      "name": "Stephen Barron",
+      "status": "departed",
+      "departedDate": "2025-10-03",
+      "note": "Left for CFO role at Workforce Board Lehigh Valley"
+    }
+  ],
+  "keyEvents": [
+    { "date": "2025-06", "event": "Sheriff Richard Johnston retires; Christopher Zieger appointed" },
+    { "date": "2025-10-03", "event": "Fiscal Affairs Director Stephen Barron departs" },
+    { "date": "2025-11", "event": "Tara Zrinski wins County Executive election" }
+  ]
+}

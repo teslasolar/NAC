@@ -1,0 +1,75 @@
+{
+  "year": 2024,
+  "asOf": "2024-12-31",
+  "description": "Northampton County Row Officers - Year End 2024",
+  "officers": [
+    {
+      "id": "sheriff",
+      "office": "Sheriff",
+      "name": "Richard Johnston",
+      "status": "active",
+      "note": "Retired June 2025"
+    },
+    {
+      "id": "district-attorney",
+      "office": "District Attorney",
+      "name": "Stephen G. Baratta",
+      "status": "active",
+      "termStart": "2024-01-01",
+      "note": "Elected Nov 2023, took office Jan 2024"
+    },
+    {
+      "id": "controller",
+      "office": "County Controller",
+      "name": "Tara Zrinski",
+      "status": "active",
+      "termStart": "2024-01-06",
+      "note": "Elected Nov 2023. Previously served on County Council"
+    },
+    {
+      "id": "coroner",
+      "office": "Coroner",
+      "name": "Zachary Lysek",
+      "status": "active",
+      "inOfficeSince": 1992
+    },
+    {
+      "id": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "name": "Leigh Ann Fisher",
+      "status": "active",
+      "appointed": 2007
+    },
+    {
+      "id": "prothonotary",
+      "office": "Prothonotary",
+      "name": "Holly Ruggiero",
+      "status": "active",
+      "appointed": 2001
+    },
+    {
+      "id": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "name": "Dorothy Edelman",
+      "status": "active"
+    },
+    {
+      "id": "register-of-wills",
+      "office": "Register of Wills",
+      "name": "Patricia J. Manento",
+      "status": "active"
+    },
+    {
+      "id": "fiscal-affairs",
+      "office": "Director of Fiscal Affairs",
+      "name": "Stephen Barron",
+      "status": "active",
+      "inRoleSince": 2018,
+      "note": "Former County Controller (10 years)"
+    }
+  ],
+  "keyEvents": [
+    { "date": "2024-01-01", "event": "Stephen G. Baratta takes office as District Attorney" },
+    { "date": "2024-01-06", "event": "Tara Zrinski sworn in as County Controller" }
+  ]
+}

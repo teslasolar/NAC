@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "nac": {
+      "command": "node",
+      "args": ["src/mcp/server.js"],
+      "cwd": "${workspaceFolder}",
+      "env": {}
+    }
+  }
+}

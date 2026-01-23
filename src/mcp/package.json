@@ -1,0 +1,24 @@
+{
+  "name": "nac-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for Northampton County Digital Twin",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "nac-mcp": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "northampton-county",
+    "digital-twin",
+    "isa-95"
+  ],
+  "author": "NAC Digital Twin",
+  "license": "MIT"
+}

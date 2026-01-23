@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PA County Code - Controller Reference (Title 16)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-medium: #242424;
+      --bg-light: #2e2e2e;
+      --border: #3a3a3a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #60a5fa;
+      --highlight: #fbbf24;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .header {
+      background: var(--bg-medium);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .header .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .back-link:hover {
+      background: var(--bg-light);
+    }
+
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    .info-banner {
+      background: rgba(96, 165, 250, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .info-banner strong {
+      color: var(--accent);
+    }
+
+    .toc {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .toc h2 {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .toc-item {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+    .toc-item:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+    .toc-item .num {
+      font-weight: 600;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .article {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .article-header {
+      background: var(--bg-light);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .article-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .article-header .badge {
+      font-size: 10px;
+      padding: 4px 10px;
+      background: var(--bg-medium);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .article-content {
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .section-num {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .section-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .section-text ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+    .section-text li {
+      margin-bottom: 6px;
+    }
+
+    .highlight-box {
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 3px solid var(--highlight);
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 12px;
+    }
+    .highlight-box strong {
+      color: var(--highlight);
+    }
+
+    .source-links {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .source-links h3 {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .source-links a {
+      display: block;
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 8px;
+      text-decoration: none;
+    }
+    .source-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>Pennsylvania County Code Reference</h1>
+      <div class="subtitle">Title 16 Pa.C.S. - Controller & Fiscal Affairs Provisions</div>
+    </div>
+    <a href="index.html" class="back-link">Back to Dashboard</a>
+  </div>
+
+  <div class="content">
+    <div class="info-banner">
+      <strong>Note:</strong> The County Code was consolidated into Title 16 Pa.C.S. via Act 14 of 2024 (effective July 7, 2024).
+      This reference covers key sections relevant to the County Controller's duties and fiscal oversight responsibilities.
+      Original County Code: Act of Aug. 9, 1955, P.L. 323, No. 130.
+    </div>
+
+    <div class="toc">
+      <h2>Quick Reference - Key Sections</h2>
+      <div class="toc-grid">
+        <a href="#s1602" class="toc-item">
+          <span class="num">§ 1602</span>
+          System of Accounts
+        </a>
+        <a href="#s1704" class="toc-item">
+          <span class="num">§ 1704</span>
+          Custody of Contracts
+        </a>
+        <a href="#s1705" class="toc-item">
+          <span class="num">§ 1705</span>
+          Official Books & Forms
+        </a>
+        <a href="#s1720" class="toc-item">
+          <span class="num">§ 1720</span>
+          Audit of Accounts
+        </a>
+        <a href="#s1750" class="toc-item">
+          <span class="num">§ 1750</span>
+          Claims Against County
+        </a>
+        <a href="#s1795" class="toc-item">
+          <span class="num">§ 1795</span>
+          Fiscal Year
+        </a>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header">
+        <h2>Article VI - County Controller</h2>
+        <span class="badge">Sections 601-607</span>
+      </div>
+      <div class="article-content">
+        <div class="section" id="s601">
+          <div class="section-num">§ 601</div>
+          <div class="section-title">Election and Term</div>
+          <div class="section-text">
+            Counties from first through fifth classes must have a controller. Sixth, seventh, and eighth class
+            counties may establish the office by majority vote. The controller serves a four-year term and is
+            always eligible for re-election.
+            <div class="highlight-box">
+              <strong>Northampton County:</strong> Third class county - Controller is a mandatory elected position.
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="s602">
+          <div class="section-num">§ 602</div>
+          <div class="section-title">General Powers and Duties</div>
+          <div class="section-text">
+            The Controller supervises <em>"the fiscal affairs of the county including the accounts and official
+            acts relating thereto of all officers or other persons who shall collect, receive, hold or disburse
+            the public monies of the county."</em>
+            <ul>
+              <li>Supervise accounts of all county officers dealing with public money</li>
+              <li>Annually audit, adjust, and settle accounts</li>
+              <li>Authorize all fiscal transactions</li>
+              <li>Require officers to account for public money and property at any time</li>
+              <li>Investigate fraud or abuse of public money</li>
+              <li>Report abuse to county commissioners and district attorney</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" id="s603">
+          <div class="section-num">§ 603</div>
+          <div class="section-title">Deputy Controller and Staff</div>
+          <div class="section-text">
+            The controller shall appoint a deputy controller and clerks. May authorize clerks to administer
+            oaths and affirmations pertaining to the business of the office.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header">
+        <h2>Article XVII - Fiscal Affairs</h2>
+        <span class="badge">Sections 1701-1795</span>
+      </div>
+      <div class="article-content">
+        <div class="section" id="s1602">
+          <div class="section-num">§ 1602 (cross-ref)</div>
+          <div class="section-title">System of Accounts</div>
+          <div class="section-text">
+            The Controller prescribes the system of accounts to be maintained by all county offices.
+            The controller is the official bookkeeper for the county, keeping a regular set of double-entry
+            books of all fiscal transactions.
+          </div>
+        </div>
+
+        <div class="section" id="s1704">
+          <div class="section-num">§ 1704</div>
+          <div class="section-title">Custody of Contracts, Titles and Deeds</div>
+          <div class="section-text">
+            The controller maintains custody of all contracts, titles, and deeds for the county.
+            <div class="highlight-box">
+              <strong>Relevance:</strong> This includes vendor contracts like staffing agencies (Gracedale),
+              service agreements, and property records.
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="s1705">
+          <div class="section-num">§ 1705</div>
+          <div class="section-title">Official Books, Papers, and Forms</div>
+          <div class="section-text">
+            The controller is responsible for:
+            <ul>
+              <li>Prescribing and administering the form and manner of keeping official books and papers</li>
+              <li>All matters connected with the fiscal affairs of the county</li>
+              <li>Paying employees and remitting all employment taxes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" id="s1720">
+          <div class="section-num">§ 1720</div>
+          <div class="section-title">Audit, Settlement and Adjustment of Accounts</div>
+          <div class="section-text">
+            The controller is responsible to <em>"audit, settle, and adjust the accounts of all County offices."</em>
+            <div class="highlight-box">
+              <strong>Key Authority:</strong> This is the primary audit power - applies to ALL county offices
+              including row officers, executive departments, and agencies like Gracedale.
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="s1750">
+          <div class="section-num">§ 1750</div>
+          <div class="section-title">Claims Against the County</div>
+          <div class="section-text">
+            The controller is responsible to <em>"scrutinize, audit and decide on all claims against the county."</em>
+            <ul>
+              <li>Review and approve vendor invoices</li>
+              <li>Verify claims for payment</li>
+              <li>Ensure proper documentation and authorization</li>
+              <li>Authority to reject improper claims</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" id="s1795">
+          <div class="section-num">§ 1795</div>
+          <div class="section-title">Fiscal Year</div>
+          <div class="section-text">
+            The fiscal year of the county shall be the calendar year (January 1 - December 31).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header">
+        <h2>Controller's Investigative Powers</h2>
+        <span class="badge">Key Authorities</span>
+      </div>
+      <div class="article-content">
+        <div class="section">
+          <div class="section-title">Fraud Investigation</div>
+          <div class="section-text">
+            The controller has power to investigate for fraud or any flagrant abuse of public money.
+            Upon finding evidence of abuse, the controller reports to:
+            <ul>
+              <li>County Commissioners (now County Council/Executive)</li>
+              <li>District Attorney for potential criminal prosecution</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Demand for Accounting</div>
+          <div class="section-text">
+            At any time, the controller can require officers to account for all public money and property
+            under their jurisdiction. This is not limited to annual audits - it's an on-demand authority.
+            <div class="highlight-box">
+              <strong>Application:</strong> Can demand real-time accounting from Gracedale on agency staffing costs,
+              overtime expenditures, and ARPA fund usage.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article">
+      <div class="article-header">
+        <h2>Home Rule Charter Interaction</h2>
+        <span class="badge">Northampton County Specific</span>
+      </div>
+      <div class="article-content">
+        <div class="section">
+          <div class="section-text">
+            Northampton County operates under a Home Rule Charter (adopted 1978). The Charter may modify
+            some County Code provisions, but the Controller remains an independently elected row officer
+            with statutory audit authority that cannot be diminished by the Charter.
+            <ul>
+              <li>Controller is elected independently of County Executive</li>
+              <li>Four-year term, can serve unlimited terms</li>
+              <li>Budget is set by County Council but Controller has operational independence</li>
+              <li>Audit findings are public record</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-links">
+      <h3>Official Sources</h3>
+      <a href="https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/1955/0/0130..HTM" target="_blank">
+        PA General Assembly - County Code (Act of 1955)
+      </a>
+      <a href="https://www.legis.state.pa.us/WU01/LI/LI/CT/HTM/16/16.HTM" target="_blank">
+        Title 16 Pa.C.S. - Counties (Consolidated Statutes)
+      </a>
+      <a href="https://www.lgc.state.pa.us/countyCode.cfm" target="_blank">
+        Local Government Commission - County Code Revision
+      </a>
+      <a href="https://psacc.org/about" target="_blank">
+        PA State Association of County Controllers
+      </a>
+      <a href="https://codes.findlaw.com/pa/title-16-ps-counties/" target="_blank">
+        FindLaw - Title 16 P.S. Counties
+      </a>
+    </div>
+  </div>
+</body>
+</html>

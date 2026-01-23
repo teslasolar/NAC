@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Debt Clock - Northampton County Real-Time Fiscal Tracker</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0a0a0a;
+      color: #00ff00;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #1a0000 0%, #000 50%, #001a00 100%);
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #333;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: #ff3333;
+      text-shadow: 0 0 10px #ff0000;
+      letter-spacing: 0.1em;
+    }
+
+    .header .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .clock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2px;
+      padding: 2px;
+      background: #111;
+    }
+
+    .clock-box {
+      background: #0d0d0d;
+      border: 1px solid #222;
+      padding: 0.75rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .clock-box.large {
+      grid-column: span 2;
+    }
+
+    .clock-box.highlight {
+      background: linear-gradient(180deg, #1a0a0a 0%, #0d0d0d 100%);
+      border-color: #441111;
+    }
+
+    .clock-box.positive {
+      background: linear-gradient(180deg, #0a1a0a 0%, #0d0d0d 100%);
+      border-color: #114411;
+    }
+
+    .clock-box .label {
+      font-size: 0.65rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .clock-box .value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Consolas', 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    .clock-box.large .value {
+      font-size: 2.25rem;
+    }
+
+    .clock-box .subtext {
+      font-size: 0.6rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+
+    /* Color coding */
+    .red { color: #ff4444; text-shadow: 0 0 5px #ff000066; }
+    .green { color: #44ff44; text-shadow: 0 0 5px #00ff0066; }
+    .yellow { color: #ffff44; text-shadow: 0 0 5px #ffff0066; }
+    .blue { color: #4488ff; text-shadow: 0 0 5px #0044ff66; }
+    .white { color: #ffffff; }
+    .orange { color: #ff8844; text-shadow: 0 0 5px #ff440066; }
+
+    /* Section headers */
+    .section-header {
+      grid-column: 1 / -1;
+      background: #111;
+      padding: 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid #333;
+      color: #666;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    /* Ticker animation */
+    @keyframes tick {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .ticking .value {
+      animation: tick 0.1s ease-in-out;
+    }
+
+    /* Per-second indicators */
+    .per-second {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.5rem;
+      color: #444;
+    }
+
+    .per-second.up { color: #44ff44; }
+    .per-second.down { color: #ff4444; }
+
+    /* Footer */
+    .footer {
+      background: #0a0a0a;
+      border-top: 2px solid #222;
+      padding: 1rem;
+      text-align: center;
+      color: #444;
+      font-size: 0.7rem;
+    }
+
+    .footer a {
+      color: #4488ff;
+      text-decoration: none;
+    }
+
+    .footer .sources {
+      margin-top: 0.5rem;
+      font-size: 0.6rem;
+    }
+
+    /* Timestamp */
+    .timestamp {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #00ff00;
+      border-top: 1px solid #333;
+      z-index: 100;
+    }
+
+    .timestamp .date {
+      color: #ffff00;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .clock-box .value { font-size: 1.2rem; }
+      .clock-box.large .value { font-size: 1.5rem; }
+      .clock-box.large { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>NORTHAMPTON COUNTY FISCAL CLOCK</h1>
+    <div class="subtitle">Real-Time County Budget & Debt Tracker | Northampton County, PA</div>
+  </div>
+
+  <div class="clock-grid">
+    <!-- Main Budget Numbers -->
+    <div class="section-header">2026 Budget Overview</div>
+
+    <div class="clock-box large highlight">
+      <div class="label">Total County Budget</div>
+      <div class="value red" id="total-budget">$503,000,000</div>
+      <div class="subtext">FY 2026 Proposed</div>
+    </div>
+
+    <div class="clock-box large">
+      <div class="label">Outstanding Bonds & Debt</div>
+      <div class="value red" id="total-debt">$98,500,000</div>
+      <div class="subtext">GO Bonds Authorized</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Debt Per Citizen</div>
+      <div class="value yellow" id="debt-per-citizen">$315.71</div>
+      <div class="subtext">Pop: 312,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Budget Per Citizen</div>
+      <div class="value yellow" id="budget-per-citizen">$1,612.18</div>
+      <div class="subtext">Annual</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Property Tax Rate</div>
+      <div class="value green" id="tax-rate">10.80</div>
+      <div class="subtext">Mills (7 yrs no increase)</div>
+    </div>
+
+    <div class="clock-box positive">
+      <div class="label">Taxpayer Savings</div>
+      <div class="value green" id="tax-savings">$24,000,000</div>
+      <div class="subtext">Since 2019</div>
+    </div>
+
+    <!-- Real-time spending -->
+    <div class="section-header">Real-Time Spending (Simulated)</div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$15.95/sec</span>
+      <div class="label">Spent Today</div>
+      <div class="value orange" id="spent-today">$0</div>
+      <div class="subtext" id="today-date"></div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$15.95/sec</span>
+      <div class="label">Spent This Second</div>
+      <div class="value orange" id="spent-second">$15.95</div>
+      <div class="subtext">$503M / 365 / 86400</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Spent This Minute</div>
+      <div class="value orange" id="spent-minute">$957.08</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Spent This Hour</div>
+      <div class="value orange" id="spent-hour">$57,420</div>
+    </div>
+
+    <!-- Department Breakdown -->
+    <div class="section-header">Department Spending (Est. 2026)</div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$3.80/sec</span>
+      <div class="label">Human Services</div>
+      <div class="value blue" id="dept-human">$120,000,000</div>
+      <div class="subtext">23.9% of budget</div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$2.85/sec</span>
+      <div class="label">Courts & Justice</div>
+      <div class="value blue" id="dept-courts">$90,000,000</div>
+      <div class="subtext">17.9% of budget</div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$2.38/sec</span>
+      <div class="label">Corrections</div>
+      <div class="value blue" id="dept-corrections">$75,000,000</div>
+      <div class="subtext">14.9% of budget</div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$1.59/sec</span>
+      <div class="label">Public Safety / 911</div>
+      <div class="value blue" id="dept-safety">$50,000,000</div>
+      <div class="subtext">9.9% of budget</div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$1.27/sec</span>
+      <div class="label">General Government</div>
+      <div class="value blue" id="dept-general">$40,000,000</div>
+      <div class="subtext">8.0% of budget</div>
+    </div>
+
+    <div class="clock-box">
+      <span class="per-second up">+$0.95/sec</span>
+      <div class="label">Row Offices</div>
+      <div class="value blue" id="dept-row">$30,000,000</div>
+      <div class="subtext">6.0% of budget</div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="section-header">Revenue Sources (Est. 2026)</div>
+
+    <div class="clock-box positive">
+      <span class="per-second up">+$7.60/sec</span>
+      <div class="label">Property Tax Revenue</div>
+      <div class="value green" id="rev-property">$240,000,000</div>
+      <div class="subtext">47.7% of revenue</div>
+    </div>
+
+    <div class="clock-box positive">
+      <span class="per-second up">+$4.45/sec</span>
+      <div class="label">State & Federal Grants</div>
+      <div class="value green" id="rev-grants">$140,000,000</div>
+      <div class="subtext">27.8% of revenue</div>
+    </div>
+
+    <div class="clock-box positive">
+      <span class="per-second up">+$2.22/sec</span>
+      <div class="label">Fees & Charges</div>
+      <div class="value green" id="rev-fees">$70,000,000</div>
+      <div class="subtext">13.9% of revenue</div>
+    </div>
+
+    <div class="clock-box positive">
+      <span class="per-second up">+$1.68/sec</span>
+      <div class="label">Other Revenue</div>
+      <div class="value green" id="rev-other">$53,000,000</div>
+      <div class="subtext">10.5% of revenue</div>
+    </div>
+
+    <!-- Positive Metrics -->
+    <div class="section-header">Community Investment</div>
+
+    <div class="clock-box positive">
+      <div class="label">Farmland Preserved</div>
+      <div class="value green" id="farmland">20,000</div>
+      <div class="subtext">Acres protected</div>
+    </div>
+
+    <div class="clock-box positive">
+      <div class="label">Open Space Investment</div>
+      <div class="value green" id="openspace">$23,000,000</div>
+      <div class="subtext">Since 2018</div>
+    </div>
+
+    <div class="clock-box positive">
+      <div class="label">Municipalities Served</div>
+      <div class="value green">38</div>
+      <div class="subtext">Cities, Boroughs, Townships</div>
+    </div>
+
+    <div class="clock-box positive">
+      <div class="label">County Population</div>
+      <div class="value green" id="population">312,000</div>
+      <div class="subtext">2020 Census</div>
+    </div>
+
+    <!-- Debt Detail -->
+    <div class="section-header">Debt & Bonds Detail</div>
+
+    <div class="clock-box highlight">
+      <div class="label">2025 Bond Issue</div>
+      <div class="value red">$35,000,000</div>
+      <div class="subtext">Feb 2025 - Infrastructure</div>
+    </div>
+
+    <div class="clock-box highlight">
+      <div class="label">GO Bonds Authorized</div>
+      <div class="value red">$63,500,000</div>
+      <div class="subtext">Capital Projects</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Debt Service (Est.)</div>
+      <div class="value yellow" id="debt-service">$12,000,000</div>
+      <div class="subtext">Annual payment</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Interest Cost (Est.)</div>
+      <div class="value yellow">$4,500,000</div>
+      <div class="subtext">@ ~4.5% avg rate</div>
+    </div>
+
+    <!-- Row Officers -->
+    <div class="section-header">Row Officer Budgets (Est.)</div>
+
+    <div class="clock-box">
+      <div class="label">Controller</div>
+      <div class="value white" id="off-controller">$1,200,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Prothonotary</div>
+      <div class="value white">$2,100,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Register of Wills</div>
+      <div class="value white">$1,800,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Recorder of Deeds</div>
+      <div class="value white">$1,500,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Clerk of Courts</div>
+      <div class="value white">$1,900,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Sheriff</div>
+      <div class="value white">$4,500,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Coroner</div>
+      <div class="value white">$1,100,000</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">District Attorney</div>
+      <div class="value white">$6,200,000</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>NAC Digital Twin - Northampton County Fiscal Clock</p>
+    <div class="sources">
+      Sources: <a href="https://www.norcopa.gov/fiscal-reports">NorCoPA Fiscal Reports</a> |
+      <a href="https://www.norcopa.gov/corecode/uploads/document6/uploaded_pdfs/corecode/2026%20Proposed%20Budget_2049.pdf">2026 Proposed Budget</a> |
+      Estimates based on public data
+    </div>
+    <p style="margin-top: 0.5rem;"><a href="index.html">Back to Digital Twin</a></p>
+  </div>
+
+  <div class="timestamp">
+    <span class="date" id="clock-date"></span> | <span id="clock-time"></span>
+  </div>
+
+  <script>
+    // Budget constants
+    const ANNUAL_BUDGET = 503000000;
+    const SECONDS_PER_YEAR = 365 * 24 * 60 * 60;
+    const SPEND_PER_SECOND = ANNUAL_BUDGET / SECONDS_PER_YEAR;
+
+    // Format currency
+    function formatCurrency(num, decimals = 0) {
+      return '$' + num.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // Format number
+    function formatNumber(num) {
+      return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // Get seconds since midnight
+    function getSecondsSinceMidnight() {
+      const now = new Date();
+      return now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds() / 1000;
+    }
+
+    // Update the clock
+    function updateClock() {
+      const now = new Date();
+      const secondsToday = getSecondsSinceMidnight();
+
+      // Time display
+      document.getElementById('clock-date').textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+      document.getElementById('clock-time').textContent = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+
+      // Today's date label
+      document.getElementById('today-date').textContent = now.toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+
+      // Spent calculations
+      const spentToday = secondsToday * SPEND_PER_SECOND;
+      const currentSecond = now.getSeconds() + now.getMilliseconds() / 1000;
+      const spentThisMinute = (currentSecond) * SPEND_PER_SECOND;
+      const spentThisHour = (now.getMinutes() * 60 + currentSecond) * SPEND_PER_SECOND;
+
+      // Update displays with slight randomization for realism
+      const jitter = (Math.random() - 0.5) * 0.1;
+
+      document.getElementById('spent-today').textContent = formatCurrency(spentToday, 2);
+      document.getElementById('spent-second').textContent = formatCurrency(SPEND_PER_SECOND * (1 + jitter), 2);
+      document.getElementById('spent-minute').textContent = formatCurrency(spentThisMinute, 2);
+      document.getElementById('spent-hour').textContent = formatCurrency(spentThisHour, 0);
+
+      // Simulate debt increasing slowly (interest accrual)
+      const debtBase = 98500000;
+      const dailyInterest = debtBase * 0.045 / 365;
+      const interestToday = (secondsToday / 86400) * dailyInterest;
+      document.getElementById('total-debt').textContent = formatCurrency(debtBase + interestToday, 0);
+
+      // Update debt per citizen
+      const population = 312000;
+      document.getElementById('debt-per-citizen').textContent = formatCurrency((debtBase + interestToday) / population, 2);
+    }
+
+    // Add ticking effect
+    function addTickEffect() {
+      const boxes = document.querySelectorAll('.clock-box');
+      boxes.forEach(box => {
+        box.classList.add('ticking');
+        setTimeout(() => box.classList.remove('ticking'), 100);
+      });
+    }
+
+    // Initialize
+    updateClock();
+    setInterval(updateClock, 100); // Update 10x per second for smooth counters
+    setInterval(addTickEffect, 1000); // Tick effect every second
+  </script>
+</body>
+</html>

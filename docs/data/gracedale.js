@@ -1,74 +1,76 @@
 // Gracedale Dashboard Data & Rendering
+// Updated: January 2026 with real staffing data
 const GD = {
   alert: {
-    type: 'warning',
-    title: 'Staffing Alert',
-    text: 'Nursing staff levels below state minimums. Overtime +34% YoY.'
+    type: 'critical',
+    title: 'Staffing Crisis',
+    text: 'Only 20% of nursing positions filled by county employees. 80% reliant on agency staff. Consolidating to Tallavera master vendor.'
   },
 
   kpis: [
-    { value: '73%', label: 'Nursing Staff', trend: '-12%', status: 'critical' },
-    { value: '642', label: 'Census', trend: '-58', status: 'warning' },
-    { value: '91.7%', label: 'Occupancy', trend: '-3.2%', status: 'warning' },
-    { value: '$4.2M', label: 'YTD Deficit', trend: '+$1.1M', status: 'critical' },
-    { value: '4.1', label: 'CMS Stars', trend: '+0.3', status: 'good' },
-    { value: '142', label: 'Open Jobs', trend: '+23', status: 'warning' }
+    { value: '20%', label: 'County Nursing Staff', trend: '-60%', status: 'critical' },
+    { value: '590', label: 'Total Nursing Staff', trend: '470 agency', status: 'warning' },
+    { value: '120', label: 'County Employees', trend: 'vs 470 agency', status: 'critical' },
+    { value: '$10M', label: 'Fund Transfer', trend: 'from General Fund', status: 'critical' },
+    { value: '14', label: 'Staffing Agencies', trend: 'consolidating', status: 'warning' },
+    { value: '$3.5M', label: 'Est. Savings', trend: 'with Tallavera', status: 'good' }
   ],
 
   staffing: [
-    { pos: 'RN', req: 95, cur: 68, status: 'critical' },
-    { pos: 'LPN', req: 120, cur: 89, status: 'critical' },
-    { pos: 'CNA', req: 280, cur: 215, status: 'critical' },
-    { pos: 'Dietary', req: 45, cur: 38, status: 'warning' },
-    { pos: 'Housekeeping', req: 35, cur: 29, status: 'warning' },
-    { pos: 'Maintenance', req: 18, cur: 16, status: 'ok' },
-    { pos: 'Admin', req: 25, cur: 22, status: 'ok' }
+    { pos: 'RN (County)', req: 95, cur: 19, status: 'critical' },
+    { pos: 'RN (Agency)', req: 0, cur: 76, status: 'warning' },
+    { pos: 'LPN (County)', req: 120, cur: 24, status: 'critical' },
+    { pos: 'LPN (Agency)', req: 0, cur: 96, status: 'warning' },
+    { pos: 'CNA (County)', req: 280, cur: 56, status: 'critical' },
+    { pos: 'CNA (Agency)', req: 0, cur: 224, status: 'warning' },
+    { pos: 'Other County', req: 95, cur: 21, status: 'critical' }
   ],
 
   actions: [
-    'Increase wages 15% to match competitors',
-    'Partner with LCCC/NCC nursing programs',
-    'Retention bonuses for night/weekend',
-    'Explore agency contracts (short-term)',
-    'Review visa sponsorship options'
+    'Transition to Tallavera as master vendor (consolidate 14 agencies)',
+    'AFSCME contract: 4% COLA 2025, 3.5% 2026, 3% 2027',
+    'Priority Resource Pool for agency nurses with 500+ hours',
+    'Negotiate emergency staffing SLAs with fill rate guarantees',
+    'Track agency vs county call-out rates during weather events'
   ],
 
   quality: [
-    { label: 'Overall', score: 4 },
-    { label: 'Inspections', score: 5 },
-    { label: 'Staffing', score: 3 },
-    { label: 'Quality', score: 4 }
+    { label: 'Overall', score: 3 },
+    { label: 'Inspections', score: 4 },
+    { label: 'Staffing', score: 2 },
+    { label: 'Quality', score: 3 }
   ],
 
   budget: {
     expenses: [
-      { label: 'Personnel', amount: '$48.2M' },
+      { label: 'Personnel (County)', amount: '$18.2M' },
+      { label: 'Agency Staffing', amount: '$42.0M' },
       { label: 'Medical Supplies', amount: '$6.8M' },
       { label: 'Food Services', amount: '$4.1M' },
-      { label: 'Utilities', amount: '$2.3M' },
-      { label: 'Other', amount: '$1.0M' }
+      { label: 'Utilities/Other', amount: '$3.3M' }
     ],
     revenue: [
       { label: 'Medicaid', amount: '+$52.1M' },
       { label: 'Medicare', amount: '+$8.4M' },
       { label: 'Private Pay', amount: '+$3.1M' }
     ],
-    net: '-$4.2M'
+    net: '-$10.8M (requires General Fund transfer)'
   },
 
   events: [
-    { date: 'Jan 15', text: 'PA DHS inspection - no major deficiencies' },
-    { date: 'Jan 8', text: 'Council approved $2.5M staffing fund' },
-    { date: 'Dec 20', text: 'AFSCME contract negotiations begin' },
-    { date: 'Dec 12', text: 'New EHR system deployed' },
-    { date: 'Nov 30', text: 'Medicaid rate increase +3.2%' }
+    { date: 'Jan 22', text: 'Council discusses agency call-out rates during snowstorm' },
+    { date: 'Jan 16', text: 'Zrinski Cabinet appointments announced' },
+    { date: 'Jan 6', text: 'Tara Zrinski sworn in as County Executive' },
+    { date: 'Dec 2025', text: 'AFSCME 88 Local 1435 contract approved by Council' },
+    { date: 'Nov 2025', text: 'Tallavera selected as master staffing vendor' },
+    { date: 'Sep 2025', text: 'Strategic plan to consolidate nursing staff presented' }
   ],
 
   resources: [
-    { label: '2025 Annual Report', url: '#' },
-    { label: 'CMS Compare Data', url: '#' },
-    { label: 'Inspection Reports', url: '#' },
-    { label: 'Job Openings', url: '#' }
+    { label: '2025 Strategic Plan', url: '#' },
+    { label: 'AFSCME Contract Terms', url: '#' },
+    { label: 'CMS Compare Data', url: 'https://www.medicare.gov/care-compare/' },
+    { label: 'PA Nursing Home Regs', url: 'https://www.health.pa.gov/' }
   ]
 };
 

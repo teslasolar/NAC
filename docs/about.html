@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thomas Frumkin - Candidate for Northampton County Controller</title>
+  <title>NAC Tools - Digital Twin API & Protocols</title>
   <style>
     * {
       margin: 0;
@@ -38,88 +38,43 @@
       color: rgba(255,255,255,0.9);
     }
 
-    .header .independent-badge {
-      display: inline-block;
+    .header .protocol-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header .badge {
       background: rgba(255,255,255,0.15);
       border: 2px solid #22c55e;
       color: #22c55e;
-      padding: 0.5rem 1.5rem;
+      padding: 0.5rem 1rem;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
+      font-size: 0.85rem;
     }
 
+    .header .badge.mqtt { border-color: #f59e0b; color: #f59e0b; }
+    .header .badge.opcua { border-color: #3b82f6; color: #3b82f6; }
+    .header .badge.mqmcp { border-color: #ec4899; color: #ec4899; }
+
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* Hero Section */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
-      margin-bottom: 3rem;
-      align-items: start;
-    }
-
-    .hero-left {
-      text-align: center;
-    }
-
-    .avatar {
-      width: 200px;
-      height: 200px;
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: white;
-      margin: 0 auto 1rem auto;
-      border: 4px solid #22c55e;
-    }
-
-    .location {
-      color: #94a3b8;
-      font-size: 1rem;
-    }
-
-    .hero-right h2 {
-      color: #22c55e;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-right p {
-      color: #cbd5e1;
-      margin-bottom: 1rem;
-    }
-
-    .hero-right .highlight {
-      background: rgba(34, 197, 94, 0.1);
-      border-left: 4px solid #22c55e;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .hero-right .highlight p {
-      margin: 0;
-      color: #e2e8f0;
-      font-style: italic;
-    }
-
-    /* Section Headers */
     .section-header {
       display: flex;
       align-items: center;
       gap: 1rem;
       margin: 3rem 0 1.5rem 0;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
     }
 
     .section-header h2 {
@@ -134,264 +89,238 @@
       background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%);
     }
 
-    /* Why Controller */
-    .why-controller {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
+    /* Architecture Diagram */
+    .architecture {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       padding: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .why-controller h3 {
-      color: #22c55e;
-      margin-bottom: 1rem;
-    }
-
-    .why-controller ul {
-      list-style: none;
-    }
-
-    .why-controller li {
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .why-controller li:last-child {
-      border-bottom: none;
-    }
-
-    .why-controller .icon {
-      color: #22c55e;
-      font-size: 1.25rem;
-    }
-
-    .why-controller .text {
-      flex: 1;
-    }
-
-    .why-controller .text strong {
-      color: #fff;
-    }
-
-    .why-controller .text span {
-      color: #94a3b8;
-    }
-
-    /* Experience Timeline */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, #22c55e 0%, #3b82f6 50%, #8b5cf6 100%);
-      border-radius: 2px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 1.5rem;
-      padding: 1.25rem;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -2rem;
-      top: 1.5rem;
-      width: 12px;
-      height: 12px;
-      background: #22c55e;
-      border-radius: 50%;
-      transform: translateX(-4.5px);
-    }
-
-    .timeline-item.highlight-role {
-      border-color: rgba(34, 197, 94, 0.4);
-      background: rgba(34, 197, 94, 0.05);
-    }
-
-    .timeline-item .role {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .timeline-item .company {
-      color: #3b82f6;
-      font-size: 0.95rem;
-    }
-
-    .timeline-item .period {
-      color: #64748b;
+      font-family: 'Monaco', 'Menlo', monospace;
       font-size: 0.85rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .timeline-item .location-tag {
-      display: inline-block;
-      background: rgba(139, 92, 246, 0.2);
-      color: #a78bfa;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .timeline-item .description {
+      overflow-x: auto;
+      white-space: pre;
       color: #94a3b8;
-      font-size: 0.9rem;
     }
 
-    .timeline-item .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-    }
+    .architecture .highlight { color: #22c55e; }
+    .architecture .mqtt { color: #f59e0b; }
+    .architecture .opcua { color: #3b82f6; }
+    .architecture .mqmcp { color: #ec4899; }
 
-    .timeline-item .skill {
-      background: rgba(59, 130, 246, 0.2);
-      color: #93c5fd;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-    }
-
-    /* Skills Grid */
-    .skills-grid {
+    /* Tool Cards */
+    .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
     }
 
-    .skill-card {
+    .tool-card {
       background: rgba(255,255,255,0.03);
       border-radius: 12px;
       padding: 1.5rem;
       border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color 0.2s;
     }
 
-    .skill-card h3 {
-      color: #fff;
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .tool-card:hover {
+      border-color: rgba(34, 197, 94, 0.5);
     }
 
-    .skill-card ul {
-      list-style: none;
+    .tool-card h3 {
+      color: #22c55e;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Monaco', 'Menlo', monospace;
     }
 
-    .skill-card li {
+    .tool-card .desc {
       color: #94a3b8;
       font-size: 0.9rem;
-      padding: 0.25rem 0;
+      margin-bottom: 1rem;
     }
 
-    .skill-card li::before {
-      content: '>';
-      color: #22c55e;
-      margin-right: 0.5rem;
+    .tool-card .params {
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
     }
 
-    /* Values */
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+    .tool-card .params .label {
+      color: #64748b;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
-    .value-card {
+    .tool-card .params code {
+      color: #a78bfa;
+    }
+
+    .tool-card .params .type {
+      color: #3b82f6;
+    }
+
+    /* Protocol Sections */
+    .protocol-section {
       background: rgba(255,255,255,0.03);
       border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .protocol-section h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .protocol-section h3 .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.75rem;
+    }
+
+    .protocol-section.mqtt h3 { color: #f59e0b; }
+    .protocol-section.mqtt h3 .icon { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+    .protocol-section.opcua h3 { color: #3b82f6; }
+    .protocol-section.opcua h3 .icon { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+    .protocol-section.mqmcp h3 { color: #ec4899; }
+    .protocol-section.mqmcp h3 .icon { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+
+    .protocol-section p {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    .protocol-section .code-block {
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .protocol-section .code-block .comment { color: #64748b; }
+    .protocol-section .code-block .keyword { color: #c084fc; }
+    .protocol-section .code-block .string { color: #22c55e; }
+    .protocol-section .code-block .func { color: #60a5fa; }
+
+    /* Topic Tree */
+    .topic-tree {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
       padding: 1.5rem;
+    }
+
+    .topic-tree .folder { color: #f59e0b; }
+    .topic-tree .topic { color: #22c55e; }
+    .topic-tree .comment { color: #64748b; }
+
+    /* ISA-95 Levels */
+    .isa95-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .isa95-level {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1rem;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .value-card .icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+    .isa95-level .level {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #22c55e;
     }
 
-    .value-card h4 {
-      color: #fff;
-      margin-bottom: 0.5rem;
+    .isa95-level .name {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 0.25rem;
     }
 
-    .value-card p {
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-
-    /* CTA */
-    .cta {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
-      border: 2px solid rgba(34, 197, 94, 0.4);
+    /* Quick Start */
+    .quickstart {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.3);
       border-radius: 16px;
       padding: 2rem;
-      text-align: center;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
 
-    .cta h2 {
+    .quickstart h3 {
       color: #22c55e;
       margin-bottom: 1rem;
     }
 
-    .cta p {
-      color: #94a3b8;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-links {
-      display: flex;
-      justify-content: center;
+    .quickstart .steps {
+      display: grid;
       gap: 1rem;
-      flex-wrap: wrap;
     }
 
-    .cta-links a {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.2s;
+    .quickstart .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
 
-    .cta-links a:hover {
-      transform: translateY(-2px);
+    .quickstart .step-num {
+      width: 32px;
+      height: 32px;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #22c55e;
+      font-weight: bold;
+      flex-shrink: 0;
     }
 
-    .cta-links .primary {
-      background: #22c55e;
-      color: #0f172a;
+    .quickstart .step-content {
+      flex: 1;
     }
 
-    .cta-links .secondary {
-      background: rgba(255,255,255,0.1);
+    .quickstart .step-content strong {
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .quickstart .step-content p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .quickstart .step-content code {
+      background: rgba(0,0,0,0.4);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      display: block;
+      margin-top: 0.5rem;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
+      color: #e2e8f0;
     }
 
     /* Footer */
@@ -411,332 +340,265 @@
 
     @media (max-width: 768px) {
       .header h1 { font-size: 1.75rem; }
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero-right { text-align: left; }
-      .avatar { width: 150px; height: 150px; font-size: 3rem; }
+      .isa95-grid { grid-template-columns: repeat(3, 1fr); }
+      .tools-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>Thomas Frumkin</h1>
-    <div class="subtitle">Candidate for Northampton County Controller</div>
-    <div class="independent-badge">INDEPENDENT</div>
+    <h1>NAC Tools & Protocols</h1>
+    <div class="subtitle">Digital Twin API for Northampton County</div>
+    <div class="protocol-badges">
+      <span class="badge">MCP</span>
+      <span class="badge mqtt">MQTT</span>
+      <span class="badge opcua">OPC-UA</span>
+      <span class="badge mqmcp">MQMCP</span>
+    </div>
   </div>
 
   <div class="container">
-    <!-- Hero -->
-    <div class="hero">
-      <div class="hero-left">
-        <div class="avatar">TF</div>
-        <div class="location">Bethlehem, Pennsylvania</div>
-      </div>
-      <div class="hero-right">
-        <h2>Controls Engineer. Systems Thinker. Public Servant.</h2>
-        <p>
-          I've spent over a decade building control systems that make complex operations run efficiently
-          and reliably. From Amazon fulfillment centers to medical device manufacturing, I've engineered
-          solutions that optimize performance while maintaining the highest standards of quality and safety.
-        </p>
-        <p>
-          Now I'm applying those same skills to serve Northampton County. The Controller's office isn't
-          just about audits and numbers - it's about building systems that ensure every taxpayer dollar
-          serves the public good.
-        </p>
-        <div class="highlight">
-          <p>"I'm not running as a Democrat or Republican. I'm running as an engineer who wants to make
-          county government work better for everyone."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Why Controller -->
-    <div class="why-controller">
-      <h3>Why a Controls Engineer for Controller?</h3>
-      <ul>
-        <li>
-          <span class="icon">></span>
-          <div class="text">
-            <strong>Systems Thinking</strong><br>
-            <span>I see how all the pieces connect - budgets, departments, processes, people. The Controller oversees the whole county's fiscal health, not just individual transactions.</span>
-          </div>
-        </li>
-        <li>
-          <span class="icon">></span>
-          <div class="text">
-            <strong>Process Optimization</strong><br>
-            <span>ISA-95 and ISA-88 standards I've used in industry are now modeling county operations on this site. Same rigor, applied to public service.</span>
-          </div>
-        </li>
-        <li>
-          <span class="icon">></span>
-          <div class="text">
-            <strong>Data-Driven Decisions</strong><br>
-            <span>Every recommendation on this site is backed by metrics. OEE scores, statutory requirements, measurable outcomes. Not politics - performance.</span>
-          </div>
-        </li>
-        <li>
-          <span class="icon">></span>
-          <div class="text">
-            <strong>Independent Oversight</strong><br>
-            <span>As an Independent, I audit based on the numbers and the PA Code - not party loyalty. The Controller should be the county's conscience, not anyone's ally.</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Experience -->
+    <!-- Architecture -->
     <div class="section-header">
-      <h2>Professional Experience</h2>
+      <h2>Architecture</h2>
       <div class="line"></div>
     </div>
 
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="role">Owner & Founder</div>
-        <div class="company">Konomi Systems</div>
-        <div class="period">Nov 2023 - Present</div>
-        <span class="location-tag">Bethlehem, PA</span>
-        <div class="description">
-          Building Personal Autonomous Agents (PAA) for meta-analysis, advanced simulation, and secure computation.
-          Developed systems that synthesize massive public datasets to reveal hidden correlations - the same
-          analytical approach now applied to county government operations.
-        </div>
-        <div class="skills">
-          <span class="skill">AI/ML Systems</span>
-          <span class="skill">Data Analysis</span>
-          <span class="skill">Secure Computation</span>
-          <span class="skill">System Architecture</span>
-        </div>
-      </div>
+    <div class="architecture">
+<span class="highlight">ISA-95 Levels</span>              <span class="mqmcp">MQMCP Server</span>
 
-      <div class="timeline-item highlight-role">
-        <div class="role">Principal Controls Engineer</div>
-        <div class="company">InflexionPoint</div>
-        <div class="period">Oct 2021 - Aug 2025 (3 yrs 11 mos)</div>
-        <span class="location-tag">Neptune, NJ</span>
-        <div class="description">
-          Led control system design and implementation for complex industrial operations.
-          Responsible for ensuring systems operated efficiently, safely, and within compliance requirements.
-        </div>
-        <div class="skills">
-          <span class="skill">Process Control</span>
-          <span class="skill">System Integration</span>
-          <span class="skill">Compliance</span>
-          <span class="skill">Project Leadership</span>
-        </div>
-      </div>
-
-      <div class="timeline-item highlight-role">
-        <div class="role">Controls Engineer</div>
-        <div class="company">B. Braun Medical</div>
-        <div class="period">Apr 2019 - Jun 2021 (2 yrs 3 mos)</div>
-        <span class="location-tag">Allentown, PA</span>
-        <div class="description">
-          Engineered control systems for medical device manufacturing - an industry where quality isn't
-          optional and every process must be documented, auditable, and compliant. FDA-regulated environment
-          with zero tolerance for errors.
-        </div>
-        <div class="skills">
-          <span class="skill">FDA Compliance</span>
-          <span class="skill">Quality Systems</span>
-          <span class="skill">Documentation</span>
-          <span class="skill">Audit Readiness</span>
-        </div>
-      </div>
-
-      <div class="timeline-item highlight-role">
-        <div class="role">Automation Engineer</div>
-        <div class="company">Amazon</div>
-        <div class="period">Sep 2014 - Jan 2017 (2 yrs 5 mos)</div>
-        <span class="location-tag">Hazle Township, PA</span>
-        <div class="description">
-          Electrical automation engineering at one of the world's most demanding logistics operations.
-          Learned to optimize at scale - millions of transactions, thousands of processes, relentless
-          focus on efficiency and throughput.
-        </div>
-        <div class="skills">
-          <span class="skill">Large-Scale Systems</span>
-          <span class="skill">Automation</span>
-          <span class="skill">Efficiency Optimization</span>
-          <span class="skill">Electrical Engineering</span>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="role">Electrical Automation Engineer</div>
-        <div class="company">Gerhart Systems and Controls</div>
-        <div class="period">Nov 2013 - Jul 2014</div>
-        <span class="location-tag">Allentown, PA</span>
-        <div class="description">
-          Automation and controls for various US industries including cryogenic gases, general weighing,
-          and manufacturing systems.
-        </div>
-        <div class="skills">
-          <span class="skill">PLC Programming</span>
-          <span class="skill">Industrial Automation</span>
-          <span class="skill">Multi-Industry</span>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="role">Electrical Engineer</div>
-        <div class="company">Armani Engineering Corp</div>
-        <div class="period">Jul 2012 - Nov 2013</div>
-        <span class="location-tag">Bethlehem, PA</span>
-        <div class="description">
-          PLC/HMI programming and project design. RSLogix5000, Unity Pro XL, Profibus communication,
-          AutoCAD, and touch screen graphics programming.
-        </div>
-        <div class="skills">
-          <span class="skill">RSLogix5000</span>
-          <span class="skill">HMI Design</span>
-          <span class="skill">AutoCAD</span>
-          <span class="skill">Project Design</span>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="role">Farmer</div>
-        <div class="company">Residential Hobby Farm</div>
-        <div class="period">Jan 2017 - Present</div>
-        <span class="location-tag">Bethlehem, PA</span>
-        <div class="description">
-          Solar-powered operation raising poultry (chickens, ducks, turkeys, guinea hens) and growing
-          fruit trees (apples, peaches, pears, plums, cherries, apricots), berries, and herbs.
-          Self-sufficiency, sustainability, and connection to the land.
-        </div>
-        <div class="skills">
-          <span class="skill">Solar Power</span>
-          <span class="skill">Sustainability</span>
-          <span class="skill">Agriculture</span>
-          <span class="skill">Self-Sufficiency</span>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="role">Japanese Teaching Assistant</div>
-        <div class="company">Lehigh University</div>
-        <div class="period">Aug 2010 - May 2011</div>
-        <span class="location-tag">Bethlehem, PA</span>
-        <div class="description">
-          Created lectures for Elementary I and II Japanese, graded tests and quizzes.
-          Teaching requires breaking down complex systems into understandable parts -
-          the same skill needed to explain county finances to the public.
-        </div>
-        <div class="skills">
-          <span class="skill">Teaching</span>
-          <span class="skill">Communication</span>
-          <span class="skill">Curriculum Design</span>
-        </div>
-      </div>
+L4 Enterprise  ----+        +---------------------------+
+L3 Operations  ----+------> | <span class="mqtt">MQTT</span>  | <span class="highlight">MCP</span>  | <span class="opcua">OPC-UA</span> |
+L2 Control     ----+        | Broker | Tools | Server  |
+L1 Sensing     ----+        +---------------------------+
+L0 Physical    ----+                    |
+                              +---------+---------+
+                              |         |         |
+                           Claude    SCADA     Web Apps
     </div>
 
-    <!-- Skills -->
+    <div class="isa95-grid">
+      <div class="isa95-level"><div class="level">L4</div><div class="name">Enterprise</div></div>
+      <div class="isa95-level"><div class="level">L3</div><div class="name">Operations</div></div>
+      <div class="isa95-level"><div class="level">L2</div><div class="name">Control</div></div>
+      <div class="isa95-level"><div class="level">L1</div><div class="name">Sensing</div></div>
+      <div class="isa95-level"><div class="level">L0</div><div class="name">Physical</div></div>
+    </div>
+
+    <!-- MCP Tools -->
     <div class="section-header">
-      <h2>Relevant Skills</h2>
+      <h2>MCP Tools</h2>
       <div class="line"></div>
     </div>
 
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3>Control Systems</h3>
-        <ul>
-          <li>ISA-95 Enterprise Integration</li>
-          <li>ISA-88 Batch Control / PackML</li>
-          <li>PLC/HMI Programming</li>
-          <li>SCADA Systems</li>
-          <li>Process Optimization</li>
-        </ul>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <h3>get_officers</h3>
+        <div class="desc">Get current county row officers and officials</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>position</code> <span class="type">string?</span> - Filter by position
+        </div>
       </div>
 
-      <div class="skill-card">
-        <h3>Compliance & Audit</h3>
-        <ul>
-          <li>FDA Regulated Environments</li>
-          <li>Documentation Standards</li>
-          <li>Quality Management Systems</li>
-          <li>Process Validation</li>
-          <li>Audit Trail Maintenance</li>
-        </ul>
+      <div class="tool-card">
+        <h3>get_municipality</h3>
+        <div class="desc">Query municipality data (population, compliance, audit)</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>name</code> <span class="type">string?</span> - Municipality name<br>
+          <code>type</code> <span class="type">string?</span> - city, borough, township
+        </div>
       </div>
 
-      <div class="skill-card">
-        <h3>Data & Analysis</h3>
-        <ul>
-          <li>Large Dataset Analysis</li>
-          <li>Performance Metrics (OEE)</li>
-          <li>Statistical Process Control</li>
-          <li>Trend Analysis</li>
-          <li>Reporting Systems</li>
-        </ul>
+      <div class="tool-card">
+        <h3>get_fee_schedule</h3>
+        <div class="desc">Look up fee schedules per PA statutes</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>office</code> <span class="type">string</span> - Office name<br>
+          <code>category</code> <span class="type">string?</span> - Fee category
+        </div>
       </div>
 
-      <div class="skill-card">
-        <h3>Technology</h3>
-        <ul>
-          <li>System Architecture</li>
-          <li>Database Design</li>
-          <li>Web Development</li>
-          <li>AI/ML Integration</li>
-          <li>Secure Systems</li>
-        </ul>
+      <div class="tool-card">
+        <h3>get_oee_benchmark</h3>
+        <div class="desc">Get OEE targets for each office</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>office</code> <span class="type">string?</span> - Filter by office
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h3>search_pa_code</h3>
+        <div class="desc">Search PA Consolidated Statutes references</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>query</code> <span class="type">string</span> - Search term<br>
+          <code>title</code> <span class="type">number?</span> - PA Code title
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h3>get_workflow</h3>
+        <div class="desc">Get workflow state machines and SLAs</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>workflow</code> <span class="type">string?</span> - Workflow name<br>
+          <code>office</code> <span class="type">string?</span> - Filter by office
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h3>get_assembly_line</h3>
+        <div class="desc">Get production line configs per office</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>office</code> <span class="type">string?</span> - Office name
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h3>query_county_data</h3>
+        <div class="desc">Links to public county data sources</div>
+        <div class="params">
+          <div class="label">Parameters</div>
+          <code>source</code> <span class="type">string</span> - property, court, gis, elections<br>
+          <code>query</code> <span class="type">string</span> - Search query
+        </div>
       </div>
     </div>
 
-    <!-- Values -->
+    <!-- Protocols -->
     <div class="section-header">
-      <h2>Core Values</h2>
+      <h2>Communication Protocols</h2>
       <div class="line"></div>
     </div>
 
-    <div class="values-grid">
-      <div class="value-card">
-        <div class="icon">></div>
-        <h4>Independence</h4>
-        <p>No party. No faction. Just the numbers and the law.</p>
+    <div class="protocol-section mqtt">
+      <h3><span class="icon">MQ</span> MQTT - Pub/Sub Messaging</h3>
+      <p>Real-time messaging across ISA-95 levels using topic-based pub/sub.</p>
+
+      <div class="topic-tree">
+<span class="folder">nac/</span>
+  <span class="folder">L4/</span>
+    <span class="topic">enterprise/status</span>      <span class="comment"># County-wide status</span>
+    <span class="topic">site/+/status</span>          <span class="comment"># Per-office status</span>
+  <span class="folder">L3/</span>
+    <span class="topic">workflow/+/+/state</span>     <span class="comment"># Workflow states</span>
+    <span class="topic">workorder/+</span>            <span class="comment"># Work orders</span>
+  <span class="folder">L2/</span>
+    <span class="topic">unit/+/status</span>          <span class="comment"># Production unit status</span>
+    <span class="topic">unit/+/oee</span>             <span class="comment"># OEE metrics</span>
+  <span class="folder">L1/</span>
+    <span class="topic">event/+</span>                <span class="comment"># System events</span>
+  <span class="folder">L0/</span>
+    <span class="topic">equipment/+/status</span>     <span class="comment"># Equipment status</span>
       </div>
-      <div class="value-card">
-        <div class="icon">></div>
-        <h4>Transparency</h4>
-        <p>Every citizen should see where their money goes.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">></div>
-        <h4>Efficiency</h4>
-        <p>Better systems mean better service, not bigger budgets.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">></div>
-        <h4>Accountability</h4>
-        <p>Measure everything. Report publicly. Fix problems.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">></div>
-        <h4>Service</h4>
-        <p>Government exists to serve citizens. Period.</p>
+
+      <div class="code-block">
+<span class="keyword">import</span> { NACMQTTClient } <span class="keyword">from</span> <span class="string">'./comm/mqtt'</span>;
+
+<span class="keyword">const</span> client = <span class="keyword">new</span> <span class="func">NACMQTTClient</span>();
+<span class="keyword">await</span> client.<span class="func">connect</span>();
+
+<span class="comment">// Subscribe to OEE updates</span>
+client.<span class="func">subscribe</span>(<span class="string">'L2/unit/+/oee'</span>, (msg) => {
+  console.<span class="func">log</span>(<span class="string">'OEE:'</span>, msg.value);
+});
+
+<span class="comment">// Publish workflow state</span>
+client.<span class="func">publish</span>(<span class="string">'L3/workflow/prothonotary/civil/state'</span>, { state: <span class="string">'Execute'</span> });
       </div>
     </div>
 
-    <!-- CTA -->
-    <div class="cta">
-      <h2>See the Vision in Action</h2>
-      <p>
-        This isn't just a campaign site - it's a working demonstration of how I'll approach the Controller's
-        office. Data-driven, transparent, and focused on results.
-      </p>
-      <div class="cta-links">
-        <a href="transformation-plan.html" class="primary">View Transformation Plan</a>
-        <a href="oee-dashboard.html" class="secondary">OEE Dashboard</a>
-        <a href="org-chart.html" class="secondary">Org Chart</a>
-        <a href="index.html" class="secondary">Full Digital Twin</a>
+    <div class="protocol-section opcua">
+      <h3><span class="icon">UA</span> OPC-UA - Industrial Communication</h3>
+      <p>Standard industrial protocol exposing NAC data as an OPC-UA address space with 108 nodes.</p>
+
+      <div class="code-block">
+<span class="keyword">import</span> { NACOPCUAServer } <span class="keyword">from</span> <span class="string">'./comm/opcua'</span>;
+
+<span class="keyword">const</span> server = <span class="keyword">new</span> <span class="func">NACOPCUAServer</span>({ port: 4840 });
+<span class="keyword">await</span> server.<span class="func">start</span>();
+
+<span class="comment">// Browse address space</span>
+server.<span class="func">browse</span>(<span class="string">'NAC'</span>);
+<span class="comment">// -> L4_Enterprise, L3_Operations, L2_Control, L1_Sensing, L0_Physical</span>
+
+<span class="comment">// Read OEE value</span>
+server.<span class="func">readValue</span>(<span class="string">'L2_Control/ProductionUnits/Prothonotary/OEE'</span>);
+<span class="comment">// -> { value: 0.85, dataType: 'Double', statusCode: 'Good' }</span>
+
+<span class="comment">// Write value</span>
+server.<span class="func">writeValue</span>(<span class="string">'L2_Control/ProductionUnits/Prothonotary/OEE'</span>, 0.92);
+      </div>
+    </div>
+
+    <div class="protocol-section mqmcp">
+      <h3><span class="icon">MQ+</span> MQMCP - Combined Protocol</h3>
+      <p>Merges MQTT pub/sub with MCP tool-calling. Call tools via MQTT topics, get responses via subscriptions.</p>
+
+      <div class="code-block">
+<span class="keyword">import</span> { MQMCPServer } <span class="keyword">from</span> <span class="string">'./comm/mqmcp'</span>;
+
+<span class="keyword">const</span> server = <span class="keyword">new</span> <span class="func">MQMCPServer</span>();
+<span class="keyword">await</span> server.<span class="func">start</span>();
+
+<span class="keyword">const</span> client = server.<span class="func">createClient</span>();
+
+<span class="comment">// Call MCP tools via MQTT</span>
+<span class="keyword">const</span> officers = <span class="keyword">await</span> client.<span class="func">callTool</span>(<span class="string">'get_officers'</span>, {});
+<span class="keyword">const</span> oee = <span class="keyword">await</span> client.<span class="func">callTool</span>(<span class="string">'get_oee_benchmark'</span>, { office: <span class="string">'prothonotary'</span> });
+
+<span class="comment">// Use OPC-UA tools</span>
+<span class="keyword">const</span> browse = <span class="keyword">await</span> client.<span class="func">callTool</span>(<span class="string">'opcua_browse'</span>, { path: <span class="string">'NAC'</span> });
+<span class="keyword">const</span> read = <span class="keyword">await</span> client.<span class="func">callTool</span>(<span class="string">'opcua_read'</span>, {
+  path: <span class="string">'L2_Control/ProductionUnits/Prothonotary/OEE'</span>
+});
+
+<span class="comment">// List all available tools</span>
+<span class="keyword">const</span> tools = <span class="keyword">await</span> client.<span class="func">listTools</span>();
+<span class="comment">// -> 13 tools: get_officers, get_municipality, opcua_browse, mqtt_publish, ...</span>
+      </div>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="quickstart">
+      <h3>Quick Start</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>Run MQMCP Server</strong>
+            <p>Starts MQTT broker, OPC-UA server, and registers all tools</p>
+            <code>node src/comm/mqmcp/server.js</code>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>Or use MCP with Claude Code</strong>
+            <p>Add to your Claude Code MCP settings</p>
+            <code>{ "nac": { "command": "node", "args": ["src/mcp/server.js"] } }</code>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>Run Tests</strong>
+            <p>Verify all protocols are working</p>
+            <code>node src/comm/test.js</code>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <p>Thomas Frumkin for Northampton County Controller</p>
-    <p style="margin-top: 0.5rem;">Independent Candidate | Bethlehem, PA</p>
+    <p>NAC Digital Twin - Northampton County</p>
+    <p style="margin-top: 0.5rem;">ISA-95 | PackML | MCP | MQTT | OPC-UA</p>
     <p style="margin-top: 1rem;"><a href="index.html">Back to Home</a></p>
   </div>
 </body>

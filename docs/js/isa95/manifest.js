@@ -1,9 +1,10 @@
 // Auto-generated ISA-95 structure manifest
-// Generated: 2026-01-20T00:13:44.056Z
-// Modules: 65 | Schemas: 5
+// Generated: 2026-01-23T18:21:37.857Z
+// Modules: 74 | Schemas: 5
 
 export const STRUCTURE = {
   "L0_Data": {
+    "config": [],
     "enums": [
       "AuditType.js",
       "ClaimStatus.js",
@@ -19,7 +20,8 @@ export const STRUCTURE = {
       "LegalDefinitions.js",
       "Money.js",
       "Person.js"
-    ]
+    ],
+    "udt": []
   },
   "L1_Transactions": {
     "audits": [
@@ -31,14 +33,23 @@ export const STRUCTURE = {
       "Claim.js",
       "ClaimApproval.js"
     ],
+    "config": [],
     "payments": [
       "DirectDeposit.js",
       "Disbursement.js",
       "Receipt.js",
       "Warrant.js"
+    ],
+    "signing": [
+      "BlockchainSigner.js"
     ]
   },
   "L2_Control": {
+    "alarms": [
+      "AlarmManager.js",
+      "AlarmRationalization.js",
+      "index.js"
+    ],
     "audit": [
       "AuditFindings.js",
       "AuditPlan.js",
@@ -52,6 +63,12 @@ export const STRUCTURE = {
       "BudgetAmendment.js",
       "BudgetCycle.js",
       "LineItemTransfer.js"
+    ],
+    "config": [],
+    "engine": [
+      "ProcessControllers.js",
+      "RuleEngine.js",
+      "WorkflowEngine.js"
     ],
     "payroll": [
       "Deductions.js",
@@ -67,15 +84,18 @@ export const STRUCTURE = {
     "admin": [
       "RecordsCustody.js"
     ],
+    "config": [],
     "controller": [
       "AuditAuthority.js",
       "AuditJurisdiction.js",
       "BoardMemberships.js",
       "BudgetCertification.js",
+      "CoreFunctions.js",
       "DeputyController.js",
       "Independence.js",
       "SalaryBoard.js",
-      "StatutoryDuties.js"
+      "StatutoryDuties.js",
+      "index.js"
     ],
     "fiscal": [
       "AccountsPayable.js",
@@ -96,9 +116,11 @@ export const STRUCTURE = {
       "Sheriff.js",
       "Treasurer.js",
       "index.js"
-    ]
+    ],
+    "tags": []
   },
   "L4_Enterprise": {
+    "config": [],
     "policy": [
       "Ethics.js",
       "FiscalPolicy.js",
@@ -116,7 +138,7 @@ export const STRUCTURE = {
 };
 
 export const STATS = {
-  modules: 65,
+  modules: 74,
   schemas: 5,
   paCodeCoverage: {"implemented":195,"partial":30,"not_started":5}
 };

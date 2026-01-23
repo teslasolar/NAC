@@ -1,0 +1,81 @@
+{
+  "tagType": "UDT",
+  "name": "GovernanceCourts",
+  "description": "Northampton County Court System - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - nccpa.org, Ballotpedia, PA Courts",
+  "courtOfCommonPleas": {
+    "name": "Northampton County Court of Common Pleas",
+    "jurisdiction": "Trial court of general jurisdiction",
+    "location": "669 Washington St, Easton, PA 18042",
+    "divisions": [
+      {
+        "name": "Criminal Division",
+        "functions": ["Criminal prosecutions", "Homicides", "Felonies", "Misdemeanors"],
+        "rowOfficer": "Clerk of Courts"
+      },
+      {
+        "name": "Civil Division",
+        "functions": ["Money damages", "Complex civil cases", "Property disputes", "Equity issues"],
+        "rowOfficer": "Prothonotary"
+      },
+      {
+        "name": "Family Division",
+        "functions": ["Divorce", "Custody", "Support", "PFA orders"],
+        "rowOfficer": "Prothonotary"
+      },
+      {
+        "name": "Orphans' Court",
+        "functions": ["Probate", "Estates", "Adoptions", "Guardianships"],
+        "rowOfficer": "Register of Wills"
+      },
+      {
+        "name": "Juvenile Court",
+        "functions": ["Juvenile delinquency", "Dependency cases"],
+        "rowOfficer": "Clerk of Courts"
+      }
+    ],
+    "judgeTerms": {
+      "termLength": 10,
+      "electionType": "Partisan with cross-filing",
+      "retentionElection": true,
+      "mandatoryRetirement": 75,
+      "seniorJudgeLimit": 78
+    },
+    "sources": [
+      { "name": "NCCPA Official", "url": "https://www.nccpa.org/judges/" },
+      { "name": "Ballotpedia", "url": "https://ballotpedia.org/Northampton_County_Court_of_Common_Pleas,_Pennsylvania" }
+    ]
+  },
+  "magisterialDistrictCourts": {
+    "description": "Minor judiciary handling preliminary hearings, small claims, and summary offenses",
+    "jurisdiction": "Civil claims up to $12,000, landlord-tenant, traffic, summary offenses",
+    "judgeTerms": {
+      "termLength": 6,
+      "electionType": "Partisan"
+    }
+  },
+  "courtAdministration": {
+    "department": "Department of Court Administration",
+    "functions": ["Court scheduling", "Jury management", "Court records", "Administrative support"],
+    "website": "https://norcopa.gov/court-administration",
+    "budget": 12500000
+  },
+  "problemSolvingCourts": {
+    "note": "Created under DA Stephen Baratta when he was President Judge",
+    "courts": [
+      { "name": "Drug Court", "purpose": "Treatment alternative for drug offenders" },
+      { "name": "Mental Health Court", "purpose": "Diversion for defendants with mental illness" },
+      { "name": "Veterans Court", "purpose": "Services for veteran defendants" }
+    ]
+  },
+  "relatedRowOfficers": [
+    { "office": "District Attorney", "role": "Criminal prosecution" },
+    { "office": "Clerk of Courts", "role": "Criminal Division records" },
+    { "office": "Prothonotary", "role": "Civil Division records" },
+    { "office": "Register of Wills", "role": "Orphans' Court records" },
+    { "office": "Sheriff", "role": "Court security, process service" }
+  ]
+}

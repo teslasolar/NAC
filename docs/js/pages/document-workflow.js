@@ -1,29 +1,51 @@
-// Document Workflow Tracker
-const documents = [
-  // Pending
-  { id: 'DOC-2024-1892', title: 'Mortgage Recording - 123 Main St', type: 'deed', status: 'pending', priority: 'high', office: 'recorder', party: 'Smith, John', submitted: '2024-01-18', sla: '2024-01-21' },
-  { id: 'DOC-2024-1891', title: 'Civil Complaint - Johnson v. ABC Corp', type: 'civil', status: 'pending', priority: 'medium', office: 'prothonotary', party: 'Johnson, Mary', submitted: '2024-01-18', sla: '2024-01-23' },
-  { id: 'DOC-2024-1890', title: 'Estate Inventory - Williams Estate', type: 'will', status: 'pending', priority: 'low', office: 'register', party: 'Williams Family', submitted: '2024-01-17', sla: '2024-01-27' },
-  // Processing
-  { id: 'DOC-2024-1885', title: 'Deed Transfer - 456 Oak Ave', type: 'deed', status: 'processing', priority: 'medium', office: 'recorder', party: 'Davis, Robert', submitted: '2024-01-16', sla: '2024-01-19' },
-  { id: 'DOC-2024-1880', title: 'Criminal Filing - Commonwealth v. Brown', type: 'criminal', status: 'processing', priority: 'high', office: 'clerk', party: 'Brown, Michael', submitted: '2024-01-15', sla: '2024-01-17' },
-  { id: 'DOC-2024-1875', title: 'Probate Application - Anderson Estate', type: 'will', status: 'processing', priority: 'medium', office: 'register', party: 'Anderson Family', submitted: '2024-01-14', sla: '2024-01-24' },
-  { id: 'DOC-2024-1870', title: 'Tax Lien Release - 789 Elm St', type: 'tax', status: 'processing', priority: 'low', office: 'controller', party: 'Harris, Susan', submitted: '2024-01-14', sla: '2024-01-21' },
-  // Review
-  { id: 'DOC-2024-1860', title: 'Satisfaction of Mortgage - 321 Pine Rd', type: 'deed', status: 'review', priority: 'medium', office: 'recorder', party: 'Miller, Thomas', submitted: '2024-01-12', sla: '2024-01-15' },
-  { id: 'DOC-2024-1855', title: 'Court Order - Custody Modification', type: 'court', status: 'review', priority: 'high', office: 'prothonotary', party: 'Wilson Family', submitted: '2024-01-11', sla: '2024-01-14' },
-  // Completed
-  { id: 'DOC-2024-1850', title: 'Deed Recording - 555 Cedar Ln', type: 'deed', status: 'completed', priority: 'medium', office: 'recorder', party: 'Taylor, James', submitted: '2024-01-10', completed: '2024-01-13' },
-  { id: 'DOC-2024-1845', title: 'Will Probate - Martinez Estate', type: 'will', status: 'completed', priority: 'low', office: 'register', party: 'Martinez Family', submitted: '2024-01-09', completed: '2024-01-16' },
-  { id: 'DOC-2024-1840', title: 'Criminal Judgment - Commonwealth v. Lee', type: 'criminal', status: 'completed', priority: 'high', office: 'clerk', party: 'Lee, David', submitted: '2024-01-08', completed: '2024-01-11' },
-  // Rejected
-  { id: 'DOC-2024-1832', title: 'Deed Recording - Missing Signatures', type: 'deed', status: 'rejected', priority: 'medium', office: 'recorder', party: 'Garcia, Maria', submitted: '2024-01-07', rejected: '2024-01-09', reason: 'Missing notarization' }
-];
+// Document Workflow Tracker - Loads from centralized tags
+let documents = [];
+let officeNames = {};
+let documentTypes = {};
 
-const officeNames = {
-  recorder: 'Recorder of Deeds', prothonotary: 'Prothonotary', clerk: 'Clerk of Courts',
-  register: 'Register of Wills', sheriff: 'Sheriff', da: 'District Attorney', controller: 'Controller'
-};
+// Load document data from tags
+async function loadDocumentData() {
+  try {
+    const response = await fetch('tags/document-types.json');
+    if (response.ok) {
+      const data = await response.json();
+      documentTypes = data.documentTypes;
+      // Build office names from tag
+      Object.entries(data.officeMapping).forEach(([key, val]) => {
+        officeNames[key] = val.name;
+      });
+      console.log('Loaded document types from tags');
+      return true;
+    }
+  } catch (err) {
+    console.warn('Could not load document-types tag, using fallback:', err);
+  }
+  // Fallback office names
+  officeNames = {
+    recorder: 'Recorder of Deeds', prothonotary: 'Prothonotary', clerk: 'Clerk of Courts',
+    register: 'Register of Wills', sheriff: 'Sheriff', da: 'District Attorney', controller: 'Controller'
+  };
+  return false;
+}
+
+// Sample documents (would load from backend in production)
+function initSampleDocuments() {
+  documents = [
+    { id: 'DOC-2026-0101', title: 'Mortgage Recording - 123 Main St', type: 'deed', status: 'pending', priority: 'high', office: 'recorder', party: 'Smith, John', submitted: '2026-01-18', sla: '2026-01-21' },
+    { id: 'DOC-2026-0102', title: 'Civil Complaint - Johnson v. ABC Corp', type: 'civil', status: 'pending', priority: 'medium', office: 'prothonotary', party: 'Johnson, Mary', submitted: '2026-01-18', sla: '2026-01-23' },
+    { id: 'DOC-2026-0103', title: 'Estate Inventory - Williams Estate', type: 'will', status: 'pending', priority: 'low', office: 'register', party: 'Williams Family', submitted: '2026-01-17', sla: '2026-01-27' },
+    { id: 'DOC-2026-0104', title: 'Deed Transfer - 456 Oak Ave', type: 'deed', status: 'processing', priority: 'medium', office: 'recorder', party: 'Davis, Robert', submitted: '2026-01-16', sla: '2026-01-19' },
+    { id: 'DOC-2026-0105', title: 'Criminal Filing - Commonwealth v. Brown', type: 'criminal', status: 'processing', priority: 'high', office: 'clerk', party: 'Brown, Michael', submitted: '2026-01-15', sla: '2026-01-17' },
+    { id: 'DOC-2026-0106', title: 'Probate Application - Anderson Estate', type: 'will', status: 'processing', priority: 'medium', office: 'register', party: 'Anderson Family', submitted: '2026-01-14', sla: '2026-01-24' },
+    { id: 'DOC-2026-0107', title: 'Tax Lien Release - 789 Elm St', type: 'tax', status: 'processing', priority: 'low', office: 'controller', party: 'Harris, Susan', submitted: '2026-01-14', sla: '2026-01-21' },
+    { id: 'DOC-2026-0108', title: 'Satisfaction of Mortgage - 321 Pine Rd', type: 'deed', status: 'review', priority: 'medium', office: 'recorder', party: 'Miller, Thomas', submitted: '2026-01-12', sla: '2026-01-15' },
+    { id: 'DOC-2026-0109', title: 'Court Order - Custody Modification', type: 'court', status: 'review', priority: 'high', office: 'prothonotary', party: 'Wilson Family', submitted: '2026-01-11', sla: '2026-01-14' },
+    { id: 'DOC-2026-0110', title: 'Deed Recording - 555 Cedar Ln', type: 'deed', status: 'completed', priority: 'medium', office: 'recorder', party: 'Taylor, James', submitted: '2026-01-10', completed: '2026-01-13' },
+    { id: 'DOC-2026-0111', title: 'Will Probate - Martinez Estate', type: 'will', status: 'completed', priority: 'low', office: 'register', party: 'Martinez Family', submitted: '2026-01-09', completed: '2026-01-16' },
+    { id: 'DOC-2026-0112', title: 'Criminal Judgment - Commonwealth v. Lee', type: 'criminal', status: 'completed', priority: 'high', office: 'clerk', party: 'Lee, David', submitted: '2026-01-08', completed: '2026-01-11' },
+    { id: 'DOC-2026-0113', title: 'Deed Recording - Missing Signatures', type: 'deed', status: 'rejected', priority: 'medium', office: 'recorder', party: 'Garcia, Maria', submitted: '2026-01-07', rejected: '2026-01-09', reason: 'Missing notarization' }
+  ];
+}
 
 const statusFilters = { pending: true, processing: true, review: true, completed: true, rejected: true };
 
@@ -154,7 +176,9 @@ function exportReport() {
 }
 function viewAnalytics() { window.location.href = 'controller-dashboard.html'; }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadDocumentData();
+  initSampleDocuments();
   renderBoard();
   document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') searchDocuments(); });
 });

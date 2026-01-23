@@ -1,0 +1,133 @@
+{
+  "tagType": "UDT",
+  "name": "PublicNotices",
+  "description": "County public notices, bids, hearings, and job postings - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "noticeTypes": {
+    "bid": { "label": "Bid Opportunity", "color": "#4a9eff", "icon": "gavel" },
+    "hearing": { "label": "Public Hearing", "color": "#a855f7", "icon": "users" },
+    "job": { "label": "Job Posting", "color": "#22c55e", "icon": "briefcase" },
+    "ordinance": { "label": "Ordinance", "color": "#f59e0b", "icon": "file-text" },
+    "meeting": { "label": "Meeting Notice", "color": "#64748b", "icon": "calendar" },
+    "election": { "label": "Election Notice", "color": "#ef4444", "icon": "vote" }
+  },
+  "notices": [
+    {
+      "id": 1,
+      "type": "bid",
+      "title": "RFP: County IT Infrastructure Modernization",
+      "description": "Multi-year IT modernization contract covering network, security, cloud migration. Budget: $2.5M over 3 years.",
+      "department": "Information Technology",
+      "posted": "2026-01-15",
+      "deadline": "2026-02-15",
+      "contact": "procurement@norcopa.gov",
+      "status": "open"
+    },
+    {
+      "id": 2,
+      "type": "bid",
+      "title": "Bridge Repair - Route 248 Overpass",
+      "description": "Structural repairs and resurfacing for Route 248 overpass in Palmer Township.",
+      "department": "Public Works",
+      "posted": "2026-01-10",
+      "deadline": "2026-02-10",
+      "status": "open"
+    },
+    {
+      "id": 3,
+      "type": "hearing",
+      "title": "2026 Budget Amendment Public Hearing",
+      "description": "Council hearing on proposed mid-year budget amendments for Gracedale staffing.",
+      "department": "County Council",
+      "posted": "2026-01-18",
+      "deadline": "2026-01-30",
+      "location": "Government Center, Council Chambers",
+      "time": "6:30 PM",
+      "status": "upcoming"
+    },
+    {
+      "id": 4,
+      "type": "job",
+      "title": "County Controller - Vacancy Appointment",
+      "description": "Council seeks qualified applicants to fill Controller vacancy. Must meet statutory requirements per PA County Code.",
+      "department": "County Council",
+      "posted": "2026-01-06",
+      "deadline": "2026-02-05",
+      "note": "Position vacated when Tara Zrinski became County Executive",
+      "status": "urgent"
+    },
+    {
+      "id": 5,
+      "type": "job",
+      "title": "Corrections Officer",
+      "description": "Full-time corrections officer positions at Northampton County Prison. Starting salary with benefits.",
+      "department": "Department of Corrections",
+      "posted": "2026-01-12",
+      "deadline": "2026-02-28",
+      "salary": "Competitive with benefits",
+      "status": "open"
+    },
+    {
+      "id": 6,
+      "type": "job",
+      "title": "Assistant District Attorney - Criminal Division",
+      "description": "Prosecuting attorney position in Major Crimes Unit. JD required, PA bar admission.",
+      "department": "District Attorney",
+      "posted": "2026-01-08",
+      "deadline": "2026-02-08",
+      "salary": "$65,000 - $85,000",
+      "status": "open"
+    },
+    {
+      "id": 7,
+      "type": "job",
+      "title": "Registered Nurse - Gracedale",
+      "description": "RN positions at Gracedale Nursing Home. County employment with benefits package.",
+      "department": "Gracedale Nursing Home",
+      "posted": "2026-01-05",
+      "deadline": "2026-03-31",
+      "note": "Part of Priority Resource Pool initiative to reduce agency staffing",
+      "status": "open"
+    },
+    {
+      "id": 8,
+      "type": "meeting",
+      "title": "County Council Regular Meeting",
+      "description": "Regular session of Northampton County Council.",
+      "department": "County Council",
+      "posted": "2026-01-20",
+      "deadline": "2026-02-06",
+      "location": "Government Center, Council Chambers",
+      "time": "6:30 PM",
+      "status": "upcoming"
+    },
+    {
+      "id": 9,
+      "type": "ordinance",
+      "title": "Ordinance 2026-01: Open Space Preservation Fund",
+      "description": "Amendment to open space fund allocation for farmland preservation.",
+      "department": "County Council",
+      "posted": "2026-01-16",
+      "deadline": "2026-02-06",
+      "status": "pending"
+    },
+    {
+      "id": 10,
+      "type": "bid",
+      "title": "Gracedale HVAC System Upgrade",
+      "description": "HVAC modernization for Gracedale Nursing Home facility.",
+      "department": "General Services",
+      "posted": "2026-01-18",
+      "deadline": "2026-02-18",
+      "status": "open"
+    }
+  ],
+  "statusLabels": {
+    "open": { "label": "Open", "color": "#22c55e" },
+    "urgent": { "label": "Urgent", "color": "#ef4444" },
+    "upcoming": { "label": "Upcoming", "color": "#3b82f6" },
+    "pending": { "label": "Pending", "color": "#f59e0b" },
+    "closed": { "label": "Closed", "color": "#64748b" }
+  }
+}

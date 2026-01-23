@@ -1,0 +1,88 @@
+{
+  "tagType": "UDT",
+  "name": "DocumentTypes",
+  "description": "Document workflow types and office mappings - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "documentTypes": {
+    "deed": {
+      "label": "Deed/Property",
+      "office": "recorder",
+      "officeName": "Recorder of Deeds",
+      "color": "#4a9eff",
+      "slaHours": 48,
+      "description": "Property deeds, mortgages, liens"
+    },
+    "civil": {
+      "label": "Civil Filing",
+      "office": "prothonotary",
+      "officeName": "Prothonotary",
+      "color": "#a855f7",
+      "slaHours": 72,
+      "description": "Civil lawsuits, judgments, liens"
+    },
+    "will": {
+      "label": "Estate/Probate",
+      "office": "register",
+      "officeName": "Register of Wills",
+      "color": "#22c55e",
+      "slaHours": 96,
+      "description": "Wills, estates, inheritance"
+    },
+    "criminal": {
+      "label": "Criminal Record",
+      "office": "clerk",
+      "officeName": "Clerk of Courts",
+      "color": "#ef4444",
+      "slaHours": 24,
+      "description": "Criminal case filings, dockets"
+    },
+    "tax": {
+      "label": "Tax Document",
+      "office": "controller",
+      "officeName": "Controller",
+      "color": "#f59e0b",
+      "slaHours": 72,
+      "description": "Tax liens, assessments"
+    },
+    "court": {
+      "label": "Court Order",
+      "office": "clerk",
+      "officeName": "Clerk of Courts",
+      "color": "#64748b",
+      "slaHours": 24,
+      "description": "Court orders, judgments"
+    },
+    "license": {
+      "label": "License/Permit",
+      "office": "register",
+      "officeName": "Register of Wills",
+      "color": "#06b6d4",
+      "slaHours": 48,
+      "description": "Marriage licenses, permits"
+    }
+  },
+  "statusTypes": {
+    "pending": { "label": "Pending", "color": "#f59e0b", "icon": "clock" },
+    "processing": { "label": "Processing", "color": "#3b82f6", "icon": "refresh" },
+    "review": { "label": "Under Review", "color": "#a855f7", "icon": "eye" },
+    "completed": { "label": "Completed", "color": "#22c55e", "icon": "check" },
+    "rejected": { "label": "Rejected", "color": "#ef4444", "icon": "x" }
+  },
+  "officeMapping": {
+    "recorder": { "id": "recorder-of-deeds", "name": "Recorder of Deeds", "officer": "Dorothy Edelman" },
+    "prothonotary": { "id": "prothonotary", "name": "Prothonotary", "officer": "Holly Ruggiero" },
+    "clerk": { "id": "clerk-of-courts", "name": "Clerk of Courts", "officer": "Leigh Ann Fisher" },
+    "register": { "id": "register-of-wills", "name": "Register of Wills", "officer": "Patricia J. Manento" },
+    "sheriff": { "id": "sheriff", "name": "Sheriff", "officer": "Christopher Zieger" },
+    "da": { "id": "district-attorney", "name": "District Attorney", "officer": "Stephen G. Baratta" },
+    "controller": { "id": "controller", "name": "Controller", "officer": "VACANT - Pending Appointment" }
+  },
+  "sampleDocuments": [
+    { "id": "DOC-2026-0001", "type": "deed", "party": "Smith Family Trust", "status": "completed", "filed": "2026-01-15" },
+    { "id": "DOC-2026-0002", "type": "civil", "party": "Johnson v. Williams", "status": "processing", "filed": "2026-01-18" },
+    { "id": "DOC-2026-0003", "type": "will", "party": "Estate of Thompson", "status": "review", "filed": "2026-01-20" },
+    { "id": "DOC-2026-0004", "type": "criminal", "party": "Commonwealth v. Davis", "status": "pending", "filed": "2026-01-22" },
+    { "id": "DOC-2026-0005", "type": "license", "party": "Anderson & Garcia", "status": "completed", "filed": "2026-01-10" }
+  ]
+}

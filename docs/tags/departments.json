@@ -1,0 +1,115 @@
+{
+  "tagType": "UDT",
+  "name": "Departments",
+  "description": "Northampton County executive departments and facilities - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - norcopa.gov, PA County Prison Directory, PA DHS",
+  "departments": [
+    {
+      "id": "corrections",
+      "name": "Department of Corrections",
+      "type": "public-safety",
+      "budget": 45000000,
+      "location": "666 Walnut St, Easton, PA 18042",
+      "phone": "610-923-4300",
+      "leadership": {
+        "director": "Michael Pittaro",
+        "title": "Director of Corrections",
+        "warden": "David Penchishen",
+        "deputyWardens": [
+          { "name": "Mark Bartholomew", "role": "Deputy Warden of Classification" },
+          { "name": "Nathan Stahlnecker", "role": "Deputy Warden of Operations" },
+          { "name": "Michael Diacogiannis", "role": "Deputy Warden of Safety & Security" }
+        ]
+      },
+      "facility": {
+        "name": "Northampton County Prison",
+        "capacity": 900,
+        "type": "County detention facility",
+        "governingBody": "Northampton County Jail Advisory Board",
+        "boardChair": "Jodi Ruggiero"
+      },
+      "functions": ["Inmate custody", "Community corrections", "Work release", "Rehabilitation programs"],
+      "source": "https://www.pacounties.org/getmedia/b5f5d41b-f4c8-4855-aae8-f5a11f733e3b/PIMCC-Prison-Directory-11-2025.pdf"
+    },
+    {
+      "id": "children-youth",
+      "name": "Children, Youth & Family Services",
+      "type": "human-services",
+      "budget": 42000000,
+      "location": "2801 Emrick Blvd, Bethlehem, PA 18020",
+      "phone": "610-829-4690",
+      "functions": ["Child protective services", "Foster care", "Family preservation", "Adoption services"],
+      "note": "Part of consolidated Human Services building for interdisciplinary collaboration",
+      "source": "https://norcopa.gov/children-youth-families"
+    },
+    {
+      "id": "mental-health",
+      "name": "Mental Health/Developmental Programs",
+      "type": "human-services",
+      "budget": 28000000,
+      "functions": ["Mental health services", "Developmental disability services", "Crisis intervention", "Case management"],
+      "note": "Operates in central Human Services building"
+    },
+    {
+      "id": "aging",
+      "name": "Area Agency on Aging",
+      "type": "human-services",
+      "budget": 18500000,
+      "functions": ["Senior services", "Meals programs", "Transportation", "Care management", "Ombudsman services"]
+    },
+    {
+      "id": "public-works",
+      "name": "Department of Public Works",
+      "type": "infrastructure",
+      "budget": 12000000,
+      "functions": ["Road maintenance", "Bridge repair", "Fleet services", "Building maintenance"]
+    },
+    {
+      "id": "drug-alcohol",
+      "name": "Drug & Alcohol Services",
+      "type": "human-services",
+      "budget": 8500000,
+      "functions": ["Addiction treatment", "Prevention programs", "Recovery support", "Case management"]
+    },
+    {
+      "id": "adult-probation",
+      "name": "Adult Probation/Parole",
+      "type": "judicial",
+      "budget": 6800000,
+      "functions": ["Probation supervision", "Parole monitoring", "Pre-sentence investigations", "Court services"]
+    },
+    {
+      "id": "emergency-management",
+      "name": "Emergency Management",
+      "type": "public-safety",
+      "budget": 2500000,
+      "functions": ["Disaster preparedness", "Emergency response", "Public alerts", "Coordination with PEMA"]
+    },
+    {
+      "id": "veterans-affairs",
+      "name": "Veterans Affairs",
+      "type": "human-services",
+      "budget": 1200000,
+      "functions": ["Veterans assistance", "Benefits counseling", "Grave registration", "Memorial services"]
+    },
+    {
+      "id": "planning",
+      "name": "Department of Planning",
+      "type": "administrative",
+      "budget": 3500000,
+      "functions": ["Land use planning", "Zoning administration", "Community development", "GIS services"]
+    }
+  ],
+  "humanServicesBuilding": {
+    "location": "Central Human Services Building",
+    "note": "County operates entire Department of Human Services in one central building for greater interdisciplinary collaboration",
+    "departments": ["children-youth", "mental-health", "drug-alcohol", "aging"]
+  },
+  "totals": {
+    "totalDepartments": 10,
+    "totalBudget": 168000000
+  }
+}

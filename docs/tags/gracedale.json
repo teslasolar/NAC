@@ -3,12 +3,17 @@
   "name": "Gracedale",
   "description": "Gracedale Nursing Home staffing and financial data",
   "version": "2026.01",
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - LehighValleyNews, Morning Call, WFMZ, ProPublica",
   "facility": {
     "name": "Gracedale Nursing Home",
     "type": "County-owned skilled nursing facility",
-    "beds": 650,
-    "location": "Nazareth, PA"
+    "beds": 688,
+    "location": "2 Gracedale Avenue, Upper Nazareth Township, PA",
+    "administrator": "Michelle Morton",
+    "ownership": "Government - County",
+    "nurseStaffingHoursPerResidentPerDay": 3.85
   },
   "staffing": {
     "total": 590,
@@ -18,6 +23,10 @@
     "agencyPct": 80,
     "agencyCount": 14,
     "strategicGoal": "70% county staffed by end 2026",
+    "vacancyRateQ32025": 59,
+    "vacancyGoalJun2026": 30,
+    "positionsFilled2025": 41,
+    "priorityResourcePool": true,
     "byPosition": [
       { "position": "RN", "required": 95, "county": 19, "agency": 76, "countyPct": 20 },
       { "position": "LPN", "required": 120, "county": 24, "agency": 96, "countyPct": 20 },
@@ -78,9 +87,17 @@
     ]
   },
   "sources": [
-    { "name": "Morning Call", "date": "Sep 2025", "topic": "Staffing crisis coverage" },
-    { "name": "LehighValleyNews", "date": "2025", "topic": "Budget analysis" },
-    { "name": "Gracedale Audit", "date": "Jun 2025", "topic": "Financial review" },
-    { "name": "WFMZ", "date": "2022", "topic": "ARPA allocation" }
-  ]
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/with-80-of-nursing-positions-unfilled-gracedale-administration-shares-new-strategic-plan", "date": "Aug 2025", "topic": "Strategic plan, 80% unfilled" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/09/12/gracedale-nursing-home-staffing/", "date": "Sep 2025", "topic": "Priority resource pool consolidation" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/08/07/gracedale-strategic-plan/", "date": "Aug 2025", "topic": "Strategic plan skepticism" },
+    { "name": "WFMZ", "date": "2022", "topic": "Staffing outlook" },
+    { "name": "ProPublica", "url": "https://projects.propublica.org/nursing-homes/homes/h-395476", "topic": "688 beds, facility data" }
+  ],
+  "strategicPlan2026": {
+    "financialGoal": "Income covers expenses by Dec 2026",
+    "staffingGoal": "70% positions filled by Dec 2026",
+    "priorityResourcePool": "Centralizing agency nursing staff",
+    "expectedAnnualSavings": 3500000,
+    "partnerships": "Developing referral relationships with area health networks"
+  }
 }

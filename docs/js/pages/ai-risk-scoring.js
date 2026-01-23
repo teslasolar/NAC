@@ -1,16 +1,37 @@
-// AI Risk Scoring Engine
-const riskAreas = [
-  { area: 'Vendor Payment Processing', category: 'Financial', score: 87, level: 'critical', factors: ['Volume spike', 'New vendors', 'Large amounts'], trend: 'up', officer: 'Controller' },
-  { area: 'Criminal Evidence Chain', category: 'Compliance', score: 82, level: 'critical', factors: ['Custody gaps', 'Missing docs'], trend: 'up', officer: 'Clerk of Courts' },
-  { area: 'Civil Service Records', category: 'Operational', score: 78, level: 'critical', factors: ['Backlog', 'Staff shortage'], trend: 'stable', officer: 'Sheriff' },
-  { area: 'Tax Collection Accuracy', category: 'Financial', score: 72, level: 'high', factors: ['Reconciliation issues'], trend: 'down', officer: 'Treasurer' },
-  { area: 'Deed Recording Timeliness', category: 'Operational', score: 68, level: 'high', factors: ['SLA breaches', 'Queue growth'], trend: 'up', officer: 'Recorder' },
-  { area: 'Probate Processing', category: 'Compliance', score: 65, level: 'high', factors: ['Documentation gaps'], trend: 'stable', officer: 'Register' },
-  { area: 'Case Filing Accuracy', category: 'Operational', score: 62, level: 'high', factors: ['Error rate increase'], trend: 'up', officer: 'Prothonotary' },
-  { area: 'Investigation Caseload', category: 'Operational', score: 58, level: 'medium', factors: ['Aging cases'], trend: 'stable', officer: 'DA' },
-  { area: 'Death Certificate Processing', category: 'Compliance', score: 45, level: 'medium', factors: ['Minor delays'], trend: 'down', officer: 'Coroner' },
-  { area: 'Budget Forecast Accuracy', category: 'Financial', score: 35, level: 'low', factors: ['Within tolerance'], trend: 'down', officer: 'Controller' }
-];
+// AI Risk Scoring Engine - Loads from centralized tags
+let riskAreas = [];
+let riskConfig = {};
+
+// Load risk data from tags
+async function loadRiskData() {
+  try {
+    const response = await fetch('tags/risk-areas.json');
+    if (response.ok) {
+      const data = await response.json();
+      riskConfig = data;
+      riskAreas = data.riskAreas.map(r => ({
+        area: r.area,
+        category: r.category.charAt(0).toUpperCase() + r.category.slice(1),
+        score: r.score,
+        level: r.level,
+        factors: r.factors,
+        trend: r.trend,
+        officer: r.office
+      }));
+      console.log('Loaded risk areas from tags:', riskAreas.length);
+      return true;
+    }
+  } catch (err) {
+    console.warn('Could not load risk tags, using fallback:', err);
+  }
+  // Fallback data
+  riskAreas = [
+    { area: 'Vendor Payment Processing', category: 'Financial', score: 87, level: 'critical', factors: ['Volume spike', 'New vendors'], trend: 'up', officer: 'Controller' },
+    { area: 'Criminal Evidence Chain', category: 'Compliance', score: 82, level: 'critical', factors: ['Custody gaps'], trend: 'up', officer: 'Clerk of Courts' },
+    { area: 'Budget Forecast Accuracy', category: 'Financial', score: 35, level: 'low', factors: ['Within tolerance'], trend: 'down', officer: 'Controller' }
+  ];
+  return false;
+}
 
 function renderRiskTable() {
   const tbody = document.getElementById('riskTableBody');
@@ -89,4 +110,8 @@ function runFullAnalysis() {
   setTimeout(() => { btn.textContent = 'Run Full Analysis'; btn.disabled = false; alert('Full analysis complete!\n\nKey findings:\n1. 3 new risk areas identified\n2. Sheriff office requires attention\n3. Risk posture improved 5%'); }, 3000);
 }
 
-document.addEventListener('DOMContentLoaded', () => { renderRiskTable(); initCharts(); });
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadRiskData();
+  renderRiskTable();
+  initCharts();
+});

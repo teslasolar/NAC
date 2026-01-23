@@ -3,13 +3,24 @@
   "name": "FinancialData",
   "description": "County financial data - FY 2026",
   "version": "2026.01",
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSource": "Web search - LehighValleyNews, Morning Call, WFMZ, norcopa.gov budget docs",
   "fiscalYear": 2026,
   "budget": {
     "total": 503000000,
     "generalFund": 215000000,
     "propertyTaxMillage": 10.8,
-    "effectiveDate": "2026-01-01"
+    "effectiveDate": "2026-01-01",
+    "yearsSinceLastTaxIncrease": 8,
+    "lastTaxIncrease": 2015,
+    "spendingReduction": 7.3,
+    "note": "First budget since COVID without federal relief grants - intergovernmental revenue dropped $25M",
+    "councilVote": "7-2",
+    "exampleTaxBill": {
+      "assessedValue": 50000,
+      "annualTax": 540
+    }
   },
   "workforce": {
     "totalEmployees": 2847,
@@ -85,5 +96,11 @@
     { "id": "district-attorney", "name": "District Attorney", "budget": 8500000 },
     { "id": "drug-alcohol", "name": "Drug & Alcohol Services", "budget": 8500000 },
     { "id": "adult-probation", "name": "Adult Probation", "budget": 6800000 }
+  ],
+  "budgetSources": [
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/northampton-county-passes-2026-budget-with-no-tax-increase-for-eighth-year-in-a-row", "date": "Dec 2025" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/10/02/northampton-county-2026-budget/", "date": "Oct 2025" },
+    { "name": "WFMZ", "url": "https://www.wfmz.com/news/area/lehighvalley/northampton-county/proposed-2026-northampton-county-budget-doesn-t-include-real-estate-tax-increase/article_fa456d6a-676b-441a-8e11-752bd4c12fae.html", "date": "Oct 2025" },
+    { "name": "NorCo Budget PDF", "url": "https://www.norcopa.gov/corecode/uploads/document6/uploaded_pdfs/corecode/2026%20Proposed%20Budget_2049.pdf", "date": "2025" }
   ]
 }

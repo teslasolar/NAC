@@ -1,0 +1,168 @@
+{
+  "tagType": "UDT",
+  "name": "RiskAreas",
+  "description": "AI Risk Scoring areas for county operations - Jan 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "modelInfo": {
+    "version": "v2.4.1",
+    "accuracy": 0.942,
+    "f1Score": 0.912,
+    "lastTrained": "2026-01-15"
+  },
+  "riskThresholds": {
+    "critical": { "min": 80, "max": 100, "color": "#ff5252" },
+    "high": { "min": 60, "max": 79, "color": "#ffab40" },
+    "medium": { "min": 40, "max": 59, "color": "#ffea00" },
+    "low": { "min": 0, "max": 39, "color": "#69f0ae" }
+  },
+  "categories": [
+    { "id": "financial", "name": "Financial", "color": "#ff5252", "weight": 32 },
+    { "id": "compliance", "name": "Compliance", "color": "#ce93d8", "weight": 28 },
+    { "id": "operational", "name": "Operational", "color": "#4a9eff", "weight": 35 },
+    { "id": "reputational", "name": "Reputational", "color": "#ffab40", "weight": 5 }
+  ],
+  "riskAreas": [
+    {
+      "id": "vendor-payment",
+      "area": "Vendor Payment Processing",
+      "category": "financial",
+      "score": 87,
+      "level": "critical",
+      "factors": ["Volume spike", "New vendors", "Large amounts"],
+      "trend": "up",
+      "officerId": "controller",
+      "office": "Controller",
+      "mitigation": "Enhanced ACL review, vendor verification protocols"
+    },
+    {
+      "id": "evidence-chain",
+      "area": "Criminal Evidence Chain",
+      "category": "compliance",
+      "score": 82,
+      "level": "critical",
+      "factors": ["Custody gaps", "Missing docs"],
+      "trend": "up",
+      "officerId": "clerk-of-courts",
+      "office": "Clerk of Courts",
+      "mitigation": "Digital tracking system implementation"
+    },
+    {
+      "id": "civil-service",
+      "area": "Civil Service Records",
+      "category": "operational",
+      "score": 78,
+      "level": "critical",
+      "factors": ["Backlog", "Staff shortage"],
+      "trend": "stable",
+      "officerId": "sheriff",
+      "office": "Sheriff",
+      "mitigation": "Staffing review, process automation"
+    },
+    {
+      "id": "tax-collection",
+      "area": "Tax Collection Accuracy",
+      "category": "financial",
+      "score": 72,
+      "level": "high",
+      "factors": ["Reconciliation issues"],
+      "trend": "down",
+      "officerId": "fiscal-affairs-revenue",
+      "office": "Fiscal Affairs",
+      "mitigation": "Monthly reconciliation audits"
+    },
+    {
+      "id": "deed-recording",
+      "area": "Deed Recording Timeliness",
+      "category": "operational",
+      "score": 68,
+      "level": "high",
+      "factors": ["SLA breaches", "Queue growth"],
+      "trend": "up",
+      "officerId": "recorder-of-deeds",
+      "office": "Recorder of Deeds",
+      "mitigation": "Queue management system"
+    },
+    {
+      "id": "probate-processing",
+      "area": "Probate Processing",
+      "category": "compliance",
+      "score": 65,
+      "level": "high",
+      "factors": ["Documentation gaps"],
+      "trend": "stable",
+      "officerId": "register-of-wills",
+      "office": "Register of Wills",
+      "mitigation": "Checklist standardization"
+    },
+    {
+      "id": "case-filing",
+      "area": "Case Filing Accuracy",
+      "category": "operational",
+      "score": 62,
+      "level": "high",
+      "factors": ["Error rate increase"],
+      "trend": "up",
+      "officerId": "prothonotary",
+      "office": "Prothonotary",
+      "mitigation": "Quality control review process"
+    },
+    {
+      "id": "investigation-caseload",
+      "area": "Investigation Caseload",
+      "category": "operational",
+      "score": 58,
+      "level": "medium",
+      "factors": ["Aging cases"],
+      "trend": "stable",
+      "officerId": "district-attorney",
+      "office": "District Attorney",
+      "mitigation": "Case prioritization framework"
+    },
+    {
+      "id": "death-cert",
+      "area": "Death Certificate Processing",
+      "category": "compliance",
+      "score": 45,
+      "level": "medium",
+      "factors": ["Minor delays"],
+      "trend": "down",
+      "officerId": "coroner",
+      "office": "Coroner",
+      "mitigation": "Digital workflow optimization"
+    },
+    {
+      "id": "budget-forecast",
+      "area": "Budget Forecast Accuracy",
+      "category": "financial",
+      "score": 35,
+      "level": "low",
+      "factors": ["Within tolerance"],
+      "trend": "down",
+      "officerId": "controller",
+      "office": "Controller",
+      "mitigation": "Maintain current practices"
+    }
+  ],
+  "trendHistory": {
+    "weeks": ["Week 1", "Week 2", "Week 3", "Week 4"],
+    "critical": [2, 1, 3, 3],
+    "high": [15, 14, 13, 12],
+    "medium": [25, 27, 28, 28],
+    "low": [89, 90, 88, 89]
+  },
+  "monthlyHeatmap": {
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "financial": [65, 72, 68, 75, 70, 68, 72, 78, 75, 72, 70, 72],
+    "compliance": [58, 55, 60, 62, 58, 55, 58, 62, 60, 58, 55, 58],
+    "operational": [45, 48, 52, 55, 50, 48, 50, 55, 52, 50, 48, 50]
+  },
+  "summary": {
+    "critical": 3,
+    "high": 4,
+    "medium": 2,
+    "low": 1,
+    "totalAreas": 10
+  }
+}

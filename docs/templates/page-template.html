@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Northampton County Digital Twin - {{PAGE_DESCRIPTION}}">
+
+  <title>{{PAGE_TITLE}} | Northampton County Digital Twin</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/mobile-first.css">
+  <link rel="stylesheet" href="css/common.css">
+
+  <!-- Page-specific styles -->
+  <style>
+    /* Add page-specific styles here */
+    .page-content {
+      padding: var(--space-4);
+      padding-bottom: calc(var(--space-4) + 80px); /* Account for bottom nav */
+    }
+
+    @media (min-width: 768px) {
+      .page-content {
+        padding: var(--space-6);
+        padding-bottom: var(--space-6);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Header -->
+  <header class="page-header safe-area-top">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="page-title">{{PAGE_TITLE}}</h1>
+        <p class="page-subtitle">{{PAGE_SUBTITLE}}</p>
+      </div>
+      <div class="mobile-only">
+        <button class="btn btn-secondary" id="menuBtn" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Desktop Sidebar -->
+  <nav class="sidebar">
+    <div style="margin-bottom: var(--space-6);">
+      <a href="index.html" style="display: flex; align-items: center; gap: var(--space-2); color: var(--text-primary); font-weight: 600;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        NorCo Digital Twin
+      </a>
+    </div>
+
+    <div style="margin-bottom: var(--space-4);">
+      <div style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-2);">Navigation</div>
+      <a href="index.html" class="sidebar-link">Dashboard</a>
+      <a href="oee-dashboard.html" class="sidebar-link">OEE Dashboard</a>
+      <a href="county-map-3d.html" class="sidebar-link">3D County Map</a>
+      <a href="gracedale-staffing.html" class="sidebar-link">Gracedale Staffing</a>
+      <a href="ai-risk-scoring.html" class="sidebar-link">AI Risk Scoring</a>
+    </div>
+
+    <div style="margin-bottom: var(--space-4);">
+      <div style="font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-2);">Reports</div>
+      <a href="acfr-generator.html" class="sidebar-link">ACFR Generator</a>
+      <a href="data-verification-audit.html" class="sidebar-link">Data Audit</a>
+      <a href="pa-county-code.html" class="sidebar-link">PA County Code</a>
+    </div>
+
+    <div style="position: absolute; bottom: var(--space-4); left: var(--space-4); right: var(--space-4);">
+      <div style="font-size: var(--text-xs); color: var(--text-muted);">
+        Last updated: <span id="lastUpdated">--</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-content">
+
+      <!-- Stats Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style="margin-bottom: var(--space-6);">
+        <div class="stat-card">
+          <div class="stat-value">--</div>
+          <div class="stat-label">Stat Label 1</div>
+        </div>
+        <div class="stat-card verified">
+          <div class="stat-value">--</div>
+          <div class="stat-label">Stat Label 2</div>
+        </div>
+        <div class="stat-card warning">
+          <div class="stat-value">--</div>
+          <div class="stat-label">Stat Label 3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">--</div>
+          <div class="stat-label">Stat Label 4</div>
+        </div>
+      </div>
+
+      <!-- Main Card -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Section Title</h2>
+          <span class="badge badge-info">Badge</span>
+        </div>
+
+        <!-- Table Example -->
+        <div class="table-container">
+          <table class="table table-stack">
+            <thead>
+              <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Rows populated by JS -->
+              <tr>
+                <td data-label="Column 1">Data 1</td>
+                <td data-label="Column 2">Data 2</td>
+                <td data-label="Column 3">Data 3</td>
+                <td data-label="Status"><span class="badge badge-verified">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Secondary Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2" style="margin-top: var(--space-6);">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Chart Area</h3>
+          </div>
+          <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+            <canvas id="chart1"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Info Panel</h3>
+          </div>
+          <div id="infoPanel">
+            <p style="color: var(--text-muted);">Select an item to view details</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="oee-dashboard.html" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 20V10M12 20V4M6 20v-6"/>
+      </svg>
+      <span>OEE</span>
+    </a>
+    <a href="county-map-3d.html" class="bottom-nav-item">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/>
+      </svg>
+      <span>Map</span>
+    </a>
+    <a href="data-verification-audit.html" class="bottom-nav-item active">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <span>Audit</span>
+    </a>
+  </nav>
+
+  <!-- Tag Loader -->
+  <script src="js/tag-loader.js"></script>
+
+  <!-- Page Script -->
+  <script>
+    // Initialize TagLoader
+    const tagLoader = new TagLoader('tags/');
+
+    // Load data from tags
+    async function initPage() {
+      try {
+        // Example: Load multiple tags
+        const [executives, officers] = await tagLoader.loadAll(['executives', 'row-officers']);
+
+        // Update last updated timestamp
+        document.getElementById('lastUpdated').textContent =
+          executives?.lastUpdated || new Date().toISOString().split('T')[0];
+
+        // Populate page with data
+        populateData(executives, officers);
+
+      } catch (err) {
+        console.error('Failed to load tag data:', err);
+      }
+    }
+
+    function populateData(executives, officers) {
+      // Implement page-specific data population
+      console.log('Executives:', executives);
+      console.log('Officers:', officers);
+    }
+
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', initPage);
+
+    // Mobile menu toggle
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      // Implement mobile menu
+      alert('Menu clicked - implement slide-out menu');
+    });
+  </script>
+</body>
+</html>

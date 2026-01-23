@@ -1,0 +1,39 @@
+{
+  "tagType": "UDT",
+  "id": "workforce",
+  "name": "County Workforce Data",
+  "fiscalYear": 2026,
+  "totalEmployees": 2847,
+  "fullTimeEquivalent": 2650,
+  "byCategory": [
+    { "category": "Human Services", "employees": 643, "pct": 22.6, "includes": ["CYF", "Mental Health", "Aging", "Drug & Alcohol"] },
+    { "category": "Public Safety", "employees": 453, "pct": 15.9, "includes": ["Corrections", "Emergency Management"] },
+    { "category": "Row Officers", "employees": 368, "pct": 12.9, "includes": ["Sheriff", "DA", "Controller", "etc."] },
+    { "category": "Judicial", "employees": 347, "pct": 12.2, "includes": ["Courts", "Probation"] },
+    { "category": "Infrastructure", "employees": 135, "pct": 4.7, "includes": ["Public Works"] },
+    { "category": "Executive", "employees": 112, "pct": 3.9, "includes": ["County Executive", "Administration"] },
+    { "category": "Other", "employees": 789, "pct": 27.7, "includes": ["IT", "HR", "Fiscal", "Planning", "etc."] }
+  ],
+  "gracedale": {
+    "note": "Gracedale staff counted separately",
+    "totalStaff": 590,
+    "countyEmployees": 120,
+    "agencyStaff": 470,
+    "goal": "70% county staffed by end 2026"
+  },
+  "compensation": {
+    "note": "County Executive Zrinski pledged compensation review",
+    "priority": "Develop better compensation plans",
+    "fiscalChallenge": true
+  },
+  "unions": [
+    "AFSCME",
+    "Teamsters",
+    "FOP"
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "County Budget Documents" },
+    { "name": "HR Department" }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "tagType": "UDT",
+  "id": "controller",
+  "name": "County Controller",
+  "officer": "VACANT",
+  "officerStatus": "Position vacant since Jan 5, 2026",
+  "vacancyReason": "Tara Zrinski became County Executive",
+  "actingOfficer": "Deputy Controller staff managing operations",
+  "oee": 74.2,
+  "target": 83,
+  "gap": -8.8,
+  "rating": "acceptable",
+  "status": "below",
+  "components": {
+    "availability": { "value": 92, "description": "Staff availability" },
+    "performance": { "value": 82, "description": "Audit completion rate" },
+    "quality": { "value": 98.2, "description": "Audit accuracy" }
+  },
+  "metrics": {
+    "auditsCompleted": 24,
+    "avgAuditDuration": "45 days",
+    "findingsRate": "12 per audit",
+    "followUpCompliance": 87
+  },
+  "challenges": [
+    "Leadership vacancy impacting operations",
+    "Performance gap largest in county",
+    "Need permanent appointment"
+  ],
+  "vacancyImpact": {
+    "appointmentDeadline": "90 days from vacancy",
+    "appointingAuthority": "County Council",
+    "qualifications": "CPA or equivalent experience preferred"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "Morning Call", "date": "Jan 2026", "topic": "Controller vacancy" }
+  ]
+}

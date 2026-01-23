@@ -1,0 +1,50 @@
+{
+  "tagType": "UDT",
+  "id": "facility",
+  "name": "Gracedale Nursing Home",
+  "type": "County-owned skilled nursing facility",
+  "ownership": "Government - County",
+  "beds": 688,
+  "location": {
+    "address": "2 Gracedale Avenue",
+    "municipality": "Upper Nazareth Township",
+    "state": "PA",
+    "zip": "18064"
+  },
+  "administrator": {
+    "name": "Michelle Morton",
+    "startDate": "2025-03-17",
+    "title": "Administrator"
+  },
+  "certifications": [
+    "Medicare certified",
+    "Medicaid certified",
+    "Skilled nursing facility"
+  ],
+  "services": [
+    "Long-term care",
+    "Short-term rehabilitation",
+    "Memory care",
+    "Respite care",
+    "Physical therapy",
+    "Occupational therapy",
+    "Speech therapy"
+  ],
+  "ratings": {
+    "source": "CMS Nursing Home Compare",
+    "nurseStaffingHoursPerResidentPerDay": 3.85,
+    "note": "Above state average for staffing hours"
+  },
+  "governance": {
+    "ownerCommitment": "County-owned and county-operated",
+    "executiveSupport": "Executive Zrinski committed to maintaining county control",
+    "fundingExploration": "Exploring alternative funding mechanisms"
+  },
+  "website": "https://gracedale.org",
+  "phone": "610-746-5700",
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "ProPublica", "url": "https://projects.propublica.org/nursing-homes/homes/h-395476" },
+    { "name": "gracedale.org", "url": "https://gracedale.org" }
+  ]
+}

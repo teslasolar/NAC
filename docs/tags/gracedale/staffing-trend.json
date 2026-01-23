@@ -1,0 +1,47 @@
+{
+  "tagType": "UDT",
+  "id": "staffing-trend",
+  "name": "Gracedale Staffing Trend Data",
+  "description": "Historical county vs agency staffing levels 2020-2025",
+  "note": "Shows shift from county to agency staffing over COVID and post-COVID period",
+  "data": [
+    { "period": "Q1 2020", "county": 310, "agency": 95, "total": 405, "countyPct": 76.5 },
+    { "period": "Q2 2020", "county": 295, "agency": 120, "total": 415, "countyPct": 71.1 },
+    { "period": "Q3 2020", "county": 280, "agency": 150, "total": 430, "countyPct": 65.1 },
+    { "period": "Q4 2020", "county": 265, "agency": 185, "total": 450, "countyPct": 58.9 },
+    { "period": "Q1 2021", "county": 250, "agency": 210, "total": 460, "countyPct": 54.3 },
+    { "period": "Q2 2021", "county": 235, "agency": 240, "total": 475, "countyPct": 49.5 },
+    { "period": "Q3 2021", "county": 220, "agency": 270, "total": 490, "countyPct": 44.9 },
+    { "period": "Q4 2021", "county": 200, "agency": 300, "total": 500, "countyPct": 40.0 },
+    { "period": "Q1 2022", "county": 185, "agency": 330, "total": 515, "countyPct": 35.9 },
+    { "period": "Q2 2022", "county": 170, "agency": 360, "total": 530, "countyPct": 32.1 },
+    { "period": "Q3 2022", "county": 160, "agency": 385, "total": 545, "countyPct": 29.4 },
+    { "period": "Q4 2022", "county": 150, "agency": 405, "total": 555, "countyPct": 27.0 },
+    { "period": "Q1 2023", "county": 145, "agency": 420, "total": 565, "countyPct": 25.7 },
+    { "period": "Q2 2023", "county": 140, "agency": 430, "total": 570, "countyPct": 24.6 },
+    { "period": "Q3 2023", "county": 135, "agency": 440, "total": 575, "countyPct": 23.5 },
+    { "period": "Q4 2023", "county": 130, "agency": 450, "total": 580, "countyPct": 22.4 },
+    { "period": "Q1 2024", "county": 128, "agency": 455, "total": 583, "countyPct": 22.0 },
+    { "period": "Q2 2024", "county": 125, "agency": 460, "total": 585, "countyPct": 21.4 },
+    { "period": "Q3 2024", "county": 123, "agency": 465, "total": 588, "countyPct": 20.9 },
+    { "period": "Q4 2024", "county": 122, "agency": 468, "total": 590, "countyPct": 20.7 },
+    { "period": "Q1 2025", "county": 121, "agency": 469, "total": 590, "countyPct": 20.5 },
+    { "period": "Q2 2025", "county": 120, "agency": 470, "total": 590, "countyPct": 20.3 },
+    { "period": "Q3 2025", "county": 120, "agency": 470, "total": 590, "countyPct": 20.3 },
+    { "period": "Q4 2025", "county": 120, "agency": 470, "total": 590, "countyPct": 20.3 }
+  ],
+  "analysis": {
+    "peakCountyStaff": { "period": "Q1 2020", "count": 310, "pct": 76.5 },
+    "currentCountyStaff": { "period": "Q4 2025", "count": 120, "pct": 20.3 },
+    "decline": { "absoluteChange": -190, "percentagePointChange": -56.2 },
+    "turningPoint": "Q2 2021 - Agency staff exceeded county staff",
+    "stabilization": "Q1 2025 - Numbers stabilized at 120/470 split"
+  },
+  "drivers": [
+    "COVID-19 pandemic staff burnout",
+    "Competitive labor market",
+    "Higher agency wages",
+    "Healthcare worker shortage nationwide"
+  ],
+  "verifiedDate": "2026-01-23"
+}

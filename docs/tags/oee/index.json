@@ -1,0 +1,39 @@
+{
+  "tagType": "UDT-Index",
+  "name": "OEE Benchmarks",
+  "description": "Overall Equipment Effectiveness benchmarks for county offices",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "methodology": {
+    "formula": "OEE = Availability x Performance x Quality",
+    "source": "ISA-95 / oee.com adaptation for government operations",
+    "note": "Manufacturing OEE adapted for government service delivery metrics"
+  },
+  "ratings": {
+    "worldClass": { "min": 85, "color": "#22c55e", "label": "World Class" },
+    "good": { "min": 75, "max": 84.99, "color": "#84cc16", "label": "Good" },
+    "acceptable": { "min": 65, "max": 74.99, "color": "#eab308", "label": "Acceptable" },
+    "needsImprovement": { "min": 50, "max": 64.99, "color": "#f97316", "label": "Needs Improvement" },
+    "critical": { "max": 49.99, "color": "#ef4444", "label": "Critical" }
+  },
+  "countyTarget": 78,
+  "offices": [
+    { "id": "fiscal-affairs-revenue", "file": "fiscal-affairs-revenue.json", "oee": 86.4, "rating": "worldClass" },
+    { "id": "recorder-of-deeds", "file": "recorder-of-deeds.json", "oee": 82.1, "rating": "good" },
+    { "id": "prothonotary", "file": "prothonotary.json", "oee": 79.5, "rating": "good" },
+    { "id": "sheriff", "file": "sheriff.json", "oee": 77.8, "rating": "good" },
+    { "id": "controller", "file": "controller.json", "oee": 74.2, "rating": "acceptable" },
+    { "id": "clerk-of-courts", "file": "clerk-of-courts.json", "oee": 74.2, "rating": "acceptable" },
+    { "id": "register-of-wills", "file": "register-of-wills.json", "oee": 73.5, "rating": "acceptable" },
+    { "id": "coroner", "file": "coroner.json", "oee": 71.2, "rating": "acceptable" },
+    { "id": "district-attorney", "file": "district-attorney.json", "oee": 68.2, "rating": "acceptable" }
+  ],
+  "summary": {
+    "averageOEE": 76.2,
+    "officesMeetingTarget": 5,
+    "totalOffices": 9,
+    "complianceRate": 55.6,
+    "topPerformer": "fiscal-affairs-revenue",
+    "needsAttention": "district-attorney"
+  }
+}

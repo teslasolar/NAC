@@ -1,0 +1,49 @@
+{
+  "tagType": "UDT",
+  "id": "financials",
+  "name": "Gracedale Financial Data",
+  "fiscalYear": 2026,
+  "fundTransfers": {
+    "generalFundContribution2026": 0,
+    "note": "Operating without General Fund contribution in 2026",
+    "previousTransfer": 10000000,
+    "previousTransferReason": "Shortfall from agency staffing costs"
+  },
+  "budget": {
+    "expenses": [
+      { "category": "Personnel (County)", "amount": 18200000, "pct": 24.4 },
+      { "category": "Agency Staffing", "amount": 42000000, "pct": 56.4 },
+      { "category": "Medical Supplies", "amount": 6800000, "pct": 9.1 },
+      { "category": "Food Services", "amount": 4100000, "pct": 5.5 },
+      { "category": "Utilities", "amount": 3300000, "pct": 4.4 }
+    ],
+    "totalExpenses": 74400000,
+    "revenue": [
+      { "category": "Medicaid", "amount": 52100000, "pct": 81.9 },
+      { "category": "Medicare", "amount": 8400000, "pct": 13.2 },
+      { "category": "Private Pay", "amount": 3100000, "pct": 4.9 }
+    ],
+    "totalRevenue": 63600000,
+    "netPosition": -10800000
+  },
+  "historicalCosts": {
+    "overtime2022to2024": 7300000,
+    "arpaAllocated": 5000000,
+    "arpaPaidAsBonuses": 2300000
+  },
+  "costDrivers": [
+    "Agency staffing at 56% of expenses",
+    "Low county staff retention",
+    "Premium rates for agency nurses"
+  ],
+  "savingsInitiatives": {
+    "priorityResourcePool": 3500000,
+    "targetAnnualSavings": 3500000,
+    "method": "Consolidating agency nursing pools"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "WFMZ Budget Report", "url": "https://www.wfmz.com/news/area/lehighvalley/northampton-county/proposed-2026-northampton-county-budget-doesn-t-include-real-estate-tax-increase/article_fa456d6a-676b-441a-8e11-752bd4c12fae.html" },
+    { "name": "Gracedale Audit", "date": "Jun 2025" }
+  ]
+}

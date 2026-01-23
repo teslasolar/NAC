@@ -1,0 +1,35 @@
+{
+  "tagType": "UDT",
+  "id": "district-attorney",
+  "name": "District Attorney",
+  "officer": "Stephen G. Baratta",
+  "electedDate": "January 2024",
+  "background": "Former President Judge, Court of Common Pleas",
+  "oee": 68.2,
+  "target": 70,
+  "gap": -1.8,
+  "rating": "acceptable",
+  "status": "below",
+  "components": {
+    "availability": { "value": 90, "description": "ADA availability for case assignments" },
+    "performance": { "value": 77, "description": "Case processing throughput" },
+    "quality": { "value": 98.4, "description": "Conviction rate and case integrity" }
+  },
+  "metrics": {
+    "casesFiledAnnually": 4200,
+    "avgCaseDisposition": "180 days",
+    "convictionRate": 78,
+    "diversionPrograms": 340
+  },
+  "challenges": [
+    "High caseload volume",
+    "Performance improvement needed",
+    "Staff retention"
+  ],
+  "initiatives": [
+    "Problem-solving courts expansion",
+    "Diversion program growth",
+    "Victim services enhancement"
+  ],
+  "verifiedDate": "2026-01-23"
+}

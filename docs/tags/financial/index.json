@@ -1,0 +1,27 @@
+{
+  "tagType": "UDT-Index",
+  "name": "Financial",
+  "description": "Northampton County Financial Data - FY 2026",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "norcopa.gov budget docs",
+    "Morning Call",
+    "LehighValleyNews",
+    "WFMZ"
+  ],
+  "files": [
+    { "id": "budget-2026", "file": "budget-2026.json", "description": "FY2026 Operating Budget" },
+    { "id": "acfr-2023", "file": "acfr-2023.json", "description": "2023 Annual Comprehensive Financial Report" },
+    { "id": "department-budgets", "file": "department-budgets.json", "description": "Department allocations" },
+    { "id": "workforce", "file": "workforce.json", "description": "County employee data" },
+    { "id": "tax-info", "file": "tax-info.json", "description": "Property tax information" }
+  ],
+  "highlights": {
+    "totalBudget": 503000000,
+    "taxMillage": 10.8,
+    "yearsSinceIncrease": 8,
+    "spendingReduction": "7.3%"
+  }
+}

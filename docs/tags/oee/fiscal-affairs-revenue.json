@@ -1,0 +1,29 @@
+{
+  "tagType": "UDT",
+  "id": "fiscal-affairs-revenue",
+  "name": "Fiscal Affairs - Revenue",
+  "officer": "Anthony Morris",
+  "department": "Fiscal Affairs",
+  "oee": 86.4,
+  "target": 85,
+  "gap": 1.4,
+  "rating": "worldClass",
+  "status": "exceeds",
+  "components": {
+    "availability": { "value": 94, "description": "Staff availability and system uptime" },
+    "performance": { "value": 92, "description": "Processing speed vs capacity" },
+    "quality": { "value": 99.8, "description": "Accuracy of transactions" }
+  },
+  "metrics": {
+    "transactionsPerDay": 450,
+    "avgProcessingTime": "2.3 minutes",
+    "errorRate": "0.2%",
+    "customerSatisfaction": 94
+  },
+  "strengths": [
+    "Highest OEE in county",
+    "Exceptional quality score",
+    "Consistent performance"
+  ],
+  "verifiedDate": "2026-01-23"
+}

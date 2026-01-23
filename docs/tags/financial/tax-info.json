@@ -1,0 +1,50 @@
+{
+  "tagType": "UDT",
+  "id": "tax-info",
+  "name": "Property Tax Information",
+  "fiscalYear": 2026,
+  "millageRate": 10.8,
+  "effectiveDate": "2026-01-01",
+  "history": {
+    "lastIncrease": 2015,
+    "yearsSinceIncrease": 8,
+    "consecutiveYearsNoIncrease": 8,
+    "note": "8 consecutive years without tax increase"
+  },
+  "calculation": {
+    "formula": "Assessed Value x Millage Rate / 1000 = Annual Tax",
+    "example": {
+      "assessedValue": 50000,
+      "millageRate": 10.8,
+      "annualTax": 540,
+      "monthlyEquivalent": 45
+    }
+  },
+  "assessmentInfo": {
+    "assessmentRatio": 100,
+    "note": "Properties assessed at 100% of market value",
+    "reassessmentYear": "Varies by municipality",
+    "assessmentOffice": "Assessment Office"
+  },
+  "exemptions": [
+    { "type": "Homestead", "description": "Primary residence exemption", "amount": "Varies" },
+    { "type": "Veterans", "description": "Disabled veteran exemption", "eligibility": "100% disabled veterans" },
+    { "type": "Senior Citizens", "description": "Property tax rebate program", "eligibility": "Income-based" }
+  ],
+  "collection": {
+    "collector": "County Treasurer",
+    "dueDate": "December 31",
+    "discountPeriod": "2% discount if paid by specific date",
+    "penaltyAfterDue": "10% penalty"
+  },
+  "comparison": {
+    "note": "Among lowest county tax rates in Lehigh Valley",
+    "lehighCountyMillage": 17.7,
+    "carbonCountyMillage": 12.5
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://norcopa.gov/taxes" },
+    { "name": "Budget Documents 2026" }
+  ]
+}

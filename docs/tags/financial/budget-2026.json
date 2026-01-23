@@ -1,0 +1,53 @@
+{
+  "tagType": "UDT",
+  "id": "budget-2026",
+  "name": "FY2026 Operating Budget",
+  "fiscalYear": 2026,
+  "effectiveDate": "2026-01-01",
+  "adoptionDate": "2025-12-04",
+  "councilVote": "7-2",
+  "executiveAtAdoption": "Lamont G. McClure",
+  "totalBudget": 503000000,
+  "generalFund": 215000000,
+  "spendingChange": {
+    "direction": "reduction",
+    "percentage": 7.3,
+    "note": "First budget since COVID without federal relief grants"
+  },
+  "intergovernmentalRevenue": {
+    "change": -25000000,
+    "note": "Dropped $25M with end of federal relief funds"
+  },
+  "highlights": [
+    "No real estate tax increase - 8th consecutive year",
+    "Gracedale operates without General Fund contribution",
+    "$1.5M savings via Health Insurance Solutions partnership",
+    "Courthouse parking deck repairs funded by 2025 bonds",
+    "P-25 radio system upgrades for 911 services"
+  ],
+  "amendments": [
+    {
+      "item": "Lehigh Valley Planning Commission",
+      "requested": 1100000,
+      "proposed": 625000,
+      "amended": 365000,
+      "amendmentVote": "6-3"
+    }
+  ],
+  "preservation": {
+    "openSpaceFarmland": 23000000,
+    "note": "Total investment during McClure tenure",
+    "milestone": "20,000 acres of farmland preserved (2025)"
+  },
+  "infrastructure": {
+    "courthouseParkingDeck": "Major repairs beginning 2026",
+    "p25RadioSystem": "911 services upgrade",
+    "funding": "Bonds secured in 2025"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://www.norcopa.gov/corecode/uploads/document6/uploaded_pdfs/corecode/2026%20Proposed%20Budget_2049.pdf" },
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/northampton-county-council-takes-swing-at-amending-2026-budget-proposal-with-cut-to-ironpigs-funds" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/10/02/northampton-county-2026-budget/" }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "tagType": "UDT-Index",
+  "name": "Gracedale",
+  "description": "Gracedale Nursing Home - County-owned skilled nursing facility",
+  "version": "2026.01",
+  "lastUpdated": "2026-01-23",
+  "verifiedDate": "2026-01-23",
+  "verificationSources": [
+    "LehighValleyNews",
+    "Morning Call",
+    "WFMZ",
+    "ProPublica Nursing Home Compare"
+  ],
+  "files": [
+    { "id": "facility", "file": "facility.json", "description": "Facility overview and ratings" },
+    { "id": "staffing", "file": "staffing.json", "description": "Staffing levels and agency use" },
+    { "id": "financials", "file": "financials.json", "description": "Budget and revenue data" },
+    { "id": "strategic-plan", "file": "strategic-plan.json", "description": "2026 improvement initiatives" },
+    { "id": "staffing-trend", "file": "staffing-trend.json", "description": "Historical staffing data" }
+  ],
+  "highlights": {
+    "beds": 688,
+    "administrator": "Michelle Morton",
+    "ownership": "County-owned and operated",
+    "countyStaffPct": 20,
+    "agencyStaffPct": 80,
+    "goal2026": "70% county staffed"
+  }
+}

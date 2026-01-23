@@ -1,0 +1,38 @@
+{
+  "tagType": "UDT",
+  "id": "department-budgets",
+  "name": "Department Budget Allocations",
+  "fiscalYear": 2026,
+  "departments": [
+    { "id": "corrections", "name": "Department of Corrections", "budget": 45000000, "type": "public-safety", "change": "0%" },
+    { "id": "children-youth", "name": "Children, Youth & Families", "budget": 42000000, "type": "human-services", "change": "-2%" },
+    { "id": "mental-health", "name": "Mental Health/Dev Programs", "budget": 28000000, "type": "human-services", "change": "0%" },
+    { "id": "aging", "name": "Area Agency on Aging", "budget": 18500000, "type": "human-services", "change": "+1%" },
+    { "id": "court-common-pleas", "name": "Court of Common Pleas", "budget": 12500000, "type": "judicial", "change": "0%" },
+    { "id": "public-works", "name": "Public Works", "budget": 12000000, "type": "infrastructure", "change": "-5%" },
+    { "id": "sheriff", "name": "Sheriff's Office", "budget": 11200000, "type": "row-officer", "change": "+2%" },
+    { "id": "district-attorney", "name": "District Attorney", "budget": 8500000, "type": "row-officer", "change": "0%" },
+    { "id": "drug-alcohol", "name": "Drug & Alcohol Services", "budget": 8500000, "type": "human-services", "change": "0%" },
+    { "id": "adult-probation", "name": "Adult Probation", "budget": 6800000, "type": "judicial", "change": "0%" },
+    { "id": "information-technology", "name": "Information Technology", "budget": 4800000, "type": "administrative", "change": "+3%" },
+    { "id": "planning", "name": "Planning Department", "budget": 3500000, "type": "administrative", "change": "0%" },
+    { "id": "executive", "name": "County Executive", "budget": 3200000, "type": "executive", "change": "0%" },
+    { "id": "emergency-management", "name": "Emergency Management", "budget": 2500000, "type": "public-safety", "change": "+5%" },
+    { "id": "fiscal-affairs", "name": "Fiscal Affairs", "budget": 2100000, "type": "administrative", "change": "0%" },
+    { "id": "human-resources", "name": "Human Resources", "budget": 1450000, "type": "administrative", "change": "0%" },
+    { "id": "veterans-affairs", "name": "Veterans Affairs", "budget": 1200000, "type": "human-services", "change": "0%" }
+  ],
+  "byCategory": {
+    "humanServices": { "total": 97200000, "pct": 19.3, "departments": 5 },
+    "publicSafety": { "total": 47500000, "pct": 9.4, "departments": 2 },
+    "judicial": { "total": 19300000, "pct": 3.8, "departments": 2 },
+    "rowOfficers": { "total": 19700000, "pct": 3.9, "departments": 2 },
+    "administrative": { "total": 11850000, "pct": 2.4, "departments": 4 },
+    "infrastructure": { "total": 12000000, "pct": 2.4, "departments": 1 },
+    "executive": { "total": 3200000, "pct": 0.6, "departments": 1 }
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov Budget", "url": "https://www.norcopa.gov/corecode/uploads/document6/uploaded_pdfs/corecode/2026%20Proposed%20Budget_2049.pdf" }
+  ]
+}

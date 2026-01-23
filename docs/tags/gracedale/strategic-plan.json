@@ -1,0 +1,60 @@
+{
+  "tagType": "UDT",
+  "id": "strategic-plan",
+  "name": "Gracedale Strategic Plan 2026",
+  "administrator": "Michelle Morton",
+  "presentedDate": "August 2025",
+  "targetCompletion": "December 2026",
+  "goals": {
+    "financial": {
+      "target": "Income covers expenses by Dec 2026",
+      "metric": "Self-sustaining operations",
+      "status": "In progress"
+    },
+    "staffing": {
+      "target": "70% positions filled by county staff by Dec 2026",
+      "currentLevel": "41% filled (Q3 2025)",
+      "vacancyGoalJun2026": "30% vacancy rate"
+    }
+  },
+  "initiatives": [
+    {
+      "name": "Priority Resource Pool",
+      "description": "Centralizing agency nursing staff into single managed pool",
+      "expectedSavings": 3500000,
+      "benefits": ["Cost reduction", "Streamlined hiring", "Better staff management"]
+    },
+    {
+      "name": "Hiring & Onboarding Revamp",
+      "description": "Modernizing recruitment and onboarding processes",
+      "focus": ["Faster hiring cycle", "Better candidate experience", "Reduced time-to-fill"]
+    },
+    {
+      "name": "Staff Recognition Programs",
+      "description": "Creating recognition and engagement programs for workers",
+      "goal": "Improve retention of county employees"
+    },
+    {
+      "name": "Health Network Partnerships",
+      "description": "Developing referral relationships with area health networks",
+      "partners": ["St. Luke's", "Lehigh Valley Health Network"],
+      "benefit": "Optimizing financial reimbursements"
+    }
+  ],
+  "councilReception": {
+    "sentiment": "Mixed - some skepticism",
+    "concerns": ["Feasibility of 70% goal", "Timeline", "Historical performance"],
+    "source": "Morning Call Aug 2025"
+  },
+  "milestones": [
+    { "date": "Q1 2026", "milestone": "Priority resource pool operational" },
+    { "date": "Q2 2026", "milestone": "30% vacancy rate achieved" },
+    { "date": "Q3 2026", "milestone": "Health network partnerships active" },
+    { "date": "Q4 2026", "milestone": "70% county staffing, financial stability" }
+  ],
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/with-80-of-nursing-positions-unfilled-gracedale-administration-shares-new-strategic-plan" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/08/07/gracedale-strategic-plan/" }
+  ]
+}

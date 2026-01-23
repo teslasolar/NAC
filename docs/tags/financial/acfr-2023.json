@@ -1,0 +1,56 @@
+{
+  "tagType": "UDT",
+  "id": "acfr-2023",
+  "name": "Annual Comprehensive Financial Report 2023",
+  "fiscalYearEnd": "2023-12-31",
+  "reportingEntity": "County of Northampton, Pennsylvania",
+  "auditor": "Baker Tilly US, LLP",
+  "opinionType": "Unmodified",
+  "upcomingAudit": {
+    "year": 2024,
+    "auditor": "MaherDuessel",
+    "presentationDate": "2025-08-20"
+  },
+  "qualityControl": {
+    "reviewPeriod": "2022-01-01 to 2024-12-31",
+    "finding": "Adequately designed and operating effectively",
+    "compliance": "Government Auditing Standards"
+  },
+  "statementOfNetPosition": {
+    "assets": {
+      "cashAndInvestments": 97690000,
+      "receivablesNet": 45390000,
+      "capitalAssetsNet": 341356000,
+      "totalAssets": 484436000
+    },
+    "liabilities": {
+      "accountsPayable": 19690000,
+      "longTermDebt": 154578000,
+      "netPensionLiability": 56468000,
+      "totalLiabilities": 230736000
+    },
+    "netPosition": {
+      "governmental": 223589000,
+      "businessType": 30111000,
+      "total": 253700000
+    }
+  },
+  "statementOfActivities": {
+    "totalRevenues": 428500000,
+    "totalExpenses": 416100000,
+    "changeInNetPosition": 12400000
+  },
+  "fundBalances": {
+    "generalFund": 48200000
+  },
+  "keyRatios": {
+    "debtToAssets": 0.32,
+    "pensionFundedRatio": 0.72,
+    "generalFundReserve": "22.4%"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "norcopa.gov", "url": "https://www.norcopa.gov/fiscal-reports" },
+    { "name": "Controller's Office", "note": "Peer review 2022-2024" }
+  ]
+}

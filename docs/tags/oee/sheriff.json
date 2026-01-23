@@ -1,0 +1,32 @@
+{
+  "tagType": "UDT",
+  "id": "sheriff",
+  "name": "Sheriff's Office",
+  "officer": "Christopher Zieger",
+  "appointedDate": "June 2025",
+  "reappointedDate": "2026-01-16",
+  "experience": "33+ years law enforcement",
+  "oee": 77.8,
+  "target": 78,
+  "gap": -0.2,
+  "rating": "good",
+  "status": "near",
+  "components": {
+    "availability": { "value": 88, "description": "Deputy availability for assignments" },
+    "performance": { "value": 89, "description": "Process service and warrant execution rate" },
+    "quality": { "value": 99.3, "description": "Accuracy of legal process service" }
+  },
+  "metrics": {
+    "warrantsServed": 2400,
+    "civilProcessServed": 18500,
+    "courtSecurityShifts": 4800,
+    "transportMiles": 125000
+  },
+  "divisions": [
+    "Civil Process",
+    "Criminal Warrants",
+    "Court Security",
+    "Prisoner Transport"
+  ],
+  "verifiedDate": "2026-01-23"
+}

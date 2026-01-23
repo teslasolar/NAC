@@ -1,0 +1,47 @@
+{
+  "tagType": "UDT",
+  "id": "staffing",
+  "name": "Gracedale Staffing Data",
+  "asOfDate": "2025-Q4",
+  "total": 590,
+  "breakdown": {
+    "countyEmployees": 120,
+    "agencyStaff": 470,
+    "countyPct": 20,
+    "agencyPct": 80,
+    "agencyCount": 14
+  },
+  "byPosition": [
+    { "position": "RN", "title": "Registered Nurse", "required": 95, "county": 19, "agency": 76, "countyPct": 20 },
+    { "position": "LPN", "title": "Licensed Practical Nurse", "required": 120, "county": 24, "agency": 96, "countyPct": 20 },
+    { "position": "CNA", "title": "Certified Nursing Assistant", "required": 280, "county": 56, "agency": 224, "countyPct": 20 },
+    { "position": "Other Clinical", "title": "Other Clinical Staff", "required": 95, "county": 21, "agency": 74, "countyPct": 22 }
+  ],
+  "vacancyRates": {
+    "q32025": 59,
+    "positionsFilled2025": 41,
+    "goalJun2026": 30,
+    "goal2026End": 70
+  },
+  "agencyRates": {
+    "cnaDailyRate": 26,
+    "note": "Per hour rate for agency CNAs"
+  },
+  "challenges": [
+    "80% nursing positions unfilled by county staff",
+    "Heavy reliance on agency staffing",
+    "Higher costs from agency use",
+    "Staffing consistency issues"
+  ],
+  "priorityResourcePool": {
+    "status": true,
+    "description": "Centralizing agency nursing staff into priority pool",
+    "estimatedSavings": 3500000,
+    "note": "Streamlines hiring, reduces costs"
+  },
+  "verifiedDate": "2026-01-23",
+  "sources": [
+    { "name": "LehighValleyNews", "url": "https://www.lehighvalleynews.com/northampton-county/with-80-of-nursing-positions-unfilled-gracedale-administration-shares-new-strategic-plan", "date": "Aug 2025" },
+    { "name": "Morning Call", "url": "https://www.mcall.com/2025/09/12/gracedale-nursing-home-staffing/", "date": "Sep 2025" }
+  ]
+}

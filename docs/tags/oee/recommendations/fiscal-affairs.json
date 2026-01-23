@@ -1,0 +1,67 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "fiscal-affairs-revenue",
+  "name": "Fiscal Affairs - Revenue",
+  "officer": "VACANT (Brandon Dunstane acting)",
+  "currentOEE": 86.4,
+  "targetOEE": 85,
+  "gap": 1.4,
+  "status": "EXCEEDS_TARGET",
+  "summary": "Exceeds target - maintain excellence and share best practices",
+  "recommendations": [
+    {
+      "id": "trs-1",
+      "title": "Document Best Practices for Other Offices",
+      "category": "PROCESS",
+      "priority": "LOW",
+      "component": "quality",
+      "impact": "County-wide improvement",
+      "description": "Create documentation of successful processes to share with other row officers.",
+      "actions": [
+        "Document cash handling procedures",
+        "Create process flowcharts",
+        "Develop training materials",
+        "Offer cross-office training sessions"
+      ],
+      "timeline": "Ongoing",
+      "estimatedCost": "Staff time only",
+      "paCodeReference": "16 P.S. § 5301 - Treasurer duties"
+    },
+    {
+      "id": "trs-2",
+      "title": "Expand Online Payment Options",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+1-2% OEE",
+      "description": "Add additional online payment methods to reduce counter traffic.",
+      "actions": [
+        "Add ACH payment option",
+        "Implement payment plan portal",
+        "Enable automatic recurring payments",
+        "Reduce in-person transaction volume by 20%"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$10,000-20,000",
+      "paCodeReference": "16 P.S. § 5311 - Tax collection"
+    },
+    {
+      "id": "trs-3",
+      "title": "Advanced Investment Analytics",
+      "category": "TECHNOLOGY",
+      "priority": "LOW",
+      "component": "quality",
+      "impact": "Better returns",
+      "description": "Implement investment analytics to optimize county fund yields.",
+      "actions": [
+        "Deploy investment tracking software",
+        "Create automated yield comparisons",
+        "Set up benchmark tracking",
+        "Generate monthly performance reports"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$15,000-25,000",
+      "paCodeReference": "16 P.S. § 5321 - Investment of funds"
+    }
+  ]
+}

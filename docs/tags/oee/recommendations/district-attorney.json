@@ -1,0 +1,84 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "district-attorney",
+  "name": "District Attorney",
+  "officer": "Stephen G. Baratta",
+  "currentOEE": 76.5,
+  "targetOEE": 80,
+  "gap": -3.5,
+  "summary": "Case backlog and discovery processing driving performance gap",
+  "recommendations": [
+    {
+      "id": "da-1",
+      "title": "Electronic Discovery Platform",
+      "category": "TECHNOLOGY",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+3-5% OEE",
+      "description": "Implement e-discovery platform for faster case preparation.",
+      "actions": [
+        "Deploy document management system",
+        "Automate discovery packet generation",
+        "Enable secure defense attorney portal",
+        "Reduce discovery preparation time by 50%"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$40,000-60,000",
+      "paCodeReference": "Pa.R.Crim.P. 573 - Discovery"
+    },
+    {
+      "id": "da-2",
+      "title": "Case Prioritization System",
+      "category": "PROCESS",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Implement scoring system to prioritize cases by severity and age.",
+      "actions": [
+        "Develop case priority scoring matrix",
+        "Automate case age tracking",
+        "Create weekly priority review meetings",
+        "Set performance targets by case type"
+      ],
+      "timeline": "45 days",
+      "estimatedCost": "Minimal",
+      "paCodeReference": "16 P.S. § 1402 - Prosecution duties"
+    },
+    {
+      "id": "da-3",
+      "title": "Expand Diversion Programs",
+      "category": "POLICY",
+      "priority": "MEDIUM",
+      "component": "quality",
+      "impact": "+1-2% OEE, reduced recidivism",
+      "description": "Expand ARD and other diversion programs for appropriate cases.",
+      "actions": [
+        "Review diversion eligibility criteria",
+        "Streamline ARD application process",
+        "Add veteran's diversion track",
+        "Track recidivism outcomes"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$10,000-15,000",
+      "paCodeReference": "234 Pa. Code Rule 310 - ARD"
+    },
+    {
+      "id": "da-4",
+      "title": "Victim Services Enhancement",
+      "category": "STAFFING",
+      "priority": "MEDIUM",
+      "component": "quality",
+      "impact": "+1% OEE, better outcomes",
+      "description": "Add victim advocate positions to improve case coordination.",
+      "actions": [
+        "Add 2 victim advocate positions",
+        "Implement victim notification system",
+        "Create restitution tracking process",
+        "Improve court date communication"
+      ],
+      "timeline": "Budget cycle",
+      "estimatedCost": "$80,000-100,000/year",
+      "paCodeReference": "18 P.S. § 11.201 - Victim rights"
+    }
+  ]
+}

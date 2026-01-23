@@ -1,0 +1,45 @@
+{
+  "tagType": "OrgUnit",
+  "id": "coroner",
+  "name": "Coroner's Office",
+  "officerName": "Zachary Lysek",
+  "tenure": 34,
+  "positionType": "APPOINTED",
+  "category": "ROW_OFFICER",
+  "reappointed": "2026-01-16",
+  "paCode": "16 P.S. § 4501-4526",
+  "budget": 2100000,
+  "totalStaff": 14,
+  "divisions": [
+    {
+      "id": "coroner-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Coroner",
+      "staff": 3,
+      "units": [
+        { "id": "coroner-exec", "name": "Administrative Assistant", "staff": 1 },
+        { "id": "coroner-records", "name": "Records Clerk", "staff": 1 }
+      ]
+    },
+    {
+      "id": "coroner-invest",
+      "name": "Investigations",
+      "head": "Senior Investigator",
+      "staff": 6,
+      "units": [
+        { "id": "coroner-invest-1", "name": "Deputy Coroners", "staff": 4 },
+        { "id": "coroner-invest-2", "name": "Forensic Technicians", "staff": 2 }
+      ]
+    },
+    {
+      "id": "coroner-medical",
+      "name": "Medical Services",
+      "head": "Forensic Pathologist (Contract)",
+      "staff": 4,
+      "units": [
+        { "id": "coroner-med-1", "name": "Autopsy Technicians", "staff": 2 },
+        { "id": "coroner-med-2", "name": "Morgue Attendants", "staff": 2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "recorder-of-deeds",
+  "name": "Recorder of Deeds",
+  "officer": "Erin Miller",
+  "currentOEE": 82.5,
+  "targetOEE": 82,
+  "gap": 0.5,
+  "status": "EXCEEDS_TARGET",
+  "summary": "Slightly exceeds target; continue modernization efforts",
+  "recommendations": [
+    {
+      "id": "rod-1",
+      "title": "Online Document Submission Portal",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Enable title companies to submit documents electronically.",
+      "actions": [
+        "Deploy e-recording portal",
+        "Integrate with major title software",
+        "Train staff on electronic processing",
+        "Reduce counter wait times"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$25,000-40,000",
+      "paCodeReference": "16 P.S. § 9101 - Recording duties"
+    },
+    {
+      "id": "rod-2",
+      "title": "Historical Record Digitization",
+      "category": "INFRASTRUCTURE",
+      "priority": "LOW",
+      "component": "quality",
+      "impact": "Better access",
+      "description": "Complete digitization of pre-1970 records.",
+      "actions": [
+        "Prioritize most-accessed historical books",
+        "Contract with scanning service",
+        "Index digitized records",
+        "Enable online historical searches"
+      ],
+      "timeline": "12-18 months",
+      "estimatedCost": "$50,000-75,000",
+      "paCodeReference": "16 P.S. § 9121 - Record preservation"
+    },
+    {
+      "id": "rod-3",
+      "title": "GIS Integration",
+      "category": "TECHNOLOGY",
+      "priority": "LOW",
+      "component": "quality",
+      "impact": "Better analysis",
+      "description": "Link deed records with county GIS for property visualization.",
+      "actions": [
+        "Coordinate with Assessment office",
+        "Create parcel-to-deed linkages",
+        "Enable map-based deed searches",
+        "Improve property chain analysis"
+      ],
+      "timeline": "6 months",
+      "estimatedCost": "$15,000-25,000",
+      "paCodeReference": "16 P.S. § 9196 - Modern indexing"
+    }
+  ]
+}

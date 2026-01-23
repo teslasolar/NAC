@@ -1,0 +1,31 @@
+{
+  "tagType": "OEERecommendations",
+  "id": "oee-recommendations",
+  "name": "OEE Improvement Recommendations",
+  "version": "1.0.0",
+  "offices": [
+    "oee/recommendations/controller",
+    "oee/recommendations/sheriff",
+    "oee/recommendations/fiscal-affairs",
+    "oee/recommendations/coroner",
+    "oee/recommendations/district-attorney",
+    "oee/recommendations/recorder-of-deeds",
+    "oee/recommendations/register-of-wills",
+    "oee/recommendations/clerk-of-courts",
+    "oee/recommendations/prothonotary"
+  ],
+  "priorities": {
+    "CRITICAL": "Immediate action required",
+    "HIGH": "Address within 30 days",
+    "MEDIUM": "Address within 90 days",
+    "LOW": "Continuous improvement"
+  },
+  "categories": {
+    "PROCESS": "Workflow improvements",
+    "TECHNOLOGY": "System/software upgrades",
+    "STAFFING": "Personnel changes",
+    "TRAINING": "Skill development",
+    "POLICY": "Procedure updates",
+    "INFRASTRUCTURE": "Facilities/equipment"
+  }
+}

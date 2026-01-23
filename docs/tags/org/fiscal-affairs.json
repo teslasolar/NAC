@@ -1,0 +1,54 @@
+{
+  "tagType": "OrgUnit",
+  "id": "fiscal-affairs-revenue",
+  "name": "Fiscal Affairs - Revenue",
+  "officerName": "VACANT",
+  "actingOfficer": "Brandon Dunstane (Budget Administrator)",
+  "positionType": "APPOINTED",
+  "category": "ROW_OFFICER",
+  "paCode": "16 P.S. § 5301-5352",
+  "budget": 1850000,
+  "totalStaff": 18,
+  "note": "Home Rule county - no elected Treasurer",
+  "divisions": [
+    {
+      "id": "treasurer-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Treasurer",
+      "staff": 3,
+      "units": [
+        { "id": "treasurer-exec", "name": "Executive Assistant", "staff": 1 },
+        { "id": "treasurer-acct", "name": "Chief Accountant", "staff": 1 }
+      ]
+    },
+    {
+      "id": "treasurer-tax",
+      "name": "Tax Collection",
+      "head": "Tax Collection Supervisor",
+      "staff": 6,
+      "units": [
+        { "id": "treasurer-tax-1", "name": "Tax Clerks", "staff": 4 },
+        { "id": "treasurer-tax-2", "name": "Delinquent Tax Specialist", "staff": 2 }
+      ]
+    },
+    {
+      "id": "treasurer-invest",
+      "name": "Investments",
+      "head": "Investment Officer",
+      "staff": 3,
+      "units": [
+        { "id": "treasurer-invest-1", "name": "Investment Analysts", "staff": 2 }
+      ]
+    },
+    {
+      "id": "treasurer-cash",
+      "name": "Cash Management",
+      "head": "Cash Manager",
+      "staff": 5,
+      "units": [
+        { "id": "treasurer-cash-1", "name": "Cashiers", "staff": 3 },
+        { "id": "treasurer-cash-2", "name": "Reconciliation Clerk", "staff": 1 }
+      ]
+    }
+  ]
+}

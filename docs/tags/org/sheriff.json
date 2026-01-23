@@ -1,0 +1,73 @@
+{
+  "tagType": "OrgUnit",
+  "id": "sheriff",
+  "name": "Sheriff's Office",
+  "officerName": "Christopher Zieger",
+  "positionType": "APPOINTED",
+  "category": "ROW_OFFICER",
+  "appointed": "2025-06",
+  "reappointed": "2026-01-16",
+  "paCode": "16 P.S. § 4201-4234",
+  "budget": 11200000,
+  "totalStaff": 156,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3100",
+  "divisions": [
+    {
+      "id": "sheriff-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Sheriff",
+      "staff": 8,
+      "units": [
+        { "id": "sheriff-exec", "name": "Executive Secretary", "staff": 2 },
+        { "id": "sheriff-fiscal", "name": "Fiscal Officer", "staff": 3 },
+        { "id": "sheriff-hr", "name": "Personnel Coordinator", "staff": 2 }
+      ]
+    },
+    {
+      "id": "sheriff-patrol",
+      "name": "Patrol Division",
+      "head": "Lieutenant",
+      "staff": 45,
+      "units": [
+        { "id": "sheriff-patrol-1", "name": "Day Shift", "staff": 15 },
+        { "id": "sheriff-patrol-2", "name": "Evening Shift", "staff": 15 },
+        { "id": "sheriff-patrol-3", "name": "Night Shift", "staff": 12 }
+      ]
+    },
+    {
+      "id": "sheriff-civil",
+      "name": "Civil Division",
+      "head": "Sergeant",
+      "staff": 24,
+      "units": [
+        { "id": "sheriff-process", "name": "Process Service", "staff": 12 },
+        { "id": "sheriff-warrants", "name": "Warrant Service", "staff": 8 },
+        { "id": "sheriff-sales", "name": "Sheriff Sales", "staff": 4 }
+      ]
+    },
+    {
+      "id": "sheriff-court",
+      "name": "Court Security",
+      "head": "Sergeant",
+      "staff": 35,
+      "units": [
+        { "id": "sheriff-court-1", "name": "Courthouse Security", "staff": 20 },
+        { "id": "sheriff-court-2", "name": "Prisoner Transport", "staff": 10 },
+        { "id": "sheriff-court-3", "name": "Courtroom Deputies", "staff": 5 }
+      ]
+    },
+    {
+      "id": "sheriff-corrections",
+      "name": "Corrections Division",
+      "head": "Warden",
+      "staff": 42,
+      "units": [
+        { "id": "sheriff-corr-1", "name": "Day Shift Officers", "staff": 14 },
+        { "id": "sheriff-corr-2", "name": "Evening Shift Officers", "staff": 14 },
+        { "id": "sheriff-corr-3", "name": "Night Shift Officers", "staff": 10 },
+        { "id": "sheriff-corr-med", "name": "Medical Staff", "staff": 4 }
+      ]
+    }
+  ]
+}

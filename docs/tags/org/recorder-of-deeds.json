@@ -1,0 +1,50 @@
+{
+  "tagType": "OrgUnit",
+  "id": "recorder-of-deeds",
+  "name": "Recorder of Deeds",
+  "officerName": "Erin Miller",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "16 P.S. § 9101-9196",
+  "budget": 1200000,
+  "totalStaff": 18,
+  "divisions": [
+    {
+      "id": "rod-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Recorder",
+      "staff": 3,
+      "units": [
+        { "id": "rod-exec", "name": "Executive Secretary", "staff": 1 },
+        { "id": "rod-fiscal", "name": "Fiscal Clerk", "staff": 1 }
+      ]
+    },
+    {
+      "id": "rod-recording",
+      "name": "Recording Division",
+      "head": "Recording Supervisor",
+      "staff": 8,
+      "units": [
+        { "id": "rod-intake", "name": "Document Intake", "staff": 3 },
+        { "id": "rod-index", "name": "Indexing", "staff": 3 },
+        { "id": "rod-imaging", "name": "Imaging/Scanning", "staff": 2 }
+      ]
+    },
+    {
+      "id": "rod-retrieval",
+      "name": "Document Retrieval",
+      "head": "Retrieval Supervisor",
+      "staff": 4,
+      "units": [
+        { "id": "rod-public", "name": "Public Counter", "staff": 2 },
+        { "id": "rod-copies", "name": "Copy Services", "staff": 2 }
+      ]
+    },
+    {
+      "id": "rod-veterans",
+      "name": "Veterans Services",
+      "head": "Veterans Affairs Officer",
+      "staff": 2
+    }
+  ]
+}

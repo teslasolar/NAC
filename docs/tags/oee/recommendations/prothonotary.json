@@ -1,0 +1,66 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "prothonotary",
+  "name": "Prothonotary",
+  "officer": "Lori Masino",
+  "currentOEE": 78.5,
+  "targetOEE": 80,
+  "gap": -1.5,
+  "summary": "Civil filing volume creating minor processing delays",
+  "recommendations": [
+    {
+      "id": "prot-1",
+      "title": "E-Filing Expansion",
+      "category": "TECHNOLOGY",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Expand electronic filing to all civil case types.",
+      "actions": [
+        "Extend e-filing to family court",
+        "Add judgment entry automation",
+        "Enable online fee payments",
+        "Reduce counter filings by 50%"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$25,000-40,000",
+      "paCodeReference": "42 Pa.C.S. § 2737 - Prothonotary duties"
+    },
+    {
+      "id": "prot-2",
+      "title": "Judgment Lien Automation",
+      "category": "PROCESS",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+1-2% OEE",
+      "description": "Automate judgment lien indexing and expiration tracking.",
+      "actions": [
+        "Automate judgment indexing",
+        "Create expiration alerts",
+        "Enable online lien searches",
+        "Reduce manual index maintenance"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$10,000-15,000",
+      "paCodeReference": "42 Pa.C.S. § 4303 - Judgment liens"
+    },
+    {
+      "id": "prot-3",
+      "title": "Passport Appointment System",
+      "category": "PROCESS",
+      "priority": "LOW",
+      "component": "availability",
+      "impact": "+1% OEE",
+      "description": "Implement appointment system for passport services.",
+      "actions": [
+        "Deploy online scheduling",
+        "Pre-screen applications",
+        "Reduce wait times",
+        "Better staff scheduling"
+      ],
+      "timeline": "30 days",
+      "estimatedCost": "$3,000-5,000",
+      "paCodeReference": "22 CFR § 51 - Passport services"
+    }
+  ]
+}

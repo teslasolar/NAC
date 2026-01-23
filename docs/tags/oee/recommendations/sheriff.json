@@ -1,0 +1,84 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "sheriff",
+  "name": "Sheriff's Office",
+  "officer": "Christopher Zieger",
+  "currentOEE": 77.8,
+  "targetOEE": 78,
+  "gap": -0.2,
+  "summary": "Close to target; focus on maintaining performance and minor availability gains",
+  "recommendations": [
+    {
+      "id": "shr-1",
+      "title": "Optimize Deputy Scheduling Algorithm",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "availability",
+      "impact": "+1-2% OEE",
+      "description": "Use scheduling software to optimize coverage and reduce overtime while maintaining 24/7 operations.",
+      "actions": [
+        "Implement scheduling optimization software",
+        "Analyze historical call patterns by shift",
+        "Create flexible staffing pools for peak periods",
+        "Reduce overtime through better scheduling"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$10,000-20,000",
+      "paCodeReference": "16 P.S. § 4201 - Sheriff duties"
+    },
+    {
+      "id": "shr-2",
+      "title": "Mobile Process Service App",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Deploy mobile app for deputies to log service attempts in real-time, reducing paperwork.",
+      "actions": [
+        "Select and deploy mobile app platform",
+        "Integrate with case management system",
+        "Train all civil division deputies",
+        "Eliminate duplicate paper logging"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$15,000-25,000",
+      "paCodeReference": "16 P.S. § 4211 - Service of process"
+    },
+    {
+      "id": "shr-3",
+      "title": "GPS Route Optimization",
+      "category": "TECHNOLOGY",
+      "priority": "LOW",
+      "component": "performance",
+      "impact": "+1-2% OEE",
+      "description": "Optimize daily service routes to reduce drive time and increase papers served per day.",
+      "actions": [
+        "Implement GPS tracking on vehicles",
+        "Use route optimization software",
+        "Cluster service attempts by geography",
+        "Track and analyze service completion rates by area"
+      ],
+      "timeline": "45 days",
+      "estimatedCost": "$8,000-15,000",
+      "paCodeReference": "16 P.S. § 4215 - Civil process"
+    },
+    {
+      "id": "shr-4",
+      "title": "Cross-Train Court Security Deputies",
+      "category": "TRAINING",
+      "priority": "LOW",
+      "component": "availability",
+      "impact": "+1% OEE",
+      "description": "Cross-train court security to fill civil division gaps during absences.",
+      "actions": [
+        "Develop cross-training curriculum",
+        "Certify court deputies in civil process",
+        "Create flexible assignment protocols",
+        "Track cross-utilization metrics"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$5,000 (training time)",
+      "paCodeReference": "16 P.S. § 4201 - Sheriff general duties"
+    }
+  ]
+}

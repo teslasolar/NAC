@@ -1,0 +1,102 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "controller",
+  "name": "County Controller",
+  "officer": "VACANT",
+  "currentOEE": 74.2,
+  "targetOEE": 83,
+  "gap": -8.8,
+  "summary": "Audit turnaround and payroll processing efficiency need significant improvement",
+  "recommendations": [
+    {
+      "id": "ctrl-1",
+      "title": "Implement Continuous Auditing Software",
+      "category": "TECHNOLOGY",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+4-6% OEE",
+      "description": "Deploy automated audit software to continuously monitor transactions instead of periodic manual reviews.",
+      "actions": [
+        "Evaluate IDEA, ACL, or TeamMate audit software",
+        "Integrate with county financial systems",
+        "Set up automated exception reporting",
+        "Train staff on continuous auditing methodology"
+      ],
+      "timeline": "60-90 days",
+      "estimatedCost": "$25,000-50,000",
+      "paCodeReference": "16 P.S. § 1702 - Audit county accounts"
+    },
+    {
+      "id": "ctrl-2",
+      "title": "Streamline Voucher Pre-Audit Process",
+      "category": "PROCESS",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Reduce voucher review time from 15 to 8 minutes through standardized checklists and delegation.",
+      "actions": [
+        "Create standardized voucher review checklist",
+        "Implement risk-based sampling",
+        "Delegate routine vouchers to trained staff",
+        "Establish electronic approval workflow"
+      ],
+      "timeline": "30 days",
+      "estimatedCost": "Minimal (process change)",
+      "paCodeReference": "16 P.S. § 1705 - Pre-audit all vouchers"
+    },
+    {
+      "id": "ctrl-3",
+      "title": "Automate Payroll Processing",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Reduce payroll cycle time by automating time entry validation and tax calculations.",
+      "actions": [
+        "Integrate timekeeping systems with payroll",
+        "Automate overtime and leave calculations",
+        "Implement direct deposit for remaining paper checks",
+        "Create automated payroll audit trails"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$15,000-30,000",
+      "paCodeReference": "16 P.S. § 1706 - Countersign warrants"
+    },
+    {
+      "id": "ctrl-4",
+      "title": "Establish Audit Finding Tracking System",
+      "category": "PROCESS",
+      "priority": "MEDIUM",
+      "component": "quality",
+      "impact": "+1-2% OEE",
+      "description": "Track audit findings from identification through resolution to improve follow-up rates.",
+      "actions": [
+        "Implement finding tracking database",
+        "Set up automated follow-up reminders",
+        "Create monthly resolution status reports",
+        "Establish escalation procedures for overdue findings"
+      ],
+      "timeline": "45 days",
+      "estimatedCost": "$5,000-10,000",
+      "paCodeReference": "16 P.S. § 1703 - Examine accounts of officers"
+    },
+    {
+      "id": "ctrl-5",
+      "title": "Improve Board Meeting Preparation",
+      "category": "PROCESS",
+      "priority": "LOW",
+      "component": "availability",
+      "impact": "+1% OEE",
+      "description": "Reduce board report preparation time through templates and advance data gathering.",
+      "actions": [
+        "Create standardized board report templates",
+        "Automate financial data extraction",
+        "Establish reporting calendar with advance deadlines",
+        "Cross-train staff on board report preparation"
+      ],
+      "timeline": "30 days",
+      "estimatedCost": "Minimal",
+      "paCodeReference": "16 P.S. § 1720 - Board memberships"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "clerk-of-courts",
+  "name": "Clerk of Courts",
+  "officer": "Andrew Harrington",
+  "currentOEE": 75.2,
+  "targetOEE": 79,
+  "gap": -3.8,
+  "summary": "Criminal case processing and records management need improvement",
+  "recommendations": [
+    {
+      "id": "coc-1",
+      "title": "Automated Disposition Processing",
+      "category": "TECHNOLOGY",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+3-4% OEE",
+      "description": "Automate criminal disposition entry and reporting.",
+      "actions": [
+        "Integrate with court management system",
+        "Automate state reporting",
+        "Reduce manual data entry by 60%",
+        "Improve accuracy of criminal records"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$35,000-50,000",
+      "paCodeReference": "42 Pa.C.S. § 2756 - Clerk duties"
+    },
+    {
+      "id": "coc-2",
+      "title": "Electronic Records Archive",
+      "category": "INFRASTRUCTURE",
+      "priority": "HIGH",
+      "component": "availability",
+      "impact": "+2-3% OEE",
+      "description": "Implement electronic records management to reduce retrieval time.",
+      "actions": [
+        "Deploy document management system",
+        "Scan active case files",
+        "Create retention schedule automation",
+        "Reduce file retrieval from hours to minutes"
+      ],
+      "timeline": "6 months",
+      "estimatedCost": "$40,000-60,000",
+      "paCodeReference": "42 Pa.C.S. § 4301 - Record retention"
+    },
+    {
+      "id": "coc-3",
+      "title": "Online Case Status Portal",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "performance",
+      "impact": "+1-2% OEE",
+      "description": "Create public portal for case status inquiries.",
+      "actions": [
+        "Deploy public case search portal",
+        "Reduce phone inquiry volume by 40%",
+        "Enable automated case updates",
+        "Free staff for processing work"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$15,000-25,000",
+      "paCodeReference": "42 Pa.C.S. § 4501 - Public records"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "tagType": "OrgUnit",
+  "id": "clerk-of-courts",
+  "name": "Clerk of Courts",
+  "officerName": "Andrew Harrington",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "42 Pa.C.S. § 2756",
+  "budget": 2200000,
+  "totalStaff": 32,
+  "divisions": [
+    {
+      "id": "coc-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Clerk",
+      "staff": 4,
+      "units": [
+        { "id": "coc-exec", "name": "Executive Secretary", "staff": 1 },
+        { "id": "coc-fiscal", "name": "Fiscal Officer", "staff": 2 }
+      ]
+    },
+    {
+      "id": "coc-criminal",
+      "name": "Criminal Division",
+      "head": "Criminal Supervisor",
+      "staff": 14,
+      "units": [
+        { "id": "coc-filings", "name": "Criminal Filings", "staff": 6 },
+        { "id": "coc-dispositions", "name": "Dispositions", "staff": 4 },
+        { "id": "coc-sentencing", "name": "Sentencing Clerk", "staff": 3 }
+      ]
+    },
+    {
+      "id": "coc-appeals",
+      "name": "Appeals Division",
+      "head": "Appeals Supervisor",
+      "staff": 6,
+      "units": [
+        { "id": "coc-appeal-1", "name": "Appeals Clerks", "staff": 4 },
+        { "id": "coc-transcripts", "name": "Transcript Coordinator", "staff": 2 }
+      ]
+    },
+    {
+      "id": "coc-records",
+      "name": "Records Management",
+      "head": "Records Supervisor",
+      "staff": 6,
+      "units": [
+        { "id": "coc-archive", "name": "Archives", "staff": 3 },
+        { "id": "coc-imaging", "name": "Imaging", "staff": 2 }
+      ]
+    }
+  ]
+}

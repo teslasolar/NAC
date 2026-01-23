@@ -1,0 +1,54 @@
+{
+  "tagType": "OrgUnit",
+  "id": "prothonotary",
+  "name": "Prothonotary",
+  "officerName": "Lori Masino",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "42 Pa.C.S. § 2737",
+  "budget": 1500000,
+  "totalStaff": 22,
+  "divisions": [
+    {
+      "id": "prot-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Prothonotary",
+      "staff": 3,
+      "units": [
+        { "id": "prot-exec", "name": "Executive Secretary", "staff": 1 },
+        { "id": "prot-fiscal", "name": "Fiscal Clerk", "staff": 1 }
+      ]
+    },
+    {
+      "id": "prot-civil",
+      "name": "Civil Division",
+      "head": "Civil Supervisor",
+      "staff": 10,
+      "units": [
+        { "id": "prot-filings", "name": "Civil Filings", "staff": 5 },
+        { "id": "prot-judgments", "name": "Judgments", "staff": 3 },
+        { "id": "prot-liens", "name": "Liens", "staff": 2 }
+      ]
+    },
+    {
+      "id": "prot-family",
+      "name": "Family Court",
+      "head": "Family Court Supervisor",
+      "staff": 5,
+      "units": [
+        { "id": "prot-divorce", "name": "Divorce Filings", "staff": 3 },
+        { "id": "prot-custody", "name": "Custody/Support", "staff": 2 }
+      ]
+    },
+    {
+      "id": "prot-special",
+      "name": "Special Services",
+      "head": "Special Services Supervisor",
+      "staff": 3,
+      "units": [
+        { "id": "prot-nat", "name": "Naturalization", "staff": 1 },
+        { "id": "prot-passport", "name": "Passport Services", "staff": 1 }
+      ]
+    }
+  ]
+}

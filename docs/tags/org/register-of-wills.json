@@ -1,0 +1,51 @@
+{
+  "tagType": "OrgUnit",
+  "id": "register-of-wills",
+  "name": "Register of Wills / Clerk of Orphans Court",
+  "officerName": "Scott Instruments",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "20 Pa.C.S. § 901-908",
+  "budget": 1100000,
+  "totalStaff": 15,
+  "divisions": [
+    {
+      "id": "row-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Register",
+      "staff": 2,
+      "units": [
+        { "id": "row-exec", "name": "Executive Secretary", "staff": 1 }
+      ]
+    },
+    {
+      "id": "row-probate",
+      "name": "Probate Division",
+      "head": "Probate Supervisor",
+      "staff": 6,
+      "units": [
+        { "id": "row-estates", "name": "Estate Clerks", "staff": 4 },
+        { "id": "row-wills", "name": "Will Filing", "staff": 2 }
+      ]
+    },
+    {
+      "id": "row-orphans",
+      "name": "Orphans Court",
+      "head": "Orphans Court Supervisor",
+      "staff": 3,
+      "units": [
+        { "id": "row-adopt", "name": "Adoption Clerk", "staff": 1 },
+        { "id": "row-guardian", "name": "Guardianship Clerk", "staff": 1 }
+      ]
+    },
+    {
+      "id": "row-marriage",
+      "name": "Marriage Licenses",
+      "head": "License Supervisor",
+      "staff": 3,
+      "units": [
+        { "id": "row-lic", "name": "License Clerks", "staff": 2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "tagType": "OfficeRecommendations",
+  "id": "register-of-wills",
+  "name": "Register of Wills",
+  "officer": "Scott Instruments",
+  "currentOEE": 79.8,
+  "targetOEE": 81,
+  "gap": -1.2,
+  "summary": "Probate processing times slightly below target",
+  "recommendations": [
+    {
+      "id": "row-1",
+      "title": "Online Probate Filing System",
+      "category": "TECHNOLOGY",
+      "priority": "HIGH",
+      "component": "performance",
+      "impact": "+2-3% OEE",
+      "description": "Enable attorneys to file probate documents electronically.",
+      "actions": [
+        "Deploy e-filing portal",
+        "Create online fee payment",
+        "Enable document status tracking",
+        "Reduce processing time by 40%"
+      ],
+      "timeline": "90 days",
+      "estimatedCost": "$30,000-45,000",
+      "paCodeReference": "20 Pa.C.S. § 901 - Register duties"
+    },
+    {
+      "id": "row-2",
+      "title": "Marriage License Appointment System",
+      "category": "PROCESS",
+      "priority": "MEDIUM",
+      "component": "availability",
+      "impact": "+1-2% OEE",
+      "description": "Implement online appointment scheduling for marriage licenses.",
+      "actions": [
+        "Deploy online scheduling tool",
+        "Pre-populate application forms",
+        "Reduce walk-in wait times",
+        "Better staff allocation"
+      ],
+      "timeline": "30 days",
+      "estimatedCost": "$5,000-8,000",
+      "paCodeReference": "23 Pa.C.S. § 1301 - Marriage licenses"
+    },
+    {
+      "id": "row-3",
+      "title": "Estate Tracking Dashboard",
+      "category": "TECHNOLOGY",
+      "priority": "MEDIUM",
+      "component": "quality",
+      "impact": "+1% OEE",
+      "description": "Create dashboard to track estate progress through probate.",
+      "actions": [
+        "Develop status tracking system",
+        "Automate deadline reminders",
+        "Create executor notification system",
+        "Reduce delinquent estate backlog"
+      ],
+      "timeline": "60 days",
+      "estimatedCost": "$10,000-15,000",
+      "paCodeReference": "20 Pa.C.S. § 3301 - Estate administration"
+    }
+  ]
+}

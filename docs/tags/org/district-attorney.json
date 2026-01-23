@@ -1,0 +1,67 @@
+{
+  "tagType": "OrgUnit",
+  "id": "district-attorney",
+  "name": "District Attorney",
+  "officerName": "Stephen G. Baratta",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "16 P.S. § 1401-1409",
+  "budget": 8500000,
+  "totalStaff": 89,
+  "divisions": [
+    {
+      "id": "da-admin",
+      "name": "Administration",
+      "head": "First Assistant DA",
+      "staff": 8,
+      "units": [
+        { "id": "da-exec", "name": "Executive Secretary", "staff": 2 },
+        { "id": "da-fiscal", "name": "Fiscal Officer", "staff": 2 },
+        { "id": "da-victim", "name": "Victim Services Coordinator", "staff": 3 }
+      ]
+    },
+    {
+      "id": "da-felony",
+      "name": "Major Crimes Unit",
+      "head": "Chief of Major Crimes",
+      "staff": 18,
+      "units": [
+        { "id": "da-homicide", "name": "Homicide Prosecutors", "staff": 4 },
+        { "id": "da-violent", "name": "Violent Crimes", "staff": 6 },
+        { "id": "da-sex-crimes", "name": "Sex Crimes Unit", "staff": 4 },
+        { "id": "da-cold-case", "name": "Cold Case Unit", "staff": 2 }
+      ]
+    },
+    {
+      "id": "da-trial",
+      "name": "Trial Division",
+      "head": "Chief of Trials",
+      "staff": 20,
+      "units": [
+        { "id": "da-trial-1", "name": "Senior ADAs", "staff": 8 },
+        { "id": "da-trial-2", "name": "Assistant DAs", "staff": 10 }
+      ]
+    },
+    {
+      "id": "da-juvenile",
+      "name": "Juvenile Division",
+      "head": "Chief of Juvenile",
+      "staff": 8,
+      "units": [
+        { "id": "da-juv-1", "name": "Juvenile Prosecutors", "staff": 4 },
+        { "id": "da-juv-2", "name": "Diversion Specialists", "staff": 3 }
+      ]
+    },
+    {
+      "id": "da-detectives",
+      "name": "Detective Division",
+      "head": "Chief County Detective",
+      "staff": 25,
+      "units": [
+        { "id": "da-det-1", "name": "Criminal Investigators", "staff": 15 },
+        { "id": "da-det-2", "name": "Forensic Specialists", "staff": 5 },
+        { "id": "da-det-3", "name": "Drug Task Force", "staff": 4 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "tagType": "OrgUnit",
+  "id": "controller",
+  "name": "County Controller",
+  "officerName": "VACANT",
+  "vacancyReason": "Tara Zrinski resigned Jan 5, 2026 to become County Executive",
+  "positionType": "ELECTED",
+  "category": "ROW_OFFICER",
+  "paCode": "16 P.S. § 1701-1780",
+  "budget": 980000,
+  "totalStaff": 12,
+  "location": "669 Washington St, Easton, PA 18042",
+  "phone": "610-559-3190",
+  "statutoryDuties": [
+    "Pre-audit all claims against the county",
+    "Prescribe accounting systems",
+    "Audit all county offices",
+    "Process county payroll",
+    "Maintain custody of contracts",
+    "Serve on Retirement, Salary, Prison, Elections, and Constable boards"
+  ],
+  "divisions": [
+    {
+      "id": "controller-admin",
+      "name": "Administration",
+      "head": "Chief Deputy Controller",
+      "staff": 2,
+      "units": [
+        { "id": "controller-exec", "name": "Executive Secretary", "staff": 1 }
+      ]
+    },
+    {
+      "id": "controller-audit",
+      "name": "Audit Division",
+      "head": "Chief Auditor",
+      "staff": 5,
+      "units": [
+        { "id": "controller-audit-1", "name": "Senior Auditors", "staff": 2 },
+        { "id": "controller-audit-2", "name": "Staff Auditors", "staff": 2 }
+      ]
+    },
+    {
+      "id": "controller-payroll",
+      "name": "Payroll Division",
+      "head": "Payroll Supervisor",
+      "staff": 4,
+      "units": [
+        { "id": "controller-payroll-1", "name": "Payroll Specialists", "staff": 3 }
+      ]
+    }
+  ]
+}

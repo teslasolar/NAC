@@ -1,0 +1,33 @@
+{
+  "tagType": "OrgHierarchy",
+  "id": "northampton-county",
+  "name": "Northampton County Government",
+  "type": "enterprise",
+  "population": 349819,
+  "totalEmployees": 2850,
+  "budget": 503000000,
+  "fiscalYear": 2026,
+  "version": "1.0.0",
+  "divisions": [
+    "org/row-officers",
+    "org/executive",
+    "org/judicial",
+    "org/human-services",
+    "org/public-safety",
+    "org/administrative"
+  ],
+  "positionTypes": {
+    "ELECTED": "Elected by voters",
+    "APPOINTED": "Appointed by Executive/Council",
+    "CIVIL_SERVICE": "Merit-based civil service",
+    "UNION": "Union-represented position",
+    "MANAGEMENT": "Management/exempt position",
+    "CONTRACTED": "Contracted services"
+  },
+  "sources": [
+    { "name": "norcopa.gov", "type": "Official" },
+    { "name": "County Budget FY 2026", "type": "Official" },
+    { "name": "PA County Code Title 16", "type": "Legal" }
+  ],
+  "lastUpdated": "2026-01-23"
+}

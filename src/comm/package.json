@@ -1,0 +1,28 @@
+{
+  "name": "nac-comm",
+  "version": "1.0.0",
+  "description": "NAC Communication Protocols - MQTT, OPC-UA, MQMCP",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./mqtt": "./mqtt/index.js",
+    "./opcua": "./opcua/index.js",
+    "./mqmcp": "./mqmcp/index.js"
+  },
+  "scripts": {
+    "start": "node mqmcp/server.js",
+    "mqtt": "node -e \"import('./mqtt/index.js').then(m => new m.NACMQTTBroker().start())\"",
+    "opcua": "node -e \"import('./opcua/index.js').then(m => new m.NACOPCUAServer().start())\""
+  },
+  "keywords": [
+    "mqtt",
+    "opc-ua",
+    "mcp",
+    "isa-95",
+    "industrial",
+    "communication"
+  ],
+  "author": "NAC Digital Twin",
+  "license": "MIT"
+}

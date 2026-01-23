@@ -159,7 +159,7 @@ not as a chore, but as a commitment to the employees who serve our residents.`,
 export const CrossOfficeStrategies = {
   sheriff: {
     office: "Sheriff's Office",
-    officer: 'Mark Richter',
+    officer: 'Christopher Zieger',
     currentOEE: 0.778,
     targetOEE: 0.78,
     gap: -0.002,
@@ -192,9 +192,9 @@ export const CrossOfficeStrategies = {
     ]
   },
 
-  treasurer: {
-    office: 'County Treasurer',
-    officer: 'Veronica Kwoczka',
+  'fiscal-affairs-revenue': {
+    office: 'Fiscal Affairs - Revenue',
+    officer: 'Anthony Morris',
     currentOEE: 0.864,
     targetOEE: 0.85,
     gap: 0.014,
@@ -264,7 +264,7 @@ export const CrossOfficeStrategies = {
 
   districtAttorney: {
     office: 'District Attorney',
-    officer: 'Terence Houck',
+    officer: 'Stephen G. Baratta',
     currentOEE: 0.682,
     targetOEE: 0.70,
     gap: -0.018,
@@ -299,7 +299,7 @@ export const CrossOfficeStrategies = {
 
   recorderOfDeeds: {
     office: 'Recorder of Deeds',
-    officer: 'Amy Cozze',
+    officer: 'Dorothy Edelman',
     currentOEE: 0.821,
     targetOEE: 0.82,
     gap: 0.001,
@@ -334,7 +334,7 @@ export const CrossOfficeStrategies = {
 
   registerOfWills: {
     office: 'Register of Wills',
-    officer: 'Ronald Heckman',
+    officer: 'Patricia J. Manento',
     currentOEE: 0.735,
     targetOEE: 0.75,
     gap: -0.015,
@@ -369,7 +369,7 @@ export const CrossOfficeStrategies = {
 
   clerkOfCourts: {
     office: 'Clerk of Courts',
-    officer: 'Teresa Gordinier',
+    officer: 'Leigh Ann Fisher',
     currentOEE: 0.742,
     targetOEE: 0.76,
     gap: -0.018,
@@ -404,7 +404,7 @@ export const CrossOfficeStrategies = {
 
   prothonotary: {
     office: 'Prothonotary',
-    officer: 'Coleen Eckhart',
+    officer: 'Holly Ruggiero',
     currentOEE: 0.795,
     targetOEE: 0.80,
     gap: -0.005,

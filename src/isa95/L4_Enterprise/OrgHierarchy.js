@@ -60,7 +60,7 @@ export const CountyHierarchy = {
         {
           id: 'sheriff',
           name: "Sheriff's Office",
-          officerName: 'Mark Richter',
+          officerName: 'Christopher Zieger',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 4201-4234',
@@ -126,11 +126,11 @@ export const CountyHierarchy = {
           ]
         },
 
-        // TREASURER
+        // FISCAL AFFAIRS - REVENUE
         {
-          id: 'treasurer',
-          name: 'County Treasurer',
-          officerName: 'Veronica Kwoczka',
+          id: 'fiscal-affairs-revenue',
+          name: 'Fiscal Affairs - Revenue',
+          officerName: 'Anthony Morris',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 5301-5352',
@@ -183,7 +183,7 @@ export const CountyHierarchy = {
         {
           id: 'controller',
           name: 'County Controller',
-          officerName: 'Stephen Barron',
+          officerName: 'Acting Controller',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 1701-1780',
@@ -269,7 +269,7 @@ export const CountyHierarchy = {
         {
           id: 'district-attorney',
           name: 'District Attorney',
-          officerName: 'Terence Houck',
+          officerName: 'Stephen G. Baratta',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 1401-1409',
@@ -347,7 +347,7 @@ export const CountyHierarchy = {
         {
           id: 'recorder-of-deeds',
           name: 'Recorder of Deeds',
-          officerName: 'Amy Cozze',
+          officerName: 'Dorothy Edelman',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 4901-4925',
@@ -391,7 +391,7 @@ export const CountyHierarchy = {
         {
           id: 'register-of-wills',
           name: 'Register of Wills',
-          officerName: 'Ronald Heckman',
+          officerName: 'Patricia J. Manento',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 5101-5136',
@@ -443,7 +443,7 @@ export const CountyHierarchy = {
         {
           id: 'clerk-of-courts',
           name: 'Clerk of Courts',
-          officerName: 'Teresa Gordinier',
+          officerName: 'Leigh Ann Fisher',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 2701-2755',
@@ -499,7 +499,7 @@ export const CountyHierarchy = {
         {
           id: 'prothonotary',
           name: 'Prothonotary',
-          officerName: 'Coleen Eckhart',
+          officerName: 'Holly Ruggiero',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ROW_OFFICER,
           paCode: '16 P.S. § 2801-2850',
@@ -562,7 +562,7 @@ export const CountyHierarchy = {
         {
           id: 'county-executive',
           name: 'County Executive Office',
-          officerName: 'Lamont McClure',
+          officerName: 'Tara Zrinski',
           type: PositionType.ELECTED,
           category: DepartmentCategory.ADMINISTRATIVE,
           budget: 3200000,

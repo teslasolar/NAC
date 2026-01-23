@@ -34,7 +34,7 @@ export const Category = {
  */
 export const OfficeRecommendations = {
   /**
-   * County Controller - Tara Zrinski
+   * County Controller - Acting Controller
    * Current: 74.2% | Target: 83% | Gap: -8.8%
    * Main issues: Performance (82% vs 88% target)
    */
@@ -43,7 +43,7 @@ export const OfficeRecommendations = {
     currentOEE: 74.2,
     targetOEE: 83,
     gap: -8.8,
-    officer: 'Tara Zrinski',
+    officer: 'Acting Controller',
     summary: 'Audit turnaround and payroll processing efficiency need significant improvement',
     recommendations: [
       {
@@ -140,7 +140,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Sheriff's Office - Mark Richter
+   * Sheriff's Office - Christopher Zieger
    * Current: 77.8% | Target: 78% | Gap: -0.2%
    * Nearly at target, minor availability issues
    */
@@ -149,7 +149,7 @@ export const OfficeRecommendations = {
     currentOEE: 77.8,
     targetOEE: 78,
     gap: -0.2,
-    officer: 'Mark Richter',
+    officer: 'Christopher Zieger',
     summary: 'Close to target; focus on maintaining performance and minor availability gains',
     recommendations: [
       {
@@ -228,16 +228,16 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * County Treasurer - Veronica Kwoczka
+   * Fiscal Affairs - Revenue - Anthony Morris
    * Current: 86.4% | Target: 85% | Gap: +1.4%
    * EXCEEDS TARGET - World Class
    */
-  treasurer: {
-    name: 'County Treasurer',
+  'fiscal-affairs-revenue': {
+    name: 'Fiscal Affairs - Revenue',
     currentOEE: 86.4,
     targetOEE: 85,
     gap: 1.4,
-    officer: 'Veronica Kwoczka',
+    officer: 'Anthony Morris',
     summary: 'Exceeds target - maintain excellence and share best practices',
     recommendations: [
       {
@@ -298,7 +298,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * District Attorney - Terence Houck
+   * District Attorney - Stephen G. Baratta
    * Current: 68.2% | Target: 70% | Gap: -1.8%
    * Main issues: Performance (case complexity)
    */
@@ -307,7 +307,7 @@ export const OfficeRecommendations = {
     currentOEE: 68.2,
     targetOEE: 70,
     gap: -1.8,
-    officer: 'Terence Houck',
+    officer: 'Stephen G. Baratta',
     summary: 'Case processing time and performance need improvement; complex caseload challenges',
     recommendations: [
       {
@@ -492,7 +492,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Recorder of Deeds - Amy Cozze
+   * Recorder of Deeds - Dorothy Edelman
    * Current: 82.1% | Target: 82% | Gap: +0.1%
    * MEETS TARGET - Good performance
    */
@@ -501,7 +501,7 @@ export const OfficeRecommendations = {
     currentOEE: 82.1,
     targetOEE: 82,
     gap: 0.1,
-    officer: 'Amy Cozze',
+    officer: 'Dorothy Edelman',
     summary: 'Meets target; maintain excellence and pursue continuous improvement',
     recommendations: [
       {
@@ -562,7 +562,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Register of Wills - Ronald Heckman
+   * Register of Wills - Patricia J. Manento
    * Current: 73.5% | Target: 75% | Gap: -1.5%
    * Main issues: Performance (estate complexity)
    */
@@ -571,7 +571,7 @@ export const OfficeRecommendations = {
     currentOEE: 73.5,
     targetOEE: 75,
     gap: -1.5,
-    officer: 'Ronald Heckman',
+    officer: 'Patricia J. Manento',
     summary: 'Below target; estate processing time and complexity management need attention',
     recommendations: [
       {
@@ -650,7 +650,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Clerk of Courts - Teresa Gordinier
+   * Clerk of Courts - Leigh Ann Fisher
    * Current: 74.2% | Target: 76% | Gap: -1.8%
    * Main issues: Availability (court calendar dependency)
    */
@@ -659,7 +659,7 @@ export const OfficeRecommendations = {
     currentOEE: 74.2,
     targetOEE: 76,
     gap: -1.8,
-    officer: 'Teresa Gordinier',
+    officer: 'Leigh Ann Fisher',
     summary: 'Below target; court calendar constraints affect availability and performance',
     recommendations: [
       {
@@ -738,7 +738,7 @@ export const OfficeRecommendations = {
   },
 
   /**
-   * Prothonotary - Coleen Eckhart
+   * Prothonotary - Holly Ruggiero
    * Current: 79.5% | Target: 80% | Gap: -0.5%
    * Very close to target
    */
@@ -747,7 +747,7 @@ export const OfficeRecommendations = {
     currentOEE: 79.5,
     targetOEE: 80,
     gap: -0.5,
-    officer: 'Coleen Eckhart',
+    officer: 'Holly Ruggiero',
     summary: 'Very close to target; minor improvements will achieve goal',
     recommendations: [
       {

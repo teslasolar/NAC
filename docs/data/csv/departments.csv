@@ -1,14 +1,14 @@
 id,name,officer,category,budget,staff,oee
-sheriff,Sheriff's Office,Mark Richter,row-officer,11200000,156,77.8
-treasurer,County Treasurer,Veronica Kwoczka,row-officer,1850000,18,86.4
-controller,County Controller,Tara Zrinski,row-officer,980000,12,74.2
+sheriff,Sheriff's Office,Christopher Zieger,row-officer,11200000,156,77.8
+fiscal-affairs-revenue,Fiscal Affairs - Revenue,Anthony Morris,row-officer,1850000,18,86.4
+controller,County Controller,Acting Controller,row-officer,980000,12,74.2
 coroner,Coroner's Office,Zachary Lysek,row-officer,2100000,14,71.2
-district-attorney,District Attorney,Terence Houck,row-officer,8500000,89,68.2
-recorder-of-deeds,Recorder of Deeds,Amy Cozze,row-officer,1450000,15,82.1
-register-of-wills,Register of Wills,Ronald Heckman,row-officer,1320000,14,73.5
-clerk-of-courts,Clerk of Courts,Teresa Gordinier,row-officer,2800000,32,74.2
-prothonotary,Prothonotary,Coleen Eckhart,row-officer,1680000,18,79.5
-county-executive,County Executive Office,Lamont McClure,administrative,3200000,28,
+district-attorney,District Attorney,Stephen G. Baratta,row-officer,8500000,89,68.2
+recorder-of-deeds,Recorder of Deeds,Dorothy Edelman,row-officer,1450000,15,82.1
+register-of-wills,Register of Wills,Patricia J. Manento,row-officer,1320000,14,73.5
+clerk-of-courts,Clerk of Courts,Leigh Ann Fisher,row-officer,2800000,32,74.2
+prothonotary,Prothonotary,Holly Ruggiero,row-officer,1680000,18,79.5
+county-executive,County Executive Office,Tara Zrinski,administrative,3200000,28,
 human-resources,Human Resources,HR Director,administrative,1450000,18,
 fiscal-affairs,Fiscal Affairs,Fiscal Affairs Director,administrative,2100000,24,
 information-technology,Information Technology,IT Director,administrative,4800000,42,

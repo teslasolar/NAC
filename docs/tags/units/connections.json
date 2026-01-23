@@ -1,0 +1,20 @@
+{
+  "tagType": "UnitConnections",
+  "description": "Inter-office workflow connections",
+  "connections": [
+    { "from": "sheriff", "to": "treasurer", "type": "fee-deposit", "label": "Fee Collection" },
+    { "from": "coroner", "to": "treasurer", "type": "fee-deposit", "label": "Permit Fees" },
+    { "from": "clerk-of-courts", "to": "treasurer", "type": "fee-deposit", "label": "Court Fees" },
+    { "from": "prothonotary", "to": "treasurer", "type": "fee-deposit", "label": "Filing Fees" },
+    { "from": "recorder-of-deeds", "to": "treasurer", "type": "fee-deposit", "label": "Recording Fees" },
+    { "from": "register-of-wills", "to": "treasurer", "type": "fee-deposit", "label": "Probate Fees" },
+    { "from": "sheriff", "to": "district-attorney", "type": "case-referral", "label": "Arrests" },
+    { "from": "district-attorney", "to": "clerk-of-courts", "type": "case-filing", "label": "Criminal Cases" },
+    { "from": "district-attorney", "to": "prothonotary", "type": "case-filing", "label": "Civil Matters" },
+    { "from": "prothonotary", "to": "sheriff", "type": "service-request", "label": "Writs" },
+    { "from": "clerk-of-courts", "to": "sheriff", "type": "service-request", "label": "Subpoenas" },
+    { "from": "coroner", "to": "district-attorney", "type": "referral", "label": "Suspicious Deaths" },
+    { "from": "sheriff", "to": "recorder-of-deeds", "type": "deed-recording", "label": "Sheriff Deeds" },
+    { "from": "register-of-wills", "to": "prothonotary", "type": "judgment", "label": "Estate Judgments" }
+  ]
+}

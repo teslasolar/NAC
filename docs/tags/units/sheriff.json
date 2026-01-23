@@ -1,0 +1,28 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "sheriff",
+  "name": "Sheriff's Office",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article XII",
+    "sections": ["1201", "1202", "1203", "1204", "1205", "1206", "1207", "1208", "1209", "1210"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 0, "y": 0, "z": 0 },
+  "dimensions": { "width": 60, "height": 8, "depth": 40 },
+  "color": "#3498db",
+  "staffing": {
+    "fte": 45,
+    "positions": [
+      { "title": "Sheriff", "count": 1, "elected": true },
+      { "title": "Chief Deputy", "count": 1 },
+      { "title": "Deputy Sheriff", "count": 30 },
+      { "title": "Corrections Officer", "count": 8 },
+      { "title": "Administrative Staff", "count": 5 }
+    ]
+  },
+  "operatingHours": { "start": 0, "end": 24, "note": "24/7 for jail operations" },
+  "assemblyLines": ["sheriff-sales", "process-service", "inmate-accounts", "court-security"]
+}

@@ -1,0 +1,30 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "clerk-of-courts",
+  "name": "Clerk of Courts",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article VI",
+    "sections": ["601", "602", "603", "604", "605", "606", "607", "608"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 160, "y": 0, "z": 60 },
+  "dimensions": { "width": 45, "height": 6, "depth": 30 },
+  "color": "#3498db",
+  "staffing": {
+    "fte": 18,
+    "positions": [
+      { "title": "Clerk of Courts", "count": 1, "elected": true },
+      { "title": "Chief Deputy", "count": 1 },
+      { "title": "Criminal Division Clerk", "count": 6 },
+      { "title": "Civil Division Clerk", "count": 4 },
+      { "title": "Records Clerk", "count": 3 },
+      { "title": "Cashier", "count": 2 },
+      { "title": "Administrative Staff", "count": 1 }
+    ]
+  },
+  "operatingHours": { "start": 8, "end": 17 },
+  "assemblyLines": ["criminal-filing", "fee-collection", "records-management", "bail-bond"]
+}

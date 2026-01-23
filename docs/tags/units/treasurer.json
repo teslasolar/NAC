@@ -1,0 +1,29 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "treasurer",
+  "name": "County Treasurer",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article XIII",
+    "sections": ["1301", "1302", "1303", "1304", "1305", "1306", "1307", "1308", "1309", "1310"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 80, "y": 0, "z": 0 },
+  "dimensions": { "width": 50, "height": 6, "depth": 30 },
+  "color": "#27ae60",
+  "staffing": {
+    "fte": 15,
+    "positions": [
+      { "title": "Treasurer", "count": 1, "elected": true },
+      { "title": "Chief Deputy", "count": 1 },
+      { "title": "Investment Officer", "count": 1 },
+      { "title": "Tax Collector", "count": 3 },
+      { "title": "Accounting Clerk", "count": 5 },
+      { "title": "Customer Service", "count": 4 }
+    ]
+  },
+  "operatingHours": { "start": 8, "end": 17 },
+  "assemblyLines": ["cash-receipts", "disbursements", "investments", "tax-collection", "bank-reconciliation"]
+}

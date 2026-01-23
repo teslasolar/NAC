@@ -1,0 +1,29 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "district-attorney",
+  "name": "District Attorney's Office",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article VIII",
+    "sections": ["801", "802", "803", "804", "805", "806", "807", "808"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": false,
+  "position": { "x": 240, "y": 0, "z": 0 },
+  "dimensions": { "width": 55, "height": 7, "depth": 35 },
+  "color": "#e74c3c",
+  "staffing": {
+    "fte": 35,
+    "positions": [
+      { "title": "District Attorney", "count": 1, "elected": true },
+      { "title": "First Assistant DA", "count": 1 },
+      { "title": "Assistant District Attorney", "count": 20 },
+      { "title": "Detective", "count": 5 },
+      { "title": "Victim Advocate", "count": 3 },
+      { "title": "Administrative Staff", "count": 5 }
+    ]
+  },
+  "operatingHours": { "start": 8, "end": 17 },
+  "assemblyLines": ["prosecution", "forfeiture", "grants", "restitution"]
+}

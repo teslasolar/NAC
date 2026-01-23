@@ -1,0 +1,28 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "recorder-of-deeds",
+  "name": "Recorder of Deeds",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article X",
+    "sections": ["1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 0, "y": 0, "z": 60 },
+  "dimensions": { "width": 35, "height": 5, "depth": 25 },
+  "color": "#f39c12",
+  "staffing": {
+    "fte": 12,
+    "positions": [
+      { "title": "Recorder of Deeds", "count": 1, "elected": true },
+      { "title": "Chief Deputy", "count": 1 },
+      { "title": "Recording Clerk", "count": 5 },
+      { "title": "Index Clerk", "count": 3 },
+      { "title": "Customer Service", "count": 2 }
+    ]
+  },
+  "operatingHours": { "start": 8, "end": 17 },
+  "assemblyLines": ["recording", "transfer-tax", "public-records", "technology-fund"]
+}

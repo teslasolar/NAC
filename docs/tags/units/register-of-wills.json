@@ -1,0 +1,30 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "register-of-wills",
+  "name": "Register of Wills",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article XI",
+    "sections": ["1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108", "1109", "1110"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 80, "y": 0, "z": 60 },
+  "dimensions": { "width": 45, "height": 6, "depth": 30 },
+  "color": "#1abc9c",
+  "staffing": {
+    "fte": 14,
+    "positions": [
+      { "title": "Register of Wills", "count": 1, "elected": true },
+      { "title": "Chief Deputy", "count": 1 },
+      { "title": "Probate Clerk", "count": 4 },
+      { "title": "Estate Clerk", "count": 3 },
+      { "title": "Tax Clerk", "count": 2 },
+      { "title": "Marriage License Clerk", "count": 2 },
+      { "title": "Administrative Staff", "count": 1 }
+    ]
+  },
+  "operatingHours": { "start": 8, "end": 17 },
+  "assemblyLines": ["probate", "estate-admin", "inheritance-tax", "marriage-licenses", "guardian-accounts"]
+}

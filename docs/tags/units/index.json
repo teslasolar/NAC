@@ -1,0 +1,25 @@
+{
+  "tagType": "ProductionUnitIndex",
+  "title": "Production Unit Definitions",
+  "description": "Row officer production unit configurations",
+  "version": "1.0.0",
+  "enterprise": {
+    "id": "northampton-county",
+    "name": "Northampton County Government",
+    "type": "third_class_county",
+    "homeRuleCharter": true,
+    "population": 349819,
+    "established": 1752
+  },
+  "units": [
+    { "$ref": "./sheriff.json" },
+    { "$ref": "./treasurer.json" },
+    { "$ref": "./coroner.json" },
+    { "$ref": "./district-attorney.json" },
+    { "$ref": "./recorder-of-deeds.json" },
+    { "$ref": "./register-of-wills.json" },
+    { "$ref": "./clerk-of-courts.json" },
+    { "$ref": "./prothonotary.json" }
+  ],
+  "connections": { "$ref": "./connections.json" }
+}

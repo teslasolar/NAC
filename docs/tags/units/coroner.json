@@ -1,0 +1,27 @@
+{
+  "tagType": "ProductionUnit",
+  "id": "coroner",
+  "name": "Coroner's Office",
+  "type": "row_officer",
+  "authority": {
+    "statute": "16 Pa.C.S. Article VII",
+    "sections": ["701", "702", "703", "704", "705", "706", "707", "708"]
+  },
+  "elected": true,
+  "term": 4,
+  "bondRequired": true,
+  "position": { "x": 160, "y": 0, "z": 0 },
+  "dimensions": { "width": 40, "height": 6, "depth": 25 },
+  "color": "#9b59b6",
+  "staffing": {
+    "fte": 8,
+    "positions": [
+      { "title": "Coroner", "count": 1, "elected": true },
+      { "title": "Chief Deputy Coroner", "count": 1 },
+      { "title": "Deputy Coroner", "count": 4 },
+      { "title": "Administrative Staff", "count": 2 }
+    ]
+  },
+  "operatingHours": { "start": 0, "end": 24, "note": "24/7 for death response" },
+  "assemblyLines": ["death-investigation", "autopsy", "cremation-permits", "property-control"]
+}

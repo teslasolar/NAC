@@ -52,7 +52,7 @@ const TP = {
       { title: 'Overtime Analysis Dashboard', benefit: 'Optimize scheduling while ensuring adequate coverage', ethical: 'Deputies get more predictable schedules, better work-life balance' },
       { title: 'Equipment Lifecycle Tracking', benefit: 'Proactive maintenance, fewer emergency purchases', ethical: 'Reliable equipment keeps deputies safe' }
     ]},
-    { name: 'County Treasurer', officer: 'Veronica Kwoczka', oee: 86.4, target: 85, status: 'positive', func: 'Safeguard and grow county funds fairly', human: 'Tax collection is sensitive - people are often stressed when paying', initiatives: [
+    { name: 'Fiscal Affairs - Revenue', officer: 'Anthony Morris', oee: 86.4, target: 85, status: 'positive', func: 'Safeguard and grow county funds fairly', human: 'Tax collection is sensitive - people are often stressed when paying', initiatives: [
       { title: 'Best Practices Documentation', benefit: 'Share excellence across the county', ethical: 'Excellence should be shared, not hoarded' },
       { title: 'Tax Payment Accessibility Review', benefit: 'Help struggling taxpayers avoid penalties', ethical: 'Enforcement serves no one; assistance helps everyone' }
     ]},
@@ -68,7 +68,7 @@ const TP = {
       { title: 'Small Estate Fast-Track', benefit: 'Grieving families get closure faster', ethical: 'Bureaucracy should not compound grief' },
       { title: 'Inheritance Tax Assistance', benefit: 'Fewer errors mean fewer penalties for families', ethical: 'Complexity should not punish grieving families' }
     ]},
-    { name: 'Clerk of Courts', officer: 'Teresa Gordinier', oee: 74.2, target: 76, status: 'close', func: 'Enable the justice system - manage court records', human: 'Every filing affects someone\'s freedom, family, or future', initiatives: [
+    { name: 'Clerk of Courts', officer: 'Leigh Ann Fisher', oee: 74.2, target: 76, status: 'close', func: 'Enable the justice system - manage court records', human: 'Every filing affects someone\'s freedom, family, or future', initiatives: [
       { title: 'E-Filing Expansion Cost-Benefit', benefit: 'Faster filing, fewer courthouse trips', ethical: 'Access to justice should not require hours of waiting' },
       { title: 'Court Backlog Impact Study', benefit: 'Data to support adequate staffing', ethical: 'Delayed justice is denied justice' }
     ]}

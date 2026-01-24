@@ -14,14 +14,27 @@ import { NACOPCUAServer } from '../opcua/server.js';
 
 // Import NAC MCP tools
 import {
+  // Core government tools
   getOfficersTool,
   getMunicipalityTool,
   getFeeScheduleTool,
-  getOEEBenchmarkTool,
   searchPACodeTool,
+  queryCountyDataTool,
+  // Budget & Fiscal tools
+  getBudgetTool,
+  getDepartmentBudgetTool,
+  getAuditsTool,
+  getAuditStatusTool,
+  getDebtInfoTool,
+  getTaxRateTool,
+  getFiscalYearInfoTool,
+  // Parcel & GIS tools
+  searchParcelsTool,
+  getZoningInfoTool,
+  // ISA-95 / Industrial tools
+  getOEEBenchmarkTool,
   getWorkflowTool,
   getAssemblyLineTool,
-  queryCountyDataTool,
 } from '../../mcp/tools/index.js';
 
 /**
@@ -49,14 +62,27 @@ export class MQMCPServer {
   async start() {
     // Register MCP tools with MQMCP
     this.mqmcp.registerTools([
+      // Core government tools
       getOfficersTool,
       getMunicipalityTool,
       getFeeScheduleTool,
-      getOEEBenchmarkTool,
       searchPACodeTool,
+      queryCountyDataTool,
+      // Budget & Fiscal tools
+      getBudgetTool,
+      getDepartmentBudgetTool,
+      getAuditsTool,
+      getAuditStatusTool,
+      getDebtInfoTool,
+      getTaxRateTool,
+      getFiscalYearInfoTool,
+      // Parcel & GIS tools
+      searchParcelsTool,
+      getZoningInfoTool,
+      // ISA-95 / Industrial tools
+      getOEEBenchmarkTool,
       getWorkflowTool,
       getAssemblyLineTool,
-      queryCountyDataTool,
     ]);
 
     // Add MQMCP-specific tools

@@ -1,0 +1,162 @@
+{
+  "name": "County Budget Breakdown",
+  "description": "How county tax dollars are allocated by department",
+  "lastUpdated": "2026-01-24",
+  "fiscalYear": 2025,
+  "totalBudget": 502000000,
+  "budgetNote": "Approximate allocations based on public budget documents",
+  "departments": [
+    {
+      "id": "humanservices",
+      "name": "Human Services",
+      "percentage": 30,
+      "description": "Social services including Children & Youth, Aging, Mental Health, Drug & Alcohol",
+      "includes": [
+        "Children, Youth and Families",
+        "Area Agency on Aging",
+        "Mental Health services",
+        "Drug and Alcohol programs",
+        "Developmental Programs",
+        "Early Intervention"
+      ],
+      "note": "Largest department - serves most vulnerable populations"
+    },
+    {
+      "id": "courts",
+      "name": "Courts & Justice",
+      "percentage": 20,
+      "description": "Judicial system, public defenders, probation",
+      "includes": [
+        "Court of Common Pleas",
+        "Magisterial District Courts",
+        "Public Defender's Office",
+        "Adult Probation",
+        "Juvenile Probation",
+        "Court administration"
+      ]
+    },
+    {
+      "id": "corrections",
+      "name": "Corrections",
+      "percentage": 16,
+      "description": "County prison operations",
+      "includes": [
+        "Inmate housing and care",
+        "Security staff",
+        "Food service",
+        "Medical care",
+        "Rehabilitation programs",
+        "Work release"
+      ]
+    },
+    {
+      "id": "gracedale",
+      "name": "Gracedale Nursing Home",
+      "percentage": 12,
+      "description": "County-owned skilled nursing facility",
+      "includes": [
+        "Nursing care",
+        "Medical services",
+        "Food service",
+        "Housekeeping",
+        "Administration"
+      ],
+      "note": "Receives significant state/federal reimbursement in addition to county funds"
+    },
+    {
+      "id": "administration",
+      "name": "Administration",
+      "percentage": 10,
+      "description": "General county operations",
+      "includes": [
+        "County Executive office",
+        "County Council",
+        "Finance/Budget",
+        "Human Resources",
+        "IT/Technology",
+        "Purchasing",
+        "Risk Management"
+      ]
+    },
+    {
+      "id": "publicworks",
+      "name": "Public Works",
+      "percentage": 6,
+      "description": "Roads, bridges, facilities maintenance",
+      "includes": [
+        "Highway/road maintenance",
+        "Bridge repairs",
+        "Snow removal",
+        "Building maintenance",
+        "Fleet management"
+      ],
+      "stats": {
+        "bridges": 330,
+        "roadMiles": 395
+      }
+    },
+    {
+      "id": "emergency",
+      "name": "911 & Emergency Services",
+      "percentage": 4,
+      "description": "Emergency dispatch and management",
+      "includes": [
+        "911 call center",
+        "Emergency Management Agency",
+        "HAZMAT coordination",
+        "Disaster preparedness"
+      ]
+    },
+    {
+      "id": "elections",
+      "name": "Elections",
+      "percentage": 2,
+      "description": "Election administration",
+      "includes": [
+        "Voter registration",
+        "Voting machines",
+        "Poll workers",
+        "Ballot processing",
+        "Election night operations"
+      ]
+    }
+  ],
+  "revenueSourcesNote": "County revenue comes from multiple sources, not just property taxes",
+  "revenueSources": [
+    {
+      "source": "Property Taxes",
+      "percentage": 35,
+      "description": "Based on assessed property values"
+    },
+    {
+      "source": "State/Federal Aid",
+      "percentage": 40,
+      "description": "Grants, reimbursements, shared taxes"
+    },
+    {
+      "source": "Fees and Charges",
+      "percentage": 15,
+      "description": "Court fees, licenses, permits, service charges"
+    },
+    {
+      "source": "Other",
+      "percentage": 10,
+      "description": "Investment income, fines, other revenue"
+    }
+  ],
+  "calculatorLogic": {
+    "description": "To calculate your contribution to each department",
+    "formula": "Your Tax × Department Percentage = Your Contribution",
+    "example": {
+      "yourTax": 1620,
+      "humanServices": 486,
+      "courts": 324,
+      "corrections": 259.20,
+      "gracedale": 194.40,
+      "administration": 162,
+      "publicWorks": 97.20,
+      "emergency": 64.80,
+      "elections": 32.40
+    }
+  }
+}

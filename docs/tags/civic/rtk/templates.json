@@ -1,0 +1,130 @@
+{
+  "name": "Right-to-Know Request Templates",
+  "description": "Pre-built templates for common RTK requests",
+  "lastUpdated": "2026-01-24",
+  "legalBasis": {
+    "statute": "65 P.S. § 67.101 et seq.",
+    "name": "Pennsylvania Right-to-Know Law",
+    "effectiveDate": "2009-01-01"
+  },
+  "baseTemplate": {
+    "header": "RIGHT-TO-KNOW LAW REQUEST\nPursuant to 65 P.S. § 67.101 et seq.",
+    "opening": "Dear Open Records Officer:\n\nPursuant to the Pennsylvania Right-to-Know Law, 65 P.S. § 67.101 et seq., I am requesting access to and copies of the following public records:",
+    "formatRequest": "I am requesting these records in {format}.",
+    "responseReminder": "As provided by the Right-to-Know Law, I expect a response within five (5) business days. If you expect a delay in responding to this request, please notify me in writing stating the reasons for the delay.",
+    "denialReminder": "If my request is denied in whole or in part, please cite the specific exemption(s) under the Right-to-Know Law that justify the denial, and notify me of the appeal procedures available to me under the Law.",
+    "closing": "Thank you for your assistance with this request.\n\nSincerely,"
+  },
+  "formats": {
+    "electronic": {
+      "id": "electronic",
+      "label": "Electronic (email/USB) - Usually free!",
+      "text": "electronic format (email or USB drive)"
+    },
+    "paper": {
+      "id": "paper",
+      "label": "Paper copies - $0.25/page",
+      "text": "paper copies"
+    },
+    "inspect": {
+      "id": "inspect",
+      "label": "Inspect in person - Free",
+      "text": "inspection at your office"
+    }
+  },
+  "templates": [
+    {
+      "id": "contracts",
+      "name": "Government Contracts",
+      "category": "fiscal",
+      "description": "Request contracts with vendors/contractors",
+      "recordsText": "All contracts, agreements, and purchase orders exceeding $[AMOUNT] awarded by [DEPARTMENT/AGENCY] between [START DATE] and [END DATE], including:\n- Vendor/contractor names\n- Contract amounts\n- Services or goods provided\n- Contract start and end dates\n- Any amendments or renewals",
+      "tips": ["Specify a dollar threshold to narrow results", "Include date range to limit scope", "Request any amendments/renewals separately if needed"]
+    },
+    {
+      "id": "salaries",
+      "name": "Employee Salaries",
+      "category": "fiscal",
+      "description": "Request county employee compensation data",
+      "recordsText": "A list of all [DEPARTMENT] employees showing:\n- Name\n- Job title\n- Annual salary or hourly rate\n- Date of hire\n- Overtime paid (if applicable)\n\nFor the period [START DATE] to [END DATE].",
+      "tips": ["Public employee salaries are public record in PA", "You can request by department or county-wide", "Overtime data may reveal staffing issues"]
+    },
+    {
+      "id": "emails",
+      "name": "Email Communications",
+      "category": "communications",
+      "description": "Request email correspondence on specific topics",
+      "recordsText": "All emails sent or received by [OFFICIAL/DEPARTMENT] containing the following keywords or regarding the following subject matter:\n\n[KEYWORDS/SUBJECT]\n\nFor the period [START DATE] to [END DATE].\n\nPlease include any attachments to these emails.",
+      "tips": ["Be specific about keywords and date range", "Emails discussing government business are generally public", "Personal emails on government devices may also be public"]
+    },
+    {
+      "id": "meeting-materials",
+      "name": "Meeting Materials",
+      "category": "governance",
+      "description": "Request agendas, minutes, and supporting documents",
+      "recordsText": "All materials related to the [COUNCIL/BOARD/COMMITTEE] meeting held on [DATE], including:\n- Agenda\n- Minutes (if approved)\n- Supporting documents for each agenda item\n- Presentations\n- Public comment sign-in sheets\n- Any recordings",
+      "tips": ["Minutes may not be available until approved at next meeting", "Executive session minutes are generally exempt", "Request video recordings if meetings are taped"]
+    },
+    {
+      "id": "budget",
+      "name": "Budget Documents",
+      "category": "fiscal",
+      "description": "Request budget details and spending reports",
+      "recordsText": "The following budget documents for fiscal year [YEAR]:\n- Adopted budget by department\n- Line-item expenditure reports (year-to-date)\n- Budget amendments\n- Fund balance reports\n- [SPECIFIC DEPARTMENT] detailed budget breakdown",
+      "tips": ["County budgets are public", "Request quarterly or monthly expenditure reports", "Compare adopted vs. actual spending"]
+    },
+    {
+      "id": "policies",
+      "name": "Policies and Procedures",
+      "category": "governance",
+      "description": "Request official policies on specific topics",
+      "recordsText": "All current policies, procedures, guidelines, and training materials regarding [TOPIC], including:\n- Written policies\n- Standard operating procedures\n- Employee handbooks/manuals related to this topic\n- Any recent updates or revisions",
+      "tips": ["Good for understanding how decisions are made", "Compare actual practice to written policy", "Request revision history to see changes over time"]
+    },
+    {
+      "id": "vendor-payments",
+      "name": "Vendor Payments",
+      "category": "fiscal",
+      "description": "Request payments to specific vendor or all vendors",
+      "recordsText": "All payments made to [VENDOR NAME / all vendors] by [DEPARTMENT / the county] between [START DATE] and [END DATE], including:\n- Payment date\n- Payment amount\n- Invoice number or description\n- Department charged",
+      "tips": ["Track spending patterns with specific vendors", "Can reveal no-bid or sole-source purchasing", "Compare to contract amounts"]
+    },
+    {
+      "id": "complaints",
+      "name": "Complaints/Grievances",
+      "category": "oversight",
+      "description": "Request complaint records (redacted as needed)",
+      "recordsText": "All complaints, grievances, or formal concerns filed regarding [DEPARTMENT/FACILITY/ISSUE] between [START DATE] and [END DATE], including:\n- Date of complaint\n- Nature of complaint (redacted as necessary to protect privacy)\n- Resolution or current status\n- Any corrective actions taken\n\nI understand that personal identifying information may be redacted.",
+      "tips": ["Useful for tracking patterns of problems", "Request aggregate data if individual records denied", "Follow up on resolution status"]
+    },
+    {
+      "id": "inspections",
+      "name": "Inspections/Audits",
+      "category": "oversight",
+      "description": "Request inspection reports and audit findings",
+      "recordsText": "All inspection reports, audit findings, and compliance reviews for [FACILITY/DEPARTMENT/PROGRAM] conducted between [START DATE] and [END DATE], including:\n- Inspection/audit reports\n- Findings and citations\n- Corrective action plans\n- Follow-up inspection results",
+      "tips": ["State inspections of county facilities are public", "Request both internal and external audits", "Ask for corrective action status"]
+    },
+    {
+      "id": "911-calls",
+      "name": "911 Call Data",
+      "category": "public-safety",
+      "description": "Request 911 call statistics or specific incident data",
+      "recordsText": "911 call data for [MUNICIPALITY/AREA] between [START DATE] and [END DATE], including:\n- Call type/nature\n- Response times\n- Dispatched units\n- Location (block level acceptable if exact address restricted)\n\n[OR for specific incident:]\nAll 911 call records and CAD data for the incident at [LOCATION] on [DATE/TIME].",
+      "tips": ["Response time data reveals service levels", "May not get exact addresses for some call types", "Audio recordings may require separate request"]
+    }
+  ],
+  "appeals": {
+    "deadline": "15 business days from denial",
+    "appealTo": "PA Office of Open Records",
+    "website": "https://www.openrecords.pa.gov",
+    "address": "333 Market Street, 16th Floor, Harrisburg, PA 17101",
+    "fee": "None",
+    "process": [
+      "File written appeal within 15 business days",
+      "Include copy of original request and denial",
+      "State grounds for appeal",
+      "OOR will issue decision within 30 days"
+    ]
+  }
+}

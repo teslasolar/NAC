@@ -1,0 +1,216 @@
+{
+  "name": "County Departments",
+  "description": "Northampton County government departments and services",
+  "lastUpdated": "2026-01-24",
+  "departments": {
+    "humanServices": {
+      "name": "Department of Human Services",
+      "director": null,
+      "contact": {
+        "phone": "610-559-3100",
+        "email": "humanservices@norcopa.gov",
+        "address": "2801 Emrick Blvd, Bethlehem, PA 18020"
+      },
+      "divisions": [
+        {
+          "name": "Children, Youth and Families",
+          "phone": "610-559-3290",
+          "services": ["Child protective services", "Foster care", "Adoption", "Family preservation"]
+        },
+        {
+          "name": "Area Agency on Aging",
+          "phone": "610-559-3221",
+          "services": ["Senior services", "Meals on Wheels", "Care management", "Ombudsman"]
+        },
+        {
+          "name": "Mental Health / Developmental Programs",
+          "phone": "610-559-3270",
+          "services": ["Mental health services", "Crisis intervention", "Intellectual disability services"]
+        },
+        {
+          "name": "Drug and Alcohol",
+          "phone": "610-559-3265",
+          "services": ["Substance abuse treatment", "Prevention", "Recovery support"]
+        },
+        {
+          "name": "Early Intervention",
+          "phone": "610-559-3280",
+          "services": ["Services for infants/toddlers with developmental delays"]
+        }
+      ],
+      "budgetPercentage": 30
+    },
+    "corrections": {
+      "name": "Department of Corrections",
+      "facility": "Northampton County Prison",
+      "contact": {
+        "phone": "610-559-3400",
+        "email": "corrections@norcopa.gov",
+        "address": "666 Bushkill Drive, Easton, PA 18042"
+      },
+      "services": ["Inmate custody", "Rehabilitation programs", "Work release", "Re-entry services"],
+      "visitation": {
+        "schedule": "Saturdays and Sundays",
+        "registration": "Required 24 hours in advance"
+      },
+      "budgetPercentage": 16
+    },
+    "publicWorks": {
+      "name": "Public Works Department",
+      "contact": {
+        "phone": "610-559-3200",
+        "email": "publicworks@norcopa.gov",
+        "address": "2801 Emrick Blvd, Bethlehem, PA 18020"
+      },
+      "divisions": [
+        {
+          "name": "Highway/Bridges",
+          "phone": "610-559-3200",
+          "services": ["County road maintenance", "Bridge repairs", "Snow removal", "Paving"]
+        },
+        {
+          "name": "Fleet Management",
+          "phone": "610-559-3210",
+          "services": ["Vehicle maintenance", "Equipment repair"]
+        },
+        {
+          "name": "Facilities",
+          "phone": "610-559-3220",
+          "services": ["Building maintenance", "Courthouse upkeep"]
+        }
+      ],
+      "reportIssues": {
+        "potholes": "610-559-3200",
+        "bridges": "610-559-3200",
+        "snow": "610-559-3200"
+      },
+      "budgetPercentage": 6
+    },
+    "elections": {
+      "name": "Election Office",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "elections@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Government Center, Lower Level"
+      },
+      "services": [
+        "Voter registration",
+        "Mail-in/absentee ballots",
+        "Polling place information",
+        "Candidate filings",
+        "Election results"
+      ],
+      "importantDates": {
+        "registrationDeadline": "15 days before election",
+        "mailBallotDeadline": "7 days before election (request)",
+        "mailBallotReturn": "8 PM on Election Day"
+      },
+      "voterResources": "https://www.vote.pa.gov",
+      "budgetPercentage": 2
+    },
+    "assessment": {
+      "name": "Assessment Office",
+      "contact": {
+        "phone": "610-559-3155",
+        "email": "assessment@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Courthouse, 2nd Floor"
+      },
+      "services": [
+        "Property assessments",
+        "Assessment appeals",
+        "Exemption applications",
+        "Property records"
+      ],
+      "appeals": {
+        "deadline": "August 1 annually",
+        "residentialFee": 25,
+        "commercialFee": 250,
+        "classActionFee": 100
+      }
+    },
+    "emergencyManagement": {
+      "name": "Emergency Management / 911",
+      "contact": {
+        "emergency": "911",
+        "nonEmergency": "610-559-3055",
+        "email": "ema@norcopa.gov"
+      },
+      "services": [
+        "911 dispatch",
+        "Emergency preparedness",
+        "Disaster response",
+        "HAZMAT coordination"
+      ],
+      "budgetPercentage": 4
+    },
+    "gracedale": {
+      "name": "Gracedale Nursing Home",
+      "type": "County-owned skilled nursing facility",
+      "contact": {
+        "phone": "610-746-1600",
+        "email": "gracedale@norcopa.gov",
+        "address": "2 Gracedale Avenue, Nazareth, PA 18064"
+      },
+      "capacity": {
+        "licensedBeds": 638,
+        "certifications": ["Medicare", "Medicaid"]
+      },
+      "services": [
+        "Long-term care",
+        "Skilled nursing",
+        "Rehabilitation",
+        "Memory care"
+      ],
+      "cmsRating": 1,
+      "budgetPercentage": 12
+    },
+    "courts": {
+      "name": "Court Administration",
+      "contact": {
+        "phone": "610-559-3000",
+        "email": "courts@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042"
+      },
+      "divisions": [
+        {"name": "Civil", "contact": "Prothonotary", "phone": "610-829-6457"},
+        {"name": "Criminal", "contact": "Clerk of Courts", "phone": "610-559-3055"},
+        {"name": "Family", "phone": "610-559-3080"},
+        {"name": "Orphans", "contact": "Register of Wills", "phone": "610-559-3055"},
+        {"name": "Juvenile", "phone": "610-559-3085"}
+      ],
+      "mdjCourts": {
+        "description": "Magisterial District Courts handle minor cases",
+        "lookup": "https://ujsportal.pacourts.us/CaseSearch"
+      },
+      "budgetPercentage": 20
+    }
+  },
+  "otherOffices": {
+    "openRecords": {
+      "name": "Open Records Officer",
+      "contact": {
+        "phone": "610-559-3100",
+        "email": "openrecords@norcopa.gov"
+      },
+      "purpose": "Handles Right-to-Know Law requests"
+    },
+    "purchasing": {
+      "name": "Purchasing Department",
+      "contact": {
+        "phone": "610-559-3140",
+        "email": "purchasing@norcopa.gov"
+      },
+      "biddingPortal": "https://www.publicpurchase.com/gems/northampton,pa/buyer/public/home"
+    },
+    "humanResources": {
+      "name": "Human Resources",
+      "contact": {
+        "phone": "610-559-3150",
+        "email": "hr@norcopa.gov"
+      },
+      "jobPostings": "https://norcopa.gov/jobs"
+    }
+  }
+}

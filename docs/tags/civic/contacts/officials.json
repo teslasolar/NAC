@@ -1,0 +1,184 @@
+{
+  "name": "Elected Officials",
+  "description": "Northampton County elected officials and their contact information",
+  "lastUpdated": "2026-01-24",
+  "officials": {
+    "executive": {
+      "title": "County Executive",
+      "name": null,
+      "term": "4 years",
+      "electedBy": "at-large",
+      "contact": {
+        "phone": "610-559-3100",
+        "email": "executive@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Government Center, 3rd Floor"
+      },
+      "responsibilities": [
+        "Chief executive officer of the county",
+        "Proposes annual budget",
+        "Appoints department heads",
+        "Veto power over Council ordinances",
+        "Represents county in official capacities"
+      ],
+      "website": "https://norcopa.gov/county-executive"
+    },
+    "council": {
+      "title": "County Council",
+      "members": 9,
+      "atLarge": 5,
+      "byDistrict": 4,
+      "term": "4 years",
+      "termLimit": "3 consecutive terms",
+      "contact": {
+        "phone": "610-559-3185",
+        "email": "council@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Government Center, 2nd Floor"
+      },
+      "meetingSchedule": {
+        "regular": "1st and 3rd Thursday",
+        "time": "6:30 PM",
+        "location": "Council Chambers, Government Center"
+      },
+      "districts": [
+        {"number": 1, "areas": ["Bethlehem City (part)", "Bethlehem Township"]},
+        {"number": 2, "areas": ["Easton", "Wilson", "West Easton", "Forks Township"]},
+        {"number": 3, "areas": ["Palmer Township", "Tatamy", "Stockertown"]},
+        {"number": 4, "areas": ["Slate Belt municipalities", "Upper Mt. Bethel"]}
+      ],
+      "responsibilities": [
+        "Pass ordinances (local laws)",
+        "Approve annual budget",
+        "Confirm executive appointments",
+        "Override executive vetoes (6 votes required)",
+        "Set tax rates"
+      ],
+      "website": "https://norcopa.gov/county-council"
+    },
+    "controller": {
+      "title": "County Controller",
+      "name": null,
+      "term": "4 years",
+      "electedBy": "at-large",
+      "contact": {
+        "phone": "610-559-3190",
+        "email": "controller@norcopa.gov",
+        "fax": "610-559-3193",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Courthouse, Room 2104"
+      },
+      "responsibilities": [
+        "Audit all county accounts and transactions",
+        "Pre-audit all claims against the county",
+        "Report findings to Council and public",
+        "Investigate fraud, waste, and abuse",
+        "Ensure fiscal accountability"
+      ],
+      "reportingChannels": {
+        "fraudHotline": "610-559-3190",
+        "email": "controller@norcopa.gov",
+        "anonymous": true
+      },
+      "website": "https://norcopa.gov/controller"
+    },
+    "districtAttorney": {
+      "title": "District Attorney",
+      "name": null,
+      "term": "4 years",
+      "electedBy": "at-large",
+      "contact": {
+        "phone": "610-559-3020",
+        "email": "da@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Courthouse, 1st Floor"
+      },
+      "responsibilities": [
+        "Prosecute criminal cases",
+        "Lead county drug task force",
+        "Administer ARD program",
+        "Coordinate with law enforcement",
+        "Victim services"
+      ],
+      "divisions": [
+        {"name": "Criminal", "phone": "610-559-3020"},
+        {"name": "Juvenile", "phone": "610-559-3025"},
+        {"name": "Victim Services", "phone": "610-559-3029"}
+      ],
+      "website": "https://norcopa.gov/district-attorney"
+    },
+    "sheriff": {
+      "title": "Sheriff",
+      "name": null,
+      "term": "4 years",
+      "electedBy": "at-large",
+      "note": "Position may become appointed under charter review",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "sheriff@norcopa.gov",
+        "address": "669 Washington Street, Easton, PA 18042",
+        "office": "Courthouse, Ground Floor"
+      },
+      "responsibilities": [
+        "Court security",
+        "Prisoner transport",
+        "Service of legal papers",
+        "License to Carry Firearms permits",
+        "Warrant service"
+      ],
+      "services": {
+        "ltcf": {"name": "License to Carry", "phone": "610-559-3057"},
+        "civilProcess": {"name": "Civil Process", "phone": "610-559-3055"},
+        "warrants": {"name": "Warrants", "phone": "610-559-3056"}
+      },
+      "website": "https://norcopa.gov/sheriff"
+    }
+  },
+  "rowOfficers": {
+    "prothonotary": {
+      "title": "Prothonotary",
+      "term": "4 years",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "prothonotary@norcopa.gov"
+      },
+      "handles": ["Civil court records", "Divorce filings", "Name changes", "Landlord-tenant disputes"]
+    },
+    "registerOfWills": {
+      "title": "Register of Wills / Clerk of Orphans Court",
+      "term": "4 years",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "registerwills@norcopa.gov"
+      },
+      "handles": ["Probate of wills", "Estate administration", "Inheritance tax collection", "Marriage licenses"]
+    },
+    "recorderOfDeeds": {
+      "title": "Recorder of Deeds",
+      "term": "4 years",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "recorder@norcopa.gov"
+      },
+      "handles": ["Property deeds", "Mortgages", "Land records", "UCC filings"]
+    },
+    "clerkOfCourts": {
+      "title": "Clerk of Courts",
+      "term": "4 years",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "clerkofcourts@norcopa.gov"
+      },
+      "handles": ["Criminal court records", "Appeals", "Expungements", "Court transcripts"]
+    },
+    "coroner": {
+      "title": "Coroner",
+      "term": "4 years",
+      "contact": {
+        "phone": "610-759-8989",
+        "email": "coroner@norcopa.gov"
+      },
+      "handles": ["Death investigations", "Autopsies", "Death certificates (unexplained deaths)"]
+    }
+  }
+}

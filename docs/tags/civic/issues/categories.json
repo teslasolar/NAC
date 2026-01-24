@@ -1,0 +1,254 @@
+{
+  "name": "Issue Reporting Categories",
+  "description": "Where to report different types of issues in Northampton County",
+  "lastUpdated": "2026-01-24",
+  "jurisdictionGuide": {
+    "county": [
+      "Courts and judicial matters",
+      "County prison",
+      "911 emergency services",
+      "County roads and bridges",
+      "Human services (Children & Youth, Aging, Mental Health)",
+      "Gracedale Nursing Home",
+      "Elections and voter registration",
+      "Property assessment"
+    ],
+    "municipal": [
+      "Local roads and streets",
+      "Zoning and land use",
+      "Police (most municipalities)",
+      "Trash collection",
+      "Water and sewer",
+      "Local parks",
+      "Building permits",
+      "Code enforcement"
+    ],
+    "state": [
+      "State highways (numbered routes)",
+      "State police",
+      "PennDOT projects",
+      "State licenses",
+      "Environmental (DEP)",
+      "Health inspections"
+    ]
+  },
+  "categories": [
+    {
+      "id": "road",
+      "name": "County Road / Pothole",
+      "icon": "road",
+      "department": "Public Works Department",
+      "contact": {
+        "phone": "610-559-3200",
+        "email": "publicworks@norcopa.gov"
+      },
+      "whatToInclude": [
+        "Exact location (road name, cross streets)",
+        "Description of problem",
+        "Size/severity if applicable",
+        "Photos if possible"
+      ],
+      "note": "Make sure it's a COUNTY road (not state or municipal). County roads are usually rural/connecting roads.",
+      "responseTime": "Varies by severity; safety hazards prioritized"
+    },
+    {
+      "id": "bridge",
+      "name": "Bridge Condition",
+      "icon": "bridge",
+      "department": "Public Works / Engineering",
+      "contact": {
+        "phone": "610-559-3200",
+        "email": "publicworks@norcopa.gov"
+      },
+      "whatToInclude": [
+        "Bridge location (road name)",
+        "Bridge number if posted",
+        "Type of concern (rust, cracks, debris, flooding)",
+        "Photos if safe to take"
+      ],
+      "note": "County maintains 330 bridges. Report safety concerns immediately.",
+      "urgency": "Safety hazards: Call immediately"
+    },
+    {
+      "id": "election",
+      "name": "Election / Voting Issue",
+      "icon": "vote",
+      "department": "Election Office",
+      "contact": {
+        "phone": "610-559-3055",
+        "email": "elections@norcopa.gov"
+      },
+      "issueTypes": [
+        {"type": "Registration", "description": "Problems with voter registration"},
+        {"type": "Mail ballot", "description": "Issues with mail-in or absentee ballots"},
+        {"type": "Polling place", "description": "Problems at your polling location"},
+        {"type": "Machine", "description": "Voting machine issues"},
+        {"type": "Accessibility", "description": "ADA or accessibility concerns"}
+      ],
+      "stateResource": {
+        "name": "PA Voter Hotline",
+        "phone": "1-877-VOTESPA",
+        "website": "https://www.vote.pa.gov"
+      }
+    },
+    {
+      "id": "assessment",
+      "name": "Property Assessment Dispute",
+      "icon": "home",
+      "department": "Assessment Office",
+      "contact": {
+        "phone": "610-559-3155",
+        "email": "assessment@norcopa.gov"
+      },
+      "process": [
+        "Review your assessment online or at the office",
+        "Gather evidence (comparable sales, appraisals)",
+        "File appeal by August 1 deadline",
+        "Pay filing fee ($25 residential, $250 commercial)",
+        "Attend hearing"
+      ],
+      "fees": {
+        "residential": 25,
+        "commercial": 250,
+        "classAction": 100
+      },
+      "note": "Appeals must be filed by August 1 of each year"
+    },
+    {
+      "id": "fraud",
+      "name": "Suspected Fraud / Waste",
+      "icon": "alert-triangle",
+      "department": "County Controller",
+      "contact": {
+        "phone": "610-559-3190",
+        "email": "controller@norcopa.gov"
+      },
+      "canReportAnonymously": true,
+      "whatToInclude": [
+        "Who is involved",
+        "What is happening",
+        "When did it occur / how long",
+        "Where (department, location)",
+        "Any documentation or evidence"
+      ],
+      "examples": [
+        "Misuse of county funds",
+        "Ghost employees",
+        "Vendor kickbacks",
+        "Time card fraud",
+        "Unauthorized purchases",
+        "Conflicts of interest"
+      ],
+      "note": "Reports can be confidential. The Controller investigates independently."
+    },
+    {
+      "id": "gracedale",
+      "name": "Gracedale Nursing Home",
+      "icon": "heart",
+      "department": "Gracedale Administration",
+      "contact": {
+        "phone": "610-746-1600",
+        "email": "gracedale@norcopa.gov"
+      },
+      "issueTypes": [
+        {"type": "Care quality", "description": "Concerns about patient care"},
+        {"type": "Staff", "description": "Staff behavior or responsiveness"},
+        {"type": "Facility", "description": "Building conditions, cleanliness"},
+        {"type": "Billing", "description": "Billing or payment issues"}
+      ],
+      "escalation": {
+        "stateHotline": "1-800-254-5164",
+        "agency": "PA Department of Health",
+        "website": "https://www.health.pa.gov/topics/facilities/nursing-homes"
+      },
+      "note": "For serious care concerns, also report to PA Dept of Health"
+    },
+    {
+      "id": "court",
+      "name": "Court-Related Issue",
+      "icon": "gavel",
+      "department": "Court Administrator",
+      "contact": {
+        "phone": "610-559-3000",
+        "email": "courts@norcopa.gov"
+      },
+      "issueTypes": [
+        {"type": "Case status", "contact": "Prothonotary (civil) or Clerk of Courts (criminal)"},
+        {"type": "Scheduling", "contact": "Court Administrator"},
+        {"type": "Records", "contact": "Relevant Clerk's office"},
+        {"type": "Judicial conduct", "contact": "PA Judicial Conduct Board", "phone": "717-234-7911"}
+      ],
+      "note": "For case-specific issues, contact the clerk's office for your case type"
+    },
+    {
+      "id": "humanservices",
+      "name": "Human Services",
+      "icon": "users",
+      "department": "Dept of Human Services",
+      "contact": {
+        "phone": "610-559-3100",
+        "email": "humanservices@norcopa.gov"
+      },
+      "programs": [
+        {"name": "Children & Youth", "phone": "610-559-3290", "issues": ["Child abuse reporting", "Foster care", "Family services"]},
+        {"name": "Aging", "phone": "610-559-3221", "issues": ["Senior services", "Meals on Wheels", "Elder abuse"]},
+        {"name": "Mental Health", "phone": "610-559-3270", "issues": ["Crisis services", "Treatment access"]},
+        {"name": "Drug & Alcohol", "phone": "610-559-3265", "issues": ["Treatment referrals", "Recovery support"]}
+      ],
+      "emergencies": {
+        "childAbuse": "1-800-932-0313",
+        "crisis": "988",
+        "emergency": "911"
+      }
+    },
+    {
+      "id": "911",
+      "name": "911 / Emergency Services",
+      "icon": "phone",
+      "department": "911 Center",
+      "contact": {
+        "emergency": "911",
+        "nonEmergency": "610-759-2200"
+      },
+      "whenToCall911": [
+        "Life-threatening emergency",
+        "Crime in progress",
+        "Fire",
+        "Medical emergency",
+        "Serious accident"
+      ],
+      "nonEmergencyExamples": [
+        "Report past crime (no suspect present)",
+        "Noise complaint",
+        "Suspicious activity (not immediate threat)",
+        "Request welfare check"
+      ],
+      "complaints": {
+        "about911Service": "Emergency Management Agency",
+        "phone": "610-559-3055"
+      }
+    },
+    {
+      "id": "environmental",
+      "name": "Environmental Issue",
+      "icon": "tree",
+      "department": "Varies",
+      "note": "Environmental issues often involve state agencies",
+      "contacts": {
+        "stormwater": {"contact": "Your municipality", "note": "Stormwater management is local"},
+        "waterPollution": {"agency": "PA DEP", "phone": "1-866-255-5158"},
+        "airQuality": {"agency": "PA DEP", "phone": "1-866-255-5158"},
+        "illegalDumping": {"agency": "PA DEP or local police", "phone": "1-866-255-5158"},
+        "countyParks": {"contact": "Northampton County Parks", "phone": "610-746-1975"}
+      }
+    }
+  ],
+  "trackingTips": [
+    "Note the date and time you reported",
+    "Get the name of person you spoke with",
+    "Ask for a reference/ticket number",
+    "Note any promised follow-up date",
+    "Follow up if no response within promised time",
+    "Keep copies of any emails or written correspondence"
+  ]
+}

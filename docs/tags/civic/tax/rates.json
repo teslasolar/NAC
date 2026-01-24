@@ -1,0 +1,92 @@
+{
+  "name": "Northampton County Tax Rates",
+  "description": "Current and historical property tax millage rates",
+  "lastUpdated": "2026-01-24",
+  "currentYear": 2026,
+  "countyMillage": {
+    "rate": 10.8,
+    "unit": "mils",
+    "description": "$10.80 per $1,000 of assessed property value",
+    "effectiveDate": "2025-01-01"
+  },
+  "milExplanation": {
+    "definition": "A mil equals $1 of tax per $1,000 of assessed property value",
+    "formula": "(Assessed Value / 1000) × Millage Rate = Annual Tax",
+    "example": {
+      "assessedValue": 150000,
+      "millage": 10.8,
+      "calculation": "(150000 / 1000) × 10.8 = $1,620",
+      "annualTax": 1620
+    }
+  },
+  "historicalRates": [
+    {"year": 2026, "rate": 10.8, "change": 0},
+    {"year": 2025, "rate": 10.8, "change": 0},
+    {"year": 2024, "rate": 10.8, "change": 0},
+    {"year": 2023, "rate": 10.8, "change": 0},
+    {"year": 2022, "rate": 10.8, "change": 0.3},
+    {"year": 2021, "rate": 10.5, "change": 0},
+    {"year": 2020, "rate": 10.5, "change": 0}
+  ],
+  "otherTaxes": {
+    "note": "County taxes are only ONE part of your total property tax bill",
+    "components": [
+      {
+        "type": "School District",
+        "description": "Largest portion (typically 50-70%)",
+        "determinedBy": "Local school board",
+        "varies": true
+      },
+      {
+        "type": "Municipality",
+        "description": "City, borough, or township taxes",
+        "determinedBy": "Local governing body",
+        "varies": true
+      },
+      {
+        "type": "Special Districts",
+        "description": "Library, fire, etc. (if applicable)",
+        "varies": true
+      }
+    ]
+  },
+  "exemptions": [
+    {
+      "name": "Homestead Exclusion",
+      "description": "Reduces assessed value for primary residence",
+      "amount": "Varies by municipality",
+      "requirements": ["Property must be primary residence", "Must apply with Assessment Office"]
+    },
+    {
+      "name": "Senior Citizen Tax Relief",
+      "description": "Property tax/rent rebate for eligible seniors",
+      "administeredBy": "PA Department of Revenue",
+      "website": "https://www.revenue.pa.gov/IncentivesCreditsPrograms/PropertyTaxRentRebate"
+    },
+    {
+      "name": "Veterans Exemption",
+      "description": "Exemption for disabled veterans",
+      "requirements": ["100% disabled or unemployable rating from VA"]
+    },
+    {
+      "name": "LERTA",
+      "description": "Local Economic Revitalization Tax Assistance",
+      "note": "Exemptions on improvements for qualifying properties in designated areas",
+      "controversial": true
+    }
+  ],
+  "paymentInfo": {
+    "collector": "Northampton County Treasurer",
+    "dueDate": "December 31",
+    "discount": {
+      "percentage": 2,
+      "deadline": "By certain date (check bill)"
+    },
+    "penalty": {
+      "percentage": 10,
+      "afterDate": "After due date"
+    },
+    "paymentMethods": ["Online", "Mail", "In-person"],
+    "website": "https://norcopa.gov/treasurer"
+  }
+}

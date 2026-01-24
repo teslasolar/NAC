@@ -1,0 +1,221 @@
+{
+  "name": "Meeting Attendance Guide",
+  "description": "Complete checklist and guide for attending public government meetings",
+  "lastUpdated": "2026-01-24",
+  "meetingTypes": {
+    "countyCouncil": {
+      "schedule": "1st and 3rd Thursday",
+      "time": "6:30 PM",
+      "location": "Council Chambers, Government Center, 669 Washington St, Easton",
+      "publicComment": {
+        "allowed": true,
+        "signUp": "At meeting or in advance",
+        "timeLimit": 180,
+        "timeLimitText": "3 minutes"
+      }
+    },
+    "committees": {
+      "schedule": "2nd and 4th Wednesday",
+      "time": "6:00 PM",
+      "types": ["Personnel & Finance", "Public Works", "Human Services"]
+    },
+    "prisonBoard": {
+      "schedule": "3rd Monday",
+      "time": "4:00 PM"
+    }
+  },
+  "checklists": {
+    "beforeMeeting": {
+      "name": "Before the Meeting",
+      "items": [
+        {
+          "id": "check-calendar",
+          "task": "Check the meeting calendar for date, time, and location",
+          "link": "calendar.html",
+          "priority": "required"
+        },
+        {
+          "id": "review-agenda",
+          "task": "Review the agenda (usually posted 24-48 hours before on county website)",
+          "link": "https://norcopa.gov",
+          "priority": "required"
+        },
+        {
+          "id": "sign-up",
+          "task": "If speaking: Sign up for public comment (sometimes required before meeting)",
+          "priority": "if-speaking"
+        },
+        {
+          "id": "prepare-notes",
+          "task": "Prepare written notes if giving public comment",
+          "priority": "if-speaking"
+        },
+        {
+          "id": "practice",
+          "task": "Practice your statement with a timer (3 minutes max)",
+          "priority": "recommended"
+        },
+        {
+          "id": "parking",
+          "task": "Know parking situation (courthouse garage, street parking)",
+          "priority": "helpful"
+        },
+        {
+          "id": "childcare",
+          "task": "Arrange childcare if needed (meetings can run 2+ hours)",
+          "priority": "if-applicable"
+        }
+      ]
+    },
+    "whatToBring": {
+      "name": "What to Bring",
+      "items": [
+        {
+          "id": "photo-id",
+          "task": "Photo ID (for courthouse security)",
+          "priority": "required"
+        },
+        {
+          "id": "agenda-copy",
+          "task": "Printed copy of agenda",
+          "priority": "recommended"
+        },
+        {
+          "id": "notepad",
+          "task": "Notepad and pen",
+          "priority": "recommended"
+        },
+        {
+          "id": "prepared-comments",
+          "task": "Your prepared comments (if speaking)",
+          "priority": "if-speaking"
+        },
+        {
+          "id": "documentation",
+          "task": "Copies of any documents you plan to reference",
+          "priority": "if-applicable"
+        },
+        {
+          "id": "phone-silenced",
+          "task": "Phone silenced!",
+          "priority": "required"
+        },
+        {
+          "id": "water",
+          "task": "Water bottle (meetings can be long)",
+          "priority": "helpful"
+        }
+      ]
+    },
+    "duringMeeting": {
+      "name": "During the Meeting",
+      "items": [
+        {
+          "id": "arrive-early",
+          "task": "Arrive 10-15 minutes early",
+          "priority": "recommended"
+        },
+        {
+          "id": "find-seating",
+          "task": "Find seating in public gallery",
+          "priority": "required"
+        },
+        {
+          "id": "sign-in",
+          "task": "Sign in for public comment if required",
+          "priority": "if-speaking"
+        },
+        {
+          "id": "sit-quietly",
+          "task": "Sit quietly - no talking during proceedings",
+          "priority": "required"
+        },
+        {
+          "id": "no-outbursts",
+          "task": "No clapping, booing, or outbursts (can get you removed)",
+          "priority": "required"
+        },
+        {
+          "id": "wait-turn",
+          "task": "Wait to be recognized before speaking",
+          "priority": "required"
+        },
+        {
+          "id": "address-chair",
+          "task": "Address the Chair/President, not individual members",
+          "priority": "etiquette"
+        },
+        {
+          "id": "stay-on-topic",
+          "task": "Stay on topic and within time limit",
+          "priority": "required"
+        },
+        {
+          "id": "take-notes",
+          "task": "Take notes on discussion and votes",
+          "priority": "recommended"
+        }
+      ]
+    },
+    "afterMeeting": {
+      "name": "After the Meeting",
+      "items": [
+        {
+          "id": "follow-up-email",
+          "task": "Send follow-up email to relevant officials",
+          "priority": "recommended"
+        },
+        {
+          "id": "check-minutes",
+          "task": "Review minutes when posted (usually at next meeting)",
+          "priority": "helpful"
+        },
+        {
+          "id": "share-info",
+          "task": "Share information with neighbors or community groups",
+          "priority": "helpful"
+        },
+        {
+          "id": "next-steps",
+          "task": "Note any next steps or future meeting dates mentioned",
+          "priority": "helpful"
+        }
+      ]
+    }
+  },
+  "etiquette": {
+    "do": [
+      "Be respectful and courteous",
+      "Dress appropriately (business casual is fine)",
+      "State your name and address clearly",
+      "Stick to your allotted time",
+      "Thank the officials for their service",
+      "Bring facts and evidence to support your position",
+      "Listen to other speakers"
+    ],
+    "doNot": [
+      "Make personal attacks",
+      "Use profanity or threatening language",
+      "Clap, boo, or make noise from the audience",
+      "Speak out of turn",
+      "Go over your time limit",
+      "Interrupt other speakers or officials",
+      "Bring signs (may not be allowed)"
+    ]
+  },
+  "firstTimerTips": [
+    "Just go to observe! You don't have to speak your first time",
+    "Watching helps you understand the process",
+    "Notice how experienced speakers present their points",
+    "See where public comment fits in the agenda",
+    "Get comfortable with the location and format",
+    "You can always speak at the next meeting"
+  ],
+  "accessibility": {
+    "ada": "Government meetings must be ADA accessible",
+    "interpreter": "Sign language interpreters available with advance notice",
+    "assistiveListening": "Assistive listening devices may be available",
+    "parking": "Accessible parking at Government Center",
+    "contact": "Call 610-559-3185 for accommodation requests"
+  }
+}

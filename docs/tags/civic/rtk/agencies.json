@@ -1,0 +1,131 @@
+{
+  "name": "Right-to-Know Agencies",
+  "description": "County agencies subject to PA Right-to-Know Law requests",
+  "lastUpdated": "2026-01-24",
+  "openRecordsOfficer": {
+    "title": "Open Records Officer",
+    "department": "County Administration",
+    "contact": {
+      "phone": "610-559-3100",
+      "email": "openrecords@norcopa.gov",
+      "address": "669 Washington Street, Easton, PA 18042"
+    },
+    "submissionMethods": ["Email", "Mail", "In-person"],
+    "preferredMethod": "Email"
+  },
+  "responseTimelines": {
+    "initialResponse": "5 business days",
+    "extensionAllowed": "30 additional days",
+    "extensionReasons": ["Records in remote location", "Bona fide staffing limitations", "Legal review required", "Requester needs to clarify"]
+  },
+  "agencies": [
+    {
+      "id": "general",
+      "name": "Northampton County (General)",
+      "description": "General county records not specific to a department",
+      "commonRequests": ["Contracts", "Policies", "Meeting minutes", "Financial records"]
+    },
+    {
+      "id": "controller",
+      "name": "County Controller",
+      "description": "Fiscal oversight and audit records",
+      "commonRequests": ["Audit reports", "Expenditure records", "Payroll data", "Contract reviews"]
+    },
+    {
+      "id": "executive",
+      "name": "County Executive Office",
+      "description": "Executive administration records",
+      "commonRequests": ["Executive orders", "Appointments", "Correspondence", "Policy memos"]
+    },
+    {
+      "id": "council",
+      "name": "County Council",
+      "description": "Legislative records",
+      "commonRequests": ["Ordinances", "Resolutions", "Meeting minutes", "Voting records", "Committee reports"]
+    },
+    {
+      "id": "da",
+      "name": "District Attorney",
+      "description": "Prosecution records (limited by criminal investigation exemptions)",
+      "commonRequests": ["Policies", "Statistics", "ARD program data"],
+      "exemptions": ["Active investigations", "Grand jury materials", "Victim information"]
+    },
+    {
+      "id": "sheriff",
+      "name": "Sheriff's Office",
+      "description": "Sheriff department records",
+      "commonRequests": ["LTCF statistics", "Civil process fees", "Policies"]
+    },
+    {
+      "id": "elections",
+      "name": "Election Office",
+      "description": "Election administration records",
+      "commonRequests": ["Voter registration data", "Poll books", "Machine test results", "Election results", "Campaign filings"]
+    },
+    {
+      "id": "humanservices",
+      "name": "Human Services",
+      "description": "Social services records (limited by confidentiality laws)",
+      "commonRequests": ["Aggregate statistics", "Contracts", "Policies", "Budget documents"],
+      "exemptions": ["Individual case files", "Child welfare records", "Mental health records"]
+    },
+    {
+      "id": "assessment",
+      "name": "Assessment Office",
+      "description": "Property assessment records",
+      "commonRequests": ["Property assessments", "Appeals data", "Methodology documents", "Exemption lists"]
+    },
+    {
+      "id": "gracedale",
+      "name": "Gracedale Nursing Home",
+      "description": "County nursing facility records",
+      "commonRequests": ["Staffing data", "Inspection reports", "Budget", "Contracts"],
+      "exemptions": ["Individual patient records (HIPAA)"]
+    },
+    {
+      "id": "corrections",
+      "name": "Corrections Department",
+      "description": "Prison records",
+      "commonRequests": ["Population statistics", "Policies", "Contracts", "Incident reports (redacted)"],
+      "exemptions": ["Security procedures", "Individual inmate records"]
+    },
+    {
+      "id": "publicworks",
+      "name": "Public Works",
+      "description": "Infrastructure and facilities records",
+      "commonRequests": ["Road conditions", "Bridge inspections", "Contracts", "Project plans"]
+    },
+    {
+      "id": "purchasing",
+      "name": "Purchasing Department",
+      "description": "Procurement records",
+      "commonRequests": ["Bid documents", "Contracts", "Vendor lists", "RFP responses"]
+    },
+    {
+      "id": "hr",
+      "name": "Human Resources",
+      "description": "Personnel records (limited)",
+      "commonRequests": ["Salary schedules", "Job descriptions", "Organizational charts", "Union contracts"],
+      "exemptions": ["Personal employee files", "Medical records", "SSN/addresses"]
+    }
+  ],
+  "fees": {
+    "electronic": {
+      "description": "Electronic copies (email, USB)",
+      "cost": "Free in most cases",
+      "note": "Agency may charge if extensive staff time required"
+    },
+    "paper": {
+      "perPage": 0.25,
+      "description": "Standard letter/legal size"
+    },
+    "certified": {
+      "perDocument": 5.00,
+      "description": "Certified copies"
+    },
+    "inspection": {
+      "cost": "Free",
+      "description": "In-person review of records"
+    }
+  }
+}

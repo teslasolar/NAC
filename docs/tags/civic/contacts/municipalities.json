@@ -1,0 +1,283 @@
+{
+  "name": "Northampton County Municipalities",
+  "description": "All 38 municipalities in Northampton County with basic info",
+  "lastUpdated": "2026-01-24",
+  "totalMunicipalities": 38,
+  "byType": {
+    "cities": 3,
+    "boroughs": 17,
+    "townships": 18
+  },
+  "municipalities": [
+    {
+      "name": "Easton",
+      "type": "city",
+      "population": 28000,
+      "countyDistrict": 2,
+      "isCountySeat": true,
+      "schoolDistrict": "Easton Area",
+      "website": "https://www.easton-pa.com"
+    },
+    {
+      "name": "Bethlehem",
+      "type": "city",
+      "note": "Split between Northampton and Lehigh counties",
+      "population": 75000,
+      "countyDistrict": 1,
+      "schoolDistrict": "Bethlehem Area",
+      "website": "https://www.bethlehem-pa.gov"
+    },
+    {
+      "name": "Nazareth",
+      "type": "borough",
+      "population": 5700,
+      "schoolDistrict": "Nazareth Area",
+      "website": "https://www.nazarethborough.com"
+    },
+    {
+      "name": "Bangor",
+      "type": "borough",
+      "population": 5200,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area",
+      "website": "https://bangorborough.org"
+    },
+    {
+      "name": "Pen Argyl",
+      "type": "borough",
+      "population": 3500,
+      "countyDistrict": 4,
+      "schoolDistrict": "Pen Argyl Area"
+    },
+    {
+      "name": "Wind Gap",
+      "type": "borough",
+      "population": 2700,
+      "countyDistrict": 4,
+      "schoolDistrict": "Pen Argyl Area"
+    },
+    {
+      "name": "Bath",
+      "type": "borough",
+      "population": 2700,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Northampton",
+      "type": "borough",
+      "population": 9800,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Wilson",
+      "type": "borough",
+      "population": 7800,
+      "countyDistrict": 2,
+      "schoolDistrict": "Wilson Area"
+    },
+    {
+      "name": "West Easton",
+      "type": "borough",
+      "population": 1300,
+      "countyDistrict": 2,
+      "schoolDistrict": "Wilson Area"
+    },
+    {
+      "name": "Freemansburg",
+      "type": "borough",
+      "population": 2600,
+      "schoolDistrict": "Bethlehem Area"
+    },
+    {
+      "name": "Hellertown",
+      "type": "borough",
+      "population": 5900,
+      "schoolDistrict": "Saucon Valley"
+    },
+    {
+      "name": "Walnutport",
+      "type": "borough",
+      "population": 2100,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Tatamy",
+      "type": "borough",
+      "population": 1100,
+      "countyDistrict": 3,
+      "schoolDistrict": "Nazareth Area"
+    },
+    {
+      "name": "Stockertown",
+      "type": "borough",
+      "population": 900,
+      "countyDistrict": 3,
+      "schoolDistrict": "Nazareth Area"
+    },
+    {
+      "name": "Chapman",
+      "type": "borough",
+      "population": 200,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Glendon",
+      "type": "borough",
+      "population": 400,
+      "schoolDistrict": "Wilson Area"
+    },
+    {
+      "name": "Portland",
+      "type": "borough",
+      "population": 500,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area"
+    },
+    {
+      "name": "Roseto",
+      "type": "borough",
+      "population": 1900,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area"
+    },
+    {
+      "name": "East Bangor",
+      "type": "borough",
+      "population": 1100,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area"
+    },
+    {
+      "name": "Palmer Township",
+      "type": "township",
+      "population": 21000,
+      "countyDistrict": 3,
+      "schoolDistrict": "Easton Area",
+      "website": "https://www.palmertwp.com"
+    },
+    {
+      "name": "Bethlehem Township",
+      "type": "township",
+      "population": 24000,
+      "countyDistrict": 1,
+      "schoolDistrict": "Bethlehem Area",
+      "website": "https://www.bethlehemtwp.com"
+    },
+    {
+      "name": "Forks Township",
+      "type": "township",
+      "population": 15000,
+      "countyDistrict": 2,
+      "schoolDistrict": "Easton Area",
+      "website": "https://www.forkstwp.org"
+    },
+    {
+      "name": "Hanover Township",
+      "type": "township",
+      "population": 11000,
+      "schoolDistrict": "Bethlehem Area",
+      "website": "https://www.hanovertwp-nc.org"
+    },
+    {
+      "name": "Lower Saucon Township",
+      "type": "township",
+      "population": 11000,
+      "schoolDistrict": "Saucon Valley",
+      "website": "https://www.lowersaucontownship.org"
+    },
+    {
+      "name": "Allen Township",
+      "type": "township",
+      "population": 5000,
+      "schoolDistrict": "Northampton Area",
+      "website": "https://www.allentownship.org"
+    },
+    {
+      "name": "Upper Nazareth Township",
+      "type": "township",
+      "population": 7000,
+      "schoolDistrict": "Nazareth Area"
+    },
+    {
+      "name": "Lower Nazareth Township",
+      "type": "township",
+      "population": 6000,
+      "schoolDistrict": "Nazareth Area"
+    },
+    {
+      "name": "Upper Mount Bethel Township",
+      "type": "township",
+      "population": 7000,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area",
+      "note": "Site of River Pointe Commerce Park / LERTA controversy"
+    },
+    {
+      "name": "Bushkill Township",
+      "type": "township",
+      "population": 8000,
+      "schoolDistrict": "Nazareth Area"
+    },
+    {
+      "name": "Plainfield Township",
+      "type": "township",
+      "population": 6500,
+      "countyDistrict": 4,
+      "schoolDistrict": "Pen Argyl Area"
+    },
+    {
+      "name": "Washington Township",
+      "type": "township",
+      "population": 6000,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area"
+    },
+    {
+      "name": "Williams Township",
+      "type": "township",
+      "population": 6000,
+      "schoolDistrict": "Wilson Area"
+    },
+    {
+      "name": "Moore Township",
+      "type": "township",
+      "population": 9500,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Lehigh Township",
+      "type": "township",
+      "population": 10500,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "East Allen Township",
+      "type": "township",
+      "population": 5000,
+      "schoolDistrict": "Northampton Area"
+    },
+    {
+      "name": "Lower Mt Bethel Township",
+      "type": "township",
+      "population": 3000,
+      "countyDistrict": 4,
+      "schoolDistrict": "Bangor Area"
+    },
+    {
+      "name": "Upper Saucon Township",
+      "type": "township",
+      "note": "Actually in Lehigh County, sometimes confused",
+      "inNorthampton": false
+    }
+  ],
+  "schoolDistricts": [
+    {"name": "Easton Area", "municipalities": ["Easton", "Palmer Township", "Forks Township", "Williams Township"]},
+    {"name": "Bethlehem Area", "municipalities": ["Bethlehem", "Bethlehem Township", "Hanover Township", "Freemansburg"]},
+    {"name": "Nazareth Area", "municipalities": ["Nazareth", "Upper Nazareth", "Lower Nazareth", "Bushkill", "Tatamy", "Stockertown"]},
+    {"name": "Northampton Area", "municipalities": ["Northampton", "Allen Township", "Bath", "Chapman", "East Allen", "Lehigh", "Moore", "Walnutport"]},
+    {"name": "Wilson Area", "municipalities": ["Wilson", "West Easton", "Glendon", "Williams Township"]},
+    {"name": "Saucon Valley", "municipalities": ["Hellertown", "Lower Saucon"]},
+    {"name": "Bangor Area", "municipalities": ["Bangor", "East Bangor", "Portland", "Roseto", "Upper Mt Bethel", "Washington", "Lower Mt Bethel"]},
+    {"name": "Pen Argyl Area", "municipalities": ["Pen Argyl", "Wind Gap", "Plainfield"]}
+  ]
+}

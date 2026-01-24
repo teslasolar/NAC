@@ -1,0 +1,56 @@
+{
+  "name": "Northampton County Civic Toolkit",
+  "version": "1.0.0",
+  "description": "Modular data and components for citizen engagement tools",
+  "lastUpdated": "2026-01-24",
+  "components": [
+    {
+      "id": "contacts",
+      "name": "Government Contacts",
+      "path": "contacts/",
+      "description": "Elected officials, departments, and contact information",
+      "files": ["officials.json", "departments.json", "municipalities.json"]
+    },
+    {
+      "id": "rtk",
+      "name": "Right-to-Know",
+      "path": "rtk/",
+      "description": "PA RTKL agencies, templates, and legal references",
+      "files": ["agencies.json", "templates.json", "legal.json"]
+    },
+    {
+      "id": "tax",
+      "name": "Tax Information",
+      "path": "tax/",
+      "description": "Millage rates, budget breakdown, and tax calculations",
+      "files": ["rates.json", "breakdown.json"]
+    },
+    {
+      "id": "comments",
+      "name": "Public Comment",
+      "path": "comments/",
+      "description": "Speech templates and meeting participation guides",
+      "files": ["templates.json", "tips.json"]
+    },
+    {
+      "id": "issues",
+      "name": "Issue Reporting",
+      "path": "issues/",
+      "description": "Categories, departments, and reporting workflows",
+      "files": ["categories.json", "workflows.json"]
+    },
+    {
+      "id": "meetings",
+      "name": "Meeting Attendance",
+      "path": "meetings/",
+      "description": "Checklists, etiquette, and preparation guides",
+      "files": ["checklist.json", "etiquette.json"]
+    }
+  ],
+  "metadata": {
+    "county": "Northampton",
+    "state": "PA",
+    "jurisdiction": "Home Rule Charter",
+    "timezone": "America/New_York"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "name": "Public Comment Templates",
+  "description": "Pre-built templates for public comment at government meetings",
+  "lastUpdated": "2026-01-24",
+  "timeLimit": {
+    "countyCouncil": 180,
+    "unit": "seconds",
+    "description": "3 minutes per speaker"
+  },
+  "wordGuidelines": {
+    "wordsPerMinute": 130,
+    "recommended": {
+      "min": 300,
+      "max": 400,
+      "description": "300-400 words for a 3-minute comment"
+    }
+  },
+  "templates": [
+    {
+      "id": "support",
+      "name": "Support an Item",
+      "category": "position",
+      "icon": "thumbs-up",
+      "description": "Use when you want to speak in favor of something",
+      "template": "Good evening, Council President and members of Council. My name is [NAME] and I live at [ADDRESS] in [MUNICIPALITY].\n\nI'm here tonight to speak IN SUPPORT of [AGENDA ITEM].\n\n[MAIN REASON - 2-3 sentences explaining why you support it]\n\n[PERSONAL CONNECTION - How does this affect you or your community?]\n\n[SUPPORTING POINT - Additional reason or data]\n\nI urge Council to vote YES on this item. Thank you for your time and service.",
+      "tips": [
+        "Lead with your strongest reason",
+        "Personal stories are powerful",
+        "Be specific about the item number",
+        "End with a clear 'vote yes' ask"
+      ]
+    },
+    {
+      "id": "oppose",
+      "name": "Oppose an Item",
+      "category": "position",
+      "icon": "thumbs-down",
+      "description": "Use when you want to speak against something",
+      "template": "Good evening, Council President and members of Council. My name is [NAME] and I live at [ADDRESS] in [MUNICIPALITY].\n\nI'm here tonight to speak IN OPPOSITION to [AGENDA ITEM].\n\n[MAIN CONCERN - 2-3 sentences explaining your opposition]\n\n[IMPACT - How will this negatively affect you or the community?]\n\n[ALTERNATIVE - What would you suggest instead?]\n\nI urge Council to vote NO on this item, or to table it for further consideration. Thank you.",
+      "tips": [
+        "Stay calm and factual, not emotional",
+        "Propose alternatives if possible",
+        "Acknowledge any valid points on the other side",
+        "Ask to table if more information is needed"
+      ]
+    },
+    {
+      "id": "question",
+      "name": "Ask Questions",
+      "category": "inquiry",
+      "icon": "question",
+      "description": "Use when you need information or clarification",
+      "template": "Good evening, Council President and members of Council. My name is [NAME] from [MUNICIPALITY].\n\nI have questions about [AGENDA ITEM] that I hope can be addressed:\n\n1. [SPECIFIC QUESTION #1]\n\n2. [SPECIFIC QUESTION #2]\n\nI believe these answers are important for the public to understand before a vote is taken. Thank you.",
+      "tips": [
+        "Keep questions clear and answerable",
+        "Limit to 2-3 questions maximum",
+        "Officials may not answer during public comment",
+        "Follow up with written request if not answered"
+      ]
+    },
+    {
+      "id": "concern",
+      "name": "Raise a Concern",
+      "category": "general",
+      "icon": "alert",
+      "description": "Use when bringing an issue to Council's attention",
+      "template": "Good evening. My name is [NAME] and I'm a resident of [MUNICIPALITY].\n\nI want to bring to Council's attention a concern regarding [TOPIC].\n\n[DESCRIBE THE ISSUE - What's happening? Where? How long?]\n\n[IMPACT - How is this affecting residents?]\n\n[REQUEST - What action are you asking Council to take?]\n\nI would appreciate a response or follow-up on this matter. Thank you.",
+      "tips": [
+        "Be specific about locations and timeframes",
+        "Suggest which department might handle it",
+        "Ask for follow-up (email, phone call)",
+        "Bring documentation if you have it"
+      ]
+    },
+    {
+      "id": "budget",
+      "name": "Budget Comment",
+      "category": "fiscal",
+      "icon": "dollar",
+      "description": "Use during budget hearings or to discuss spending",
+      "template": "Good evening, Council President. My name is [NAME] from [MUNICIPALITY].\n\nI'm here to comment on the proposed [YEAR] budget, specifically regarding [DEPARTMENT OR LINE ITEM].\n\n[YOUR POSITION - Support increase? Oppose cut? Request addition?]\n\n[JUSTIFICATION - Why is this funding important?]\n\n[DATA OR EXAMPLES - If available]\n\nI ask that Council consider this as you finalize the budget. Thank you for your fiscal stewardship.",
+      "tips": [
+        "Reference specific line items or departments",
+        "Quantify impact if possible",
+        "Acknowledge budget constraints",
+        "Prioritize - what's most important?"
+      ]
+    },
+    {
+      "id": "thank",
+      "name": "Thank/Recognize",
+      "category": "positive",
+      "icon": "heart",
+      "description": "Use to thank officials or recognize good work",
+      "template": "Good evening. My name is [NAME] from [MUNICIPALITY].\n\nI'm here tonight not with a complaint, but to thank [OFFICIAL/DEPARTMENT] for [SPECIFIC ACTION OR SERVICE].\n\n[DESCRIBE WHAT HAPPENED - What did they do well?]\n\n[IMPACT - How did it help you or the community?]\n\nIt's important to recognize good work when we see it. Thank you for your service.",
+      "tips": [
+        "Be specific about what you're thanking them for",
+        "Positive feedback is rare and appreciated",
+        "Copy in supervisors/department heads",
+        "Consider also sending written thank you"
+      ]
+    },
+    {
+      "id": "development",
+      "name": "Development/Zoning",
+      "category": "land-use",
+      "icon": "building",
+      "description": "Use for warehouse, construction, or zoning concerns",
+      "template": "Good evening, Council President. My name is [NAME] and I live at [ADDRESS], approximately [DISTANCE] from the proposed [PROJECT NAME].\n\nI'm here to express my [SUPPORT/CONCERN] regarding this development.\n\n[SPECIFIC CONCERNS - Traffic, noise, environmental, property values?]\n\n[QUESTIONS - What studies have been done? What mitigation is proposed?]\n\n[REQUEST - What conditions or modifications would you want?]\n\nI ask that Council carefully consider the impact on existing residents. Thank you.",
+      "tips": [
+        "Establish your proximity to the project",
+        "Focus on factual impacts, not emotions",
+        "Request specific conditions if supportable",
+        "Attend planning commission meetings too"
+      ]
+    },
+    {
+      "id": "transparency",
+      "name": "Transparency/Accountability",
+      "category": "oversight",
+      "icon": "eye",
+      "description": "Use to request better government transparency",
+      "template": "Good evening. My name is [NAME] from [MUNICIPALITY].\n\nI'm here to address a transparency concern regarding [TOPIC].\n\n[WHAT INFORMATION IS NEEDED - What's missing or unclear?]\n\n[WHY IT MATTERS - Why should the public have this information?]\n\n[REQUEST - Post online? Provide reports? Hold hearing?]\n\nTransparency builds public trust. I ask Council to ensure this information is made accessible. Thank you.",
+      "tips": [
+        "Reference specific documents or data",
+        "Cite Right-to-Know Law if applicable",
+        "Suggest how information could be shared",
+        "Be persistent but respectful"
+      ]
+    }
+  ],
+  "generalTips": [
+    "Arrive 10-15 minutes early",
+    "Sign up for public comment (if required)",
+    "State your name and address clearly for the record",
+    "Address the Chair/President, not individual members",
+    "Stay within time limit - you'll be cut off",
+    "Be respectful even if you disagree strongly",
+    "Bring copies of any documents you reference",
+    "Stay for the vote if possible"
+  ],
+  "whatNotToDo": [
+    "Personal attacks on officials",
+    "Profanity or threatening language",
+    "Applause, booing, or outbursts from audience",
+    "Speaking out of turn",
+    "Exceeding your time limit",
+    "Reading from a long document verbatim"
+  ]
+}

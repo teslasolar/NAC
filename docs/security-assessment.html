@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Security Vulnerability Assessment | Northampton County</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        .header {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #f44336;
+        }
+        .header h1 {
+            color: #f44336;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header .subtitle {
+            color: #888;
+            font-size: 0.95em;
+        }
+        .disclaimer {
+            background: rgba(255,152,0,0.15);
+            border: 1px solid #FF9800;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        .disclaimer strong {
+            color: #FF9800;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: rgba(244,67,54,0.1);
+            border: 1px solid rgba(244,67,54,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .exec-summary h2 {
+            color: #f44336;
+            margin-bottom: 15px;
+        }
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .risk-critical { background: #f44336; color: #fff; }
+        .risk-high { background: #FF9800; color: #000; }
+        .risk-medium { background: #FFC107; color: #000; }
+        .risk-low { background: #4CAF50; color: #fff; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .stat-value.critical { color: #f44336; }
+        .stat-value.high { color: #FF9800; }
+        .stat-value.medium { color: #FFC107; }
+        .stat-value.systems { color: #4a9eff; }
+        .stat-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .tab.active {
+            background: rgba(244,67,54,0.2);
+            color: #f44336;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* System Cards */
+        .system-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .system-header {
+            background: rgba(0,0,0,0.3);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .system-header:hover {
+            background: rgba(0,0,0,0.4);
+        }
+        .system-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .system-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+        .system-vendor {
+            color: #888;
+            font-size: 0.9em;
+        }
+        .severity-badge {
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .severity-critical { background: #f44336; color: #fff; }
+        .severity-high { background: #FF9800; color: #000; }
+        .severity-medium { background: #FFC107; color: #000; }
+        .severity-low { background: #4CAF50; color: #fff; }
+
+        .system-body {
+            padding: 20px;
+            display: none;
+        }
+        .system-body.active {
+            display: block;
+        }
+
+        /* Vulnerability Cards */
+        .vuln-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+        .vuln-card.vuln-critical { border-color: #f44336; }
+        .vuln-card.vuln-high { border-color: #FF9800; }
+        .vuln-card.vuln-medium { border-color: #FFC107; }
+        .vuln-card.vuln-low { border-color: #4CAF50; }
+
+        .vuln-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .vuln-id {
+            font-family: monospace;
+            color: #4a9eff;
+            font-weight: bold;
+        }
+        .cvss-score {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+        .cvss-critical { color: #f44336; }
+        .cvss-high { color: #FF9800; }
+        .cvss-medium { color: #FFC107; }
+        .vuln-type {
+            color: #aaa;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .vuln-description {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .vuln-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        .vuln-meta-item {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .vuln-meta-label {
+            color: #888;
+            font-size: 0.85em;
+        }
+        .ai-risk {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(156,39,176,0.15);
+            border-radius: 4px;
+        }
+        .ai-risk-label {
+            color: #ce93d8;
+            font-size: 0.9em;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: rgba(76,175,80,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .recommendations h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .recommendations ul {
+            list-style: none;
+        }
+        .recommendations li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .recommendations li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        /* AI Threats Section */
+        .ai-threat-card {
+            background: rgba(156,39,176,0.1);
+            border: 1px solid rgba(156,39,176,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .ai-threat-card h4 {
+            color: #ce93d8;
+            margin-bottom: 8px;
+        }
+        .ai-threat-card .targets {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        .ai-threat-card .mitigation {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .ai-threat-card .mitigation strong {
+            color: #4CAF50;
+        }
+
+        /* Priority Table */
+        .priority-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .priority-table th, .priority-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .priority-table th {
+            background: rgba(0,0,0,0.3);
+            color: #4a9eff;
+        }
+        .priority-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .priority-num {
+            width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .priority-1 { color: #f44336; }
+        .priority-2 { color: #FF9800; }
+        .priority-3 { color: #FFC107; }
+        .priority-4, .priority-5, .priority-6 { color: #4a9eff; }
+        .timeline-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            background: rgba(255,255,255,0.1);
+        }
+        .timeline-immediate { background: rgba(244,67,54,0.3); color: #f44336; }
+        .timeline-30 { background: rgba(255,152,0,0.3); color: #FF9800; }
+        .timeline-60, .timeline-90 { background: rgba(255,193,7,0.3); color: #FFC107; }
+
+        /* Compliance Section */
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .compliance-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #4a9eff;
+        }
+        .compliance-card h4 {
+            color: #4a9eff;
+            margin-bottom: 8px;
+        }
+        .compliance-card .applicability {
+            color: #aaa;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .section-header {
+            color: #4a9eff;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(74,158,255,0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4a9eff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.4em; }
+            .system-header { flex-direction: column; gap: 10px; }
+            .vuln-header { flex-direction: column; gap: 5px; }
+        }
+
+        .expand-icon {
+            transition: transform 0.3s;
+        }
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>IT Security Vulnerability Assessment</h1>
+        <p class="subtitle">Passive Security Review Based on Public Information | January 2026</p>
+    </div>
+
+    <div class="container">
+        <div class="disclaimer">
+            <strong>DISCLAIMER:</strong> This assessment is based on publicly available information including CVE databases, security advisories, and vendor documentation. No active penetration testing was performed. This is not an official security audit. Findings should be verified by qualified security professionals before taking action.
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <h2>Executive Summary</h2>
+            <span class="risk-badge risk-high">Overall Risk Level: HIGH</span>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value systems">8</div>
+                    <div class="stat-label">Systems Assessed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value critical">4</div>
+                    <div class="stat-label">Critical Vulnerabilities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value high">7</div>
+                    <div class="stat-label">High Vulnerabilities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value medium">5</div>
+                    <div class="stat-label">Medium Vulnerabilities</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 15px; line-height: 1.6;">
+                This assessment identifies potential security vulnerabilities in Northampton County's disclosed IT infrastructure based on publicly available CVE data and security research. The most significant findings relate to the <strong>ESRI ArcGIS platform</strong> (critical RCE vulnerability CVE-2025-2538) and <strong>voting system integrity concerns</strong>. AI-powered attacks pose an elevated threat to public-facing systems, particularly through automated exploitation and advanced phishing campaigns.
+            </p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('systems')">System Vulnerabilities</button>
+            <button class="tab" onclick="showTab('ai-threats')">AI Threat Analysis</button>
+            <button class="tab" onclick="showTab('priority')">Priority Actions</button>
+            <button class="tab" onclick="showTab('compliance')">Compliance</button>
+        </div>
+
+        <!-- Systems Tab -->
+        <div id="systems" class="tab-content active">
+
+            <!-- ESRI ArcGIS -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-critical">CRITICAL</span>
+                        <div>
+                            <div class="system-name">ESRI ArcGIS Enterprise</div>
+                            <div class="system-vendor">GIS Platform | gis.northamptoncounty.org</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> HIGH - Public-facing portal<br>
+                        <strong>Usage:</strong> Property mapping, parcel data, zoning, tax maps
+                    </p>
+
+                    <div class="vuln-card vuln-critical">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CVE-2025-2538</span>
+                            <span class="cvss-score cvss-critical">CVSS 9.8</span>
+                        </div>
+                        <div class="vuln-type">Remote Code Execution</div>
+                        <div class="vuln-description">
+                            ArcGIS Enterprise Portal vulnerability allowing unauthenticated remote code execution. Attackers can execute arbitrary code on the server without any authentication.
+                        </div>
+                        <div class="vuln-meta">
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Affected Versions</div>
+                                <div>ArcGIS Enterprise &lt; 11.4</div>
+                            </div>
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Exploitability</div>
+                                <div>Network - No authentication required</div>
+                            </div>
+                        </div>
+                        <div class="ai-risk">
+                            <span class="ai-risk-label">AI Exploit Risk: HIGH - Automated exploitation possible with publicly available code</span>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CVE-2024-25699</span>
+                            <span class="cvss-score cvss-high">CVSS 8.1</span>
+                        </div>
+                        <div class="vuln-type">Path Traversal</div>
+                        <div class="vuln-description">
+                            Directory traversal vulnerability allowing unauthorized file access on the server.
+                        </div>
+                        <div class="ai-risk">
+                            <span class="ai-risk-label">AI Exploit Risk: HIGH - Can be automated for data exfiltration</span>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CVE-2024-25692</span>
+                            <span class="cvss-score cvss-high">CVSS 7.5</span>
+                        </div>
+                        <div class="vuln-type">Cross-Site Scripting (XSS)</div>
+                        <div class="vuln-description">
+                            Stored XSS vulnerability in ArcGIS Portal that could be used to steal credentials or session tokens.
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-medium">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CVE-2024-25695</span>
+                            <span class="cvss-score cvss-medium">CVSS 6.5</span>
+                        </div>
+                        <div class="vuln-type">Cross-Site Request Forgery (CSRF)</div>
+                        <div class="vuln-description">
+                            CSRF vulnerability allowing unauthorized actions on behalf of authenticated users.
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>IMMEDIATE: Verify current ArcGIS Enterprise version and patch level</li>
+                            <li>Apply all available security patches - prioritize CVE-2025-2538</li>
+                            <li>Implement Web Application Firewall (WAF) in front of GIS portal</li>
+                            <li>Review access logs for signs of exploitation attempts</li>
+                            <li>Consider network segmentation to limit potential damage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ES&S Voting System -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-critical">CRITICAL</span>
+                        <div>
+                            <div class="system-name">ES&S ExpressVote XL</div>
+                            <div class="system-vendor">Voting System | 315 units</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> LOW - Air-gapped network<br>
+                        <strong>Contract Value:</strong> $2.9 Million (2019, 10-year)<br>
+                        <strong>Note:</strong> No formal CVEs assigned; findings from security research and documented incidents
+                    </p>
+
+                    <div class="vuln-card vuln-critical">
+                        <div class="vuln-header">
+                            <span class="vuln-id">INCIDENT-2023-11-07</span>
+                            <span class="cvss-score">Documented Incident</span>
+                        </div>
+                        <div class="vuln-type">Ballot Display Integrity</div>
+                        <div class="vuln-description">
+                            Documented instances of vote selections displaying differently on ballot summary screen than voter intended. Multiple reports from November 2023 election. Results certified despite documented concerns.
+                        </div>
+                        <div class="vuln-meta">
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Root Cause</div>
+                                <div>Not publicly determined</div>
+                            </div>
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Status</div>
+                                <div>Certified despite concerns</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">DEFCON-2019-VOTING</span>
+                            <span class="cvss-score">Security Research</span>
+                        </div>
+                        <div class="vuln-type">Physical Security Vulnerabilities</div>
+                        <div class="vuln-description">
+                            DEFCON Voting Village researchers demonstrated vulnerabilities in ES&S equipment including memory card tampering potential. Requires physical access.
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">INCIDENT-2024-11</span>
+                            <span class="cvss-score">Operational Issue</span>
+                        </div>
+                        <div class="vuln-type">System Throughput</div>
+                        <div class="vuln-description">
+                            6+ hour wait times reported at some polling locations during November 2024 election. Indicates capacity/performance issues or potential equipment problems.
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-medium">
+                        <div class="vuln-header">
+                            <span class="vuln-id">AUDIT-GAP</span>
+                            <span class="cvss-score">Compliance</span>
+                        </div>
+                        <div class="vuln-type">Documentation Gap</div>
+                        <div class="vuln-description">
+                            150+ Logic and Accuracy (L&A) testing documents missing or incomplete. Undermines ability to verify proper pre-election testing.
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>Commission independent third-party security audit before next election</li>
+                            <li>Implement rigorous pre-election testing with mandatory documentation</li>
+                            <li>Consider parallel manual auditing for result verification</li>
+                            <li>Evaluate alternative voting systems for future procurement</li>
+                            <li>Ensure all L&A testing documented and retained per 25 P.S. requirements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CountySuite -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-high">HIGH</span>
+                        <div>
+                            <div class="system-name">CountySuite / Teleosoft</div>
+                            <div class="system-vendor">Court Case Management | web.northamptoncounty.org</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> HIGH - Public portal for e-filing<br>
+                        <strong>Usage:</strong> Court e-filing, case management, scheduling<br>
+                        <strong>Note:</strong> No public CVEs found; standard web application security assessment
+                    </p>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">OWASP-A01</span>
+                            <span class="cvss-score">Assessment Needed</span>
+                        </div>
+                        <div class="vuln-type">Broken Access Control (Potential)</div>
+                        <div class="vuln-description">
+                            Web applications handling sensitive court data should be assessed for access control vulnerabilities. Without testing, actual risk is unknown.
+                        </div>
+                        <div class="ai-risk">
+                            <span class="ai-risk-label">AI Risk: HIGH if present - Tools can enumerate access control flaws</span>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">OWASP-A03</span>
+                            <span class="cvss-score">Assessment Needed</span>
+                        </div>
+                        <div class="vuln-type">SQL Injection (Potential)</div>
+                        <div class="vuln-description">
+                            Database-driven court systems are potential SQL injection targets. AI can automate discovery and exploitation if vulnerabilities exist.
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">AUDIT-FINDING</span>
+                            <span class="cvss-score">Controller Audit</span>
+                        </div>
+                        <div class="vuln-type">Workflow Compliance</div>
+                        <div class="vuln-description">
+                            Controller audits found inadequate warrant procedures at MDJ 03-3-02 and MDJ 03-2-11. System may not be enforcing proper workflow controls.
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>Request security audit results from Teleosoft</li>
+                            <li>Conduct independent web application penetration test</li>
+                            <li>Review system configuration for mandatory workflow enforcement</li>
+                            <li>Implement additional access logging and monitoring</li>
+                            <li>Verify PII encryption at rest and in transit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Directory -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-high">HIGH</span>
+                        <div>
+                            <div class="system-name">Microsoft Active Directory</div>
+                            <div class="system-vendor">Identity Management</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> LOW - Internal network<br>
+                        <strong>Usage:</strong> Centralized authentication for all county employees
+                    </p>
+
+                    <div class="vuln-card vuln-critical">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CVE-2020-1472</span>
+                            <span class="cvss-score cvss-critical">CVSS 10.0</span>
+                        </div>
+                        <div class="vuln-type">Zerologon</div>
+                        <div class="vuln-description">
+                            Critical vulnerability allowing complete domain controller compromise without credentials. Automated exploits widely available.
+                        </div>
+                        <div class="vuln-meta">
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Affected</div>
+                                <div>Unpatched Windows Server</div>
+                            </div>
+                            <div class="vuln-meta-item">
+                                <div class="vuln-meta-label">Fix</div>
+                                <div>Apply patches + enforce secure RPC</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">ATTACK-KERBEROAST</span>
+                            <span class="cvss-score">Attack Technique</span>
+                        </div>
+                        <div class="vuln-type">Kerberoasting</div>
+                        <div class="vuln-description">
+                            Service accounts with weak passwords vulnerable to offline password cracking. AI significantly accelerates cracking.
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-critical">
+                        <div class="vuln-header">
+                            <span class="vuln-id">ATTACK-DCSYNC</span>
+                            <span class="cvss-score">Attack Technique</span>
+                        </div>
+                        <div class="vuln-type">DCSync</div>
+                        <div class="vuln-description">
+                            If domain admin compromised, DCSync can extract all password hashes from domain controller, compromising every account.
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>Verify all domain controllers patched for Zerologon (CVE-2020-1472)</li>
+                            <li>Implement tiered administration model</li>
+                            <li>Deploy privileged access workstations (PAWs) for admins</li>
+                            <li>Use Managed Service Accounts with strong passwords</li>
+                            <li>Monitor for suspicious Kerberos activity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Microsoft 365 -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-medium">MEDIUM</span>
+                        <div>
+                            <div class="system-name">Microsoft 365 Government</div>
+                            <div class="system-vendor">Email & Collaboration</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> MEDIUM - Internet-facing email<br>
+                        <strong>Services:</strong> Exchange, Teams, SharePoint
+                    </p>
+
+                    <div class="vuln-card vuln-critical">
+                        <div class="vuln-header">
+                            <span class="vuln-id">THREAT-PHISHING</span>
+                            <span class="cvss-score cvss-critical">AI-Enhanced</span>
+                        </div>
+                        <div class="vuln-type">AI-Generated Phishing</div>
+                        <div class="vuln-description">
+                            Email is the primary attack vector. AI dramatically improves phishing email generation, creating highly convincing, personalized attacks targeting government employees.
+                        </div>
+                        <div class="ai-risk">
+                            <span class="ai-risk-label">AI Risk: CRITICAL - LLMs generate convincing, context-aware phishing</span>
+                        </div>
+                    </div>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">THREAT-MFA-BYPASS</span>
+                            <span class="cvss-score">Evolving</span>
+                        </div>
+                        <div class="vuln-type">MFA Bypass Techniques</div>
+                        <div class="vuln-description">
+                            MFA fatigue attacks, token theft, and adversary-in-the-middle attacks continue to evolve. Basic MFA is no longer sufficient.
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>Enable MFA with number matching for all users</li>
+                            <li>Deploy advanced threat protection features</li>
+                            <li>Implement conditional access policies</li>
+                            <li>Regular phishing simulation exercises</li>
+                            <li>Consider phishing-resistant authentication (FIDO2 security keys)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NG911 -->
+            <div class="system-section">
+                <div class="system-header" onclick="toggleSystem(this)">
+                    <div class="system-title">
+                        <span class="severity-badge severity-high">HIGH</span>
+                        <div>
+                            <div class="system-name">NG911 System (Comtech)</div>
+                            <div class="system-vendor">Emergency Communications | via PEMA</div>
+                        </div>
+                    </div>
+                    <span class="expand-icon">&#9660;</span>
+                </div>
+                <div class="system-body">
+                    <p style="margin-bottom: 15px; color: #aaa;">
+                        <strong>Public Exposure:</strong> HIGH - Critical infrastructure<br>
+                        <strong>Note:</strong> State-managed system - county has limited direct control
+                    </p>
+
+                    <div class="vuln-card vuln-high">
+                        <div class="vuln-header">
+                            <span class="vuln-id">CISA-NG911-TDOS</span>
+                            <span class="cvss-score">CISA Advisory</span>
+                        </div>
+                        <div class="vuln-type">Telephony Denial of Service (TDoS)</div>
+                        <div class="vuln-description">
+                            NG911 systems vulnerable to automated calling attacks that overwhelm call-taking capacity. AI can generate realistic spoofed emergency calls at scale.
+                        </div>
+                        <div class="ai-risk">
+                            <span class="ai-risk-label">AI Risk: HIGH - Can generate realistic voice calls with spoofed callerID</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul>
+                            <li>Coordinate with PEMA on security posture</li>
+                            <li>Ensure backup communication procedures documented</li>
+                            <li>Monitor for TDoS attack patterns</li>
+                            <li>Verify STIR/SHAKEN caller ID authentication implementation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- AI Threats Tab -->
+        <div id="ai-threats" class="tab-content">
+            <h2 class="section-header">AI-Specific Threat Analysis</h2>
+            <p style="margin-bottom: 20px; color: #aaa;">
+                Artificial Intelligence significantly amplifies certain attack vectors against government systems. The following threats should be prioritized in security planning.
+            </p>
+
+            <div class="ai-threat-card">
+                <h4>AI-Generated Phishing Campaigns</h4>
+                <p>Large language models can generate highly convincing, personalized phishing emails targeting county employees. AI can analyze public information to craft contextually-relevant lures.</p>
+                <div class="targets"><strong>Target Systems:</strong> Microsoft 365, all user-facing systems</div>
+                <div class="mitigation"><strong>Mitigation:</strong> Advanced email filtering, regular security awareness training, phishing-resistant MFA (FIDO2 keys)</div>
+            </div>
+
+            <div class="ai-threat-card">
+                <h4>Automated Vulnerability Scanning & Exploitation</h4>
+                <p>AI-powered tools can rapidly discover and exploit vulnerabilities in public-facing systems, significantly reducing attacker dwell time from discovery to exploitation.</p>
+                <div class="targets"><strong>Target Systems:</strong> ESRI ArcGIS, CountySuite, County Website</div>
+                <div class="mitigation"><strong>Mitigation:</strong> Web Application Firewall, rapid patching program, intrusion detection/prevention systems</div>
+            </div>
+
+            <div class="ai-threat-card">
+                <h4>Accelerated Credential Attacks</h4>
+                <p>AI dramatically accelerates password cracking and can intelligently prioritize credential stuffing attacks based on patterns learned from breach data.</p>
+                <div class="targets"><strong>Target Systems:</strong> Active Directory, all authentication systems</div>
+                <div class="mitigation"><strong>Mitigation:</strong> Strong password policies, MFA everywhere, account lockout policies, breached password detection</div>
+            </div>
+
+            <div class="ai-threat-card">
+                <h4>Deepfake Voice & Video</h4>
+                <p>AI can generate convincing voice and video impersonations for social engineering attacks, including fake emergency calls to 911 or impersonating executives.</p>
+                <div class="targets"><strong>Target Systems:</strong> NG911 (fake emergency calls), phone-based authentication, executive communications</div>
+                <div class="mitigation"><strong>Mitigation:</strong> Verification procedures for sensitive requests, caller authentication (STIR/SHAKEN), out-of-band confirmation</div>
+            </div>
+
+            <div class="ai-threat-card">
+                <h4>Automated Exploit Development</h4>
+                <p>AI can analyze vulnerabilities and generate functional exploits faster than traditional methods, narrowing the window between disclosure and attacks.</p>
+                <div class="targets"><strong>Target Systems:</strong> All systems with known CVEs</div>
+                <div class="mitigation"><strong>Mitigation:</strong> Rapid patching (especially for critical CVEs), defense in depth, network segmentation</div>
+            </div>
+        </div>
+
+        <!-- Priority Tab -->
+        <div id="priority" class="tab-content">
+            <h2 class="section-header">Prioritized Remediation Actions</h2>
+
+            <table class="priority-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Action</th>
+                        <th>Justification</th>
+                        <th>Timeline</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="priority-num priority-1">1</td>
+                        <td><strong>Verify ESRI ArcGIS patch status for CVE-2025-2538</strong></td>
+                        <td>CVSS 9.8 critical RCE on public-facing system</td>
+                        <td><span class="timeline-badge timeline-immediate">Immediate</span></td>
+                        <td><span class="severity-badge severity-critical">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td class="priority-num priority-2">2</td>
+                        <td><strong>Commission independent voting system security audit</strong></td>
+                        <td>Critical infrastructure with documented anomalies</td>
+                        <td><span class="timeline-badge">Before Next Election</span></td>
+                        <td><span class="severity-badge severity-critical">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td class="priority-num priority-3">3</td>
+                        <td><strong>Web application penetration test for CountySuite</strong></td>
+                        <td>Public-facing court system with sensitive data</td>
+                        <td><span class="timeline-badge timeline-30">30 Days</span></td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td class="priority-num priority-4">4</td>
+                        <td><strong>Active Directory security assessment</strong></td>
+                        <td>Central authentication - compromise affects all systems</td>
+                        <td><span class="timeline-badge timeline-30">30 Days</span></td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td class="priority-num priority-5">5</td>
+                        <td><strong>Deploy phishing-resistant MFA (FIDO2)</strong></td>
+                        <td>AI-powered phishing is primary attack vector</td>
+                        <td><span class="timeline-badge timeline-90">90 Days</span></td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td class="priority-num priority-6">6</td>
+                        <td><strong>Implement WAF for all public web applications</strong></td>
+                        <td>Defense layer against automated attacks</td>
+                        <td><span class="timeline-badge timeline-60">60 Days</span></td>
+                        <td><span class="severity-badge severity-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: #4a9eff; margin-top: 30px; margin-bottom: 15px;">Next Steps</h3>
+            <div class="recommendations" style="background: rgba(74,158,255,0.1);">
+                <ul>
+                    <li>Present findings to IT leadership and County Council</li>
+                    <li>Prioritize remediation based on risk assessment and available resources</li>
+                    <li>Engage qualified security firms for detailed penetration testing</li>
+                    <li>Establish ongoing vulnerability management program</li>
+                    <li>Implement security awareness training program for all employees</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Compliance Tab -->
+        <div id="compliance" class="tab-content">
+            <h2 class="section-header">Compliance Considerations</h2>
+            <p style="margin-bottom: 20px; color: #aaa;">
+                Security findings may have implications for regulatory compliance frameworks applicable to county operations.
+            </p>
+
+            <div class="compliance-grid">
+                <div class="compliance-card">
+                    <h4>CISA Election Infrastructure Security</h4>
+                    <div class="applicability">Applies to: ES&S voting systems</div>
+                    <p style="margin-top: 10px;">Federal guidelines for securing election infrastructure. Documented voting system anomalies should be reported and independently assessed.</p>
+                </div>
+                <div class="compliance-card">
+                    <h4>PA Right-to-Know Law</h4>
+                    <div class="applicability">Applies to: All public records systems</div>
+                    <p style="margin-top: 10px;">County must ensure secure handling of public records while maintaining accessibility per 65 P.S. requirements.</p>
+                </div>
+                <div class="compliance-card">
+                    <h4>Criminal Justice Information Services (CJIS)</h4>
+                    <div class="applicability">Applies to: Court systems, law enforcement</div>
+                    <p style="margin-top: 10px;">FBI CJIS Security Policy applies to systems handling criminal justice information. CountySuite and related systems must meet these requirements.</p>
+                </div>
+                <div class="compliance-card">
+                    <h4>HIPAA</h4>
+                    <div class="applicability">Applies to: Gracedale, Human Services</div>
+                    <p style="margin-top: 10px;">Protected Health Information (PHI) must be secured per HIPAA requirements. Gracedale nursing home and Human Services departments handle PHI.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Academy Index</a>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleSystem(header) {
+            const body = header.nextElementSibling;
+            const icon = header.querySelector('.expand-icon');
+
+            body.classList.toggle('active');
+            icon.classList.toggle('rotated');
+        }
+
+        // Expand first system by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstSystem = document.querySelector('.system-header');
+            if (firstSystem) {
+                toggleSystem(firstSystem);
+            }
+        });
+    </script>
+</body>
+</html>

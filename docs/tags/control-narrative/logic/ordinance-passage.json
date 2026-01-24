@@ -1,0 +1,214 @@
+{
+  "sequenceName": "Ordinance Passage Sequence",
+  "sequenceID": "SEQ-ORD-001",
+  "description": "Complete sequence for passing an ordinance from introduction to enactment",
+  "version": "1.0",
+  "triggerConditions": [
+    "Council member introduces ordinance",
+    "Executive submits proposed ordinance"
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "name": "INTRODUCTION",
+      "description": "Ordinance formally introduced at Council meeting",
+      "actions": [
+        "Assign ordinance number (YYYY-NNN format)",
+        "Read title into record",
+        "Sponsor(s) recorded",
+        "Refer to appropriate committee"
+      ],
+      "outputs": {
+        "Status": "INTRODUCED",
+        "CommitteeAssignment": "SET"
+      },
+      "transitions": {
+        "next": 2,
+        "condition": "Introduction complete"
+      }
+    },
+    {
+      "step": 2,
+      "name": "COMMITTEE_REVIEW",
+      "description": "Committee studies ordinance and makes recommendation",
+      "actions": [
+        "Committee receives ordinance",
+        "Staff analysis prepared",
+        "Public input solicited (if required)",
+        "Committee discusses and votes on recommendation"
+      ],
+      "decisionPoint": {
+        "favorable": {"next": 3, "output": "Recommend passage"},
+        "unfavorable": {"next": 3, "output": "Recommend rejection"},
+        "hold": {"next": 2, "output": "Continue review"},
+        "discharge": {"next": 3, "trigger": "Full Council votes to discharge from committee"}
+      },
+      "timeout": {
+        "days": 60,
+        "action": "Auto-discharge to full Council"
+      }
+    },
+    {
+      "step": 3,
+      "name": "FIRST_READING",
+      "description": "First reading before full Council",
+      "actions": [
+        "Read ordinance title",
+        "Committee recommendation reported",
+        "General discussion (no vote)",
+        "Schedule second reading"
+      ],
+      "constraints": {
+        "publicHearing": {
+          "requiredFor": ["Zoning changes", "Tax increases", "Charter amendments"],
+          "notice": "Minimum 10 days advance publication"
+        }
+      },
+      "outputs": {
+        "Status": "FIRST_READING",
+        "SecondReadingDate": "SET (minimum 7 days later)"
+      },
+      "transitions": {
+        "next": 4,
+        "condition": "FirstReadingDate + 7 days elapsed"
+      }
+    },
+    {
+      "step": 4,
+      "name": "SECOND_READING_VOTE",
+      "description": "Final reading and vote",
+      "preconditions": [
+        "Minimum 7 days since first reading",
+        "Public hearing held (if required)",
+        "Quorum present (5+ members)"
+      ],
+      "actions": [
+        "Read ordinance title",
+        "Final amendments offered",
+        "Debate",
+        "Roll call vote"
+      ],
+      "voteLogic": {
+        "input": "IndividualVotes[1..9]",
+        "calculation": "COUNT(Vote = YES)",
+        "threshold": 5,
+        "output": {
+          "if": "YesVotes >= 5",
+          "then": "Status = PASSED",
+          "else": "Status = FAILED"
+        }
+      },
+      "transitions": {
+        "passed": {"next": 5, "condition": "YesVotes >= 5"},
+        "failed": {"next": "END_FAILED", "condition": "YesVotes < 5"}
+      }
+    },
+    {
+      "step": 5,
+      "name": "EXECUTIVE_ACTION",
+      "description": "Executive review period",
+      "inputs": {
+        "PassedOrdinance": "From Council",
+        "FiscalAnalysis": "From staff"
+      },
+      "timerDuration": "10 business days",
+      "options": [
+        {
+          "action": "SIGN",
+          "result": "Status = ENACTED, EffectiveDate = per ordinance or 30 days"
+        },
+        {
+          "action": "VETO",
+          "result": "Status = VETOED, requires VetoMessage",
+          "next": 6
+        },
+        {
+          "action": "NO_ACTION",
+          "result": "Status = ENACTED (automatic after 10 days)"
+        }
+      ],
+      "defaultTransition": {
+        "trigger": "Timer expires with no action",
+        "result": "Auto-enact"
+      }
+    },
+    {
+      "step": 6,
+      "name": "VETO_OVERRIDE",
+      "description": "Council consideration of veto override",
+      "preconditions": [
+        "Executive vetoed ordinance",
+        "Override scheduled at Council meeting"
+      ],
+      "actions": [
+        "Read veto message",
+        "Debate",
+        "Roll call vote on override"
+      ],
+      "voteLogic": {
+        "input": "IndividualVotes[1..9]",
+        "calculation": "COUNT(Vote = YES)",
+        "threshold": 6,
+        "output": {
+          "if": "YesVotes >= 6",
+          "then": "Status = ENACTED (veto overridden)",
+          "else": "Status = DEAD (veto sustained)"
+        }
+      },
+      "transitions": {
+        "override": {"next": "END_ENACTED", "condition": "YesVotes >= 6"},
+        "sustained": {"next": "END_DEAD", "condition": "YesVotes < 6"}
+      }
+    }
+  ],
+  "endStates": [
+    {
+      "state": "END_ENACTED",
+      "description": "Ordinance becomes law",
+      "actions": [
+        "Assign effective date",
+        "Publish in code",
+        "Notify affected departments",
+        "Update public records"
+      ]
+    },
+    {
+      "state": "END_FAILED",
+      "description": "Ordinance failed to pass",
+      "actions": [
+        "Archive in failed legislation",
+        "May be reintroduced in future"
+      ]
+    },
+    {
+      "state": "END_DEAD",
+      "description": "Ordinance vetoed and veto sustained",
+      "actions": [
+        "Archive with veto message",
+        "May be reintroduced with modifications"
+      ]
+    }
+  ],
+  "emergencyBypass": {
+    "name": "Emergency Ordinance Procedure",
+    "description": "Bypass two-reading requirement for emergencies",
+    "activation": "Declaration that emergency exists",
+    "requirement": "6+ votes (2/3 majority) to suspend rules",
+    "effect": "Can introduce, read, and pass in single meeting",
+    "limitations": [
+      "Cannot be used for tax increases",
+      "Cannot be used for Charter amendments",
+      "Must state emergency justification"
+    ]
+  },
+  "auditTrail": {
+    "required": true,
+    "records": [
+      "All votes with individual member positions",
+      "All amendments and their disposition",
+      "Public comment summary",
+      "Executive action and timing"
+    ],
+    "retention": "Permanent"
+  }
+}

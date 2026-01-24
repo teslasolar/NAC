@@ -1,0 +1,143 @@
+{
+  "udtDefinition": {
+    "name": "UDT_ElectedOfficial",
+    "description": "Base type for all elected positions in county government",
+    "version": "1.0",
+    "category": "Government Entity",
+    "baseType": null,
+    "analogousTo": "Motor/VFD in industrial systems - primary actuator responding to control signals (votes)"
+  },
+  "members": [
+    {
+      "name": "Position",
+      "dataType": "STRING[64]",
+      "description": "Official title of the position",
+      "example": "County Executive"
+    },
+    {
+      "name": "Incumbent",
+      "dataType": "STRING[128]",
+      "description": "Current officeholder name",
+      "example": "John Smith"
+    },
+    {
+      "name": "ElectionType",
+      "dataType": "ENUM",
+      "values": ["AT_LARGE", "BY_DISTRICT", "APPOINTED"],
+      "description": "How position is filled"
+    },
+    {
+      "name": "TermLength",
+      "dataType": "INT",
+      "unit": "years",
+      "description": "Length of term in years",
+      "typical": 4
+    },
+    {
+      "name": "TermLimit",
+      "dataType": "INT",
+      "description": "Maximum consecutive terms allowed (0 = no limit)",
+      "example": 3
+    },
+    {
+      "name": "TermStart",
+      "dataType": "DATE",
+      "description": "Start date of current term"
+    },
+    {
+      "name": "TermEnd",
+      "dataType": "DATE",
+      "description": "End date of current term"
+    },
+    {
+      "name": "TermsServed",
+      "dataType": "INT",
+      "description": "Number of consecutive terms served"
+    },
+    {
+      "name": "Salary",
+      "dataType": "REAL",
+      "unit": "USD/year",
+      "description": "Annual compensation"
+    },
+    {
+      "name": "Status",
+      "dataType": "ENUM",
+      "values": ["ACTIVE", "VACANT", "SUSPENDED", "RECALLED"],
+      "description": "Current status of position"
+    },
+    {
+      "name": "Contact",
+      "dataType": "UDT_Contact",
+      "description": "Contact information structure"
+    },
+    {
+      "name": "Powers",
+      "dataType": "ARRAY[32] OF STRING[256]",
+      "description": "Enumerated powers of the position"
+    },
+    {
+      "name": "Constraints",
+      "dataType": "ARRAY[32] OF STRING[256]",
+      "description": "Limitations on position authority"
+    },
+    {
+      "name": "ReportsTo",
+      "dataType": "STRING[64]",
+      "description": "Supervisory authority (Electorate for elected officials)"
+    },
+    {
+      "name": "OathOfOffice",
+      "dataType": "BOOL",
+      "description": "TRUE if oath has been administered"
+    },
+    {
+      "name": "BondRequired",
+      "dataType": "BOOL",
+      "description": "TRUE if surety bond required"
+    },
+    {
+      "name": "BondAmount",
+      "dataType": "REAL",
+      "unit": "USD",
+      "description": "Required bond amount"
+    }
+  ],
+  "methods": [
+    {
+      "name": "Elect",
+      "description": "Install new officeholder via election",
+      "inputs": ["CertifiedResults: UDT_ElectionResult"],
+      "outputs": ["Success: BOOL"],
+      "preconditions": ["Election certified", "Candidate eligible", "Oath administered"]
+    },
+    {
+      "name": "Resign",
+      "description": "Voluntary departure from office",
+      "inputs": ["ResignationLetter: STRING", "EffectiveDate: DATE"],
+      "outputs": ["VacancyCreated: BOOL"]
+    },
+    {
+      "name": "Impeach",
+      "description": "Removal for cause",
+      "inputs": ["Articles: ARRAY OF STRING", "Vote: UDT_VoteRecord"],
+      "outputs": ["Removed: BOOL"],
+      "requirements": ["Due process", "Supermajority vote where applicable"]
+    },
+    {
+      "name": "Exercise_Power",
+      "description": "Execute an official action",
+      "inputs": ["Action: STRING", "Authority: STRING"],
+      "outputs": ["ActionTaken: BOOL", "Record: UDT_OfficialRecord"],
+      "validation": ["Check authority limits", "Log action", "Notify affected parties"]
+    }
+  ],
+  "derivedTypes": [
+    "UDT_CountyExecutive",
+    "UDT_CouncilMember",
+    "UDT_Controller",
+    "UDT_DistrictAttorney",
+    "UDT_RowOfficer",
+    "UDT_Judge"
+  ]
+}

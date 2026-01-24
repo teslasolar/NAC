@@ -1,0 +1,113 @@
+{
+  "instanceGroup": "Executive Branch",
+  "description": "Instances of executive branch positions and structures",
+  "instances": [
+    {
+      "instanceName": "CountyExecutive",
+      "udtType": "UDT_ElectedOfficial",
+      "tagPath": "NORCOPA.Executive.CountyExecutive",
+      "description": "Chief executive officer of Northampton County",
+      "values": {
+        "Position": "County Executive",
+        "ElectionType": "AT_LARGE",
+        "TermLength": 4,
+        "TermLimit": 0,
+        "ReportsTo": "Electorate",
+        "OathOfOffice": true,
+        "BondRequired": true
+      },
+      "powers": [
+        "Propose annual budget to Council",
+        "Appoint department heads (subject to Council confirmation)",
+        "Veto ordinances (override requires 6 votes)",
+        "Execute and enforce ordinances",
+        "Represent county in official capacities",
+        "Declare local emergencies",
+        "Negotiate contracts (subject to Council approval)",
+        "Prepare State of the County report"
+      ],
+      "constraints": [
+        "Cannot create positions without Council approval",
+        "Cannot exceed appropriated budget",
+        "Cannot unilaterally modify ordinances",
+        "Subject to Right-to-Know Law",
+        "Must respond to Council inquiries"
+      ],
+      "controlLoops": {
+        "budgetProposal": {
+          "type": "Annual feedforward",
+          "input": "Department requests + revenue projections",
+          "output": "Proposed budget to Council",
+          "deadline": "November annually"
+        },
+        "appointmentProcess": {
+          "type": "Event-driven with confirmation",
+          "input": "Vacancy + candidate selection",
+          "output": "Appointment (pending Council confirmation)",
+          "timeout": "30 days for Council action"
+        }
+      },
+      "interlocks": [
+        {
+          "name": "VetoInterlock",
+          "description": "10-day window to sign or veto passed ordinances",
+          "timeout": "10 days",
+          "defaultAction": "Auto-enact if no action"
+        },
+        {
+          "name": "EmergencyAuth",
+          "description": "Emergency powers activate only upon declared emergency",
+          "condition": "EmergencyDeclared = TRUE",
+          "scope": "Limited to emergency response"
+        }
+      ]
+    },
+    {
+      "instanceName": "ExecutiveOffice",
+      "udtType": "UDT_Department",
+      "tagPath": "NORCOPA.Executive.Office",
+      "description": "Staff supporting County Executive",
+      "values": {
+        "DepartmentID": "EXEC-OFFICE",
+        "Name": "Office of the County Executive",
+        "AppointedBy": "County Executive",
+        "ConfirmedBy": "N/A"
+      },
+      "divisions": [
+        {
+          "name": "Chief of Staff",
+          "function": "Coordinate executive operations"
+        },
+        {
+          "name": "Communications",
+          "function": "Public information, press relations"
+        },
+        {
+          "name": "Policy",
+          "function": "Policy development and analysis"
+        },
+        {
+          "name": "Constituent Services",
+          "function": "Citizen inquiries and complaints"
+        }
+      ]
+    }
+  ],
+  "communicationPaths": {
+    "toCouncil": {
+      "type": "Formal",
+      "methods": ["Budget submission", "Veto messages", "Appointments", "Reports"],
+      "frequency": "As needed + annual budget"
+    },
+    "toDepartments": {
+      "type": "Supervisory",
+      "methods": ["Directives", "Policy memos", "Performance reviews"],
+      "frequency": "Continuous"
+    },
+    "toPublic": {
+      "type": "Informational",
+      "methods": ["Press releases", "Public meetings", "Website", "Social media"],
+      "frequency": "Continuous"
+    }
+  }
+}

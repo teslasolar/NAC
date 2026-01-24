@@ -1,0 +1,187 @@
+{
+  "alarmClass": "Fiscal Alarms",
+  "description": "Alarms related to budget, spending, and financial compliance",
+  "version": "1.0",
+  "alarmPriorities": {
+    "CRITICAL": {"color": "Red", "response": "Immediate action required", "notification": "Executive, Council, Controller"},
+    "HIGH": {"color": "Orange", "response": "Action required within 24 hours", "notification": "Department head, Controller"},
+    "MEDIUM": {"color": "Yellow", "response": "Action required within 7 days", "notification": "Department head"},
+    "LOW": {"color": "Blue", "response": "Review at next reporting period", "notification": "Supervisor"},
+    "INFO": {"color": "White", "response": "Informational only", "notification": "Log only"}
+  },
+  "alarms": [
+    {
+      "alarmID": "ALM-FISC-001",
+      "name": "Budget Overrun",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Fiscal.Alarms.BudgetOverrun",
+      "triggerCondition": "Department.BudgetExpended > Department.BudgetAllocated",
+      "description": "Department has exceeded its appropriated budget",
+      "response": [
+        "Immediately halt non-essential spending",
+        "Controller notifies Council",
+        "Department head prepares justification",
+        "Council must approve supplemental appropriation"
+      ],
+      "statutoryBasis": "Home Rule Charter - cannot spend beyond appropriation",
+      "historicalIncidents": []
+    },
+    {
+      "alarmID": "ALM-FISC-002",
+      "name": "Budget Warning (90%)",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Fiscal.Alarms.BudgetWarning90",
+      "triggerCondition": "Department.BudgetExpended > (Department.BudgetAllocated * 0.90)",
+      "resetCondition": "New fiscal year OR supplemental appropriation",
+      "description": "Department has expended 90% of budget",
+      "response": [
+        "Review remaining commitments",
+        "Prepare request for supplemental if needed",
+        "Identify deferrable expenses"
+      ]
+    },
+    {
+      "alarmID": "ALM-FISC-003",
+      "name": "Budget Warning (80%)",
+      "priority": "MEDIUM",
+      "tagPath": "NORCOPA.Fiscal.Alarms.BudgetWarning80",
+      "triggerCondition": "Department.BudgetExpended > (Department.BudgetAllocated * 0.80) AND FiscalYearProgress < 0.75",
+      "description": "Department spending outpacing fiscal year",
+      "response": [
+        "Analyze spending pattern",
+        "Project year-end position",
+        "Report to Executive"
+      ]
+    },
+    {
+      "alarmID": "ALM-FISC-004",
+      "name": "Unauthorized Expenditure",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Fiscal.Alarms.UnauthorizedExpenditure",
+      "triggerCondition": "Expenditure.Approver NOT IN AuthorizedApprovers OR Expenditure.Amount > ApproverLimit",
+      "description": "Expenditure made without proper authorization",
+      "response": [
+        "Controller flags transaction",
+        "Investigate circumstances",
+        "Report to Executive and Council",
+        "Potential disciplinary action"
+      ],
+      "statutoryBasis": "Administrative Code spending authority"
+    },
+    {
+      "alarmID": "ALM-FISC-005",
+      "name": "Contract Threshold Exceeded",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Fiscal.Alarms.ContractThreshold",
+      "triggerCondition": "Contract.Amount > BidThreshold AND Contract.CompetitiveBid = FALSE",
+      "description": "Contract exceeds competitive bidding threshold without bid process",
+      "response": [
+        "Verify if exemption applies",
+        "Document justification",
+        "Controller review",
+        "Report to Council if required"
+      ],
+      "thresholds": {
+        "professionalServices": 21900,
+        "publicWorks": 21900,
+        "supplies": 11400
+      }
+    },
+    {
+      "alarmID": "ALM-FISC-006",
+      "name": "Audit Finding - Material",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Fiscal.Alarms.MaterialAuditFinding",
+      "triggerCondition": "Audit.FindingSeverity = MATERIAL OR Audit.FindingSeverity = SIGNIFICANT_DEFICIENCY",
+      "description": "Material audit finding requiring immediate attention",
+      "response": [
+        "Controller reports to Council",
+        "Corrective action plan required within 30 days",
+        "Follow-up audit scheduled",
+        "Public disclosure required"
+      ],
+      "currentFindings": [
+        {"entity": "Gracedale", "finding": "Staffing shortages", "statute": "55 Pa. Code § 201.18"},
+        {"entity": "MDJ 03-3-02", "finding": "Warrant procedures", "statute": "42 Pa.C.S. Chapter 51"},
+        {"entity": "MDJ 03-2-11", "finding": "Warrant procedures", "statute": "42 Pa.C.S. Chapter 51"},
+        {"entity": "Elections", "finding": "L&A documentation", "statute": "25 P.S. § 3031.7"}
+      ]
+    },
+    {
+      "alarmID": "ALM-FISC-007",
+      "name": "Fund Balance Low",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Fiscal.Alarms.FundBalanceLow",
+      "triggerCondition": "GeneralFund.UnassignedBalance < (AnnualBudget * 0.05)",
+      "description": "Unassigned fund balance below 5% of budget",
+      "response": [
+        "Review revenue projections",
+        "Identify spending reductions",
+        "Consider fund balance policy adjustment",
+        "Report to Council"
+      ],
+      "bestPractice": "Maintain 8-15% unassigned fund balance"
+    },
+    {
+      "alarmID": "ALM-FISC-008",
+      "name": "Revenue Shortfall",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Fiscal.Alarms.RevenueShortfall",
+      "triggerCondition": "ActualRevenue < (ProjectedRevenue * 0.95) AND FiscalYearProgress > 0.50",
+      "description": "Revenue collections significantly below projections",
+      "response": [
+        "Analyze revenue sources",
+        "Project year-end shortfall",
+        "Prepare spending reduction options",
+        "Report to Executive and Council"
+      ]
+    },
+    {
+      "alarmID": "ALM-FISC-009",
+      "name": "Gracedale Operating Loss",
+      "priority": "MEDIUM",
+      "tagPath": "NORCOPA.Fiscal.Alarms.GracedaleDeficit",
+      "triggerCondition": "Gracedale.OperatingExpenses > Gracedale.TotalRevenue",
+      "description": "Gracedale operating at a loss requiring county subsidy",
+      "response": [
+        "Review revenue maximization efforts",
+        "Analyze expense reduction opportunities",
+        "Report subsidy requirement to Council",
+        "Consider operational changes"
+      ],
+      "currentStatus": {
+        "netOperatingLoss": -7286826,
+        "countySubsidy": 12500000
+      }
+    },
+    {
+      "alarmID": "ALM-FISC-010",
+      "name": "LERTA Revenue Impact",
+      "priority": "MEDIUM",
+      "tagPath": "NORCOPA.Fiscal.Alarms.LERTAImpact",
+      "triggerCondition": "LERTA.ForgoneRevenue > LERTA.ProjectedBenefit",
+      "description": "Tax abatement costs exceed projected benefits",
+      "response": [
+        "Review LERTA effectiveness",
+        "Report to Council",
+        "Consider program modifications"
+      ],
+      "currentIssue": "Wilson Area SD impact: $2.98M foregone revenue"
+    }
+  ],
+  "alarmManagement": {
+    "acknowledgment": {
+      "required": true,
+      "criticalTimeout": "1 hour",
+      "highTimeout": "24 hours"
+    },
+    "escalation": {
+      "unacknowledgedCritical": "Auto-escalate to Executive after 1 hour",
+      "unacknowledgedHigh": "Auto-escalate to department head after 4 hours"
+    },
+    "logging": {
+      "retention": "7 years",
+      "auditAccess": "Controller, external auditors"
+    }
+  }
+}

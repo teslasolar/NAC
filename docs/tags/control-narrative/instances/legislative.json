@@ -1,0 +1,166 @@
+{
+  "instanceGroup": "Legislative Branch",
+  "description": "Instances of County Council positions and structures",
+  "instances": [
+    {
+      "instanceName": "CountyCouncil",
+      "udtType": "UDT_LegislativeBody",
+      "tagPath": "NORCOPA.Legislative.Council",
+      "description": "Nine-member legislative body for Northampton County",
+      "values": {
+        "Name": "Northampton County Council",
+        "TotalMembers": 9,
+        "AtLargeSeats": 5,
+        "DistrictSeats": 4,
+        "TermLength": 4,
+        "TermLimit": 3,
+        "TermLimitConsecutive": true,
+        "Quorum": 5,
+        "PassageThreshold": 5,
+        "VetoOverrideThreshold": 6
+      },
+      "positions": [
+        {
+          "instanceName": "CouncilPresident",
+          "tagPath": "NORCOPA.Legislative.Council.President",
+          "description": "Presiding officer of Council",
+          "selectedBy": "Council vote",
+          "powers": [
+            "Preside over meetings",
+            "Set agenda (with input from members)",
+            "Recognize speakers",
+            "Rule on procedural matters",
+            "Sign enacted ordinances",
+            "Represent Council in official capacities"
+          ]
+        },
+        {
+          "instanceName": "CouncilVicePresident",
+          "tagPath": "NORCOPA.Legislative.Council.VicePresident",
+          "description": "Backup presiding officer",
+          "selectedBy": "Council vote",
+          "powers": [
+            "Preside in President's absence",
+            "Assume presidency if vacancy"
+          ]
+        },
+        {
+          "instanceName": "CouncilMember_AtLarge",
+          "tagPath": "NORCOPA.Legislative.Council.AtLarge[1..5]",
+          "description": "At-large council members (5 positions)",
+          "electedBy": "All county voters",
+          "count": 5
+        },
+        {
+          "instanceName": "CouncilMember_District",
+          "tagPath": "NORCOPA.Legislative.Council.District[1..4]",
+          "description": "District council members (4 positions)",
+          "electedBy": "District voters only",
+          "count": 4,
+          "districts": [
+            {"number": 1, "description": "Bethlehem area"},
+            {"number": 2, "description": "Easton area"},
+            {"number": 3, "description": "Palmer/central area"},
+            {"number": 4, "description": "Slate Belt/northern area"}
+          ]
+        }
+      ],
+      "meetingSchedule": {
+        "regular": {
+          "frequency": "1st and 3rd Thursday",
+          "time": "18:30",
+          "location": "Council Chambers, Government Center",
+          "publicComment": true,
+          "publicCommentTime": 180
+        },
+        "committee": {
+          "frequency": "2nd and 4th Wednesday",
+          "time": "18:00"
+        },
+        "special": {
+          "calledBy": "President or majority of members",
+          "notice": "24 hours minimum"
+        }
+      },
+      "powers": [
+        "Pass ordinances and resolutions",
+        "Approve annual budget",
+        "Set tax rates (millage)",
+        "Confirm executive appointments",
+        "Override executive vetoes (6 votes)",
+        "Create/abolish departments",
+        "Authorize contracts",
+        "Conduct investigations",
+        "Amend Home Rule Charter (with voter approval)"
+      ],
+      "constraints": [
+        "Cannot execute laws (executive function)",
+        "Cannot interfere with day-to-day administration",
+        "Cannot hire/fire department employees directly",
+        "Subject to Sunshine Act (open meetings)",
+        "Subject to Right-to-Know Law"
+      ]
+    }
+  ],
+  "controlLogic": {
+    "votingProcedure": {
+      "sequence": [
+        {"step": 1, "action": "Motion made", "requirement": "Any member"},
+        {"step": 2, "action": "Motion seconded", "requirement": "Different member"},
+        {"step": 3, "action": "Discussion", "requirement": "President recognizes speakers"},
+        {"step": 4, "action": "Call the question", "requirement": "Motion to end debate"},
+        {"step": 5, "action": "Roll call vote", "requirement": "Each member votes"},
+        {"step": 6, "action": "Record result", "requirement": "Clerk records"}
+      ],
+      "passConditions": {
+        "ordinances": "5+ YES votes with quorum present",
+        "resolutions": "5+ YES votes with quorum present",
+        "vetoOverride": "6+ YES votes",
+        "charterAmendment": "6+ YES votes + voter referendum"
+      }
+    },
+    "ordinanceWorkflow": {
+      "stateMachine": "See UDT_Ordinance.stateTransitions",
+      "minimumTimeline": "14 days (two readings, 7 days apart)",
+      "emergency": "Can pass in one meeting with 6+ votes"
+    }
+  },
+  "committees": [
+    {
+      "instanceName": "PersonnelFinanceCommittee",
+      "tagPath": "NORCOPA.Legislative.Committees.PersonnelFinance",
+      "description": "Handles budget, personnel, and financial matters",
+      "jurisdiction": ["Budget", "Contracts", "Personnel policies", "Salaries", "Benefits"],
+      "meetingSchedule": "2nd and 4th Wednesday, 6:00 PM"
+    },
+    {
+      "instanceName": "PublicWorksCommittee",
+      "tagPath": "NORCOPA.Legislative.Committees.PublicWorks",
+      "description": "Handles infrastructure and facilities",
+      "jurisdiction": ["Roads", "Bridges", "Buildings", "Parks", "Public works contracts"]
+    },
+    {
+      "instanceName": "HumanServicesCommittee",
+      "tagPath": "NORCOPA.Legislative.Committees.HumanServices",
+      "description": "Handles social services and corrections",
+      "jurisdiction": ["Human services programs", "Gracedale", "Prison", "Mental health"]
+    }
+  ],
+  "interlocks": [
+    {
+      "name": "QuorumInterlock",
+      "condition": "PresentMembers < 5",
+      "action": "BLOCK all votes, adjourn or recess until quorum"
+    },
+    {
+      "name": "SunshineActInterlock",
+      "condition": "Meeting not properly advertised",
+      "action": "INVALID - actions taken are void"
+    },
+    {
+      "name": "TwoReadingInterlock",
+      "condition": "DaysBetweenReadings < 7 AND NOT EmergencyOrdinance",
+      "action": "BLOCK second reading vote"
+    }
+  ]
+}

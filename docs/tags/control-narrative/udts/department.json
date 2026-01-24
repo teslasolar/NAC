@@ -1,0 +1,179 @@
+{
+  "udtDefinition": {
+    "name": "UDT_Department",
+    "description": "Operational unit executing county services under executive supervision",
+    "version": "1.0",
+    "category": "Government Entity",
+    "baseType": null,
+    "analogousTo": "Process Unit / Skid in industrial systems - self-contained functional unit with defined inputs/outputs"
+  },
+  "members": [
+    {
+      "name": "DepartmentID",
+      "dataType": "STRING[32]",
+      "description": "Unique identifier",
+      "example": "DEPT-HUMANSVCS"
+    },
+    {
+      "name": "Name",
+      "dataType": "STRING[128]",
+      "description": "Department name",
+      "example": "Department of Human Services"
+    },
+    {
+      "name": "Director",
+      "dataType": "STRING[128]",
+      "description": "Department head name"
+    },
+    {
+      "name": "AppointedBy",
+      "dataType": "STRING[64]",
+      "description": "Appointing authority",
+      "typical": "County Executive"
+    },
+    {
+      "name": "ConfirmedBy",
+      "dataType": "STRING[64]",
+      "description": "Confirming authority",
+      "typical": "County Council"
+    },
+    {
+      "name": "Mission",
+      "dataType": "STRING[512]",
+      "description": "Department mission statement"
+    },
+    {
+      "name": "Divisions",
+      "dataType": "ARRAY[16] OF UDT_Division",
+      "description": "Sub-units within department"
+    },
+    {
+      "name": "FTECount",
+      "dataType": "INT",
+      "description": "Full-time equivalent employee count"
+    },
+    {
+      "name": "BudgetAllocated",
+      "dataType": "REAL",
+      "unit": "USD",
+      "description": "Approved budget for fiscal year"
+    },
+    {
+      "name": "BudgetExpended",
+      "dataType": "REAL",
+      "unit": "USD",
+      "description": "Year-to-date expenditures"
+    },
+    {
+      "name": "BudgetRemaining",
+      "dataType": "REAL",
+      "unit": "USD",
+      "description": "Remaining budget (calculated)"
+    },
+    {
+      "name": "BudgetPercentage",
+      "dataType": "REAL",
+      "unit": "%",
+      "description": "Percentage of total county budget"
+    },
+    {
+      "name": "Status",
+      "dataType": "ENUM",
+      "values": ["OPERATIONAL", "DEGRADED", "EMERGENCY", "SHUTDOWN"],
+      "description": "Current operational status"
+    },
+    {
+      "name": "Services",
+      "dataType": "ARRAY[32] OF UDT_Service",
+      "description": "Services provided by department"
+    },
+    {
+      "name": "KPIs",
+      "dataType": "ARRAY[16] OF UDT_KPI",
+      "description": "Key performance indicators"
+    },
+    {
+      "name": "Contact",
+      "dataType": "UDT_Contact",
+      "description": "Department contact information"
+    },
+    {
+      "name": "Location",
+      "dataType": "UDT_Address",
+      "description": "Primary office location"
+    },
+    {
+      "name": "ReportingSchedule",
+      "dataType": "STRING[64]",
+      "description": "Required reporting frequency"
+    }
+  ],
+  "nestedTypes": {
+    "UDT_Division": {
+      "members": [
+        {"name": "Name", "dataType": "STRING[64]"},
+        {"name": "Manager", "dataType": "STRING[128]"},
+        {"name": "Phone", "dataType": "STRING[20]"},
+        {"name": "Services", "dataType": "ARRAY[16] OF STRING[128]"},
+        {"name": "FTECount", "dataType": "INT"}
+      ]
+    },
+    "UDT_Service": {
+      "members": [
+        {"name": "ServiceID", "dataType": "STRING[32]"},
+        {"name": "Name", "dataType": "STRING[128]"},
+        {"name": "Description", "dataType": "STRING[512]"},
+        {"name": "Eligibility", "dataType": "STRING[256]"},
+        {"name": "ContactPhone", "dataType": "STRING[20]"},
+        {"name": "Available", "dataType": "BOOL"}
+      ]
+    },
+    "UDT_KPI": {
+      "members": [
+        {"name": "Name", "dataType": "STRING[64]"},
+        {"name": "Target", "dataType": "REAL"},
+        {"name": "Actual", "dataType": "REAL"},
+        {"name": "Unit", "dataType": "STRING[16]"},
+        {"name": "Trend", "dataType": "ENUM", "values": ["IMPROVING", "STABLE", "DECLINING"]}
+      ]
+    }
+  },
+  "methods": [
+    {
+      "name": "SubmitBudgetRequest",
+      "description": "Annual budget request to Executive",
+      "inputs": ["FiscalYear: INT", "RequestedAmount: REAL", "Justification: STRING"],
+      "outputs": ["RequestID: STRING"]
+    },
+    {
+      "name": "ExecuteService",
+      "description": "Deliver service to citizen",
+      "inputs": ["ServiceID: STRING", "Recipient: UDT_Citizen", "Request: STRING"],
+      "outputs": ["ServiceRecord: UDT_ServiceRecord", "Outcome: ENUM"]
+    },
+    {
+      "name": "ReportMetrics",
+      "description": "Submit performance metrics",
+      "inputs": ["Period: STRING", "Metrics: ARRAY OF UDT_KPI"],
+      "outputs": ["ReportAccepted: BOOL"]
+    },
+    {
+      "name": "HandleComplaint",
+      "description": "Process citizen complaint",
+      "inputs": ["Complaint: UDT_Complaint"],
+      "outputs": ["Resolution: UDT_Resolution", "DaysToResolve: INT"]
+    }
+  ],
+  "interlocks": [
+    {
+      "name": "BudgetOverrun",
+      "condition": "BudgetExpended > BudgetAllocated",
+      "action": "ALARM, Require Council approval for additional spending"
+    },
+    {
+      "name": "DirectorVacancy",
+      "condition": "Director = NULL AND VacancyDays > 90",
+      "action": "ALARM, Escalate to Executive"
+    }
+  ]
+}

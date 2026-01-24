@@ -1,0 +1,198 @@
+{
+  "udtDefinition": {
+    "name": "UDT_Ordinance",
+    "description": "Local law passed by County Council - primary control output of legislative process",
+    "version": "1.0",
+    "category": "Control Output",
+    "baseType": null,
+    "analogousTo": "Recipe/Setpoint in batch control - defines parameters for operation"
+  },
+  "members": [
+    {
+      "name": "OrdinanceNumber",
+      "dataType": "STRING[32]",
+      "description": "Official ordinance number",
+      "format": "YYYY-NNN",
+      "example": "2025-012"
+    },
+    {
+      "name": "Title",
+      "dataType": "STRING[512]",
+      "description": "Full title of ordinance"
+    },
+    {
+      "name": "ShortTitle",
+      "dataType": "STRING[128]",
+      "description": "Abbreviated title for reference"
+    },
+    {
+      "name": "Type",
+      "dataType": "ENUM",
+      "values": ["ORDINANCE", "RESOLUTION", "AMENDMENT", "REPEAL"],
+      "description": "Type of legislative action"
+    },
+    {
+      "name": "Status",
+      "dataType": "ENUM",
+      "values": ["DRAFT", "INTRODUCED", "COMMITTEE", "FIRST_READING", "SECOND_READING", "PASSED", "VETOED", "OVERRIDE_PENDING", "ENACTED", "REPEALED"],
+      "description": "Current status in legislative process"
+    },
+    {
+      "name": "IntroducedBy",
+      "dataType": "STRING[128]",
+      "description": "Council member(s) who introduced"
+    },
+    {
+      "name": "IntroducedDate",
+      "dataType": "DATE",
+      "description": "Date of introduction"
+    },
+    {
+      "name": "Committee",
+      "dataType": "STRING[64]",
+      "description": "Assigned committee"
+    },
+    {
+      "name": "CommitteeRecommendation",
+      "dataType": "ENUM",
+      "values": ["FAVORABLE", "UNFAVORABLE", "NO_RECOMMENDATION", "PENDING"],
+      "description": "Committee recommendation"
+    },
+    {
+      "name": "FirstReading",
+      "dataType": "DATE",
+      "description": "Date of first reading"
+    },
+    {
+      "name": "SecondReading",
+      "dataType": "DATE",
+      "description": "Date of second reading/vote"
+    },
+    {
+      "name": "VoteRecord",
+      "dataType": "UDT_VoteRecord",
+      "description": "Record of Council vote"
+    },
+    {
+      "name": "ExecutiveAction",
+      "dataType": "ENUM",
+      "values": ["PENDING", "SIGNED", "VETOED", "POCKET_VETO", "NO_ACTION_REQUIRED"],
+      "description": "Executive action taken"
+    },
+    {
+      "name": "ExecutiveActionDate",
+      "dataType": "DATE",
+      "description": "Date of executive action"
+    },
+    {
+      "name": "VetoMessage",
+      "dataType": "STRING[2048]",
+      "description": "Executive's veto message if vetoed"
+    },
+    {
+      "name": "OverrideVote",
+      "dataType": "UDT_VoteRecord",
+      "description": "Vote record if override attempted"
+    },
+    {
+      "name": "EffectiveDate",
+      "dataType": "DATE",
+      "description": "Date ordinance takes effect"
+    },
+    {
+      "name": "SunsetDate",
+      "dataType": "DATE",
+      "description": "Expiration date if applicable"
+    },
+    {
+      "name": "FullText",
+      "dataType": "STRING[MAX]",
+      "description": "Complete text of ordinance"
+    },
+    {
+      "name": "FiscalImpact",
+      "dataType": "REAL",
+      "unit": "USD",
+      "description": "Estimated fiscal impact"
+    },
+    {
+      "name": "AffectedDepartments",
+      "dataType": "ARRAY[16] OF STRING[64]",
+      "description": "Departments affected by ordinance"
+    },
+    {
+      "name": "PublicHearingRequired",
+      "dataType": "BOOL",
+      "description": "TRUE if public hearing required"
+    },
+    {
+      "name": "PublicHearingDate",
+      "dataType": "DATE",
+      "description": "Date of public hearing"
+    },
+    {
+      "name": "PublicComments",
+      "dataType": "INT",
+      "description": "Number of public comments received"
+    }
+  ],
+  "nestedTypes": {
+    "UDT_VoteRecord": {
+      "members": [
+        {"name": "Date", "dataType": "DATE"},
+        {"name": "YesVotes", "dataType": "INT"},
+        {"name": "NoVotes", "dataType": "INT"},
+        {"name": "Abstentions", "dataType": "INT"},
+        {"name": "Absent", "dataType": "INT"},
+        {"name": "Passed", "dataType": "BOOL"},
+        {"name": "IndividualVotes", "dataType": "ARRAY[9] OF UDT_IndividualVote"}
+      ]
+    },
+    "UDT_IndividualVote": {
+      "members": [
+        {"name": "MemberName", "dataType": "STRING[128]"},
+        {"name": "District", "dataType": "STRING[32]"},
+        {"name": "Vote", "dataType": "ENUM", "values": ["YES", "NO", "ABSTAIN", "ABSENT"]}
+      ]
+    }
+  },
+  "stateTransitions": [
+    {"from": "DRAFT", "to": "INTRODUCED", "trigger": "Council member introduces"},
+    {"from": "INTRODUCED", "to": "COMMITTEE", "trigger": "Assigned to committee"},
+    {"from": "COMMITTEE", "to": "FIRST_READING", "trigger": "Committee reports out"},
+    {"from": "FIRST_READING", "to": "SECOND_READING", "trigger": "Minimum 7 days elapsed"},
+    {"from": "SECOND_READING", "to": "PASSED", "trigger": "Majority vote (5+ of 9)"},
+    {"from": "SECOND_READING", "to": "FAILED", "trigger": "Less than majority"},
+    {"from": "PASSED", "to": "VETOED", "trigger": "Executive veto within 10 days"},
+    {"from": "PASSED", "to": "ENACTED", "trigger": "Executive signs OR 10 days no action"},
+    {"from": "VETOED", "to": "OVERRIDE_PENDING", "trigger": "Council schedules override vote"},
+    {"from": "OVERRIDE_PENDING", "to": "ENACTED", "trigger": "6+ votes to override"},
+    {"from": "OVERRIDE_PENDING", "to": "DEAD", "trigger": "Override fails"}
+  ],
+  "businessRules": [
+    {
+      "rule": "QuorumRequired",
+      "description": "5 of 9 members must be present for valid vote",
+      "enforcement": "Automatic check before recording vote"
+    },
+    {
+      "rule": "TwoReadings",
+      "description": "Ordinances require two readings with minimum 7 days between",
+      "exception": "Emergency ordinances may be passed in one meeting with 2/3 vote"
+    },
+    {
+      "rule": "VetoWindow",
+      "description": "Executive has 10 days to sign or veto",
+      "autoAction": "No action = automatic enactment"
+    },
+    {
+      "rule": "OverrideThreshold",
+      "description": "6 of 9 votes required to override executive veto"
+    },
+    {
+      "rule": "PublicNotice",
+      "description": "Public hearing required for zoning, tax, and certain other ordinances",
+      "notice": "Minimum 10 days advance notice"
+    }
+  ]
+}

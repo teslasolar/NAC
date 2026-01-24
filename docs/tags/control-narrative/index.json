@@ -1,0 +1,172 @@
+{
+  "documentInfo": {
+    "title": "Northampton County Government Control Narrative",
+    "documentNumber": "CN-NORCOPA-001",
+    "revision": "1.0",
+    "effectiveDate": "2026-01-24",
+    "preparedBy": "NAC Civic Intelligence System",
+    "approvedBy": "Citizens of Northampton County",
+    "standard": "ISA-95 / IEC 62443 Adapted for Civic Systems"
+  },
+  "systemOverview": {
+    "systemName": "Northampton County Governance Control System",
+    "systemType": "Distributed Democratic Control System (DDCS)",
+    "jurisdiction": "Northampton County, Pennsylvania",
+    "governanceModel": "Home Rule Charter (Strong Executive)",
+    "adoptedDate": "1978-01-01",
+    "population": 312000,
+    "municipalities": 38,
+    "controlPhilosophy": "Separation of powers with checks and balances providing redundant control paths and fail-safe democratic oversight",
+    "safetyIntegrityLevel": "SIL-DEMOCRACY",
+    "description": "This control narrative describes the operation of Northampton County government as an integrated control system with multiple control loops, interlocks, and safety systems designed to ensure responsive, transparent, and accountable governance."
+  },
+  "architectureOverview": {
+    "model": "ISA-95 Adapted for Civic Operations",
+    "levels": [
+      {
+        "level": 0,
+        "name": "Citizens / Field Devices",
+        "description": "The fundamental sensors and actuators of democracy - citizens who vote, attend meetings, file RTK requests, and provide feedback",
+        "components": ["Voters", "Taxpayers", "Residents", "Businesses", "Community Organizations"]
+      },
+      {
+        "level": 1,
+        "name": "Direct Control / Row Offices",
+        "description": "Independently elected officials performing specific control functions with direct citizen interface",
+        "components": ["Controller", "Sheriff", "Coroner", "Prothonotary", "Register of Wills", "Recorder of Deeds", "Clerk of Courts"]
+      },
+      {
+        "level": 2,
+        "name": "Supervisory Control / Departments",
+        "description": "Operational departments executing policies under executive supervision",
+        "components": ["Human Services", "Public Works", "Corrections", "Elections", "Assessment", "Emergency Management"]
+      },
+      {
+        "level": 3,
+        "name": "Operations Management / Executive & Council",
+        "description": "Policy-making and administrative oversight providing setpoints and control parameters",
+        "components": ["County Executive", "County Council", "Committees", "Boards"]
+      },
+      {
+        "level": 4,
+        "name": "Enterprise / State & Federal",
+        "description": "Higher-level systems providing constraints, funding, and regulatory requirements",
+        "components": ["PA State Government", "Federal Government", "Courts", "Regulatory Agencies"]
+      }
+    ]
+  },
+  "controlLoops": {
+    "primaryLoops": [
+      {
+        "loopId": "LOOP-ELECT-001",
+        "name": "Democratic Feedback Loop",
+        "type": "Closed-loop with 4-year sample time",
+        "processVariable": "Citizen Satisfaction / Government Performance",
+        "setpoint": "Responsive, Accountable Governance",
+        "controlOutput": "Election Results",
+        "controller": "Electorate",
+        "tuning": {
+          "sampleTime": "4 years (2 years for some positions)",
+          "deadband": "Margin of victory",
+          "responseTime": "Immediate upon certification"
+        }
+      },
+      {
+        "loopId": "LOOP-BUDGET-001",
+        "name": "Fiscal Control Loop",
+        "type": "Annual closed-loop",
+        "processVariable": "Expenditures",
+        "setpoint": "Approved Budget",
+        "controlOutput": "Spending Authority",
+        "controller": "Controller + Council",
+        "tuning": {
+          "sampleTime": "Monthly reporting, annual budget cycle",
+          "highLimit": "Appropriated amount",
+          "lowLimit": "Minimum service levels"
+        }
+      },
+      {
+        "loopId": "LOOP-LEGIS-001",
+        "name": "Legislative Control Loop",
+        "type": "Event-driven",
+        "processVariable": "Policy/Law Status",
+        "setpoint": "Community Needs",
+        "controlOutput": "Ordinances and Resolutions",
+        "controller": "County Council",
+        "tuning": {
+          "quorum": "5 of 9 members",
+          "passThreshold": "Simple majority (5 votes)",
+          "vetoOverride": "Supermajority (6 votes)"
+        }
+      }
+    ],
+    "safetyLoops": [
+      {
+        "loopId": "SAFE-AUDIT-001",
+        "name": "Audit Safety Loop",
+        "type": "Independent verification",
+        "function": "Detect fiscal anomalies and prevent fraud",
+        "controller": "County Controller",
+        "independence": "Separately elected, cannot be removed by Executive",
+        "tripPoints": ["Unauthorized spending", "Policy violations", "Fraud indicators"]
+      },
+      {
+        "loopId": "SAFE-VETO-001",
+        "name": "Executive Veto Interlock",
+        "type": "Permissive interlock",
+        "function": "Provide executive review of legislative actions",
+        "bypassCondition": "6 of 9 Council votes to override"
+      },
+      {
+        "loopId": "SAFE-COURT-001",
+        "name": "Judicial Review Safety",
+        "type": "External safety system",
+        "function": "Constitutional/legal compliance verification",
+        "controller": "Court System",
+        "tripCondition": "Legal challenge filed"
+      }
+    ]
+  },
+  "udtIndex": {
+    "path": "udts/",
+    "types": [
+      {"name": "UDT_ElectedOfficial", "file": "elected-official.json"},
+      {"name": "UDT_Department", "file": "department.json"},
+      {"name": "UDT_Committee", "file": "committee.json"},
+      {"name": "UDT_Ordinance", "file": "ordinance.json"},
+      {"name": "UDT_Budget", "file": "budget.json"},
+      {"name": "UDT_Audit", "file": "audit.json"},
+      {"name": "UDT_Meeting", "file": "meeting.json"},
+      {"name": "UDT_Citizen", "file": "citizen.json"}
+    ]
+  },
+  "instanceIndex": {
+    "path": "instances/",
+    "categories": [
+      {"name": "Executive Branch", "file": "executive.json"},
+      {"name": "Legislative Branch", "file": "legislative.json"},
+      {"name": "Row Offices", "file": "row-offices.json"},
+      {"name": "Departments", "file": "departments.json"},
+      {"name": "Committees", "file": "committees.json"}
+    ]
+  },
+  "logicIndex": {
+    "path": "logic/",
+    "modules": [
+      {"name": "Budget Approval Sequence", "file": "budget-approval.json"},
+      {"name": "Ordinance Passage Logic", "file": "ordinance-passage.json"},
+      {"name": "Veto Override Logic", "file": "veto-override.json"},
+      {"name": "Appointment Confirmation", "file": "appointment-confirmation.json"},
+      {"name": "Election Certification", "file": "election-certification.json"}
+    ]
+  },
+  "alarmIndex": {
+    "path": "alarms/",
+    "categories": [
+      {"name": "Fiscal Alarms", "file": "fiscal-alarms.json"},
+      {"name": "Compliance Alarms", "file": "compliance-alarms.json"},
+      {"name": "Performance Alarms", "file": "performance-alarms.json"},
+      {"name": "Safety Alarms", "file": "safety-alarms.json"}
+    ]
+  }
+}

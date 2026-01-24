@@ -1,0 +1,195 @@
+{
+  "alarmClass": "Compliance Alarms",
+  "description": "Alarms related to legal, regulatory, and policy compliance",
+  "version": "1.0",
+  "alarms": [
+    {
+      "alarmID": "ALM-COMP-001",
+      "name": "Sunshine Act Violation",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Compliance.Alarms.SunshineViolation",
+      "triggerCondition": "Meeting.PublicNotice = FALSE OR Meeting.ExecutiveSession.Improper = TRUE",
+      "description": "Potential violation of PA Sunshine Act (open meetings law)",
+      "statutoryBasis": "65 Pa.C.S. §§ 701-716",
+      "consequences": [
+        "Actions taken may be void",
+        "Civil penalties possible",
+        "Public trust erosion"
+      ],
+      "response": [
+        "Immediately correct deficiency if possible",
+        "Consult solicitor",
+        "Rescind/ratify actions at properly noticed meeting",
+        "Document corrective actions"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-002",
+      "name": "RTK Response Overdue",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Compliance.Alarms.RTKOverdue",
+      "triggerCondition": "RTKRequest.DaysSinceReceived > 5 AND RTKRequest.ResponseSent = FALSE AND RTKRequest.ExtensionFiled = FALSE",
+      "description": "Right-to-Know request response deadline missed",
+      "statutoryBasis": "65 P.S. § 67.901 (5 business day response required)",
+      "consequences": [
+        "Deemed denial - requester can appeal",
+        "Potential attorney fees if overturned"
+      ],
+      "response": [
+        "Immediately respond or file extension",
+        "Document reason for delay",
+        "Process request as priority"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-003",
+      "name": "Ethics Violation Report",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Compliance.Alarms.EthicsViolation",
+      "triggerCondition": "EthicsComplaint.Filed = TRUE OR ConflictOfInterest.Detected = TRUE",
+      "description": "Reported ethics violation or conflict of interest",
+      "statutoryBasis": "PA Ethics Act (65 Pa.C.S. Chapter 11)",
+      "response": [
+        "Recuse involved party from related decisions",
+        "Report to PA Ethics Commission if required",
+        "Internal investigation",
+        "Document resolution"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-004",
+      "name": "Election Compliance Failure",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Compliance.Alarms.ElectionCompliance",
+      "triggerCondition": "Election.L&ATesting.Complete = FALSE OR Election.MachineError.Detected = TRUE",
+      "description": "Election equipment or process compliance failure",
+      "statutoryBasis": "25 P.S. § 3031.7 (Electronic Voting Systems)",
+      "currentIssues": [
+        {"date": "2023-11-07", "issue": "Vote switching on ballot summary", "status": "Certified despite concerns"},
+        {"date": "2024-11", "issue": "6-hour voter wait times", "status": "Under review"},
+        {"finding": "150+ missing L&A testing documents", "status": "Pending review"}
+      ],
+      "response": [
+        "Document all anomalies",
+        "Preserve evidence",
+        "Report to state if required",
+        "Implement corrective procedures"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-005",
+      "name": "Nursing Home Staffing Below Minimum",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Compliance.Alarms.GracedaleStaffing",
+      "triggerCondition": "Gracedale.StaffingRatio < StateMinimum OR Gracedale.RNCoverage < RequiredHours",
+      "description": "Gracedale nursing staff below state-mandated minimums",
+      "statutoryBasis": "55 Pa. Code § 201.18 (Nursing Facility Staffing)",
+      "currentStatus": {
+        "vacancyRate": "20.3%",
+        "rncoverageFailures": 47,
+        "cmsRating": 1
+      },
+      "response": [
+        "Deploy agency staff as needed",
+        "Document instances and mitigation",
+        "Report to PA DOH if required",
+        "Recruitment/retention action plan"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-006",
+      "name": "Court Procedure Violation",
+      "priority": "HIGH",
+      "tagPath": "NORCOPA.Compliance.Alarms.CourtProcedure",
+      "triggerCondition": "Audit.CourtFinding.Severity = RECURRING OR Audit.CourtFinding.Category = WARRANT_PROCEDURES",
+      "description": "Recurring violations of court procedures",
+      "statutoryBasis": "42 Pa.C.S. Chapter 51 (Judicial Code)",
+      "currentFindings": [
+        {"court": "MDJ 03-3-02", "finding": "Inadequate arrest warrant procedures", "recurring": true},
+        {"court": "MDJ 03-2-11", "finding": "Warrant documentation failures", "recurring": true}
+      ],
+      "response": [
+        "Report to President Judge",
+        "Implement corrective training",
+        "Controller follow-up audit",
+        "Flag for state auditor"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-007",
+      "name": "VFRA Equipment Inventory Deficiency",
+      "priority": "MEDIUM",
+      "tagPath": "NORCOPA.Compliance.Alarms.VFRAInventory",
+      "triggerCondition": "VFRA.EquipmentInventory.Unverified > 0 OR VFRA.EquipmentRecords.Incomplete = TRUE",
+      "description": "Fire relief association equipment inventory issues",
+      "statutoryBasis": "35 P.S. § 7416.1 (Volunteer Firefighters' Relief Association Act)",
+      "currentFindings": [
+        {"entity": "Northampton Firemen", "unverified": 47832},
+        {"entity": "Hecktown VFC", "issue": "Recurring inventory deficiencies"}
+      ],
+      "response": [
+        "Complete physical inventory",
+        "Reconcile records",
+        "Report to state auditor",
+        "Implement tracking procedures"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-008",
+      "name": "Term Limit Approaching",
+      "priority": "INFO",
+      "tagPath": "NORCOPA.Compliance.Alarms.TermLimit",
+      "triggerCondition": "Official.TermsServed = (Official.TermLimit - 1) AND Official.TermEnd.YearsRemaining < 2",
+      "description": "Elected official approaching term limit",
+      "response": [
+        "Notify official of approaching limit",
+        "Update election planning",
+        "Inform public of open seat"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-009",
+      "name": "Opioid Fund Non-Compliance",
+      "priority": "MEDIUM",
+      "tagPath": "NORCOPA.Compliance.Alarms.OpioidFund",
+      "triggerCondition": "OpioidProgram.TrustApproval = REJECTED",
+      "description": "Opioid settlement fund use rejected by PA Trust",
+      "currentStatus": {
+        "rejectedProgram": "Newsletter program",
+        "appeal": "Active in Commonwealth Court"
+      },
+      "response": [
+        "Review Trust guidance",
+        "Modify program or appeal",
+        "Ensure compliant use of remaining funds"
+      ]
+    },
+    {
+      "alarmID": "ALM-COMP-010",
+      "name": "Charter Violation",
+      "priority": "CRITICAL",
+      "tagPath": "NORCOPA.Compliance.Alarms.CharterViolation",
+      "triggerCondition": "Action.CharterCompliant = FALSE",
+      "description": "Action violates Home Rule Charter",
+      "statutoryBasis": "Northampton County Home Rule Charter",
+      "response": [
+        "Immediately halt non-compliant action",
+        "Consult solicitor",
+        "Report to Council",
+        "Corrective action"
+      ]
+    }
+  ],
+  "complianceMonitoring": {
+    "auditSchedule": {
+      "internal": "Continuous Controller monitoring",
+      "external": "PA Auditor General per schedule",
+      "federal": "As required for grants/programs"
+    },
+    "reportingRequirements": [
+      {"report": "Annual Financial Report", "due": "Within 120 days of fiscal year end"},
+      {"report": "Budget Adoption", "due": "Before fiscal year start"},
+      {"report": "Audit Response", "due": "60 days from audit report"}
+    ]
+  }
+}

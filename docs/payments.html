@@ -752,19 +752,19 @@
                 <div class="amount-display" id="amountDisplay">
                     <div class="amount-row">
                         <span>Property Address</span>
-                        <span id="propertyAddress">123 Main St, Bethlehem</span>
+                        <span id="propertyAddress">—</span>
                     </div>
                     <div class="amount-row">
                         <span>Base Tax Amount</span>
-                        <span id="baseAmount">$2,847.00</span>
+                        <span id="baseAmount">$0.00</span>
                     </div>
                     <div class="amount-row">
                         <span>Discount (if before Feb 28)</span>
-                        <span id="discountAmount" style="color: #4ade80;">-$56.94</span>
+                        <span id="discountAmount" style="color: #4ade80;">$0.00</span>
                     </div>
                     <div class="amount-row total">
                         <span>Amount Due</span>
-                        <span id="totalDue">$2,790.06</span>
+                        <span id="totalDue">$0.00</span>
                     </div>
                 </div>
 
@@ -871,31 +871,31 @@
                         <div class="crypto-option selected" onclick="selectCrypto(this, 'btc')">
                             <div class="crypto-icon">₿</div>
                             <div class="crypto-name">Bitcoin</div>
-                            <div class="crypto-rate">≈ 0.027 BTC</div>
+                            <div class="crypto-rate" id="btcRate">—</div>
                         </div>
                         <div class="crypto-option eth" onclick="selectCrypto(this, 'eth')">
                             <div class="crypto-icon">Ξ</div>
                             <div class="crypto-name">Ethereum</div>
-                            <div class="crypto-rate">≈ 0.89 ETH</div>
+                            <div class="crypto-rate" id="ethRate">—</div>
                         </div>
                         <div class="crypto-option usdc" onclick="selectCrypto(this, 'usdc')">
                             <div class="crypto-icon">$</div>
                             <div class="crypto-name">USDC</div>
-                            <div class="crypto-rate">≈ 2,817.96</div>
+                            <div class="crypto-rate" id="usdcRate">—</div>
                         </div>
                     </div>
                     <div class="qr-code">
                         <div class="qr-placeholder"></div>
-                        <div class="wallet-address" id="walletAddress">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
-                        <button class="copy-btn" onclick="copyAddress()">Copy Address</button>
+                        <div class="wallet-address" id="walletAddress">Look up account to generate address</div>
+                        <button class="copy-btn" onclick="copyAddress()" disabled>Copy Address</button>
                     </div>
                     <p style="font-size: 0.85em; color: #94a3b8; text-align: center;">
                         Payment confirms after 1 network confirmation. Rate locked for 15 minutes.
                     </p>
                 </div>
 
-                <button class="pay-btn" id="payBtn" onclick="processPayment()">
-                    Pay $2,790.06 Now
+                <button class="pay-btn" id="payBtn" onclick="processPayment()" disabled>
+                    Look Up Account to Pay
                 </button>
 
                 <p style="text-align: center; margin-top: 15px; font-size: 0.8em; color: #64748b;">
@@ -912,27 +912,27 @@
                 </div>
                 <div class="summary-item">
                     <span class="label">Account</span>
-                    <span id="summaryAccount">K9-123-4567-89</span>
+                    <span id="summaryAccount">—</span>
                 </div>
                 <div class="summary-item">
                     <span class="label">Tax Year</span>
-                    <span id="summaryYear">2025</span>
+                    <span id="summaryYear">—</span>
                 </div>
                 <div class="summary-item">
                     <span class="label">Base Amount</span>
-                    <span>$2,847.00</span>
+                    <span id="summaryBase">$0.00</span>
                 </div>
                 <div class="summary-item">
                     <span class="label">Early Discount</span>
-                    <span style="color: #4ade80;">-$56.94</span>
+                    <span id="summaryDiscount" style="color: #4ade80;">$0.00</span>
                 </div>
                 <div class="summary-item">
                     <span class="label">Processing Fee</span>
-                    <span id="summaryFee">$69.75</span>
+                    <span id="summaryFee">$0.00</span>
                 </div>
                 <div class="summary-total">
                     <span>Total</span>
-                    <span class="amount" id="summaryTotal">$2,859.81</span>
+                    <span class="amount" id="summaryTotal">$0.00</span>
                 </div>
 
                 <div class="trust-badges">
@@ -973,19 +973,19 @@
             <div class="receipt-details">
                 <div class="receipt-row">
                     <span class="label">Confirmation #</span>
-                    <span id="confirmationNum">NC-2026-0124-7842</span>
+                    <span id="confirmationNum">—</span>
                 </div>
                 <div class="receipt-row">
                     <span class="label">Amount Paid</span>
-                    <span>$2,859.81</span>
+                    <span id="receiptAmount">$0.00</span>
                 </div>
                 <div class="receipt-row">
                     <span class="label">Date</span>
-                    <span id="paymentDate">Jan 24, 2026</span>
+                    <span id="paymentDate">—</span>
                 </div>
                 <div class="receipt-row">
                     <span class="label">Account</span>
-                    <span>K9-123-4567-89</span>
+                    <span id="receiptAccount">—</span>
                 </div>
             </div>
             <button class="modal-btn" onclick="window.print()">Print Receipt</button>
@@ -994,6 +994,13 @@
     </div>
 
     <script>
+        // State
+        let currentAmount = 0;
+        let currentFee = 0;
+        let currentTotal = 0;
+        let accountLoaded = false;
+        let currentMethod = 'card';
+
         // Payment type selection
         function selectPaymentType(el, type) {
             document.querySelectorAll('.payment-type').forEach(p => p.classList.remove('selected'));
@@ -1010,10 +1017,50 @@
             document.getElementById('summaryType').textContent = typeNames[type] || type;
         }
 
+        // Calculate fee based on method and amount
+        function calculateFee(amount, method) {
+            if (amount === 0) return 0;
+            switch(method) {
+                case 'card':
+                case 'apple':
+                    return Math.max(amount * 0.025, 1.00);
+                case 'ach':
+                    return 1.50;
+                case 'crypto':
+                    return Math.max(amount * 0.01, 0.50);
+                default:
+                    return 0;
+            }
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // Update all displays
+        function updateDisplays() {
+            currentFee = calculateFee(currentAmount, currentMethod);
+            currentTotal = currentAmount + currentFee;
+
+            document.getElementById('summaryFee').textContent = formatCurrency(currentFee);
+            document.getElementById('summaryTotal').textContent = formatCurrency(currentTotal);
+
+            // Update crypto rates if amount > 0
+            if (currentAmount > 0) {
+                document.getElementById('btcRate').textContent = '≈ ' + (currentTotal / 100000).toFixed(5) + ' BTC';
+                document.getElementById('ethRate').textContent = '≈ ' + (currentTotal / 3200).toFixed(4) + ' ETH';
+                document.getElementById('usdcRate').textContent = '≈ ' + currentTotal.toFixed(2);
+            }
+
+            updatePayButton();
+        }
+
         // Payment method selection
         function selectMethod(el, method) {
             document.querySelectorAll('.method-option').forEach(m => m.classList.remove('selected'));
             el.classList.add('selected');
+            currentMethod = method;
 
             // Hide all sections
             document.getElementById('cardSection').classList.remove('visible');
@@ -1023,19 +1070,13 @@
             // Show selected section
             if (method === 'card' || method === 'apple') {
                 document.getElementById('cardSection').classList.add('visible');
-                document.getElementById('summaryFee').textContent = '$69.75';
-                document.getElementById('summaryTotal').textContent = '$2,859.81';
             } else if (method === 'ach') {
                 document.getElementById('achSection').classList.add('visible');
-                document.getElementById('summaryFee').textContent = '$1.50';
-                document.getElementById('summaryTotal').textContent = '$2,791.56';
             } else if (method === 'crypto') {
                 document.getElementById('cryptoSection').classList.add('visible');
-                document.getElementById('summaryFee').textContent = '$27.90';
-                document.getElementById('summaryTotal').textContent = '$2,817.96';
             }
 
-            updatePayButton();
+            updateDisplays();
         }
 
         // Crypto selection
@@ -1043,16 +1084,23 @@
             document.querySelectorAll('.crypto-option').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
 
+            if (!accountLoaded) {
+                document.getElementById('walletAddress').textContent = 'Look up account to generate address';
+                return;
+            }
+
+            // In production, these would be generated per-transaction
             const addresses = {
-                'btc': 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-                'eth': '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-                'usdc': '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
+                'btc': 'Address generated after lookup',
+                'eth': 'Address generated after lookup',
+                'usdc': 'Address generated after lookup'
             };
             document.getElementById('walletAddress').textContent = addresses[crypto];
         }
 
         // Copy wallet address
         function copyAddress() {
+            if (!accountLoaded) return;
             const address = document.getElementById('walletAddress').textContent;
             navigator.clipboard.writeText(address);
             event.target.textContent = 'Copied!';
@@ -1086,34 +1134,70 @@
             document.getElementById('cardNameDisplay').textContent = name.toUpperCase();
         }
 
-        // Account lookup simulation
+        // Account lookup
         function lookupAccount() {
-            const account = document.getElementById('accountNumber').value || 'K9-123-4567-89';
+            const account = document.getElementById('accountNumber').value;
+            if (!account) {
+                alert('Please enter an account or parcel number');
+                return;
+            }
+
+            // In production, this would call an API
+            // For demo, we show the account was looked up with $0 balance
+            accountLoaded = true;
+            currentAmount = 0; // Would come from API
+
             document.getElementById('amountDisplay').classList.add('visible');
+            document.getElementById('propertyAddress').textContent = 'Enter valid parcel ID';
+            document.getElementById('baseAmount').textContent = '$0.00';
+            document.getElementById('discountAmount').textContent = '$0.00';
+            document.getElementById('totalDue').textContent = '$0.00';
+
             document.getElementById('summaryAccount').textContent = account;
-            updatePayButton();
+            document.getElementById('summaryYear').textContent = document.getElementById('taxYear').value;
+            document.getElementById('summaryBase').textContent = '$0.00';
+            document.getElementById('summaryDiscount').textContent = '$0.00';
+
+            document.querySelector('.copy-btn').disabled = false;
+
+            updateDisplays();
         }
 
         // Update pay button
         function updatePayButton() {
-            const total = document.getElementById('summaryTotal').textContent;
-            document.getElementById('payBtn').textContent = `Pay ${total} Now`;
+            const btn = document.getElementById('payBtn');
+            if (!accountLoaded || currentTotal === 0) {
+                btn.disabled = true;
+                btn.textContent = accountLoaded ? 'No Balance Due' : 'Look Up Account to Pay';
+            } else {
+                btn.disabled = false;
+                btn.textContent = `Pay ${formatCurrency(currentTotal)} Now`;
+            }
         }
 
         // Process payment
         function processPayment() {
+            if (!accountLoaded || currentTotal === 0) return;
+
             const btn = document.getElementById('payBtn');
             btn.disabled = true;
             btn.textContent = 'Processing...';
 
             // Simulate processing
             setTimeout(() => {
-                const confNum = 'NC-2026-' + Math.random().toString().substring(2, 6) + '-' + Math.random().toString().substring(2, 6);
+                const confNum = 'NC-' + new Date().getFullYear() + '-' +
+                    String(new Date().getMonth() + 1).padStart(2, '0') +
+                    String(new Date().getDate()).padStart(2, '0') + '-' +
+                    Math.random().toString().substring(2, 6);
+
                 document.getElementById('confirmationNum').textContent = confNum;
+                document.getElementById('receiptAmount').textContent = formatCurrency(currentTotal);
                 document.getElementById('paymentDate').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                document.getElementById('receiptAccount').textContent = document.getElementById('summaryAccount').textContent;
+
                 document.getElementById('successModal').classList.add('visible');
                 btn.disabled = false;
-                btn.textContent = 'Pay $2,859.81 Now';
+                updatePayButton();
             }, 2000);
         }
 

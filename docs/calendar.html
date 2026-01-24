@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Calendar 2026-2028 | Northampton County</title>
+  <style>
+    :root {
+      --primary: #1e3a5f;
+      --secondary: #2d5a87;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --council: #3b82f6;
+      --committee: #8b5cf6;
+      --board: #ef4444;
+      --commission: #14b8a6;
+      --advisory: #f97316;
+      --judicial: #6366f1;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
+    .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .header p { color: #94a3b8; font-size: 1.1rem; }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: rgba(30, 41, 59, 0.8);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .filter-group label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .filter-group select, .filter-group input {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(15, 23, 42, 0.8);
+      color: #e2e8f0;
+      font-size: 1rem;
+      min-width: 180px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-box {
+      background: rgba(30, 41, 59, 0.8);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-box .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .stat-box .label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .month-card {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .month-header {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      padding: 1rem 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .month-meetings {
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .meeting {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 8px;
+      border-left: 4px solid var(--council);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .meeting:hover {
+      transform: translateX(4px);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .meeting.council { border-left-color: var(--council); }
+    .meeting.committee { border-left-color: var(--committee); }
+    .meeting.board { border-left-color: var(--board); }
+    .meeting.commission { border-left-color: var(--commission); }
+    .meeting.advisory { border-left-color: var(--advisory); }
+    .meeting.judicial { border-left-color: var(--judicial); }
+
+    .meeting-date {
+      min-width: 50px;
+      text-align: center;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+    }
+    .meeting-date .day {
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .meeting-date .dow {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    .meeting-info {
+      flex: 1;
+    }
+    .meeting-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .meeting-meta {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .meeting-time {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .upcoming-section {
+      margin-bottom: 3rem;
+    }
+    .upcoming-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .upcoming-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .no-meetings {
+      color: #64748b;
+      font-style: italic;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .export-btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .export-btn:hover { transform: scale(1.05); }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.75rem; }
+      .calendar-grid { grid-template-columns: 1fr; }
+      .controls { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Northampton County Meeting Calendar</h1>
+    <p>Official Government Meetings | January 2026 - December 2028</p>
+  </div>
+
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Dashboard</a>
+
+    <div class="controls">
+      <div class="filter-group">
+        <label>Year</label>
+        <select id="yearFilter">
+          <option value="all">All Years</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Month</label>
+        <select id="monthFilter">
+          <option value="all">All Months</option>
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Meeting Type</label>
+        <select id="typeFilter">
+          <option value="all">All Types</option>
+          <option value="council">County Council</option>
+          <option value="committee">Committees</option>
+          <option value="board">Boards</option>
+          <option value="commission">Commissions</option>
+          <option value="advisory">Advisory</option>
+          <option value="judicial">Judicial</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Search</label>
+        <input type="text" id="searchFilter" placeholder="Search meetings...">
+      </div>
+      <div class="filter-group" style="justify-content: flex-end;">
+        <label>&nbsp;</label>
+        <button class="export-btn" onclick="exportCalendar()">Export to ICS</button>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background: var(--council)"></div> County Council</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--committee)"></div> Committees</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--board)"></div> Boards</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--commission)"></div> Commissions</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--advisory)"></div> Advisory</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--judicial)"></div> Judicial</div>
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="upcoming-section">
+      <h2>Upcoming This Week</h2>
+      <div class="upcoming-list" id="upcomingList">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
+  <script>
+    // Today's date (1/24/2026)
+    const TODAY = new Date(2026, 0, 24);
+
+    // Meeting definitions
+    const MEETING_TYPES = {
+      council: {
+        name: 'County Council',
+        schedule: '1st and 3rd Thursday',
+        time: '6:30 PM',
+        location: 'Council Chambers, 3rd Floor, 669 Washington St, Easton',
+        color: 'council'
+      },
+      personnel_finance: {
+        name: 'Personnel & Finance Committee',
+        schedule: '2nd and 4th Wednesday',
+        time: '6:00 PM',
+        location: 'Council Chambers, 669 Washington St, Easton',
+        color: 'committee'
+      },
+      public_works: {
+        name: 'Public Works Committee',
+        schedule: '2nd Monday',
+        time: '5:30 PM',
+        location: 'Council Chambers, 669 Washington St, Easton',
+        color: 'committee'
+      },
+      human_services: {
+        name: 'Human Services Committee',
+        schedule: '1st Monday',
+        time: '5:30 PM',
+        location: 'Human Services Building, 2801 Emrick Blvd',
+        color: 'committee'
+      },
+      prison_board: {
+        name: 'Prison Board',
+        schedule: '3rd Monday',
+        time: '4:00 PM',
+        location: 'Northampton County Prison, 666 Walnut St, Easton',
+        color: 'board'
+      },
+      retirement_board: {
+        name: 'Retirement Board',
+        schedule: '2nd Thursday (Quarterly)',
+        time: '1:30 PM',
+        location: 'Controller Office, 669 Washington St, Easton',
+        color: 'board'
+      },
+      elections_commission: {
+        name: 'Elections Commission',
+        schedule: '2nd Tuesday',
+        time: '4:00 PM',
+        location: 'Elections Office, Lower Level, 669 Washington St',
+        color: 'commission'
+      },
+      assessment_appeals: {
+        name: 'Assessment Appeals Board',
+        schedule: 'As scheduled',
+        time: '9:00 AM',
+        location: 'Assessment Office, 669 Washington St, Easton',
+        color: 'board'
+      },
+      gracedale_advisory: {
+        name: 'Gracedale Advisory Board',
+        schedule: '4th Tuesday',
+        time: '10:00 AM',
+        location: 'Gracedale Nursing Home, 2 Gracedale Ave, Nazareth',
+        color: 'advisory'
+      },
+      jail_advisory: {
+        name: 'Jail Advisory Board',
+        schedule: '1st Wednesday (Bi-monthly)',
+        time: '3:00 PM',
+        location: 'Northampton County Prison, 666 Walnut St, Easton',
+        color: 'advisory'
+      },
+      planning_commission: {
+        name: 'Planning Commission',
+        schedule: '4th Thursday',
+        time: '7:00 PM',
+        location: 'Council Chambers, 669 Washington St, Easton',
+        color: 'commission'
+      },
+      mental_health_advisory: {
+        name: 'Mental Health Advisory Board',
+        schedule: '3rd Wednesday',
+        time: '12:00 PM',
+        location: 'Human Services Building, 2801 Emrick Blvd',
+        color: 'advisory'
+      },
+      drug_alcohol_advisory: {
+        name: 'Drug & Alcohol Advisory Board',
+        schedule: '2nd Thursday',
+        time: '12:00 PM',
+        location: 'Human Services Building, 2801 Emrick Blvd',
+        color: 'advisory'
+      },
+      gpa_authority: {
+        name: 'General Purpose Authority',
+        schedule: '3rd Tuesday (Quarterly)',
+        time: '4:00 PM',
+        location: 'Council Chambers, 669 Washington St, Easton',
+        color: 'board'
+      },
+      judicial_admin: {
+        name: 'Judicial Administration',
+        schedule: '1st Tuesday',
+        time: '9:00 AM',
+        location: 'Courthouse, 669 Washington St, Easton',
+        color: 'judicial'
+      },
+      orphans_court: {
+        name: 'Orphans Court Sessions',
+        schedule: '2nd and 4th Friday',
+        time: '9:00 AM',
+        location: 'Courtroom 1, 669 Washington St, Easton',
+        color: 'judicial'
+      }
+    };
+
+    // Generate all meetings from 1/24/2026 through 12/31/2028
+    function generateMeetings() {
+      const meetings = [];
+      const startDate = new Date(2026, 0, 24); // Start from today
+      const endDate = new Date(2028, 11, 31);
+
+      // Helper to get nth weekday of month
+      function getNthWeekday(year, month, weekday, n) {
+        const first = new Date(year, month, 1);
+        const firstWeekday = first.getDay();
+        let day = 1 + ((weekday - firstWeekday + 7) % 7) + (n - 1) * 7;
+        if (day > new Date(year, month + 1, 0).getDate()) return null;
+        return new Date(year, month, day);
+      }
+
+      // Helper to get last weekday of month
+      function getLastWeekday(year, month, weekday) {
+        const last = new Date(year, month + 1, 0);
+        const lastDay = last.getDate();
+        const lastWeekday = last.getDay();
+        const diff = (lastWeekday - weekday + 7) % 7;
+        return new Date(year, month, lastDay - diff);
+      }
+
+      // Iterate through each month
+      for (let year = 2026; year <= 2028; year++) {
+        for (let month = 0; month < 12; month++) {
+          // Skip months before start date
+          if (year === 2026 && month < 0) continue;
+
+          // County Council - 1st and 3rd Thursday
+          [1, 3].forEach(n => {
+            const date = getNthWeekday(year, month, 4, n);
+            if (date && date >= startDate && date <= endDate) {
+              meetings.push({
+                date,
+                type: 'council',
+                ...MEETING_TYPES.council
+              });
+            }
+          });
+
+          // Personnel & Finance - 2nd and 4th Wednesday
+          [2, 4].forEach(n => {
+            const date = getNthWeekday(year, month, 3, n);
+            if (date && date >= startDate && date <= endDate) {
+              meetings.push({
+                date,
+                type: 'committee',
+                ...MEETING_TYPES.personnel_finance
+              });
+            }
+          });
+
+          // Public Works - 2nd Monday
+          const pwDate = getNthWeekday(year, month, 1, 2);
+          if (pwDate && pwDate >= startDate && pwDate <= endDate) {
+            meetings.push({
+              date: pwDate,
+              type: 'committee',
+              ...MEETING_TYPES.public_works
+            });
+          }
+
+          // Human Services - 1st Monday
+          const hsDate = getNthWeekday(year, month, 1, 1);
+          if (hsDate && hsDate >= startDate && hsDate <= endDate) {
+            meetings.push({
+              date: hsDate,
+              type: 'committee',
+              ...MEETING_TYPES.human_services
+            });
+          }
+
+          // Prison Board - 3rd Monday
+          const pbDate = getNthWeekday(year, month, 1, 3);
+          if (pbDate && pbDate >= startDate && pbDate <= endDate) {
+            meetings.push({
+              date: pbDate,
+              type: 'board',
+              ...MEETING_TYPES.prison_board
+            });
+          }
+
+          // Retirement Board - 2nd Thursday (Quarterly: Mar, Jun, Sep, Dec)
+          if ([2, 5, 8, 11].includes(month)) {
+            const rbDate = getNthWeekday(year, month, 4, 2);
+            if (rbDate && rbDate >= startDate && rbDate <= endDate) {
+              meetings.push({
+                date: rbDate,
+                type: 'board',
+                ...MEETING_TYPES.retirement_board
+              });
+            }
+          }
+
+          // Elections Commission - 2nd Tuesday
+          const ecDate = getNthWeekday(year, month, 2, 2);
+          if (ecDate && ecDate >= startDate && ecDate <= endDate) {
+            meetings.push({
+              date: ecDate,
+              type: 'commission',
+              ...MEETING_TYPES.elections_commission
+            });
+          }
+
+          // Gracedale Advisory - 4th Tuesday
+          const gaDate = getNthWeekday(year, month, 2, 4);
+          if (gaDate && gaDate >= startDate && gaDate <= endDate) {
+            meetings.push({
+              date: gaDate,
+              type: 'advisory',
+              ...MEETING_TYPES.gracedale_advisory
+            });
+          }
+
+          // Jail Advisory - 1st Wednesday (Bi-monthly: Jan, Mar, May, Jul, Sep, Nov)
+          if ([0, 2, 4, 6, 8, 10].includes(month)) {
+            const jaDate = getNthWeekday(year, month, 3, 1);
+            if (jaDate && jaDate >= startDate && jaDate <= endDate) {
+              meetings.push({
+                date: jaDate,
+                type: 'advisory',
+                ...MEETING_TYPES.jail_advisory
+              });
+            }
+          }
+
+          // Planning Commission - 4th Thursday
+          const pcDate = getNthWeekday(year, month, 4, 4);
+          if (pcDate && pcDate >= startDate && pcDate <= endDate) {
+            meetings.push({
+              date: pcDate,
+              type: 'commission',
+              ...MEETING_TYPES.planning_commission
+            });
+          }
+
+          // Mental Health Advisory - 3rd Wednesday
+          const mhDate = getNthWeekday(year, month, 3, 3);
+          if (mhDate && mhDate >= startDate && mhDate <= endDate) {
+            meetings.push({
+              date: mhDate,
+              type: 'advisory',
+              ...MEETING_TYPES.mental_health_advisory
+            });
+          }
+
+          // Drug & Alcohol Advisory - 2nd Thursday
+          const daDate = getNthWeekday(year, month, 4, 2);
+          if (daDate && daDate >= startDate && daDate <= endDate) {
+            meetings.push({
+              date: daDate,
+              type: 'advisory',
+              ...MEETING_TYPES.drug_alcohol_advisory
+            });
+          }
+
+          // General Purpose Authority - 3rd Tuesday (Quarterly: Feb, May, Aug, Nov)
+          if ([1, 4, 7, 10].includes(month)) {
+            const gpaDate = getNthWeekday(year, month, 2, 3);
+            if (gpaDate && gpaDate >= startDate && gpaDate <= endDate) {
+              meetings.push({
+                date: gpaDate,
+                type: 'board',
+                ...MEETING_TYPES.gpa_authority
+              });
+            }
+          }
+
+          // Judicial Administration - 1st Tuesday
+          const jaDate2 = getNthWeekday(year, month, 2, 1);
+          if (jaDate2 && jaDate2 >= startDate && jaDate2 <= endDate) {
+            meetings.push({
+              date: jaDate2,
+              type: 'judicial',
+              ...MEETING_TYPES.judicial_admin
+            });
+          }
+
+          // Orphans Court - 2nd and 4th Friday
+          [2, 4].forEach(n => {
+            const date = getNthWeekday(year, month, 5, n);
+            if (date && date >= startDate && date <= endDate) {
+              meetings.push({
+                date,
+                type: 'judicial',
+                ...MEETING_TYPES.orphans_court
+              });
+            }
+          });
+        }
+      }
+
+      // Sort by date
+      return meetings.sort((a, b) => a.date - b.date);
+    }
+
+    const ALL_MEETINGS = generateMeetings();
+
+    function formatDate(date) {
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function getDayOfWeek(date) {
+      return date.toLocaleDateString('en-US', { weekday: 'short' });
+    }
+
+    function getMonthYear(date) {
+      return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    }
+
+    function filterMeetings() {
+      const year = document.getElementById('yearFilter').value;
+      const month = document.getElementById('monthFilter').value;
+      const type = document.getElementById('typeFilter').value;
+      const search = document.getElementById('searchFilter').value.toLowerCase();
+
+      return ALL_MEETINGS.filter(m => {
+        if (year !== 'all' && m.date.getFullYear() !== parseInt(year)) return false;
+        if (month !== 'all' && m.date.getMonth() !== parseInt(month)) return false;
+        if (type !== 'all' && m.type !== type) return false;
+        if (search && !m.name.toLowerCase().includes(search)) return false;
+        return true;
+      });
+    }
+
+    function renderStats(meetings) {
+      const typeCount = {};
+      meetings.forEach(m => {
+        typeCount[m.type] = (typeCount[m.type] || 0) + 1;
+      });
+
+      const statsHtml = `
+        <div class="stat-box">
+          <div class="number">${meetings.length}</div>
+          <div class="label">Total Meetings</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${typeCount.council || 0}</div>
+          <div class="label">Council</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${typeCount.committee || 0}</div>
+          <div class="label">Committees</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${typeCount.board || 0}</div>
+          <div class="label">Boards</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${typeCount.commission || 0}</div>
+          <div class="label">Commissions</div>
+        </div>
+        <div class="stat-box">
+          <div class="number">${typeCount.advisory || 0}</div>
+          <div class="label">Advisory</div>
+        </div>
+      `;
+      document.getElementById('statsBar').innerHTML = statsHtml;
+    }
+
+    function renderUpcoming(meetings) {
+      const nextWeek = new Date(TODAY);
+      nextWeek.setDate(nextWeek.getDate() + 7);
+
+      const upcoming = meetings.filter(m => m.date >= TODAY && m.date <= nextWeek);
+
+      if (upcoming.length === 0) {
+        document.getElementById('upcomingList').innerHTML = '<div class="no-meetings">No meetings in the next 7 days</div>';
+        return;
+      }
+
+      const html = upcoming.map(m => `
+        <div class="meeting ${m.color}">
+          <div class="meeting-date">
+            <div class="day">${m.date.getDate()}</div>
+            <div class="dow">${getDayOfWeek(m.date)}</div>
+          </div>
+          <div class="meeting-info">
+            <div class="meeting-title">${m.name}</div>
+            <div class="meeting-meta">
+              <span class="meeting-time">${m.time}</span> &bull; ${m.location.split(',')[0]}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('upcomingList').innerHTML = html;
+    }
+
+    function renderCalendar(meetings) {
+      // Group by month
+      const byMonth = {};
+      meetings.forEach(m => {
+        const key = getMonthYear(m.date);
+        if (!byMonth[key]) byMonth[key] = [];
+        byMonth[key].push(m);
+      });
+
+      const html = Object.entries(byMonth).map(([month, monthMeetings]) => `
+        <div class="month-card">
+          <div class="month-header">${month}</div>
+          <div class="month-meetings">
+            ${monthMeetings.map(m => `
+              <div class="meeting ${m.color}">
+                <div class="meeting-date">
+                  <div class="day">${m.date.getDate()}</div>
+                  <div class="dow">${getDayOfWeek(m.date)}</div>
+                </div>
+                <div class="meeting-info">
+                  <div class="meeting-title">${m.name}</div>
+                  <div class="meeting-meta">
+                    <span class="meeting-time">${m.time}</span><br>
+                    ${m.location.split(',')[0]}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('calendarGrid').innerHTML = html || '<div class="no-meetings">No meetings found</div>';
+    }
+
+    function render() {
+      const meetings = filterMeetings();
+      renderStats(meetings);
+      renderUpcoming(meetings);
+      renderCalendar(meetings);
+    }
+
+    function exportCalendar() {
+      const meetings = filterMeetings();
+      let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//NAC//Meeting Calendar//EN\n';
+
+      meetings.forEach(m => {
+        const startDate = m.date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const endDate = new Date(m.date.getTime() + 2 * 60 * 60 * 1000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+        ics += `BEGIN:VEVENT
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${m.name}
+LOCATION:${m.location}
+DESCRIPTION:${m.schedule} at ${m.time}
+END:VEVENT
+`;
+      });
+
+      ics += 'END:VCALENDAR';
+
+      const blob = new Blob([ics], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'northampton-county-meetings.ics';
+      a.click();
+    }
+
+    // Event listeners
+    document.getElementById('yearFilter').addEventListener('change', render);
+    document.getElementById('monthFilter').addEventListener('change', render);
+    document.getElementById('typeFilter').addEventListener('change', render);
+    document.getElementById('searchFilter').addEventListener('input', render);
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>

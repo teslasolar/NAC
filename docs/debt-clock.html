@@ -383,6 +383,34 @@
       <div class="subtext">@ ~4.5% avg rate</div>
     </div>
 
+    <!-- US Federal Context -->
+    <div class="section-header">US Federal Context (LIVE from Treasury API)</div>
+
+    <div class="clock-box large highlight">
+      <span class="per-second up" id="fed-debt-rate">LIVE</span>
+      <div class="label">US National Debt</div>
+      <div class="value red" id="fed-debt">Loading...</div>
+      <div class="subtext" id="fed-debt-date">fiscaldata.treasury.gov</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">Federal Grants to PA</div>
+      <div class="value green" id="fed-grants-pa">Loading...</div>
+      <div class="subtext">USASpending.gov</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">US Debt Per Citizen</div>
+      <div class="value yellow" id="fed-debt-per-capita">Loading...</div>
+      <div class="subtext">Pop: ~335M</div>
+    </div>
+
+    <div class="clock-box">
+      <div class="label">County Share of US Debt</div>
+      <div class="value yellow" id="county-us-debt-share">Loading...</div>
+      <div class="subtext">312K / 335M</div>
+    </div>
+
     <!-- Row Officers -->
     <div class="section-header">Row Officer Spending YTD</div>
 
@@ -591,10 +619,130 @@
       });
     }
 
-    // Initialize
+    // ========== LIVE API DATA ==========
+
+    // Store live data
+    let liveData = {
+      usDebt: null,
+      usDebtDate: null,
+      usDebtPerSecond: 100000, // ~$100k/sec baseline estimate
+      paGrants: null,
+      lastFetch: null
+    };
+
+    // Format large currency (trillions)
+    function formatTrillions(num) {
+      if (num >= 1e12) {
+        return '$' + (num / 1e12).toFixed(6) + ' T';
+      }
+      return formatCurrency(num, 0);
+    }
+
+    // Fetch US National Debt from Treasury API
+    async function fetchUSDebt() {
+      try {
+        const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?sort=-record_date&limit=2';
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.data && data.data.length >= 2) {
+          const latest = data.data[0];
+          const previous = data.data[1];
+
+          liveData.usDebt = parseFloat(latest.tot_pub_debt_out_amt);
+          liveData.usDebtDate = latest.record_date;
+
+          // Calculate daily change for per-second estimate
+          const prevDebt = parseFloat(previous.tot_pub_debt_out_amt);
+          const dailyChange = liveData.usDebt - prevDebt;
+          liveData.usDebtPerSecond = Math.abs(dailyChange) / 86400;
+
+          document.getElementById('fed-debt-date').textContent = 'As of ' + latest.record_date;
+          document.getElementById('fed-debt-rate').textContent = (dailyChange >= 0 ? '+' : '') + formatCurrency(liveData.usDebtPerSecond, 0) + '/sec';
+
+          console.log('[LIVE] US Debt loaded:', formatTrillions(liveData.usDebt));
+        }
+      } catch (err) {
+        console.error('Failed to fetch US debt:', err);
+        document.getElementById('fed-debt').textContent = 'API Error';
+      }
+    }
+
+    // Fetch PA federal grants from USASpending
+    async function fetchPAGrants() {
+      try {
+        const url = 'https://api.usaspending.gov/api/v2/search/spending_by_geography/';
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scope: 'place_of_performance',
+            geo_layer: 'state',
+            geo_layer_filters: ['PA'],
+            filters: {
+              time_period: [{ start_date: '2024-10-01', end_date: '2025-09-30' }]
+            }
+          })
+        });
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+          liveData.paGrants = data.results[0].aggregated_amount;
+          console.log('[LIVE] PA Grants loaded:', formatCurrency(liveData.paGrants, 0));
+        }
+      } catch (err) {
+        console.error('Failed to fetch PA grants:', err);
+        // Use fallback estimate
+        liveData.paGrants = 45000000000; // ~$45B estimate
+      }
+    }
+
+    // Update live federal data displays
+    function updateFederalData() {
+      const US_POP = 335000000;
+      const COUNTY_POP = 312000;
+
+      if (liveData.usDebt) {
+        // Simulate real-time debt increase
+        const now = Date.now();
+        const elapsed = liveData.lastFetch ? (now - liveData.lastFetch) / 1000 : 0;
+        const currentDebt = liveData.usDebt + (elapsed * liveData.usDebtPerSecond);
+
+        document.getElementById('fed-debt').textContent = formatTrillions(currentDebt);
+        document.getElementById('fed-debt-per-capita').textContent = formatCurrency(currentDebt / US_POP, 0);
+        document.getElementById('county-us-debt-share').textContent = formatCurrency((currentDebt / US_POP) * COUNTY_POP, 0);
+      }
+
+      if (liveData.paGrants) {
+        // Estimate county share (~0.5% of PA by pop)
+        const countyShare = liveData.paGrants * (COUNTY_POP / 13000000);
+        document.getElementById('fed-grants-pa').textContent = formatCurrency(countyShare, 0) + ' (est)';
+      }
+    }
+
+    // Initialize live data
+    async function initLiveData() {
+      liveData.lastFetch = Date.now();
+      await Promise.all([fetchUSDebt(), fetchPAGrants()]);
+      updateFederalData();
+
+      // Refresh API data every 5 minutes
+      setInterval(async () => {
+        liveData.lastFetch = Date.now();
+        await fetchUSDebt();
+      }, 300000);
+    }
+
+    // ========== INITIALIZATION ==========
+
+    // Start everything
     updateClock();
     setInterval(updateClock, 50); // Update 20x per second for smooth counters
     setInterval(addTickEffect, 1000); // Tick effect every second
+    setInterval(updateFederalData, 100); // Update federal displays 10x/sec
+
+    // Load live data
+    initLiveData();
   </script>
 </body>
 </html>

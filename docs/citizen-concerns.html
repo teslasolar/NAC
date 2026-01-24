@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Issues Citizens Should Know - Northampton County</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0f0f;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid #dc2626;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .header p {
+            color: #fca5a5;
+            font-size: 1.1em;
+        }
+        .header .update {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #f87171;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .intro {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 4px solid #f59e0b;
+        }
+        .intro h2 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .intro p {
+            color: #a3a3a3;
+        }
+
+        .issue-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .issue-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+
+        .issue-header {
+            display: flex;
+            align-items: stretch;
+            cursor: pointer;
+        }
+        .issue-rank {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            font-size: 2em;
+            font-weight: 800;
+        }
+        .issue-rank .num {
+            line-height: 1;
+        }
+        .issue-rank .severity {
+            font-size: 0.35em;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .severity-critical { background: #dc2626; color: #fff; }
+        .severity-high { background: #f97316; color: #000; }
+        .severity-medium { background: #eab308; color: #000; }
+
+        .rank-critical { background: linear-gradient(135deg, #7f1d1d, #450a0a); color: #fca5a5; }
+        .rank-high { background: linear-gradient(135deg, #7c2d12, #431407); color: #fed7aa; }
+        .rank-medium { background: linear-gradient(135deg, #713f12, #422006); color: #fef08a; }
+
+        .issue-title-section {
+            flex: 1;
+            padding: 20px;
+        }
+        .issue-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .issue-subtitle {
+            color: #a3a3a3;
+            font-size: 0.95em;
+        }
+        .issue-toggle {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            color: #525252;
+            font-size: 1.5em;
+        }
+
+        .issue-details {
+            display: none;
+            padding: 0 25px 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .issue-details.expanded {
+            display: block;
+        }
+
+        .detail-section {
+            margin-top: 20px;
+        }
+        .detail-section h4 {
+            color: #f59e0b;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .detail-section ul {
+            list-style: none;
+        }
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #d4d4d4;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .detail-section li:last-child {
+            border-bottom: none;
+        }
+        .detail-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #f87171;
+        }
+        .stat-label {
+            font-size: 0.8em;
+            color: #737373;
+            margin-top: 5px;
+        }
+
+        .source-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+        .source-link:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .action-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .action-box h4 {
+            color: #4ade80;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .action-box p {
+            color: #a3a3a3;
+            font-size: 0.9em;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .cta-section h2 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        .cta-section p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .cta-btn.primary {
+            background: #3b82f6;
+            color: #fff;
+        }
+        .cta-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .disclaimer {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #737373;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8em; }
+            .issue-rank { width: 60px; font-size: 1.5em; }
+            .issue-title { font-size: 1.1em; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>10 Issues Citizens Should Know</h1>
+        <p>Critical concerns in Northampton County government based on audits, public records, and official reports</p>
+        <div class="update">Last Updated: January 2026 | Sources: Controller Audits, PA Auditor General, Public Records</div>
+    </div>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Why This Matters</h2>
+            <p>Informed citizens are the foundation of accountable government. These 10 issues were identified through official audits, public records analysis, and news reports. Each represents an area where citizen attention and oversight can make a difference. Click any issue to learn more.</p>
+        </div>
+
+        <!-- Issue 1: Voting Machines -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-critical">
+                    <span class="num">1</span>
+                    <span class="severity severity-critical">Critical</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Voting Machine Reliability Concerns</div>
+                    <div class="issue-subtitle">ES&S ExpressVote XL - Vote display anomalies, long wait times, missing documentation</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">315</div>
+                        <div class="stat-label">Machines ($2.9M)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">6+ hrs</div>
+                        <div class="stat-label">Wait Times (2024)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">150+</div>
+                        <div class="stat-label">Missing L&A Docs</div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4>What Happened</h4>
+                    <ul>
+                        <li><strong>November 2023:</strong> Multiple voters reported selecting one candidate but seeing a different name on the ballot summary screen. County certified results despite documented concerns.</li>
+                        <li><strong>November 2024:</strong> Some polling locations experienced 6+ hour wait times, raising questions about machine allocation and throughput.</li>
+                        <li><strong>Documentation Gap:</strong> 150+ Logic and Accuracy testing documents reported missing or incomplete.</li>
+                        <li>Results certified by Elections Board despite vocal opposition from some members.</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>Statutory Reference</h4>
+                    <ul>
+                        <li>25 P.S. § 3031.7 - Electronic Voting Systems requirements</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Attend Elections Board meetings. Request L&A testing documentation via Right-to-Know. Advocate for independent security audits. Report any voting anomalies immediately to poll workers and document them.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 2: Gracedale Staffing -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-critical">
+                    <span class="num">2</span>
+                    <span class="severity severity-critical">Critical</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Gracedale Nursing Home Staffing Crisis</div>
+                    <div class="issue-subtitle">20% vacancy rate, 1-star CMS rating, documented staffing shortfalls</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">20.3%</div>
+                        <div class="stat-label">Vacancy Rate</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">1 Star</div>
+                        <div class="stat-label">CMS Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">RN Coverage Failures</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">$12.5M</div>
+                        <div class="stat-label">County Subsidy</div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>Staffing consistently below state-mandated minimums per 55 Pa. Code § 201.18</li>
+                        <li>47 documented instances of inadequate RN coverage</li>
+                        <li>Heavy reliance on expensive agency staff to fill gaps</li>
+                        <li>County-owned facility serves approximately 600 residents</li>
+                        <li>Net operating loss of $7.3 million requiring county subsidy</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Monitor Gracedale board meetings. Check CMS ratings at medicare.gov/care-compare. Advocate for competitive wages to improve recruitment. If you have a loved one there, document care quality concerns.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 3: Bridge Infrastructure -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-high">
+                    <span class="num">3</span>
+                    <span class="severity severity-high">High</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">43 Bridges in Poor Condition</div>
+                    <div class="issue-subtitle">13% of county bridges rated "poor" by federal standards</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">43</div>
+                        <div class="stat-label">Poor Bridges</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">330</div>
+                        <div class="stat-label">Total Bridges</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">33%</div>
+                        <div class="stat-label">Roads in Poor Condition</div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>National Bridge Inventory data shows 13% of bridges rated structurally deficient</li>
+                        <li>Some bridges have weight restrictions limiting emergency vehicle access</li>
+                        <li>TRIP (Transportation Research) rated 33% of local roads in poor condition</li>
+                        <li>Deferred maintenance creates compounding repair costs</li>
+                        <li>P3 (Public-Private Partnership) bridge program exists but faces funding challenges</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Report bridge concerns to Public Works. Attend budget hearings to advocate for infrastructure funding. Check if bridges on your routes have weight restrictions. Support transportation funding initiatives.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 4: LERTA Tax Abatements -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-high">
+                    <span class="num">4</span>
+                    <span class="severity severity-high">High</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">$2.98M School Revenue Lost to Warehouse Tax Breaks</div>
+                    <div class="issue-subtitle">LERTA abatements - Council overrode Executive veto, schools lose funding</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">$2.98M</div>
+                        <div class="stat-label">School Revenue Lost</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">6-3</div>
+                        <div class="stat-label">Veto Override Vote</div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4>What Happened</h4>
+                    <ul>
+                        <li>LERTA (Local Economic Revitalization Tax Assistance) provides property tax abatements for development</li>
+                        <li>Warehouse development in Wilson Area School District granted abatements</li>
+                        <li>County Executive vetoed the approval citing school district impact</li>
+                        <li>County Council overrode veto 6-3, approving abatements</li>
+                        <li>Wilson Area SD loses estimated $2.98M in property tax revenue over abatement period</li>
+                        <li>Questions raised about job quality and tax base benefit vs. school funding loss</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Attend Council meetings when LERTA applications are reviewed. Ask your school board about tax abatement impacts. Demand cost-benefit analyses before approvals. Contact your Council representative.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 5: Controller Vacancy -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-high">
+                    <span class="num">5</span>
+                    <span class="severity severity-high">High</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">County Controller Position Vacant</div>
+                    <div class="issue-subtitle">Chief fiscal watchdog role empty since January 5, 2026</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="detail-section">
+                    <h4>Why This Matters</h4>
+                    <ul>
+                        <li>Controller audits all county accounts and departments per 16 P.S. § 1701-1720</li>
+                        <li>Pre-audits all vouchers before payment</li>
+                        <li>Countersigns all warrants (checks) - legal requirement</li>
+                        <li>Serves on Salary Board, Retirement Board, Tax Assessment Appeals</li>
+                        <li>Tara Zrinski (former Controller) became County Executive January 5, 2026</li>
+                        <li>Vacancy creates gap in independent fiscal oversight</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>Appointment Process</h4>
+                    <ul>
+                        <li>County Council must appoint replacement within 30 days</li>
+                        <li>Appointee serves until next municipal election</li>
+                        <li>No appointment as of this report date</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Contact Council members to urge prompt appointment. Attend Council meetings when appointment is discussed. Ensure appointed candidate has audit/accounting qualifications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 6: Court Warrant Procedures -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-high">
+                    <span class="num">6</span>
+                    <span class="severity severity-high">High</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Recurring Court Procedure Violations</div>
+                    <div class="issue-subtitle">MDJ courts with inadequate arrest warrant procedures - multiple audit cycles</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="detail-section">
+                    <h4>Audit Findings</h4>
+                    <ul>
+                        <li><strong>MDJ 03-3-02:</strong> Inadequate arrest warrant procedures - RECURRING finding</li>
+                        <li><strong>MDJ 03-2-11:</strong> Warrant documentation failures - RECURRING finding</li>
+                        <li>Same findings appearing across multiple audit cycles indicates lack of corrective action</li>
+                        <li>Proper warrant procedures are fundamental to due process rights</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>Statutory Reference</h4>
+                    <ul>
+                        <li>42 Pa.C.S. Chapter 51 - Judicial Code</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Review Controller audit reports on court operations. Contact the President Judge's office if concerned. Report procedural issues experienced in court. Advocate for implementation of audit recommendations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 7: Opioid Settlement -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-medium">
+                    <span class="num">7</span>
+                    <span class="severity severity-medium">Medium</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Opioid Settlement Fund Dispute</div>
+                    <div class="issue-subtitle">County appealing PA Trust rejection in Commonwealth Court</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="detail-section">
+                    <h4>What Happened</h4>
+                    <ul>
+                        <li>County received opioid settlement funds designated for addiction treatment/prevention</li>
+                        <li>Proposed newsletter program to distribute information on opioid resources</li>
+                        <li>PA Opioid Trust rejected the program as non-compliant with settlement terms</li>
+                        <li>County appealed to Commonwealth Court - case ongoing</li>
+                        <li>Questions about proper use of settlement funds intended for direct services</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Monitor Commonwealth Court case outcome. Advocate for settlement funds to go directly to treatment and prevention services. Attend Council meetings when opioid fund expenditures are discussed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 8: Property Assessment -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-medium">
+                    <span class="num">8</span>
+                    <span class="severity severity-medium">Medium</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Outdated Property Assessment System</div>
+                    <div class="issue-subtitle">70% of PA counties using outdated valuations - statewide lawsuit pending</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="detail-section">
+                    <h4>Systemic Issues</h4>
+                    <ul>
+                        <li>PA Constitution requires "uniform" property taxation</li>
+                        <li>70% of counties haven't done full reassessment in decades</li>
+                        <li>Creates inequities - similar homes taxed differently</li>
+                        <li>Statewide lawsuit challenges the current system</li>
+                        <li>Reassessments are politically unpopular (creates winners and losers)</li>
+                        <li>Affects school district and municipal funding equity</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Check your assessment at the county portal. File appeal if your assessment seems unfair compared to similar properties. Support calls for systematic reassessment. Contact state legislators about assessment reform.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 9: Fire Relief Associations -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-medium">
+                    <span class="num">9</span>
+                    <span class="severity severity-medium">Medium</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Fire Relief Association Inventory Issues</div>
+                    <div class="issue-subtitle">Equipment inventory deficiencies at multiple VFRAs - state funding at risk</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="detail-section">
+                    <h4>Audit Findings</h4>
+                    <ul>
+                        <li><strong>Northampton Firemen's Relief:</strong> $47,832 in unverified equipment</li>
+                        <li><strong>Hecktown VFC:</strong> Recurring inventory deficiencies across audit cycles</li>
+                        <li>Several other VFRAs with incomplete equipment records</li>
+                        <li>State funding (2% foreign fire insurance tax) requires proper documentation</li>
+                        <li>Non-compliance could jeopardize state relief funds</li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h4>Statutory Reference</h4>
+                    <ul>
+                        <li>35 P.S. § 7416.1 - Volunteer Firefighters' Relief Association Act</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>If you're a volunteer firefighter, ensure your company maintains proper records. Attend VFRA meetings. Support recruitment efforts for volunteer fire companies. Advocate for administrative support for record-keeping.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue 10: Gracedale Finances -->
+        <div class="issue-card">
+            <div class="issue-header" onclick="toggleIssue(this)">
+                <div class="issue-rank rank-medium">
+                    <span class="num">10</span>
+                    <span class="severity severity-medium">Medium</span>
+                </div>
+                <div class="issue-title-section">
+                    <div class="issue-title">Gracedale Operating Losses</div>
+                    <div class="issue-subtitle">$7.3M net loss, $12.5M annual county subsidy required</div>
+                </div>
+                <div class="issue-toggle">+</div>
+            </div>
+            <div class="issue-details">
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">-$7.3M</div>
+                        <div class="stat-label">Net Operating Loss</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">$12.5M</div>
+                        <div class="stat-label">County Subsidy</div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4>Financial Context</h4>
+                    <ul>
+                        <li>Gracedale is one of few remaining county-owned nursing homes in PA</li>
+                        <li>Citizens voted in 2011 referendum to keep it county-owned</li>
+                        <li>Medicaid reimbursement rates don't cover actual care costs</li>
+                        <li>Staffing crisis (Issue #2) drives expensive agency staff usage</li>
+                        <li>County taxpayers subsidize operations through general fund transfer</li>
+                        <li>Represents significant portion of county budget</li>
+                    </ul>
+                </div>
+                <div class="action-box">
+                    <h4>What Citizens Can Do</h4>
+                    <p>Attend budget hearings to understand Gracedale finances. Contact state legislators about Medicaid reimbursement rates. Support workforce development initiatives. Monitor quality metrics alongside financial performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>Get Involved</h2>
+            <p>Democracy works best when citizens are informed and engaged. Here are ways to take action:</p>
+            <div class="cta-buttons">
+                <a href="civic-toolkit.html" class="cta-btn primary">Civic Toolkit</a>
+                <a href="calendar.html" class="cta-btn secondary">Meeting Calendar</a>
+                <a href="public-audits.html" class="cta-btn secondary">View All Audits</a>
+                <a href="how-government-works.html" class="cta-btn secondary">How Government Works</a>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This page compiles information from official Controller audits, PA Auditor General reports, news sources, and public records. While we strive for accuracy, citizens should verify information and consult official sources. This is not an official government publication. Some issues are ongoing and status may have changed. Last verified: January 2026.
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Digital Twin</a>
+    </div>
+
+    <script>
+        function toggleIssue(header) {
+            const card = header.parentElement;
+            const details = card.querySelector('.issue-details');
+            const toggle = header.querySelector('.issue-toggle');
+
+            if (details.classList.contains('expanded')) {
+                details.classList.remove('expanded');
+                toggle.textContent = '+';
+            } else {
+                details.classList.add('expanded');
+                toggle.textContent = '−';
+            }
+        }
+
+        // Expand first issue by default
+        document.querySelector('.issue-details').classList.add('expanded');
+        document.querySelector('.issue-toggle').textContent = '−';
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "nac-mcp-tools",
   "description": "MCP Tools for Northampton County Digital Twin",
   "categories": {
@@ -11,9 +11,21 @@
       "name": "Security Audit Tools",
       "description": "Automated security assessment tools"
     },
+    "validation": {
+      "name": "Validation Tools",
+      "description": "Validate and cross-reference tool results"
+    },
+    "reporting": {
+      "name": "Reporting Tools",
+      "description": "Generate reports and export data"
+    },
     "protocol": {
       "name": "Protocol Tools",
       "description": "MQTT, OPC-UA, and MQMCP protocol tools"
+    },
+    "analysis": {
+      "name": "Analysis Tools",
+      "description": "Deep analysis and correlation tools"
     }
   },
   "tools": [
@@ -156,6 +168,78 @@
           "type": "string",
           "required": true,
           "description": "Search query"
+        }
+      ]
+    },
+    {
+      "id": "get_budget_data",
+      "name": "get_budget_data",
+      "category": "data",
+      "description": "Query county budget allocations and expenditures",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "number",
+          "required": false,
+          "description": "Fiscal year (default: current)"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Filter by department"
+        }
+      ]
+    },
+    {
+      "id": "get_audit_findings",
+      "name": "get_audit_findings",
+      "category": "data",
+      "description": "Retrieve controller audit findings and recommendations",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": false,
+          "description": "Filter by office audited"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "description": "critical, high, medium, low"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "description": "open, resolved, in_progress"
+        }
+      ]
+    },
+    {
+      "id": "get_contracts",
+      "name": "get_contracts",
+      "category": "data",
+      "description": "Query county contracts and vendor agreements",
+      "parameters": [
+        {
+          "name": "vendor",
+          "type": "string",
+          "required": false,
+          "description": "Vendor name"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Department"
+        },
+        {
+          "name": "min_value",
+          "type": "number",
+          "required": false,
+          "description": "Minimum contract value"
         }
       ]
     },
@@ -384,6 +468,484 @@
       "testFunction": "runFullAudit"
     },
     {
+      "id": "validate_tool_result",
+      "name": "validate_tool_result",
+      "category": "validation",
+      "description": "Validate the output of another tool against expected schema",
+      "parameters": [
+        {
+          "name": "tool_id",
+          "type": "string",
+          "required": true,
+          "description": "ID of the tool whose result to validate"
+        },
+        {
+          "name": "result",
+          "type": "object",
+          "required": true,
+          "description": "The result object to validate"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable strict validation mode"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateToolResult"
+    },
+    {
+      "id": "validate_security_findings",
+      "name": "validate_security_findings",
+      "category": "validation",
+      "description": "Cross-validate security audit findings with CVE database",
+      "parameters": [
+        {
+          "name": "findings",
+          "type": "array",
+          "required": true,
+          "description": "Array of security findings to validate"
+        },
+        {
+          "name": "check_cve",
+          "type": "boolean",
+          "required": false,
+          "description": "Cross-reference with NVD CVE database"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateSecurityFindings"
+    },
+    {
+      "id": "validate_data_consistency",
+      "name": "validate_data_consistency",
+      "category": "validation",
+      "description": "Check consistency between multiple data sources",
+      "parameters": [
+        {
+          "name": "sources",
+          "type": "array",
+          "required": true,
+          "description": "Array of data source results to compare"
+        },
+        {
+          "name": "key_field",
+          "type": "string",
+          "required": true,
+          "description": "Field to use as comparison key"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateDataConsistency"
+    },
+    {
+      "id": "validate_statutory_compliance",
+      "name": "validate_statutory_compliance",
+      "category": "validation",
+      "description": "Validate fee or process against PA statutory requirements",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": true,
+          "description": "Row office name"
+        },
+        {
+          "name": "fee_type",
+          "type": "string",
+          "required": false,
+          "description": "Type of fee to validate"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "required": false,
+          "description": "Amount charged"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateStatutoryCompliance"
+    },
+    {
+      "id": "validate_workflow_state",
+      "name": "validate_workflow_state",
+      "category": "validation",
+      "description": "Validate workflow state transitions against PackML spec",
+      "parameters": [
+        {
+          "name": "current_state",
+          "type": "string",
+          "required": true,
+          "description": "Current PackML state"
+        },
+        {
+          "name": "requested_state",
+          "type": "string",
+          "required": true,
+          "description": "Requested transition state"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateWorkflowState"
+    },
+    {
+      "id": "validate_oee_calculation",
+      "name": "validate_oee_calculation",
+      "category": "validation",
+      "description": "Validate OEE calculations for accuracy",
+      "parameters": [
+        {
+          "name": "availability",
+          "type": "number",
+          "required": true,
+          "description": "Availability percentage (0-100)"
+        },
+        {
+          "name": "performance",
+          "type": "number",
+          "required": true,
+          "description": "Performance percentage (0-100)"
+        },
+        {
+          "name": "quality",
+          "type": "number",
+          "required": true,
+          "description": "Quality percentage (0-100)"
+        },
+        {
+          "name": "reported_oee",
+          "type": "number",
+          "required": true,
+          "description": "Reported OEE value to validate"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateOEECalculation"
+    },
+    {
+      "id": "validate_json_schema",
+      "name": "validate_json_schema",
+      "category": "validation",
+      "description": "Validate JSON data against a schema definition",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "object",
+          "required": true,
+          "description": "JSON data to validate"
+        },
+        {
+          "name": "schema_id",
+          "type": "string",
+          "required": true,
+          "description": "Schema ID from L0 definitions"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateJsonSchema"
+    },
+    {
+      "id": "validate_audit_chain",
+      "name": "validate_audit_chain",
+      "category": "validation",
+      "description": "Verify integrity of audit trail/blockchain signatures",
+      "parameters": [
+        {
+          "name": "chain",
+          "type": "array",
+          "required": true,
+          "description": "Array of signed audit entries"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateAuditChain"
+    },
+    {
+      "id": "validate_cross_reference",
+      "name": "validate_cross_reference",
+      "category": "validation",
+      "description": "Cross-reference data between multiple tool outputs",
+      "parameters": [
+        {
+          "name": "primary_result",
+          "type": "object",
+          "required": true,
+          "description": "Primary tool result"
+        },
+        {
+          "name": "reference_results",
+          "type": "array",
+          "required": true,
+          "description": "Array of results to cross-reference"
+        },
+        {
+          "name": "match_fields",
+          "type": "array",
+          "required": true,
+          "description": "Fields to match across results"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateCrossReference"
+    },
+    {
+      "id": "validate_temporal_sequence",
+      "name": "validate_temporal_sequence",
+      "category": "validation",
+      "description": "Validate chronological ordering of events/transactions",
+      "parameters": [
+        {
+          "name": "events",
+          "type": "array",
+          "required": true,
+          "description": "Array of timestamped events"
+        },
+        {
+          "name": "allow_gaps",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow temporal gaps in sequence"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "validateTemporalSequence"
+    },
+    {
+      "id": "generate_security_report",
+      "name": "generate_security_report",
+      "category": "reporting",
+      "description": "Generate comprehensive security audit report",
+      "parameters": [
+        {
+          "name": "audit_results",
+          "type": "object",
+          "required": true,
+          "description": "Results from security_run_full_audit"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "description": "Output format: html, pdf, json, markdown"
+        },
+        {
+          "name": "include_recommendations",
+          "type": "boolean",
+          "required": false,
+          "description": "Include remediation recommendations"
+        }
+      ]
+    },
+    {
+      "id": "generate_compliance_report",
+      "name": "generate_compliance_report",
+      "category": "reporting",
+      "description": "Generate statutory compliance report for office",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": true,
+          "description": "Row office name"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Report period (e.g., 2025-Q4)"
+        }
+      ]
+    },
+    {
+      "id": "generate_oee_dashboard",
+      "name": "generate_oee_dashboard",
+      "category": "reporting",
+      "description": "Generate OEE performance dashboard data",
+      "parameters": [
+        {
+          "name": "offices",
+          "type": "array",
+          "required": false,
+          "description": "Offices to include (default: all)"
+        },
+        {
+          "name": "timeframe",
+          "type": "string",
+          "required": false,
+          "description": "Timeframe: day, week, month, quarter"
+        }
+      ]
+    },
+    {
+      "id": "generate_audit_summary",
+      "name": "generate_audit_summary",
+      "category": "reporting",
+      "description": "Generate summary of controller audit findings",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "number",
+          "required": false,
+          "description": "Fiscal year"
+        },
+        {
+          "name": "group_by",
+          "type": "string",
+          "required": false,
+          "description": "Group by: office, severity, status"
+        }
+      ]
+    },
+    {
+      "id": "export_data",
+      "name": "export_data",
+      "category": "reporting",
+      "description": "Export tool results to various formats",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "object",
+          "required": true,
+          "description": "Data to export"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": true,
+          "description": "Format: csv, json, xml, excel"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "required": false,
+          "description": "Output filename"
+        }
+      ]
+    },
+    {
+      "id": "analyze_trends",
+      "name": "analyze_trends",
+      "category": "analysis",
+      "description": "Analyze trends in time-series data",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "array",
+          "required": true,
+          "description": "Time-series data points"
+        },
+        {
+          "name": "metric",
+          "type": "string",
+          "required": true,
+          "description": "Metric to analyze"
+        },
+        {
+          "name": "window",
+          "type": "string",
+          "required": false,
+          "description": "Rolling window: 7d, 30d, 90d"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "analyzeTrends"
+    },
+    {
+      "id": "analyze_anomalies",
+      "name": "analyze_anomalies",
+      "category": "analysis",
+      "description": "Detect anomalies in operational data",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "array",
+          "required": true,
+          "description": "Data points to analyze"
+        },
+        {
+          "name": "sensitivity",
+          "type": "number",
+          "required": false,
+          "description": "Detection sensitivity (1-10)"
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": false,
+          "description": "Method: zscore, iqr, isolation_forest"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "analyzeAnomalies"
+    },
+    {
+      "id": "analyze_correlation",
+      "name": "analyze_correlation",
+      "category": "analysis",
+      "description": "Find correlations between different metrics",
+      "parameters": [
+        {
+          "name": "datasets",
+          "type": "array",
+          "required": true,
+          "description": "Array of datasets to correlate"
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": false,
+          "description": "Method: pearson, spearman, kendall"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "analyzeCorrelation"
+    },
+    {
+      "id": "analyze_bottlenecks",
+      "name": "analyze_bottlenecks",
+      "category": "analysis",
+      "description": "Identify workflow bottlenecks from cycle time data",
+      "parameters": [
+        {
+          "name": "workflow_data",
+          "type": "object",
+          "required": true,
+          "description": "Workflow execution data"
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "required": false,
+          "description": "SLA threshold in hours"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "analyzeBottlenecks"
+    },
+    {
+      "id": "analyze_capacity",
+      "name": "analyze_capacity",
+      "category": "analysis",
+      "description": "Analyze capacity utilization and forecast needs",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": true,
+          "description": "Office to analyze"
+        },
+        {
+          "name": "forecast_days",
+          "type": "number",
+          "required": false,
+          "description": "Days to forecast ahead"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "analyzeCapacity"
+    },
+    {
       "id": "mqtt_publish",
       "name": "mqtt_publish",
       "category": "protocol",
@@ -464,8 +1026,72 @@
           "description": "Value to write"
         }
       ]
+    },
+    {
+      "id": "opcua_subscribe",
+      "name": "opcua_subscribe",
+      "category": "protocol",
+      "description": "Subscribe to OPC-UA node value changes",
+      "parameters": [
+        {
+          "name": "paths",
+          "type": "array",
+          "required": true,
+          "description": "Array of node paths to monitor"
+        },
+        {
+          "name": "interval_ms",
+          "type": "number",
+          "required": false,
+          "description": "Sampling interval in milliseconds"
+        }
+      ]
+    },
+    {
+      "id": "mqmcp_call",
+      "name": "mqmcp_call",
+      "category": "protocol",
+      "description": "Call MCP tool via MQTT transport",
+      "parameters": [
+        {
+          "name": "tool",
+          "type": "string",
+          "required": true,
+          "description": "Tool name to call"
+        },
+        {
+          "name": "params",
+          "type": "object",
+          "required": true,
+          "description": "Tool parameters"
+        },
+        {
+          "name": "timeout_ms",
+          "type": "number",
+          "required": false,
+          "description": "Response timeout"
+        }
+      ]
     }
   ],
+  "validationRules": {
+    "packml_states": [
+      "Undefined", "Clearing", "Stopped", "Starting", "Idle",
+      "Suspended", "Execute", "Stopping", "Aborting", "Aborted",
+      "Holding", "Held", "Unholding", "Suspending", "Unsuspending",
+      "Resetting", "Completing", "Complete"
+    ],
+    "packml_transitions": {
+      "Stopped": ["Resetting"],
+      "Idle": ["Starting", "Stopping"],
+      "Execute": ["Holding", "Suspending", "Stopping", "Completing", "Aborting"],
+      "Held": ["Unholding", "Stopping", "Aborting"],
+      "Suspended": ["Unsuspending", "Stopping", "Aborting"],
+      "Complete": ["Resetting", "Stopping"]
+    },
+    "severity_levels": ["critical", "high", "medium", "low", "info"],
+    "status_codes": ["pass", "fail", "warn", "skip", "error"]
+  },
   "countyTargets": [
     {
       "name": "Main County Website",
@@ -501,6 +1127,26 @@
   "metadata": {
     "created": "2026-01-24",
     "lastUpdated": "2026-01-24",
-    "totalTools": 26
+    "totalTools": 52,
+    "version": "1.1.0",
+    "changelog": [
+      {
+        "version": "1.1.0",
+        "date": "2026-01-24",
+        "changes": [
+          "Added validation category with 10 validation tools",
+          "Added reporting category with 5 report generation tools",
+          "Added analysis category with 5 analysis tools",
+          "Added additional data query tools",
+          "Added MQMCP and OPC-UA subscription tools",
+          "Added PackML state validation rules"
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-01-24",
+        "changes": ["Initial release with 26 tools"]
+      }
+    ]
   }
 }

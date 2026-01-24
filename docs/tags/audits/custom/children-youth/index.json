@@ -1,0 +1,107 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-CYS-2024-001",
+    "title": "Children & Youth Services Fiscal Compliance",
+    "subtitle": "Summary of PA Auditor General CYS Audits",
+    "type": "state-audit-summary",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "compliant-minor-adjustments"
+  },
+  "executiveSummary": {
+    "overview": "Summary of Pennsylvania Auditor General audits of Northampton County Children and Youth Services fiscal reports, documenting state fund compliance for child protection services.",
+    "keyFindings": [
+      "FY 2021-2023 audit: Minor adjustments totaling ~$6,000",
+      "FY 2019-2021 audit: Completed August 2024",
+      "Overall compliance status: Satisfactory with minor adjustments",
+      "Regular audit cycle maintained by PA Auditor General"
+    ],
+    "overallStatus": "Compliant"
+  },
+  "audits": [
+    {
+      "id": "PA-AG-CYS-2025-001",
+      "title": "Amended Fiscal Report for Fiscal Years 2021-2023",
+      "auditor": "PA Auditor General Timothy L. DeFoor",
+      "releaseDate": "February 2025",
+      "period": "FY 2021-2022 and FY 2022-2023",
+      "status": "minor-adjustments",
+      "findings": [
+        {
+          "fiscalYear": "2021-2022",
+          "expenditureAdjustment": "+$1,982",
+          "revenueAdjustment": "-$399",
+          "netResult": "$2,999 payable to county",
+          "direction": "County receives funds"
+        },
+        {
+          "fiscalYear": "2022-2023",
+          "revenueAdjustment": "+$3,134",
+          "netResult": "$2,507 due to state",
+          "direction": "County pays state"
+        }
+      ],
+      "sources": [
+        "https://www.paauditor.gov/audits/northampton-county-children-and-youth-services-amended-fiscal-report-for-fiscal-years-2021-to-2023/"
+      ]
+    },
+    {
+      "id": "PA-AG-CYS-2024-001",
+      "title": "Amended Fiscal Reports for Fiscal Years 2019-2021",
+      "auditor": "PA Auditor General",
+      "releaseDate": "August 2024",
+      "period": "FY 2019-2020 and FY 2020-2021",
+      "status": "completed",
+      "sources": [
+        "https://www.paauditor.gov/audits/northampton-county-children-and-youth-services-amended-fiscal-reports-for-fiscal-years-2019-to-2021/"
+      ]
+    }
+  ],
+  "programContext": {
+    "authority": "PA Department of Human Services (DHS)",
+    "auditPurpose": "Ensure counties properly use state funds to protect at-risk children",
+    "auditFrequency": "Regular cycle by PA Auditor General",
+    "statementFromAG": "Our audits ensure that counties are properly using state funds to protect at-risk children"
+  },
+  "departmentStructure": {
+    "department": "Department of Human Services",
+    "divisions": [
+      "Children Youth and Families",
+      "Area Agency on Aging",
+      "Mental Health",
+      "Developmental Programs",
+      "Early Intervention",
+      "Drug and Alcohol",
+      "HealthChoices",
+      "Homeless Assistance",
+      "Opioid Funds"
+    ],
+    "planningDocument": "FY 2024-2025 County Human Services Plan"
+  },
+  "regionalContext": {
+    "region": "Lehigh Valley",
+    "ranking": "Third most populous region in Pennsylvania",
+    "ocyfRegion": "OCYF Northeast Regional Office"
+  },
+  "controllerFlags": [],
+  "recommendations": [
+    "Continue maintaining accurate fiscal reporting to minimize adjustments",
+    "Implement reconciliation procedures to catch discrepancies before state audit",
+    "Track audit timeline to ensure timely response to AG requests"
+  ],
+  "complianceScore": {
+    "overall": "Satisfactory",
+    "fiscalAccuracy": "Minor adjustments only",
+    "timeliness": "Reports submitted on schedule",
+    "trend": "Stable"
+  },
+  "metadata": {
+    "dataSource": [
+      "PA Auditor General",
+      "PA Department of Human Services",
+      "Northampton County CYF"
+    ],
+    "lastUpdated": "2026-01-24",
+    "nextExpectedAudit": "FY 2023-2025 cycle"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-ASSESS-2024-001",
+    "title": "Property Assessment System Analysis",
+    "subtitle": "Review of County Assessment Practices & Statewide Reform Efforts",
+    "type": "fiscal-analysis",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "systemic-issue"
+  },
+  "executiveSummary": {
+    "overview": "Analysis of Northampton County property assessment practices in context of statewide litigation challenging Pennsylvania's lack of uniform reassessment standards.",
+    "keyFindings": [
+      "PA has no mandatory periodic reassessment - 70% of counties using outdated assessments",
+      "Statewide lawsuit filed demanding uniform standards across all 67 counties",
+      "Most PA reassessments result from litigation, not proactive policy",
+      "Northampton County median property tax: $3,319/year (129th highest nationally)"
+    ],
+    "policyImplications": "Assessment system creates potential inequities between property owners"
+  },
+  "findings": [
+    {
+      "id": "F-ASSESS-001",
+      "severity": "medium",
+      "category": "systemic",
+      "title": "Statewide Assessment System Challenge",
+      "description": "Community Justice Project (Pittsburgh) filed suit in Commonwealth Court demanding Pennsylvania establish uniform standards for property reassessments across all 67 counties. Approximately 70% of PA counties have extremely outdated property assessments.",
+      "details": {
+        "plaintiff": "Community Justice Project",
+        "courtVenue": "Commonwealth Court of Pennsylvania",
+        "filing": "2025",
+        "allegation": "Unfair and regressive assessments due to outdated values"
+      },
+      "sources": [
+        "https://www.wesa.fm/politics-government/2025-07-15/pa-property-tax-assessment-lawsuit"
+      ]
+    },
+    {
+      "id": "F-ASSESS-002",
+      "severity": "low",
+      "category": "context",
+      "title": "Northampton County Assessment Statistics",
+      "description": "Northampton County property assessment and tax statistics.",
+      "details": {
+        "medianPropertyTax": "$3,319/year",
+        "medianHomeValue": "$220,800",
+        "nationalRanking": "129th of 3,143 counties",
+        "appealDeadline2024": "August 1, 2024",
+        "residentialAppealFee": "$25",
+        "commercialAppealFee": "$250"
+      },
+      "sources": [
+        "http://www.tax-rates.org/pennsylvania/northampton_county_property_tax"
+      ]
+    },
+    {
+      "id": "F-ASSESS-003",
+      "severity": "medium",
+      "category": "reform",
+      "title": "Legislative Reform Proposals",
+      "description": "State Senator Wayne Fontana announced plans (January 2025) to introduce legislation moving Pennsylvania to a cyclical reassessment system, as used in nearly every other state.",
+      "currentSystem": "No mandatory periodic reassessment",
+      "proposedChange": "Cyclical reassessment requirement",
+      "implication": "Could require Northampton County to conduct countywide reassessment"
+    }
+  ],
+  "countySpecific": {
+    "assessmentOffice": {
+      "location": "Northampton County Courthouse",
+      "appeals": "Right to appeal to Tax Assessor's Office",
+      "website": "https://norcopa.gov/assessment"
+    },
+    "lastCountywideReassessment": "Information not publicly documented",
+    "concern": "If using outdated base year, assessments may not reflect current market values"
+  },
+  "equityAnalysis": {
+    "issue": "Without periodic reassessment, newer homebuyers may pay disproportionately higher taxes compared to long-term owners in appreciating areas",
+    "statewideProblem": "70% of PA counties affected",
+    "litigationRisk": "Growing legal challenges to non-uniform assessment practices"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-CUSTOM-ASSESS-001",
+      "type": "fiscal-equity-review",
+      "severity": "medium",
+      "description": "Assessment system may create inequities - monitor statewide litigation outcome",
+      "status": "monitoring",
+      "requiredAction": "Track Commonwealth Court case; prepare for potential mandated reassessment"
+    }
+  ],
+  "recommendations": [
+    "Document date of last countywide reassessment for transparency",
+    "Monitor Commonwealth Court litigation on uniform standards",
+    "Prepare fiscal impact analysis for potential mandated reassessment",
+    "Review assessment equity across property classes",
+    "Enhance public communication on appeal rights and processes"
+  ],
+  "appealInformation": {
+    "deadline": "August 1 annually",
+    "residentialFee": "$25",
+    "commercialFee": "$250",
+    "classActionFee": "$100",
+    "contact": "Northampton County Tax Assessor's Office"
+  },
+  "metadata": {
+    "dataSource": [
+      "WESA",
+      "Tax-Rates.org",
+      "Northampton County Assessment Office",
+      "PA Legislative announcements"
+    ],
+    "lastUpdated": "2026-01-24",
+    "reviewCycle": "Annual"
+  }
+}

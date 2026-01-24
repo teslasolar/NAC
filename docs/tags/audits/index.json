@@ -101,31 +101,50 @@
       "auditor": "PA Auditor General",
       "count": 0,
       "description": "Overview and announcements from PA Auditor General"
+    },
+    {
+      "id": "custom",
+      "name": "Custom Audit Reports",
+      "path": "custom/",
+      "auditor": "NAC Civic Intelligence System",
+      "count": 6,
+      "description": "Independent analysis of public records compiled into audit-style findings",
+      "entities": ["lerta-tax-abatement", "bridge-infrastructure", "voting-machines", "opioid-settlement", "property-assessment", "children-youth"],
+      "violations": 5,
+      "note": "Not official government audits - analytical compilations with cited sources"
     }
   ],
   "statistics": {
-    "totalAudits": 46,
-    "totalEntities": 35,
+    "totalAudits": 52,
+    "totalEntities": 41,
+    "officialAudits": 46,
+    "customAnalyses": 6,
     "byStatus": {
       "passed": 36,
       "minor_findings": 7,
       "findings": 2,
-      "observation": 1
+      "observation": 1,
+      "customRequiresOversight": 2,
+      "customMonitoring": 2,
+      "customLitigation": 1,
+      "customCompliant": 1
     },
     "passRate": 78.3,
     "byAuditor": {
       "controller": 11,
-      "stateAG": 35
+      "stateAG": 35,
+      "nacCustom": 6
     },
     "dateRange": {
       "earliest": "2016-01-01",
       "latest": "2026-01-24"
     },
     "violations": {
-      "total": 6,
+      "total": 11,
       "recurring": 4,
-      "high": 4,
-      "medium": 2
+      "high": 6,
+      "medium": 4,
+      "critical": 1
     }
   },
   "controllerFlags": [

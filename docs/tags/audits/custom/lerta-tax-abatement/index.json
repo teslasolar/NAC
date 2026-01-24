@@ -1,0 +1,119 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-LERTA-2024-001",
+    "title": "LERTA Tax Abatement Policy Analysis",
+    "subtitle": "Warehouse Development Tax Breaks & Veto Override",
+    "type": "policy-analysis",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "requires-oversight"
+  },
+  "executiveSummary": {
+    "overview": "Analysis of Local Economic Revitalization Tax Assistance (LERTA) policy decisions in Northampton County, focusing on controversial warehouse development tax breaks and the County Council's override of the Executive's veto.",
+    "keyFindings": [
+      "County Council voted 6-3 to override Executive McClure's veto on Upper Mt. Bethel LERTA extension",
+      "River Pointe Commerce Park includes buildings over 500,000 square feet in LERTA district",
+      "Easton Commerce Park LERTA would cost Wilson Area School District $2.98 million in tax revenue",
+      "Executive sought to exclude warehouses from tax breaks but was overridden"
+    ],
+    "fiscalImpact": "Millions in foregone tax revenue to schools and municipalities"
+  },
+  "findings": [
+    {
+      "id": "F-LERTA-001",
+      "severity": "high",
+      "category": "fiscal-policy",
+      "title": "Veto Override on Warehouse Tax Breaks",
+      "description": "Northampton County Council voted 6-3 to override County Executive Lamont McClure's veto of LERTA tax breaks for Upper Mt. Bethel Township industrial development. The Executive had vetoed to negotiate limits restricting tax breaks to manufacturing only, excluding warehouses.",
+      "details": {
+        "voteDate": "2023",
+        "councilVote": "6-3 to override",
+        "executivePosition": "Veto - sought to exclude warehouses",
+        "development": "River Pointe Commerce Park",
+        "buildingSize": "500,000+ square feet"
+      },
+      "sources": [
+        "https://www.lehighvalleynews.com/northampton-county/northampton-county-council-overrides-veto-to-extend-slate-belt-developer-tax-breaks"
+      ],
+      "recommendation": "Controller should review long-term fiscal impact of LERTA extensions on tax base"
+    },
+    {
+      "id": "F-LERTA-002",
+      "severity": "high",
+      "category": "education-funding",
+      "title": "Wilson Area School District Revenue Loss",
+      "description": "Wilson Area School District would forfeit $2.98 million in tax revenue over 10 years due to LERTA approval for Easton Commerce Park (former Pfizer site) 1-million-square-foot warehouse development.",
+      "details": {
+        "developer": "Scannell Properties",
+        "projectValue": "$180 million",
+        "warehouseSize": "1 million square feet",
+        "location": "1525 Wood Ave (former Pfizer Pigments)",
+        "taxLoss": "$2.98 million over 10 years",
+        "schoolDistrict": "Wilson Area School District"
+      },
+      "sources": [
+        "https://www.lehighvalleynews.com/easton/easton-commerce-park-tax-breaks-would-slash-nearly-3m-for-wilson-schools-official-says"
+      ],
+      "recommendation": "Develop comprehensive LERTA impact analysis for school districts before approval"
+    },
+    {
+      "id": "F-LERTA-003",
+      "severity": "medium",
+      "category": "governance",
+      "title": "LERTA Expiration Confusion",
+      "description": "County commissioner stated industrial development LERTA had expired, requiring clarification on status of existing tax break programs.",
+      "sources": [
+        "https://www.wfmz.com/news/area/lehighvalley/northampton-county-tax-break-for-industrial-development-under-review-county-commissioner-says-it-has-expired/article_f31bd05e-bc57-11ed-be04-4bea99c6f6b8.html"
+      ],
+      "recommendation": "Maintain clear registry of all active LERTA districts and expiration dates"
+    }
+  ],
+  "policyContext": {
+    "whatIsLERTA": "Local Economic Revitalization Tax Assistance (LERTA) grants exemptions on improvements to 'deteriorated' properties. Property owners receive graduated tax exemptions over a set period.",
+    "intendedPurpose": "Revitalize blighted or deteriorated areas through tax incentives for development",
+    "controversy": "Critics argue LERTA has been used for warehouse developments that provide few jobs relative to their size and impact on communities, while supporters claim developments bring manufacturing opportunities"
+  },
+  "affectedEntities": [
+    {
+      "name": "Wilson Area School District",
+      "impact": "$2.98 million revenue loss",
+      "position": "Opposition"
+    },
+    {
+      "name": "Easton City Council",
+      "impact": "Adjacent development concerns",
+      "position": "Opposition to warehouse"
+    },
+    {
+      "name": "Upper Mt. Bethel Township",
+      "impact": "River Pointe Commerce Park",
+      "position": "Supported LERTA extension"
+    }
+  ],
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-CUSTOM-LERTA-001",
+      "type": "fiscal-impact-review",
+      "severity": "high",
+      "description": "LERTA veto override resulted in foregone tax revenue - recommend comprehensive impact analysis",
+      "status": "recommended-review",
+      "legalBasis": "Home Rule Charter - fiscal oversight responsibilities"
+    }
+  ],
+  "recommendations": [
+    "Establish mandatory fiscal impact analysis for all LERTA applications before Council vote",
+    "Create LERTA registry with expiration dates, affected entities, and cumulative revenue impact",
+    "Consider ordinance requiring separate votes for manufacturing vs. warehouse LERTA",
+    "Develop school district notification requirements for LERTA within their boundaries"
+  ],
+  "metadata": {
+    "dataSource": [
+      "Lehigh Valley News",
+      "WFMZ",
+      "Northampton County Press Releases",
+      "Public Records"
+    ],
+    "lastUpdated": "2026-01-24",
+    "reviewCycle": "Annual"
+  }
+}

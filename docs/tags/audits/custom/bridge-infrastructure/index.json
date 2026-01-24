@@ -1,0 +1,145 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-BRIDGE-2024-001",
+    "title": "Bridge Infrastructure Condition Assessment",
+    "subtitle": "Analysis of County Bridge Conditions & P3 Program",
+    "type": "infrastructure-audit",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "monitoring"
+  },
+  "executiveSummary": {
+    "overview": "Comprehensive analysis of Northampton County bridge infrastructure conditions based on National Bridge Inventory data, TRIP reports, and P3 Bridge Renewal Program outcomes.",
+    "keyFindings": [
+      "13% of county's 330 bridges in poor condition (43 bridges)",
+      "55% in fair condition, only 32% in good condition",
+      "33% of 395 miles of roads in poor condition",
+      "P3 program addressed 33 bridges but long-term maintenance concerns remain"
+    ],
+    "fiscalImpact": "Continued deterioration projected without adequate funding"
+  },
+  "findings": [
+    {
+      "id": "F-BRIDGE-001",
+      "severity": "high",
+      "category": "infrastructure",
+      "title": "Bridge Condition Deficit",
+      "description": "Of Northampton County's 330 bridges, 13% (approximately 43 bridges) are rated in poor condition. In 2021 National Bridge Inventory, 39 bridges were categorized as 'poor' condition.",
+      "details": {
+        "totalBridges": 330,
+        "poorCondition": "13% (43 bridges)",
+        "fairCondition": "55% (182 bridges)",
+        "goodCondition": "32% (106 bridges)",
+        "nbiPoorRating2021": 39
+      },
+      "sources": [
+        "https://www.tnonline.com/20250628/report-lists-state-of-roads-bridges/",
+        "https://rosap.ntl.bts.gov/view/dot/63469/dot_63469_DS1.pdf"
+      ],
+      "trend": "Projected decline without increased funding"
+    },
+    {
+      "id": "F-BRIDGE-002",
+      "severity": "medium",
+      "category": "infrastructure",
+      "title": "Road Network Deterioration",
+      "description": "County has 395 miles of roads with concerning condition distribution: 33% in poor condition, 25% fair, 31% good, and only 11% excellent.",
+      "details": {
+        "totalMiles": 395,
+        "poorCondition": "33%",
+        "fairCondition": "25%",
+        "goodCondition": "31%",
+        "excellentCondition": "11%"
+      },
+      "sources": [
+        "TRIP National Transportation Research Nonprofit Report"
+      ],
+      "recommendation": "Prioritize road resurfacing program for poor-condition segments"
+    },
+    {
+      "id": "F-BRIDGE-003",
+      "severity": "medium",
+      "category": "program-management",
+      "title": "P3 Bridge Renewal Program Assessment",
+      "description": "County initiated innovative P3 (Public-Private Partnership) program to address 33 bridges requiring replacement or rehabilitation. 21 had load-posted weight restrictions.",
+      "details": {
+        "bridgesAddressed": 33,
+        "weightRestricted": 21,
+        "structurallyDeficient": 8,
+        "functionallyObsolete": 18,
+        "averageDailyTraffic": "Less than 1,000 per bridge"
+      },
+      "positiveNotes": [
+        "County demonstrated initiative with P3 approach",
+        "Addressed severe infrastructure deficits proactively",
+        "Willowbrook Road Bridge (County Bridge #124) completed January 2025"
+      ],
+      "sources": [
+        "https://www.fhwa.dot.gov/ipd/project_profiles/pa_northampton_county_bridge_renewal.aspx"
+      ]
+    },
+    {
+      "id": "F-BRIDGE-004",
+      "severity": "low",
+      "category": "planning",
+      "title": "Upcoming Projects",
+      "description": "Church Road Bridge replacement in Plainfield Township scheduled for Summer 2027 - Fall 2028.",
+      "sources": [
+        "https://www.pa.gov/agencies/penndot/projects-near-you/district-5-projects/church-road-bridge-replacement-project"
+      ]
+    }
+  ],
+  "statewideContext": {
+    "paBridgeConditions": {
+      "totalBridges": 23314,
+      "structurallyDeficient": 2813,
+      "deficientPercentage": "12.1%",
+      "improvement": "Down from 3,198 deficient in 2021"
+    },
+    "localBridgeDeficiency": "14% of PA local bridges rated poor/structurally deficient",
+    "source": "TRIP Report on Pennsylvania Transportation"
+  },
+  "fundingAnalysis": {
+    "challenges": [
+      "Lack of transportation funding",
+      "Increasing construction costs",
+      "Evolving transportation demands"
+    ],
+    "projection": "Declining conditions projected without funding increase"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-CUSTOM-BRIDGE-001",
+      "type": "infrastructure-monitoring",
+      "severity": "medium",
+      "description": "43 bridges in poor condition - recommend annual condition tracking",
+      "status": "monitoring",
+      "requiredAction": "Include bridge condition metrics in annual fiscal report"
+    }
+  ],
+  "recommendations": [
+    "Establish annual bridge condition tracking in Controller fiscal reports",
+    "Request PennDOT coordination on priority repairs",
+    "Evaluate P3 program outcomes and consider expansion",
+    "Develop 10-year capital plan for bridge maintenance",
+    "Prioritize weight-restricted bridges affecting commerce"
+  ],
+  "recentCompletions": [
+    {
+      "bridge": "Willowbrook Road Bridge (County Bridge #124)",
+      "reopened": "January 3, 2025",
+      "status": "Complete"
+    }
+  ],
+  "metadata": {
+    "dataSource": [
+      "National Bridge Inventory",
+      "TRIP Transportation Research",
+      "FHWA P3 Project Profiles",
+      "PennDOT District 5",
+      "Northampton County Press Releases"
+    ],
+    "lastUpdated": "2026-01-24",
+    "reviewCycle": "Annual"
+  }
+}

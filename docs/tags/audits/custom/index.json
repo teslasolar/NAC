@@ -1,0 +1,135 @@
+{
+  "name": "Custom Audit Reports",
+  "version": "1.0.0",
+  "description": "Independent analysis of public records compiled into audit-style findings - data not previously aggregated",
+  "preparedBy": "NAC Civic Intelligence System",
+  "lastUpdated": "2026-01-24",
+  "disclaimer": "These are analytical compilations of public records, not official government audits. Sources cited for all findings.",
+  "audits": [
+    {
+      "id": "CUSTOM-LERTA-2024-001",
+      "title": "LERTA Tax Abatement Policy Analysis",
+      "path": "lerta-tax-abatement/index.json",
+      "category": "fiscal-policy",
+      "severity": "high",
+      "status": "requires-oversight",
+      "summary": "Analysis of warehouse development tax breaks, County Council veto override, and $2.98M school district revenue loss",
+      "keyFindings": 3,
+      "controllerFlags": 1
+    },
+    {
+      "id": "CUSTOM-BRIDGE-2024-001",
+      "title": "Bridge Infrastructure Condition Assessment",
+      "path": "bridge-infrastructure/index.json",
+      "category": "infrastructure",
+      "severity": "high",
+      "status": "monitoring",
+      "summary": "13% of 330 bridges in poor condition, 33% of roads poor, P3 program assessment",
+      "keyFindings": 4,
+      "controllerFlags": 1
+    },
+    {
+      "id": "CUSTOM-VOTING-2024-001",
+      "title": "Voting Machine Reliability Analysis",
+      "path": "voting-machines/index.json",
+      "category": "election-integrity",
+      "severity": "critical",
+      "status": "requires-oversight",
+      "summary": "2023 vote-switching incident on ballot summaries, 2024 six-hour wait times, certification despite opposition",
+      "keyFindings": 4,
+      "controllerFlags": 2
+    },
+    {
+      "id": "CUSTOM-OPIOID-2024-001",
+      "title": "Opioid Settlement Fund Compliance",
+      "path": "opioid-settlement/index.json",
+      "category": "grant-compliance",
+      "severity": "medium",
+      "status": "active-litigation",
+      "summary": "County appeal in Commonwealth Court over Trust rejection of newsletter program",
+      "keyFindings": 3,
+      "controllerFlags": 1
+    },
+    {
+      "id": "CUSTOM-ASSESS-2024-001",
+      "title": "Property Assessment System Analysis",
+      "path": "property-assessment/index.json",
+      "category": "fiscal-equity",
+      "severity": "medium",
+      "status": "systemic-issue",
+      "summary": "PA statewide lawsuit on uniform standards, 70% of counties using outdated assessments",
+      "keyFindings": 3,
+      "controllerFlags": 1
+    },
+    {
+      "id": "CUSTOM-CYS-2024-001",
+      "title": "Children & Youth Services Fiscal Compliance",
+      "path": "children-youth/index.json",
+      "category": "state-audit-summary",
+      "severity": "low",
+      "status": "compliant-minor-adjustments",
+      "summary": "PA AG audits show minor fiscal adjustments, overall satisfactory compliance",
+      "keyFindings": 2,
+      "controllerFlags": 0
+    }
+  ],
+  "statistics": {
+    "totalCustomAudits": 6,
+    "bySeverity": {
+      "critical": 1,
+      "high": 2,
+      "medium": 2,
+      "low": 1
+    },
+    "byStatus": {
+      "requiresOversight": 2,
+      "monitoring": 1,
+      "activeLitigation": 1,
+      "systemicIssue": 1,
+      "compliant": 1
+    },
+    "totalControllerFlags": 6,
+    "totalFindings": 19
+  },
+  "priorityIssues": [
+    {
+      "rank": 1,
+      "audit": "Voting Machine Reliability",
+      "reason": "Critical - election integrity, documented vote-switching incident"
+    },
+    {
+      "rank": 2,
+      "audit": "LERTA Tax Abatement",
+      "reason": "High - millions in foregone school district revenue"
+    },
+    {
+      "rank": 3,
+      "audit": "Bridge Infrastructure",
+      "reason": "High - 43 bridges in poor condition, public safety"
+    }
+  ],
+  "dataSources": [
+    "Spotlight PA",
+    "WESA",
+    "Lehigh Valley News",
+    "WFMZ",
+    "Morning Call",
+    "PA Auditor General",
+    "National Bridge Inventory",
+    "TRIP Transportation Research",
+    "FHWA",
+    "Commonwealth Court filings",
+    "PA Opioid Trust",
+    "Northampton County Press Releases"
+  ],
+  "methodology": {
+    "approach": "Aggregation and analysis of publicly available data from news sources, government databases, and official records",
+    "validation": "Cross-referenced multiple sources where available",
+    "limitations": "Not official government audits; some details may require FOIA requests for complete documentation"
+  },
+  "metadata": {
+    "createdDate": "2026-01-24",
+    "reviewCycle": "Quarterly",
+    "nextUpdate": "2026-04-01"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-VOTING-2024-001",
+    "title": "Voting Machine Reliability & Election Administration Analysis",
+    "subtitle": "Assessment of Voting Equipment Issues 2023-2024",
+    "type": "election-integrity",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "requires-oversight"
+  },
+  "executiveSummary": {
+    "overview": "Analysis of documented voting machine issues in Northampton County during 2023-2024 elections, including vote-switching incidents and extended wait times.",
+    "keyFindings": [
+      "November 2023: Voting machines switched votes on paper ballot summaries for Superior Court retention questions",
+      "November 2024: Voters in several precincts experienced waits up to 6 hours due to machine malfunctions",
+      "Election results certified despite public opposition regarding equipment concerns",
+      "State legislator called for County Executive resignation over voting machine problems"
+    ],
+    "severity": "HIGH - Election integrity concerns"
+  },
+  "findings": [
+    {
+      "id": "F-VOTE-001",
+      "severity": "critical",
+      "category": "equipment-malfunction",
+      "title": "2023 Vote-Switching Incident",
+      "description": "Shortly after polls opened on Election Day (November 7, 2023), election workers discovered voting machines switched votes - yes or no - on paper summaries of voters' selections in two contests: Superior Court retention questions.",
+      "details": {
+        "electionDate": "November 7, 2023",
+        "issueDiscovered": "Shortly after polls opened",
+        "affectedContests": ["Superior Court retention question #1", "Superior Court retention question #2"],
+        "nature": "Vote selections switched (yes/no reversed) on paper ballot summary",
+        "machineType": "ES&S ExpressVote XL"
+      },
+      "response": {
+        "certification": "Election Commission certified results despite opposition",
+        "publicReaction": "Impassioned pleas from voters questioning validity of vote totals",
+        "legislativeResponse": "State Rep. Milou Mackenzie (R-131) called for Executive McClure to resign"
+      },
+      "sources": [
+        "https://armchairlehighvalley.substack.com/p/northampton-county-certifies-election"
+      ],
+      "statutoryReference": "25 P.S. § 3031.7 - Voting System Requirements"
+    },
+    {
+      "id": "F-VOTE-002",
+      "severity": "high",
+      "category": "operations",
+      "title": "2024 Extended Wait Times",
+      "description": "Voters in several precincts experienced waits as long as six hours to cast ballots, in part due to machine malfunctions during November 2024 election.",
+      "details": {
+        "electionDate": "November 2024",
+        "maxWaitTime": "6 hours",
+        "cause": "Machine malfunctions (partial)",
+        "affectedPrecincts": "Multiple (exact number not documented)"
+      },
+      "impact": [
+        "Voter disenfranchisement risk",
+        "Public confidence erosion",
+        "Operational failure"
+      ],
+      "sources": [
+        "Morning Call Election Coverage"
+      ]
+    },
+    {
+      "id": "F-VOTE-003",
+      "severity": "medium",
+      "category": "documentation",
+      "title": "L&A Testing Documentation Gaps",
+      "description": "Related to main election audit: 150+ missing Logic and Accuracy testing documentation for voting machines.",
+      "crossReference": "CTRL-FLAG-2024-003",
+      "statutoryReference": "25 P.S. § 3031.7"
+    },
+    {
+      "id": "F-VOTE-004",
+      "severity": "low",
+      "category": "positive-development",
+      "title": "NG911 Network Transition Success",
+      "description": "County successfully transitioned Emergency Management Center to Next Generation 911 (NG911) Network. All 911 call traffic now live on NG911 Core Services.",
+      "note": "Demonstrates capability for successful technology transitions"
+    }
+  ],
+  "machineInformation": {
+    "vendor": "ES&S (Election Systems & Software)",
+    "model": "ExpressVote XL",
+    "type": "Ballot Marking Device with integrated printer",
+    "implementation": "County-wide",
+    "knownIssues": "Display/print discrepancy on retention questions"
+  },
+  "certificationHistory": {
+    "november2023": {
+      "status": "Certified",
+      "opposition": "Strong public opposition during certification meeting",
+      "concerns": "Questions about validity of vote totals"
+    }
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-CUSTOM-VOTE-001",
+      "type": "election-integrity",
+      "severity": "critical",
+      "description": "Recurring voting machine malfunctions affecting public confidence",
+      "status": "requires-immediate-review",
+      "recommendedAction": "Controller audit of election equipment procurement, testing, and maintenance protocols"
+    },
+    {
+      "flagId": "CTRL-CUSTOM-VOTE-002",
+      "type": "operational-failure",
+      "severity": "high",
+      "description": "6-hour voter wait times in 2024 election",
+      "status": "pending-review",
+      "recommendedAction": "Review staffing and equipment allocation per precinct"
+    }
+  ],
+  "recommendations": [
+    "Conduct independent audit of voting equipment testing and maintenance procedures",
+    "Implement redundant paper ballot backup for all precincts",
+    "Establish maximum wait time standards with contingency protocols",
+    "Require public reporting of all equipment malfunctions within 24 hours",
+    "Consider vendor accountability provisions in ES&S contract",
+    "Review staffing ratios per registered voter by precinct"
+  ],
+  "legalReferences": [
+    {
+      "statute": "25 P.S. § 3031.7",
+      "title": "Electronic Voting Systems",
+      "relevance": "Requirements for accuracy and reliability of voting systems"
+    },
+    {
+      "statute": "25 P.S. § 3031.5",
+      "title": "Pre-election Testing",
+      "relevance": "L&A testing requirements before each election"
+    }
+  ],
+  "metadata": {
+    "dataSource": [
+      "Armchair Lehigh Valley",
+      "Morning Call",
+      "WFMZ",
+      "Northampton County Election Commission"
+    ],
+    "lastUpdated": "2026-01-24",
+    "reviewCycle": "Post-Election",
+    "nextReview": "After May 2026 Primary"
+  }
+}

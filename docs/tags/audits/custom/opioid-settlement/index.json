@@ -1,0 +1,128 @@
+{
+  "customAudit": {
+    "id": "CUSTOM-OPIOID-2024-001",
+    "title": "Opioid Settlement Fund Compliance Analysis",
+    "subtitle": "Review of PA Opioid Trust Spending & County Appeal",
+    "type": "grant-compliance",
+    "preparedBy": "NAC Civic Intelligence System",
+    "date": "2026-01-24",
+    "status": "active-litigation"
+  },
+  "executiveSummary": {
+    "overview": "Analysis of Northampton County's opioid settlement fund usage and pending Commonwealth Court appeal regarding program rejection by the Pennsylvania Opioid Misuse and Addiction Abatement Trust.",
+    "keyFindings": [
+      "Northampton County filed appeal over Trust rejecting newsletter program",
+      "Case active in Commonwealth Court as of December 2024",
+      "PA expects to receive ~$2 billion over two decades from opioid settlements",
+      "Trust has authority to withhold future funding for non-compliant spending"
+    ],
+    "legalStatus": "Active appeal in Commonwealth Court"
+  },
+  "findings": [
+    {
+      "id": "F-OPIOID-001",
+      "severity": "medium",
+      "category": "compliance-dispute",
+      "title": "Newsletter Program Rejection Appeal",
+      "description": "Northampton County filed an appeal to Commonwealth Court challenging the PA Opioid Misuse and Addiction Abatement Trust's decision to reject a portion of the county's newsletter program as an approved use of settlement funds.",
+      "details": {
+        "program": "Newsletter program (partial)",
+        "trustDecision": "Rejected",
+        "countyResponse": "Filed appeal",
+        "courtVenue": "Commonwealth Court of Pennsylvania",
+        "caseStatus": "Active as of December 2024"
+      },
+      "sources": [
+        "https://www.spotlightpa.org/news/2024/12/pennsylvania-opioid-settlement-money-key-issues/",
+        "https://www.wesa.fm/politics-government/2024-12-29/pennsylvania-opioid-settlement-money-debates"
+      ]
+    },
+    {
+      "id": "F-OPIOID-002",
+      "severity": "low",
+      "category": "context",
+      "title": "Statewide Trust Rejection Patterns",
+      "description": "The Opioid Trust has rejected multiple county programs across Pennsylvania, establishing precedent for strict interpretation of allowable expenses.",
+      "rejectedPrograms": [
+        {"county": "Lawrence", "program": "Police cruiser upgrades", "amount": "$17,500"},
+        {"county": "Cameron", "program": "Detective initiative", "amount": "$20,000"},
+        {"county": "Blair", "program": "Drug court program", "amount": "$323,000"},
+        {"county": "Philadelphia", "program": "Home repair program", "rejected": true},
+        {"county": "Philadelphia", "program": "Small business support", "rejected": true},
+        {"county": "Somerset", "program": "Outdoor youth program", "rejected": true}
+      ],
+      "implications": "Trust applying strict interpretation; counties face uncertainty on allowable uses"
+    },
+    {
+      "id": "F-OPIOID-003",
+      "severity": "medium",
+      "category": "fiscal-risk",
+      "title": "Future Funding Withholding Authority",
+      "description": "The PA Opioid Trust has authority to withhold future settlement payments from counties determined to have spent funds in non-compliant ways.",
+      "riskLevel": "Medium - depends on appeal outcome",
+      "sources": [
+        "https://www.spotlightpa.org/news/2025/12/opioid-settlement-spending-pennsylvania-counties-2025-health/"
+      ]
+    }
+  ],
+  "fundingContext": {
+    "statewideFunding": {
+      "totalExpected": "$2 billion",
+      "timeframe": "Over approximately 20 years",
+      "recentDistribution": "$247 million approved November 2024",
+      "majorSettlements": "$1.8 billion from two waves of agreements"
+    },
+    "trustOversight": {
+      "authority": "PA Opioid Misuse and Addiction Abatement Trust",
+      "powers": [
+        "Approve/reject county program requests",
+        "Withhold future funding for non-compliance",
+        "Audit county spending"
+      ]
+    }
+  },
+  "otherCountyAppeals": [
+    {
+      "county": "Somerset",
+      "program": "Outdoor youth program",
+      "status": "Active in Commonwealth Court"
+    },
+    {
+      "county": "Philadelphia",
+      "programs": ["Home repair", "Small business support"],
+      "status": "Active in Commonwealth Court"
+    }
+  ],
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-CUSTOM-OPIOID-001",
+      "type": "compliance-monitoring",
+      "severity": "medium",
+      "description": "Active Commonwealth Court appeal on opioid fund usage",
+      "status": "monitoring",
+      "requiredAction": "Track appeal outcome; ensure future programs align with Trust guidance"
+    }
+  ],
+  "recommendations": [
+    "Await Commonwealth Court ruling before initiating similar programs",
+    "Review Trust guidance documents for approved spending categories",
+    "Consider pre-approval consultation with Trust for novel program ideas",
+    "Develop internal compliance checklist based on Trust rejections",
+    "Allocate legal reserves for potential fund withholding scenario"
+  ],
+  "trustResources": {
+    "website": "https://www.paopioidtrust.org/",
+    "spendingReporting": "https://www.paopioidtrust.org/payment-spending-and-reporting",
+    "database": "https://www.spotlightpa.org/news/2024/11/pennsylvania-opioid-settlement-money-spending-data/"
+  },
+  "metadata": {
+    "dataSource": [
+      "Spotlight PA",
+      "WESA",
+      "PA Opioid Trust",
+      "Commonwealth Court filings"
+    ],
+    "lastUpdated": "2026-01-24",
+    "reviewCycle": "Quarterly pending appeal resolution"
+  }
+}

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How County Government Works - Northampton County Explained</title>
+    <style>
+        :root {
+            --nc-blue: #1e3a5f;
+            --nc-gold: #c9a227;
+            --nc-light: #f8f9fa;
+            --nc-green: #28a745;
+            --nc-red: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--nc-blue);
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.3em;
+            color: #666;
+        }
+
+        header .eli5-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .intro-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-card h2 {
+            color: var(--nc-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .intro-card p {
+            font-size: 1.1em;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .analogy-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .gov-structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .branch-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .branch-card.executive {
+            border-top: 5px solid #3498db;
+        }
+
+        .branch-card.legislative {
+            border-top: 5px solid #e74c3c;
+        }
+
+        .branch-card.judicial {
+            border-top: 5px solid #9b59b6;
+        }
+
+        .branch-card.row-offices {
+            border-top: 5px solid #2ecc71;
+        }
+
+        .branch-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .branch-card .icon {
+            font-size: 2em;
+        }
+
+        .branch-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .branch-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .branch-card li:last-child {
+            border-bottom: none;
+        }
+
+        .branch-card .role {
+            font-weight: bold;
+            color: var(--nc-blue);
+        }
+
+        .branch-card .desc {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .eli5-explanation {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .eli5-explanation strong {
+            color: #856404;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .timeline h2 {
+            color: var(--nc-blue);
+            margin-bottom: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-year {
+            background: var(--nc-blue);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .money-flow {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .money-flow h2 {
+            color: var(--nc-blue);
+            margin-bottom: 20px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #667eea;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .service-item .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .resources {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .resources h2 {
+            color: var(--nc-blue);
+            margin-bottom: 20px;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .resource-link {
+            display: block;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .resource-link:hover {
+            border-color: var(--nc-blue);
+            transform: translateY(-3px);
+        }
+
+        .resource-link h4 {
+            color: var(--nc-blue);
+            margin-bottom: 8px;
+        }
+
+        .resource-link p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .resource-link .external {
+            color: #999;
+            font-size: 0.8em;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .quiz-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .quiz-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-option.correct {
+            background: rgba(40, 167, 69, 0.5);
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(220, 53, 69, 0.5);
+            border-color: #dc3545;
+        }
+
+        .glossary {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .glossary h2 {
+            color: var(--nc-blue);
+            margin-bottom: 20px;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .glossary-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .glossary-item dt {
+            font-weight: bold;
+            color: var(--nc-blue);
+            margin-bottom: 5px;
+        }
+
+        .glossary-item dd {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: white;
+            color: var(--nc-blue);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>How County Government Works</h1>
+            <p class="subtitle">Northampton County, Pennsylvania - Explained Simply</p>
+            <span class="eli5-badge">ELI5 Edition - Explain Like I'm 5</span>
+        </header>
+
+        <nav class="nav-buttons">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="public-audits.html" class="nav-btn">View Audits</a>
+            <a href="calendar.html" class="nav-btn">Meeting Calendar</a>
+            <a href="https://norcopa.gov" class="nav-btn" target="_blank">Official County Site</a>
+        </nav>
+
+        <div class="intro-card">
+            <h2>What is a County?</h2>
+            <p>Think of Pennsylvania as a big pizza. It's cut into 67 slices - those slices are <strong>counties</strong>. Northampton County is one slice, located in the eastern part of the state in the beautiful Lehigh Valley.</p>
+
+            <div class="analogy-box">
+                <h3>Think of it Like a School...</h3>
+                <p>If your state is like a school district, then a county is like one school building. The county government is like the principal and teachers who make sure everything runs smoothly in that building - from keeping it clean to making sure everyone follows the rules.</p>
+            </div>
+
+            <p>Northampton County is special because in <strong>1978</strong>, the people voted to adopt a "Home Rule Charter." This is like getting to write your own rulebook instead of following the standard state rules. It gives the county more freedom to decide how to run things!</p>
+        </div>
+
+        <h2 style="color: white; text-align: center; margin-bottom: 20px; font-size: 1.8em;">The Four Parts of County Government</h2>
+
+        <div class="gov-structure">
+            <div class="branch-card executive">
+                <h3><span class="icon">👔</span> Executive Branch</h3>
+                <p style="color: #666; margin-bottom: 15px;">The "Doers" - They run the day-to-day operations</p>
+                <ul>
+                    <li>
+                        <div>
+                            <span class="role">County Executive</span>
+                            <p class="desc">The "CEO" of the county. Elected by everyone. Makes sure all departments work properly, proposes the budget, and can veto Council decisions.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Department Heads</span>
+                            <p class="desc">Run specific areas: Human Services, Public Works, Corrections, Administration, etc.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="eli5-explanation">
+                    <strong>ELI5:</strong> The County Executive is like the captain of a ship. They don't row the boat themselves, but they decide where it goes and make sure everyone does their job!
+                </div>
+            </div>
+
+            <div class="branch-card legislative">
+                <h3><span class="icon">📜</span> Legislative Branch</h3>
+                <p style="color: #666; margin-bottom: 15px;">The "Rule Makers" - They pass laws and approve spending</p>
+                <ul>
+                    <li>
+                        <div>
+                            <span class="role">County Council (9 members)</span>
+                            <p class="desc">5 elected "at-large" (by everyone) + 4 elected by district. They pass ordinances (local laws), approve the budget, and can override Executive vetoes with 6 votes.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Council President</span>
+                            <p class="desc">Runs the meetings. Chosen by other Council members.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="eli5-explanation">
+                    <strong>ELI5:</strong> Council is like a class voting on classroom rules. They debate, vote, and decide things together. No single person gets to make all the decisions!
+                </div>
+            </div>
+
+            <div class="branch-card judicial">
+                <h3><span class="icon">⚖️</span> Judicial Branch</h3>
+                <p style="color: #666; margin-bottom: 15px;">The "Referees" - They interpret laws and settle disputes</p>
+                <ul>
+                    <li>
+                        <div>
+                            <span class="role">Court of Common Pleas</span>
+                            <p class="desc">Handles serious cases: felonies, big lawsuits, family court, orphans' court.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Magisterial District Judges</span>
+                            <p class="desc">Handle smaller cases: traffic tickets, minor crimes, landlord disputes, small claims up to $12,000.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">District Attorney</span>
+                            <p class="desc">The county's lawyer who prosecutes crimes. Elected by everyone.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="eli5-explanation">
+                    <strong>ELI5:</strong> Judges are like referees at a sports game. When two people disagree about what the rules mean, the judge decides who's right!
+                </div>
+            </div>
+
+            <div class="branch-card row-offices">
+                <h3><span class="icon">🏛️</span> Row Offices</h3>
+                <p style="color: #666; margin-bottom: 15px;">Independently elected officials who handle specific jobs</p>
+                <ul>
+                    <li>
+                        <div>
+                            <span class="role">Controller</span>
+                            <p class="desc">The "Money Watchdog" - audits spending, makes sure tax dollars aren't wasted.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Sheriff</span>
+                            <p class="desc">Court security, serves legal papers, transports prisoners, handles gun permits.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Prothonotary</span>
+                            <p class="desc">Keeps civil court records - lawsuits, name changes, divorces.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Register of Wills</span>
+                            <p class="desc">Handles wills and estates when someone passes away.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Recorder of Deeds</span>
+                            <p class="desc">Records property sales, mortgages, land records.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Clerk of Courts</span>
+                            <p class="desc">Keeps criminal court records.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="role">Coroner</span>
+                            <p class="desc">Investigates deaths that need explanation.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="eli5-explanation">
+                    <strong>ELI5:</strong> Row officers are like specialized workers at a post office - each one has their own window and handles specific types of requests!
+                </div>
+            </div>
+        </div>
+
+        <div class="money-flow">
+            <h2>Where Does the Money Come From & Go?</h2>
+            <p>The 2025 county budget is about <strong>$502 million</strong>. Here's how it flows:</p>
+
+            <div class="flow-diagram">
+                <div class="flow-box">
+                    <strong>You Pay</strong><br>
+                    Property Taxes<br>
+                    (10.8 mils)
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">
+                    <strong>County Collects</strong><br>
+                    + State/Federal Aid<br>
+                    + Fees & Fines
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">
+                    <strong>Services for You</strong><br>
+                    Roads, Courts,<br>
+                    Human Services...
+                </div>
+            </div>
+
+            <div class="eli5-explanation">
+                <strong>What's a "mil"?</strong> A mil is $1 for every $1,000 your property is worth. So if your house is assessed at $100,000 and the rate is 10.8 mils, you pay $1,080/year in county property tax.
+            </div>
+
+            <h3 style="margin-top: 25px; margin-bottom: 15px;">What Do Your Tax Dollars Pay For?</h3>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="emoji">🛣️</div>
+                    <strong>Roads & Bridges</strong><br>
+                    330 bridges, 395 miles of roads
+                </div>
+                <div class="service-item">
+                    <div class="emoji">👴</div>
+                    <strong>Gracedale</strong><br>
+                    County nursing home (638 beds)
+                </div>
+                <div class="service-item">
+                    <div class="emoji">⚖️</div>
+                    <strong>Courts & Justice</strong><br>
+                    Judges, public defenders, probation
+                </div>
+                <div class="service-item">
+                    <div class="emoji">🚔</div>
+                    <strong>Prison</strong><br>
+                    County correctional facility
+                </div>
+                <div class="service-item">
+                    <div class="emoji">👨‍👩‍👧</div>
+                    <strong>Human Services</strong><br>
+                    Children & Youth, Mental Health, Aging
+                </div>
+                <div class="service-item">
+                    <div class="emoji">🚨</div>
+                    <strong>911 Center</strong><br>
+                    Emergency dispatch
+                </div>
+                <div class="service-item">
+                    <div class="emoji">🗳️</div>
+                    <strong>Elections</strong><br>
+                    Voter registration, voting machines
+                </div>
+                <div class="service-item">
+                    <div class="emoji">📋</div>
+                    <strong>Assessment</strong><br>
+                    Property values for taxes
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h2>Northampton County History Highlights</h2>
+            <div class="timeline-item">
+                <span class="timeline-year">1752</span>
+                <div>
+                    <strong>County Created</strong><br>
+                    Split from Bucks County. Named after Northamptonshire, England. Originally included all of northeastern PA!
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-year">1812</span>
+                <div>
+                    <strong>Current Courthouse</strong><br>
+                    The historic courthouse in Easton was built and still serves as the county seat today.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-year">1978</span>
+                <div>
+                    <strong>Home Rule Adopted</strong><br>
+                    Voters approved the Home Rule Charter, creating the County Executive/Council form of government instead of the traditional 3-commissioner system.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-year">2024</span>
+                <div>
+                    <strong>Term Limits Proposed</strong><br>
+                    Voters considered amendments for term limits on the Executive, Controller, and District Attorney positions.
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Test Your Knowledge!</h2>
+
+            <div class="quiz-question" id="q1">
+                <p>1. How many members are on County Council?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">3 members</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">5 members</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">9 members</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">12 members</div>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q2">
+                <p>2. What does the Controller do?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Runs the county jail</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Audits spending and watches the money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Prosecutes criminals</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Records property deeds</div>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q3">
+                <p>3. When did Northampton County adopt Home Rule?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">1752</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">1812</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">1978</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">2001</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary">
+            <h2>Glossary - Words to Know</h2>
+            <div class="glossary-grid">
+                <dl class="glossary-item">
+                    <dt>Home Rule Charter</dt>
+                    <dd>A county's own "constitution" that lets it structure government differently from the default state rules.</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>Ordinance</dt>
+                    <dd>A local law passed by County Council. Like a rule that applies only in Northampton County.</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>Veto</dt>
+                    <dd>When the Executive rejects a law passed by Council. Council can override with 6+ votes.</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>Mil</dt>
+                    <dd>A tax rate equal to $1 per $1,000 of assessed property value.</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>At-Large</dt>
+                    <dd>Elected by ALL voters in the county, not just one district.</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>Row Office</dt>
+                    <dd>An independently elected position that handles specific functions (Sheriff, Coroner, etc.)</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>Prothonotary</dt>
+                    <dd>(pro-THON-oh-terry) The official who keeps civil court records. Old English word!</dd>
+                </dl>
+                <dl class="glossary-item">
+                    <dt>LERTA</dt>
+                    <dd>Local Economic Revitalization Tax Assistance - tax breaks to encourage development.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="resources">
+            <h2>Learn More - Official Resources</h2>
+            <div class="resource-links">
+                <a href="https://norcopa.gov" class="resource-link" target="_blank">
+                    <h4>Northampton County Official Website</h4>
+                    <p>The main county website with all departments, services, and contact information.</p>
+                    <span class="external">norcopa.gov →</span>
+                </a>
+
+                <a href="https://norcopa.gov/index.php?section=executive-resources&docid=3" class="resource-link" target="_blank">
+                    <h4>Home Rule Charter (Full Text)</h4>
+                    <p>Read the actual charter document - the county's "constitution."</p>
+                    <span class="external">Official Document →</span>
+                </a>
+
+                <a href="https://www.northampton.edu/education-and-training/community-education/" class="resource-link" target="_blank">
+                    <h4>Northampton Community College</h4>
+                    <p>Community education programs including civic engagement and professional development.</p>
+                    <span class="external">northampton.edu →</span>
+                </a>
+
+                <a href="https://www.cityoflancasterpa.gov/wp-content/uploads/2023/02/Home-Rule-in-PA.pdf" class="resource-link" target="_blank">
+                    <h4>PA Home Rule Guide</h4>
+                    <p>Governor's Center for Local Government Services guide explaining home rule in Pennsylvania.</p>
+                    <span class="external">PDF Guide →</span>
+                </a>
+
+                <a href="https://www.paauditor.gov/audit_county/northampton-county/" class="resource-link" target="_blank">
+                    <h4>PA Auditor General - Northampton</h4>
+                    <p>State audits of county entities including courts, pensions, and fire relief associations.</p>
+                    <span class="external">paauditor.gov →</span>
+                </a>
+
+                <a href="calendar.html" class="resource-link">
+                    <h4>Meeting Calendar</h4>
+                    <p>See when County Council, committees, and boards meet. Attend a meeting!</p>
+                    <span class="external">View Calendar →</span>
+                </a>
+
+                <a href="public-audits.html" class="resource-link">
+                    <h4>Public Audit Database</h4>
+                    <p>Browse 52 audits of county offices, courts, pensions, and more.</p>
+                    <span class="external">View Audits →</span>
+                </a>
+
+                <a href="https://www.vote.pa.gov" class="resource-link" target="_blank">
+                    <h4>PA Voter Information</h4>
+                    <p>Register to vote, find your polling place, and see sample ballots.</p>
+                    <span class="external">vote.pa.gov →</span>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>NAC Civic Intelligence System | <a href="index.html">Home</a> | <a href="public-audits.html">Audits</a> | <a href="calendar.html">Meetings</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Making government accessible and understandable for everyone.</p>
+        </footer>
+    </div>
+
+    <script>
+        function checkAnswer(element, isCorrect) {
+            // Reset all options in this question
+            const question = element.closest('.quiz-question');
+            question.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+
+            // Mark selected answer
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                // Also show the correct answer
+                question.querySelectorAll('.quiz-option').forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

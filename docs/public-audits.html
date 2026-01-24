@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAC Public Audits - Northampton County Audit Reports</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid #22c55e;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .stat .label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    .section-header .badge {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .section-header .source-link {
+      margin-left: auto;
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .section-header .source-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Audit Cards */
+    .audit-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .audit-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .audit-card:hover {
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .audit-card .status {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.7rem;
+    }
+
+    .audit-card .status.pass {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .audit-card .status.finding {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+    }
+
+    .audit-card .status.fail {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .audit-card .status.pending {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    .audit-card .info h3 {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .audit-card .info .meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .audit-card .info .meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .audit-card .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .audit-card .actions a {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .audit-card .actions .view {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    .audit-card .actions .view:hover {
+      background: rgba(59, 130, 246, 0.3);
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: #94a3b8;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+    }
+
+    .filter-btn.active {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+      color: #22c55e;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .audit-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .audit-card .status {
+        margin: 0 auto;
+      }
+      .audit-card .actions {
+        justify-content: center;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .section-header .source-link {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Northampton County Public Audits</h1>
+    <div class="subtitle">Controller Reports, State Audits & Compliance Reviews</div>
+  </div>
+
+  <div class="container">
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="number">24</div>
+        <div class="label">Total Audits (2024-25)</div>
+      </div>
+      <div class="stat">
+        <div class="number" style="color: #22c55e;">19</div>
+        <div class="label">Passed / Compliant</div>
+      </div>
+      <div class="stat">
+        <div class="number" style="color: #f59e0b;">5</div>
+        <div class="label">Minor Findings</div>
+      </div>
+      <div class="stat">
+        <div class="number" style="color: #ef4444;">0</div>
+        <div class="label">Major Issues</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="controller">Controller</button>
+      <button class="filter-btn" data-filter="state">State AG</button>
+      <button class="filter-btn" data-filter="court">Courts</button>
+      <button class="filter-btn" data-filter="election">Elections</button>
+      <button class="filter-btn" data-filter="pension">Pension</button>
+    </div>
+
+    <!-- County Controller Audits -->
+    <div class="section">
+      <div class="section-header">
+        <h2>County Controller Audits</h2>
+        <span class="badge">PASS - Quality Review 2022-2024</span>
+        <a href="https://norcopa.gov/controller-reports" class="source-link" target="_blank">norcopa.gov/controller-reports</a>
+      </div>
+
+      <div class="audit-grid">
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>External Quality Control Review</h3>
+            <div class="meta">
+              <span>Period: Jan 2022 - Dec 2024</span>
+              <span>Type: Peer Review</span>
+              <span>Rating: Adequately Designed</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Register of Wills & Orphans' Court Agency Funds</h3>
+            <div class="meta">
+              <span>As of: June 30, 2024</span>
+              <span>Type: Performance Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Cash Collection Process - Public Works</h3>
+            <div class="meta">
+              <span>As of: June 20, 2024</span>
+              <span>Type: Agreed-Upon Procedures</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Jail Commissary and Inmate Telephone Audit</h3>
+            <div class="meta">
+              <span>Period: Apr 2024 - Sep 2024</span>
+              <span>Type: Agreed-Upon Procedures</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Hotel Room Rental Tax - Hotel Bethlehem (#101)</h3>
+            <div class="meta">
+              <span>Period: Jan 2023 - Dec 2024</span>
+              <span>Type: HRRT Compliance</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="controller">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Statement of Bonded Indebtedness</h3>
+            <div class="meta">
+              <span>Period: Dec 2024 - Dec 2025</span>
+              <span>Type: Non-Audit Procedure</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://norcopa.gov/controller-reports" class="view" target="_blank">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PA Auditor General -->
+    <div class="section">
+      <div class="section-header">
+        <h2>PA Auditor General Reports</h2>
+        <a href="https://www.paauditor.gov/audit_county/northampton-county/" class="source-link" target="_blank">paauditor.gov</a>
+      </div>
+
+      <div class="audit-grid">
+        <div class="audit-card" data-type="state">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Northampton County Prothonotary</h3>
+            <div class="meta">
+              <span>Period: Jan 2020 - Dec 2023</span>
+              <span>Released: July 2025</span>
+              <span>Type: Compliance Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/northampton-county-prothonotary-audit-period-january-1-2020-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="state court">
+          <div class="status finding">1 FIND</div>
+          <div class="info">
+            <h3>District Court 03-3-02</h3>
+            <div class="meta">
+              <span>Period: Jan 2020 - Dec 2023</span>
+              <span>Released: Sep 2025</span>
+              <span>Finding: Arrest warrant procedures</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/district-court-03-3-02-northampton-county-audit-period-january-1-2020-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="state court">
+          <div class="status finding">1 FIND</div>
+          <div class="info">
+            <h3>District Court 03-2-11</h3>
+            <div class="meta">
+              <span>Period: Jan 2019 - Dec 2023</span>
+              <span>Released: Apr 2025</span>
+              <span>Disbursements: $2,112,089 verified</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/district-court-03-2-11-northampton-county-audit-period-january-1-2019-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="state court">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>District Court 03-2-01</h3>
+            <div class="meta">
+              <span>Period: Jan 2019 - Dec 2022</span>
+              <span>Released: Aug 2024</span>
+              <span>Type: Compliance Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/district-court-03-2-01-northampton-county-audit-period-january-1-2019-to-december-31-2022/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="state">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Children and Youth Services - Amended Fiscal Report</h3>
+            <div class="meta">
+              <span>Period: FY 2021 - FY 2023</span>
+              <span>Released: Feb 2025</span>
+              <span>Type: Act 148 Compliance</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/northampton-county-children-and-youth-services-amended-fiscal-report-for-fiscal-years-2021-to-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="state">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Lower Saucon Township - Liquid Fuels Tax Fund</h3>
+            <div class="meta">
+              <span>Period: Jan 2023 - Dec 2023</span>
+              <span>Released: Jan 2025</span>
+              <span>Type: Financial Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/township-of-lower-saucon-northampton-county-liquid-fuels-tax-fund-for-the-period-january-1-2023-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pension & Relief Association Audits -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Pension & Relief Association Audits</h2>
+        <a href="https://www.paauditor.gov/audit_county/northampton-county/" class="source-link" target="_blank">paauditor.gov</a>
+      </div>
+
+      <div class="audit-grid">
+        <div class="audit-card" data-type="pension">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Moore Township Police Pension Plan</h3>
+            <div class="meta">
+              <span>Period: Ended Dec 2023</span>
+              <span>Released: Feb 2025</span>
+              <span>Status: Satisfactory compliance</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/moore-township-police-pension-plan-northampton-county-audit-period-ended-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="pension">
+          <div class="status finding">1 FIND</div>
+          <div class="info">
+            <h3>Allen Township Fireman's Relief Association</h3>
+            <div class="meta">
+              <span>Period: Jan 2022 - Dec 2023</span>
+              <span>Released: Jan 2025</span>
+              <span>Finding: Inadequate meeting minutes</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/allen-township-firemans-relief-association-northampton-county-audit-period-january-1-2022-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="pension">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>Klecknersville Rangers Volunteer Firemen's Relief</h3>
+            <div class="meta">
+              <span>Period: Jan 2020 - Dec 2023</span>
+              <span>Released: Nov 2024</span>
+              <span>Type: Compliance Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.paauditor.gov/audits/klecknersville-rangers-volunteer-firemens-relief-association-northampton-county-audit-period-january-1-2020-to-december-31-2023/" class="view" target="_blank">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Election Audits -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Election Audits</h2>
+        <a href="https://www.pa.gov/agencies/vote/elections/post-election-audits.html" class="source-link" target="_blank">pa.gov/vote</a>
+      </div>
+
+      <div class="audit-grid">
+        <div class="audit-card" data-type="election">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>2024 Primary Election Results Audit</h3>
+            <div class="meta">
+              <span>Date: April 2024</span>
+              <span>Status: No issues found</span>
+              <span>Type: Post-Election Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.lehighvalleynews.com/elections/everything-checked-out-election-audit-finds-no-issues-with-northampton-county-primary-results" class="view" target="_blank">News</a>
+          </div>
+        </div>
+
+        <div class="audit-card" data-type="election">
+          <div class="status pass">PASS</div>
+          <div class="info">
+            <h3>2024 General Election Statistical Sample Audit</h3>
+            <div class="meta">
+              <span>Date: November 2024</span>
+              <span>Type: Risk-Limiting Audit</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a href="https://www.pa.gov/agencies/vote/elections/post-election-audits.html" class="view" target="_blank">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>NAC Digital Twin - Public Audit Records</p>
+    <p style="margin-top: 0.5rem;">
+      Sources:
+      <a href="https://norcopa.gov/controller-reports" target="_blank">NorCoPA Controller</a> |
+      <a href="https://www.paauditor.gov/audit_county/northampton-county/" target="_blank">PA Auditor General</a> |
+      <a href="https://www.pa.gov/agencies/vote/elections/post-election-audits.html" target="_blank">PA Dept of State</a>
+    </p>
+    <p style="margin-top: 1rem;"><a href="index.html">Back to Digital Twin</a></p>
+  </div>
+
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const auditCards = document.querySelectorAll('.audit-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        auditCards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'grid';
+          } else {
+            const types = card.dataset.type.split(' ');
+            card.style.display = types.includes(filter) ? 'grid' : 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

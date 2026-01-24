@@ -1,0 +1,156 @@
+{
+  "confirmationSystem": {
+    "tagPath": "NORCOPA.Payments.Receipts.Confirmation",
+    "description": "Confirmation number generation and payment status tracking"
+  },
+  "confirmationNumber": {
+    "format": "NC-{YEAR}-{MONTHDAY}-{SEQUENCE}",
+    "example": "NC-2026-0124-7842",
+    "components": {
+      "prefix": "NC",
+      "year": "4-digit year",
+      "monthDay": "MMDD format",
+      "sequence": "4-digit random/sequential"
+    },
+    "uniqueness": "Guaranteed unique per day"
+  },
+  "paymentStatuses": [
+    {
+      "status": "PENDING",
+      "description": "Payment initiated, awaiting processing",
+      "icon": "⏳",
+      "color": "#fbbf24",
+      "actions": ["cancel"]
+    },
+    {
+      "status": "PROCESSING",
+      "description": "Payment being processed by provider",
+      "icon": "⚙️",
+      "color": "#3b82f6",
+      "actions": []
+    },
+    {
+      "status": "COMPLETED",
+      "description": "Payment successfully processed",
+      "icon": "✓",
+      "color": "#22c55e",
+      "actions": ["receipt", "refund"]
+    },
+    {
+      "status": "FAILED",
+      "description": "Payment failed - see reason",
+      "icon": "✗",
+      "color": "#ef4444",
+      "actions": ["retry"]
+    },
+    {
+      "status": "REFUNDED",
+      "description": "Payment has been refunded",
+      "icon": "↩️",
+      "color": "#8b5cf6",
+      "actions": ["receipt"]
+    },
+    {
+      "status": "DISPUTED",
+      "description": "Chargeback or dispute filed",
+      "icon": "⚠️",
+      "color": "#f97316",
+      "actions": ["evidence"]
+    },
+    {
+      "status": "CANCELLED",
+      "description": "Payment cancelled by user",
+      "icon": "🚫",
+      "color": "#6b7280",
+      "actions": []
+    }
+  ],
+  "statusTransitions": {
+    "PENDING": ["PROCESSING", "CANCELLED", "FAILED"],
+    "PROCESSING": ["COMPLETED", "FAILED"],
+    "COMPLETED": ["REFUNDED", "DISPUTED"],
+    "FAILED": ["PENDING"],
+    "REFUNDED": [],
+    "DISPUTED": ["COMPLETED", "REFUNDED"],
+    "CANCELLED": []
+  },
+  "notifications": {
+    "channels": ["email", "sms"],
+    "triggers": {
+      "COMPLETED": {
+        "email": true,
+        "sms": true,
+        "template": "payment_success"
+      },
+      "FAILED": {
+        "email": true,
+        "sms": true,
+        "template": "payment_failed"
+      },
+      "REFUNDED": {
+        "email": true,
+        "sms": false,
+        "template": "payment_refunded"
+      }
+    }
+  },
+  "lookup": {
+    "methods": [
+      {
+        "name": "By Confirmation Number",
+        "field": "confirmationNumber",
+        "example": "NC-2026-0124-7842"
+      },
+      {
+        "name": "By Email",
+        "field": "email",
+        "requiresVerification": true
+      },
+      {
+        "name": "By Account Number",
+        "field": "accountNumber",
+        "requiresVerification": true
+      }
+    ],
+    "returnFields": [
+      "confirmationNumber",
+      "status",
+      "paymentType",
+      "amount",
+      "processingFee",
+      "totalPaid",
+      "paymentDate",
+      "paymentMethod",
+      "accountNumber",
+      "receiptUrl"
+    ]
+  },
+  "retention": {
+    "receiptData": "7 years",
+    "cardData": "Not stored (tokenized)",
+    "achData": "Encrypted, 7 years",
+    "auditLog": "Permanent"
+  },
+  "auditTrail": {
+    "events": [
+      "payment_initiated",
+      "payment_authorized",
+      "payment_captured",
+      "payment_completed",
+      "payment_failed",
+      "refund_requested",
+      "refund_processed",
+      "receipt_sent",
+      "receipt_viewed",
+      "status_checked"
+    ],
+    "capturedData": [
+      "timestamp",
+      "event",
+      "userId",
+      "ipAddress",
+      "userAgent",
+      "details"
+    ]
+  }
+}

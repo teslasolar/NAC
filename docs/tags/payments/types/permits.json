@@ -1,0 +1,87 @@
+{
+  "typeId": "PERMITS",
+  "name": "Permits & Licenses",
+  "tagPath": "NORCOPA.Payments.Types.Permits",
+  "icon": "📋",
+  "description": "Building permits, zoning, licenses",
+  "department": "Various - depends on permit type",
+  "enabled": true,
+  "categories": [
+    {
+      "category": "Building",
+      "department": "Building & Codes",
+      "permits": [
+        {"code": "BUILD_RES", "name": "Residential Building Permit", "baseFee": 75.00, "perSqFt": 0.15},
+        {"code": "BUILD_COM", "name": "Commercial Building Permit", "baseFee": 150.00, "perSqFt": 0.20},
+        {"code": "ELECT", "name": "Electrical Permit", "baseFee": 50.00},
+        {"code": "PLUMB", "name": "Plumbing Permit", "baseFee": 50.00},
+        {"code": "MECH", "name": "Mechanical/HVAC Permit", "baseFee": 50.00},
+        {"code": "DEMO", "name": "Demolition Permit", "baseFee": 100.00}
+      ]
+    },
+    {
+      "category": "Zoning",
+      "department": "Planning & Zoning",
+      "permits": [
+        {"code": "ZONE_VAR", "name": "Zoning Variance", "fee": 500.00},
+        {"code": "ZONE_USE", "name": "Special Use Permit", "fee": 350.00},
+        {"code": "ZONE_SIGN", "name": "Sign Permit", "fee": 75.00},
+        {"code": "ZONE_SUB", "name": "Subdivision Review", "fee": 250.00, "perLot": 50.00}
+      ]
+    },
+    {
+      "category": "Health",
+      "department": "Health Department",
+      "permits": [
+        {"code": "FOOD_EST", "name": "Food Establishment License", "fee": 200.00, "annual": true},
+        {"code": "SEPTIC", "name": "Septic System Permit", "fee": 150.00},
+        {"code": "POOL", "name": "Pool Permit", "fee": 100.00}
+      ]
+    },
+    {
+      "category": "Business",
+      "department": "County Administration",
+      "permits": [
+        {"code": "BUS_LIC", "name": "Business License", "fee": 50.00, "annual": true},
+        {"code": "VENDOR", "name": "Vendor License", "fee": 75.00, "annual": true},
+        {"code": "LIQUOR", "name": "Liquor License Transfer", "fee": 500.00}
+      ]
+    }
+  ],
+  "lookup": {
+    "fields": [
+      {
+        "name": "permitNumber",
+        "label": "Permit/Application Number",
+        "placeholder": "e.g., BP-2026-001234",
+        "required": false
+      },
+      {
+        "name": "propertyAddress",
+        "label": "Property Address",
+        "required": false
+      },
+      {
+        "name": "applicantName",
+        "label": "Applicant Name",
+        "required": false
+      }
+    ]
+  },
+  "inspectionFees": {
+    "reinspection": 50.00,
+    "afterHours": 100.00,
+    "expedited": 150.00
+  },
+  "receiptFields": [
+    "permitNumber",
+    "permitType",
+    "propertyAddress",
+    "applicantName",
+    "issuanceDate",
+    "expirationDate",
+    "baseFee",
+    "additionalFees",
+    "totalPaid"
+  ]
+}

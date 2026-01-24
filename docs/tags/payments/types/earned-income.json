@@ -1,0 +1,68 @@
+{
+  "typeId": "EARNED_INCOME_TAX",
+  "name": "Earned Income Tax",
+  "tagPath": "NORCOPA.Payments.Types.EarnedIncome",
+  "icon": "💼",
+  "description": "Local earned income tax (EIT)",
+  "department": "Keystone Collections Group (Third-party collector)",
+  "enabled": true,
+  "collector": {
+    "name": "Keystone Collections Group",
+    "phone": "1-866-539-1100",
+    "website": "https://www.keystonecollects.com",
+    "address": "546 Wendel Road, Irwin, PA 15642"
+  },
+  "taxRates": {
+    "resident": {
+      "rate": 0.01,
+      "displayRate": "1%",
+      "split": {
+        "municipality": 0.005,
+        "schoolDistrict": 0.005
+      }
+    },
+    "nonResident": {
+      "rate": 0.01,
+      "displayRate": "1%",
+      "workLocation": true
+    }
+  },
+  "lookup": {
+    "fields": [
+      {
+        "name": "ssn",
+        "label": "Social Security Number",
+        "placeholder": "XXX-XX-XXXX",
+        "format": "ssn",
+        "required": true,
+        "sensitive": true
+      },
+      {
+        "name": "lastName",
+        "label": "Last Name",
+        "required": true
+      },
+      {
+        "name": "taxYear",
+        "label": "Tax Year",
+        "type": "select",
+        "required": true
+      }
+    ],
+    "redirectTo": "https://www.keystonecollects.com",
+    "note": "EIT payments processed through Keystone Collections Group"
+  },
+  "filingDeadline": "April 15",
+  "quarterlyEstimates": {
+    "required": true,
+    "threshold": 500,
+    "deadlines": ["April 15", "June 15", "September 15", "January 15"]
+  },
+  "exemptions": [
+    "Active military personnel",
+    "Disability income (if permanently disabled)",
+    "Social Security benefits",
+    "Pension income (varies by municipality)"
+  ],
+  "statutoryReference": "53 P.S. § 6924.301 et seq."
+}

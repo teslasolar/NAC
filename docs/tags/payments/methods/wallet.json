@@ -1,0 +1,58 @@
+{
+  "methodId": "WALLET",
+  "name": "Digital Wallets",
+  "tagPath": "NORCOPA.Payments.Methods.Wallet",
+  "enabled": true,
+  "provider": "Stripe",
+  "description": "Apple Pay, Google Pay - one-tap payments",
+  "wallets": [
+    {
+      "id": "apple_pay",
+      "name": "Apple Pay",
+      "icon": "🍎",
+      "provider": "Apple",
+      "supportedDevices": ["iPhone", "iPad", "Mac", "Apple Watch"],
+      "browsers": ["Safari"],
+      "fees": {
+        "type": "percentage",
+        "rate": 0.025,
+        "displayText": "2.5% convenience fee"
+      },
+      "requirements": {
+        "https": true,
+        "merchantId": "merchant.gov.norcopa.payments",
+        "domainVerification": true
+      },
+      "cardNetworks": ["visa", "mastercard", "amex", "discover"]
+    },
+    {
+      "id": "google_pay",
+      "name": "Google Pay",
+      "icon": "G",
+      "provider": "Google",
+      "supportedDevices": ["Android", "Chrome"],
+      "browsers": ["Chrome", "Firefox", "Edge"],
+      "fees": {
+        "type": "percentage",
+        "rate": 0.025,
+        "displayText": "2.5% convenience fee"
+      },
+      "requirements": {
+        "https": true,
+        "merchantId": "BCR2DN4TNORCOPA"
+      },
+      "cardNetworks": ["visa", "mastercard", "amex", "discover"]
+    }
+  ],
+  "benefits": [
+    "One-tap checkout",
+    "No manual card entry",
+    "Biometric authentication",
+    "Tokenized for security",
+    "Works on mobile and desktop"
+  ],
+  "implementation": {
+    "stripePaymentRequest": true,
+    "fallbackToCard": true
+  }
+}

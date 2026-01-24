@@ -1,0 +1,54 @@
+{
+  "paymentPortal": {
+    "name": "Northampton County Payment Portal",
+    "version": "1.0",
+    "lastUpdated": "2026-01-24",
+    "description": "Modern payment processing for county services",
+    "tagPath": "NORCOPA.Payments"
+  },
+  "modules": {
+    "methods": {
+      "path": "methods/",
+      "files": ["card.json", "ach.json", "crypto.json", "wallet.json"]
+    },
+    "types": {
+      "path": "types/",
+      "files": ["property-tax.json", "earned-income.json", "court.json", "permits.json", "records.json"]
+    },
+    "fees": {
+      "path": "fees/",
+      "files": ["processing.json", "convenience.json"]
+    },
+    "vendors": {
+      "path": "vendors/",
+      "files": ["stripe.json", "bitpay.json", "plaid.json"]
+    },
+    "receipts": {
+      "path": "receipts/",
+      "files": ["templates.json", "confirmation.json"]
+    }
+  },
+  "integrations": {
+    "stripe": {
+      "enabled": true,
+      "methods": ["card", "apple_pay", "google_pay"],
+      "webhookEvents": ["payment_intent.succeeded", "payment_intent.failed", "charge.refunded"]
+    },
+    "bitpay": {
+      "enabled": true,
+      "currencies": ["BTC", "ETH", "USDC", "USDT", "LTC"],
+      "settlementCurrency": "USD"
+    },
+    "plaid": {
+      "enabled": true,
+      "products": ["auth", "identity"],
+      "achTypes": ["checking", "savings"]
+    }
+  },
+  "compliance": {
+    "pciDss": "Level 1 SAQ-A (tokenization)",
+    "encryption": "TLS 1.3 / AES-256",
+    "dataRetention": "7 years per PA records law",
+    "auditTrail": true
+  }
+}

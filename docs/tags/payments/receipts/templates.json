@@ -1,0 +1,141 @@
+{
+  "receiptTemplates": {
+    "tagPath": "NORCOPA.Payments.Receipts.Templates",
+    "description": "Receipt and confirmation templates by payment type"
+  },
+  "common": {
+    "header": {
+      "logo": "/images/northampton-county-seal.png",
+      "title": "Northampton County",
+      "subtitle": "Official Payment Receipt",
+      "address": [
+        "669 Washington Street",
+        "Easton, PA 18042"
+      ],
+      "phone": "(610) 829-6186",
+      "website": "www.norcopa.gov"
+    },
+    "footer": {
+      "disclaimer": "This receipt serves as official confirmation of payment. Keep for your records.",
+      "supportContact": "For questions, contact the issuing department or call (610) 829-6186.",
+      "refundPolicy": "Refund requests must be submitted within 30 days to the originating department."
+    },
+    "fields": [
+      {"key": "confirmationNumber", "label": "Confirmation #", "format": "NC-YYYY-MMDD-XXXX"},
+      {"key": "paymentDate", "label": "Payment Date", "format": "date"},
+      {"key": "paymentTime", "label": "Payment Time", "format": "time"},
+      {"key": "paymentMethod", "label": "Payment Method"},
+      {"key": "last4", "label": "Card/Account (last 4)"},
+      {"key": "amountPaid", "label": "Amount Paid", "format": "currency"}
+    ]
+  },
+  "templates": {
+    "propertyTax": {
+      "title": "Property Tax Payment Receipt",
+      "fields": [
+        {"key": "parcelId", "label": "Parcel ID"},
+        {"key": "propertyAddress", "label": "Property Address"},
+        {"key": "ownerName", "label": "Owner Name"},
+        {"key": "taxYear", "label": "Tax Year"},
+        {"key": "assessedValue", "label": "Assessed Value", "format": "currency"},
+        {"key": "millageRate", "label": "Millage Rate"},
+        {"key": "baseTax", "label": "Base Tax", "format": "currency"},
+        {"key": "discount", "label": "Early Payment Discount", "format": "currency"},
+        {"key": "penalty", "label": "Late Penalty", "format": "currency"},
+        {"key": "processingFee", "label": "Processing Fee", "format": "currency"},
+        {"key": "totalPaid", "label": "Total Paid", "format": "currency"},
+        {"key": "remainingBalance", "label": "Remaining Balance", "format": "currency"}
+      ],
+      "notes": [
+        "This payment has been applied to your property tax account.",
+        "Allow 2-3 business days for your account to reflect this payment."
+      ]
+    },
+    "courtFines": {
+      "title": "Court Payment Receipt",
+      "fields": [
+        {"key": "caseNumber", "label": "Case/Docket Number"},
+        {"key": "defendantName", "label": "Defendant Name"},
+        {"key": "courtName", "label": "Court"},
+        {"key": "judgeName", "label": "Judge"},
+        {"key": "fineAmount", "label": "Fine Amount", "format": "currency"},
+        {"key": "costsAmount", "label": "Court Costs", "format": "currency"},
+        {"key": "restitutionAmount", "label": "Restitution", "format": "currency"},
+        {"key": "processingFee", "label": "Processing Fee", "format": "currency"},
+        {"key": "totalPaid", "label": "Total Paid", "format": "currency"},
+        {"key": "remainingBalance", "label": "Remaining Balance", "format": "currency"},
+        {"key": "nextPaymentDue", "label": "Next Payment Due", "format": "date"}
+      ],
+      "notes": [
+        "This payment has been applied to your court obligation.",
+        "If on a payment plan, your next payment is due on the date shown above.",
+        "Failure to pay may result in additional penalties or warrant issuance."
+      ]
+    },
+    "permits": {
+      "title": "Permit Fee Receipt",
+      "fields": [
+        {"key": "permitNumber", "label": "Permit Number"},
+        {"key": "permitType", "label": "Permit Type"},
+        {"key": "propertyAddress", "label": "Property Address"},
+        {"key": "applicantName", "label": "Applicant"},
+        {"key": "issuanceDate", "label": "Issue Date", "format": "date"},
+        {"key": "expirationDate", "label": "Expiration Date", "format": "date"},
+        {"key": "baseFee", "label": "Permit Fee", "format": "currency"},
+        {"key": "inspectionFees", "label": "Inspection Fees", "format": "currency"},
+        {"key": "processingFee", "label": "Processing Fee", "format": "currency"},
+        {"key": "totalPaid", "label": "Total Paid", "format": "currency"}
+      ],
+      "notes": [
+        "This receipt confirms payment of permit fees.",
+        "Your permit will be issued/mailed within 3-5 business days.",
+        "Post permit visibly at the work site during construction."
+      ]
+    },
+    "records": {
+      "title": "Records Request Receipt",
+      "fields": [
+        {"key": "requestNumber", "label": "Request Number"},
+        {"key": "recordType", "label": "Record Type"},
+        {"key": "nameOnRecord", "label": "Name on Record"},
+        {"key": "numberOfCopies", "label": "Number of Copies"},
+        {"key": "certified", "label": "Certified", "format": "boolean"},
+        {"key": "recordFee", "label": "Record Fee", "format": "currency"},
+        {"key": "certificationFee", "label": "Certification Fee", "format": "currency"},
+        {"key": "deliveryMethod", "label": "Delivery Method"},
+        {"key": "deliveryFee", "label": "Delivery Fee", "format": "currency"},
+        {"key": "processingFee", "label": "Processing Fee", "format": "currency"},
+        {"key": "totalPaid", "label": "Total Paid", "format": "currency"}
+      ],
+      "notes": [
+        "Your records request is being processed.",
+        "Estimated delivery: See delivery method selected.",
+        "For status updates, contact the issuing office."
+      ]
+    }
+  },
+  "formats": {
+    "date": "MMM DD, YYYY",
+    "time": "h:mm A",
+    "datetime": "MMM DD, YYYY h:mm A",
+    "currency": "$#,##0.00",
+    "boolean": {"true": "Yes", "false": "No"}
+  },
+  "delivery": {
+    "email": {
+      "enabled": true,
+      "from": "noreply@norcopa.gov",
+      "subject": "Payment Confirmation - Northampton County",
+      "format": "html"
+    },
+    "sms": {
+      "enabled": true,
+      "template": "NORCOPA: Payment of {{amount}} received. Conf# {{confirmationNumber}}. Questions? (610) 829-6186"
+    },
+    "print": {
+      "enabled": true,
+      "paperSize": "letter",
+      "orientation": "portrait"
+    }
+  }
+}

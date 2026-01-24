@@ -1,0 +1,102 @@
+{
+  "methodId": "ACH",
+  "name": "Bank Transfer (ACH)",
+  "tagPath": "NORCOPA.Payments.Methods.ACH",
+  "enabled": true,
+  "provider": "Plaid + Stripe",
+  "icon": "🏦",
+  "description": "Direct bank transfer via ACH network - lowest fees",
+  "fees": {
+    "type": "flat",
+    "amount": 1.50,
+    "displayText": "$1.50 flat fee"
+  },
+  "limits": {
+    "minimum": 1.00,
+    "maximum": 250000.00,
+    "dailyLimit": 50000.00,
+    "perTransaction": 25000.00
+  },
+  "processing": {
+    "type": "ACH",
+    "networkCode": "WEB",
+    "settlementTime": "3-5 business days",
+    "sameDayAvailable": true,
+    "sameDayFee": 5.00,
+    "sameDayCutoff": "14:00 ET"
+  },
+  "verification": {
+    "method": "plaid",
+    "instantVerification": true,
+    "microDepositFallback": true,
+    "microDepositDays": "1-2 business days"
+  },
+  "accountTypes": [
+    {
+      "type": "checking",
+      "displayName": "Checking Account",
+      "accountClass": "personal"
+    },
+    {
+      "type": "savings",
+      "displayName": "Savings Account",
+      "accountClass": "personal",
+      "limitWarning": "Federal Regulation D limits savings withdrawals"
+    },
+    {
+      "type": "businessChecking",
+      "displayName": "Business Checking",
+      "accountClass": "business"
+    }
+  ],
+  "fields": [
+    {
+      "name": "routingNumber",
+      "label": "Routing Number",
+      "type": "text",
+      "placeholder": "9 digits",
+      "maxLength": 9,
+      "validation": "abaRouting",
+      "required": true
+    },
+    {
+      "name": "accountNumber",
+      "label": "Account Number",
+      "type": "text",
+      "placeholder": "Account number",
+      "maxLength": 17,
+      "required": true,
+      "sensitive": true
+    },
+    {
+      "name": "accountType",
+      "label": "Account Type",
+      "type": "select",
+      "options": ["Checking", "Savings"],
+      "required": true
+    },
+    {
+      "name": "accountHolderName",
+      "label": "Account Holder Name",
+      "type": "text",
+      "placeholder": "Name on account",
+      "required": true
+    }
+  ],
+  "benefits": [
+    "Lowest processing fees",
+    "Direct from your bank account",
+    "Secure ACH network",
+    "Same-day processing available",
+    "No card required"
+  ],
+  "risks": {
+    "returnCodes": [
+      {"code": "R01", "description": "Insufficient Funds", "action": "retry"},
+      {"code": "R02", "description": "Account Closed", "action": "contact"},
+      {"code": "R03", "description": "No Account", "action": "contact"},
+      {"code": "R10", "description": "Customer Advises Unauthorized", "action": "dispute"}
+    ],
+    "returnWindow": "60 days"
+  }
+}

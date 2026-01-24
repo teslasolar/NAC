@@ -1,0 +1,85 @@
+{
+  "feeStructure": {
+    "tagPath": "NORCOPA.Payments.Fees.Processing",
+    "lastUpdated": "2026-01-24",
+    "description": "Processing fees by payment method"
+  },
+  "methods": {
+    "card": {
+      "name": "Credit/Debit Card",
+      "feeType": "percentage",
+      "rate": 0.025,
+      "minimum": 1.00,
+      "maximum": null,
+      "displayText": "2.5% convenience fee",
+      "examples": [
+        {"payment": 100.00, "fee": 2.50, "total": 102.50},
+        {"payment": 500.00, "fee": 12.50, "total": 512.50},
+        {"payment": 1000.00, "fee": 25.00, "total": 1025.00},
+        {"payment": 2847.00, "fee": 71.18, "total": 2918.18}
+      ],
+      "breakdown": {
+        "interchange": "1.5-2.0%",
+        "assessment": "0.13%",
+        "processorMarkup": "0.3-0.4%"
+      }
+    },
+    "ach": {
+      "name": "Bank Transfer (ACH)",
+      "feeType": "flat",
+      "amount": 1.50,
+      "displayText": "$1.50 flat fee",
+      "examples": [
+        {"payment": 100.00, "fee": 1.50, "total": 101.50},
+        {"payment": 500.00, "fee": 1.50, "total": 501.50},
+        {"payment": 1000.00, "fee": 1.50, "total": 1001.50},
+        {"payment": 2847.00, "fee": 1.50, "total": 2848.50}
+      ],
+      "sameDaySurcharge": 5.00
+    },
+    "crypto": {
+      "name": "Cryptocurrency",
+      "feeType": "percentage",
+      "rate": 0.01,
+      "minimum": 0.50,
+      "displayText": "1% processing fee",
+      "examples": [
+        {"payment": 100.00, "fee": 1.00, "total": 101.00},
+        {"payment": 500.00, "fee": 5.00, "total": 505.00},
+        {"payment": 1000.00, "fee": 10.00, "total": 1010.00},
+        {"payment": 2847.00, "fee": 28.47, "total": 2875.47}
+      ],
+      "note": "Network fees (gas) paid by sender"
+    },
+    "applePay": {
+      "name": "Apple Pay",
+      "feeType": "percentage",
+      "rate": 0.025,
+      "displayText": "2.5% convenience fee",
+      "note": "Same as card - uses underlying card network"
+    },
+    "googlePay": {
+      "name": "Google Pay",
+      "feeType": "percentage",
+      "rate": 0.025,
+      "displayText": "2.5% convenience fee",
+      "note": "Same as card - uses underlying card network"
+    }
+  },
+  "feePolicy": {
+    "whoPaysFees": "Payer (convenience fee model)",
+    "refundable": true,
+    "refundPolicy": "Processing fees refunded if payment reversed within 24 hours",
+    "taxDeductible": false,
+    "statutoryBasis": "PA Act 89 of 2002 allows convenience fees for electronic payments"
+  },
+  "comparisonTable": {
+    "headers": ["Method", "Fee on $100", "Fee on $1000", "Fee on $3000", "Best For"],
+    "rows": [
+      ["ACH", "$1.50", "$1.50", "$1.50", "Large payments"],
+      ["Crypto", "$1.00", "$10.00", "$30.00", "Tech-savvy, privacy"],
+      ["Card", "$2.50", "$25.00", "$75.00", "Convenience, rewards"],
+      ["Apple/Google Pay", "$2.50", "$25.00", "$75.00", "Mobile users"]
+    ]
+  }
+}

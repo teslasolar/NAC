@@ -1,0 +1,92 @@
+{
+  "typeId": "PROPERTY_TAX",
+  "name": "Property Tax",
+  "tagPath": "NORCOPA.Payments.Types.PropertyTax",
+  "icon": "🏠",
+  "description": "Real estate property taxes",
+  "department": "Tax Claim Bureau / Revenue Division",
+  "enabled": true,
+  "lookup": {
+    "fields": [
+      {
+        "name": "parcelId",
+        "label": "Parcel ID",
+        "placeholder": "e.g., K9-123-4567-89",
+        "format": "XX-XXX-XXXX-XX",
+        "required": true
+      },
+      {
+        "name": "ownerLastName",
+        "label": "Owner Last Name",
+        "placeholder": "Last name (optional)",
+        "required": false
+      },
+      {
+        "name": "taxYear",
+        "label": "Tax Year",
+        "type": "select",
+        "options": ["2025", "2024", "2023", "2022"],
+        "required": true
+      }
+    ],
+    "apiEndpoint": "/api/v1/tax/property/lookup",
+    "responseFields": ["parcelId", "ownerName", "propertyAddress", "assessedValue", "taxAmount", "discountAmount", "penaltyAmount", "totalDue"]
+  },
+  "discounts": {
+    "earlyPayment": {
+      "percentage": 0.02,
+      "deadline": "February 28",
+      "description": "2% discount for early payment"
+    }
+  },
+  "penalties": {
+    "late": {
+      "percentage": 0.10,
+      "startsAfter": "April 30",
+      "description": "10% penalty after face period"
+    }
+  },
+  "deadlines": {
+    "discount": {
+      "date": "February 28",
+      "description": "Pay by this date for 2% discount"
+    },
+    "face": {
+      "date": "April 30",
+      "description": "Full amount due (no discount, no penalty)"
+    },
+    "penalty": {
+      "date": "After April 30",
+      "description": "10% penalty added"
+    },
+    "taxClaim": {
+      "date": "January 31 (following year)",
+      "description": "Unpaid taxes turned over to Tax Claim Bureau"
+    }
+  },
+  "partialPayments": {
+    "allowed": true,
+    "minimumAmount": 50.00,
+    "note": "Partial payments accepted but discounts only apply to full payment"
+  },
+  "installmentPlan": {
+    "available": true,
+    "payments": 4,
+    "schedule": "Quarterly",
+    "fee": 0
+  },
+  "receiptFields": [
+    "parcelId",
+    "propertyAddress",
+    "ownerName",
+    "taxYear",
+    "assessedValue",
+    "millageRate",
+    "baseTax",
+    "discount",
+    "penalty",
+    "amountPaid",
+    "remainingBalance"
+  ],
+  "statutoryReference": "72 P.S. § 5020-201 et seq."
+}

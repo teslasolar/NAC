@@ -1,0 +1,55 @@
+{
+  "convenienceFees": {
+    "tagPath": "NORCOPA.Payments.Fees.Convenience",
+    "description": "Additional fees for expedited or special services"
+  },
+  "services": {
+    "sameDayACH": {
+      "name": "Same-Day ACH Processing",
+      "fee": 5.00,
+      "cutoffTime": "14:00 ET",
+      "availability": "Business days only"
+    },
+    "expeditedRecords": {
+      "name": "Expedited Record Processing",
+      "fee": 25.00,
+      "turnaround": "24 hours vs standard 5-7 days"
+    },
+    "afterHoursPayment": {
+      "name": "After-Hours Phone Payment",
+      "fee": 5.00,
+      "hours": "After 5pm or weekends",
+      "note": "Online payments available 24/7 with no surcharge"
+    },
+    "paymentPlanSetup": {
+      "name": "Payment Plan Setup",
+      "fee": 0,
+      "note": "No setup fee for county payment plans"
+    },
+    "paperStatement": {
+      "name": "Paper Statement Mailing",
+      "fee": 2.00,
+      "note": "Electronic statements free"
+    }
+  },
+  "waivers": {
+    "lowIncome": {
+      "description": "Fee waiver for low-income residents",
+      "eligibility": "Household income below 200% federal poverty level",
+      "documentation": "Proof of income required",
+      "contactOffice": "County Administration"
+    },
+    "senior": {
+      "description": "Senior citizen discount",
+      "eligibility": "Age 65+",
+      "discount": "Processing fees waived for property tax payments",
+      "documentation": "ID showing date of birth"
+    },
+    "veteran": {
+      "description": "Veteran fee waiver",
+      "eligibility": "Active duty or honorably discharged",
+      "discount": "Processing fees waived",
+      "documentation": "DD-214 or VA ID"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "typeId": "RECORDS",
+  "name": "Records & Copies",
+  "tagPath": "NORCOPA.Payments.Types.Records",
+  "icon": "📄",
+  "description": "Vital records, certified copies, document requests",
+  "department": "Various Row Offices",
+  "enabled": true,
+  "recordTypes": [
+    {
+      "office": "Register of Wills",
+      "records": [
+        {"code": "WILL_CERT", "name": "Certified Copy of Will", "fee": 10.00},
+        {"code": "LETTERS_TEST", "name": "Letters Testamentary", "fee": 20.00},
+        {"code": "LETTERS_ADMIN", "name": "Letters of Administration", "fee": 20.00},
+        {"code": "PROBATE_CERT", "name": "Probate Certificate", "fee": 15.00}
+      ]
+    },
+    {
+      "office": "Recorder of Deeds",
+      "records": [
+        {"code": "DEED_COPY", "name": "Deed Copy", "fee": 5.00, "perPage": 0.50},
+        {"code": "DEED_CERT", "name": "Certified Deed Copy", "fee": 15.00, "perPage": 0.50},
+        {"code": "MORTGAGE_COPY", "name": "Mortgage Copy", "fee": 5.00, "perPage": 0.50},
+        {"code": "UCC_SEARCH", "name": "UCC Search", "fee": 25.00}
+      ]
+    },
+    {
+      "office": "Prothonotary",
+      "records": [
+        {"code": "CIVIL_CERT", "name": "Certified Civil Court Record", "fee": 15.00},
+        {"code": "JUDGMENT_SEARCH", "name": "Judgment Search", "fee": 15.00},
+        {"code": "LIEN_SEARCH", "name": "Lien Search", "fee": 25.00}
+      ]
+    },
+    {
+      "office": "Clerk of Courts",
+      "records": [
+        {"code": "CRIM_CERT", "name": "Certified Criminal Record", "fee": 10.00},
+        {"code": "EXPUNGE_FILING", "name": "Expungement Filing", "fee": 132.00},
+        {"code": "BAIL_PIECE", "name": "Bail Piece", "fee": 20.00}
+      ]
+    },
+    {
+      "office": "Coroner",
+      "records": [
+        {"code": "DEATH_CERT", "name": "Death Certificate", "fee": 20.00},
+        {"code": "AUTOPSY_REPORT", "name": "Autopsy Report", "fee": 25.00}
+      ]
+    },
+    {
+      "office": "Sheriff",
+      "records": [
+        {"code": "SHERIFF_SALE", "name": "Sheriff Sale List", "fee": 5.00},
+        {"code": "BACKGROUND", "name": "Background Check", "fee": 10.00}
+      ]
+    }
+  ],
+  "lookup": {
+    "fields": [
+      {
+        "name": "recordType",
+        "label": "Record Type",
+        "type": "select",
+        "required": true
+      },
+      {
+        "name": "nameOnRecord",
+        "label": "Name on Record",
+        "required": true
+      },
+      {
+        "name": "dateRange",
+        "label": "Approximate Date",
+        "type": "dateRange",
+        "required": false
+      },
+      {
+        "name": "quantity",
+        "label": "Number of Copies",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "max": 10
+      }
+    ]
+  },
+  "deliveryOptions": [
+    {
+      "method": "pickup",
+      "name": "Counter Pickup",
+      "fee": 0,
+      "time": "Same day if available"
+    },
+    {
+      "method": "mail",
+      "name": "Standard Mail",
+      "fee": 3.00,
+      "time": "5-7 business days"
+    },
+    {
+      "method": "certified",
+      "name": "Certified Mail",
+      "fee": 8.00,
+      "time": "5-7 business days"
+    },
+    {
+      "method": "overnight",
+      "name": "Overnight Delivery",
+      "fee": 25.00,
+      "time": "Next business day"
+    }
+  ],
+  "rtkNote": "Some records available via Right-to-Know request (65 P.S. § 67.101)"
+}

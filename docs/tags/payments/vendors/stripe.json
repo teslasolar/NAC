@@ -1,0 +1,76 @@
+{
+  "vendor": {
+    "name": "Stripe",
+    "tagPath": "NORCOPA.Payments.Vendors.Stripe",
+    "website": "https://stripe.com",
+    "type": "Payment Processor",
+    "status": "Active"
+  },
+  "services": [
+    "Credit/Debit Card Processing",
+    "Apple Pay",
+    "Google Pay",
+    "ACH Payments",
+    "Payment Links",
+    "Invoicing"
+  ],
+  "integration": {
+    "type": "API",
+    "version": "2024-12-18",
+    "sdks": ["stripe-js", "stripe-node"],
+    "environment": {
+      "test": "pk_test_...",
+      "live": "pk_live_..."
+    }
+  },
+  "features": {
+    "paymentIntents": true,
+    "setupIntents": true,
+    "paymentElements": true,
+    "webhooks": true,
+    "radar": true,
+    "3dSecure": true
+  },
+  "pricing": {
+    "cards": {
+      "domestic": "2.9% + $0.30",
+      "international": "3.9% + $0.30",
+      "amex": "3.5% + $0.30"
+    },
+    "ach": {
+      "rate": "0.8%",
+      "cap": 5.00
+    },
+    "instantPayouts": "1%"
+  },
+  "webhookEvents": [
+    "payment_intent.succeeded",
+    "payment_intent.payment_failed",
+    "charge.succeeded",
+    "charge.failed",
+    "charge.refunded",
+    "charge.dispute.created",
+    "payout.paid",
+    "payout.failed"
+  ],
+  "compliance": {
+    "pciLevel": "Level 1 Service Provider",
+    "soc2": true,
+    "gdpr": true,
+    "ccpa": true
+  },
+  "support": {
+    "documentation": "https://stripe.com/docs",
+    "dashboard": "https://dashboard.stripe.com",
+    "support": "support@stripe.com"
+  },
+  "configuration": {
+    "statementDescriptor": "NORCOPA COUNTY",
+    "statementDescriptorSuffix": "TAX",
+    "receiptEmail": true,
+    "metadata": {
+      "required": ["payment_type", "account_number", "tax_year"],
+      "optional": ["parcel_id", "case_number", "permit_number"]
+    }
+  }
+}

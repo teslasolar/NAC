@@ -1,0 +1,103 @@
+{
+  "methodId": "CRYPTO",
+  "name": "Cryptocurrency",
+  "tagPath": "NORCOPA.Payments.Methods.Crypto",
+  "enabled": true,
+  "provider": "BitPay",
+  "icon": "₿",
+  "description": "Pay with Bitcoin, Ethereum, or stablecoins",
+  "fees": {
+    "type": "percentage",
+    "rate": 0.01,
+    "displayText": "1% processing fee"
+  },
+  "limits": {
+    "minimum": 10.00,
+    "maximum": 100000.00
+  },
+  "processing": {
+    "confirmationsRequired": {
+      "BTC": 1,
+      "ETH": 12,
+      "LTC": 6,
+      "USDC": 12,
+      "USDT": 12
+    },
+    "rateLockDuration": 900,
+    "rateLockDurationDisplay": "15 minutes",
+    "settlementCurrency": "USD",
+    "settlementTime": "Next business day"
+  },
+  "currencies": [
+    {
+      "code": "BTC",
+      "name": "Bitcoin",
+      "icon": "₿",
+      "network": "Bitcoin",
+      "addressFormat": "bc1...",
+      "decimals": 8,
+      "minConfirmations": 1,
+      "avgConfirmationTime": "10 minutes"
+    },
+    {
+      "code": "ETH",
+      "name": "Ethereum",
+      "icon": "Ξ",
+      "network": "Ethereum",
+      "addressFormat": "0x...",
+      "decimals": 18,
+      "minConfirmations": 12,
+      "avgConfirmationTime": "3 minutes"
+    },
+    {
+      "code": "USDC",
+      "name": "USD Coin",
+      "icon": "$",
+      "network": "Ethereum",
+      "addressFormat": "0x...",
+      "decimals": 6,
+      "minConfirmations": 12,
+      "avgConfirmationTime": "3 minutes",
+      "stablecoin": true,
+      "peggedTo": "USD"
+    },
+    {
+      "code": "USDT",
+      "name": "Tether",
+      "icon": "₮",
+      "network": "Ethereum",
+      "addressFormat": "0x...",
+      "decimals": 6,
+      "minConfirmations": 12,
+      "avgConfirmationTime": "3 minutes",
+      "stablecoin": true,
+      "peggedTo": "USD"
+    },
+    {
+      "code": "LTC",
+      "name": "Litecoin",
+      "icon": "Ł",
+      "network": "Litecoin",
+      "addressFormat": "ltc1...",
+      "decimals": 8,
+      "minConfirmations": 6,
+      "avgConfirmationTime": "2.5 minutes"
+    }
+  ],
+  "walletAddresses": {
+    "note": "Generated per-transaction via BitPay API",
+    "format": "Unique address per invoice",
+    "expiration": "15 minutes from generation"
+  },
+  "qrCode": {
+    "enabled": true,
+    "format": "BIP21 URI",
+    "includeAmount": true,
+    "errorCorrection": "M"
+  },
+  "refunds": {
+    "enabled": true,
+    "method": "Original currency or USD equivalent",
+    "window": "30 days"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "typeId": "COURT_FINES",
+  "name": "Court Fines & Fees",
+  "tagPath": "NORCOPA.Payments.Types.Court",
+  "icon": "⚖️",
+  "description": "Fines, fees, costs, and restitution",
+  "department": "Clerk of Courts / MDJ Offices",
+  "enabled": true,
+  "courts": [
+    {
+      "name": "Court of Common Pleas",
+      "types": ["Criminal", "Civil", "Family", "Orphans"]
+    },
+    {
+      "name": "Magisterial District Courts",
+      "count": 15,
+      "jurisdiction": "Summary offenses, preliminary hearings, civil claims under $12,000"
+    }
+  ],
+  "lookup": {
+    "fields": [
+      {
+        "name": "caseNumber",
+        "label": "Case/Docket Number",
+        "placeholder": "e.g., CP-48-CR-0001234-2025",
+        "required": true
+      },
+      {
+        "name": "defendantName",
+        "label": "Defendant Last Name",
+        "required": false
+      },
+      {
+        "name": "dateOfBirth",
+        "label": "Date of Birth",
+        "type": "date",
+        "required": false
+      }
+    ],
+    "apiEndpoint": "/api/v1/court/balance/lookup"
+  },
+  "paymentTypes": [
+    {
+      "code": "FINE",
+      "name": "Fine",
+      "description": "Court-imposed monetary penalty"
+    },
+    {
+      "code": "COST",
+      "name": "Court Costs",
+      "description": "Administrative fees for court proceedings"
+    },
+    {
+      "code": "REST",
+      "name": "Restitution",
+      "description": "Payment to victim for damages"
+    },
+    {
+      "code": "BAIL",
+      "name": "Bail/Bond",
+      "description": "Bail payment or bond forfeiture"
+    },
+    {
+      "code": "ARD",
+      "name": "ARD Program Costs",
+      "description": "Accelerated Rehabilitative Disposition fees"
+    },
+    {
+      "code": "SUPER",
+      "name": "Supervision Fees",
+      "description": "Probation/parole supervision fees"
+    }
+  ],
+  "partialPayments": {
+    "allowed": true,
+    "minimumAmount": 25.00,
+    "appliedTo": "Oldest balance first (FIFO)"
+  },
+  "paymentPlan": {
+    "available": true,
+    "requiresApproval": true,
+    "minimumMonthly": 50.00,
+    "setupFee": 0
+  },
+  "consequences": {
+    "nonPayment": [
+      "Warrant for arrest",
+      "License suspension",
+      "Tax refund intercept",
+      "Credit reporting",
+      "Civil judgment"
+    ]
+  },
+  "receiptFields": [
+    "caseNumber",
+    "defendantName",
+    "courtName",
+    "chargeDescription",
+    "fineAmount",
+    "costsAmount",
+    "restitutionAmount",
+    "totalDue",
+    "amountPaid",
+    "remainingBalance",
+    "nextPaymentDue"
+  ],
+  "statutoryReference": "42 Pa.C.S. § 9728"
+}

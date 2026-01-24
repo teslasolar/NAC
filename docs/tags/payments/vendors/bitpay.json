@@ -1,0 +1,94 @@
+{
+  "vendor": {
+    "name": "BitPay",
+    "tagPath": "NORCOPA.Payments.Vendors.BitPay",
+    "website": "https://bitpay.com",
+    "type": "Cryptocurrency Payment Processor",
+    "status": "Active"
+  },
+  "services": [
+    "Bitcoin Payments",
+    "Ethereum Payments",
+    "Stablecoin Payments",
+    "Instant USD Settlement",
+    "Invoice Generation",
+    "QR Code Generation"
+  ],
+  "supportedCurrencies": [
+    {"code": "BTC", "name": "Bitcoin", "enabled": true},
+    {"code": "ETH", "name": "Ethereum", "enabled": true},
+    {"code": "LTC", "name": "Litecoin", "enabled": true},
+    {"code": "USDC", "name": "USD Coin", "enabled": true},
+    {"code": "USDT", "name": "Tether", "enabled": true},
+    {"code": "DOGE", "name": "Dogecoin", "enabled": false},
+    {"code": "XRP", "name": "Ripple", "enabled": false}
+  ],
+  "integration": {
+    "type": "API",
+    "version": "v2",
+    "endpoints": {
+      "invoices": "https://bitpay.com/invoices",
+      "rates": "https://bitpay.com/rates"
+    },
+    "authentication": "API Token"
+  },
+  "features": {
+    "invoiceCreation": true,
+    "qrCodes": true,
+    "refunds": true,
+    "partialPayments": false,
+    "overpayments": "Refunded to customer wallet"
+  },
+  "pricing": {
+    "processingFee": "1%",
+    "settlementCurrency": "USD",
+    "settlementTiming": "Next business day",
+    "noChargebacks": true
+  },
+  "invoiceFlow": {
+    "rateLock": "15 minutes",
+    "expirationDefault": "15 minutes",
+    "confirmations": {
+      "BTC": 1,
+      "ETH": 12,
+      "LTC": 6,
+      "USDC": 12
+    },
+    "statuses": [
+      "new",
+      "paid",
+      "confirmed",
+      "complete",
+      "expired",
+      "invalid"
+    ]
+  },
+  "webhookEvents": [
+    "invoice_created",
+    "invoice_paidInFull",
+    "invoice_confirmed",
+    "invoice_completed",
+    "invoice_expired",
+    "invoice_refundComplete"
+  ],
+  "compliance": {
+    "msbLicense": true,
+    "kycRequired": false,
+    "amlPolicy": true,
+    "regulatedStates": "All 50 states"
+  },
+  "configuration": {
+    "notificationEmail": "payments@norcopa.gov",
+    "redirectUrl": "/payments/confirmation",
+    "closeUrl": "/payments",
+    "autoRedirect": true,
+    "transactionSpeed": "medium"
+  },
+  "benefits": [
+    "No chargebacks - payments are final",
+    "Lower fees than credit cards",
+    "Instant settlement to USD",
+    "Global payments accepted",
+    "Privacy-preserving for payers"
+  ]
+}

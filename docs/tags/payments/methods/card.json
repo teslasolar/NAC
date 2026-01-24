@@ -1,0 +1,95 @@
+{
+  "methodId": "CARD",
+  "name": "Credit/Debit Card",
+  "tagPath": "NORCOPA.Payments.Methods.Card",
+  "enabled": true,
+  "provider": "Stripe",
+  "icon": "💳",
+  "acceptedBrands": [
+    {
+      "brand": "visa",
+      "displayName": "Visa",
+      "prefixes": ["4"],
+      "lengths": [16]
+    },
+    {
+      "brand": "mastercard",
+      "displayName": "Mastercard",
+      "prefixes": ["51", "52", "53", "54", "55", "2221-2720"],
+      "lengths": [16]
+    },
+    {
+      "brand": "amex",
+      "displayName": "American Express",
+      "prefixes": ["34", "37"],
+      "lengths": [15],
+      "cvvLength": 4
+    },
+    {
+      "brand": "discover",
+      "displayName": "Discover",
+      "prefixes": ["6011", "644-649", "65"],
+      "lengths": [16]
+    }
+  ],
+  "fees": {
+    "type": "percentage",
+    "rate": 0.025,
+    "minimum": 1.00,
+    "maximum": null,
+    "displayText": "2.5% convenience fee"
+  },
+  "limits": {
+    "minimum": 1.00,
+    "maximum": 99999.99,
+    "dailyLimit": 25000.00,
+    "perTransaction": 10000.00
+  },
+  "processing": {
+    "authorizationType": "capture",
+    "settlementTime": "1-2 business days",
+    "refundWindow": "120 days"
+  },
+  "validation": {
+    "luhnCheck": true,
+    "avsCheck": true,
+    "cvvRequired": true,
+    "3dsEnabled": true
+  },
+  "fields": [
+    {
+      "name": "cardNumber",
+      "label": "Card Number",
+      "type": "text",
+      "placeholder": "1234 5678 9012 3456",
+      "maxLength": 19,
+      "format": "card",
+      "required": true
+    },
+    {
+      "name": "cardholderName",
+      "label": "Cardholder Name",
+      "type": "text",
+      "placeholder": "Name on card",
+      "required": true
+    },
+    {
+      "name": "expiryDate",
+      "label": "Expiry Date",
+      "type": "text",
+      "placeholder": "MM/YY",
+      "maxLength": 5,
+      "format": "expiry",
+      "required": true
+    },
+    {
+      "name": "cvv",
+      "label": "CVV",
+      "type": "text",
+      "placeholder": "123",
+      "maxLength": 4,
+      "required": true,
+      "sensitive": true
+    }
+  ]
+}

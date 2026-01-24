@@ -1,0 +1,101 @@
+{
+  "vendor": {
+    "name": "Plaid",
+    "tagPath": "NORCOPA.Payments.Vendors.Plaid",
+    "website": "https://plaid.com",
+    "type": "Bank Account Verification & ACH",
+    "status": "Active"
+  },
+  "services": [
+    "Instant Bank Account Verification",
+    "Account & Routing Number Retrieval",
+    "Balance Checking",
+    "Identity Verification",
+    "ACH Authentication"
+  ],
+  "products": {
+    "auth": {
+      "name": "Auth",
+      "description": "Instant account and routing number verification",
+      "enabled": true
+    },
+    "identity": {
+      "name": "Identity",
+      "description": "Verify account holder name and address",
+      "enabled": true
+    },
+    "balance": {
+      "name": "Balance",
+      "description": "Check available balance before ACH",
+      "enabled": true
+    },
+    "transactions": {
+      "name": "Transactions",
+      "description": "Transaction history (not needed for payments)",
+      "enabled": false
+    }
+  },
+  "integration": {
+    "type": "API + Plaid Link",
+    "linkVersion": "2.0",
+    "environments": {
+      "sandbox": "For testing",
+      "development": "Real data, limited requests",
+      "production": "Live environment"
+    }
+  },
+  "supportedInstitutions": {
+    "count": "12,000+",
+    "coverage": "95% of US bank accounts",
+    "majorBanks": [
+      "Bank of America",
+      "Chase",
+      "Wells Fargo",
+      "Citi",
+      "Capital One",
+      "PNC",
+      "US Bank",
+      "TD Bank"
+    ]
+  },
+  "linkFlow": {
+    "steps": [
+      "User clicks 'Connect Bank'",
+      "Plaid Link opens in modal",
+      "User selects their bank",
+      "User logs in with bank credentials",
+      "Plaid returns public_token",
+      "Backend exchanges for access_token",
+      "Retrieve account/routing numbers"
+    ],
+    "fallbackMethod": "Micro-deposits (1-2 business days)"
+  },
+  "pricing": {
+    "auth": "$0.30/verification",
+    "identity": "$0.50/verification",
+    "balance": "$0.10/check"
+  },
+  "security": {
+    "dataEncryption": "AES-256",
+    "credentialStorage": "Never stored by Plaid",
+    "soc2Type2": true,
+    "bankLevelSecurity": true
+  },
+  "compliance": {
+    "nacha": true,
+    "openBanking": true,
+    "gdpr": true,
+    "ccpa": true
+  },
+  "configuration": {
+    "clientName": "Northampton County",
+    "products": ["auth", "identity"],
+    "countryCodes": ["US"],
+    "language": "en",
+    "webhook": "/api/plaid/webhook",
+    "linkCustomization": {
+      "primaryColor": "#3b82f6",
+      "logo": "/images/county-seal.png"
+    }
+  }
+}

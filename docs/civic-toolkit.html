@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Toolkit - Be Effective in Local Government</title>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #2563eb;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: #334155;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #64748b;
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .nav-pill {
+            padding: 10px 20px;
+            background: var(--light);
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-pill:hover, .nav-pill.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .tool-header {
+            padding: 25px;
+            color: white;
+        }
+
+        .tool-header.rtk { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .tool-header.comment { background: linear-gradient(135deg, #10b981, #059669); }
+        .tool-header.tax { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .tool-header.contact { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .tool-header.meeting { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .tool-header.complaint { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .tool-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-header p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        .tool-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: 0.85em;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .output-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .output-box.show {
+            display: block;
+        }
+
+        .output-box h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .output-box pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .copy-btn {
+            margin-top: 15px;
+        }
+
+        .tip-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+        }
+
+        .tip-box strong {
+            color: #92400e;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+
+        .tax-result {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tax-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .tax-item .amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .tax-item .label {
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        .contact-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .contact-card .info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-card .info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .speech-timer {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .speech-timer.warning {
+            color: var(--warning);
+        }
+
+        .speech-timer.danger {
+            color: var(--danger);
+        }
+
+        .word-count {
+            text-align: center;
+            margin-top: 10px;
+            color: #64748b;
+        }
+
+        .template-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .template-btn {
+            padding: 8px 15px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .template-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        footer a {
+            color: #93c5fd;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Civic Toolkit</h1>
+            <p>Practical tools to help you participate effectively in local government</p>
+            <nav class="nav-pills">
+                <a href="index.html" class="nav-pill">Home</a>
+                <a href="how-government-works.html" class="nav-pill">How Gov Works</a>
+                <a href="calendar.html" class="nav-pill">Meetings</a>
+                <a href="public-audits.html" class="nav-pill">Audits</a>
+                <a href="#rtk" class="nav-pill active">RTK Requests</a>
+                <a href="#comment" class="nav-pill">Public Comment</a>
+                <a href="#tax" class="nav-pill">Tax Calculator</a>
+            </nav>
+        </header>
+
+        <div class="tools-grid">
+            <!-- Right-to-Know Request Generator -->
+            <div class="tool-card" id="rtk">
+                <div class="tool-header rtk">
+                    <h2>📋 Right-to-Know Request Generator</h2>
+                    <p>Pennsylvania's public records law - get the documents you need</p>
+                </div>
+                <div class="tool-body">
+                    <div class="tip-box">
+                        <strong>Pro Tip:</strong> PA's Right-to-Know Law (RTKL) gives you access to most government records. Agencies have 5 business days to respond (can extend 30 days).
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="rtk-name" placeholder="John Smith">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="rtk-email" placeholder="john@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Address</label>
+                        <input type="text" id="rtk-address" placeholder="123 Main St, Easton, PA 18042">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Agency/Department</label>
+                        <select id="rtk-agency">
+                            <option value="Northampton County">Northampton County (General)</option>
+                            <option value="County Controller">County Controller</option>
+                            <option value="County Executive">County Executive Office</option>
+                            <option value="County Council">County Council</option>
+                            <option value="District Attorney">District Attorney</option>
+                            <option value="Sheriff">Sheriff's Office</option>
+                            <option value="Elections">Election Office</option>
+                            <option value="Human Services">Human Services</option>
+                            <option value="Assessment">Assessment Office</option>
+                            <option value="Gracedale">Gracedale Nursing Home</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What records do you want?</label>
+                        <textarea id="rtk-records" placeholder="Be specific! Example: All contracts over $10,000 awarded between January 1, 2025 and December 31, 2025, including vendor names, amounts, and services provided."></textarea>
+                        <p class="form-hint">Be as specific as possible about dates, names, and types of documents.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Format</label>
+                        <select id="rtk-format">
+                            <option value="electronic">Electronic (email/USB) - Usually free!</option>
+                            <option value="paper">Paper copies - $0.25/page</option>
+                            <option value="inspect">Inspect in person - Free</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="generateRTK()">Generate Request Letter</button>
+
+                    <div class="output-box" id="rtk-output">
+                        <h4>Your Right-to-Know Request</h4>
+                        <pre id="rtk-letter"></pre>
+                        <button class="btn btn-success copy-btn" onclick="copyToClipboard('rtk-letter')">Copy to Clipboard</button>
+                        <p class="form-hint" style="margin-top: 15px;">
+                            <strong>Where to send:</strong><br>
+                            Northampton County Open Records Officer<br>
+                            669 Washington Street, Easton, PA 18042<br>
+                            Or submit online at: <a href="https://norcopa.gov" target="_blank">norcopa.gov</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Public Comment Helper -->
+            <div class="tool-card" id="comment">
+                <div class="tool-header comment">
+                    <h2>🎤 Public Comment Helper</h2>
+                    <p>Prepare effective comments for County Council meetings</p>
+                </div>
+                <div class="tool-body">
+                    <div class="tip-box">
+                        <strong>You get 3 minutes!</strong> County Council allows public comment at meetings. Prepare and practice to make your time count.
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quick Templates</label>
+                        <div class="template-buttons">
+                            <button class="template-btn" onclick="loadTemplate('support')">Support Item</button>
+                            <button class="template-btn" onclick="loadTemplate('oppose')">Oppose Item</button>
+                            <button class="template-btn" onclick="loadTemplate('question')">Ask Question</button>
+                            <button class="template-btn" onclick="loadTemplate('concern')">Raise Concern</button>
+                            <button class="template-btn" onclick="loadTemplate('budget')">Budget Issue</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Name & Address (for the record)</label>
+                        <input type="text" id="comment-name" placeholder="Jane Smith, 456 Oak Ave, Bethlehem">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Topic/Agenda Item</label>
+                        <input type="text" id="comment-topic" placeholder="e.g., Ordinance 2025-12, Budget Amendment, Warehouse Development">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Comment (aim for 300-400 words for 3 minutes)</label>
+                        <textarea id="comment-text" rows="10" placeholder="Write your comment here..."></textarea>
+                        <div class="word-count">
+                            <span id="word-count">0</span> words | ~<span id="time-estimate">0:00</span> speaking time
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Practice Timer (3 minutes)</label>
+                        <div class="speech-timer" id="speech-timer">3:00</div>
+                        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+                            <button class="btn btn-primary" onclick="startTimer()">Start</button>
+                            <button class="btn btn-outline" onclick="resetTimer()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>Speaking Tips:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>State your name and address clearly</li>
+                            <li>Reference the specific agenda item number</li>
+                            <li>Make ONE main point - don't try to cover everything</li>
+                            <li>End with a clear ask: "I urge you to vote yes/no"</li>
+                            <li>Be respectful even if you disagree</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Dollar Calculator -->
+            <div class="tool-card" id="tax">
+                <div class="tool-header tax">
+                    <h2>💰 Where Do Your Tax Dollars Go?</h2>
+                    <p>See exactly how your property taxes fund county services</p>
+                </div>
+                <div class="tool-body">
+                    <div class="form-group">
+                        <label>Your Property's Assessed Value</label>
+                        <input type="number" id="assessed-value" placeholder="e.g., 150000" value="150000">
+                        <p class="form-hint">Find this on your property tax bill or at the Assessment Office. This is NOT market value.</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="calculateTax()">Calculate My Taxes</button>
+
+                    <div class="output-box show" id="tax-output">
+                        <h4>Your Annual County Property Tax: <span id="total-tax">$1,620</span></h4>
+                        <p style="color: #64748b; margin-bottom: 15px;">Based on 10.8 mils (rate for 2025)</p>
+
+                        <div class="tax-result" id="tax-breakdown">
+                            <div class="tax-item">
+                                <div class="amount">$486</div>
+                                <div class="label">Human Services<br>(30%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$324</div>
+                                <div class="label">Courts & Justice<br>(20%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$259</div>
+                                <div class="label">Corrections<br>(16%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$194</div>
+                                <div class="label">Gracedale<br>(12%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$162</div>
+                                <div class="label">Administration<br>(10%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$97</div>
+                                <div class="label">Public Works<br>(6%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$65</div>
+                                <div class="label">911 & Emergency<br>(4%)</div>
+                            </div>
+                            <div class="tax-item">
+                                <div class="amount">$32</div>
+                                <div class="label">Elections<br>(2%)</div>
+                            </div>
+                        </div>
+
+                        <div class="tip-box" style="margin-top: 20px;">
+                            <strong>Did you know?</strong> County taxes are only PART of your property tax bill. You also pay:
+                            <ul style="margin-top: 10px; margin-left: 20px;">
+                                <li><strong>School District</strong> - Usually the largest portion (50-70%)</li>
+                                <li><strong>Municipality</strong> - Your city, borough, or township</li>
+                                <li><strong>Special Districts</strong> - Library, fire, etc. (if applicable)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Your Representatives -->
+            <div class="tool-card" id="contact">
+                <div class="tool-header contact">
+                    <h2>📞 Contact Your Representatives</h2>
+                    <p>Know who represents you and how to reach them</p>
+                </div>
+                <div class="tool-body">
+                    <div class="form-group">
+                        <label>Your Municipality</label>
+                        <select id="municipality" onchange="showContacts()">
+                            <option value="">Select your city/township...</option>
+                            <option value="easton">Easton</option>
+                            <option value="bethlehem">Bethlehem (Northampton portion)</option>
+                            <option value="palmer">Palmer Township</option>
+                            <option value="forks">Forks Township</option>
+                            <option value="lower-saucon">Lower Saucon Township</option>
+                            <option value="hanover">Hanover Township</option>
+                            <option value="bethlehem-twp">Bethlehem Township</option>
+                            <option value="allen">Allen Township</option>
+                            <option value="upper-nazareth">Upper Nazareth Township</option>
+                            <option value="lower-nazareth">Lower Nazareth Township</option>
+                            <option value="nazareth">Nazareth Borough</option>
+                            <option value="bangor">Bangor</option>
+                            <option value="pen-argyl">Pen Argyl</option>
+                            <option value="wind-gap">Wind Gap</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div id="contacts-display">
+                        <div class="contact-card">
+                            <h4>County Executive</h4>
+                            <div class="info">
+                                <span>📧 executive@norcopa.gov</span>
+                                <span>📞 610-559-3100</span>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #64748b;">
+                                669 Washington St, Easton, PA 18042
+                            </p>
+                        </div>
+
+                        <div class="contact-card">
+                            <h4>County Council</h4>
+                            <div class="info">
+                                <span>📧 council@norcopa.gov</span>
+                                <span>📞 610-559-3185</span>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #64748b;">
+                                Meets 1st & 3rd Thursday at 6:30 PM in Council Chambers
+                            </p>
+                        </div>
+
+                        <div class="contact-card">
+                            <h4>County Controller</h4>
+                            <div class="info">
+                                <span>📧 controller@norcopa.gov</span>
+                                <span>📞 610-559-3190</span>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #64748b;">
+                                For audit questions, fraud reporting, fiscal concerns
+                            </p>
+                        </div>
+
+                        <div class="contact-card">
+                            <h4>District Attorney</h4>
+                            <div class="info">
+                                <span>📧 da@norcopa.gov</span>
+                                <span>📞 610-559-3020</span>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #64748b;">
+                                For crime reporting, victim services, ARD questions
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>Writing to Officials?</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Include your full name and address (proves you're a constituent)</li>
+                            <li>Be specific about what you want them to do</li>
+                            <li>Keep it to one page / one topic</li>
+                            <li>Handwritten letters often get more attention than emails</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meeting Attendance Guide -->
+            <div class="tool-card" id="meeting">
+                <div class="tool-header meeting">
+                    <h2>🏛️ Meeting Attendance Checklist</h2>
+                    <p>Everything you need to attend your first public meeting</p>
+                </div>
+                <div class="tool-body">
+                    <h4 style="margin-bottom: 15px;">Before the Meeting</h4>
+                    <ul class="checklist">
+                        <li>
+                            <input type="checkbox" id="check1">
+                            <label for="check1">Check the <a href="calendar.html">meeting calendar</a> for date, time, and location</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check2">
+                            <label for="check2">Review the agenda (usually posted 24-48 hours before on county website)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check3">
+                            <label for="check3">If speaking: Sign up for public comment (sometimes required before meeting)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check4">
+                            <label for="check4">Prepare written notes if giving public comment</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check5">
+                            <label for="check5">Know parking situation (courthouse garage, street parking)</label>
+                        </li>
+                    </ul>
+
+                    <h4 style="margin: 20px 0 15px;">What to Bring</h4>
+                    <ul class="checklist">
+                        <li>
+                            <input type="checkbox" id="check6">
+                            <label for="check6">Photo ID (for courthouse security)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check7">
+                            <label for="check7">Printed copy of agenda</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check8">
+                            <label for="check8">Notepad and pen</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check9">
+                            <label for="check9">Your prepared comments (if speaking)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check10">
+                            <label for="check10">Phone silenced!</label>
+                        </li>
+                    </ul>
+
+                    <h4 style="margin: 20px 0 15px;">Meeting Etiquette</h4>
+                    <ul class="checklist">
+                        <li>
+                            <input type="checkbox" id="check11">
+                            <label for="check11">Arrive 10-15 minutes early</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check12">
+                            <label for="check12">Sit quietly - no talking during proceedings</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check13">
+                            <label for="check13">No clapping, booing, or outbursts (can get you removed)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check14">
+                            <label for="check14">Wait to be recognized before speaking</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check15">
+                            <label for="check15">Address the Chair/President, not individual members</label>
+                        </li>
+                    </ul>
+
+                    <div class="tip-box" style="margin-top: 20px;">
+                        <strong>First time?</strong> Just go to observe! You don't have to speak. Watching a meeting first helps you understand the process before participating.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue/Complaint Tracker -->
+            <div class="tool-card" id="complaint">
+                <div class="tool-header complaint">
+                    <h2>🚧 Report an Issue</h2>
+                    <p>Know where to report problems and track resolution</p>
+                </div>
+                <div class="tool-body">
+                    <div class="form-group">
+                        <label>What type of issue?</label>
+                        <select id="issue-type" onchange="showIssueInfo()">
+                            <option value="">Select issue type...</option>
+                            <option value="road">Road/Pothole (County Road)</option>
+                            <option value="bridge">Bridge Condition</option>
+                            <option value="election">Election/Voting Issue</option>
+                            <option value="assessment">Property Assessment Dispute</option>
+                            <option value="fraud">Suspected Fraud/Waste</option>
+                            <option value="gracedale">Gracedale Concern</option>
+                            <option value="court">Court-Related Issue</option>
+                            <option value="humanservices">Human Services</option>
+                        </select>
+                    </div>
+
+                    <div id="issue-info" class="output-box show">
+                        <p style="color: #64748b; text-align: center;">Select an issue type above to see where to report it.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>Not sure if it's county vs. municipal?</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li><strong>County handles:</strong> Courts, prison, 911, county roads/bridges, human services, Gracedale, elections, assessment</li>
+                            <li><strong>Municipality handles:</strong> Local roads, zoning, police (usually), trash, water/sewer, local parks</li>
+                            <li><strong>State handles:</strong> State routes (numbered highways), state police, PennDOT</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                <a href="index.html">Home</a> |
+                <a href="how-government-works.html">How Government Works</a> |
+                <a href="calendar.html">Meeting Calendar</a> |
+                <a href="public-audits.html">Public Audits</a>
+            </p>
+            <p style="margin-top: 15px; opacity: 0.7;">
+                NAC Civic Intelligence System - Empowering citizens through transparency and tools
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Right-to-Know Generator
+        function generateRTK() {
+            const name = document.getElementById('rtk-name').value || '[YOUR NAME]';
+            const email = document.getElementById('rtk-email').value || '[YOUR EMAIL]';
+            const address = document.getElementById('rtk-address').value || '[YOUR ADDRESS]';
+            const agency = document.getElementById('rtk-agency').value;
+            const records = document.getElementById('rtk-records').value || '[DESCRIBE RECORDS REQUESTED]';
+            const format = document.getElementById('rtk-format').value;
+
+            const formatText = {
+                'electronic': 'electronic format (email or USB drive)',
+                'paper': 'paper copies',
+                'inspect': 'inspection at your office'
+            };
+
+            const today = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const letter = `RIGHT-TO-KNOW LAW REQUEST
+Pursuant to 65 P.S. § 67.101 et seq.
+
+Date: ${today}
+
+To: Open Records Officer
+${agency}
+669 Washington Street
+Easton, PA 18042
+
+From: ${name}
+${address}
+${email}
+
+Dear Open Records Officer:
+
+Pursuant to the Pennsylvania Right-to-Know Law, 65 P.S. § 67.101 et seq., I am requesting access to and copies of the following public records:
+
+${records}
+
+I am requesting these records in ${formatText[format]}.
+
+As provided by the Right-to-Know Law, I expect a response within five (5) business days. If you expect a delay in responding to this request, please notify me in writing stating the reasons for the delay.
+
+If my request is denied in whole or in part, please cite the specific exemption(s) under the Right-to-Know Law that justify the denial, and notify me of the appeal procedures available to me under the Law.
+
+Thank you for your assistance with this request.
+
+Sincerely,
+
+${name}
+${email}`;
+
+            document.getElementById('rtk-letter').textContent = letter;
+            document.getElementById('rtk-output').classList.add('show');
+        }
+
+        // Public Comment Templates
+        const templates = {
+            support: `Good evening, Council President and members of Council. My name is [NAME] and I live at [ADDRESS] in [MUNICIPALITY].
+
+I'm here tonight to speak IN SUPPORT of [AGENDA ITEM].
+
+[MAIN REASON - 2-3 sentences explaining why you support it]
+
+[PERSONAL CONNECTION - How does this affect you or your community?]
+
+[SUPPORTING POINT - Additional reason or data]
+
+I urge Council to vote YES on this item. Thank you for your time and service.`,
+
+            oppose: `Good evening, Council President and members of Council. My name is [NAME] and I live at [ADDRESS] in [MUNICIPALITY].
+
+I'm here tonight to speak IN OPPOSITION to [AGENDA ITEM].
+
+[MAIN CONCERN - 2-3 sentences explaining your opposition]
+
+[IMPACT - How will this negatively affect you or the community?]
+
+[ALTERNATIVE - What would you suggest instead?]
+
+I urge Council to vote NO on this item, or to table it for further consideration. Thank you.`,
+
+            question: `Good evening, Council President and members of Council. My name is [NAME] from [MUNICIPALITY].
+
+I have questions about [AGENDA ITEM] that I hope can be addressed:
+
+1. [SPECIFIC QUESTION #1]
+
+2. [SPECIFIC QUESTION #2]
+
+I believe these answers are important for the public to understand before a vote is taken. Thank you.`,
+
+            concern: `Good evening. My name is [NAME] and I'm a resident of [MUNICIPALITY].
+
+I want to bring to Council's attention a concern regarding [TOPIC].
+
+[DESCRIBE THE ISSUE - What's happening? Where? How long?]
+
+[IMPACT - How is this affecting residents?]
+
+[REQUEST - What action are you asking Council to take?]
+
+I would appreciate a response or follow-up on this matter. Thank you.`,
+
+            budget: `Good evening, Council President. My name is [NAME] from [MUNICIPALITY].
+
+I'm here to comment on the proposed [YEAR] budget, specifically regarding [DEPARTMENT OR LINE ITEM].
+
+[YOUR POSITION - Support increase? Oppose cut? Request addition?]
+
+[JUSTIFICATION - Why is this funding important?]
+
+[DATA OR EXAMPLES - If available]
+
+I ask that Council consider this as you finalize the budget. Thank you for your fiscal stewardship.`
+        };
+
+        function loadTemplate(type) {
+            document.getElementById('comment-text').value = templates[type];
+            updateWordCount();
+        }
+
+        // Word count and time estimate
+        document.getElementById('comment-text').addEventListener('input', updateWordCount);
+
+        function updateWordCount() {
+            const text = document.getElementById('comment-text').value;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const minutes = Math.floor(words / 130);
+            const seconds = Math.round((words % 130) / 130 * 60);
+
+            document.getElementById('word-count').textContent = words;
+            document.getElementById('time-estimate').textContent =
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Speech Timer
+        let timerInterval;
+        let timeLeft = 180; // 3 minutes
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 180;
+            updateTimerDisplay();
+            document.getElementById('speech-timer').className = 'speech-timer';
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            const timer = document.getElementById('speech-timer');
+            timer.textContent = display;
+
+            if (timeLeft <= 30) {
+                timer.className = 'speech-timer danger';
+            } else if (timeLeft <= 60) {
+                timer.className = 'speech-timer warning';
+            }
+        }
+
+        // Tax Calculator
+        function calculateTax() {
+            const assessed = parseFloat(document.getElementById('assessed-value').value) || 0;
+            const millage = 10.8;
+            const total = (assessed / 1000) * millage;
+
+            document.getElementById('total-tax').textContent = '$' + total.toFixed(2);
+
+            // Update breakdown
+            const breakdown = {
+                'Human Services': 0.30,
+                'Courts & Justice': 0.20,
+                'Corrections': 0.16,
+                'Gracedale': 0.12,
+                'Administration': 0.10,
+                'Public Works': 0.06,
+                '911 & Emergency': 0.04,
+                'Elections': 0.02
+            };
+
+            const container = document.getElementById('tax-breakdown');
+            container.innerHTML = '';
+
+            for (const [label, pct] of Object.entries(breakdown)) {
+                const amount = total * pct;
+                container.innerHTML += `
+                    <div class="tax-item">
+                        <div class="amount">$${amount.toFixed(2)}</div>
+                        <div class="label">${label}<br>(${(pct * 100).toFixed(0)}%)</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Issue Reporter
+        const issueInfo = {
+            road: {
+                title: 'County Road / Pothole',
+                contact: 'Public Works Department',
+                phone: '610-559-3200',
+                email: 'publicworks@norcopa.gov',
+                note: 'Make sure it\'s a COUNTY road (not state or municipal). Include exact location with cross streets.'
+            },
+            bridge: {
+                title: 'Bridge Condition',
+                contact: 'Public Works / Engineering',
+                phone: '610-559-3200',
+                email: 'publicworks@norcopa.gov',
+                note: 'Note the bridge number if posted, exact location, and nature of concern (rust, cracks, debris, etc.)'
+            },
+            election: {
+                title: 'Election / Voting Issue',
+                contact: 'Election Office',
+                phone: '610-559-3055',
+                email: 'elections@norcopa.gov',
+                note: 'For voting machine issues, poll worker concerns, or registration problems.'
+            },
+            assessment: {
+                title: 'Property Assessment Dispute',
+                contact: 'Assessment Office',
+                phone: '610-559-3155',
+                email: 'assessment@norcopa.gov',
+                note: 'Appeal deadline is August 1 annually. Fee: $25 residential, $250 commercial.'
+            },
+            fraud: {
+                title: 'Suspected Fraud / Waste',
+                contact: 'County Controller',
+                phone: '610-559-3190',
+                email: 'controller@norcopa.gov',
+                note: 'Reports can be confidential. Include as much detail as possible: who, what, when, where.'
+            },
+            gracedale: {
+                title: 'Gracedale Nursing Home',
+                contact: 'Gracedale Administration',
+                phone: '610-746-1600',
+                email: 'gracedale@norcopa.gov',
+                note: 'For patient care concerns, you can also file with PA Dept of Health: 1-800-254-5164'
+            },
+            court: {
+                title: 'Court-Related Issue',
+                contact: 'Court Administrator',
+                phone: '610-559-3020',
+                email: 'courts@norcopa.gov',
+                note: 'For case-specific issues, contact the relevant office: Prothonotary (civil), Clerk of Courts (criminal).'
+            },
+            humanservices: {
+                title: 'Human Services',
+                contact: 'Dept of Human Services',
+                phone: '610-559-3100',
+                email: 'humanservices@norcopa.gov',
+                note: 'Includes: Children & Youth, Mental Health, Aging, Drug & Alcohol services.'
+            }
+        };
+
+        function showIssueInfo() {
+            const type = document.getElementById('issue-type').value;
+            const container = document.getElementById('issue-info');
+
+            if (!type) {
+                container.innerHTML = '<p style="color: #64748b; text-align: center;">Select an issue type above to see where to report it.</p>';
+                return;
+            }
+
+            const info = issueInfo[type];
+            container.innerHTML = `
+                <h4>${info.title}</h4>
+                <div class="contact-card" style="margin: 15px 0;">
+                    <strong>${info.contact}</strong>
+                    <div class="info" style="margin-top: 10px;">
+                        <span>📞 ${info.phone}</span>
+                        <span>📧 ${info.email}</span>
+                    </div>
+                </div>
+                <div class="tip-box">
+                    <strong>Tip:</strong> ${info.note}
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #64748b;">
+                    <strong>Keep a record:</strong> Note the date you reported, who you spoke with, and any reference number given.
+                </p>
+            `;
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        // Initialize
+        calculateTax();
+    </script>
+</body>
+</html>

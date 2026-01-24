@@ -1,0 +1,50 @@
+{
+  "entity": {
+    "id": "DISTRICT-ATTORNEY",
+    "name": "Office of the District Attorney",
+    "type": "row-office",
+    "officeholder": "District Attorney",
+    "address": "Northampton County Courthouse, Easton, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Criminal prosecution",
+      "Grand jury proceedings",
+      "Victim services",
+      "ARD program administration",
+      "Drug task force coordination"
+    ]
+  },
+  "audits": [
+    {
+      "id": "DA-2024-001",
+      "title": "District Attorney Office Audit FY2024",
+      "date": "2024-09-15",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "caseStatistics": {
+        "casesFiledFelony": 2847,
+        "casesFiledMisdemeanor": 5123,
+        "convictionRate": "87%",
+        "ardParticipants": 567,
+        "assetForfeitureRevenue": 234567
+      },
+      "complianceScore": 92
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 5,
+    "cleanAudits": 5,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-09-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports",
+    "nextScheduledAudit": "2026-09-01"
+  }
+}

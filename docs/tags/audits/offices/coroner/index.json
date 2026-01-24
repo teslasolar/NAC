@@ -1,0 +1,50 @@
+{
+  "entity": {
+    "id": "CORONER",
+    "name": "Office of the County Coroner",
+    "type": "row-office",
+    "officeholder": "Coroner",
+    "address": "Northampton County, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Death investigations",
+      "Autopsies",
+      "Mass fatality response",
+      "Death certificates",
+      "Drug death tracking"
+    ]
+  },
+  "audits": [
+    {
+      "id": "COR-2024-001",
+      "title": "Coroner Office Annual Audit FY2024",
+      "date": "2024-08-15",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "caseStatistics": {
+        "totalDeaths": 3421,
+        "investigatedDeaths": 1847,
+        "autopsiesPerformed": 412,
+        "drugOverdoseDeaths": 187,
+        "homicides": 12
+      },
+      "complianceScore": 94
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 6,
+    "cleanAudits": 6,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-08-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports",
+    "nextScheduledAudit": "2026-08-01"
+  }
+}

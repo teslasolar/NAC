@@ -1,0 +1,115 @@
+{
+  "entity": {
+    "id": "MDJ-03-2-11",
+    "name": "Magisterial District Court 03-2-11",
+    "type": "district-court",
+    "judge": "District Judge",
+    "address": "Northampton County, PA",
+    "jurisdiction": "Civil and criminal matters under MDJ jurisdiction"
+  },
+  "audits": [
+    {
+      "id": "COURT-2024-004",
+      "title": "MDJ 03-2-11 Annual Audit FY2024",
+      "date": "2024-09-20",
+      "auditor": "PA Auditor General",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "high",
+          "category": "arrest-warrants",
+          "title": "Inadequate Arrest Warrant Documentation",
+          "description": "Court failed to maintain complete arrest warrant documentation. 27% of sampled warrants lacked required supporting documents including probable cause affidavits.",
+          "statutoryReference": "42 Pa.C.S. § 5101-5505",
+          "statuteName": "Judicial Code - Unified Judicial System",
+          "recurring": true,
+          "previousOccurrence": "2023-09-15",
+          "recommendation": "Implement mandatory pre-issuance documentation checklist",
+          "managementResponse": "Working with AOPC on new documentation system",
+          "estimatedResolutionDate": "2025-09-30"
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "medium",
+          "category": "case-management",
+          "title": "Case Disposition Delays",
+          "description": "15% of cases exceeded statutory time limits for disposition without documented continuances.",
+          "statutoryReference": "Pa.R.Crim.P. 600",
+          "statuteName": "Rules of Criminal Procedure",
+          "recurring": false,
+          "recommendation": "Implement case aging report review weekly"
+        },
+        {
+          "id": "F-2024-003",
+          "severity": "low",
+          "category": "record-retention",
+          "title": "Record Retention Schedule Non-Compliance",
+          "description": "Some records retained beyond required period causing storage issues; others disposed of before retention period expired.",
+          "statutoryReference": "42 Pa.C.S. § 4301-4303",
+          "recommendation": "Train staff on current retention schedules"
+        }
+      ],
+      "financialSummary": {
+        "totalReceipts": 623187,
+        "totalDisbursements": 598234,
+        "cashOnHand": 24953,
+        "outstandingFines": 234891
+      },
+      "complianceScore": 68,
+      "recommendations": [
+        "Implement warrant documentation checklist system",
+        "Create case aging dashboard",
+        "Quarterly record retention audits",
+        "Staff training on judicial procedures"
+      ]
+    },
+    {
+      "id": "COURT-2023-004",
+      "title": "MDJ 03-2-11 Annual Audit FY2023",
+      "date": "2023-09-15",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2023-001",
+          "severity": "high",
+          "category": "arrest-warrants",
+          "title": "Arrest Warrant Procedure Deficiencies",
+          "description": "First occurrence - 21% of warrants sampled had documentation gaps",
+          "statutoryReference": "42 Pa.C.S. § 5101-5505",
+          "recurring": false
+        }
+      ],
+      "complianceScore": 74
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 6,
+    "cleanAudits": 3,
+    "findingsAudits": 3,
+    "recurringIssues": ["arrest-warrants"],
+    "lastCleanAudit": "2020-09-10"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-2024-002",
+      "type": "recurring-violation",
+      "severity": "high",
+      "statute": "42 Pa.C.S. Chapter 51",
+      "description": "Recurring arrest warrant documentation failures - consecutive audit findings 2023 and 2024",
+      "requiredAction": "Controller review and corrective action plan oversight",
+      "deadline": "2025-03-01",
+      "status": "pending-review"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Reports",
+    "nextScheduledAudit": "2026-09-01"
+  }
+}

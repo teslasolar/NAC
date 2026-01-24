@@ -1,0 +1,60 @@
+{
+  "entity": {
+    "id": "REGISTER-OF-WILLS",
+    "name": "Office of the Register of Wills",
+    "type": "row-office",
+    "officeholder": "Register of Wills / Clerk of Orphans Court",
+    "address": "Northampton County Courthouse, Easton, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Probate of wills",
+      "Letters testamentary",
+      "Estate administration",
+      "Orphans Court clerk functions",
+      "Marriage licenses"
+    ]
+  },
+  "audits": [
+    {
+      "id": "ROW-2024-001",
+      "title": "Register of Wills Annual Audit FY2024",
+      "date": "2024-05-20",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "findings",
+      "overallRating": "satisfactory",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "low",
+          "category": "documentation",
+          "title": "Estate File Organization",
+          "description": "Some closed estate files not transferred to archives within required 90-day period.",
+          "statutoryReference": "20 Pa.C.S. § 906",
+          "recurring": false,
+          "recommendation": "Implement quarterly archive transfer schedule"
+        }
+      ],
+      "financialSummary": {
+        "totalFees": 1234567,
+        "inheritanceTaxProcessed": 18456789,
+        "marriageLicenses": 1847,
+        "estatesOpened": 2341
+      },
+      "complianceScore": 91
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 7,
+    "cleanAudits": 6,
+    "findingsAudits": 1,
+    "recurringIssues": [],
+    "lastCleanAudit": "2022-05-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports",
+    "nextScheduledAudit": "2026-05-01"
+  }
+}

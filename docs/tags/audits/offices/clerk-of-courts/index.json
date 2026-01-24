@@ -1,0 +1,53 @@
+{
+  "entity": {
+    "id": "CLERK-OF-COURTS",
+    "name": "Office of the Clerk of Courts",
+    "type": "row-office",
+    "officeholder": "Clerk of Courts",
+    "address": "Northampton County Courthouse, Easton, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Criminal court records",
+      "Jury management",
+      "Criminal docket maintenance",
+      "Bail bond processing",
+      "Court fine collection"
+    ]
+  },
+  "audits": [
+    {
+      "id": "COC-2024-001",
+      "title": "Clerk of Courts Annual Audit FY2024",
+      "date": "2024-06-30",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "totalFines": 3456789,
+        "bailBondsProcessed": 2341,
+        "restitutionCollected": 892456
+      },
+      "caseStatistics": {
+        "criminalFilings": 8934,
+        "juryTrials": 47,
+        "dispositions": 8723
+      },
+      "complianceScore": 95
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 7,
+    "cleanAudits": 7,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-06-30"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports",
+    "nextScheduledAudit": "2026-06-01"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "entity": {
+    "id": "VFRA-PLAINFIELD-TWP",
+    "name": "Plainfield Township Volunteer Fire Company Relief Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Plainfield Township",
+    "address": "Pen Argyl, PA",
+    "members": 28,
+    "apparatus": ["Engine 1", "Tanker 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-004",
+      "title": "VFRA Audit - Plainfield Township",
+      "date": "2024-06-15",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "stateAidReceived": 38456,
+        "totalDisbursements": 32123,
+        "endingBalance": 54678
+      },
+      "complianceScore": 94
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 4,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-06-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-06-01"
+  }
+}

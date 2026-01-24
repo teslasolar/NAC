@@ -1,0 +1,80 @@
+{
+  "entity": {
+    "id": "VFRA-NORTHAMPTON-FIREMEN",
+    "name": "Northampton Volunteer Fire Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Northampton Borough",
+    "address": "Northampton, PA 18067",
+    "members": 45,
+    "apparatus": ["Engine 1", "Engine 2", "Ladder 1", "Rescue 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-001",
+      "title": "VFRA Audit - Northampton Firemen",
+      "date": "2024-03-15",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "high",
+          "category": "equipment-inventory",
+          "title": "Equipment Inventory Deficiencies",
+          "description": "Relief association failed to maintain adequate inventory records for equipment purchased with state aid. 12 items totaling $47,832 could not be verified.",
+          "statutoryReference": "35 P.S. § 7416.1",
+          "statuteName": "Volunteer Firefighters Relief Association Act",
+          "recurring": false,
+          "recommendation": "Implement comprehensive equipment tracking system with annual physical inventory",
+          "managementResponse": "Will implement new inventory procedures",
+          "missingEquipment": [
+            {"item": "Thermal Imaging Camera", "value": 8500},
+            {"item": "SCBA Units (3)", "value": 21000},
+            {"item": "Extrication Tools", "value": 12500},
+            {"item": "Portable Radios (4)", "value": 5832}
+          ]
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "medium",
+          "category": "disbursements",
+          "title": "Improper Disbursement Documentation",
+          "description": "Several disbursements lacked required approval documentation or supporting invoices.",
+          "statutoryReference": "35 P.S. § 7419",
+          "recurring": false
+        }
+      ],
+      "financialSummary": {
+        "stateAidReceived": 87234,
+        "totalDisbursements": 76234,
+        "endingBalance": 124567
+      },
+      "complianceScore": 68
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 2,
+    "findingsAudits": 2,
+    "recurringIssues": [],
+    "lastCleanAudit": "2020-03-10"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-VFRA-001",
+      "type": "statutory-violation",
+      "severity": "medium",
+      "statute": "35 P.S. § 7416.1",
+      "description": "Equipment inventory deficiencies - $47,832 unverified",
+      "requiredAction": "Controller oversight of corrective action",
+      "status": "monitoring"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-03-01"
+  }
+}

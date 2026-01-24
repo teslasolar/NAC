@@ -1,0 +1,54 @@
+{
+  "entity": {
+    "id": "CONTROLLER",
+    "name": "Office of the County Controller",
+    "type": "row-office",
+    "officeholder": "County Controller",
+    "address": "Government Center, Easton, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Financial oversight",
+      "Audit county offices",
+      "Pre-audit claims",
+      "Payroll certification",
+      "Financial reporting"
+    ]
+  },
+  "audits": [
+    {
+      "id": "CTRL-2024-007",
+      "title": "ACL-Based Audit Tracking System Implementation",
+      "date": "2024-11-01",
+      "auditor": "Internal Review",
+      "period": "2024-01-01 to 2024-10-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "systemMetrics": {
+        "auditsCompleted": 46,
+        "findingsIdentified": 127,
+        "recommendationsIssued": 234,
+        "followUpRate": "94%"
+      },
+      "complianceScore": 98
+    }
+  ],
+  "auditPortfolio": {
+    "rowOffices": ["prothonotary", "register-of-wills", "sheriff", "coroner", "clerk-of-courts", "recorder-of-deeds"],
+    "departments": ["corrections", "human-services", "public-works", "administration"],
+    "specialEntities": ["gracedale", "elections"],
+    "totalEntitiesOverseen": 45
+  },
+  "violationHistory": {
+    "totalAudits": 5,
+    "cleanAudits": 5,
+    "findingsAudits": 0,
+    "recurringIssues": []
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "Internal Controller Records",
+    "nextScheduledAudit": "2026-11-01"
+  }
+}

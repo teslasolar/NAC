@@ -1,0 +1,35 @@
+{
+  "entity": {
+    "id": "PENSION-EASTON-POLICE",
+    "name": "Easton City Police Pension Plan",
+    "type": "police-pension",
+    "municipality": "City of Easton",
+    "planType": "Defined Benefit",
+    "activeMembers": 87,
+    "retirees": 112
+  },
+  "audits": [
+    {
+      "id": "PEN-2024-002",
+      "title": "Police Pension Audit - Easton",
+      "date": "2024-02-15",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "netAssets": 34567891,
+        "contributions": 2345678,
+        "benefits": 3123456,
+        "fundedRatio": "82.3%"
+      },
+      "complianceScore": 95
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Pension Audits",
+    "nextScheduledAudit": "2027-02-01"
+  }
+}

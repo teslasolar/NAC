@@ -1,0 +1,33 @@
+{
+  "entity": {
+    "id": "LF-ALLEN-TWP",
+    "name": "Allen Township Liquid Fuels Fund",
+    "type": "liquid-fuels",
+    "municipality": "Allen Township",
+    "roadMiles": 42.3,
+    "population": 5847
+  },
+  "audits": [
+    {
+      "id": "LF-2024-001",
+      "title": "Liquid Fuels Tax Fund Audit - Allen Township",
+      "date": "2024-02-15",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "allocation": 187234,
+        "disbursements": 178456,
+        "endingBalance": 45678
+      },
+      "complianceScore": 95
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General",
+    "nextScheduledAudit": "2027-02-01"
+  }
+}

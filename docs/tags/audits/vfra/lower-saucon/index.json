@@ -1,0 +1,52 @@
+{
+  "entity": {
+    "id": "VFRA-LOWER-SAUCON",
+    "name": "Lower Saucon Fire Department Relief Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Lower Saucon Township",
+    "address": "Lower Saucon, PA",
+    "members": 38,
+    "apparatus": ["Engine 1", "Engine 2", "Tanker 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-002",
+      "title": "VFRA Audit - Lower Saucon",
+      "date": "2024-04-10",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "findings",
+      "overallRating": "satisfactory",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "low",
+          "category": "reporting",
+          "title": "Late Filing of Annual Report",
+          "description": "Annual financial report filed 15 days past deadline.",
+          "statutoryReference": "35 P.S. § 7419.1",
+          "recurring": false
+        }
+      ],
+      "financialSummary": {
+        "stateAidReceived": 62345,
+        "totalDisbursements": 54234,
+        "endingBalance": 89234
+      },
+      "complianceScore": 88
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 3,
+    "findingsAudits": 1,
+    "recurringIssues": [],
+    "lastCleanAudit": "2021-04-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-04-01"
+  }
+}

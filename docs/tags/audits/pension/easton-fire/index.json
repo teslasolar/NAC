@@ -1,0 +1,35 @@
+{
+  "entity": {
+    "id": "PENSION-EASTON-FIRE",
+    "name": "Easton City Fire Pension Plan",
+    "type": "fire-pension",
+    "municipality": "City of Easton",
+    "planType": "Defined Benefit",
+    "activeMembers": 62,
+    "retirees": 78
+  },
+  "audits": [
+    {
+      "id": "PEN-2024-003",
+      "title": "Fire Pension Audit - Easton",
+      "date": "2024-03-10",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "netAssets": 23456789,
+        "contributions": 1789234,
+        "benefits": 2123456,
+        "fundedRatio": "76.8%"
+      },
+      "complianceScore": 93
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Pension Audits",
+    "nextScheduledAudit": "2027-03-01"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "entity": {
+    "id": "RECORDER-OF-DEEDS",
+    "name": "Office of the Recorder of Deeds",
+    "type": "row-office",
+    "officeholder": "Recorder of Deeds",
+    "address": "Government Center, Easton, PA",
+    "term": "2024-2028",
+    "responsibilities": [
+      "Deed recording",
+      "Mortgage recording",
+      "UCC filings",
+      "Military discharge recording",
+      "Property records maintenance"
+    ]
+  },
+  "audits": [
+    {
+      "id": "ROD-2024-001",
+      "title": "Recorder of Deeds Annual Audit FY2024",
+      "date": "2024-05-30",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "totalFees": 4567891,
+        "stateRealtorTransferTax": 12345678,
+        "localTransferTax": 6172839,
+        "deedsRecorded": 18456,
+        "mortgagesRecorded": 12891
+      },
+      "complianceScore": 97,
+      "commendations": [
+        "Excellent document processing efficiency",
+        "Strong indexing accuracy"
+      ]
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 6,
+    "cleanAudits": 6,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-05-30"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports",
+    "nextScheduledAudit": "2026-05-01"
+  }
+}

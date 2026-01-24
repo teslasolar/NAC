@@ -1,11 +1,13 @@
 {
   "name": "Northampton County Audit Database",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "lastUpdated": "2026-01-24",
-  "description": "Comprehensive database of all public audits for Northampton County, PA",
+  "description": "Comprehensive database of all public audits for Northampton County, PA with detailed per-entity tracking",
   "dataSource": [
     "Northampton County Controller's Office",
-    "Pennsylvania Department of the Auditor General"
+    "Pennsylvania Department of the Auditor General",
+    "CMS Nursing Home Compare",
+    "PA Department of Health"
   ],
   "categories": [
     {
@@ -17,44 +19,72 @@
       "description": "Internal audits including cash collection, HRRT, payroll, operations"
     },
     {
-      "id": "district-courts",
+      "id": "courts",
       "name": "District Courts",
-      "path": "district-courts/index.json",
+      "path": "courts/",
       "auditor": "PA Auditor General",
-      "count": 5,
-      "description": "Magisterial District Court compliance audits"
+      "count": 4,
+      "description": "Magisterial District Court compliance audits",
+      "entities": ["mdj-03-2-01", "mdj-03-2-10", "mdj-03-2-11", "mdj-03-3-02"],
+      "violations": 2
+    },
+    {
+      "id": "offices",
+      "name": "Row Offices",
+      "path": "offices/",
+      "auditor": "Northampton County Controller",
+      "count": 8,
+      "description": "Elected row office audits",
+      "entities": ["prothonotary", "register-of-wills", "sheriff", "coroner", "clerk-of-courts", "recorder-of-deeds", "district-attorney", "controller"],
+      "violations": 0
     },
     {
       "id": "pension",
       "name": "Municipal Pension Plans",
-      "path": "pension/index.json",
+      "path": "pension/",
       "auditor": "PA Auditor General",
       "count": 6,
-      "description": "Municipal and police pension plan audits"
+      "description": "Municipal and police pension plan audits",
+      "entities": ["easton-pmrs", "easton-police", "easton-fire", "moore-twp-police", "upper-mt-bethel-police", "bethlehem-city"],
+      "violations": 0
     },
     {
       "id": "vfra",
       "name": "Volunteer Firefighters Relief Associations",
-      "path": "vfra/index.json",
+      "path": "vfra/",
       "auditor": "PA Auditor General",
       "count": 6,
-      "description": "VFRA state aid compliance audits"
+      "description": "VFRA state aid compliance audits",
+      "entities": ["northampton-firemen", "lower-saucon", "hecktown", "plainfield-twp", "klecknersville", "allen-twp"],
+      "violations": 2
     },
     {
       "id": "liquid-fuels",
       "name": "Liquid Fuels Tax Fund",
-      "path": "liquid-fuels/index.json",
+      "path": "liquid-fuels/",
       "auditor": "PA Auditor General",
       "count": 6,
-      "description": "Road maintenance fund audits"
+      "description": "Road maintenance fund audits",
+      "entities": ["allen-twp", "lower-saucon-twp", "bethlehem-twp", "palmer-twp", "forks-twp", "hanover-twp"],
+      "violations": 0
     },
     {
-      "id": "row-offices",
-      "name": "County Row Offices",
-      "path": "row-offices/index.json",
-      "auditor": "PA Auditor General",
-      "count": 6,
-      "description": "Elected row office compliance audits"
+      "id": "gracedale",
+      "name": "Gracedale Nursing Home",
+      "path": "gracedale/",
+      "auditor": "County Controller / CMS",
+      "count": 1,
+      "description": "County nursing facility operations and compliance",
+      "violations": 1
+    },
+    {
+      "id": "elections",
+      "name": "Election Office",
+      "path": "elections/",
+      "auditor": "County Controller",
+      "count": 1,
+      "description": "Election administration and voting machine compliance",
+      "violations": 1
     },
     {
       "id": "schools",
@@ -75,6 +105,7 @@
   ],
   "statistics": {
     "totalAudits": 46,
+    "totalEntities": 35,
     "byStatus": {
       "passed": 36,
       "minor_findings": 7,
@@ -89,8 +120,70 @@
     "dateRange": {
       "earliest": "2016-01-01",
       "latest": "2026-01-24"
+    },
+    "violations": {
+      "total": 6,
+      "recurring": 4,
+      "high": 4,
+      "medium": 2
     }
   },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-2024-001",
+      "entity": "MDJ 03-3-02",
+      "category": "courts",
+      "severity": "high",
+      "statute": "42 Pa.C.S. Chapter 51",
+      "description": "Recurring inadequate arrest warrant procedures",
+      "status": "pending-review"
+    },
+    {
+      "flagId": "CTRL-FLAG-2024-002",
+      "entity": "MDJ 03-2-11",
+      "category": "courts",
+      "severity": "high",
+      "statute": "42 Pa.C.S. Chapter 51",
+      "description": "Recurring arrest warrant documentation failures",
+      "status": "pending-review"
+    },
+    {
+      "flagId": "CTRL-FLAG-2024-003",
+      "entity": "Election Office",
+      "category": "elections",
+      "severity": "high",
+      "statute": "25 P.S. § 3031.7",
+      "description": "Missing voting machine L&A testing documentation - 150+ documents",
+      "status": "pending-review"
+    },
+    {
+      "flagId": "CTRL-FLAG-2024-004",
+      "entity": "Gracedale",
+      "category": "gracedale",
+      "severity": "high",
+      "statute": "55 Pa. Code § 201.18",
+      "description": "Recurring nursing staff shortages - CMS 1-star rating",
+      "status": "pending-review"
+    },
+    {
+      "flagId": "CTRL-FLAG-VFRA-001",
+      "entity": "Northampton Firemen",
+      "category": "vfra",
+      "severity": "medium",
+      "statute": "35 P.S. § 7416.1",
+      "description": "Equipment inventory deficiencies - $47,832 unverified",
+      "status": "monitoring"
+    },
+    {
+      "flagId": "CTRL-FLAG-VFRA-002",
+      "entity": "Hecktown VFC",
+      "category": "vfra",
+      "severity": "medium",
+      "statute": "35 P.S. § 7416.1",
+      "description": "Recurring equipment inventory record deficiencies",
+      "status": "pending-review"
+    }
+  ],
   "links": {
     "controllerReports": "https://norcopa.gov/controller-reports",
     "paAuditorGeneral": "https://www.paauditor.gov/audit_county/northampton-county/",

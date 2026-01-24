@@ -1,0 +1,33 @@
+{
+  "entity": {
+    "id": "LF-LOWER-SAUCON",
+    "name": "Lower Saucon Township Liquid Fuels Fund",
+    "type": "liquid-fuels",
+    "municipality": "Lower Saucon Township",
+    "roadMiles": 67.8,
+    "population": 10832
+  },
+  "audits": [
+    {
+      "id": "LF-2024-002",
+      "title": "Liquid Fuels Tax Fund Audit - Lower Saucon Township",
+      "date": "2024-03-20",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "allocation": 298456,
+        "disbursements": 287234,
+        "endingBalance": 67891
+      },
+      "complianceScore": 93
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General",
+    "nextScheduledAudit": "2027-03-01"
+  }
+}

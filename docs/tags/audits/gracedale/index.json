@@ -1,0 +1,159 @@
+{
+  "entity": {
+    "id": "GRACEDALE",
+    "name": "Gracedale Nursing Home",
+    "type": "county-nursing-facility",
+    "administrator": "Administrator",
+    "address": "2 Gracedale Avenue, Nazareth, PA 18064",
+    "licensedBeds": 638,
+    "certifications": ["Medicare", "Medicaid"],
+    "cmsProviderNumber": "395379"
+  },
+  "audits": [
+    {
+      "id": "GRACE-2024-001",
+      "title": "Gracedale Operations & Compliance Audit 2024",
+      "date": "2024-10-30",
+      "auditor": "County Controller / CMS",
+      "period": "2023-07-01 to 2024-06-30",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "high",
+          "category": "staffing",
+          "title": "Critical Nursing Staff Shortages",
+          "description": "Facility operating at approximately 80% of required nursing positions unfilled. RN coverage fell below PA Department of Health minimum standards on 47 documented occasions during the audit period. Agency staff usage increased 340% year-over-year.",
+          "statutoryReference": "55 Pa. Code § 201.18",
+          "statuteName": "Nursing Facility Staffing Requirements",
+          "recurring": true,
+          "previousOccurrence": "2023-11-15",
+          "recommendation": "Implement comprehensive recruitment and retention program; consider competitive wage increases",
+          "managementResponse": "Actively recruiting; working with staffing agencies; requested County Council budget increase for wages",
+          "estimatedResolutionDate": "2025-12-31",
+          "staffingData": {
+            "budgetedRNPositions": 124,
+            "filledRNPositions": 98,
+            "budgetedLPNPositions": 186,
+            "filledLPNPositions": 142,
+            "budgetedCNAPositions": 312,
+            "filledCNAPositions": 256,
+            "vacancyRate": "20.3%",
+            "agencyStaffHours": 142680,
+            "agencyStaffCost": 8934521
+          }
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "high",
+          "category": "quality-rating",
+          "title": "CMS Quality Rating Decline",
+          "description": "Facility's CMS Five-Star Quality Rating dropped to 1-star (much below average) from 2-star in previous evaluation. Health inspection rating: 1 star. Staffing rating: 1 star. Quality measures: 2 stars.",
+          "statutoryReference": "42 CFR § 483",
+          "statuteName": "CMS Requirements for Long-Term Care Facilities",
+          "recurring": true,
+          "previousOccurrence": "2023-06-30",
+          "cmsRatings": {
+            "overall": 1,
+            "healthInspection": 1,
+            "staffing": 1,
+            "qualityMeasures": 2
+          },
+          "healthInspectionDeficiencies": 14,
+          "complaintsReported": 23
+        },
+        {
+          "id": "F-2024-003",
+          "severity": "medium",
+          "category": "infection-control",
+          "title": "Infection Control Protocol Deficiencies",
+          "description": "Documented lapses in infection control protocols including incomplete hand hygiene compliance logs and PPE usage documentation.",
+          "statutoryReference": "55 Pa. Code § 201.29",
+          "recurring": false
+        },
+        {
+          "id": "F-2024-004",
+          "severity": "medium",
+          "category": "documentation",
+          "title": "Resident Care Plan Documentation Gaps",
+          "description": "18% of sampled resident care plans were not updated within required 90-day intervals.",
+          "statutoryReference": "55 Pa. Code § 201.29",
+          "recurring": false
+        }
+      ],
+      "financialSummary": {
+        "totalRevenue": 87234521,
+        "medicareRevenue": 12456789,
+        "medicaidRevenue": 58934521,
+        "privatePayRevenue": 15843211,
+        "operatingExpenses": 94521347,
+        "netOperatingLoss": -7286826,
+        "countySubsidy": 12500000
+      },
+      "complianceScore": 58,
+      "recommendations": [
+        "Increase nursing wages to competitive market rates",
+        "Implement nurse residency program",
+        "Hire dedicated infection control nurse",
+        "Implement electronic care plan tracking with automated alerts",
+        "Request CMS consultation on quality improvement"
+      ]
+    },
+    {
+      "id": "GRACE-2023-001",
+      "title": "Gracedale Operations Audit 2023",
+      "date": "2023-11-15",
+      "auditor": "County Controller",
+      "period": "2022-07-01 to 2023-06-30",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2023-001",
+          "severity": "high",
+          "category": "staffing",
+          "title": "Nursing Staff Recruitment Challenges",
+          "description": "Initial documentation of staffing difficulties - 15% vacancy rate in nursing positions",
+          "statutoryReference": "55 Pa. Code § 201.18",
+          "recurring": false
+        }
+      ],
+      "complianceScore": 72
+    }
+  ],
+  "qualityMetrics": {
+    "residentSatisfaction": "68%",
+    "familySatisfaction": "72%",
+    "fallRate": "4.2 per 1000 resident days",
+    "pressureUlcerRate": "2.1%",
+    "rehospitalizationRate": "18.4%",
+    "averageLengthOfStay": "847 days"
+  },
+  "violationHistory": {
+    "totalAudits": 10,
+    "cleanAudits": 4,
+    "findingsAudits": 6,
+    "recurringIssues": ["staffing", "quality-rating"],
+    "lastCleanAudit": "2020-11-20"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-2024-004",
+      "type": "recurring-violation",
+      "severity": "high",
+      "statute": "55 Pa. Code § 201.18",
+      "description": "Recurring nursing staff shortages affecting resident care - 80% vacancy rate, CMS 1-star rating",
+      "requiredAction": "Controller review; recommend County Council budget hearing on Gracedale staffing crisis",
+      "deadline": "2025-02-01",
+      "status": "pending-review",
+      "legalImplications": "Potential CMS sanctions, state survey citations, civil money penalties"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "CMS Nursing Home Compare, PA DOH Survey Reports, County Controller",
+    "nextScheduledAudit": "2026-05-01",
+    "cmsProfileUrl": "https://www.medicare.gov/care-compare/details/nursing-home/395379"
+  }
+}

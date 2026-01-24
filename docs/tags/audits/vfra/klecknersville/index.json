@@ -1,0 +1,46 @@
+{
+  "entity": {
+    "id": "VFRA-KLECKNERSVILLE",
+    "name": "Klecknersville Rangers Fire Company Relief Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Moore Township / Bushkill Township",
+    "address": "Klecknersville, PA",
+    "members": 35,
+    "apparatus": ["Engine 1", "Engine 2", "Brush Truck 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-005",
+      "title": "VFRA Audit - Klecknersville Rangers",
+      "date": "2024-07-20",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "stateAidReceived": 52678,
+        "totalDisbursements": 48234,
+        "endingBalance": 78456
+      },
+      "complianceScore": 92,
+      "commendations": [
+        "Excellent record keeping",
+        "Strong financial controls"
+      ]
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 4,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-07-20"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-07-01"
+  }
+}

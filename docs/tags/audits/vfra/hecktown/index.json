@@ -1,0 +1,72 @@
+{
+  "entity": {
+    "id": "VFRA-HECKTOWN",
+    "name": "Hecktown Volunteer Fire Company Relief Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Lower Nazareth Township",
+    "address": "Hecktown, PA",
+    "members": 32,
+    "apparatus": ["Engine 1", "Rescue 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-003",
+      "title": "VFRA Audit - Hecktown",
+      "date": "2024-05-20",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "medium",
+          "category": "equipment-inventory",
+          "title": "Incomplete Equipment Records",
+          "description": "Equipment records missing serial numbers and acquisition dates for 8 items purchased with relief funds.",
+          "statutoryReference": "35 P.S. § 7416.1",
+          "recurring": true,
+          "previousOccurrence": "2021-05-15"
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "low",
+          "category": "meeting-minutes",
+          "title": "Incomplete Meeting Minutes",
+          "description": "Meeting minutes for 3 monthly meetings did not document required vote counts for expenditures.",
+          "statutoryReference": "35 P.S. § 7419",
+          "recurring": false
+        }
+      ],
+      "financialSummary": {
+        "stateAidReceived": 48234,
+        "totalDisbursements": 42567,
+        "endingBalance": 67891
+      },
+      "complianceScore": 72
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 1,
+    "findingsAudits": 3,
+    "recurringIssues": ["equipment-inventory"],
+    "lastCleanAudit": "2018-05-10"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-VFRA-002",
+      "type": "recurring-violation",
+      "severity": "medium",
+      "statute": "35 P.S. § 7416.1",
+      "description": "Recurring equipment inventory record deficiencies",
+      "requiredAction": "Controller to require corrective action plan",
+      "status": "pending-review"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-05-01"
+  }
+}

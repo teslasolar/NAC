@@ -1,0 +1,53 @@
+{
+  "entity": {
+    "id": "VFRA-ALLEN-TWP",
+    "name": "Allen Township Fire Company Relief Association",
+    "type": "volunteer-fire-relief",
+    "municipality": "Allen Township",
+    "address": "Northampton, PA",
+    "members": 42,
+    "apparatus": ["Engine 1", "Engine 2", "Ladder 1"]
+  },
+  "audits": [
+    {
+      "id": "VFRA-2024-006",
+      "title": "VFRA Audit - Allen Township",
+      "date": "2024-08-10",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "findings",
+      "overallRating": "satisfactory",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "low",
+          "category": "documentation",
+          "title": "Training Expense Documentation",
+          "description": "Some training reimbursements lacked required completion certificates.",
+          "statutoryReference": "35 P.S. § 7419",
+          "recurring": false,
+          "recommendation": "Require certificates before processing reimbursement"
+        }
+      ],
+      "financialSummary": {
+        "stateAidReceived": 67891,
+        "totalDisbursements": 62345,
+        "endingBalance": 98765
+      },
+      "complianceScore": 86
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 4,
+    "cleanAudits": 3,
+    "findingsAudits": 1,
+    "recurringIssues": [],
+    "lastCleanAudit": "2021-08-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General VFRA Reports",
+    "nextScheduledAudit": "2027-08-01"
+  }
+}

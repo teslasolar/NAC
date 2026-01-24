@@ -1,0 +1,42 @@
+{
+  "entity": {
+    "id": "PENSION-EASTON-PMRS",
+    "name": "Easton City Pension Plan (PMRS)",
+    "type": "municipal-pension",
+    "municipality": "City of Easton",
+    "planType": "Defined Benefit",
+    "administrator": "PMRS",
+    "activeMembers": 187,
+    "retirees": 234
+  },
+  "audits": [
+    {
+      "id": "PEN-2024-001",
+      "title": "Municipal Pension Audit - Easton PMRS",
+      "date": "2024-01-20",
+      "auditor": "PA Auditor General",
+      "period": "2022-01-01 to 2022-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "netAssets": 45678912,
+        "contributions": 3456789,
+        "benefits": 4123456,
+        "fundedRatio": "78.4%"
+      },
+      "actuarialData": {
+        "actuarialAssets": 45678912,
+        "actuarialLiability": 58234567,
+        "unfundedLiability": 12555655,
+        "fundedPercentage": 78.4
+      },
+      "complianceScore": 94
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Pension Audits",
+    "nextScheduledAudit": "2027-01-01"
+  }
+}

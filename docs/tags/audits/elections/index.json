@@ -1,0 +1,144 @@
+{
+  "entity": {
+    "id": "ELECTIONS",
+    "name": "Northampton County Election Office",
+    "type": "county-office",
+    "director": "Director of Elections",
+    "address": "Government Center, Easton, PA",
+    "responsibilities": [
+      "Voter registration management",
+      "Election administration",
+      "Voting machine maintenance and testing",
+      "Poll worker training",
+      "Ballot preparation and distribution"
+    ]
+  },
+  "audits": [
+    {
+      "id": "ELECT-2024-001",
+      "title": "Election Office Operations Audit 2024",
+      "date": "2024-11-15",
+      "auditor": "County Controller",
+      "period": "2023-01-01 to 2024-11-05",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "high",
+          "category": "voting-machines",
+          "title": "Missing Voting Machine Pre-Election Testing Documentation",
+          "description": "Over 150 required pre-election Logic and Accuracy (L&A) testing documents were missing or incomplete for the 2024 general election. Testing certifications could not be verified for 47 voting machines deployed across 12 precincts.",
+          "statutoryReference": "25 P.S. § 3031.7",
+          "statuteName": "PA Election Code - Voting Machine Testing",
+          "recurring": false,
+          "recommendation": "Implement comprehensive digital tracking system for all L&A testing with mandatory sign-off procedures",
+          "managementResponse": "Working with vendor to implement electronic certification tracking",
+          "estimatedResolutionDate": "2025-04-01",
+          "affectedPrecincts": [
+            "Bethlehem 1st Ward",
+            "Bethlehem 3rd Ward",
+            "Easton South Side",
+            "Palmer Township East",
+            "Forks Township",
+            "Lower Saucon",
+            "Williams Township",
+            "Bushkill Township",
+            "Moore Township North",
+            "Bath Borough",
+            "Nazareth Borough",
+            "Wind Gap"
+          ],
+          "machineCount": 47
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "medium",
+          "category": "chain-of-custody",
+          "title": "Ballot Chain of Custody Documentation Gaps",
+          "description": "Chain of custody logs for mail-in ballots were incomplete for 8 delivery dates during the October 2024 early voting period.",
+          "statutoryReference": "25 P.S. § 3150.16",
+          "statuteName": "Mail-in Ballot Procedures",
+          "recurring": false,
+          "recommendation": "Require dual-signature verification for all ballot transfers"
+        },
+        {
+          "id": "F-2024-003",
+          "severity": "medium",
+          "category": "poll-worker-training",
+          "title": "Inadequate Poll Worker Training Records",
+          "description": "Training completion records were missing for 23 poll workers who served in the 2024 primary election.",
+          "statutoryReference": "25 P.S. § 2684",
+          "recurring": false
+        }
+      ],
+      "electionData": {
+        "election": "2024 General Election",
+        "registeredVoters": 227834,
+        "totalVotesCast": 168291,
+        "turnout": "73.9%",
+        "mailInBallots": 52341,
+        "inPersonVotes": 115950
+      },
+      "complianceScore": 65,
+      "recommendations": [
+        "Implement electronic L&A testing certification system",
+        "Create ballot chain of custody tracking application",
+        "Require mandatory training completion verification before poll worker assignment",
+        "Conduct quarterly equipment inventory audits"
+      ]
+    },
+    {
+      "id": "ELECT-2023-001",
+      "title": "Election Office Annual Audit 2023",
+      "date": "2023-12-15",
+      "auditor": "County Controller",
+      "period": "2022-07-01 to 2023-06-30",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "complianceScore": 91
+    }
+  ],
+  "equipmentInventory": {
+    "votingMachines": {
+      "type": "ExpressVote XL",
+      "manufacturer": "ES&S",
+      "totalUnits": 385,
+      "deployedUnits": 372,
+      "spareUnits": 13,
+      "lastCalibration": "2024-10-15",
+      "warrantyExpiration": "2027-12-31"
+    },
+    "tabulators": {
+      "type": "DS200",
+      "totalUnits": 142,
+      "operationalStatus": "all-functional"
+    }
+  },
+  "violationHistory": {
+    "totalAudits": 8,
+    "cleanAudits": 6,
+    "findingsAudits": 2,
+    "recurringIssues": [],
+    "lastCleanAudit": "2023-12-15"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-2024-003",
+      "type": "statutory-violation",
+      "severity": "high",
+      "statute": "25 P.S. § 3031.7",
+      "description": "Missing voting machine L&A testing documentation - 150+ documents affecting 47 machines in 12 precincts",
+      "requiredAction": "Controller review; potential referral to PA Department of State",
+      "deadline": "2025-02-15",
+      "status": "pending-review",
+      "legalImplications": "Non-compliance with PA Election Code may result in certification challenges"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "County Controller Audit Reports, Spotlight PA investigations",
+    "nextScheduledAudit": "2026-06-01"
+  }
+}

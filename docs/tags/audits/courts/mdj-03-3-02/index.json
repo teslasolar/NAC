@@ -1,0 +1,108 @@
+{
+  "entity": {
+    "id": "MDJ-03-3-02",
+    "name": "Magisterial District Court 03-3-02",
+    "type": "district-court",
+    "judge": "District Judge",
+    "address": "Northampton County, PA",
+    "jurisdiction": "Civil and criminal matters under MDJ jurisdiction"
+  },
+  "audits": [
+    {
+      "id": "COURT-2024-002",
+      "title": "MDJ 03-3-02 Annual Audit FY2024",
+      "date": "2024-08-15",
+      "auditor": "PA Auditor General",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2024-001",
+          "severity": "high",
+          "category": "arrest-warrants",
+          "title": "Inadequate Arrest Warrant Documentation Procedures",
+          "description": "The court failed to maintain adequate documentation for arrest warrants issued. Missing or incomplete documentation was found for 23% of sampled warrants.",
+          "statutoryReference": "42 Pa.C.S. § 5101-5505",
+          "statuteName": "Judicial Code - Unified Judicial System",
+          "recurring": true,
+          "previousOccurrence": "2022-08-10",
+          "recommendation": "Implement comprehensive warrant tracking system with mandatory documentation checklist",
+          "managementResponse": "Court acknowledges finding and will implement new procedures by Q2 2025",
+          "estimatedResolutionDate": "2025-06-30"
+        },
+        {
+          "id": "F-2024-002",
+          "severity": "medium",
+          "category": "cash-handling",
+          "title": "Cash Receipt Procedures Deficiency",
+          "description": "Daily cash reconciliation was not performed consistently. 12 days in the audit period lacked proper reconciliation documentation.",
+          "statutoryReference": "42 Pa.C.S. § 3733",
+          "statuteName": "Financial Management",
+          "recurring": false,
+          "recommendation": "Ensure daily reconciliation is completed and documented by close of business each day",
+          "managementResponse": "Corrective action implemented immediately upon notification"
+        }
+      ],
+      "financialSummary": {
+        "totalReceipts": 847293,
+        "totalDisbursements": 812456,
+        "cashOnHand": 34837,
+        "outstandingFines": 156420
+      },
+      "complianceScore": 72,
+      "recommendations": [
+        "Implement electronic warrant tracking system",
+        "Establish daily reconciliation checklist",
+        "Conduct quarterly internal audits",
+        "Provide staff training on documentation requirements"
+      ]
+    },
+    {
+      "id": "COURT-2022-002",
+      "title": "MDJ 03-3-02 Annual Audit FY2022",
+      "date": "2022-08-10",
+      "auditor": "PA Auditor General",
+      "period": "2021-01-01 to 2021-12-31",
+      "status": "findings",
+      "overallRating": "needs-improvement",
+      "findings": [
+        {
+          "id": "F-2022-001",
+          "severity": "high",
+          "category": "arrest-warrants",
+          "title": "Inadequate Arrest Warrant Procedures",
+          "description": "First occurrence of warrant documentation deficiencies. 18% of sampled warrants had incomplete documentation.",
+          "statutoryReference": "42 Pa.C.S. § 5101-5505",
+          "recurring": false,
+          "recommendation": "Develop and implement warrant tracking procedures"
+        }
+      ],
+      "complianceScore": 76
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 5,
+    "cleanAudits": 2,
+    "findingsAudits": 3,
+    "recurringIssues": ["arrest-warrants"],
+    "lastCleanAudit": "2019-08-12"
+  },
+  "controllerFlags": [
+    {
+      "flagId": "CTRL-FLAG-2024-001",
+      "type": "recurring-violation",
+      "severity": "high",
+      "statute": "42 Pa.C.S. Chapter 51",
+      "description": "Recurring inadequate arrest warrant procedures - same finding in 2022 and 2024 audits",
+      "requiredAction": "Controller review and potential referral to Administrative Office of PA Courts",
+      "deadline": "2025-03-01",
+      "status": "pending-review"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Reports",
+    "nextScheduledAudit": "2026-08-01"
+  }
+}

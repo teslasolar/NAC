@@ -1,0 +1,58 @@
+{
+  "entity": {
+    "id": "MDJ-03-2-01",
+    "name": "Magisterial District Court 03-2-01",
+    "type": "district-court",
+    "judge": "District Judge",
+    "address": "Northampton County, PA",
+    "jurisdiction": "Civil and criminal matters under MDJ jurisdiction"
+  },
+  "audits": [
+    {
+      "id": "COURT-2024-001",
+      "title": "MDJ 03-2-01 Annual Audit FY2024",
+      "date": "2024-07-15",
+      "auditor": "PA Auditor General",
+      "period": "2023-01-01 to 2023-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "financialSummary": {
+        "totalReceipts": 512847,
+        "totalDisbursements": 498234,
+        "cashOnHand": 14613,
+        "outstandingFines": 87234
+      },
+      "complianceScore": 94,
+      "commendations": [
+        "Excellent warrant documentation procedures",
+        "Timely case disposition",
+        "Strong internal controls over cash handling"
+      ]
+    },
+    {
+      "id": "COURT-2022-001",
+      "title": "MDJ 03-2-01 Annual Audit FY2022",
+      "date": "2022-07-20",
+      "auditor": "PA Auditor General",
+      "period": "2021-01-01 to 2021-12-31",
+      "status": "clean",
+      "overallRating": "satisfactory",
+      "findings": [],
+      "complianceScore": 92
+    }
+  ],
+  "violationHistory": {
+    "totalAudits": 6,
+    "cleanAudits": 6,
+    "findingsAudits": 0,
+    "recurringIssues": [],
+    "lastCleanAudit": "2024-07-15"
+  },
+  "controllerFlags": [],
+  "metadata": {
+    "lastUpdated": "2026-01-24",
+    "dataSource": "PA Auditor General Reports",
+    "nextScheduledAudit": "2026-07-01"
+  }
+}

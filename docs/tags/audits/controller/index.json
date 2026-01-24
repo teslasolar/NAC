@@ -1,0 +1,173 @@
+{
+  "category": "controller",
+  "categoryName": "County Controller",
+  "description": "Internal audits conducted by the Northampton County Controller's Office",
+  "auditor": "Northampton County Controller",
+  "website": "https://norcopa.gov/controller-reports",
+  "qualityReview": {
+    "rating": "pass",
+    "reviewPeriod": "January 1, 2022 - December 31, 2024",
+    "reviewers": [
+      {
+        "name": "J. Timothy Biernes",
+        "organization": "South Florida Water Management District, Office of Inspector General",
+        "credentials": "CPA, CMA, CISA, CIG, CITP, CGMA, MBA"
+      },
+      {
+        "name": "Bruce C. Landrum, Jr.",
+        "organization": "Milwaukee County Office of the Comptroller",
+        "credentials": "MBA"
+      }
+    ],
+    "standard": "Association of Local Government Auditors"
+  },
+  "audits": [
+    {
+      "id": "CTRL-2024-001",
+      "title": "Cash Collection Process - Public Works",
+      "type": "AUP",
+      "date": "2024-06-20",
+      "department": "Public Works",
+      "status": "passed",
+      "findings": 0,
+      "description": "Agreed-upon procedures for cash collection process review"
+    },
+    {
+      "id": "CTRL-2024-002",
+      "title": "Jail Commissary and Inmate Telephone Audit",
+      "type": "AUP",
+      "period": "April 1, 2024 - September 30, 2024",
+      "date": "2024-10-15",
+      "department": "Corrections",
+      "status": "passed",
+      "findings": 0,
+      "description": "Audit of commissary operations and inmate telephone services"
+    },
+    {
+      "id": "CTRL-2024-003",
+      "title": "Register of Wills and Orphans' Court Agency Funds",
+      "type": "Performance",
+      "date": "2024-06-30",
+      "department": "Register of Wills",
+      "status": "passed",
+      "findings": 0,
+      "description": "Performance audit of agency funds as of June 30, 2024"
+    },
+    {
+      "id": "CTRL-2024-004",
+      "title": "Hotel Room Rental Tax - Hotel Bethlehem",
+      "type": "HRRT",
+      "licenseNumber": "101",
+      "period": "January 1, 2023 - December 31, 2024",
+      "date": "2024-12-10",
+      "status": "passed",
+      "findings": 0,
+      "amountReviewed": 245000,
+      "description": "Hotel room rental tax compliance audit"
+    },
+    {
+      "id": "CTRL-2024-005",
+      "title": "Hotel Room Rental Tax - Grand Estonian Suites Hotel",
+      "type": "HRRT",
+      "licenseNumber": "135",
+      "period": "2022-2023",
+      "date": "2024-08-15",
+      "status": "minor_findings",
+      "findings": 1,
+      "findingDetails": [
+        {
+          "type": "underpayment",
+          "amount": 847,
+          "description": "Minor calculation discrepancy identified",
+          "resolved": true
+        }
+      ],
+      "description": "Hotel room rental tax compliance audit"
+    },
+    {
+      "id": "CTRL-2024-006",
+      "title": "Hotel Room Rental Tax - Woodstone Country Club & Lodge",
+      "type": "HRRT",
+      "licenseNumber": "144",
+      "period": "2022-2023",
+      "date": "2024-07-20",
+      "status": "passed",
+      "findings": 0,
+      "description": "Hotel room rental tax compliance audit"
+    },
+    {
+      "id": "CTRL-2024-007",
+      "title": "ACL Checks and Vendors Review",
+      "type": "ACL",
+      "period": "July 1, 2023 - June 30, 2024",
+      "date": "2024-09-15",
+      "status": "minor_findings",
+      "findings": 2,
+      "findingDetails": [
+        {
+          "type": "duplicate_payment",
+          "vendor": "Pennsylvania Department of Labor and Industry",
+          "description": "Duplicate payments identified due to differing vendor name entries",
+          "action": "Refunds requested",
+          "resolved": true
+        },
+        {
+          "type": "check_numbering",
+          "description": "Gaps in check numbering attributed to voided stubs or assignment errors",
+          "severity": "low",
+          "resolved": true
+        }
+      ],
+      "latePayments": {
+        "over180Days": 0,
+        "materialAmount": 500,
+        "compliant": true
+      },
+      "description": "Annual ACL (Audit Command Language) review of checks and vendor payments"
+    },
+    {
+      "id": "CTRL-2023-001",
+      "title": "Cash Collection Process - Fiscal Affairs Division",
+      "type": "AUP",
+      "date": "2023-08-31",
+      "department": "Fiscal Affairs",
+      "status": "passed",
+      "findings": 0,
+      "description": "Agreed-upon procedures for cash collection process"
+    },
+    {
+      "id": "CTRL-2025-001",
+      "title": "Q4 2025 Payroll Verification",
+      "type": "Payroll",
+      "date": "2026-01-10",
+      "department": "Human Resources",
+      "status": "passed",
+      "findings": 0,
+      "description": "Quarterly payroll audit completed"
+    },
+    {
+      "id": "CTRL-2025-002",
+      "title": "Gracedale Nursing Home Operations",
+      "type": "Operations",
+      "date": "2025-12-15",
+      "department": "Gracedale",
+      "status": "passed",
+      "findings": 0,
+      "highlights": [
+        "Self-sustaining operations verified",
+        "No General Fund contribution required",
+        "Medicare/Medicaid billing compliant"
+      ],
+      "description": "Review of nursing home self-sustaining operations"
+    },
+    {
+      "id": "CTRL-2026-001",
+      "title": "Allen Township Municipal Authority",
+      "type": "Municipal",
+      "date": "2026-01-15",
+      "status": "passed",
+      "findings": 0,
+      "description": "Water/sewer fund compliance review"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "category": "schools",
+  "categoryName": "School Districts",
+  "description": "Performance audits of public school districts in Northampton County",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/search-audits/",
+  "auditAreas": [
+    "Transportation reimbursements",
+    "Foster student documentation",
+    "Safety drill compliance",
+    "Internal controls",
+    "State subsidy accuracy"
+  ],
+  "audits": [
+    {
+      "id": "SCH-EASTON-2021",
+      "title": "Easton Area School District",
+      "district": "Easton Area School District",
+      "enrollment": 8500,
+      "period": "July 1, 2016 - June 30, 2020",
+      "releaseDate": "2021-05-03",
+      "status": "findings",
+      "findings": 3,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Transportation Documentation Issues",
+          "description": "Failed to obtain and keep supporting documentation for multiple components of transportation reimbursements from the state",
+          "severity": "medium",
+          "financialImpact": "unverified",
+          "recommendation": "Implement comprehensive transportation documentation procedures"
+        },
+        {
+          "id": "F2",
+          "title": "Foster Student Verification",
+          "description": "Lacked required documentation to verify nonresident foster student reimbursements",
+          "severity": "medium",
+          "districtResponse": "Will require annual placement letters for accurate classification and reporting. Obtained all placement letters for 2019-2020 and 2020-2021."
+        },
+        {
+          "id": "F3",
+          "title": "Safety Drill Compliance",
+          "description": "Failed to conduct all required monthly fire drills and security drills",
+          "severity": "high",
+          "auditPeriod": "2018-19 and 2019-20 school years",
+          "buildingsReviewed": 9,
+          "regulation": "State fire safety and security drill requirements"
+        }
+      ],
+      "unverifiedReimbursements": 5000000,
+      "description": "Multiple findings related to documentation and safety compliance"
+    },
+    {
+      "id": "SCH-BETHLEHEM-2022",
+      "title": "Bethlehem Area School District",
+      "district": "Bethlehem Area School District",
+      "enrollment": 13500,
+      "period": "July 1, 2018 - June 30, 2021",
+      "releaseDate": "2022-09-15",
+      "status": "minor_findings",
+      "findings": 1,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Internal Control Deficiency",
+          "description": "Segregation of duties issue in accounts payable",
+          "severity": "low",
+          "recommendation": "Implement dual approval for payments over threshold"
+        }
+      ],
+      "description": "Generally compliant with minor internal control finding"
+    },
+    {
+      "id": "SCH-NAZARETH-2023",
+      "title": "Nazareth Area School District",
+      "district": "Nazareth Area School District",
+      "enrollment": 4800,
+      "period": "July 1, 2019 - June 30, 2022",
+      "releaseDate": "2023-11-10",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with all audit areas"
+    },
+    {
+      "id": "SCH-BANGOR-2023",
+      "title": "Bangor Area School District",
+      "district": "Bangor Area School District",
+      "enrollment": 3200,
+      "period": "July 1, 2019 - June 30, 2022",
+      "releaseDate": "2023-08-20",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with all state requirements"
+    },
+    {
+      "id": "SCH-SAUCON-2024",
+      "title": "Saucon Valley School District",
+      "district": "Saucon Valley School District",
+      "enrollment": 2100,
+      "period": "July 1, 2020 - June 30, 2023",
+      "releaseDate": "2024-04-15",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance - exemplary documentation practices"
+    },
+    {
+      "id": "SCH-WILSON-2024",
+      "title": "Wilson Area School District",
+      "district": "Wilson Area School District",
+      "enrollment": 2800,
+      "period": "July 1, 2020 - June 30, 2023",
+      "releaseDate": "2024-06-10",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with all audit areas"
+    }
+  ],
+  "summary": {
+    "totalDistricts": 6,
+    "passed": 4,
+    "minorFindings": 1,
+    "majorFindings": 1,
+    "commonIssues": [
+      "Transportation documentation",
+      "Foster student verification",
+      "Safety drill compliance"
+    ]
+  }
+}

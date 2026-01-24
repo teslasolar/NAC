@@ -1,0 +1,128 @@
+{
+  "category": "pension",
+  "categoryName": "Municipal Pension Plans",
+  "description": "Audits of municipal and police pension plans receiving state aid",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/news-and-resources/municipal-pension-plans/",
+  "authority": "Municipal Pension Plan Funding Standard and Recovery Act",
+  "purpose": "Ensure state pension aid is used as required by law to reduce financial burdens on local taxpayers",
+  "pmrs": {
+    "name": "Pennsylvania Municipal Retirement System",
+    "website": "https://pmrs.pa.gov",
+    "description": "Pennsylvania's local governments' pension administrator of choice",
+    "rateOfReturn": 5.5
+  },
+  "audits": [
+    {
+      "id": "PEN-EASTON-PMRS-2020",
+      "title": "City of Easton Officers' and Employees' PMRS Pension Plan",
+      "municipality": "City of Easton",
+      "planType": "PMRS",
+      "period": "January 1, 2019 - December 31, 2020",
+      "releaseDate": "2022-06-15",
+      "status": "minor_findings",
+      "findings": 2,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Incorrect Data on Certification Form",
+          "description": "Incorrect data on certification form resulted in net underpayment of state aid",
+          "severity": "medium",
+          "financialImpact": "underpayment"
+        },
+        {
+          "id": "F2",
+          "title": "Inadequate Accounting/Reporting",
+          "description": "Inadequate accounting and reporting over activity of the pension plan",
+          "severity": "medium"
+        }
+      ],
+      "fundedStatus": "moderately_funded",
+      "description": "Audit of PMRS-administered pension plan"
+    },
+    {
+      "id": "PEN-EASTON-POLICE-2024",
+      "title": "City of Easton Police Pension Plan",
+      "municipality": "City of Easton",
+      "planType": "Police",
+      "period": "January 1, 2022 - December 31, 2024",
+      "releaseDate": "2025-07-20",
+      "status": "passed",
+      "findings": 0,
+      "fundedRatio": 78.5,
+      "unfundedLiability": 12500000,
+      "description": "Police pension plan compliance audit"
+    },
+    {
+      "id": "PEN-EASTON-FIRE-2024",
+      "title": "City of Easton Firefighters' Pension Plan",
+      "municipality": "City of Easton",
+      "planType": "Fire",
+      "period": "January 1, 2022 - December 31, 2024",
+      "releaseDate": "2025-07-20",
+      "status": "passed",
+      "findings": 0,
+      "fundedRatio": 72.3,
+      "unfundedLiability": 8900000,
+      "description": "Firefighter pension plan compliance audit"
+    },
+    {
+      "id": "PEN-MOORE-POLICE-2023",
+      "title": "Moore Township Police Pension Plan",
+      "municipality": "Moore Township",
+      "planType": "Police",
+      "period": "Ended December 31, 2023",
+      "releaseDate": "2024-10-15",
+      "status": "passed",
+      "findings": 0,
+      "fundedRatio": 95.2,
+      "description": "Fully compliant with Act 205 requirements"
+    },
+    {
+      "id": "PEN-UMBT-POLICE-2024",
+      "title": "Upper Mount Bethel Township Police Pension Plan",
+      "municipality": "Upper Mount Bethel Township",
+      "planType": "Police",
+      "period": "January 1 - December 31, 2024",
+      "releaseDate": "2025-04-10",
+      "status": "passed",
+      "findings": 0,
+      "description": "Compliance audit verified adherence to state laws, regulations, and plan provisions"
+    },
+    {
+      "id": "PEN-BETHLEHEM-CITY-2024",
+      "title": "City of Bethlehem Employees' Pension Plan",
+      "municipality": "City of Bethlehem",
+      "planType": "Municipal",
+      "period": "January 1, 2022 - December 31, 2024",
+      "releaseDate": "2025-11-15",
+      "status": "passed",
+      "findings": 0,
+      "fundedRatio": 82.1,
+      "description": "General employees pension plan audit"
+    }
+  ],
+  "historicalContext": {
+    "easton2016": {
+      "date": "January 2016",
+      "auditorGeneral": "Eugene DePasquale",
+      "findings": "Unfunded pension liability grew by $19.03 million in four years (2009-2013)",
+      "unfundedLiability2009": 9100000,
+      "unfundedLiability2013": 28200000,
+      "recommendation": "Shifting management responsibility to PMRS worth pursuing due to proven track record"
+    }
+  },
+  "summary": {
+    "totalPlans": 6,
+    "passed": 5,
+    "minorFindings": 1,
+    "majorFindings": 0,
+    "stateAidDistributed": "Verified compliant",
+    "commonRecommendations": [
+      "Maintain accurate certification data",
+      "Improve accounting and reporting procedures",
+      "Consider PMRS for underfunded plans"
+    ]
+  }
+}

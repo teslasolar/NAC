@@ -1,0 +1,87 @@
+{
+  "category": "state-ag",
+  "categoryName": "PA Auditor General - County Overview",
+  "description": "Comprehensive overview of all PA Auditor General audits for Northampton County",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/audit_county/northampton-county/",
+  "searchUrl": "https://www.paauditor.gov/audit-reports?county=northampton",
+  "mission": "As the Commonwealth's fiscal watchdog, ensuring state government lives within its means and every taxpayer dollar is spent wisely",
+  "recentAnnouncements": [
+    {
+      "date": "2026-01-22",
+      "title": "Compliance Audits for County Offices and District Courts",
+      "description": "Release of compliance audits for district courts and county government offices in multiple counties including Northampton",
+      "quote": "We audit district courts and county row offices to determine if the money they collect on behalf of the Commonwealth has been correctly reported and sent to the appropriate state agency."
+    },
+    {
+      "date": "2025-11-15",
+      "title": "Municipal Pension Plans in 17 Counties",
+      "description": "Release of audits covering 44 municipal and police pension plans including City of Easton"
+    },
+    {
+      "date": "2025-07-20",
+      "title": "Municipal Pension Plans in 22 Counties",
+      "description": "Release of 55 municipal pension plan audits including City of Easton"
+    },
+    {
+      "date": "2025-05-15",
+      "title": "VFRA Audits in 30 Counties",
+      "description": "Volunteer Firefighters' Relief Association audits including Plainfield Township"
+    }
+  ],
+  "auditCategories": [
+    {
+      "category": "district-courts",
+      "name": "District Courts",
+      "count": 5,
+      "lastRelease": "2025-02-10"
+    },
+    {
+      "category": "row-offices",
+      "name": "County Row Offices",
+      "count": 6,
+      "lastRelease": "2024-11-15"
+    },
+    {
+      "category": "pension",
+      "name": "Municipal Pension Plans",
+      "count": 6,
+      "lastRelease": "2025-11-15"
+    },
+    {
+      "category": "vfra",
+      "name": "Volunteer Firefighters Relief Associations",
+      "count": 6,
+      "lastRelease": "2025-05-15"
+    },
+    {
+      "category": "liquid-fuels",
+      "name": "Liquid Fuels Tax Funds",
+      "count": 6,
+      "lastRelease": "2025-03-15"
+    },
+    {
+      "category": "schools",
+      "name": "School Districts",
+      "count": 6,
+      "lastRelease": "2024-06-10"
+    }
+  ],
+  "countyStatistics": {
+    "totalAuditsAvailable": 35,
+    "passRate": 85.7,
+    "findingsRate": 14.3,
+    "totalDisbursementsVerified": 69257292,
+    "complianceStatus": "good"
+  },
+  "contacts": {
+    "harrisburgOffice": {
+      "address": "Finance Building, 613 North Street, Harrisburg, PA 17120-0018",
+      "phone": "717-787-2543"
+    },
+    "lehighValleyRegion": {
+      "note": "Audits conducted by Harrisburg staff with regional coordination"
+    }
+  }
+}

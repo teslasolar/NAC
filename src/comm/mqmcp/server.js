@@ -23,11 +23,15 @@ import {
   // Budget & Fiscal tools
   getBudgetTool,
   getDepartmentBudgetTool,
-  getAuditsTool,
-  getAuditStatusTool,
   getDebtInfoTool,
   getTaxRateTool,
   getFiscalYearInfoTool,
+  // Comprehensive Audit tools (v2.0)
+  searchAuditsTool,
+  getAuditDetailTool,
+  getAuditCategoriesTool,
+  getAuditFindingsTool,
+  getAuditStatisticsTool,
   // Parcel & GIS tools
   searchParcelsTool,
   getZoningInfoTool,
@@ -71,11 +75,15 @@ export class MQMCPServer {
       // Budget & Fiscal tools
       getBudgetTool,
       getDepartmentBudgetTool,
-      getAuditsTool,
-      getAuditStatusTool,
       getDebtInfoTool,
       getTaxRateTool,
       getFiscalYearInfoTool,
+      // Comprehensive Audit tools (v2.0)
+      searchAuditsTool,
+      getAuditDetailTool,
+      getAuditCategoriesTool,
+      getAuditFindingsTool,
+      getAuditStatisticsTool,
       // Parcel & GIS tools
       searchParcelsTool,
       getZoningInfoTool,

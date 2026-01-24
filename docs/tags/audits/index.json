@@ -1,0 +1,99 @@
+{
+  "name": "Northampton County Audit Database",
+  "version": "2.0.0",
+  "lastUpdated": "2026-01-24",
+  "description": "Comprehensive database of all public audits for Northampton County, PA",
+  "dataSource": [
+    "Northampton County Controller's Office",
+    "Pennsylvania Department of the Auditor General"
+  ],
+  "categories": [
+    {
+      "id": "controller",
+      "name": "County Controller",
+      "path": "controller/index.json",
+      "auditor": "Northampton County Controller",
+      "count": 11,
+      "description": "Internal audits including cash collection, HRRT, payroll, operations"
+    },
+    {
+      "id": "district-courts",
+      "name": "District Courts",
+      "path": "district-courts/index.json",
+      "auditor": "PA Auditor General",
+      "count": 5,
+      "description": "Magisterial District Court compliance audits"
+    },
+    {
+      "id": "pension",
+      "name": "Municipal Pension Plans",
+      "path": "pension/index.json",
+      "auditor": "PA Auditor General",
+      "count": 6,
+      "description": "Municipal and police pension plan audits"
+    },
+    {
+      "id": "vfra",
+      "name": "Volunteer Firefighters Relief Associations",
+      "path": "vfra/index.json",
+      "auditor": "PA Auditor General",
+      "count": 6,
+      "description": "VFRA state aid compliance audits"
+    },
+    {
+      "id": "liquid-fuels",
+      "name": "Liquid Fuels Tax Fund",
+      "path": "liquid-fuels/index.json",
+      "auditor": "PA Auditor General",
+      "count": 6,
+      "description": "Road maintenance fund audits"
+    },
+    {
+      "id": "row-offices",
+      "name": "County Row Offices",
+      "path": "row-offices/index.json",
+      "auditor": "PA Auditor General",
+      "count": 6,
+      "description": "Elected row office compliance audits"
+    },
+    {
+      "id": "schools",
+      "name": "School Districts",
+      "path": "schools/index.json",
+      "auditor": "PA Auditor General",
+      "count": 6,
+      "description": "School district performance audits"
+    },
+    {
+      "id": "state-ag",
+      "name": "PA Auditor General Overview",
+      "path": "state-ag/index.json",
+      "auditor": "PA Auditor General",
+      "count": 0,
+      "description": "Overview and announcements from PA Auditor General"
+    }
+  ],
+  "statistics": {
+    "totalAudits": 46,
+    "byStatus": {
+      "passed": 36,
+      "minor_findings": 7,
+      "findings": 2,
+      "observation": 1
+    },
+    "passRate": 78.3,
+    "byAuditor": {
+      "controller": 11,
+      "stateAG": 35
+    },
+    "dateRange": {
+      "earliest": "2016-01-01",
+      "latest": "2026-01-24"
+    }
+  },
+  "links": {
+    "controllerReports": "https://norcopa.gov/controller-reports",
+    "paAuditorGeneral": "https://www.paauditor.gov/audit_county/northampton-county/",
+    "searchAudits": "https://www.paauditor.gov/audit-reports?county=northampton"
+  }
+}

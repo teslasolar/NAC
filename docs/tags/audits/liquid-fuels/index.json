@@ -1,0 +1,107 @@
+{
+  "category": "liquid-fuels",
+  "categoryName": "Liquid Fuels Tax Fund",
+  "description": "Audits of municipal Liquid Fuels Tax Fund usage for road maintenance",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "authority": "Pennsylvania Department of Transportation",
+  "purpose": "Verify Form MS-965 accuracy and compliance with PennDOT criteria",
+  "standards": [
+    "American Institute of Certified Public Accountants",
+    "Government Auditing Standards"
+  ],
+  "relatedActs": ["Act 44", "Act 89"],
+  "audits": [
+    {
+      "id": "LF-ALLEN-2024",
+      "title": "Township of Allen - Liquid Fuels Tax Fund",
+      "municipality": "Allen Township",
+      "municipalityType": "Township",
+      "period": "January 1, 2023 - December 31, 2024",
+      "releaseDate": "2025-03-15",
+      "status": "passed",
+      "findings": 0,
+      "form": "MS-965 With Adjustments",
+      "internalControl": {
+        "significantDeficiencies": false,
+        "materialWeaknesses": false
+      },
+      "compliance": {
+        "noncompliance": false,
+        "description": "Full compliance with PennDOT criteria"
+      },
+      "description": "Independent auditor's report on Liquid Fuels Tax Fund"
+    },
+    {
+      "id": "LF-LOWERSAUCON-2023",
+      "title": "Township of Lower Saucon - Liquid Fuels Tax Fund",
+      "municipality": "Lower Saucon Township",
+      "municipalityType": "Township",
+      "period": "January 1, 2023 - December 31, 2023",
+      "releaseDate": "2024-06-20",
+      "status": "passed",
+      "findings": 0,
+      "form": "MS-965 With Adjustments",
+      "internalControl": {
+        "significantDeficiencies": false,
+        "materialWeaknesses": false
+      },
+      "compliance": {
+        "noncompliance": false,
+        "description": "No significant deficiencies or noncompliance identified"
+      },
+      "description": "Full compliance with all liquid fuels requirements"
+    },
+    {
+      "id": "LF-NORCOPA-2017",
+      "title": "Northampton County - Liquid Fuels, Act 44, and Act 89 Tax Funds",
+      "municipality": "Northampton County",
+      "municipalityType": "County",
+      "period": "January 1, 2016 - December 31, 2017",
+      "releaseDate": "2024-08-01",
+      "status": "passed",
+      "findings": 0,
+      "description": "County-level liquid fuels and transportation tax fund audit"
+    },
+    {
+      "id": "LF-FORKS-2023",
+      "title": "Forks Township - Liquid Fuels Tax Fund",
+      "municipality": "Forks Township",
+      "municipalityType": "Township",
+      "period": "January 1, 2022 - December 31, 2023",
+      "releaseDate": "2024-05-10",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with liquid fuels requirements"
+    },
+    {
+      "id": "LF-PALMER-2023",
+      "title": "Palmer Township - Liquid Fuels Tax Fund",
+      "municipality": "Palmer Township",
+      "municipalityType": "Township",
+      "period": "January 1, 2022 - December 31, 2023",
+      "releaseDate": "2024-04-25",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with liquid fuels requirements"
+    },
+    {
+      "id": "LF-BETHLEHEM-TWP-2023",
+      "title": "Bethlehem Township - Liquid Fuels Tax Fund",
+      "municipality": "Bethlehem Township",
+      "municipalityType": "Township",
+      "period": "January 1, 2022 - December 31, 2023",
+      "releaseDate": "2024-07-15",
+      "status": "passed",
+      "findings": 0,
+      "description": "Full compliance with liquid fuels requirements"
+    }
+  ],
+  "summary": {
+    "totalAudits": 6,
+    "passed": 6,
+    "minorFindings": 0,
+    "majorFindings": 0,
+    "complianceRate": 100
+  }
+}

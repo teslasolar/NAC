@@ -15,8 +15,16 @@ export { queryCountyDataTool } from './query-county-data.js';
 
 // Budget & Fiscal tools
 export { getBudgetTool, getDepartmentBudgetTool } from './get-budget.js';
-export { getAuditsTool, getAuditStatusTool } from './get-audits.js';
 export { getDebtInfoTool, getTaxRateTool, getFiscalYearInfoTool } from './get-fiscal.js';
+
+// Comprehensive Audit tools (v2.0)
+export {
+  searchAuditsTool,
+  getAuditDetailTool,
+  getAuditCategoriesTool,
+  getAuditFindingsTool,
+  getAuditStatisticsTool,
+} from './audits/index.js';
 
 // Parcel & GIS tools
 export { searchParcelsTool, getZoningInfoTool } from './search-parcels.js';

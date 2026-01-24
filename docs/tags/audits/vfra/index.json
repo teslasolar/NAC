@@ -1,0 +1,182 @@
+{
+  "category": "vfra",
+  "categoryName": "Volunteer Firefighters' Relief Associations",
+  "description": "Audits of VFRAs to ensure state aid compliance",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/news-and-resources/vfras/",
+  "fundingSource": {
+    "description": "2% tax on fire insurance policies sold in Pennsylvania by out-of-state companies",
+    "fy2024Distribution": 68260000,
+    "recipientCount": 2501
+  },
+  "audits": [
+    {
+      "id": "VFRA-NORTHAMPTON-2024",
+      "title": "Northampton Firemen's Relief Association",
+      "municipality": "Borough of Northampton",
+      "period": "January 1, 2022 - December 31, 2024",
+      "releaseDate": "2024-12-15",
+      "status": "findings",
+      "findings": 5,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Noncompliance with Prior Audit Recommendation",
+          "description": "Failure to conduct annual physical equipment inventories",
+          "type": "recurring",
+          "severity": "medium"
+        },
+        {
+          "id": "F2",
+          "title": "Equipment Inventory Deficiency",
+          "description": "Annual equipment inventories not performed as required",
+          "severity": "medium"
+        },
+        {
+          "id": "F3",
+          "title": "Vehicle Sale Proceeds",
+          "description": "Failure to deposit proceeds from the sale of a jointly purchased vehicle",
+          "severity": "medium"
+        },
+        {
+          "id": "F4",
+          "title": "Membership Roster Deficiency",
+          "description": "Failure to maintain a complete and accurate membership roster",
+          "severity": "low"
+        },
+        {
+          "id": "F5",
+          "title": "Documentation Issue",
+          "description": "Supporting documentation not retained for certain expenditures",
+          "severity": "low"
+        }
+      ],
+      "stateAidReceived": 45000,
+      "description": "Multiple findings including recurring issues from prior audit"
+    },
+    {
+      "id": "VFRA-LOWERSAUCON-2025",
+      "title": "Lower Saucon Township Volunteer Fireman's Relief Association",
+      "municipality": "Lower Saucon Township",
+      "period": "January 1, 2023 - December 31, 2024",
+      "releaseDate": "2025-04-10",
+      "status": "minor_findings",
+      "findings": 1,
+      "observations": 1,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Noncompliance with Prior Audit Recommendation",
+          "description": "Failure to maintain a complete and accurate equipment roster",
+          "type": "recurring",
+          "severity": "low"
+        }
+      ],
+      "observationDetails": [
+        {
+          "id": "O1",
+          "title": "FDIC Coverage Exceeded",
+          "description": "FDIC coverage limits were exceeded on deposit accounts",
+          "recommendation": "Distribute funds across multiple institutions or use CDARS"
+        }
+      ],
+      "stateAidReceived": 62000,
+      "description": "One recurring finding and observation about FDIC limits"
+    },
+    {
+      "id": "VFRA-HECKTOWN-2025",
+      "title": "Hecktown Volunteer Fire Company #1 Fireman's Relief Association",
+      "municipality": "Lower Nazareth Township",
+      "period": "January 1, 2023 - December 31, 2024",
+      "releaseDate": "2025-02-20",
+      "status": "observation",
+      "findings": 0,
+      "observations": 1,
+      "observationDetails": [
+        {
+          "id": "O1",
+          "title": "FDIC Coverage Exceeded",
+          "description": "FDIC coverage limits exceeded on accounts",
+          "recommendation": "Consider spreading deposits across insured institutions"
+        }
+      ],
+      "stateAidReceived": 38000,
+      "description": "No findings but observation about FDIC coverage"
+    },
+    {
+      "id": "VFRA-PLAINFIELD-2025",
+      "title": "Plainfield Township Volunteer Fire Company Relief Association",
+      "municipality": "Plainfield Township",
+      "period": "January 1, 2022 - December 31, 2024",
+      "releaseDate": "2025-05-15",
+      "status": "minor_findings",
+      "findings": 2,
+      "priorFindingsCorrected": 2,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "title": "Equipment Roster Deficiency",
+          "description": "Failure to maintain a complete and accurate equipment roster",
+          "severity": "low"
+        },
+        {
+          "id": "F2",
+          "title": "Annual Inventory",
+          "description": "Failure to conduct annual equipment inventories",
+          "severity": "low"
+        }
+      ],
+      "stateAidReceived": 41000,
+      "description": "Corrected two of four prior findings but two remain"
+    },
+    {
+      "id": "VFRA-FORKS-2024",
+      "title": "Forks Township Volunteer Fire Company Relief Association",
+      "municipality": "Forks Township",
+      "period": "January 1, 2022 - December 31, 2023",
+      "releaseDate": "2024-08-20",
+      "status": "passed",
+      "findings": 0,
+      "stateAidReceived": 55000,
+      "description": "Full compliance with all VFRA requirements"
+    },
+    {
+      "id": "VFRA-PALMER-2024",
+      "title": "Palmer Township Fire Company Relief Association",
+      "municipality": "Palmer Township",
+      "period": "January 1, 2022 - December 31, 2023",
+      "releaseDate": "2024-10-05",
+      "status": "passed",
+      "findings": 0,
+      "stateAidReceived": 72000,
+      "description": "Full compliance - all prior findings corrected"
+    }
+  ],
+  "commonFindings": [
+    {
+      "type": "equipment_roster",
+      "description": "Failure to maintain complete and accurate equipment roster",
+      "frequency": "common"
+    },
+    {
+      "type": "annual_inventory",
+      "description": "Failure to conduct annual physical equipment inventories",
+      "frequency": "common"
+    },
+    {
+      "type": "fdic_coverage",
+      "description": "FDIC coverage limits exceeded",
+      "frequency": "observation",
+      "note": "Typically listed as observation, not finding"
+    }
+  ],
+  "summary": {
+    "totalVFRAs": 6,
+    "passed": 2,
+    "minorFindings": 2,
+    "observationOnly": 1,
+    "majorFindings": 1,
+    "totalStateAidReviewed": 313000
+  }
+}

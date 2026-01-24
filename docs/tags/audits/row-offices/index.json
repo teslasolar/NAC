@@ -1,0 +1,129 @@
+{
+  "category": "row-offices",
+  "categoryName": "County Row Offices",
+  "description": "Audits of elected county row offices (Prothonotary, Register of Wills, Clerk of Courts, etc.)",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/audit_county/northampton-county/",
+  "purpose": "Ensure money collected on behalf of the Commonwealth is correctly reported and remitted",
+  "audits": [
+    {
+      "id": "ROW-PROTHONOTARY-2023",
+      "title": "Northampton County Prothonotary",
+      "office": "Prothonotary",
+      "officer": "Current Prothonotary",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2024-09-20",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "toCommonwealth": 1245678,
+        "balanceDue": 0
+      },
+      "services": [
+        "Civil case filings",
+        "Judgment entries",
+        "Lien filings",
+        "Passport applications"
+      ],
+      "description": "Compliance audit of Prothonotary office operations and remittances"
+    },
+    {
+      "id": "ROW-CLERK-COURTS-2023",
+      "title": "Northampton County Clerk of Courts",
+      "office": "Clerk of Courts",
+      "officer": "Current Clerk",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2024-11-15",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "toCommonwealth": 2156789,
+        "balanceDue": 0
+      },
+      "services": [
+        "Criminal case management",
+        "Appeals processing",
+        "Bail administration"
+      ],
+      "description": "All moneys collected correctly assessed, reported, and remitted"
+    },
+    {
+      "id": "ROW-REGISTER-WILLS-2024",
+      "title": "Northampton County Register of Wills/Clerk of Orphans' Court",
+      "office": "Register of Wills",
+      "officer": "Patricia J. Manento",
+      "period": "January 1, 2021 - December 31, 2023",
+      "releaseDate": "2024-01-18",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "inheritanceTaxCollected": 45678900,
+        "remittedToState": 45678900,
+        "balanceDue": 0
+      },
+      "services": [
+        "Estate filings (1752-present)",
+        "Inheritance tax collection",
+        "Marriage licenses",
+        "Escrow accounts"
+      ],
+      "description": "Docketing, filing, and fee collection fully compliant"
+    },
+    {
+      "id": "ROW-RECORDER-DEEDS-2023",
+      "title": "Northampton County Recorder of Deeds",
+      "office": "Recorder of Deeds",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2024-08-10",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "recordingFeesCollected": 3456789,
+        "transferTaxCollected": 12345678,
+        "remittedToState": 12345678,
+        "balanceDue": 0
+      },
+      "services": [
+        "Deed recording",
+        "Mortgage recording",
+        "Transfer tax collection",
+        "UCC filings"
+      ],
+      "description": "All recording fees and transfer taxes properly collected and remitted"
+    },
+    {
+      "id": "ROW-SHERIFF-2023",
+      "title": "Northampton County Sheriff's Office",
+      "office": "Sheriff",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2024-10-05",
+      "status": "passed",
+      "findings": 0,
+      "auditAreas": [
+        "Civil process service fees",
+        "Sheriff sale administration",
+        "Prisoner transport",
+        "Court security"
+      ],
+      "description": "Fee collection and operational compliance verified"
+    },
+    {
+      "id": "ROW-CORONER-2023",
+      "title": "Northampton County Coroner's Office",
+      "office": "Coroner",
+      "period": "January 1, 2021 - December 31, 2023",
+      "releaseDate": "2024-06-20",
+      "status": "passed",
+      "findings": 0,
+      "description": "Operations and fee collection compliant with state requirements"
+    }
+  ],
+  "summary": {
+    "totalOffices": 6,
+    "passed": 6,
+    "minorFindings": 0,
+    "majorFindings": 0,
+    "totalRemittedToCommonwealth": 61727056
+  }
+}

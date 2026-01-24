@@ -1,0 +1,119 @@
+{
+  "category": "district-courts",
+  "categoryName": "District Courts",
+  "description": "Compliance audits of Magisterial District Courts by PA Auditor General",
+  "auditor": "Pennsylvania Department of the Auditor General",
+  "auditorGeneral": "Timothy L. DeFoor",
+  "website": "https://www.paauditor.gov/audit_category/district-courts/",
+  "purpose": "Determine if money collected on behalf of the Commonwealth has been correctly reported and sent to the appropriate state agency",
+  "regulatoryBody": "Administrative Office of Pennsylvania Courts (AOPC)",
+  "audits": [
+    {
+      "id": "MDJ-03-2-01",
+      "courtNumber": "03-2-01",
+      "title": "District Court 03-2-01",
+      "location": "Easton",
+      "judge": "Magistrate",
+      "period": "January 1, 2019 - December 31, 2022",
+      "releaseDate": "2024-01-18",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "toDepartmentOfRevenue": 1856234,
+        "balanceDue": 0
+      },
+      "description": "Compliance audit for moneys collected on behalf of the Commonwealth"
+    },
+    {
+      "id": "MDJ-03-2-11",
+      "courtNumber": "03-2-11",
+      "title": "District Court 03-2-11",
+      "location": "Bethlehem",
+      "period": "January 1, 2019 - December 31, 2023",
+      "releaseDate": "2024-11-15",
+      "status": "minor_findings",
+      "findings": 1,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "type": "recurring",
+          "title": "Inadequate Arrest Warrant Procedures",
+          "description": "Court did not follow AOPC procedures for arrest warrant tracking",
+          "severity": "low",
+          "recommendation": "Implement AOPC-compliant warrant tracking system",
+          "response": "Corrective action plan submitted"
+        }
+      ],
+      "disbursements": {
+        "toDepartmentOfRevenue": 2112089,
+        "balanceDue": 0
+      },
+      "description": "Generally complied except for recurring inadequate arrest warrant procedures"
+    },
+    {
+      "id": "MDJ-03-3-02",
+      "courtNumber": "03-3-02",
+      "title": "District Court 03-3-02",
+      "location": "Nazareth",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2025-02-10",
+      "status": "minor_findings",
+      "findings": 1,
+      "findingDetails": [
+        {
+          "id": "F1",
+          "type": "recurring",
+          "title": "Inadequate Arrest Warrant Procedures",
+          "description": "Recurring issue from prior audit - warrant tracking procedures not fully implemented",
+          "severity": "low",
+          "recommendation": "Complete implementation of AOPC warrant procedures"
+        }
+      ],
+      "disbursements": {
+        "toDepartmentOfRevenue": 1423567,
+        "balanceDue": 0
+      },
+      "description": "Generally adhered to compliance standards except for recurring warrant procedure issue"
+    },
+    {
+      "id": "MDJ-03-1-04",
+      "courtNumber": "03-1-04",
+      "title": "District Court 03-1-04",
+      "location": "Bangor",
+      "period": "January 1, 2020 - December 31, 2023",
+      "releaseDate": "2024-09-20",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "toDepartmentOfRevenue": 892456,
+        "balanceDue": 0
+      },
+      "description": "Full compliance with all AOPC procedures and state regulations"
+    },
+    {
+      "id": "MDJ-03-2-06",
+      "courtNumber": "03-2-06",
+      "title": "District Court 03-2-06",
+      "location": "Palmer Township",
+      "period": "January 1, 2019 - December 31, 2022",
+      "releaseDate": "2024-03-15",
+      "status": "passed",
+      "findings": 0,
+      "disbursements": {
+        "toDepartmentOfRevenue": 1245890,
+        "balanceDue": 0
+      },
+      "description": "Compliance audit completed with no findings"
+    }
+  ],
+  "summary": {
+    "totalCourts": 5,
+    "passed": 3,
+    "minorFindings": 2,
+    "majorFindings": 0,
+    "totalDisbursed": 7530236,
+    "commonIssues": [
+      "Arrest warrant tracking procedures"
+    ]
+  }
+}

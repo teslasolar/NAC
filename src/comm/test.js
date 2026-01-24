@@ -60,31 +60,43 @@ async function test() {
   const deptBudget = await client.callTool('get_department_budget', { department: 'corrections' });
   console.log('Corrections Budget:', JSON.stringify(deptBudget.result, null, 2));
 
-  console.log('\n--- Test 10: Get Audits ---');
-  const audits = await client.callTool('get_audits', { category: 'controller', limit: 3 });
-  console.log('Recent Controller Audits:', JSON.stringify(audits.result.audits, null, 2));
+  console.log('\n--- Test 10: Search Audits (New v2.0) ---');
+  const audits = await client.callTool('search_audits', { category: 'controller', limit: 3 });
+  console.log('Controller Audits:', JSON.stringify(audits.result, null, 2));
 
-  console.log('\n--- Test 11: Get Audit Status ---');
-  const auditStatus = await client.callTool('get_audit_status', { office: 'sheriff' });
-  console.log('Sheriff Audit Status:', JSON.stringify(auditStatus.result, null, 2));
+  console.log('\n--- Test 11: Get Audit Categories ---');
+  const categories = await client.callTool('get_audit_categories', { includeStats: true });
+  console.log('Audit Categories:', JSON.stringify(categories.result.categories.map(c => ({ id: c.id, name: c.name, stats: c.stats })), null, 2));
 
-  console.log('\n--- Test 12: Get Debt Info ---');
+  console.log('\n--- Test 12: Get Audit Detail ---');
+  const auditDetail = await client.callTool('get_audit_detail', { auditId: 'CTRL-2024-007' });
+  console.log('ACL Audit Detail:', JSON.stringify(auditDetail.result, null, 2));
+
+  console.log('\n--- Test 13: Get Audit Findings ---');
+  const findings = await client.callTool('get_audit_findings', { category: 'vfra' });
+  console.log('VFRA Findings:', JSON.stringify(findings.result.analysis, null, 2));
+
+  console.log('\n--- Test 14: Get Audit Statistics ---');
+  const auditStats = await client.callTool('get_audit_statistics', {});
+  console.log('Audit Statistics:', JSON.stringify(auditStats.result.summary, null, 2));
+
+  console.log('\n--- Test 15: Get Debt Info ---');
   const debt = await client.callTool('get_debt_info', { detail: 'summary' });
   console.log('County Debt Summary:', JSON.stringify(debt.result, null, 2));
 
-  console.log('\n--- Test 13: Get Tax Rate ---');
+  console.log('\n--- Test 16: Get Tax Rate ---');
   const tax = await client.callTool('get_tax_rate', { type: 'property', municipality: 'Bethlehem' });
   console.log('Property Tax Info:', JSON.stringify(tax.result, null, 2));
 
-  console.log('\n--- Test 14: Search Parcels ---');
+  console.log('\n--- Test 17: Search Parcels ---');
   const parcels = await client.callTool('search_parcels', { municipality: 'Bethlehem', limit: 2 });
   console.log('Bethlehem Parcels:', JSON.stringify(parcels.result, null, 2));
 
-  console.log('\n--- Test 15: Get Zoning Info ---');
+  console.log('\n--- Test 18: Get Zoning Info ---');
   const zoning = await client.callTool('get_zoning_info', { district: 'R2' });
   console.log('R2 Zoning:', JSON.stringify(zoning.result, null, 2));
 
-  console.log('\n--- Test 16: Server Status ---');
+  console.log('\n--- Test 19: Server Status ---');
   const status = server.getStatus();
   console.log('Server status:', {
     running: status.running,
@@ -92,7 +104,7 @@ async function test() {
     opcuaNodes: status.opcua.nodeCount,
     toolCount: status.tools.length,
   });
-  console.log(`\nAll 22 tools: ${status.tools.join(', ')}`);
+  console.log(`\nAll ${status.tools.length} tools: ${status.tools.join(', ')}`);
 
   // Cleanup
   client.disconnect();

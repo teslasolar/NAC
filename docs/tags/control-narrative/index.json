@@ -168,5 +168,19 @@
       {"name": "Performance Alarms", "file": "performance-alarms.json"},
       {"name": "Safety Alarms", "file": "safety-alarms.json"}
     ]
+  },
+  "infrastructureIndex": {
+    "path": "infrastructure/",
+    "description": "IT infrastructure model based on public records research",
+    "modules": [
+      {"name": "Systems & Domains", "file": "systems.json"}
+    ],
+    "layers": [
+      {"level": 4, "name": "Public-Facing Services", "examples": ["norcopa.gov", "GIS Portal", "Court E-Filing"]},
+      {"level": 3, "name": "Core Applications", "examples": ["Voting System", "Court CMS", "Financial System"]},
+      {"level": 2, "name": "Infrastructure Services", "examples": ["NG911", "Network", "Data Center"]},
+      {"level": 1, "name": "Security & Compliance", "examples": ["Firewall", "Backup/DR", "Identity Management"]}
+    ],
+    "visualizationPage": "../county-infrastructure.html"
   }
 }

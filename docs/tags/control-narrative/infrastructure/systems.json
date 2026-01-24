@@ -1,0 +1,382 @@
+{
+  "infrastructureModel": {
+    "name": "Northampton County IT Infrastructure",
+    "version": "1.0",
+    "lastUpdated": "2026-01-24",
+    "researchBasis": "Public records, web presence analysis, news reports, audit findings"
+  },
+  "domains": [
+    {
+      "domain": "norcopa.gov",
+      "type": "PRIMARY",
+      "purpose": "Official county government website",
+      "services": ["News", "Department info", "Contact directory", "Meeting agendas", "Forms"],
+      "ssl": true,
+      "accessibility": "Section 508 compliant"
+    },
+    {
+      "domain": "northamptoncounty.org",
+      "type": "LEGACY",
+      "purpose": "Legacy domain - redirects and specialized services",
+      "services": ["Legacy links", "Redirects"]
+    },
+    {
+      "domain": "web.northamptoncounty.org",
+      "type": "APPLICATION",
+      "purpose": "Court services portal",
+      "services": ["E-filing", "Case search", "Attorney access", "Public records"],
+      "vendor": "Teleosoft CountySuite"
+    },
+    {
+      "domain": "gis.northamptoncounty.org",
+      "type": "APPLICATION",
+      "purpose": "Geographic Information System portal",
+      "services": ["Parcel maps", "Zoning data", "Address search", "Tax maps", "Infrastructure layers"],
+      "vendor": "ESRI ArcGIS"
+    },
+    {
+      "domain": "assessment.northamptoncounty.org",
+      "type": "APPLICATION",
+      "purpose": "Property assessment lookup",
+      "services": ["Property search", "Assessment data", "Tax records", "Appeals info"]
+    },
+    {
+      "domain": "elections.norcopa.gov",
+      "type": "APPLICATION",
+      "purpose": "Election services",
+      "services": ["Voter registration", "Poll locations", "Sample ballots", "Results"]
+    }
+  ],
+  "systems": {
+    "layer4_publicFacing": [
+      {
+        "systemID": "SYS-WEB-001",
+        "name": "County Website",
+        "tagPath": "NORCOPA.IT.Web.MainSite",
+        "vendor": "CMS Platform",
+        "url": "https://www.norcopa.gov",
+        "status": "ACTIVE",
+        "description": "Primary public information portal"
+      },
+      {
+        "systemID": "SYS-GIS-001",
+        "name": "GIS Portal",
+        "tagPath": "NORCOPA.IT.Web.GIS",
+        "vendor": "ESRI",
+        "platform": "ArcGIS Enterprise",
+        "url": "gis.northamptoncounty.org",
+        "status": "ACTIVE",
+        "dataLayers": ["Parcels", "Zoning", "Aerial", "Infrastructure"],
+        "updateFrequency": "Continuous for parcels, annual for aerials"
+      },
+      {
+        "systemID": "SYS-COURT-WEB-001",
+        "name": "Court E-Filing Portal",
+        "tagPath": "NORCOPA.IT.Web.CourtPortal",
+        "vendor": "Teleosoft",
+        "platform": "CountySuite",
+        "url": "web.northamptoncounty.org",
+        "status": "ACTIVE",
+        "users": ["Attorneys", "Public", "Court staff"],
+        "integration": "PA AOPC Unified Judicial System"
+      },
+      {
+        "systemID": "SYS-ASSESS-001",
+        "name": "Property Assessment Portal",
+        "tagPath": "NORCOPA.IT.Web.Assessment",
+        "url": "assessment.northamptoncounty.org",
+        "status": "ACTIVE",
+        "features": ["Property search", "Tax records", "Appeal information"]
+      }
+    ],
+    "layer3_coreApplications": [
+      {
+        "systemID": "SYS-VOTE-001",
+        "name": "Voting System",
+        "tagPath": "NORCOPA.IT.Apps.Elections.Voting",
+        "vendor": "ES&S",
+        "model": "ExpressVote XL",
+        "units": 315,
+        "contractValue": 2900000,
+        "contractYear": 2019,
+        "contractLength": "10 years",
+        "status": "WARNING",
+        "networkType": "Air-gapped",
+        "certification": "PA Department of State",
+        "issues": [
+          {
+            "date": "2023-11-07",
+            "description": "Vote-switching on ballot summary screen",
+            "status": "Certified despite concerns"
+          },
+          {
+            "date": "2024-11",
+            "description": "6+ hour wait times at polling locations",
+            "status": "Under review"
+          },
+          {
+            "finding": "150+ L&A testing documents missing",
+            "status": "Pending review"
+          }
+        ]
+      },
+      {
+        "systemID": "SYS-COURT-CMS-001",
+        "name": "Court Case Management System",
+        "tagPath": "NORCOPA.IT.Apps.Courts.CMS",
+        "vendor": "Teleosoft",
+        "platform": "CountySuite CMS",
+        "status": "ACTIVE",
+        "coverage": "All county courts",
+        "functions": ["Case tracking", "Scheduling", "Document management"],
+        "issues": [
+          {
+            "court": "MDJ 03-3-02",
+            "finding": "Inadequate arrest warrant procedures",
+            "recurring": true
+          },
+          {
+            "court": "MDJ 03-2-11",
+            "finding": "Warrant documentation failures",
+            "recurring": true
+          }
+        ]
+      },
+      {
+        "systemID": "SYS-FIN-001",
+        "name": "Financial Management System",
+        "tagPath": "NORCOPA.IT.Apps.Finance.ERP",
+        "status": "ACTIVE",
+        "functions": ["Budget", "Accounts Payable", "Accounts Receivable", "General Ledger"],
+        "compliance": "GASB",
+        "integration": ["Payroll", "Purchasing", "Grants"]
+      },
+      {
+        "systemID": "SYS-HR-001",
+        "name": "HR/Payroll System",
+        "tagPath": "NORCOPA.IT.Apps.HR.Payroll",
+        "status": "ACTIVE",
+        "employees": 2000,
+        "functions": ["Personnel records", "Payroll processing", "Benefits administration"]
+      },
+      {
+        "systemID": "SYS-REC-001",
+        "name": "Records Management System",
+        "tagPath": "NORCOPA.IT.Apps.Records",
+        "status": "ACTIVE",
+        "functions": ["Document management", "Retention", "RTK support", "Archives"]
+      }
+    ],
+    "layer2_infrastructure": [
+      {
+        "systemID": "SYS-911-001",
+        "name": "NG911 Emergency System",
+        "tagPath": "NORCOPA.IT.Infra.NG911",
+        "vendor": "Comtech",
+        "contractThrough": "PEMA statewide contract",
+        "previousVendor": "Verizon",
+        "status": "ACTIVE",
+        "capabilities": ["Text-to-911", "Improved location accuracy", "IP-based routing"],
+        "coverage": "All Northampton County PSAPs"
+      },
+      {
+        "systemID": "SYS-NET-001",
+        "name": "County Network",
+        "tagPath": "NORCOPA.IT.Infra.Network",
+        "status": "ACTIVE",
+        "components": ["WAN", "LAN", "Wireless"],
+        "coverage": "All county buildings",
+        "segmentation": "VLANs for department isolation"
+      },
+      {
+        "systemID": "SYS-DC-001",
+        "name": "Data Center",
+        "tagPath": "NORCOPA.IT.Infra.DataCenter",
+        "status": "ACTIVE",
+        "model": "On-premises with cloud hybrid",
+        "features": ["Server virtualization", "SAN storage", "Backup systems"]
+      },
+      {
+        "systemID": "SYS-M365-001",
+        "name": "Microsoft 365",
+        "tagPath": "NORCOPA.IT.Infra.Collaboration",
+        "vendor": "Microsoft",
+        "platform": "Microsoft 365 Government (GCC)",
+        "status": "ACTIVE",
+        "services": ["Exchange", "Teams", "SharePoint"],
+        "security": ["MFA enabled", "ATP protection"]
+      }
+    ],
+    "layer1_security": [
+      {
+        "systemID": "SYS-FW-001",
+        "name": "Firewall/IDS",
+        "tagPath": "NORCOPA.IT.Security.Firewall",
+        "status": "ACTIVE",
+        "functions": ["Perimeter firewall", "IDS/IPS", "VPN"],
+        "monitoring": "24/7 logging and alerting"
+      },
+      {
+        "systemID": "SYS-BKP-001",
+        "name": "Backup/Disaster Recovery",
+        "tagPath": "NORCOPA.IT.Security.Backup",
+        "status": "ACTIVE",
+        "schedule": "Daily incremental, weekly full",
+        "offsite": "Replicated to DR location",
+        "testing": "Periodic restore testing"
+      },
+      {
+        "systemID": "SYS-IAM-001",
+        "name": "Identity Management",
+        "tagPath": "NORCOPA.IT.Security.IAM",
+        "platform": "Microsoft Active Directory",
+        "status": "ACTIVE",
+        "features": ["Single sign-on", "MFA for remote", "HR-integrated provisioning"]
+      }
+    ]
+  },
+  "vendors": [
+    {
+      "vendorID": "VND-001",
+      "name": "ES&S (Election Systems & Software)",
+      "system": "ExpressVote XL Voting Machines",
+      "units": 315,
+      "contractValue": "$2.9 Million",
+      "contractYear": 2019,
+      "contractLength": "10 years",
+      "status": "UNDER_SCRUTINY",
+      "concerns": ["Vote display anomalies", "Long wait times", "Missing L&A documentation"]
+    },
+    {
+      "vendorID": "VND-002",
+      "name": "Teleosoft / CountySuite",
+      "system": "Court Case Management & E-Filing",
+      "contractType": "Subscription-based",
+      "status": "ACTIVE",
+      "notes": "PA AOPC approved vendor"
+    },
+    {
+      "vendorID": "VND-003",
+      "name": "ESRI",
+      "system": "ArcGIS - Geographic Information System",
+      "contractType": "Annual License",
+      "status": "ACTIVE",
+      "notes": "Industry standard for government GIS"
+    },
+    {
+      "vendorID": "VND-004",
+      "name": "Comtech (via PEMA)",
+      "system": "NG911 Emergency Call System",
+      "contractType": "State Contract",
+      "status": "ACTIVE",
+      "notes": "Statewide NG911 rollout"
+    },
+    {
+      "vendorID": "VND-005",
+      "name": "Microsoft",
+      "system": "Microsoft 365 - Email & Collaboration",
+      "contractType": "Enterprise Agreement",
+      "status": "ACTIVE",
+      "environment": "GCC (Government Community Cloud)"
+    }
+  ],
+  "externalIntegrations": [
+    {
+      "name": "PA Unified Judicial System (UJS)",
+      "type": "STATE",
+      "purpose": "Court case data exchange",
+      "systems": ["Court CMS", "E-Filing Portal"]
+    },
+    {
+      "name": "PA Department of State",
+      "type": "STATE",
+      "purpose": "Election reporting, SURE voter registration system",
+      "systems": ["Voting System", "Elections Portal"]
+    },
+    {
+      "name": "PA Treasury",
+      "type": "STATE",
+      "purpose": "Unclaimed property, pension reporting",
+      "systems": ["Financial System", "HR/Payroll"]
+    },
+    {
+      "name": "PEMA",
+      "type": "STATE",
+      "purpose": "Emergency management, NG911",
+      "systems": ["NG911", "Emergency Management"]
+    },
+    {
+      "name": "PA DHS",
+      "type": "STATE",
+      "purpose": "Human services programs",
+      "systems": ["Human Services applications"]
+    },
+    {
+      "name": "Federal Systems",
+      "type": "FEDERAL",
+      "purpose": "Grants management, EAC election reporting",
+      "systems": ["Financial System", "Voting System"]
+    }
+  ],
+  "knownIssues": [
+    {
+      "issueID": "ISS-001",
+      "severity": "CRITICAL",
+      "system": "ES&S ExpressVote XL",
+      "title": "Vote Display Anomalies",
+      "date": "2023-11-07",
+      "description": "Voters reported selecting one candidate but seeing different candidate on ballot summary",
+      "status": "Certified despite concerns",
+      "statutoryReference": "25 P.S. § 3031.7"
+    },
+    {
+      "issueID": "ISS-002",
+      "severity": "CRITICAL",
+      "system": "ES&S ExpressVote XL",
+      "title": "Excessive Wait Times",
+      "date": "2024-11",
+      "description": "6+ hour wait times at some polling locations",
+      "status": "Under review"
+    },
+    {
+      "issueID": "ISS-003",
+      "severity": "HIGH",
+      "system": "Court CMS",
+      "title": "MDJ Warrant Procedure Documentation",
+      "courts": ["MDJ 03-3-02", "MDJ 03-2-11"],
+      "description": "Inadequate arrest warrant procedures and documentation failures",
+      "status": "Recurring finding",
+      "statutoryReference": "42 Pa.C.S. Chapter 51"
+    },
+    {
+      "issueID": "ISS-004",
+      "severity": "MEDIUM",
+      "system": "Election Management",
+      "title": "L&A Testing Documentation Gap",
+      "description": "150+ Logic and Accuracy testing documents missing or incomplete",
+      "status": "Pending review"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "title": "Independent Voting System Audit",
+      "description": "Commission third-party security audit of ES&S ExpressVote XL systems, including source code review and penetration testing"
+    },
+    {
+      "priority": "HIGH",
+      "title": "Document Management System Enhancement",
+      "description": "Implement centralized document management with mandatory retention policies for election-related materials per 25 P.S. requirements"
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Court Workflow Automation Review",
+      "description": "Review CountySuite configuration for MDJ courts to enforce warrant procedure compliance and generate complete audit trails"
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Disaster Recovery Testing",
+      "description": "Conduct annual DR testing with documented results. Ensure critical systems have tested failover capabilities"
+    }
+  ]
+}

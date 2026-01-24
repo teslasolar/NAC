@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northampton County IT Infrastructure Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #4a9eff;
+        }
+        .header h1 {
+            color: #4a9eff;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #888;
+            font-size: 0.9em;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Architecture Diagram */
+        .architecture-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .architecture-section h2 {
+            color: #4a9eff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .infra-diagram {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .layer {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid;
+        }
+        .layer-public { border-color: #4CAF50; }
+        .layer-apps { border-color: #2196F3; }
+        .layer-infrastructure { border-color: #FF9800; }
+        .layer-security { border-color: #f44336; }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .layer-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .layer-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .system-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .system-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .system-card.active {
+            border: 2px solid #4a9eff;
+        }
+        .system-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .system-vendor {
+            font-size: 0.8em;
+            color: #888;
+        }
+        .system-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .status-active { background: #4CAF50; }
+        .status-warning { background: #FF9800; }
+        .status-critical { background: #f44336; animation: blink 1s infinite; }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .detail-panel.active {
+            display: block;
+        }
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .detail-title {
+            color: #4a9eff;
+            font-size: 1.3em;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .detail-item {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .detail-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            color: #fff;
+        }
+        .detail-issues {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(244,67,54,0.1);
+            border-left: 3px solid #f44336;
+            border-radius: 0 6px 6px 0;
+        }
+        .detail-issues h4 {
+            color: #f44336;
+            margin-bottom: 8px;
+        }
+
+        /* Domain Map */
+        .domain-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .domain-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .domain-url {
+            font-family: monospace;
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
+        .domain-purpose {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        .domain-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .service-tag {
+            background: rgba(74,158,255,0.2);
+            color: #4a9eff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        /* Integration Flow */
+        .flow-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .flow-node {
+            background: rgba(74,158,255,0.2);
+            border: 1px solid #4a9eff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 120px;
+        }
+        .flow-arrow {
+            color: #4a9eff;
+            font-size: 1.5em;
+        }
+        .flow-node.external {
+            background: rgba(255,152,0,0.2);
+            border-color: #FF9800;
+        }
+        .flow-node.critical {
+            background: rgba(244,67,54,0.2);
+            border-color: #f44336;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a9eff;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .tab.active {
+            background: rgba(74,158,255,0.2);
+            color: #4a9eff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Issues List */
+        .issues-list {
+            margin-top: 15px;
+        }
+        .issue-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .issue-severity {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .severity-critical { background: #f44336; color: #fff; }
+        .severity-high { background: #FF9800; color: #000; }
+        .severity-medium { background: #FFC107; color: #000; }
+        .issue-content h4 {
+            margin-bottom: 5px;
+        }
+        .issue-content p {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        /* Vendor Table */
+        .vendor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .vendor-table th, .vendor-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .vendor-table th {
+            background: rgba(0,0,0,0.3);
+            color: #4a9eff;
+        }
+        .vendor-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4a9eff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.4em; }
+            .flow-row { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Northampton County IT Infrastructure Model</h1>
+        <p>Current Technology Architecture | Research Date: January 2026</p>
+    </div>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">12+</div>
+                <div class="stat-label">Major Systems</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">External Vendors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Web Domains</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$2.9M+</div>
+                <div class="stat-label">Voting System Cost</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">315</div>
+                <div class="stat-label">Voting Machines</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Active Issues</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('architecture')">System Architecture</button>
+            <button class="tab" onclick="showTab('domains')">Web Domains</button>
+            <button class="tab" onclick="showTab('integration')">Data Flow</button>
+            <button class="tab" onclick="showTab('vendors')">Vendors & Contracts</button>
+            <button class="tab" onclick="showTab('issues')">Known Issues</button>
+        </div>
+
+        <!-- Architecture Tab -->
+        <div id="architecture" class="tab-content active">
+            <div class="architecture-section">
+                <h2>System Architecture Layers</h2>
+                <div class="infra-diagram">
+                    <!-- Public Facing Layer -->
+                    <div class="layer layer-public">
+                        <div class="layer-header">
+                            <span class="layer-title">Public-Facing Services</span>
+                            <span class="layer-tag">Layer 4 - Citizen Interface</span>
+                        </div>
+                        <div class="systems-grid">
+                            <div class="system-card" onclick="showDetail('website')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">County Website</div>
+                                <div class="system-vendor">norcopa.gov</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('gis')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">GIS Portal</div>
+                                <div class="system-vendor">ESRI ArcGIS</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('countysuite')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Court E-Filing</div>
+                                <div class="system-vendor">CountySuite (Teleosoft)</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('assessment')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Property Search</div>
+                                <div class="system-vendor">Assessment Portal</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Application Layer -->
+                    <div class="layer layer-apps">
+                        <div class="layer-header">
+                            <span class="layer-title">Core Applications</span>
+                            <span class="layer-tag">Layer 3 - Department Systems</span>
+                        </div>
+                        <div class="systems-grid">
+                            <div class="system-card" onclick="showDetail('voting')">
+                                <div class="system-status status-warning"></div>
+                                <div class="system-name">Voting System</div>
+                                <div class="system-vendor">ES&S ExpressVote XL</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('courts')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Court Management</div>
+                                <div class="system-vendor">CountySuite CMS</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('finance')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Financial System</div>
+                                <div class="system-vendor">ERP/Accounting</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('hr')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">HR/Payroll</div>
+                                <div class="system-vendor">Personnel Mgmt</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('records')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Records Management</div>
+                                <div class="system-vendor">Document Archive</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Infrastructure Layer -->
+                    <div class="layer layer-infrastructure">
+                        <div class="layer-header">
+                            <span class="layer-title">Infrastructure Services</span>
+                            <span class="layer-tag">Layer 2 - Network & Communications</span>
+                        </div>
+                        <div class="systems-grid">
+                            <div class="system-card" onclick="showDetail('ng911')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">NG911 System</div>
+                                <div class="system-vendor">PEMA/Comtech</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('network')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">County Network</div>
+                                <div class="system-vendor">WAN/LAN Infrastructure</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('datacenter')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Data Center</div>
+                                <div class="system-vendor">On-Prem/Hybrid</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('email')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Email/Collaboration</div>
+                                <div class="system-vendor">Microsoft 365</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Layer -->
+                    <div class="layer layer-security">
+                        <div class="layer-header">
+                            <span class="layer-title">Security & Compliance</span>
+                            <span class="layer-tag">Layer 1 - Protection</span>
+                        </div>
+                        <div class="systems-grid">
+                            <div class="system-card" onclick="showDetail('firewall')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Firewall/IDS</div>
+                                <div class="system-vendor">Perimeter Security</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('backup')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Backup/DR</div>
+                                <div class="system-vendor">Disaster Recovery</div>
+                            </div>
+                            <div class="system-card" onclick="showDetail('identity')">
+                                <div class="system-status status-active"></div>
+                                <div class="system-name">Identity Management</div>
+                                <div class="system-vendor">Active Directory</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Panel -->
+            <div id="detail-panel" class="detail-panel">
+                <div class="detail-header">
+                    <h3 class="detail-title" id="detail-title">System Details</h3>
+                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                </div>
+                <div id="detail-content"></div>
+            </div>
+        </div>
+
+        <!-- Domains Tab -->
+        <div id="domains" class="tab-content">
+            <div class="architecture-section">
+                <h2>Web Domain Architecture</h2>
+                <div class="domain-map">
+                    <div class="domain-card">
+                        <div class="domain-url">norcopa.gov</div>
+                        <div class="domain-purpose">Primary county government website - official information and services</div>
+                        <div class="domain-services">
+                            <span class="service-tag">News & Announcements</span>
+                            <span class="service-tag">Department Info</span>
+                            <span class="service-tag">Contact Directory</span>
+                            <span class="service-tag">Meeting Agendas</span>
+                            <span class="service-tag">Forms & Downloads</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-url">northamptoncounty.org</div>
+                        <div class="domain-purpose">Legacy domain - redirects and some specialized services</div>
+                        <div class="domain-services">
+                            <span class="service-tag">Legacy Links</span>
+                            <span class="service-tag">Redirects</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-url">web.northamptoncounty.org</div>
+                        <div class="domain-purpose">Court services portal - CountySuite e-filing and case management</div>
+                        <div class="domain-services">
+                            <span class="service-tag">E-Filing Portal</span>
+                            <span class="service-tag">Case Search</span>
+                            <span class="service-tag">Attorney Access</span>
+                            <span class="service-tag">Public Records</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-url">gis.northamptoncounty.org</div>
+                        <div class="domain-purpose">Geographic Information System portal - maps and spatial data</div>
+                        <div class="domain-services">
+                            <span class="service-tag">Parcel Maps</span>
+                            <span class="service-tag">Zoning Data</span>
+                            <span class="service-tag">Address Search</span>
+                            <span class="service-tag">Tax Maps</span>
+                            <span class="service-tag">Infrastructure Layers</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-url">assessment.northamptoncounty.org</div>
+                        <div class="domain-purpose">Property assessment lookup and tax information</div>
+                        <div class="domain-services">
+                            <span class="service-tag">Property Search</span>
+                            <span class="service-tag">Assessment Data</span>
+                            <span class="service-tag">Tax Records</span>
+                            <span class="service-tag">Appeals Info</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-url">elections.norcopa.gov</div>
+                        <div class="domain-purpose">Election services and voter information</div>
+                        <div class="domain-services">
+                            <span class="service-tag">Voter Registration</span>
+                            <span class="service-tag">Poll Locations</span>
+                            <span class="service-tag">Sample Ballots</span>
+                            <span class="service-tag">Results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Tab -->
+        <div id="integration" class="tab-content">
+            <div class="architecture-section">
+                <h2>System Integration & Data Flow</h2>
+
+                <h3 style="color: #4a9eff; margin: 20px 0 10px;">Court System Integration</h3>
+                <div class="flow-diagram">
+                    <div class="flow-row">
+                        <div class="flow-node">Attorney/Public</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">CountySuite Portal</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">Court CMS</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node external">PA AOPC (UJS)</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4a9eff; margin: 20px 0 10px;">Property/Tax Data Flow</h3>
+                <div class="flow-diagram">
+                    <div class="flow-row">
+                        <div class="flow-node">Assessment Office</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">GIS System</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">Tax Claim Bureau</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node external">School Districts</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4a9eff; margin: 20px 0 10px;">Election System Flow</h3>
+                <div class="flow-diagram">
+                    <div class="flow-row">
+                        <div class="flow-node critical">ES&S ExpressVote XL</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">Tabulation Server</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">Results Portal</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node external">PA Dept of State</div>
+                    </div>
+                    <p style="color: #f44336; margin-top: 10px; font-size: 0.9em;">
+                        * Voting system operates on air-gapped network per PA requirements
+                    </p>
+                </div>
+
+                <h3 style="color: #4a9eff; margin: 20px 0 10px;">Emergency Services (NG911)</h3>
+                <div class="flow-diagram">
+                    <div class="flow-row">
+                        <div class="flow-node">911 Caller</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">NG911 (Comtech)</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node">PSAP/Dispatch</div>
+                        <span class="flow-arrow">&#8594;</span>
+                        <div class="flow-node external">First Responders</div>
+                    </div>
+                    <p style="color: #4CAF50; margin-top: 10px; font-size: 0.9em;">
+                        * Upgraded from Verizon legacy system via PEMA statewide initiative
+                    </p>
+                </div>
+
+                <h3 style="color: #4a9eff; margin: 20px 0 10px;">External System Integrations</h3>
+                <div class="systems-grid" style="margin-top: 15px;">
+                    <div class="system-card">
+                        <div class="system-name">PA Unified Judicial System</div>
+                        <div class="system-vendor">Court case data exchange</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">PA Department of State</div>
+                        <div class="system-vendor">Election reporting, SURE system</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">PA Treasury</div>
+                        <div class="system-vendor">Unclaimed property, pension</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">PEMA</div>
+                        <div class="system-vendor">Emergency management, NG911</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">PA DHS</div>
+                        <div class="system-vendor">Human services programs</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">Federal Systems</div>
+                        <div class="system-vendor">Grants, elections (EAC)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vendors Tab -->
+        <div id="vendors" class="tab-content">
+            <div class="architecture-section">
+                <h2>Technology Vendors & Contracts</h2>
+                <table class="vendor-table">
+                    <thead>
+                        <tr>
+                            <th>Vendor</th>
+                            <th>System/Service</th>
+                            <th>Contract Value</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ES&S (Election Systems & Software)</strong></td>
+                            <td>ExpressVote XL Voting Machines (315 units)</td>
+                            <td>$2.9 Million (2019)</td>
+                            <td><span style="color: #FF9800;">Under Scrutiny</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teleosoft / CountySuite</strong></td>
+                            <td>Court Case Management & E-Filing</td>
+                            <td>Subscription-based</td>
+                            <td><span style="color: #4CAF50;">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ESRI</strong></td>
+                            <td>ArcGIS - Geographic Information System</td>
+                            <td>Annual License</td>
+                            <td><span style="color: #4CAF50;">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comtech (via PEMA)</strong></td>
+                            <td>NG911 Emergency Call System</td>
+                            <td>State Contract</td>
+                            <td><span style="color: #4CAF50;">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microsoft</strong></td>
+                            <td>Microsoft 365 - Email & Collaboration</td>
+                            <td>Enterprise Agreement</td>
+                            <td><span style="color: #4CAF50;">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Various ISPs</strong></td>
+                            <td>Internet & WAN Connectivity</td>
+                            <td>Multiple Contracts</td>
+                            <td><span style="color: #4CAF50;">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: #4a9eff; margin: 30px 0 15px;">Contract Considerations</h3>
+                <div class="systems-grid">
+                    <div class="system-card">
+                        <div class="system-name">Voting Machine Contract</div>
+                        <div class="system-vendor">10-year contract signed 2019. Concerns raised about vote-switching issues in 2023 and long wait times in 2024. County certified results despite documented anomalies.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">Court System Dependency</div>
+                        <div class="system-vendor">CountySuite provides critical e-filing services. Single vendor dependency for court operations. Part of PA AOPC approved vendor list.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">GIS Platform</div>
+                        <div class="system-vendor">ESRI is industry standard for government GIS. High switching costs but reliable platform. Integrates with assessment and planning functions.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issues Tab -->
+        <div id="issues" class="tab-content">
+            <div class="architecture-section">
+                <h2>Known Infrastructure Issues & Audit Findings</h2>
+                <div class="issues-list">
+                    <div class="issue-item">
+                        <span class="issue-severity severity-critical">CRITICAL</span>
+                        <div class="issue-content">
+                            <h4>ES&S ExpressVote XL - Vote Display Anomalies</h4>
+                            <p><strong>Date:</strong> November 7, 2023 | <strong>Status:</strong> Certified despite concerns</p>
+                            <p>Voters reported selecting one candidate but seeing a different candidate displayed on the ballot summary screen. Multiple documented instances. County certified results. 150+ L&A testing documents missing.</p>
+                        </div>
+                    </div>
+                    <div class="issue-item">
+                        <span class="issue-severity severity-critical">CRITICAL</span>
+                        <div class="issue-content">
+                            <h4>Voting System - Excessive Wait Times</h4>
+                            <p><strong>Date:</strong> November 2024 | <strong>Status:</strong> Under review</p>
+                            <p>Some polling locations experienced 6+ hour wait times. System throughput issues. Possible machine allocation problems or technical difficulties.</p>
+                        </div>
+                    </div>
+                    <div class="issue-item">
+                        <span class="issue-severity severity-high">HIGH</span>
+                        <div class="issue-content">
+                            <h4>MDJ Court System - Warrant Procedure Documentation</h4>
+                            <p><strong>Courts:</strong> MDJ 03-3-02, MDJ 03-2-11 | <strong>Status:</strong> Recurring finding</p>
+                            <p>Controller audits found inadequate arrest warrant procedures and documentation failures. System controls may not be enforcing proper workflow. Recurring issue across multiple audit cycles.</p>
+                        </div>
+                    </div>
+                    <div class="issue-item">
+                        <span class="issue-severity severity-medium">MEDIUM</span>
+                        <div class="issue-content">
+                            <h4>L&A Testing Documentation Gap</h4>
+                            <p><strong>System:</strong> Election Management | <strong>Status:</strong> Pending review</p>
+                            <p>150+ Logic and Accuracy testing documents reported missing or incomplete. Documentation system may have gaps in retention or tracking capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4a9eff; margin: 30px 0 15px;">Recommendations</h3>
+                <div class="systems-grid">
+                    <div class="system-card">
+                        <div class="system-name">Independent Voting System Audit</div>
+                        <div class="system-vendor">Commission third-party security audit of ES&S ExpressVote XL systems, including source code review and penetration testing.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">Document Management System</div>
+                        <div class="system-vendor">Implement centralized document management with mandatory retention policies for election-related materials per 25 P.S. requirements.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">Court Workflow Automation</div>
+                        <div class="system-vendor">Review CountySuite configuration for MDJ courts to enforce warrant procedure compliance and generate audit trails.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-name">Disaster Recovery Testing</div>
+                        <div class="system-vendor">Conduct annual DR testing with documented results. Ensure critical systems have tested failover capabilities.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Academy Index</a>
+    </div>
+
+    <script>
+        // System details data
+        const systemDetails = {
+            website: {
+                title: 'County Website (norcopa.gov)',
+                grid: [
+                    { label: 'Primary URL', value: 'https://www.norcopa.gov' },
+                    { label: 'Platform', value: 'Content Management System' },
+                    { label: 'Hosting', value: 'Government hosting environment' },
+                    { label: 'SSL', value: 'Yes - HTTPS enforced' },
+                    { label: 'Accessibility', value: 'ADA compliant (Section 508)' },
+                    { label: 'Mobile', value: 'Responsive design' }
+                ]
+            },
+            gis: {
+                title: 'GIS Portal (ESRI ArcGIS)',
+                grid: [
+                    { label: 'URL', value: 'gis.northamptoncounty.org' },
+                    { label: 'Platform', value: 'ESRI ArcGIS Enterprise' },
+                    { label: 'Data Layers', value: 'Parcels, Zoning, Infrastructure, Aerial' },
+                    { label: 'Update Frequency', value: 'Continuous for parcels, annual for aerials' },
+                    { label: 'Integration', value: 'Assessment, Planning, Tax offices' },
+                    { label: 'Public Access', value: 'Yes - view only for most layers' }
+                ]
+            },
+            countysuite: {
+                title: 'CountySuite Court E-Filing',
+                grid: [
+                    { label: 'Vendor', value: 'Teleosoft' },
+                    { label: 'URL', value: 'web.northamptoncounty.org' },
+                    { label: 'Services', value: 'E-filing, case search, scheduling' },
+                    { label: 'Courts Served', value: 'Common Pleas, MDJ courts' },
+                    { label: 'Integration', value: 'PA AOPC Unified Judicial System' },
+                    { label: 'User Types', value: 'Attorneys, public, court staff' }
+                ]
+            },
+            voting: {
+                title: 'ES&S ExpressVote XL Voting System',
+                grid: [
+                    { label: 'Vendor', value: 'Election Systems & Software (ES&S)' },
+                    { label: 'Model', value: 'ExpressVote XL' },
+                    { label: 'Units', value: '315 machines' },
+                    { label: 'Contract', value: '$2.9 Million (2019, 10-year)' },
+                    { label: 'Certification', value: 'PA Dept of State certified' },
+                    { label: 'Network', value: 'Air-gapped (no internet connection)' }
+                ],
+                issues: [
+                    'November 2023: Vote-switching reported on ballot summary screens',
+                    'November 2024: 6+ hour wait times at some locations',
+                    '150+ L&A testing documents missing or incomplete',
+                    'Results certified despite documented concerns'
+                ]
+            },
+            ng911: {
+                title: 'Next Generation 911 System',
+                grid: [
+                    { label: 'Vendor', value: 'Comtech (via PEMA contract)' },
+                    { label: 'Previous System', value: 'Verizon legacy 911' },
+                    { label: 'Capabilities', value: 'Text-to-911, improved location accuracy' },
+                    { label: 'Coverage', value: 'All Northampton County PSAPs' },
+                    { label: 'State Program', value: 'PA NG911 statewide rollout' },
+                    { label: 'Status', value: 'Operational' }
+                ]
+            },
+            courts: {
+                title: 'Court Case Management System',
+                grid: [
+                    { label: 'Platform', value: 'CountySuite CMS' },
+                    { label: 'Coverage', value: 'All county courts' },
+                    { label: 'Functions', value: 'Case tracking, scheduling, documents' },
+                    { label: 'Integration', value: 'PA UJS, e-filing portal' },
+                    { label: 'Access Control', value: 'Role-based per court position' },
+                    { label: 'Audit Trail', value: 'All actions logged' }
+                ],
+                issues: [
+                    'MDJ 03-3-02: Inadequate arrest warrant procedures (recurring)',
+                    'MDJ 03-2-11: Warrant documentation failures (recurring)'
+                ]
+            },
+            assessment: {
+                title: 'Property Assessment Portal',
+                grid: [
+                    { label: 'URL', value: 'assessment.northamptoncounty.org' },
+                    { label: 'Data', value: 'Property values, ownership, tax records' },
+                    { label: 'Update Cycle', value: 'Continuous as deeds recorded' },
+                    { label: 'Integration', value: 'GIS, Tax Claim, Recorder of Deeds' },
+                    { label: 'Public Search', value: 'Yes - by address, owner, parcel' },
+                    { label: 'Appeal Info', value: 'Available through portal' }
+                ]
+            },
+            finance: {
+                title: 'Financial Management System',
+                grid: [
+                    { label: 'Functions', value: 'Budget, AP, AR, GL' },
+                    { label: 'Reporting', value: 'GASB compliant financials' },
+                    { label: 'Audit Support', value: 'Controller access for audits' },
+                    { label: 'Integration', value: 'Payroll, Purchasing, Grants' },
+                    { label: 'Transparency', value: 'Budget published online' }
+                ]
+            },
+            hr: {
+                title: 'Human Resources/Payroll System',
+                grid: [
+                    { label: 'Functions', value: 'Personnel records, payroll, benefits' },
+                    { label: 'Employees', value: '2,000+ county employees' },
+                    { label: 'Compliance', value: 'PA labor law, federal requirements' },
+                    { label: 'Self-Service', value: 'Employee portal for pay stubs, benefits' },
+                    { label: 'Integration', value: 'Finance system, pension' }
+                ]
+            },
+            records: {
+                title: 'Records Management System',
+                grid: [
+                    { label: 'Scope', value: 'County-wide document management' },
+                    { label: 'Retention', value: 'Per PA retention schedules' },
+                    { label: 'RTK Support', value: 'Supports Right-to-Know searches' },
+                    { label: 'Archives', value: 'Historical records preservation' },
+                    { label: 'Digital', value: 'Scanning and digital archive' }
+                ]
+            },
+            network: {
+                title: 'County Network Infrastructure',
+                grid: [
+                    { label: 'Coverage', value: 'All county buildings' },
+                    { label: 'WAN', value: 'Interconnects remote sites' },
+                    { label: 'Internet', value: 'Multiple ISP connections' },
+                    { label: 'Wireless', value: 'Managed WiFi in facilities' },
+                    { label: 'Segmentation', value: 'VLANs for department isolation' }
+                ]
+            },
+            datacenter: {
+                title: 'Data Center / Server Infrastructure',
+                grid: [
+                    { label: 'Location', value: 'Government Center + DR site' },
+                    { label: 'Model', value: 'On-premises with cloud hybrid' },
+                    { label: 'Virtualization', value: 'Server virtualization deployed' },
+                    { label: 'Storage', value: 'SAN for critical systems' },
+                    { label: 'Backup', value: 'Daily backups with offsite copy' }
+                ]
+            },
+            email: {
+                title: 'Email & Collaboration (Microsoft 365)',
+                grid: [
+                    { label: 'Platform', value: 'Microsoft 365 Government' },
+                    { label: 'Services', value: 'Exchange, Teams, SharePoint' },
+                    { label: 'Compliance', value: 'GCC environment for government' },
+                    { label: 'Retention', value: 'Email retention per policy' },
+                    { label: 'Security', value: 'MFA enabled, ATP protection' }
+                ]
+            },
+            firewall: {
+                title: 'Firewall & Intrusion Detection',
+                grid: [
+                    { label: 'Function', value: 'Perimeter security' },
+                    { label: 'Capabilities', value: 'Firewall, IDS/IPS, VPN' },
+                    { label: 'Monitoring', value: '24/7 logging and alerting' },
+                    { label: 'Updates', value: 'Regular signature updates' }
+                ]
+            },
+            backup: {
+                title: 'Backup & Disaster Recovery',
+                grid: [
+                    { label: 'Backup Frequency', value: 'Daily incremental, weekly full' },
+                    { label: 'Retention', value: 'Per system criticality' },
+                    { label: 'Offsite', value: 'Replicated to DR location' },
+                    { label: 'Testing', value: 'Periodic restore testing' }
+                ]
+            },
+            identity: {
+                title: 'Identity Management (Active Directory)',
+                grid: [
+                    { label: 'Platform', value: 'Microsoft Active Directory' },
+                    { label: 'Scope', value: 'All county employees' },
+                    { label: 'Authentication', value: 'Single sign-on where supported' },
+                    { label: 'MFA', value: 'Multi-factor for remote access' },
+                    { label: 'Provisioning', value: 'HR-integrated onboarding' }
+                ]
+            }
+        };
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function showDetail(systemId) {
+            const system = systemDetails[systemId];
+            if (!system) return;
+
+            const panel = document.getElementById('detail-panel');
+            const title = document.getElementById('detail-title');
+            const content = document.getElementById('detail-content');
+
+            title.textContent = system.title;
+
+            let html = '<div class="detail-grid">';
+            system.grid.forEach(item => {
+                html += `<div class="detail-item">
+                    <div class="detail-label">${item.label}</div>
+                    <div class="detail-value">${item.value}</div>
+                </div>`;
+            });
+            html += '</div>';
+
+            if (system.issues && system.issues.length > 0) {
+                html += '<div class="detail-issues"><h4>Known Issues</h4><ul>';
+                system.issues.forEach(issue => {
+                    html += `<li>${issue}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            content.innerHTML = html;
+            panel.classList.add('active');
+
+            // Highlight selected card
+            document.querySelectorAll('.system-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function closeDetail() {
+            document.getElementById('detail-panel').classList.remove('active');
+            document.querySelectorAll('.system-card').forEach(c => c.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>

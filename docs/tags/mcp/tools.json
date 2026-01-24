@@ -1,0 +1,506 @@
+{
+  "version": "1.0.0",
+  "name": "nac-mcp-tools",
+  "description": "MCP Tools for Northampton County Digital Twin",
+  "categories": {
+    "data": {
+      "name": "Data Query Tools",
+      "description": "Query county data sources"
+    },
+    "audit": {
+      "name": "Security Audit Tools",
+      "description": "Automated security assessment tools"
+    },
+    "protocol": {
+      "name": "Protocol Tools",
+      "description": "MQTT, OPC-UA, and MQMCP protocol tools"
+    }
+  },
+  "tools": [
+    {
+      "id": "get_officers",
+      "name": "get_officers",
+      "category": "data",
+      "description": "Get current county row officers and officials",
+      "parameters": [
+        {
+          "name": "position",
+          "type": "string",
+          "required": false,
+          "description": "Filter by position"
+        }
+      ]
+    },
+    {
+      "id": "get_municipality",
+      "name": "get_municipality",
+      "category": "data",
+      "description": "Query municipality data (population, compliance, audit)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Municipality name"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "city, borough, township"
+        }
+      ]
+    },
+    {
+      "id": "get_fee_schedule",
+      "name": "get_fee_schedule",
+      "category": "data",
+      "description": "Look up fee schedules per PA statutes",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": true,
+          "description": "Office name"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "description": "Fee category"
+        }
+      ]
+    },
+    {
+      "id": "get_oee_benchmark",
+      "name": "get_oee_benchmark",
+      "category": "data",
+      "description": "Get OEE targets for each office",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": false,
+          "description": "Filter by office"
+        }
+      ]
+    },
+    {
+      "id": "search_pa_code",
+      "name": "search_pa_code",
+      "category": "data",
+      "description": "Search PA Consolidated Statutes references",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Search term"
+        },
+        {
+          "name": "title",
+          "type": "number",
+          "required": false,
+          "description": "PA Code title"
+        }
+      ]
+    },
+    {
+      "id": "get_workflow",
+      "name": "get_workflow",
+      "category": "data",
+      "description": "Get workflow state machines and SLAs",
+      "parameters": [
+        {
+          "name": "workflow",
+          "type": "string",
+          "required": false,
+          "description": "Workflow name"
+        },
+        {
+          "name": "office",
+          "type": "string",
+          "required": false,
+          "description": "Filter by office"
+        }
+      ]
+    },
+    {
+      "id": "get_assembly_line",
+      "name": "get_assembly_line",
+      "category": "data",
+      "description": "Get production line configs per office",
+      "parameters": [
+        {
+          "name": "office",
+          "type": "string",
+          "required": false,
+          "description": "Office name"
+        }
+      ]
+    },
+    {
+      "id": "query_county_data",
+      "name": "query_county_data",
+      "category": "data",
+      "description": "Links to public county data sources",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "description": "property, court, gis, elections"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "description": "Search query"
+        }
+      ]
+    },
+    {
+      "id": "security_check_ssl",
+      "name": "security_check_ssl",
+      "category": "audit",
+      "description": "Check SSL/TLS certificate validity and configuration",
+      "parameters": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "description": "Domain to check (e.g., norcopa.gov)"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkSSL"
+    },
+    {
+      "id": "security_check_headers",
+      "name": "security_check_headers",
+      "category": "audit",
+      "description": "Analyze HTTP security headers (CSP, HSTS, X-Frame-Options, etc.)",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL to analyze"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkHeaders"
+    },
+    {
+      "id": "security_check_cookies",
+      "name": "security_check_cookies",
+      "category": "audit",
+      "description": "Audit cookie security flags (Secure, HttpOnly, SameSite)",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL to check"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkCookies"
+    },
+    {
+      "id": "security_check_cors",
+      "name": "security_check_cors",
+      "category": "audit",
+      "description": "Test CORS configuration for misconfigurations",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL to test"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkCORS"
+    },
+    {
+      "id": "security_check_dns",
+      "name": "security_check_dns",
+      "category": "audit",
+      "description": "Check DNS configuration (SPF, DKIM, DMARC, DNSSEC)",
+      "parameters": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "description": "Domain to check"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkDNS"
+    },
+    {
+      "id": "security_check_subdomains",
+      "name": "security_check_subdomains",
+      "category": "audit",
+      "description": "Enumerate known subdomains and check their status",
+      "parameters": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "description": "Root domain"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkSubdomains"
+    },
+    {
+      "id": "security_check_tech_stack",
+      "name": "security_check_tech_stack",
+      "category": "audit",
+      "description": "Fingerprint technology stack and check for known vulnerabilities",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL to analyze"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkTechStack"
+    },
+    {
+      "id": "security_check_open_ports",
+      "name": "security_check_open_ports",
+      "category": "audit",
+      "description": "Check for common open ports via HTTP-based probing",
+      "parameters": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "description": "Domain to check"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkOpenPorts"
+    },
+    {
+      "id": "security_check_robots",
+      "name": "security_check_robots",
+      "category": "audit",
+      "description": "Analyze robots.txt for sensitive path disclosure",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "Base URL"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkRobots"
+    },
+    {
+      "id": "security_check_sitemap",
+      "name": "security_check_sitemap",
+      "category": "audit",
+      "description": "Parse sitemap.xml for endpoint enumeration",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "Base URL"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkSitemap"
+    },
+    {
+      "id": "security_check_forms",
+      "name": "security_check_forms",
+      "category": "audit",
+      "description": "Analyze forms for CSRF tokens and secure submission",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL with forms to analyze"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkForms"
+    },
+    {
+      "id": "security_check_mixed_content",
+      "name": "security_check_mixed_content",
+      "category": "audit",
+      "description": "Check for mixed HTTP/HTTPS content issues",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "HTTPS URL to check"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkMixedContent"
+    },
+    {
+      "id": "security_check_info_disclosure",
+      "name": "security_check_info_disclosure",
+      "category": "audit",
+      "description": "Check for server/version information disclosure",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "description": "URL to check"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "checkInfoDisclosure"
+    },
+    {
+      "id": "security_run_full_audit",
+      "name": "security_run_full_audit",
+      "category": "audit",
+      "description": "Run all security checks against a target",
+      "parameters": [
+        {
+          "name": "domain",
+          "type": "string",
+          "required": true,
+          "description": "Domain to audit (e.g., norcopa.gov)"
+        }
+      ],
+      "liveTest": true,
+      "testFunction": "runFullAudit"
+    },
+    {
+      "id": "mqtt_publish",
+      "name": "mqtt_publish",
+      "category": "protocol",
+      "description": "Publish message to MQTT topic",
+      "parameters": [
+        {
+          "name": "topic",
+          "type": "string",
+          "required": true,
+          "description": "MQTT topic"
+        },
+        {
+          "name": "payload",
+          "type": "object",
+          "required": true,
+          "description": "Message payload"
+        }
+      ]
+    },
+    {
+      "id": "mqtt_subscribe",
+      "name": "mqtt_subscribe",
+      "category": "protocol",
+      "description": "Subscribe to MQTT topic",
+      "parameters": [
+        {
+          "name": "topic",
+          "type": "string",
+          "required": true,
+          "description": "MQTT topic (supports wildcards)"
+        }
+      ]
+    },
+    {
+      "id": "opcua_browse",
+      "name": "opcua_browse",
+      "category": "protocol",
+      "description": "Browse OPC-UA address space",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "required": false,
+          "description": "Node path to browse"
+        }
+      ]
+    },
+    {
+      "id": "opcua_read",
+      "name": "opcua_read",
+      "category": "protocol",
+      "description": "Read OPC-UA node value",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "required": true,
+          "description": "Full node path"
+        }
+      ]
+    },
+    {
+      "id": "opcua_write",
+      "name": "opcua_write",
+      "category": "protocol",
+      "description": "Write value to OPC-UA node",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "required": true,
+          "description": "Full node path"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "required": true,
+          "description": "Value to write"
+        }
+      ]
+    }
+  ],
+  "countyTargets": [
+    {
+      "name": "Main County Website",
+      "domain": "norcopa.gov",
+      "url": "https://www.norcopa.gov",
+      "category": "primary"
+    },
+    {
+      "name": "GIS Portal",
+      "domain": "gis.northamptoncounty.org",
+      "url": "https://gis.northamptoncounty.org",
+      "category": "gis"
+    },
+    {
+      "name": "Court E-Filing Portal",
+      "domain": "web.northamptoncounty.org",
+      "url": "https://web.northamptoncounty.org",
+      "category": "courts"
+    },
+    {
+      "name": "Property Assessment",
+      "domain": "assessment.northamptoncounty.org",
+      "url": "https://assessment.northamptoncounty.org",
+      "category": "assessment"
+    },
+    {
+      "name": "Elections Portal",
+      "domain": "elections.norcopa.gov",
+      "url": "https://elections.norcopa.gov",
+      "category": "elections"
+    }
+  ],
+  "metadata": {
+    "created": "2026-01-24",
+    "lastUpdated": "2026-01-24",
+    "totalTools": 26
+  }
+}

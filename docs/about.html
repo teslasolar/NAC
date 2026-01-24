@@ -391,82 +391,20 @@ L0 Physical    ----+                    |
       <div class="line"></div>
     </div>
 
-    <div class="tools-grid">
-      <div class="tool-card">
-        <h3>get_officers</h3>
-        <div class="desc">Get current county row officers and officials</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>position</code> <span class="type">string?</span> - Filter by position
-        </div>
+    <div class="tools-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <div>
+        <span id="toolCount" style="background: rgba(34,197,94,0.2); color: #22c55e; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">Loading tools...</span>
+        <span id="categoryFilter" style="margin-left: 1rem;"></span>
       </div>
+      <a href="security-scanner.html" style="background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="animation: pulse 2s infinite;">&#9679;</span> Live Security Scanner
+      </a>
+    </div>
 
-      <div class="tool-card">
-        <h3>get_municipality</h3>
-        <div class="desc">Query municipality data (population, compliance, audit)</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>name</code> <span class="type">string?</span> - Municipality name<br>
-          <code>type</code> <span class="type">string?</span> - city, borough, township
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>get_fee_schedule</h3>
-        <div class="desc">Look up fee schedules per PA statutes</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>office</code> <span class="type">string</span> - Office name<br>
-          <code>category</code> <span class="type">string?</span> - Fee category
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>get_oee_benchmark</h3>
-        <div class="desc">Get OEE targets for each office</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>office</code> <span class="type">string?</span> - Filter by office
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>search_pa_code</h3>
-        <div class="desc">Search PA Consolidated Statutes references</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>query</code> <span class="type">string</span> - Search term<br>
-          <code>title</code> <span class="type">number?</span> - PA Code title
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>get_workflow</h3>
-        <div class="desc">Get workflow state machines and SLAs</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>workflow</code> <span class="type">string?</span> - Workflow name<br>
-          <code>office</code> <span class="type">string?</span> - Filter by office
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>get_assembly_line</h3>
-        <div class="desc">Get production line configs per office</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>office</code> <span class="type">string?</span> - Office name
-        </div>
-      </div>
-
-      <div class="tool-card">
-        <h3>query_county_data</h3>
-        <div class="desc">Links to public county data sources</div>
-        <div class="params">
-          <div class="label">Parameters</div>
-          <code>source</code> <span class="type">string</span> - property, court, gis, elections<br>
-          <code>query</code> <span class="type">string</span> - Search query
-        </div>
+    <div class="tools-grid" id="toolsGrid">
+      <!-- Auto-loaded from tags/mcp/tools.json -->
+      <div class="tool-card" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+        <p style="color: #64748b;">Loading MCP tools from JSON...</p>
       </div>
     </div>
 
@@ -601,5 +539,96 @@ server.<span class="func">writeValue</span>(<span class="string">'L2_Control/Pro
     <p style="margin-top: 0.5rem;">ISA-95 | PackML | MCP | MQTT | OPC-UA</p>
     <p style="margin-top: 1rem;"><a href="index.html">Back to Home</a></p>
   </div>
+
+  <script>
+    // Auto-load MCP tools from JSON
+    async function loadTools() {
+      const toolsGrid = document.getElementById('toolsGrid');
+      const toolCount = document.getElementById('toolCount');
+      const categoryFilter = document.getElementById('categoryFilter');
+
+      try {
+        const response = await fetch('tags/mcp/tools.json');
+        const data = await response.json();
+
+        toolCount.textContent = `${data.tools.length} tools loaded`;
+
+        // Create category filter buttons
+        const categories = Object.entries(data.categories);
+        categoryFilter.innerHTML = categories.map(([key, cat]) =>
+          `<button class="cat-btn" data-cat="${key}" onclick="filterTools('${key}')" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #94a3b8; padding: 0.4rem 0.8rem; border-radius: 4px; margin-left: 0.5rem; cursor: pointer; font-size: 0.8rem;">${cat.name}</button>`
+        ).join('') + `<button class="cat-btn active" data-cat="all" onclick="filterTools('all')" style="background: rgba(34,197,94,0.2); border: 1px solid #22c55e; color: #22c55e; padding: 0.4rem 0.8rem; border-radius: 4px; margin-left: 0.5rem; cursor: pointer; font-size: 0.8rem;">All</button>`;
+
+        // Render tools
+        window.allTools = data.tools;
+        renderTools(data.tools);
+
+      } catch (error) {
+        toolsGrid.innerHTML = `<div class="tool-card" style="grid-column: 1 / -1; border-color: #ef4444;">
+          <h3 style="color: #ef4444;">Error Loading Tools</h3>
+          <div class="desc">${error.message}</div>
+          <div class="params"><div class="label">Fallback</div>Using static tool definitions</div>
+        </div>`;
+        toolCount.textContent = 'Error loading';
+        toolCount.style.background = 'rgba(239,68,68,0.2)';
+        toolCount.style.color = '#ef4444';
+      }
+    }
+
+    function renderTools(tools) {
+      const toolsGrid = document.getElementById('toolsGrid');
+      const categoryColors = {
+        data: '#3b82f6',
+        audit: '#ef4444',
+        protocol: '#ec4899'
+      };
+
+      toolsGrid.innerHTML = tools.map(tool => {
+        const color = categoryColors[tool.category] || '#22c55e';
+        const params = tool.parameters || [];
+        const paramsHtml = params.map(p =>
+          `<code>${p.name}</code> <span class="type">${p.type}${p.required ? '' : '?'}</span> - ${p.description}`
+        ).join('<br>');
+
+        return `
+          <div class="tool-card" data-category="${tool.category}" style="border-left: 3px solid ${color};">
+            <h3 style="color: ${color};">${tool.name}</h3>
+            <div class="desc">${tool.description}</div>
+            ${tool.liveTest ? '<div style="font-size: 0.75rem; color: #22c55e; margin-bottom: 0.5rem;">&#9679; Live Test Available</div>' : ''}
+            <div class="params">
+              <div class="label">Parameters</div>
+              ${paramsHtml || '<span style="color: #64748b;">No parameters</span>'}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterTools(category) {
+      // Update button styles
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.dataset.cat === category) {
+          btn.style.background = 'rgba(34,197,94,0.2)';
+          btn.style.borderColor = '#22c55e';
+          btn.style.color = '#22c55e';
+        } else {
+          btn.style.background = 'rgba(255,255,255,0.1)';
+          btn.style.borderColor = 'rgba(255,255,255,0.2)';
+          btn.style.color = '#94a3b8';
+        }
+      });
+
+      // Filter tools
+      const filtered = category === 'all'
+        ? window.allTools
+        : window.allTools.filter(t => t.category === category);
+
+      renderTools(filtered);
+      document.getElementById('toolCount').textContent = `${filtered.length} tools shown`;
+    }
+
+    // Load on page load
+    document.addEventListener('DOMContentLoaded', loadTools);
+  </script>
 </body>
 </html>

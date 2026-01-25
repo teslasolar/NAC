@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Contracts - Northampton County | NAC</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+        }
+        .nav a:hover {
+            background: #252525;
+            color: #fff;
+        }
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 16px;
+        }
+        .total-banner {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .total-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+        .total-label {
+            color: #888;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .contracts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .contract-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.3s;
+        }
+        .contract-card:hover {
+            transform: translateY(-5px);
+            border-color: #555;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .card-header {
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #252525;
+        }
+        .vendor-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .vendor-info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .vendor-info .type {
+            color: #888;
+            font-size: 13px;
+        }
+        .card-body {
+            padding: 25px;
+        }
+        .contract-amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+        .contract-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .meta-item {
+            font-size: 13px;
+        }
+        .meta-item .label {
+            color: #666;
+            margin-bottom: 2px;
+        }
+        .meta-item .value {
+            color: #fff;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-active { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-issues { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .status-ongoing { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+        .summary-table {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .summary-table th {
+            background: #252525;
+            padding: 16px 20px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+        .summary-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #252525;
+        }
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+        .summary-table tr:hover {
+            background: #1f1f1f;
+        }
+
+        .disclaimer {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+        .disclaimer h4 {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .disclaimer p {
+            color: #666;
+            font-size: 13px;
+        }
+        .disclaimer a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 12px;
+        }
+        footer a { color: #3b82f6; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .contracts-grid { grid-template-columns: 1fr; }
+            .total-amount { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../../docs/index.html">← Portal</a>
+            <a href="../current-architecture.html">Current Architecture</a>
+            <a href="../systems/index.html">System Catalog</a>
+            <a href="../nac-valuation.html">NAC Valuation</a>
+        </nav>
+
+        <header>
+            <h1>Vendor Contracts</h1>
+            <p class="subtitle">Public contracts between Northampton County and technology vendors</p>
+        </header>
+
+        <div class="total-banner">
+            <div class="total-amount">$3.5M+</div>
+            <div class="total-label">Documented Technology Contracts (2019-2024)</div>
+        </div>
+
+        <div class="contracts-grid">
+            <a href="ess-voting.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white;">ES&S</div>
+                    <div class="vendor-info">
+                        <h3>Election Systems & Software</h3>
+                        <div class="type">Voting Systems</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">$2,880,000</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Date</div>
+                            <div class="value">May 2019</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Units</div>
+                            <div class="value">320 machines</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Unit Cost</div>
+                            <div class="value">$8,250 each</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-issues">Issues Noted</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="tyler-erp.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white;">Tyler</div>
+                    <div class="vendor-info">
+                        <h3>Tyler Technologies</h3>
+                        <div class="type">Enterprise ERP (Munis)</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">~$500K-1M/yr</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Type</div>
+                            <div class="value">Annual License</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">PA Clients</div>
+                            <div class="value">68+ Counties</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Modules</div>
+                            <div class="value">Finance, HR, Payroll</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-active">Active</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="esri-gis.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white;">Esri</div>
+                    <div class="vendor-info">
+                        <h3>ESRI Inc.</h3>
+                        <div class="type">GIS Platform</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">~$50-100K/yr</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Type</div>
+                            <div class="value">ELA License</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Version</div>
+                            <div class="value">10.81 (needs update)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Data License</div>
+                            <div class="value">$6,240/request</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-issues">Upgrade Needed</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="microsoft.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #0078d4, #106ebe); color: white;">MS</div>
+                    <div class="vendor-info">
+                        <h3>Microsoft Corporation</h3>
+                        <div class="type">Enterprise Software</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">~$200-400K/yr</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Type</div>
+                            <div class="value">EA / MPSA</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Products</div>
+                            <div class="value">Windows, Office, AD</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Server OS</div>
+                            <div class="value">2019 (upgrade due)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-ongoing">Ongoing</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="cisco.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #049fd9, #00bceb); color: white;">Cisco</div>
+                    <div class="vendor-info">
+                        <h3>Cisco Systems</h3>
+                        <div class="type">Network Infrastructure</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">Capital + SmartNet</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Type</div>
+                            <div class="value">Hardware + Support</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Equipment</div>
+                            <div class="value">Catalyst 9300</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Sites</div>
+                            <div class="value">12 Locations</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-active">Active</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="fulton-bank.html" class="contract-card">
+                <div class="card-header">
+                    <div class="vendor-logo" style="background: linear-gradient(135deg, #059669, #047857); color: white;">FB</div>
+                    <div class="vendor-info">
+                        <h3>Fulton Bank</h3>
+                        <div class="type">Banking Services</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="contract-amount">Service Agreement</div>
+                    <div class="contract-meta">
+                        <div class="meta-item">
+                            <div class="label">Contract Type</div>
+                            <div class="value">Depository Services</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Services</div>
+                            <div class="value">Tax Collection</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Locations</div>
+                            <div class="value">County-wide</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="label">Status</div>
+                            <div class="value"><span class="status-badge status-active">Active</span></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <h2 style="margin-bottom: 20px; font-size: 20px;">Contract Summary</h2>
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Vendor</th>
+                    <th>Category</th>
+                    <th>Contract Value</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ES&S</strong></td>
+                    <td>Voting Systems</td>
+                    <td style="color: #22c55e;">$2,880,000</td>
+                    <td>Capital Purchase</td>
+                    <td>County Council Vote May 2019</td>
+                </tr>
+                <tr>
+                    <td><strong>Tyler Technologies</strong></td>
+                    <td>ERP Software</td>
+                    <td style="color: #22c55e;">$500K-1M/yr est.</td>
+                    <td>Annual License</td>
+                    <td>Industry Benchmark</td>
+                </tr>
+                <tr>
+                    <td><strong>ESRI</strong></td>
+                    <td>GIS Platform</td>
+                    <td style="color: #22c55e;">$50-100K/yr est.</td>
+                    <td>ELA License</td>
+                    <td>Industry Benchmark</td>
+                </tr>
+                <tr>
+                    <td><strong>Microsoft</strong></td>
+                    <td>Enterprise Software</td>
+                    <td style="color: #22c55e;">$200-400K/yr est.</td>
+                    <td>Enterprise Agreement</td>
+                    <td>Industry Benchmark</td>
+                </tr>
+                <tr>
+                    <td><strong>IT Capital Projects</strong></td>
+                    <td>Infrastructure</td>
+                    <td style="color: #22c55e;">~$5.7M (2024)</td>
+                    <td>Capital Budget</td>
+                    <td>2024 County Budget</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="disclaimer">
+            <h4>Data Sources & Disclaimer</h4>
+            <p>Contract values are compiled from public sources including county council votes, press releases, and industry benchmarks. Some figures are estimates based on comparable government contracts. For official contract details, submit a Right to Know request at <a href="https://righttoknow.northamptoncounty.org" target="_blank">righttoknow.northamptoncounty.org</a> or contact the <a href="https://www.norcopa.gov/procurement" target="_blank">Northampton County Purchasing Department</a>.</p>
+            <p style="margin-top: 10px;">Bid opportunities: <a href="https://www.publicpurchase.com" target="_blank">publicpurchase.com</a> (search for Northampton County)</p>
+        </div>
+
+        <footer>
+            <p>NAC Vendor Contracts | <a href="https://thomasfrumkin.com">thomasfrumkin.com</a></p>
+            <p style="margin-top: 10px;">Data compiled January 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

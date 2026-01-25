@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Contract - Enterprise Software | Northampton County</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        .header { display: flex; align-items: center; gap: 25px; padding: 40px; background: linear-gradient(135deg, rgba(0, 120, 212, 0.1), rgba(16, 110, 190, 0.05)); border: 1px solid rgba(0, 120, 212, 0.3); border-radius: 16px; margin-bottom: 30px; }
+        .vendor-logo { width: 80px; height: 80px; background: linear-gradient(135deg, #0078d4, #106ebe); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 28px; }
+        .header-info h1 { font-size: 28px; margin-bottom: 5px; }
+        .header-info .subtitle { color: #888; }
+        .amount-box { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 30px; }
+        .amount { font-size: 48px; font-weight: 700; color: #22c55e; }
+        .amount-label { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .amount-note { color: #666; font-size: 13px; margin-top: 10px; }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .info-card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px; }
+        .info-card .label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .info-card .value { font-size: 20px; font-weight: 600; }
+        .section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; margin-bottom: 25px; }
+        .section h2 { font-size: 18px; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .section h2::after { content: ''; flex: 1; height: 1px; background: #333; }
+        .status-banner { background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .status-banner .icon { font-size: 24px; }
+        .status-banner h4 { color: #fbbf24; margin-bottom: 5px; }
+        .status-banner p { color: #888; font-size: 13px; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .product-item { padding: 20px; background: #252525; border-radius: 8px; }
+        .product-item h4 { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .product-item p { color: #888; font-size: 13px; }
+        .sources { margin-top: 40px; }
+        .sources h3 { color: #888; font-size: 14px; margin-bottom: 15px; }
+        .sources ul { list-style: none; }
+        .sources li { margin-bottom: 8px; font-size: 13px; }
+        .sources a { color: #3b82f6; text-decoration: none; }
+        @media (max-width: 768px) { .info-grid, .products-grid { grid-template-columns: 1fr; } .header { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html">← All Contracts</a>
+            <a href="../systems/microsoft-ad.html">System Details</a>
+            <a href="../current-architecture.html">Architecture</a>
+        </nav>
+
+        <div class="header">
+            <div class="vendor-logo">⊞</div>
+            <div class="header-info">
+                <h1>Microsoft Corporation</h1>
+                <p class="subtitle">Enterprise Agreement / MPSA</p>
+            </div>
+        </div>
+
+        <div class="status-banner">
+            <span class="icon">⚠️</span>
+            <div>
+                <h4>Server 2019 - Mainstream Support Ended</h4>
+                <p>Windows Server 2019 mainstream support ended Jan 2024. Upgrade to Server 2022/2025 recommended.</p>
+            </div>
+        </div>
+
+        <div class="amount-box">
+            <div class="amount">$200K - $400K/yr</div>
+            <div class="amount-label">Estimated Enterprise Agreement</div>
+            <div class="amount-note">Includes Windows, Office 365, CALs, Server licenses. Based on ~1,500 employee county.</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">License Type</div>
+                <div class="value">EA / MPSA</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Server Version</div>
+                <div class="value">2019</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Domain Controllers</div>
+                <div class="value">4 DCs</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Microsoft Products in Use</h2>
+            <div class="products-grid">
+                <div class="product-item">
+                    <h4>🖥️ Windows Server</h4>
+                    <p>Domain controllers, file servers, application servers running Windows Server 2019</p>
+                </div>
+                <div class="product-item">
+                    <h4>👤 Active Directory</h4>
+                    <p>Identity management, authentication, group policy for all county users</p>
+                </div>
+                <div class="product-item">
+                    <h4>📧 Microsoft 365</h4>
+                    <p>Exchange Online, Teams, SharePoint, Office applications</p>
+                </div>
+                <div class="product-item">
+                    <h4>💻 Windows 10/11</h4>
+                    <p>Desktop operating system for county workstations</p>
+                </div>
+                <div class="product-item">
+                    <h4>🗄️ SQL Server</h4>
+                    <p>Database backend for county applications</p>
+                </div>
+                <div class="product-item">
+                    <h4>🔐 Security Tools</h4>
+                    <p>Defender, Intune, Azure AD (if hybrid)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Active Directory Infrastructure</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Domain Controllers</td>
+                    <td style="padding: 12px 0;">4 (multi-site)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Functional Level</td>
+                    <td style="padding: 12px 0;">Windows Server 2019</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Authentication</td>
+                    <td style="padding: 12px 0;">Kerberos / NTLM</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">Known CVEs</td>
+                    <td style="padding: 12px 0; color: #ef4444;">CVE-2020-1472 (Zerologon), CVE-2021-42278</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Upgrade Path: Server 2025</h2>
+            <p style="color: #888; margin-bottom: 15px;">Windows Server 2025 offers significant AD improvements:</p>
+            <ul style="list-style: none;">
+                <li style="padding: 10px 0; border-bottom: 1px solid #333;">✓ 32K page database format (vs 8K in 2019)</li>
+                <li style="padding: 10px 0; border-bottom: 1px solid #333;">✓ AES-SHA256/SHA384 cryptography</li>
+                <li style="padding: 10px 0; border-bottom: 1px solid #333;">✓ Delegated Managed Service Accounts (DMSA)</li>
+                <li style="padding: 10px 0; border-bottom: 1px solid #333;">✓ Credential Guard integration</li>
+                <li style="padding: 10px 0;">✓ Automatic password rotation</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Vendor Information</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Company</td>
+                    <td style="padding: 12px 0;">Microsoft Corporation</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Headquarters</td>
+                    <td style="padding: 12px 0;">Redmond, Washington</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Government Program</td>
+                    <td style="padding: 12px 0;">Microsoft Government (GCC)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">PA State Contract</td>
+                    <td style="padding: 12px 0;">Available via COSTARS</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://techcommunity.microsoft.com/blog/windowsosplatform/active-directory-improvements-in-windows-server-2025/4202383" target="_blank">Microsoft: Active Directory Improvements in Windows Server 2025</a></li>
+                <li><a href="https://www.ravenswoodtechnology.com/should-i-upgrade-active-directory-domain-services-to-windows-server-2025/" target="_blank">Should I Upgrade AD to Windows Server 2025?</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

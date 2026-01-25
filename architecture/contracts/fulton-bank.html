@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fulton Bank Contract - Banking Services | Northampton County</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        .header { display: flex; align-items: center; gap: 25px; padding: 40px; background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(4, 120, 87, 0.05)); border: 1px solid rgba(5, 150, 105, 0.3); border-radius: 16px; margin-bottom: 30px; }
+        .vendor-logo { width: 80px; height: 80px; background: linear-gradient(135deg, #059669, #047857); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; }
+        .header-info h1 { font-size: 28px; margin-bottom: 5px; }
+        .header-info .subtitle { color: #888; }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .info-card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px; }
+        .info-card .label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .info-card .value { font-size: 20px; font-weight: 600; }
+        .section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; margin-bottom: 25px; }
+        .section h2 { font-size: 18px; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .section h2::after { content: ''; flex: 1; height: 1px; background: #333; }
+        .status-banner { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .status-banner .icon { font-size: 24px; }
+        .status-banner h4 { color: #22c55e; margin-bottom: 5px; }
+        .status-banner p { color: #888; font-size: 13px; }
+        .services-list { list-style: none; }
+        .services-list li { padding: 15px; background: #252525; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .services-list .icon { font-size: 24px; }
+        .sources { margin-top: 40px; }
+        .sources h3 { color: #888; font-size: 14px; margin-bottom: 15px; }
+        .sources ul { list-style: none; }
+        .sources li { margin-bottom: 8px; font-size: 13px; }
+        .sources a { color: #3b82f6; text-decoration: none; }
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } .header { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html">← All Contracts</a>
+            <a href="../current-architecture.html">Architecture</a>
+            <a href="../../docs/index.html">Portal</a>
+        </nav>
+
+        <div class="header">
+            <div class="vendor-logo">FB</div>
+            <div class="header-info">
+                <h1>Fulton Bank</h1>
+                <p class="subtitle">Depository & Tax Collection Services</p>
+            </div>
+        </div>
+
+        <div class="status-banner">
+            <span class="icon">✓</span>
+            <div>
+                <h4>Active Service Agreement</h4>
+                <p>Fulton Bank provides in-person tax payment collection at all Northampton County branch locations.</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">Service Type</div>
+                <div class="value">Depository</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Tax Collection</div>
+                <div class="value">All Branches</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Coverage</div>
+                <div class="value">County-wide</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Services Provided</h2>
+            <ul class="services-list">
+                <li>
+                    <span class="icon">🏦</span>
+                    <div>
+                        <strong>In-Person Tax Payments</strong>
+                        <p style="color: #888; font-size: 13px;">Accept county real estate tax payments at any Fulton Bank location within Northampton County</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon">💰</span>
+                    <div>
+                        <strong>Depository Services</strong>
+                        <p style="color: #888; font-size: 13px;">County fund deposits and cash management</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon">📋</span>
+                    <div>
+                        <strong>Treasury Management</strong>
+                        <p style="color: #888; font-size: 13px;">Account services for county operations</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Tax Payment Locations</h2>
+            <p style="color: #888; margin-bottom: 15px;">County taxes can be paid at:</p>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">Revenue Division Office</td>
+                    <td style="padding: 12px 0; color: #888;">669 Washington Street, Easton, PA 18042</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">Bethlehem Office</td>
+                    <td style="padding: 12px 0; color: #888;">2801 Emrick Blvd, Bethlehem, PA 18020</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0;">Fulton Bank</td>
+                    <td style="padding: 12px 0; color: #888;">Any location within Northampton County</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>2024-2025 Tax Deadlines</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #22c55e;">Discount Period</td>
+                    <td style="padding: 12px 0;">Pay by April 1 for 2% discount</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Face Value</td>
+                    <td style="padding: 12px 0;">Pay by May 31</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #fbbf24;">Penalty Period</td>
+                    <td style="padding: 12px 0;">After May 31, 10% penalty applies</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #ef4444;">Tax Claim Bureau</td>
+                    <td style="padding: 12px 0;">Unpaid after January 31, 2025 transferred to Tax Claim</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Vendor Information</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Company</td>
+                    <td style="padding: 12px 0;">Fulton Financial Corporation</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Headquarters</td>
+                    <td style="padding: 12px 0;">Lancaster, Pennsylvania</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Stock Symbol</td>
+                    <td style="padding: 12px 0;">NASDAQ: FULT</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Assets</td>
+                    <td style="padding: 12px 0;">$26+ billion</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">Regional Presence</td>
+                    <td style="padding: 12px 0;">PA, NJ, MD, DE, VA</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://norcopa.gov/tax-payment-instructions" target="_blank">Northampton County Tax Payment Instructions</a></li>
+                <li><a href="https://norcopa.gov/pay-my-bill" target="_blank">Northampton County Payment Page</a></li>
+                <li><a href="https://www.fultonbank.com" target="_blank">Fulton Bank Official Website</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

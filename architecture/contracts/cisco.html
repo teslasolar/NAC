@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Contract - Network Infrastructure | Northampton County</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        .header { display: flex; align-items: center; gap: 25px; padding: 40px; background: linear-gradient(135deg, rgba(4, 159, 217, 0.1), rgba(0, 188, 235, 0.05)); border: 1px solid rgba(4, 159, 217, 0.3); border-radius: 16px; margin-bottom: 30px; }
+        .vendor-logo { width: 80px; height: 80px; background: linear-gradient(135deg, #049fd9, #00bceb); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; }
+        .header-info h1 { font-size: 28px; margin-bottom: 5px; }
+        .header-info .subtitle { color: #888; }
+        .amount-box { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 30px; }
+        .amount { font-size: 36px; font-weight: 700; color: #22c55e; }
+        .amount-label { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .amount-note { color: #666; font-size: 13px; margin-top: 10px; }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .info-card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px; }
+        .info-card .label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .info-card .value { font-size: 20px; font-weight: 600; }
+        .section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; margin-bottom: 25px; }
+        .section h2 { font-size: 18px; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .section h2::after { content: ''; flex: 1; height: 1px; background: #333; }
+        .status-banner { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .status-banner .icon { font-size: 24px; }
+        .status-banner h4 { color: #22c55e; margin-bottom: 5px; }
+        .status-banner p { color: #888; font-size: 13px; }
+        .sources { margin-top: 40px; }
+        .sources h3 { color: #888; font-size: 14px; margin-bottom: 15px; }
+        .sources ul { list-style: none; }
+        .sources li { margin-bottom: 8px; font-size: 13px; }
+        .sources a { color: #3b82f6; text-decoration: none; }
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } .header { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html">← All Contracts</a>
+            <a href="../systems/cisco-network.html">System Details</a>
+            <a href="../current-architecture.html">Architecture</a>
+        </nav>
+
+        <div class="header">
+            <div class="vendor-logo">CISCO</div>
+            <div class="header-info">
+                <h1>Cisco Systems, Inc.</h1>
+                <p class="subtitle">Network Infrastructure & SmartNet Support</p>
+            </div>
+        </div>
+
+        <div class="status-banner">
+            <span class="icon">✓</span>
+            <div>
+                <h4>Active - Catalyst 9300 Deployed</h4>
+                <p>Modern SD-Access capable switches deployed across 12 county sites with SmartNet support.</p>
+            </div>
+        </div>
+
+        <div class="amount-box">
+            <div class="amount">Capital + SmartNet</div>
+            <div class="amount-label">Contract Structure</div>
+            <div class="amount-note">Hardware capital purchases + annual SmartNet maintenance. Typical county network: $500K-1M capital, $50-100K/yr support.</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">Primary Equipment</div>
+                <div class="value">Catalyst 9300</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Sites Covered</div>
+                <div class="value">12 Locations</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Support Level</div>
+                <div class="value">SmartNet</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Network Topology</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Core Layer</td>
+                    <td style="padding: 12px 0;">Catalyst 9300 (Government Center)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Distribution Layer</td>
+                    <td style="padding: 12px 0;">Catalyst 9300 at major sites</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Access Layer</td>
+                    <td style="padding: 12px 0;">Catalyst 9300/9200 at remote sites</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">Wireless</td>
+                    <td style="padding: 12px 0;">Cisco Wireless (if applicable)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>VLAN Segmentation</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 10</td>
+                    <td style="padding: 12px 0; color: #888;">Management</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 20</td>
+                    <td style="padding: 12px 0; color: #888;">Staff Workstations</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 30</td>
+                    <td style="padding: 12px 0; color: #888;">Servers</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 40</td>
+                    <td style="padding: 12px 0; color: #888;">VoIP</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 50</td>
+                    <td style="padding: 12px 0; color: #888;">Guest WiFi</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 100</td>
+                    <td style="padding: 12px 0; color: #888;">Building Automation</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0;">VLAN 200</td>
+                    <td style="padding: 12px 0; color: #888;">Security Cameras</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0;">VLAN 999</td>
+                    <td style="padding: 12px 0; color: #888;">Quarantine</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Catalyst 9300 Specifications</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Ports</td>
+                    <td style="padding: 12px 0;">24/48 x 1GE, mGig options</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Uplinks</td>
+                    <td style="padding: 12px 0;">4 x 10G/25G SFP+</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Stacking</td>
+                    <td style="padding: 12px 0;">StackWise-480 (480 Gbps)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">SD-Access</td>
+                    <td style="padding: 12px 0;">DNA Center Ready</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">PoE</td>
+                    <td style="padding: 12px 0;">UPOE+ (up to 90W/port)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Vendor Information</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Company</td>
+                    <td style="padding: 12px 0;">Cisco Systems, Inc.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Headquarters</td>
+                    <td style="padding: 12px 0;">San Jose, California</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 12px 0; color: #888;">Stock Symbol</td>
+                    <td style="padding: 12px 0;">NASDAQ: CSCO</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 0; color: #888;">PA State Contract</td>
+                    <td style="padding: 12px 0;">Available via COSTARS/PEPPM</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://www.cisco.com/c/en/us/products/switches/catalyst-9300-series-switches/index.html" target="_blank">Cisco Catalyst 9300 Series</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

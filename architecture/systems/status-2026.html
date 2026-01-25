@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status Report - January 2026 | NAC</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #888;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .nav a:hover {
+            background: #252525;
+            color: #fff;
+            border-color: #555;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .summary-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .summary-card .number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .summary-card .label {
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .summary-card.behind .number { color: #ef4444; }
+        .summary-card.planned .number { color: #fbbf24; }
+        .summary-card.current .number { color: #22c55e; }
+        .summary-card.unplanned .number { color: #8b5cf6; }
+
+        .section {
+            margin-bottom: 50px;
+        }
+        .section h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section h2 .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .behind-section h2 .icon { background: rgba(239, 68, 68, 0.2); }
+        .planned-section h2 .icon { background: rgba(251, 191, 36, 0.2); }
+        .current-section h2 .icon { background: rgba(34, 197, 94, 0.2); }
+        .unplanned-section h2 .icon { background: rgba(139, 92, 246, 0.2); }
+
+        .system-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .system-table th {
+            background: #252525;
+            padding: 16px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            border-bottom: 1px solid #333;
+        }
+        .system-table td {
+            padding: 16px;
+            border-bottom: 1px solid #252525;
+            vertical-align: top;
+        }
+        .system-table tr:last-child td {
+            border-bottom: none;
+        }
+        .system-table tr:hover {
+            background: #1f1f1f;
+        }
+        .system-name {
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .system-name a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .system-name a:hover {
+            text-decoration: underline;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-behind { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .status-planned { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .status-current { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-unplanned { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+
+        .version-info {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 12px;
+            color: #888;
+        }
+        .version-current { color: #22c55e; }
+        .version-target { color: #3b82f6; }
+
+        .risk-high { color: #ef4444; }
+        .risk-medium { color: #fbbf24; }
+        .risk-low { color: #22c55e; }
+
+        .cve-list {
+            font-size: 11px;
+            color: #ef4444;
+        }
+        .cve-list a {
+            color: #ef4444;
+            text-decoration: none;
+        }
+        .cve-list a:hover {
+            text-decoration: underline;
+        }
+
+        .timeline {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            padding: 30px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+        }
+        .timeline-year {
+            flex: 1;
+            text-align: center;
+        }
+        .timeline-year h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #888;
+        }
+        .timeline-year.past h3 { color: #666; }
+        .timeline-year.current h3 { color: #22c55e; }
+        .timeline-year.future h3 { color: #3b82f6; }
+        .timeline-items {
+            text-align: left;
+            font-size: 12px;
+            color: #888;
+        }
+        .timeline-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: #252525;
+            border-radius: 6px;
+            border-left: 3px solid #333;
+        }
+        .timeline-item.done { border-left-color: #22c55e; }
+        .timeline-item.progress { border-left-color: #fbbf24; }
+        .timeline-item.planned { border-left-color: #3b82f6; }
+        .timeline-item.gap { border-left-color: #ef4444; }
+
+        .sources {
+            margin-top: 50px;
+            padding: 30px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+        }
+        .sources h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #888;
+        }
+        .sources ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .sources li {
+            font-size: 12px;
+        }
+        .sources a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .sources a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-banner {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .alert-banner .alert-icon {
+            font-size: 24px;
+        }
+        .alert-banner h4 {
+            color: #ef4444;
+            margin-bottom: 5px;
+        }
+        .alert-banner p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .sources ul { grid-template-columns: 1fr; }
+            .timeline { flex-direction: column; }
+        }
+        @media (max-width: 600px) {
+            .summary-grid { grid-template-columns: 1fr; }
+            .system-table { font-size: 12px; }
+            .system-table th, .system-table td { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>System Status Report</h1>
+            <p class="subtitle">Northampton County Technology Infrastructure Assessment</p>
+            <div class="date-badge">As of January 24, 2026</div>
+        </header>
+
+        <nav class="nav">
+            <a href="index.html">All Systems</a>
+            <a href="../current-architecture.html">Current Architecture</a>
+            <a href="../proposed-architecture.html">Proposed Architecture</a>
+            <a href="../../docs/index.html">Main Portal</a>
+        </nav>
+
+        <div class="alert-banner">
+            <span class="alert-icon">⚠️</span>
+            <div>
+                <h4>Controller Position Vacant</h4>
+                <p>The County Controller position has been vacant since Tara Zrinski became County Executive on January 5, 2026. This impacts IT governance, audit oversight, and capital project approvals. Per 16 P.S. 1701-1720, the Controller is responsible for pre-auditing technology purchases and countersigning warrants for IT contracts.</p>
+            </div>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card behind">
+                <div class="number">4</div>
+                <div class="label">Behind Schedule</div>
+            </div>
+            <div class="summary-card planned">
+                <div class="number">5</div>
+                <div class="label">Planned 2026</div>
+            </div>
+            <div class="summary-card current">
+                <div class="number">3</div>
+                <div class="label">Current/On Track</div>
+            </div>
+            <div class="summary-card unplanned">
+                <div class="number">6</div>
+                <div class="label">Not Yet Planned</div>
+            </div>
+        </div>
+
+        <!-- Behind Schedule Section -->
+        <section class="section behind-section">
+            <h2><span class="icon">🔴</span> Behind Schedule</h2>
+            <table class="system-table">
+                <thead>
+                    <tr>
+                        <th>System</th>
+                        <th>Current Version</th>
+                        <th>Required By</th>
+                        <th>Risk</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                <a href="esri-arcgis.html">ESRI ArcGIS Enterprise</a>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="version-info">10.9.1</span>
+                        </td>
+                        <td>
+                            <span class="version-info version-target">11.3 by May 2026</span><br>
+                            <span style="font-size: 11px; color: #888;">EOL: May 31, 2026</span>
+                        </td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>
+                            <div class="cve-list">
+                                CVE-2023-25830, CVE-2024-25694, CVE-2024-25696<br>
+                                <span style="color: #888;">Web AppBuilder deprecated in 12.0</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                <a href="microsoft-ad.html">Microsoft Active Directory</a>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="version-info">Server 2019</span>
+                        </td>
+                        <td>
+                            <span class="version-info version-target">Server 2022/2025</span><br>
+                            <span style="font-size: 11px; color: #888;">Mainstream support ended</span>
+                        </td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>
+                            <div class="cve-list">
+                                CVE-2020-1472 (Zerologon) patches required<br>
+                                <span style="color: #888;">Missing 32k page database, DMSA features</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                <a href="ess-expressvote.html">ES&S ExpressVote XL</a>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="version-info">v2.4.0.0</span>
+                        </td>
+                        <td>
+                            <span class="version-info version-target">Updated software</span><br>
+                            <span style="font-size: 11px; color: #888;">Required by Mar 2024</span>
+                        </td>
+                        <td><span class="risk-medium">MEDIUM</span></td>
+                        <td>
+                            <span style="color: #fbbf24;">Settlement requires software upgrade + conditions for use</span><br>
+                            <span style="font-size: 11px; color: #888;">2019 & 2023 incidents documented</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                Cybersecurity Posture
+                            </div>
+                        </td>
+                        <td>
+                            <span class="version-info">Undisclosed</span>
+                        </td>
+                        <td>
+                            <span class="version-info version-target">SLGCP Grant Eligible</span>
+                        </td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>
+                            <span style="color: #ef4444;">No public cybersecurity plan disclosed</span><br>
+                            <span style="font-size: 11px; color: #888;">PA eligible for $10.4M FFY2023, $5.2M FFY2022</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Planned for 2026 Section -->
+        <section class="section planned-section">
+            <h2><span class="icon">🟡</span> Planned for 2026</h2>
+            <table class="system-table">
+                <thead>
+                    <tr>
+                        <th>System</th>
+                        <th>Initiative</th>
+                        <th>Timeline</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="system-name">Digital Inclusion Program</div>
+                        </td>
+                        <td>Device Giveaway & Digital Navigator</td>
+                        <td>Ongoing 2026</td>
+                        <td><span class="status-badge status-current">Active</span></td>
+                        <td>
+                            Named 2025 Digital Inclusion Trailblazer by NDIA<br>
+                            <span style="font-size: 11px; color: #888;">Refurbished county devices to residents</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">2026 Capital Improvements</div>
+                        </td>
+                        <td>IT Capital Projects</td>
+                        <td>Adopted Dec 4, 2025</td>
+                        <td><span class="status-badge status-planned">Approved</span></td>
+                        <td>
+                            Part of $503M budget, no tax increase<br>
+                            <span style="font-size: 11px; color: #888;">Specific IT items in Capital Plan section</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">CDBG Technology Grants</div>
+                        </td>
+                        <td>Community Development Block Grant</td>
+                        <td>Opens Mar 3, 2025</td>
+                        <td><span class="status-badge status-planned">Scheduled</span></td>
+                        <td>
+                            Application closes May 22, 2025<br>
+                            <span style="font-size: 11px; color: #888;">May include technology infrastructure projects</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">BEAD Broadband Program</div>
+                        </td>
+                        <td>Broadband Equity & Deployment</td>
+                        <td>2024-2028</td>
+                        <td><span class="status-badge status-planned">In Progress</span></td>
+                        <td>
+                            Federal infrastructure funding for broadband<br>
+                            <span style="font-size: 11px; color: #888;">PA DCED 2024-2025 provisional approvals</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">Election Security</div>
+                        </td>
+                        <td>Risk-Limiting Audits</td>
+                        <td>2025-2026 Elections</td>
+                        <td><span class="status-badge status-current">Active</span></td>
+                        <td>
+                            County participates in PA DoS RLA program<br>
+                            <span style="font-size: 11px; color: #888;">2024 primary audited successfully</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Current / On Track Section -->
+        <section class="section current-section">
+            <h2><span class="icon">🟢</span> Current / On Track</h2>
+            <table class="system-table">
+                <thead>
+                    <tr>
+                        <th>System</th>
+                        <th>Current State</th>
+                        <th>Last Verified</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                <a href="tyler-erp.html">Tyler Enterprise ERP (Munis)</a>
+                            </div>
+                        </td>
+                        <td><span class="status-badge status-current">Operational</span></td>
+                        <td>Jan 2026</td>
+                        <td>
+                            Financials, HR, Payroll, Procurement active<br>
+                            <span style="font-size: 11px; color: #888;">68+ PA county Munis installations</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">Controller Audit Function</div>
+                        </td>
+                        <td><span class="status-badge status-current">Compliant</span></td>
+                        <td>Jan 22, 2025</td>
+                        <td>
+                            Peer review: "adequately designed and operating effectively"<br>
+                            <span style="font-size: 11px; color: #888;">Reviewed Jan 2022 - Dec 2024 period</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="system-name">
+                                <a href="cisco-network.html">Cisco Network Infrastructure</a>
+                            </div>
+                        </td>
+                        <td><span class="status-badge status-current">Operational</span></td>
+                        <td>Jan 2026</td>
+                        <td>
+                            Catalyst 9300 switches deployed<br>
+                            <span style="font-size: 11px; color: #888;">VLAN segmentation in place</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Not Yet Planned Section -->
+        <section class="section unplanned-section">
+            <h2><span class="icon">🟣</span> Not Yet Planned (Gaps Identified)</h2>
+            <table class="system-table">
+                <thead>
+                    <tr>
+                        <th>Gap Area</th>
+                        <th>Industry Standard</th>
+                        <th>Risk</th>
+                        <th>Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="system-name">Zero Trust Architecture</div></td>
+                        <td>CISA Zero Trust Maturity Model</td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>No public ZTA roadmap. Federal mandate for agencies by 2024.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="system-name">Cloud Migration Strategy</div></td>
+                        <td>Hybrid Cloud / SaaS</td>
+                        <td><span class="risk-medium">MEDIUM</span></td>
+                        <td>Tyler ERP offers SaaS. No disclosed migration plan.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="system-name">SIEM/SOC Capabilities</div></td>
+                        <td>24/7 Security Operations</td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>No public SOC or SIEM disclosed. MS-ISAC available free to PA locals.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="system-name">Disaster Recovery Testing</div></td>
+                        <td>Annual DR drills documented</td>
+                        <td><span class="risk-medium">MEDIUM</span></td>
+                        <td>No public DR test results. COOP plan status unknown.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="system-name">IT Staffing Assessment</div></td>
+                        <td>IT FTE per 100 employees</td>
+                        <td><span class="risk-medium">MEDIUM</span></td>
+                        <td>IT staffing levels not disclosed. Industry benchmark: 3-5%.</td>
+                    </tr>
+                    <tr>
+                        <td><div class="system-name">ArcGIS Enterprise 12.0 Planning</div></td>
+                        <td>Migrate from Web AppBuilder</td>
+                        <td><span class="risk-high">HIGH</span></td>
+                        <td>ESRI deprecating Web AppBuilder in 12.0. Experience Builder migration needed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Timeline -->
+        <section class="section">
+            <h2><span class="icon">📅</span> Technology Timeline 2024-2026</h2>
+            <div class="timeline">
+                <div class="timeline-year past">
+                    <h3>2024</h3>
+                    <div class="timeline-items">
+                        <div class="timeline-item done">ES&S software upgrade deadline (Mar)</div>
+                        <div class="timeline-item done">Primary election audit - passed</div>
+                        <div class="timeline-item done">Digital Inclusion Trailblazer award</div>
+                        <div class="timeline-item gap">Cybersecurity grant application (missed?)</div>
+                        <div class="timeline-item progress">BEAD broadband planning</div>
+                    </div>
+                </div>
+                <div class="timeline-year current">
+                    <h3>2025</h3>
+                    <div class="timeline-items">
+                        <div class="timeline-item done">Controller vacancy (Jan 5)</div>
+                        <div class="timeline-item done">Audit peer review passed</div>
+                        <div class="timeline-item progress">ArcGIS 11.3 upgrade needed</div>
+                        <div class="timeline-item planned">CDBG grant cycle (Mar-May)</div>
+                        <div class="timeline-item planned">Windows Server assessment</div>
+                    </div>
+                </div>
+                <div class="timeline-year future">
+                    <h3>2026</h3>
+                    <div class="timeline-items">
+                        <div class="timeline-item planned">ArcGIS 10.9.1 EOL (May 31)</div>
+                        <div class="timeline-item planned">ArcGIS Pro 3.6 release (Oct)</div>
+                        <div class="timeline-item gap">Controller appointment needed</div>
+                        <div class="timeline-item gap">Zero Trust assessment</div>
+                        <div class="timeline-item gap">Cloud strategy development</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audit Findings Summary -->
+        <section class="section">
+            <h2><span class="icon">📋</span> Recent Audit Findings (Jan 2025)</h2>
+            <table class="system-table">
+                <thead>
+                    <tr>
+                        <th>Audit Area</th>
+                        <th>Period</th>
+                        <th>Finding</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>P-Card Transactions</td>
+                        <td>Sep 2022 - Sep 2023</td>
+                        <td>Receipts uploaded, no policy circumvention. Fixed-asset threshold exceptions noted.</td>
+                        <td><span class="status-badge status-current">Favorable</span></td>
+                    </tr>
+                    <tr>
+                        <td>ACL Vendors & Checks</td>
+                        <td>Jul 2023 - Jun 2024</td>
+                        <td>Two duplicate payments to PA L&I identified (different vendor names). Refunds requested.</td>
+                        <td><span class="status-badge status-planned">Remediation</span></td>
+                    </tr>
+                    <tr>
+                        <td>Check Numbering</td>
+                        <td>Jul 2023 - Jun 2024</td>
+                        <td>Gaps attributed to voided stubs or assignment errors. No material issues.</td>
+                        <td><span class="status-badge status-current">Explained</span></td>
+                    </tr>
+                    <tr>
+                        <td>Law Library Cash</td>
+                        <td>2024</td>
+                        <td>No receipts processed in last year. Bank reconciliations delayed.</td>
+                        <td><span class="status-badge status-behind">Exception</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Sources -->
+        <div class="sources">
+            <h3>Sources & References</h3>
+            <ul>
+                <li><a href="https://www.norcopa.gov/corecode/uploads/document6/uploaded_pdfs/corecode/2026%20Proposed%20Budget_2049.pdf" target="_blank">2026 Proposed Budget (PDF)</a></li>
+                <li><a href="https://www.thevalleyledger.com/?p=147226" target="_blank">Digital Inclusion Trailblazer 2025</a></li>
+                <li><a href="https://www.lehighvalleynews.com/elections/everything-checked-out-election-audit-finds-no-issues-with-northampton-county-primary-results" target="_blank">2024 Primary Audit Results</a></li>
+                <li><a href="https://citizenportal.ai/articles/6374360/Northampton-County/Pennsylvania/Controller-summarizes-audits-hotel-operators-owe-small-back-taxes-audit-finds" target="_blank">Jan 2025 Audit Summary</a></li>
+                <li><a href="https://freespeechforpeople.org/advocates-win-security-transparency-improvements-in-pennsylvania-elections-settlement-reached-with-secretary-of-state-schmidt-in-voting-machine-lawsuit/" target="_blank">ES&S ExpressVote XL Settlement</a></li>
+                <li><a href="https://www.sidwellco.com/arcgis-pro-3-6-esri-updates-2025-roadmap/" target="_blank">ESRI ArcGIS 2025-2026 Roadmap</a></li>
+                <li><a href="https://www.pa.gov/services/pema/cybersecurity-grant" target="_blank">PA Cybersecurity Grant Program</a></li>
+                <li><a href="https://www.govtech.com/budget-finance/it-modernization-brought-pennsylvania-37-million-in-savings" target="_blank">PA IT Modernization Savings</a></li>
+                <li><a href="https://www.norcopa.gov/dced" target="_blank">Northampton DCED Grant Schedule</a></li>
+                <li><a href="https://techcommunity.microsoft.com/blog/windowsosplatform/active-directory-improvements-in-windows-server-2025/4202383" target="_blank">Windows Server 2025 AD Features</a></li>
+            </ul>
+        </div>
+
+        <footer style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px;">
+            <p>NAC System Status Report | Generated January 24, 2026</p>
+            <p style="margin-top: 10px;"><a href="../../docs/index.html" style="color: #3b82f6; text-decoration: none;">Return to Main Portal</a></p>
+        </footer>
+    </div>
+</body>
+</html>

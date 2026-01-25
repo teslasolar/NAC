@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Architecture Overview - Northampton County</title>
+    <style>
+        :root {
+            --l0-color: #e74c3c;
+            --l1-color: #e67e22;
+            --l2-color: #f39c12;
+            --l3-color: #27ae60;
+            --l4-color: #3498db;
+            --bg-dark: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #eee;
+            --text-secondary: #aaa;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pyramid-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .layer {
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            transform: scale(1.01);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .layer-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .layer-badge {
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .layer-name {
+            font-size: 1.3rem;
+        }
+
+        .layer-count {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .layer.l4 { background: linear-gradient(135deg, var(--l4-color), #2980b9); width: 100%; }
+        .layer.l3 { background: linear-gradient(135deg, var(--l3-color), #229954); width: 95%; }
+        .layer.l2 { background: linear-gradient(135deg, var(--l2-color), #d68910); width: 85%; }
+        .layer.l1 { background: linear-gradient(135deg, var(--l1-color), #d35400); width: 70%; }
+        .layer.l0 { background: linear-gradient(135deg, var(--l0-color), #c0392b); width: 55%; }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .layer.expanded .components-grid {
+            max-height: 1000px;
+        }
+
+        .component {
+            background: rgba(0,0,0,0.2);
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .component:hover {
+            background: rgba(0,0,0,0.4);
+            transform: translateX(5px);
+        }
+
+        .component-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .component-info {
+            flex: 1;
+        }
+
+        .component-name {
+            font-weight: 500;
+        }
+
+        .component-type {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .data-flows {
+            max-width: 1400px;
+            margin: 50px auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+
+        .flows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .flow-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .flow-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .flow-protocol {
+            background: #3498db;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .flow-path {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .flow-layer {
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .flow-arrow {
+            color: #666;
+        }
+
+        .flow-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .flow-component {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .security-zones {
+            max-width: 1400px;
+            margin: 50px auto;
+        }
+
+        .zones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .zone-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .zone-card.public { border-color: #27ae60; }
+        .zone-card.authenticated { border-color: #3498db; }
+        .zone-card.authorized { border-color: #f39c12; }
+        .zone-card.privileged { border-color: #e67e22; }
+        .zone-card.critical { border-color: #e74c3c; }
+        .zone-card.administrative { border-color: #9b59b6; }
+
+        .zone-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .zone-trust {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .zone-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .legend {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .layer.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .nav-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-link:hover {
+            background: #1e3a5f;
+        }
+    </style>
+</head>
+<body>
+    <a href="../docs/index.html" class="nav-link">← Back to Portal</a>
+
+    <div class="header">
+        <h1>ERP Architecture Overview</h1>
+        <p>Northampton County Legal Code Intelligence System - ISA-95 Layer Mapping</p>
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="totalComponents">62</div>
+                <div class="stat-label">Total Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">ISA-95 Layers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="totalFlows">8</div>
+                <div class="stat-label">Data Flows</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Security Zones</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background: var(--l4-color);"></div>
+            <span>L4 - Enterprise/ERP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: var(--l3-color);"></div>
+            <span>L3 - Operations/MES</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: var(--l2-color);"></div>
+            <span>L2 - Control/SCADA</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: var(--l1-color);"></div>
+            <span>L1 - Basic Control/PLC</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: var(--l0-color);"></div>
+            <span>L0 - Process/Field</span>
+        </div>
+    </div>
+
+    <div class="pyramid-container" id="pyramid"></div>
+
+    <div class="data-flows">
+        <h2 class="section-title">Data Flows</h2>
+        <div class="flows-grid" id="flowsGrid"></div>
+    </div>
+
+    <div class="security-zones">
+        <h2 class="section-title">Security Zones</h2>
+        <div class="zones-grid" id="zonesGrid"></div>
+    </div>
+
+    <script>
+        let systemData = null;
+        let integrationsData = null;
+
+        async function loadData() {
+            try {
+                const [systemRes, intRes] = await Promise.all([
+                    fetch('system-map.json'),
+                    fetch('integrations.json')
+                ]);
+                systemData = await systemRes.json();
+                integrationsData = await intRes.json();
+                renderArchitecture();
+            } catch (err) {
+                console.error('Error loading data:', err);
+            }
+        }
+
+        function renderArchitecture() {
+            const pyramid = document.getElementById('pyramid');
+            const layers = ['L4', 'L3', 'L2', 'L1', 'L0'];
+
+            let totalComponents = 0;
+
+            layers.forEach(layerId => {
+                const layer = systemData.layers[layerId];
+                if (!layer) return;
+
+                totalComponents += layer.components.length;
+
+                const layerEl = document.createElement('div');
+                layerEl.className = `layer ${layerId.toLowerCase()}`;
+                layerEl.innerHTML = `
+                    <div class="layer-header" onclick="toggleLayer(this.parentElement)">
+                        <div class="layer-title">
+                            <span class="layer-badge">${layerId}</span>
+                            <span class="layer-name">${layer.name}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span class="layer-count">${layer.components.length} components</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="components-grid">
+                        ${layer.components.map(comp => `
+                            <div class="component" onclick="openComponent('${comp.file}')">
+                                <div class="component-icon">${getIcon(comp.type)}</div>
+                                <div class="component-info">
+                                    <div class="component-name">${comp.name}</div>
+                                    <div class="component-type">${comp.type}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                pyramid.appendChild(layerEl);
+            });
+
+            document.getElementById('totalComponents').textContent = totalComponents;
+
+            renderDataFlows();
+            renderSecurityZones();
+        }
+
+        function renderDataFlows() {
+            const grid = document.getElementById('flowsGrid');
+            const layerColors = {
+                'L0': 'var(--l0-color)',
+                'L1': 'var(--l1-color)',
+                'L2': 'var(--l2-color)',
+                'L3': 'var(--l3-color)',
+                'L4': 'var(--l4-color)'
+            };
+
+            integrationsData.dataFlows.forEach(flow => {
+                const card = document.createElement('div');
+                card.className = 'flow-card';
+                card.innerHTML = `
+                    <div class="flow-header">
+                        <span class="flow-name">${flow.name}</span>
+                        <span class="flow-protocol">${flow.protocol}</span>
+                    </div>
+                    <div class="flow-path">
+                        <span class="flow-layer" style="background: ${layerColors[flow.source]}">${flow.source}</span>
+                        <span class="flow-arrow">→</span>
+                        ${flow.destinations.map(d => `<span class="flow-layer" style="background: ${layerColors[d]}">${d}</span>`).join('<span class="flow-arrow">→</span>')}
+                    </div>
+                    <div class="flow-components">
+                        ${flow.components.map(c => `<span class="flow-component">${c}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('totalFlows').textContent = integrationsData.dataFlows.length;
+        }
+
+        function renderSecurityZones() {
+            const grid = document.getElementById('zonesGrid');
+
+            integrationsData.securityZones.forEach(zone => {
+                const card = document.createElement('div');
+                card.className = `zone-card ${zone.trustLevel}`;
+                card.innerHTML = `
+                    <div class="zone-name">${zone.name}</div>
+                    <div class="zone-trust">Trust: ${zone.trustLevel} | Access: ${zone.accessControl}</div>
+                    <div class="zone-components">
+                        ${zone.components.map(c => `<span class="flow-component">${c}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleLayer(layer) {
+            layer.classList.toggle('expanded');
+        }
+
+        function openComponent(file) {
+            window.open('../docs/' + file, '_blank');
+        }
+
+        function getIcon(type) {
+            const icons = {
+                'financial': '💰',
+                'navigation': '🧭',
+                'dashboard': '📊',
+                'organizational': '🏛️',
+                'educational': '📚',
+                'scheduling': '📅',
+                'operations': '⚙️',
+                'judicial': '⚖️',
+                'records': '📁',
+                'enforcement': '🛡️',
+                'audit': '🔍',
+                'workflow': '📋',
+                'citizen-services': '👥',
+                'control': '🎛️',
+                'infrastructure': '🏗️',
+                'geospatial': '🗺️',
+                'security': '🔒',
+                'assessment': '📝',
+                'tools': '🔧',
+                'protocol': '📡',
+                'ai': '🤖',
+                'simulation': '🎮',
+                'design': '🎨',
+                'monitoring': '📈',
+                'data': '💾',
+                'visualization': '📉',
+                'configuration': '⚡',
+                'field': '📟',
+                'maintenance': '🔩',
+                'network': '🌐'
+            };
+            return icons[type] || '📄';
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

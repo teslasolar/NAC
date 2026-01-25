@@ -1,0 +1,540 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-24",
+  "organization": "Northampton County",
+  "framework": "ISA-95",
+  "totalComponents": 62,
+  "layers": {
+    "L4": {
+      "name": "Enterprise/Business Planning",
+      "description": "Business planning, logistics, financial systems",
+      "components": [
+        {
+          "id": "index",
+          "file": "index.html",
+          "name": "Main Portal",
+          "type": "navigation",
+          "description": "Central navigation hub for all county systems"
+        },
+        {
+          "id": "erp",
+          "file": "erp.html",
+          "name": "ERP Dashboard",
+          "type": "dashboard",
+          "description": "Enterprise Resource Planning overview"
+        },
+        {
+          "id": "budget",
+          "file": "budget.html",
+          "name": "Budget Management",
+          "type": "financial",
+          "description": "County budget planning and tracking"
+        },
+        {
+          "id": "budget-explorer",
+          "file": "budget-explorer.html",
+          "name": "Budget Explorer",
+          "type": "financial",
+          "description": "Interactive budget data exploration"
+        },
+        {
+          "id": "ledger",
+          "file": "ledger.html",
+          "name": "General Ledger",
+          "type": "financial",
+          "description": "County financial ledger system"
+        },
+        {
+          "id": "checkbook",
+          "file": "checkbook.html",
+          "name": "Checkbook",
+          "type": "financial",
+          "description": "Payment and disbursement tracking"
+        },
+        {
+          "id": "debt-clock",
+          "file": "debt-clock.html",
+          "name": "Debt Clock",
+          "type": "financial",
+          "description": "Real-time debt tracking dashboard"
+        },
+        {
+          "id": "pension-dashboard",
+          "file": "pension-dashboard.html",
+          "name": "Pension Dashboard",
+          "type": "financial",
+          "description": "Pension fund management and tracking"
+        },
+        {
+          "id": "payments",
+          "file": "payments.html",
+          "name": "Payment Portal",
+          "type": "financial",
+          "description": "Citizen payment processing system"
+        },
+        {
+          "id": "controller",
+          "file": "controller.html",
+          "name": "Controller Office",
+          "type": "financial",
+          "description": "Controller office information"
+        },
+        {
+          "id": "controller-dashboard",
+          "file": "controller-dashboard.html",
+          "name": "Controller Dashboard",
+          "type": "financial",
+          "description": "Controller analytics and reporting"
+        },
+        {
+          "id": "org-chart",
+          "file": "org-chart.html",
+          "name": "Organization Chart",
+          "type": "organizational",
+          "description": "County organizational structure"
+        },
+        {
+          "id": "how-government-works",
+          "file": "how-government-works.html",
+          "name": "Government Guide",
+          "type": "educational",
+          "description": "Guide to county government operations"
+        },
+        {
+          "id": "calendar",
+          "file": "calendar.html",
+          "name": "Calendar",
+          "type": "scheduling",
+          "description": "County events and meetings calendar"
+        }
+      ]
+    },
+    "L3": {
+      "name": "Manufacturing Operations/MES",
+      "description": "Operations management, workflow, dispatching",
+      "components": [
+        {
+          "id": "mes",
+          "file": "mes.html",
+          "name": "MES Dashboard",
+          "type": "operations",
+          "description": "Manufacturing Execution System interface"
+        },
+        {
+          "id": "modules",
+          "file": "modules.html",
+          "name": "System Modules",
+          "type": "navigation",
+          "description": "Module catalog and management"
+        },
+        {
+          "id": "row-officers",
+          "file": "row-officers.html",
+          "name": "Row Officers",
+          "type": "operations",
+          "description": "Elected row officer management"
+        },
+        {
+          "id": "row-officer-detail",
+          "file": "row-officer-detail.html",
+          "name": "Row Officer Detail",
+          "type": "operations",
+          "description": "Individual row officer information"
+        },
+        {
+          "id": "clerk-of-courts",
+          "file": "clerk-of-courts.html",
+          "name": "Clerk of Courts",
+          "type": "judicial",
+          "description": "Court clerk operations"
+        },
+        {
+          "id": "coroner",
+          "file": "coroner.html",
+          "name": "Coroner",
+          "type": "operations",
+          "description": "Coroner office operations"
+        },
+        {
+          "id": "district-attorney",
+          "file": "district-attorney.html",
+          "name": "District Attorney",
+          "type": "judicial",
+          "description": "DA office operations"
+        },
+        {
+          "id": "prothonotary",
+          "file": "prothonotary.html",
+          "name": "Prothonotary",
+          "type": "judicial",
+          "description": "Prothonotary office operations"
+        },
+        {
+          "id": "recorder-of-deeds",
+          "file": "recorder-of-deeds.html",
+          "name": "Recorder of Deeds",
+          "type": "records",
+          "description": "Property records management"
+        },
+        {
+          "id": "register-of-wills",
+          "file": "register-of-wills.html",
+          "name": "Register of Wills",
+          "type": "records",
+          "description": "Will and estate management"
+        },
+        {
+          "id": "sheriff",
+          "file": "sheriff.html",
+          "name": "Sheriff",
+          "type": "enforcement",
+          "description": "Sheriff department operations"
+        },
+        {
+          "id": "tax-claim",
+          "file": "tax-claim.html",
+          "name": "Tax Claim Bureau",
+          "type": "financial",
+          "description": "Tax claim processing"
+        },
+        {
+          "id": "treasurer",
+          "file": "treasurer.html",
+          "name": "Treasurer",
+          "type": "financial",
+          "description": "Treasury operations"
+        },
+        {
+          "id": "jury-commissioner",
+          "file": "jury-commissioner.html",
+          "name": "Jury Commissioner",
+          "type": "judicial",
+          "description": "Jury management operations"
+        },
+        {
+          "id": "public-audits",
+          "file": "public-audits.html",
+          "name": "Public Audits",
+          "type": "audit",
+          "description": "Public audit documentation"
+        },
+        {
+          "id": "audit-tracker",
+          "file": "audit-tracker.html",
+          "name": "Audit Tracker",
+          "type": "audit",
+          "description": "Audit status tracking system"
+        },
+        {
+          "id": "compliance-tracker",
+          "file": "compliance-tracker.html",
+          "name": "Compliance Tracker",
+          "type": "audit",
+          "description": "Regulatory compliance monitoring"
+        },
+        {
+          "id": "data-verification-audit",
+          "file": "data-verification-audit.html",
+          "name": "Data Verification",
+          "type": "audit",
+          "description": "Data integrity verification"
+        },
+        {
+          "id": "tickets",
+          "file": "tickets.html",
+          "name": "Ticket System",
+          "type": "workflow",
+          "description": "Issue and request tracking"
+        },
+        {
+          "id": "civic-toolkit",
+          "file": "civic-toolkit.html",
+          "name": "Civic Toolkit",
+          "type": "citizen-services",
+          "description": "Citizen engagement tools"
+        },
+        {
+          "id": "citizen-concerns",
+          "file": "citizen-concerns.html",
+          "name": "Citizen Concerns",
+          "type": "citizen-services",
+          "description": "Top citizen issues tracking"
+        }
+      ]
+    },
+    "L2": {
+      "name": "Control Systems/SCADA",
+      "description": "Supervisory control, monitoring, data acquisition",
+      "components": [
+        {
+          "id": "scada",
+          "file": "scada.html",
+          "name": "SCADA Dashboard",
+          "type": "control",
+          "description": "Supervisory control and data acquisition"
+        },
+        {
+          "id": "county-infrastructure",
+          "file": "county-infrastructure.html",
+          "name": "Infrastructure Monitor",
+          "type": "infrastructure",
+          "description": "County infrastructure monitoring"
+        },
+        {
+          "id": "gis",
+          "file": "gis.html",
+          "name": "GIS Portal",
+          "type": "geospatial",
+          "description": "Geographic Information System"
+        },
+        {
+          "id": "parcel-gis-viewer",
+          "file": "parcel-gis-viewer.html",
+          "name": "Parcel GIS Viewer",
+          "type": "geospatial",
+          "description": "Property parcel mapping"
+        },
+        {
+          "id": "security-scanner",
+          "file": "security-scanner.html",
+          "name": "Security Scanner",
+          "type": "security",
+          "description": "Live security monitoring and testing"
+        },
+        {
+          "id": "security-assessment",
+          "file": "security-assessment.html",
+          "name": "Security Assessment",
+          "type": "security",
+          "description": "Vulnerability assessment dashboard"
+        },
+        {
+          "id": "assessment",
+          "file": "assessment.html",
+          "name": "Assessment Tool",
+          "type": "assessment",
+          "description": "General assessment interface"
+        },
+        {
+          "id": "about",
+          "file": "about.html",
+          "name": "MCP Tools",
+          "type": "tools",
+          "description": "MCP tool registry and documentation"
+        },
+        {
+          "id": "mqtt-console",
+          "file": "mqtt-console.html",
+          "name": "MQTT Console",
+          "type": "protocol",
+          "description": "MQTT message broker interface"
+        },
+        {
+          "id": "opcua-browser",
+          "file": "opcua-browser.html",
+          "name": "OPC-UA Browser",
+          "type": "protocol",
+          "description": "OPC-UA node browser"
+        },
+        {
+          "id": "protocol-converter",
+          "file": "protocol-converter.html",
+          "name": "Protocol Converter",
+          "type": "protocol",
+          "description": "Industrial protocol conversion"
+        },
+        {
+          "id": "ai-chat",
+          "file": "ai-chat.html",
+          "name": "AI Assistant",
+          "type": "ai",
+          "description": "AI-powered chat interface"
+        },
+        {
+          "id": "ai-agent",
+          "file": "ai-agent.html",
+          "name": "AI Agent",
+          "type": "ai",
+          "description": "Autonomous AI agent system"
+        }
+      ]
+    },
+    "L1": {
+      "name": "Basic Control/PLC",
+      "description": "Direct control, sensing, manipulation",
+      "components": [
+        {
+          "id": "l1",
+          "file": "l1.html",
+          "name": "L1 Control Dashboard",
+          "type": "control",
+          "description": "Basic control layer interface"
+        },
+        {
+          "id": "plc-simulator",
+          "file": "plc-simulator.html",
+          "name": "PLC Simulator",
+          "type": "simulation",
+          "description": "PLC logic simulation"
+        },
+        {
+          "id": "hmi-designer",
+          "file": "hmi-designer.html",
+          "name": "HMI Designer",
+          "type": "design",
+          "description": "Human-machine interface designer"
+        },
+        {
+          "id": "alarm-manager",
+          "file": "alarm-manager.html",
+          "name": "Alarm Manager",
+          "type": "monitoring",
+          "description": "System alarm management"
+        },
+        {
+          "id": "historian",
+          "file": "historian.html",
+          "name": "Data Historian",
+          "type": "data",
+          "description": "Historical data storage and retrieval"
+        },
+        {
+          "id": "trend-viewer",
+          "file": "trend-viewer.html",
+          "name": "Trend Viewer",
+          "type": "visualization",
+          "description": "Data trend visualization"
+        },
+        {
+          "id": "batch-control",
+          "file": "batch-control.html",
+          "name": "Batch Control",
+          "type": "control",
+          "description": "Batch process control"
+        },
+        {
+          "id": "recipe-editor",
+          "file": "recipe-editor.html",
+          "name": "Recipe Editor",
+          "type": "configuration",
+          "description": "Process recipe configuration"
+        },
+        {
+          "id": "sequence-editor",
+          "file": "sequence-editor.html",
+          "name": "Sequence Editor",
+          "type": "configuration",
+          "description": "Control sequence programming"
+        }
+      ]
+    },
+    "L0": {
+      "name": "Process/Field Devices",
+      "description": "Physical processes, sensors, actuators",
+      "components": [
+        {
+          "id": "l0",
+          "file": "l0.html",
+          "name": "L0 Field Dashboard",
+          "type": "field",
+          "description": "Field device layer interface"
+        },
+        {
+          "id": "io-monitor",
+          "file": "io-monitor.html",
+          "name": "I/O Monitor",
+          "type": "monitoring",
+          "description": "Input/output point monitoring"
+        },
+        {
+          "id": "sensor-calibration",
+          "file": "sensor-calibration.html",
+          "name": "Sensor Calibration",
+          "type": "maintenance",
+          "description": "Sensor calibration tools"
+        },
+        {
+          "id": "device-config",
+          "file": "device-config.html",
+          "name": "Device Configuration",
+          "type": "configuration",
+          "description": "Field device configuration"
+        },
+        {
+          "id": "network-topology",
+          "file": "network-topology.html",
+          "name": "Network Topology",
+          "type": "network",
+          "description": "Device network visualization"
+        }
+      ]
+    }
+  },
+  "dataStores": [
+    {
+      "id": "budget-data",
+      "file": "tags/budget/budget-data.json",
+      "type": "json",
+      "description": "Budget allocation data"
+    },
+    {
+      "id": "payment-data",
+      "file": "tags/payments/payment-config.json",
+      "type": "json",
+      "description": "Payment portal configuration"
+    },
+    {
+      "id": "citizen-concerns-data",
+      "file": "tags/citizen-concerns/issues.json",
+      "type": "json",
+      "description": "Citizen issues tracking data"
+    },
+    {
+      "id": "mcp-tools",
+      "file": "tags/mcp/tools.json",
+      "type": "json",
+      "description": "MCP tool registry"
+    },
+    {
+      "id": "vulnerability-data",
+      "file": "tags/security/vulnerability-assessment.json",
+      "type": "json",
+      "description": "Security vulnerability assessment data"
+    }
+  ],
+  "externalSystems": [
+    {
+      "id": "esri-arcgis",
+      "name": "ESRI ArcGIS",
+      "type": "geospatial",
+      "integration": "GIS Portal",
+      "vulnerabilities": ["CVE-2025-2538", "CVE-2024-25693"]
+    },
+    {
+      "id": "expressote-xl",
+      "name": "ES&S ExpressVote XL",
+      "type": "voting",
+      "integration": "Elections",
+      "vulnerabilities": ["Physical access", "Supply chain"]
+    },
+    {
+      "id": "countysuite",
+      "name": "Tyler CountySuite",
+      "type": "erp",
+      "integration": "Financial Systems",
+      "vulnerabilities": ["CVE-2019-6692"]
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "type": "payments",
+      "integration": "Payment Portal"
+    },
+    {
+      "id": "coinbase",
+      "name": "Coinbase Commerce",
+      "type": "crypto-payments",
+      "integration": "Payment Portal"
+    }
+  ]
+}

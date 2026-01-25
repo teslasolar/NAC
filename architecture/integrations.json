@@ -1,0 +1,191 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-24",
+  "dataFlows": [
+    {
+      "id": "financial-reporting",
+      "name": "Financial Reporting Pipeline",
+      "source": "L4",
+      "destinations": ["L3", "L2"],
+      "components": ["budget", "ledger", "checkbook", "controller-dashboard"],
+      "protocol": "HTTP/REST",
+      "frequency": "real-time",
+      "dataTypes": ["transactions", "allocations", "disbursements"]
+    },
+    {
+      "id": "audit-compliance",
+      "name": "Audit & Compliance Flow",
+      "source": "L3",
+      "destinations": ["L4", "L2"],
+      "components": ["public-audits", "audit-tracker", "compliance-tracker", "data-verification-audit"],
+      "protocol": "HTTP/REST",
+      "frequency": "batch",
+      "dataTypes": ["audit-findings", "compliance-status", "verification-results"]
+    },
+    {
+      "id": "security-monitoring",
+      "name": "Security Monitoring Flow",
+      "source": "L2",
+      "destinations": ["L3", "L4"],
+      "components": ["security-scanner", "security-assessment", "about"],
+      "protocol": "HTTPS/MCP",
+      "frequency": "real-time",
+      "dataTypes": ["scan-results", "vulnerabilities", "alerts"]
+    },
+    {
+      "id": "citizen-services",
+      "name": "Citizen Services Pipeline",
+      "source": "L4",
+      "destinations": ["L3"],
+      "components": ["payments", "civic-toolkit", "citizen-concerns", "tickets"],
+      "protocol": "HTTP/REST",
+      "frequency": "on-demand",
+      "dataTypes": ["payments", "requests", "feedback"]
+    },
+    {
+      "id": "gis-data",
+      "name": "GIS Data Flow",
+      "source": "L2",
+      "destinations": ["L3", "L4"],
+      "components": ["gis", "parcel-gis-viewer", "county-infrastructure"],
+      "protocol": "ESRI REST API",
+      "frequency": "cached",
+      "dataTypes": ["parcels", "layers", "spatial-queries"]
+    },
+    {
+      "id": "industrial-control",
+      "name": "Industrial Control Data",
+      "source": "L0",
+      "destinations": ["L1", "L2", "L3"],
+      "components": ["l0", "l1", "scada", "mes"],
+      "protocol": "OPC-UA/MQTT",
+      "frequency": "real-time",
+      "dataTypes": ["sensor-values", "alarms", "commands"]
+    },
+    {
+      "id": "row-officer-data",
+      "name": "Row Officer Operations",
+      "source": "L3",
+      "destinations": ["L4"],
+      "components": ["row-officers", "clerk-of-courts", "sheriff", "treasurer", "recorder-of-deeds"],
+      "protocol": "HTTP/REST",
+      "frequency": "batch",
+      "dataTypes": ["records", "transactions", "filings"]
+    },
+    {
+      "id": "ai-integration",
+      "name": "AI Services Integration",
+      "source": "L2",
+      "destinations": ["L3", "L4"],
+      "components": ["ai-chat", "ai-agent"],
+      "protocol": "WebSocket/REST",
+      "frequency": "on-demand",
+      "dataTypes": ["queries", "responses", "actions"]
+    }
+  ],
+  "integrationPoints": [
+    {
+      "id": "mcp-hub",
+      "name": "MCP Tools Hub",
+      "location": "about.html",
+      "type": "api-gateway",
+      "protocols": ["MCP", "MQTT", "OPC-UA"],
+      "connectedSystems": ["security-scanner", "ai-agent", "protocol-converter"],
+      "toolCount": 52
+    },
+    {
+      "id": "payment-gateway",
+      "name": "Payment Gateway",
+      "location": "payments.html",
+      "type": "financial",
+      "protocols": ["Stripe API", "Coinbase Commerce"],
+      "connectedSystems": ["ledger", "checkbook", "treasurer"]
+    },
+    {
+      "id": "gis-gateway",
+      "name": "GIS Integration Gateway",
+      "location": "gis.html",
+      "type": "geospatial",
+      "protocols": ["ESRI ArcGIS REST", "WMS", "WFS"],
+      "connectedSystems": ["parcel-gis-viewer", "county-infrastructure", "recorder-of-deeds"]
+    },
+    {
+      "id": "scada-gateway",
+      "name": "SCADA Integration Gateway",
+      "location": "scada.html",
+      "type": "industrial",
+      "protocols": ["OPC-UA", "MQTT", "Modbus"],
+      "connectedSystems": ["l0", "l1", "mes", "historian"]
+    }
+  ],
+  "crossLayerDependencies": [
+    {
+      "name": "Financial Hierarchy",
+      "layers": ["L4", "L3"],
+      "components": {
+        "L4": ["budget", "ledger", "pension-dashboard"],
+        "L3": ["controller-dashboard", "treasurer", "tax-claim"]
+      },
+      "dataSharing": "bidirectional"
+    },
+    {
+      "name": "Security Stack",
+      "layers": ["L2", "L3", "L4"],
+      "components": {
+        "L2": ["security-scanner", "security-assessment"],
+        "L3": ["compliance-tracker", "audit-tracker"],
+        "L4": ["controller-dashboard"]
+      },
+      "dataSharing": "upward"
+    },
+    {
+      "name": "Industrial Hierarchy",
+      "layers": ["L0", "L1", "L2", "L3"],
+      "components": {
+        "L0": ["l0", "io-monitor", "sensor-calibration"],
+        "L1": ["l1", "plc-simulator", "alarm-manager"],
+        "L2": ["scada", "mqtt-console", "opcua-browser"],
+        "L3": ["mes", "batch-control"]
+      },
+      "dataSharing": "bidirectional"
+    }
+  ],
+  "securityZones": [
+    {
+      "name": "Public Zone",
+      "trustLevel": "untrusted",
+      "components": ["index", "about", "how-government-works", "org-chart", "calendar"],
+      "accessControl": "public"
+    },
+    {
+      "name": "Citizen Services Zone",
+      "trustLevel": "authenticated",
+      "components": ["payments", "tickets", "civic-toolkit"],
+      "accessControl": "citizen-auth"
+    },
+    {
+      "name": "Operations Zone",
+      "trustLevel": "authorized",
+      "components": ["row-officers", "clerk-of-courts", "sheriff", "treasurer"],
+      "accessControl": "staff-auth"
+    },
+    {
+      "name": "Financial Zone",
+      "trustLevel": "privileged",
+      "components": ["budget", "ledger", "checkbook", "controller-dashboard"],
+      "accessControl": "finance-auth"
+    },
+    {
+      "name": "Control Zone",
+      "trustLevel": "critical",
+      "components": ["scada", "l0", "l1", "mes"],
+      "accessControl": "control-auth"
+    },
+    {
+      "name": "Security Zone",
+      "trustLevel": "administrative",
+      "components": ["security-scanner", "security-assessment", "audit-tracker"],
+      "accessControl": "admin-auth"
+    }
+  ]
+}

@@ -61,6 +61,20 @@
         { "id": "audits", "label": "Audits", "path": "data/audits.json", "type": "json" },
         { "id": "navigation", "label": "Navigation", "path": "data/navigation.json", "type": "json" }
       ]
+    },
+    "templates": {
+      "label": "Templates",
+      "basePath": "templates/",
+      "pages": [
+        { "id": "templates-index", "label": "All Templates", "path": "templates/index.html", "icon": "📋" }
+      ],
+      "templates": [
+        { "id": "system-detail", "label": "System Detail", "type": "page" },
+        { "id": "contract-page", "label": "Contract Page", "type": "page" },
+        { "id": "checklist", "label": "Checklist", "type": "form" },
+        { "id": "vendor-profile", "label": "Vendor Profile", "type": "page" },
+        { "id": "audit-layer", "label": "Audit Layer", "type": "page" }
+      ]
     }
   }
 }

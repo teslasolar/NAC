@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates & Components | NAC Architecture</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; padding: 8px 16px; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; }
+        .nav a:hover { background: #252525; color: #fff; }
+        header { padding: 40px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.05)); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 16px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 32px; margin-bottom: 10px; }
+        header p { color: #888; }
+        .section { margin-bottom: 40px; }
+        .section h2 { font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section h2::after { content: ''; flex: 1; height: 1px; background: #333; }
+        .template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .template-card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; overflow: hidden; transition: all 0.3s; }
+        .template-card:hover { border-color: #a855f7; transform: translateY(-3px); }
+        .template-preview { height: 120px; background: #252525; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .template-info { padding: 20px; }
+        .template-info h4 { font-size: 16px; margin-bottom: 8px; }
+        .template-info p { color: #888; font-size: 13px; margin-bottom: 12px; }
+        .template-info a { color: #a855f7; text-decoration: none; font-size: 13px; }
+        .template-info a:hover { text-decoration: underline; }
+        .hierarchy { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 30px; }
+        .hierarchy-tree { font-family: 'SF Mono', Monaco, monospace; font-size: 13px; }
+        .hierarchy-tree .folder { color: #a855f7; }
+        .hierarchy-tree .file { color: #888; }
+        .hierarchy-tree .json { color: #22c55e; }
+        .hierarchy-tree .html { color: #3b82f6; }
+        .hierarchy-item { padding: 4px 0; padding-left: 20px; border-left: 1px solid #333; margin-left: 10px; }
+        .hierarchy-root { padding-left: 0; border-left: none; margin-left: 0; }
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../data/index.html">← Data & Tags</a>
+            <a href="../systems/index.html">System Catalog</a>
+            <a href="../../docs/index.html">Portal</a>
+        </nav>
+
+        <header>
+            <h1>🧩 Templates & Components</h1>
+            <p>Reusable templates, component hierarchies, and structural patterns for NAC documentation</p>
+        </header>
+
+        <div class="section">
+            <h2>Page Templates</h2>
+            <div class="template-grid">
+                <div class="template-card">
+                    <div class="template-preview">📁</div>
+                    <div class="template-info">
+                        <h4>System Detail</h4>
+                        <p>Vendor system documentation with specs, CVEs, and integrations</p>
+                        <a href="system-template.html">View Template →</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">📝</div>
+                    <div class="template-info">
+                        <h4>Contract Page</h4>
+                        <p>Vendor contract with timeline, costs, and source citations</p>
+                        <a href="contract-template.html">View Template →</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">☑️</div>
+                    <div class="template-info">
+                        <h4>Audit Checklist</h4>
+                        <p>Interactive checklist with checkboxes, status badges, signatures</p>
+                        <a href="checklist-template.html">View Template →</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">📊</div>
+                    <div class="template-info">
+                        <h4>Status Report</h4>
+                        <p>System status with behind/planned/current/gap sections</p>
+                        <a href="status-template.html">View Template →</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">🏷️</div>
+                    <div class="template-info">
+                        <h4>Category Index</h4>
+                        <p>Category landing page with card grid navigation</p>
+                        <a href="category-template.html">View Template →</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">📈</div>
+                    <div class="template-info">
+                        <h4>Valuation Page</h4>
+                        <p>Cost breakdown, comparisons, ROI analysis</p>
+                        <a href="valuation-template.html">View Template →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Directory Hierarchy</h2>
+            <div class="hierarchy">
+                <div class="hierarchy-tree">
+                    <div class="hierarchy-root"><span class="folder">📁 architecture/</span></div>
+                    <div class="hierarchy-item"><span class="folder">📁 contracts/</span> — Vendor contract pages
+                        <div class="hierarchy-item"><span class="html">index.html</span> — Contract overview</div>
+                        <div class="hierarchy-item"><span class="html">ess-voting.html</span> — ES&S $2.88M</div>
+                        <div class="hierarchy-item"><span class="html">tyler-erp.html</span> — Tyler Munis</div>
+                        <div class="hierarchy-item"><span class="html">esri-gis.html</span> — ESRI ArcGIS</div>
+                        <div class="hierarchy-item"><span class="html">microsoft.html</span> — Microsoft EA</div>
+                        <div class="hierarchy-item"><span class="html">cisco.html</span> — Cisco Network</div>
+                        <div class="hierarchy-item"><span class="html">fulton-bank.html</span> — Banking</div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">📁 data/</span> — JSON data providers
+                        <div class="hierarchy-item"><span class="json">tags.json</span> — Tag taxonomy</div>
+                        <div class="hierarchy-item"><span class="json">vendors.json</span> — Vendor profiles</div>
+                        <div class="hierarchy-item"><span class="json">systems.json</span> — System metadata</div>
+                        <div class="hierarchy-item"><span class="json">audits.json</span> — Audit framework</div>
+                        <div class="hierarchy-item"><span class="json">navigation.json</span> — Site nav</div>
+                        <div class="hierarchy-item"><span class="html">index.html</span> — Data browser</div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">📁 elections/</span> — Election hardware audits
+                        <div class="hierarchy-item"><span class="html">index.html</span> — Audit program</div>
+                        <div class="hierarchy-item"><span class="folder">📁 ess/</span> — ES&S vendor audits
+                            <div class="hierarchy-item"><span class="html">index.html</span> — 7-layer audit</div>
+                            <div class="hierarchy-item"><span class="html">bios-audit.html</span></div>
+                            <div class="hierarchy-item"><span class="html">hardware-inventory.html</span></div>
+                            <div class="hierarchy-item"><span class="html">seal-tracking.html</span></div>
+                        </div>
+                        <div class="hierarchy-item"><span class="folder">📁 checklists/</span> — Audit forms
+                            <div class="hierarchy-item"><span class="html">bios-firmware.html</span></div>
+                            <div class="hierarchy-item"><span class="html">hardware-physical.html</span></div>
+                            <div class="hierarchy-item"><span class="html">chain-of-custody.html</span></div>
+                        </div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">📁 systems/</span> — System documentation
+                        <div class="hierarchy-item"><span class="html">index.html</span> — System catalog</div>
+                        <div class="hierarchy-item"><span class="html">status-2026.html</span> — Status report</div>
+                        <div class="hierarchy-item"><span class="html">tyler-erp.html</span></div>
+                        <div class="hierarchy-item"><span class="html">esri-arcgis.html</span></div>
+                        <div class="hierarchy-item"><span class="html">ess-expressvote.html</span></div>
+                        <div class="hierarchy-item"><span class="html">microsoft-ad.html</span></div>
+                        <div class="hierarchy-item"><span class="html">cisco-network.html</span></div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">📁 templates/</span> — Page templates
+                        <div class="hierarchy-item"><span class="html">index.html</span> — This page</div>
+                    </div>
+                    <div class="hierarchy-item"><span class="html">current-architecture.html</span> — County systems</div>
+                    <div class="hierarchy-item"><span class="html">proposed-architecture.html</span> — NAC proposed</div>
+                    <div class="hierarchy-item"><span class="html">nac-valuation.html</span> — $847K valuation</div>
+                    <div class="hierarchy-item"><span class="html">erp-overview.html</span> — ISA-95 diagram</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Tag Hierarchy</h2>
+            <div class="hierarchy">
+                <div class="hierarchy-tree">
+                    <div class="hierarchy-root"><span class="folder">🏷️ tags/</span></div>
+                    <div class="hierarchy-item"><span class="folder">status/</span>
+                        <div class="hierarchy-item"><span style="color:#22c55e;">● active</span></div>
+                        <div class="hierarchy-item"><span style="color:#eab308;">● legacy</span></div>
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● deprecated</span></div>
+                        <div class="hierarchy-item"><span style="color:#a855f7;">● proposed</span></div>
+                        <div class="hierarchy-item"><span style="color:#3b82f6;">● in-progress</span></div>
+                        <div class="hierarchy-item"><span style="color:#f97316;">● needs-update</span></div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">deployment/</span>
+                        <div class="hierarchy-item"><span style="color:#6366f1;">● on-premise</span></div>
+                        <div class="hierarchy-item"><span style="color:#06b6d4;">● cloud</span></div>
+                        <div class="hierarchy-item"><span style="color:#8b5cf6;">● hybrid</span></div>
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● air-gapped</span></div>
+                        <div class="hierarchy-item"><span style="color:#10b981;">● saas</span></div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">security/</span>
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● critical</span></div>
+                        <div class="hierarchy-item"><span style="color:#f97316;">● high</span></div>
+                        <div class="hierarchy-item"><span style="color:#eab308;">● medium</span></div>
+                        <div class="hierarchy-item"><span style="color:#22c55e;">● low</span></div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">layer/</span> — ISA-95
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● L0</span> — Field Devices</div>
+                        <div class="hierarchy-item"><span style="color:#f97316;">● L1</span> — Control</div>
+                        <div class="hierarchy-item"><span style="color:#eab308;">● L2</span> — Supervisory</div>
+                        <div class="hierarchy-item"><span style="color:#22c55e;">● L3</span> — Operations</div>
+                        <div class="hierarchy-item"><span style="color:#3b82f6;">● L4</span> — Enterprise</div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">audit/</span>
+                        <div class="hierarchy-item"><span style="color:#22c55e;">● pass</span></div>
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● fail</span></div>
+                        <div class="hierarchy-item"><span style="color:#fbbf24;">● pending</span></div>
+                        <div class="hierarchy-item"><span style="color:#f97316;">● exception</span></div>
+                        <div class="hierarchy-item"><span style="color:#888;">● na</span></div>
+                    </div>
+                    <div class="hierarchy-item"><span class="folder">vendor/</span>
+                        <div class="hierarchy-item"><span style="color:#ef4444;">● ess</span></div>
+                        <div class="hierarchy-item"><span style="color:#3b82f6;">● tyler</span></div>
+                        <div class="hierarchy-item"><span style="color:#22c55e;">● esri</span></div>
+                        <div class="hierarchy-item"><span style="color:#0078d4;">● microsoft</span></div>
+                        <div class="hierarchy-item"><span style="color:#049fd9;">● cisco</span></div>
+                        <div class="hierarchy-item"><span style="color:#059669;">● fulton</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>NAC Templates & Components | <a href="https://thomasfrumkin.com" style="color:#a855f7;text-decoration:none;">thomasfrumkin.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

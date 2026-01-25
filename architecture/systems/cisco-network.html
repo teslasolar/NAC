@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Network Infrastructure - System Architecture</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #049fd9;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .nav {
+            background: var(--bg-card);
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav a { color: var(--text-secondary); text-decoration: none; }
+        .nav a:hover { color: var(--text-primary); }
+        .nav-title { font-weight: 600; margin-left: 20px; }
+        .header {
+            background: linear-gradient(135deg, rgba(4, 159, 217, 0.2), rgba(59, 130, 246, 0.1));
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .vendor-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #049fd9, #00bceb);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header .vendor { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        .header p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        .badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge.active { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        .badge.version { background: rgba(4, 159, 217, 0.2); color: var(--accent); }
+        .badge.type { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 30px; }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .card ul { list-style: none; }
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card li:last-child { border-bottom: none; }
+        .check { color: var(--accent-green); }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-weight: 500;
+            width: 200px;
+        }
+        .topology-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .topology-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .topo-layer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .topo-layer-name {
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+        .topo-layer.core .topo-layer-name { border-color: var(--accent-red); color: var(--accent-red); }
+        .topo-layer.distribution .topo-layer-name { border-color: var(--accent-yellow); color: var(--accent-yellow); }
+        .topo-layer.access .topo-layer-name { border-color: var(--accent-green); color: var(--accent-green); }
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .device-card {
+            background: rgba(4, 159, 217, 0.1);
+            border: 1px solid rgba(4, 159, 217, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .device-icon { font-size: 2rem; margin-bottom: 8px; }
+        .device-model { font-weight: 600; font-size: 0.9rem; }
+        .device-role { font-size: 0.8rem; color: var(--text-secondary); }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .spec-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .spec-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        .spec-label { color: var(--text-secondary); font-size: 0.9rem; }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .feature-item {
+            background: rgba(4, 159, 217, 0.1);
+            border: 1px solid rgba(4, 159, 217, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .feature-item h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.95rem; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-secondary); }
+        .vlan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .vlan-table th, .vlan-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .vlan-table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+        }
+        .vlan-id {
+            background: var(--accent);
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .sources {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .sources h3 { margin-bottom: 15px; }
+        .sources a { color: var(--accent); text-decoration: none; }
+        .sources a:hover { text-decoration: underline; }
+        .sources ul { list-style: none; }
+        .sources li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .sources li:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div style="display: flex; align-items: center;">
+            <a href="../current-architecture.html">← Back to Architecture</a>
+            <span class="nav-title">System Detail</span>
+        </div>
+        <a href="../../docs/index.html">Portal</a>
+    </nav>
+
+    <div class="header">
+        <div class="vendor-logo">CISCO</div>
+        <h1>Cisco Network Infrastructure</h1>
+        <div class="vendor">Cisco Systems, Inc.</div>
+        <p>Enterprise-grade network infrastructure built on Catalyst 9300 Series switches with SD-Access capabilities, providing secure, scalable connectivity across all county facilities</p>
+        <div class="badges">
+            <span class="badge active">Active</span>
+            <span class="badge version">Catalyst 9300</span>
+            <span class="badge type">12 Sites</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">Infrastructure Overview</h2>
+            <table class="info-table">
+                <tr>
+                    <th>Primary Switches</th>
+                    <td>Cisco Catalyst 9300 Series</td>
+                </tr>
+                <tr>
+                    <th>Core Routers</th>
+                    <td>Cisco ISR 4000 Series</td>
+                </tr>
+                <tr>
+                    <th>Firewalls</th>
+                    <td>Cisco ASA 5500 Series</td>
+                </tr>
+                <tr>
+                    <th>Wireless</th>
+                    <td>Cisco Meraki MR Series</td>
+                </tr>
+                <tr>
+                    <th>Sites Connected</th>
+                    <td>12 physical locations</td>
+                </tr>
+                <tr>
+                    <th>VLANs</th>
+                    <td>25+ network segments</td>
+                </tr>
+                <tr>
+                    <th>Operating System</th>
+                    <td>Cisco IOS XE</td>
+                </tr>
+                <tr>
+                    <th>Management</th>
+                    <td>Cisco DNA Center</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Catalyst 9300 Specifications</h2>
+            <div class="card">
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-value">480</div>
+                        <div class="spec-label">Gbps Stacking Bandwidth</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">8</div>
+                        <div class="spec-label">Max Switches per Stack</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">128K</div>
+                        <div class="spec-label">Flow Entries (Multigigabit)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">1400</div>
+                        <div class="spec-label">NBAR2 App Signatures</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">100</div>
+                        <div class="spec-label">Gbps Hardware IPSec</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">x86</div>
+                        <div class="spec-label">CPU for Containers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Network Topology</h2>
+            <div class="topology-diagram">
+                <div class="topology-layers">
+                    <div class="topo-layer core">
+                        <div class="topo-layer-name">Core Layer</div>
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-icon">🔴</div>
+                                <div class="device-model">ISR 4451-X</div>
+                                <div class="device-role">Primary Router</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🔴</div>
+                                <div class="device-model">ISR 4451-X</div>
+                                <div class="device-role">Secondary Router</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🛡️</div>
+                                <div class="device-model">ASA 5545-X</div>
+                                <div class="device-role">Primary Firewall</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🛡️</div>
+                                <div class="device-model">ASA 5545-X</div>
+                                <div class="device-role">HA Failover</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topo-layer distribution">
+                        <div class="topo-layer-name">Distribution Layer</div>
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-icon">🟡</div>
+                                <div class="device-model">C9300-48UXM</div>
+                                <div class="device-role">Admin Building</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🟡</div>
+                                <div class="device-model">C9300-48UXM</div>
+                                <div class="device-role">Courthouse</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🟡</div>
+                                <div class="device-model">C9300-48P</div>
+                                <div class="device-role">Emergency Services</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🟡</div>
+                                <div class="device-model">C9300-24P</div>
+                                <div class="device-role">Data Center</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topo-layer access">
+                        <div class="topo-layer-name">Access Layer</div>
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-icon">🟢</div>
+                                <div class="device-model">C9300-48P</div>
+                                <div class="device-role">Floor Switches (x8)</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">📶</div>
+                                <div class="device-model">Meraki MR46</div>
+                                <div class="device-role">Wireless APs (x45)</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">📞</div>
+                                <div class="device-model">PoE Phones</div>
+                                <div class="device-role">VoIP Endpoints</div>
+                            </div>
+                            <div class="device-card">
+                                <div class="device-icon">🖥️</div>
+                                <div class="device-model">Workstations</div>
+                                <div class="device-role">End User Devices</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>SD-Access Ready</h4>
+                    <p>Foundation for Software-Defined Access architecture with Cisco DNA Center integration.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Flexible NetFlow (FNF)</h4>
+                    <p>Advanced flow visibility with up to 128K flow entries for network monitoring and security.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>NBAR2 Application Recognition</h4>
+                    <p>Deep packet inspection with 1400+ predefined signatures including 150 encrypted apps.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>MPLS Support</h4>
+                    <p>Layer 3 MPLS capabilities for scalable routing and traffic engineering.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>TrustSec Segmentation</h4>
+                    <p>Secure network segmentation with security group tags for policy enforcement.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Docker Container Support</h4>
+                    <p>Native container environment on x86 CPU for edge applications on the switch.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Hardware IPSec</h4>
+                    <p>Line-rate encryption up to 100Gbps with UADP 2.5 ASIC (9300X models).</p>
+                </div>
+                <div class="feature-item">
+                    <h4>High Availability</h4>
+                    <p>NSF with SSO for nonstop forwarding and minimal downtime during failures.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">VLAN Structure</h2>
+            <div class="card">
+                <table class="vlan-table">
+                    <thead>
+                        <tr>
+                            <th>VLAN ID</th>
+                            <th>Name</th>
+                            <th>Purpose</th>
+                            <th>Subnet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="vlan-id">1</span></td>
+                            <td>Default</td>
+                            <td>Management traffic</td>
+                            <td>10.1.1.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">10</span></td>
+                            <td>Admin</td>
+                            <td>Administrative staff</td>
+                            <td>10.1.10.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">20</span></td>
+                            <td>Finance</td>
+                            <td>Controller/Treasury</td>
+                            <td>10.1.20.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">30</span></td>
+                            <td>Courts</td>
+                            <td>Judicial systems</td>
+                            <td>10.1.30.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">40</span></td>
+                            <td>Emergency</td>
+                            <td>911/Emergency services</td>
+                            <td>10.1.40.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">50</span></td>
+                            <td>Servers</td>
+                            <td>Data center servers</td>
+                            <td>10.1.50.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">60</span></td>
+                            <td>VoIP</td>
+                            <td>Voice traffic</td>
+                            <td>10.1.60.0/24</td>
+                        </tr>
+                        <tr>
+                            <td><span class="vlan-id">100</span></td>
+                            <td>Guest</td>
+                            <td>Visitor wireless</td>
+                            <td>10.1.100.0/24</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);">+ 17 additional department and site-specific VLANs</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Security Features</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(4, 159, 217, 0.2); color: #049fd9;">🛡️</div> Network Security</h3>
+                    <ul>
+                        <li><span class="check">✓</span> 802.1X port authentication</li>
+                        <li><span class="check">✓</span> Dynamic ARP inspection</li>
+                        <li><span class="check">✓</span> DHCP snooping</li>
+                        <li><span class="check">✓</span> IP Source Guard</li>
+                        <li><span class="check">✓</span> Port security</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">🔐</div> Data Protection</h3>
+                    <ul>
+                        <li><span class="check">✓</span> AES-256 SSD encryption</li>
+                        <li><span class="check">✓</span> Secure Boot</li>
+                        <li><span class="check">✓</span> Anti-counterfeit measures</li>
+                        <li><span class="check">✓</span> Configuration encryption</li>
+                        <li><span class="check">✓</span> Audit logging</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">📡</div> Access Control</h3>
+                    <ul>
+                        <li><span class="check">✓</span> TACACS+ authentication</li>
+                        <li><span class="check">✓</span> Role-based access</li>
+                        <li><span class="check">✓</span> SSH/HTTPS management</li>
+                        <li><span class="check">✓</span> SNMPv3</li>
+                        <li><span class="check">✓</span> ACL enforcement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Licensing</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Network Essentials</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Full Layer 2 access features</li>
+                        <li><span class="check">✓</span> Basic routed access</li>
+                        <li><span class="check">✓</span> Static routing</li>
+                        <li><span class="check">✓</span> Basic QoS</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Network Advantage</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Complete Layer 3 features</li>
+                        <li><span class="check">✓</span> Advanced routing (OSPF, EIGRP, BGP)</li>
+                        <li><span class="check">✓</span> Multicast routing</li>
+                        <li><span class="check">✓</span> Advanced segmentation</li>
+                        <li><span class="check">✓</span> SD-Access fabric</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9300-series-switches/nb-06-cat9300-ser-data-sheet-cte-en.html" target="_blank">Catalyst 9300 Series Switches Data Sheet</a></li>
+                <li><a href="https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9300-series-switches/nb-06-cat9300-architecture-cte-en.html" target="_blank">Catalyst 9300 Architecture White Paper</a></li>
+                <li><a href="https://codilime.com/blog/the-catalyst-9300-what-it-is-and-how-you-can-use-it/" target="_blank">The Catalyst 9300 Platform by Cisco</a></li>
+                <li><a href="https://www.compudevices.com/blogs/cisco-catalyst-9300-series-switches-features-benefits-and-use-cases" target="_blank">Catalyst 9300 Features, Benefits, and Use Cases</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

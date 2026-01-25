@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Active Directory - System Architecture</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #0078d4;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .nav {
+            background: var(--bg-card);
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav a { color: var(--text-secondary); text-decoration: none; }
+        .nav a:hover { color: var(--text-primary); }
+        .nav-title { font-weight: 600; margin-left: 20px; }
+        .header {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(59, 130, 246, 0.1));
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .vendor-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0078d4, #106ebe);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header .vendor { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        .header p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        .badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge.active { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        .badge.version { background: rgba(0, 120, 212, 0.2); color: var(--accent); }
+        .badge.type { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 30px; }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .card ul { list-style: none; }
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card li:last-child { border-bottom: none; }
+        .check { color: var(--accent-green); }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-weight: 500;
+            width: 200px;
+        }
+        .architecture-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .dc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .dc-node {
+            background: rgba(0, 120, 212, 0.1);
+            border: 2px solid rgba(0, 120, 212, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .dc-node.primary { border-color: var(--accent-green); background: rgba(34, 197, 94, 0.1); }
+        .dc-icon { font-size: 2rem; margin-bottom: 10px; }
+        .dc-name { font-weight: 600; margin-bottom: 5px; }
+        .dc-role { font-size: 0.85rem; color: var(--text-secondary); }
+        .protocol-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        .protocol-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .protocol-name { font-weight: 600; color: var(--accent); }
+        .protocol-desc { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
+        .vuln-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .vuln-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .vuln-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cvss { background: var(--accent-red); padding: 5px 12px; border-radius: 15px; font-weight: 600; }
+        .cvss.critical { background: #dc2626; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .feature-item {
+            background: rgba(0, 120, 212, 0.1);
+            border: 1px solid rgba(0, 120, 212, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .feature-item h4 { color: var(--accent); margin-bottom: 10px; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-secondary); }
+        .sources {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .sources h3 { margin-bottom: 15px; }
+        .sources a { color: var(--accent); text-decoration: none; }
+        .sources a:hover { text-decoration: underline; }
+        .sources ul { list-style: none; }
+        .sources li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .sources li:last-child { border-bottom: none; }
+        @media (max-width: 900px) {
+            .dc-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div style="display: flex; align-items: center;">
+            <a href="../current-architecture.html">← Back to Architecture</a>
+            <span class="nav-title">System Detail</span>
+        </div>
+        <a href="../../docs/index.html">Portal</a>
+    </nav>
+
+    <div class="header">
+        <div class="vendor-logo">⊞</div>
+        <h1>Microsoft Active Directory</h1>
+        <div class="vendor">Microsoft Corporation</div>
+        <p>Enterprise directory service for identity and access management, providing authentication, authorization, and policy enforcement across the county network</p>
+        <div class="badges">
+            <span class="badge active">Active</span>
+            <span class="badge version">Windows Server 2019</span>
+            <span class="badge type">On-Premise</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">System Overview</h2>
+            <table class="info-table">
+                <tr>
+                    <th>Product Name</th>
+                    <td>Active Directory Domain Services (AD DS)</td>
+                </tr>
+                <tr>
+                    <th>Vendor</th>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <th>Server Version</th>
+                    <td>Windows Server 2019</td>
+                </tr>
+                <tr>
+                    <th>Forest Functional Level</th>
+                    <td>Windows Server 2016</td>
+                </tr>
+                <tr>
+                    <th>Domain Name</th>
+                    <td>NORCOPA (Northampton County PA)</td>
+                </tr>
+                <tr>
+                    <th>Domain Controllers</th>
+                    <td>4 Domain Controllers</td>
+                </tr>
+                <tr>
+                    <th>Total Objects</th>
+                    <td>~3,000 (users, computers, groups)</td>
+                </tr>
+                <tr>
+                    <th>Sites</th>
+                    <td>12 physical locations</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Domain Controller Topology</h2>
+            <div class="architecture-diagram">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">The county operates 4 domain controllers distributed across primary sites for redundancy and performance.</p>
+                <div class="dc-grid">
+                    <div class="dc-node primary">
+                        <div class="dc-icon">🖥️</div>
+                        <div class="dc-name">DC01-ADMIN</div>
+                        <div class="dc-role">Primary DC</div>
+                        <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 5px;">FSMO Roles</div>
+                    </div>
+                    <div class="dc-node">
+                        <div class="dc-icon">🖥️</div>
+                        <div class="dc-name">DC02-COURTHOUSE</div>
+                        <div class="dc-role">Secondary DC</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Read-Write</div>
+                    </div>
+                    <div class="dc-node">
+                        <div class="dc-icon">🖥️</div>
+                        <div class="dc-name">DC03-EMERGENCY</div>
+                        <div class="dc-role">DR Site</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Backup FSMO</div>
+                    </div>
+                    <div class="dc-node">
+                        <div class="dc-icon">🖥️</div>
+                        <div class="dc-name">DC04-SERVICES</div>
+                        <div class="dc-role">Services DC</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Read-Write</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Architecture Components</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(0, 120, 212, 0.2); color: #0078d4;">🏢</div> Domain Structure</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Single forest, single domain</li>
+                        <li><span class="check">✓</span> Organizational Units (OUs) by department</li>
+                        <li><span class="check">✓</span> Delegated administration</li>
+                        <li><span class="check">✓</span> OU-based Group Policy</li>
+                        <li><span class="check">✓</span> Global Catalog replication</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">🔐</div> Authentication</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Kerberos v5</li>
+                        <li><span class="check">✓</span> NTLM (legacy fallback)</li>
+                        <li><span class="check">✓</span> LDAP/LDAPS</li>
+                        <li><span class="check">✓</span> Smart card support</li>
+                        <li><span class="check">✓</span> Duo MFA integration</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">📋</div> Group Policy</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Security policies</li>
+                        <li><span class="check">✓</span> Software deployment</li>
+                        <li><span class="check">✓</span> User settings</li>
+                        <li><span class="check">✓</span> Password policies</li>
+                        <li><span class="check">✓</span> Audit policies</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(234, 179, 8, 0.2); color: #eab308;">📊</div> Directory Services</h3>
+                    <ul>
+                        <li><span class="check">✓</span> DNS integration</li>
+                        <li><span class="check">✓</span> Certificate Services (PKI)</li>
+                        <li><span class="check">✓</span> Federation Services (ADFS)</li>
+                        <li><span class="check">✓</span> Rights Management</li>
+                        <li><span class="check">✓</span> Azure AD Connect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Core Protocols</h2>
+            <div class="card">
+                <div class="protocol-list">
+                    <div class="protocol-item">
+                        <div class="protocol-name">LDAP</div>
+                        <div class="protocol-desc">Directory queries & modifications</div>
+                    </div>
+                    <div class="protocol-item">
+                        <div class="protocol-name">Kerberos</div>
+                        <div class="protocol-desc">Secure authentication</div>
+                    </div>
+                    <div class="protocol-item">
+                        <div class="protocol-name">DNS</div>
+                        <div class="protocol-desc">Name resolution & service location</div>
+                    </div>
+                    <div class="protocol-item">
+                        <div class="protocol-name">SMB</div>
+                        <div class="protocol-desc">File sharing & SYSVOL</div>
+                    </div>
+                    <div class="protocol-item">
+                        <div class="protocol-name">DFSR</div>
+                        <div class="protocol-desc">Distributed replication</div>
+                    </div>
+                    <div class="protocol-item">
+                        <div class="protocol-name">RPC</div>
+                        <div class="protocol-desc">Remote procedure calls</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Windows Server 2022 Features</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Planned upgrade path to Windows Server 2022 will provide these enhancements:</p>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>Secured-core Server</h4>
+                    <p>Hardware-rooted security with TPM 2.0, Secure Boot, and virtualization-based security.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>TLS 1.3 Support</h4>
+                    <p>Latest security protocol enabled by default for encrypted communications.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Enhanced ADAC</h4>
+                    <p>Improved Active Directory Administrative Center for easier management.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Time-based Membership</h4>
+                    <p>Automated group membership changes based on time criteria.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>PowerShell Cmdlets</h4>
+                    <p>New cmdlets for better automation of domain, user, and group management.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>gMSA Improvements</h4>
+                    <p>Group Managed Service Accounts work with non-domain-joined hosts.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Known Vulnerabilities</h2>
+            <div class="vuln-grid">
+                <div class="vuln-card">
+                    <div class="vuln-header">
+                        <div>
+                            <strong style="font-size: 1.1rem;">CVE-2020-1472 (Zerologon)</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Netlogon Elevation of Privilege</div>
+                        </div>
+                        <span class="cvss critical">CVSS 10.0</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Critical vulnerability in the Netlogon Remote Protocol allowing complete domain takeover without authentication.</p>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">
+                        <strong style="font-size: 0.85rem;">Remediation:</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);"> Apply August 2020 security update, enforce secure RPC</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <strong style="font-size: 0.85rem;">Status:</strong>
+                        <span style="font-size: 0.85rem; color: var(--accent-green);"> ✓ Patched (verify enforcement mode)</span>
+                    </div>
+                </div>
+                <div class="vuln-card">
+                    <div class="vuln-header">
+                        <div>
+                            <strong style="font-size: 1.1rem;">CVE-2021-42278/42287</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">sAMAccountName Spoofing</div>
+                        </div>
+                        <span class="cvss" style="background: var(--accent-yellow); color: #000;">CVSS 7.5</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Privilege escalation via machine account spoofing, allowing domain admin access.</p>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">
+                        <strong style="font-size: 0.85rem;">Remediation:</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);"> Apply November 2021 security update</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <strong style="font-size: 0.85rem;">Status:</strong>
+                        <span style="font-size: 0.85rem; color: var(--accent-yellow);"> ⚠ Review patch status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Security Configuration</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Password Policy</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Minimum 12 characters</li>
+                        <li><span class="check">✓</span> Complexity requirements</li>
+                        <li><span class="check">✓</span> 90-day maximum age</li>
+                        <li><span class="check">✓</span> 24 password history</li>
+                        <li><span class="check">✓</span> Account lockout: 5 attempts</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Audit Policy</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Logon/Logoff events</li>
+                        <li><span class="check">✓</span> Account management</li>
+                        <li><span class="check">✓</span> Directory service access</li>
+                        <li><span class="check">✓</span> Policy changes</li>
+                        <li><span class="check">✓</span> Privilege use</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022" target="_blank">What's New in Windows Server 2022 | Microsoft Learn</a></li>
+                <li><a href="https://www.linkedin.com/pulse/windows-server-2022-active-directory-key-features-ashok-babu-singu" target="_blank">Windows Server 2022 AD Key Features</a></li>
+                <li><a href="https://1gbits.com/blog/windows-server-active-directory/" target="_blank">Windows Server Active Directory Ultimate Guide</a></li>
+                <li><a href="https://www.turbogeek.co.uk/how-to-install-active-directory-on-windows-server-2022/" target="_blank">Install Active Directory on Windows Server 2022</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

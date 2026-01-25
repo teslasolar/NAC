@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Catalog - Northampton County Architecture</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .nav {
+            background: var(--bg-card);
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav a { color: var(--text-secondary); text-decoration: none; }
+        .nav a:hover { color: var(--text-primary); }
+        .header {
+            text-align: center;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border-bottom: 1px solid var(--border);
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .header p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 30px; }
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .card-header {
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .system-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .system-info h3 { font-size: 1.3rem; margin-bottom: 5px; }
+        .system-info .vendor { color: var(--text-secondary); font-size: 0.95rem; }
+        .card-body {
+            padding: 0 30px 30px;
+        }
+        .card-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tag.active { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .tag.critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .tag.legacy { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+        .tag.type { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../current-architecture.html">← Back to Architecture</a>
+        <a href="../../docs/index.html">Portal</a>
+    </nav>
+
+    <div class="header">
+        <h1>System Catalog</h1>
+        <p>Detailed documentation for all enterprise systems deployed in Northampton County infrastructure</p>
+    </div>
+
+    <div class="content">
+        <div class="systems-grid">
+            <a href="tyler-erp.html" class="system-card">
+                <div class="card-header">
+                    <div class="system-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">T</div>
+                    <div class="system-info">
+                        <h3>Tyler Enterprise ERP</h3>
+                        <div class="vendor">Tyler Technologies</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Comprehensive ERP managing financials, HR, payroll, citizen services, and revenue operations for local government.</p>
+                    <div class="card-tags">
+                        <span class="tag active">Active</span>
+                        <span class="tag type">On-Premise</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="esri-arcgis.html" class="system-card">
+                <div class="card-header">
+                    <div class="system-icon" style="background: linear-gradient(135deg, #22c55e, #15803d);">Esri</div>
+                    <div class="system-info">
+                        <h3>ESRI ArcGIS Enterprise</h3>
+                        <div class="vendor">Esri, Inc.</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Complete geospatial platform for mapping, spatial analysis, and data management powering county GIS operations.</p>
+                    <div class="card-tags">
+                        <span class="tag critical">Needs Update</span>
+                        <span class="tag type">Hybrid Cloud</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="ess-expressvote.html" class="system-card">
+                <div class="card-header">
+                    <div class="system-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">ES&S</div>
+                    <div class="system-info">
+                        <h3>ES&S ExpressVote XL</h3>
+                        <div class="vendor">Election Systems & Software</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Full-face universal voting system with 32" touchscreen and integrated voter-verifiable paper record.</p>
+                    <div class="card-tags">
+                        <span class="tag legacy">Legacy</span>
+                        <span class="tag type">Air-Gapped</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="microsoft-ad.html" class="system-card">
+                <div class="card-header">
+                    <div class="system-icon" style="background: linear-gradient(135deg, #0078d4, #106ebe);">⊞</div>
+                    <div class="system-info">
+                        <h3>Microsoft Active Directory</h3>
+                        <div class="vendor">Microsoft Corporation</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Enterprise directory service for identity and access management, authentication, and policy enforcement.</p>
+                    <div class="card-tags">
+                        <span class="tag active">Active</span>
+                        <span class="tag type">On-Premise</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="cisco-network.html" class="system-card">
+                <div class="card-header">
+                    <div class="system-icon" style="background: linear-gradient(135deg, #049fd9, #00bceb);">CISCO</div>
+                    <div class="system-info">
+                        <h3>Cisco Network Infrastructure</h3>
+                        <div class="vendor">Cisco Systems, Inc.</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Enterprise-grade network built on Catalyst 9300 Series with SD-Access capabilities across 12 county sites.</p>
+                    <div class="card-tags">
+                        <span class="tag active">Active</span>
+                        <span class="tag type">12 Sites</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

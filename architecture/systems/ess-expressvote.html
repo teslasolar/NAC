@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES&S ExpressVote XL - System Architecture</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #ef4444;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .nav {
+            background: var(--bg-card);
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav a { color: var(--text-secondary); text-decoration: none; }
+        .nav a:hover { color: var(--text-primary); }
+        .nav-title { font-weight: 600; margin-left: 20px; }
+        .header {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(234, 179, 8, 0.1));
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .vendor-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header .vendor { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        .header p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        .badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge.legacy { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); }
+        .badge.certified { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        .badge.type { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 30px; }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .card ul { list-style: none; }
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card li:last-child { border-bottom: none; }
+        .check { color: var(--accent-green); }
+        .warn { color: var(--accent-yellow); }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-weight: 500;
+            width: 200px;
+        }
+        .hardware-specs {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .spec-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .spec-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        .spec-label { color: var(--text-secondary); }
+        .security-feature {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .security-feature h4 { color: var(--accent-green); margin-bottom: 8px; }
+        .security-feature p { font-size: 0.9rem; color: var(--text-secondary); }
+        .accessibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .access-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .access-icon { font-size: 2rem; margin-bottom: 10px; }
+        .concern-card {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .concern-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .workflow-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .workflow-step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+        }
+        .workflow-arrow {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+        }
+        .sources {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .sources h3 { margin-bottom: 15px; }
+        .sources a { color: var(--accent-blue); text-decoration: none; }
+        .sources a:hover { text-decoration: underline; }
+        .sources ul { list-style: none; }
+        .sources li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .sources li:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div style="display: flex; align-items: center;">
+            <a href="../current-architecture.html">← Back to Architecture</a>
+            <span class="nav-title">System Detail</span>
+        </div>
+        <a href="../../docs/index.html">Portal</a>
+    </nav>
+
+    <div class="header">
+        <div class="vendor-logo">ES&S</div>
+        <h1>ES&S ExpressVote XL</h1>
+        <div class="vendor">Election Systems & Software</div>
+        <p>Full-face universal voting system with 32" touchscreen display and integrated voter-verifiable paper record for accessible, secure voting</p>
+        <div class="badges">
+            <span class="badge legacy">Legacy System</span>
+            <span class="badge certified">PA DoS Certified</span>
+            <span class="badge type">Air-Gapped</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">System Overview</h2>
+            <table class="info-table">
+                <tr>
+                    <th>Product Name</th>
+                    <td>ExpressVote XL</td>
+                </tr>
+                <tr>
+                    <th>Vendor</th>
+                    <td>Election Systems & Software (ES&S)</td>
+                </tr>
+                <tr>
+                    <th>Version</th>
+                    <td>EVS 6.0.2.1</td>
+                </tr>
+                <tr>
+                    <th>System Type</th>
+                    <td>Full-Face Universal Voting System</td>
+                </tr>
+                <tr>
+                    <th>Deployment</th>
+                    <td>Air-Gapped (No Network Connection)</td>
+                </tr>
+                <tr>
+                    <th>Units Deployed</th>
+                    <td>500+ units across Northampton County</td>
+                </tr>
+                <tr>
+                    <th>Certification</th>
+                    <td>EAC Certified, PA Department of State Certified</td>
+                </tr>
+                <tr>
+                    <th>Usage</th>
+                    <td>Sole polling place voting system</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Hardware Specifications</h2>
+            <div class="hardware-specs">
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-value">32"</div>
+                        <div class="spec-label">Touchscreen Display</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">4.25"</div>
+                        <div class="spec-label">Paper Summary Card Width</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">AES-256</div>
+                        <div class="spec-label">Data Encryption</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">Thermal</div>
+                        <div class="spec-label">Printer Technology</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Voting Workflow</h2>
+            <div class="workflow-diagram">
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <strong>Check-In</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Voter authentication at poll book</p>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <strong>Ballot Display</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Full ballot on 32" screen</p>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <strong>Make Selections</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Touch to select candidates</p>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <strong>Print Summary</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Paper record printed</p>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <strong>Verify & Cast</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Review through window</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Security Features</h2>
+            <div class="grid">
+                <div class="security-feature">
+                    <h4>Encryption & Digital Signatures</h4>
+                    <p>Election programming and vote data are encrypted and digitally signed to verify authenticity and prevent tampering.</p>
+                </div>
+                <div class="security-feature">
+                    <h4>Secure Boot</h4>
+                    <p>System uses Secure Boot and application allowlisting to verify only certified OS, software, and firmware are running.</p>
+                </div>
+                <div class="security-feature">
+                    <h4>Self-Diagnostic Tests</h4>
+                    <p>At startup, the unit performs comprehensive diagnostic tests to verify internal functionality and alerts users of any errors.</p>
+                </div>
+                <div class="security-feature">
+                    <h4>Detailed Audit Logs</h4>
+                    <p>Each unit generates detailed audit logs of all actions and events. Vote data is digitally signed as committed to memory.</p>
+                </div>
+                <div class="security-feature">
+                    <h4>Tamper-Evident Design</h4>
+                    <p>Physical security features with tamper-evident seals and locked access to internal components.</p>
+                </div>
+                <div class="security-feature">
+                    <h4>Air-Gapped Operation</h4>
+                    <p>Machines operate without any network connection, preventing remote attacks and ensuring vote integrity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Accessibility Features</h2>
+            <div class="card">
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">The ExpressVote XL is designed to provide accessible, independent voting for all voters regardless of ability.</p>
+                <div class="accessibility-grid">
+                    <div class="access-item">
+                        <div class="access-icon">🎮</div>
+                        <strong>Audio-Tactile Interface</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Game controller-style console with tactile buttons</p>
+                    </div>
+                    <div class="access-item">
+                        <div class="access-icon">🎧</div>
+                        <strong>Audio Ballot</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Headphone support for visually impaired voters</p>
+                    </div>
+                    <div class="access-item">
+                        <div class="access-icon">🔍</div>
+                        <strong>Large Text Mode</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Enlarged text display option</p>
+                    </div>
+                    <div class="access-item">
+                        <div class="access-icon">🎨</div>
+                        <strong>High Contrast</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Alternative color schemes for visibility</p>
+                    </div>
+                    <div class="access-item">
+                        <div class="access-icon">💨</div>
+                        <strong>Sip-and-Puff</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Support for breath-controlled devices</p>
+                    </div>
+                    <div class="access-item">
+                        <div class="access-icon">🔘</div>
+                        <strong>Paddle Support</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">Alternative input for dexterity impairments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Paper Ballot Record</h2>
+            <div class="card">
+                <h3>Voter-Verifiable Paper Audit Trail (VVPAT)</h3>
+                <ul>
+                    <li><span class="check">✓</span> Thermal summary card printed for each vote</li>
+                    <li><span class="check">✓</span> Clear window allows voter to review printed choices</li>
+                    <li><span class="check">✓</span> Paper record secured inside attached module</li>
+                    <li><span class="check">✓</span> Human-readable text + machine-readable barcodes</li>
+                    <li><span class="check">✓</span> System scans barcode to verify no printing errors</li>
+                    <li><span class="check">✓</span> "No selection" printed for skipped contests</li>
+                    <li><span class="check">✓</span> Paper record not directly accessible to voters</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Known Concerns</h2>
+            <div class="concern-card">
+                <div class="concern-header">
+                    <span class="warn">⚠</span>
+                    <strong>Physical Access Vulnerability</strong>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Security researchers have identified that physical access to voting machines could potentially allow tampering. Mitigation: Strict chain of custody, tamper-evident seals, and poll worker oversight.</p>
+            </div>
+            <div class="concern-card">
+                <div class="concern-header">
+                    <span class="warn">⚠</span>
+                    <strong>Supply Chain Concerns</strong>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">As with all electronic voting systems, supply chain security is a concern. Mitigation: Vendor certification, component verification, and pre-election testing.</p>
+            </div>
+            <div class="concern-card">
+                <div class="concern-header">
+                    <span class="warn">⚠</span>
+                    <strong>2024 Cambria County Issue</strong>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">During 2024 elections, ES&S machines in Cambria County had ballot scanning issues due to a "ballot printing error", causing voter confusion and long lines. This was a localized incident addressed by poll workers.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Pennsylvania Deployment</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Certification Status</h3>
+                    <ul>
+                        <li><span class="check">✓</span> EAC federally certified</li>
+                        <li><span class="check">✓</span> PA Department of State certified</li>
+                        <li><span class="check">✓</span> Meets PA election code requirements</li>
+                        <li><span class="check">✓</span> Northampton County certified</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>County Usage</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Sole polling place voting system</li>
+                        <li><span class="check">✓</span> All precincts equipped</li>
+                        <li><span class="check">✓</span> ADA-compliant stations at all locations</li>
+                        <li><span class="check">✓</span> Logic & accuracy testing before each election</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://www.essvote.com/products/expressvote-xl/" target="_blank">ExpressVote XL - Election Systems & Software</a></li>
+                <li><a href="https://verifiedvoting.org/election-system/ess-expressvote-xl/" target="_blank">Verified Voting - ES&S ExpressVote XL</a></li>
+                <li><a href="https://www.essvote.com/accessible-expressvote-xl/" target="_blank">Accessible, Independent Voting with ExpressVote XL</a></li>
+                <li><a href="https://www.prnewswire.com/news-releases/expressvote-xl-voting-machine-maintains-certification-by-pennsylvania-department-of-state-300912770.html" target="_blank">PA DoS Certification Press Release</a></li>
+                <li><a href="https://vote.phila.gov/new-voting-system/" target="_blank">Philadelphia City Commissioners - New Voting System</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

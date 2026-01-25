@@ -176,6 +176,31 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .system-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .system-card .view-details {
+            display: none;
+            background: var(--accent-green);
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .system-card:hover .view-details {
+            display: inline-block;
         }
 
         .system-header {
@@ -441,10 +466,10 @@
     <div class="content">
         <h2 class="section-title">Core Enterprise Systems</h2>
         <div class="systems-grid">
-            <div class="system-card">
+            <a href="systems/tyler-erp.html" class="system-card">
                 <div class="system-header">
                     <div>
-                        <div class="system-name">Tyler CountySuite ERP</div>
+                        <div class="system-name">Tyler Enterprise ERP</div>
                         <div class="system-vendor">Tyler Technologies</div>
                     </div>
                     <span class="system-status status-active">Active</span>
@@ -474,10 +499,11 @@
                             <span class="vuln-tag">CVE-2019-6692</span>
                         </div>
                     </div>
+                    <span class="view-details">View Details →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="system-card">
+            <a href="systems/esri-arcgis.html" class="system-card">
                 <div class="system-header">
                     <div>
                         <div class="system-name">ESRI ArcGIS Enterprise</div>
@@ -512,10 +538,11 @@
                             <span class="vuln-tag">CVE-2024-25692</span>
                         </div>
                     </div>
+                    <span class="view-details">View Details →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="system-card">
+            <a href="systems/ess-expressvote.html" class="system-card">
                 <div class="system-header">
                     <div>
                         <div class="system-name">ES&S ExpressVote XL</div>
@@ -549,10 +576,11 @@
                             <span class="vuln-tag">Supply Chain</span>
                         </div>
                     </div>
+                    <span class="view-details">View Details →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="system-card">
+            <a href="systems/microsoft-ad.html" class="system-card">
                 <div class="system-header">
                     <div>
                         <div class="system-name">Microsoft Active Directory</div>
@@ -586,10 +614,11 @@
                             <span class="vuln-tag">CVE-2021-42278</span>
                         </div>
                     </div>
+                    <span class="view-details">View Details →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="system-card">
+            <a href="systems/cisco-network.html" class="system-card">
                 <div class="system-header">
                     <div>
                         <div class="system-name">Cisco Network Infrastructure</div>
@@ -616,10 +645,11 @@
                             <div class="detail-value">12 Locations</div>
                         </div>
                     </div>
+                    <span class="view-details">View Details →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="system-card">
+            <div class="system-card" style="cursor: default;">
                 <div class="system-header">
                     <div>
                         <div class="system-name">NAC Digital Twin Portal</div>

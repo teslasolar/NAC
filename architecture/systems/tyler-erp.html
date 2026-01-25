@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Technologies Enterprise ERP - System Architecture</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .nav {
+            background: var(--bg-card);
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav a { color: var(--text-secondary); text-decoration: none; }
+        .nav a:hover { color: var(--text-primary); }
+        .nav-title { font-weight: 600; margin-left: 20px; }
+        .header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 197, 94, 0.1));
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .vendor-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header .vendor { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        .header p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        .badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge.active { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        .badge.version { background: rgba(59, 130, 246, 0.2); color: var(--accent); }
+        .badge.type { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 30px; }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .card ul { list-style: none; }
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card li:last-child { border-bottom: none; }
+        .check { color: var(--accent-green); }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-weight: 500;
+            width: 200px;
+        }
+        .architecture-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .arch-layers { display: flex; flex-direction: column; gap: 15px; }
+        .arch-layer {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .layer-label {
+            min-width: 150px;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .layer-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .component-tag {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .integration-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .flow-node {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+        }
+        .flow-node.active { border-color: var(--accent-green); }
+        .flow-arrow { color: var(--text-secondary); font-size: 1.5rem; }
+        .vuln-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .vuln-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cvss { background: var(--accent-red); padding: 5px 12px; border-radius: 15px; font-weight: 600; }
+        .cvss.medium { background: var(--accent-yellow); color: #000; }
+        .sources {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .sources h3 { margin-bottom: 15px; }
+        .sources a { color: var(--accent); text-decoration: none; }
+        .sources a:hover { text-decoration: underline; }
+        .sources ul { list-style: none; }
+        .sources li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .sources li:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div style="display: flex; align-items: center;">
+            <a href="../current-architecture.html">← Back to Architecture</a>
+            <span class="nav-title">System Detail</span>
+        </div>
+        <a href="../../docs/index.html">Portal</a>
+    </nav>
+
+    <div class="header">
+        <div class="vendor-logo">T</div>
+        <h1>Tyler Technologies Enterprise ERP</h1>
+        <div class="vendor">Tyler Technologies, Inc.</div>
+        <p>Comprehensive enterprise resource planning solution managing financials, HR, payroll, citizen services, and revenue operations for local government</p>
+        <div class="badges">
+            <span class="badge active">Active</span>
+            <span class="badge version">Version 2023.2</span>
+            <span class="badge type">On-Premise</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">System Overview</h2>
+            <table class="info-table">
+                <tr>
+                    <th>Product Name</th>
+                    <td>Tyler Enterprise ERP (formerly Munis)</td>
+                </tr>
+                <tr>
+                    <th>Vendor</th>
+                    <td>Tyler Technologies, Inc.</td>
+                </tr>
+                <tr>
+                    <th>Installed Version</th>
+                    <td>2023.2</td>
+                </tr>
+                <tr>
+                    <th>Deployment Type</th>
+                    <td>On-Premise (Windows Server)</td>
+                </tr>
+                <tr>
+                    <th>Database</th>
+                    <td>Microsoft SQL Server 2019</td>
+                </tr>
+                <tr>
+                    <th>Active Users</th>
+                    <td>~200 county employees</td>
+                </tr>
+                <tr>
+                    <th>Market Reach</th>
+                    <td>45,000+ installations across 13,000 locations in 50 states</td>
+                </tr>
+                <tr>
+                    <th>GIS Integration</th>
+                    <td>Munis MapLink with ESRI ArcGIS</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Core Modules</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">$</div> Financial Management</h3>
+                    <ul>
+                        <li><span class="check">✓</span> General Ledger</li>
+                        <li><span class="check">✓</span> Accounts Payable</li>
+                        <li><span class="check">✓</span> Accounts Receivable</li>
+                        <li><span class="check">✓</span> Budget Preparation</li>
+                        <li><span class="check">✓</span> Fixed Assets</li>
+                        <li><span class="check">✓</span> Project & Grant Accounting</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">👥</div> Human Resources</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Personnel Management</li>
+                        <li><span class="check">✓</span> Position Control</li>
+                        <li><span class="check">✓</span> Benefits Administration</li>
+                        <li><span class="check">✓</span> Risk Management</li>
+                        <li><span class="check">✓</span> Training & Certifications</li>
+                        <li><span class="check">✓</span> Applicant Tracking</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">💵</div> Payroll</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Payroll Processing</li>
+                        <li><span class="check">✓</span> Time & Attendance</li>
+                        <li><span class="check">✓</span> Direct Deposit</li>
+                        <li><span class="check">✓</span> W-2/1099 Processing</li>
+                        <li><span class="check">✓</span> Pension Administration</li>
+                        <li><span class="check">✓</span> Deduction Management</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(234, 179, 8, 0.2); color: #eab308;">🏠</div> Property-Based</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Tax Billing & Collections</li>
+                        <li><span class="check">✓</span> Utility Billing CIS</li>
+                        <li><span class="check">✓</span> Permits & Code Enforcement</li>
+                        <li><span class="check">✓</span> Business Licensing</li>
+                        <li><span class="check">✓</span> Incident Management</li>
+                        <li><span class="check">✓</span> Assessment Administration</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;">📋</div> Procurement</h3>
+                    <ul>
+                        <li><span class="check">✓</span> Purchasing</li>
+                        <li><span class="check">✓</span> Bid Management</li>
+                        <li><span class="check">✓</span> Contract Management</li>
+                        <li><span class="check">✓</span> Vendor Self-Service</li>
+                        <li><span class="check">✓</span> Inventory Control</li>
+                        <li><span class="check">✓</span> Work Orders</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><div class="card-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">🔗</div> Integration</h3>
+                    <ul>
+                        <li><span class="check">✓</span> API Toolkits</li>
+                        <li><span class="check">✓</span> API Connectors</li>
+                        <li><span class="check">✓</span> Munis MapLink (GIS)</li>
+                        <li><span class="check">✓</span> Tyler Cashiering</li>
+                        <li><span class="check">✓</span> Content Manager</li>
+                        <li><span class="check">✓</span> Citizen Self-Service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">System Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="arch-layers">
+                    <div class="arch-layer">
+                        <div class="layer-label" style="background: rgba(59, 130, 246, 0.3);">Presentation</div>
+                        <div class="layer-components">
+                            <span class="component-tag">Tyler Host (Thick Client)</span>
+                            <span class="component-tag">Tyler Hub (Web)</span>
+                            <span class="component-tag">Citizen Self-Service Portal</span>
+                            <span class="component-tag">Employee Self-Service</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <div class="layer-label" style="background: rgba(34, 197, 94, 0.3);">Application</div>
+                        <div class="layer-components">
+                            <span class="component-tag">Tyler Application Server</span>
+                            <span class="component-tag">Report Server</span>
+                            <span class="component-tag">API Gateway</span>
+                            <span class="component-tag">Workflow Engine</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <div class="layer-label" style="background: rgba(168, 85, 247, 0.3);">Integration</div>
+                        <div class="layer-components">
+                            <span class="component-tag">Munis MapLink</span>
+                            <span class="component-tag">ESRI ArcGIS Connector</span>
+                            <span class="component-tag">Bank Integration</span>
+                            <span class="component-tag">State Reporting</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <div class="layer-label" style="background: rgba(234, 179, 8, 0.3);">Data</div>
+                        <div class="layer-components">
+                            <span class="component-tag">SQL Server 2019</span>
+                            <span class="component-tag">Document Repository</span>
+                            <span class="component-tag">Report Storage</span>
+                            <span class="component-tag">Audit Logs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">GIS Integration (MapLink)</h2>
+            <div class="card">
+                <p style="margin-bottom: 20px;">Tyler Enterprise ERP integrates with ESRI ArcGIS through Munis MapLink, providing spatial analysis and mapping capabilities for property-based applications.</p>
+                <div class="integration-flow">
+                    <div class="flow-node active">
+                        <strong>Tyler ERP</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Property Data</div>
+                    </div>
+                    <span class="flow-arrow">↔</span>
+                    <div class="flow-node">
+                        <strong>MapLink</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Connector</div>
+                    </div>
+                    <span class="flow-arrow">↔</span>
+                    <div class="flow-node active">
+                        <strong>ArcGIS</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Map Services</div>
+                    </div>
+                    <span class="flow-arrow">↔</span>
+                    <div class="flow-node">
+                        <strong>Parcels</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">~120,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Known Vulnerabilities</h2>
+            <div class="vuln-card">
+                <div class="vuln-header">
+                    <div>
+                        <strong style="font-size: 1.1rem;">CVE-2019-6692</strong>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">SQL Injection in Web Services</div>
+                    </div>
+                    <span class="cvss medium">CVSS 6.5</span>
+                </div>
+                <table class="info-table" style="margin-top: 15px;">
+                    <tr>
+                        <th>Attack Vector</th>
+                        <td>Network</td>
+                    </tr>
+                    <tr>
+                        <th>Complexity</th>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <th>Impact</th>
+                        <td>Data Disclosure</td>
+                    </tr>
+                    <tr>
+                        <th>Remediation</th>
+                        <td>Apply vendor patch, enable WAF rules</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td><span style="color: var(--accent-yellow);">⚠ Pending Review</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">County Usage</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Primary Functions</h3>
+                    <ul>
+                        <li><span class="check">✓</span> County budget management</li>
+                        <li><span class="check">✓</span> Employee payroll processing</li>
+                        <li><span class="check">✓</span> Property tax billing</li>
+                        <li><span class="check">✓</span> Vendor payments</li>
+                        <li><span class="check">✓</span> Grant tracking</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Connected Systems</h3>
+                    <ul>
+                        <li><span class="check">✓</span> ESRI ArcGIS (GIS)</li>
+                        <li><span class="check">✓</span> Bank of America (ACH)</li>
+                        <li><span class="check">✓</span> PA State Reporting</li>
+                        <li><span class="check">✓</span> NAC Digital Twin Portal</li>
+                        <li><span class="check">✓</span> Pension Fund Systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sources">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://www.tylertech.com/solutions/public-administration/erp" target="_blank">Tyler Technologies ERP Solutions</a></li>
+                <li><a href="https://www.tylertech.com/products/enterprise-erp" target="_blank">Enterprise ERP Software | Tyler Technologies</a></li>
+                <li><a href="https://www.esri.com/partners/tyler-technologies-a2T70000000TNhbEAG/enterprise-resource--a2d70000000mhTuAAI" target="_blank">Tyler Technologies ESRI Partnership</a></li>
+                <li><a href="https://www.gartner.com/reviews/market/cloud-erp-for-product-centric-enterprises/vendor/tyler-technologies/product/enterprise-erp" target="_blank">Gartner Peer Insights Reviews</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

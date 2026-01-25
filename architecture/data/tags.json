@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-01-25",
+    "description": "Tag taxonomy for NAC architecture documentation"
+  },
+  "categories": {
+    "status": {
+      "active": { "label": "Active", "color": "#22c55e", "bg": "rgba(34, 197, 94, 0.2)" },
+      "legacy": { "label": "Legacy", "color": "#eab308", "bg": "rgba(234, 179, 8, 0.2)" },
+      "deprecated": { "label": "Deprecated", "color": "#ef4444", "bg": "rgba(239, 68, 68, 0.2)" },
+      "proposed": { "label": "Proposed", "color": "#a855f7", "bg": "rgba(168, 85, 247, 0.2)" },
+      "in-progress": { "label": "In Progress", "color": "#3b82f6", "bg": "rgba(59, 130, 246, 0.2)" },
+      "needs-update": { "label": "Needs Update", "color": "#f97316", "bg": "rgba(249, 115, 22, 0.2)" }
+    },
+    "deployment": {
+      "on-premise": { "label": "On-Premise", "color": "#6366f1", "bg": "rgba(99, 102, 241, 0.2)" },
+      "cloud": { "label": "Cloud", "color": "#06b6d4", "bg": "rgba(6, 182, 212, 0.2)" },
+      "hybrid": { "label": "Hybrid Cloud", "color": "#8b5cf6", "bg": "rgba(139, 92, 246, 0.2)" },
+      "air-gapped": { "label": "Air-Gapped", "color": "#ef4444", "bg": "rgba(239, 68, 68, 0.2)" },
+      "saas": { "label": "SaaS", "color": "#10b981", "bg": "rgba(16, 185, 129, 0.2)" }
+    },
+    "security": {
+      "critical": { "label": "Critical", "color": "#ef4444", "bg": "rgba(239, 68, 68, 0.2)" },
+      "high": { "label": "High Risk", "color": "#f97316", "bg": "rgba(249, 115, 22, 0.2)" },
+      "medium": { "label": "Medium Risk", "color": "#eab308", "bg": "rgba(234, 179, 8, 0.2)" },
+      "low": { "label": "Low Risk", "color": "#22c55e", "bg": "rgba(34, 197, 94, 0.2)" },
+      "compliant": { "label": "Compliant", "color": "#22c55e", "bg": "rgba(34, 197, 94, 0.2)" }
+    },
+    "layer": {
+      "L0": { "label": "L0 - Field", "color": "#ef4444", "bg": "rgba(239, 68, 68, 0.2)" },
+      "L1": { "label": "L1 - Control", "color": "#f97316", "bg": "rgba(249, 115, 22, 0.2)" },
+      "L2": { "label": "L2 - Supervisory", "color": "#eab308", "bg": "rgba(234, 179, 8, 0.2)" },
+      "L3": { "label": "L3 - Operations", "color": "#22c55e", "bg": "rgba(34, 197, 94, 0.2)" },
+      "L4": { "label": "L4 - Enterprise", "color": "#3b82f6", "bg": "rgba(59, 130, 246, 0.2)" }
+    },
+    "audit": {
+      "pass": { "label": "Pass", "color": "#22c55e", "bg": "rgba(34, 197, 94, 0.2)" },
+      "fail": { "label": "Fail", "color": "#ef4444", "bg": "rgba(239, 68, 68, 0.2)" },
+      "pending": { "label": "Pending", "color": "#fbbf24", "bg": "rgba(251, 191, 36, 0.2)" },
+      "exception": { "label": "Exception", "color": "#f97316", "bg": "rgba(249, 115, 22, 0.2)" },
+      "na": { "label": "N/A", "color": "#888888", "bg": "rgba(136, 136, 136, 0.2)" }
+    }
+  }
+}

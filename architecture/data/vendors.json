@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-01-25",
+    "county": "Northampton County, PA"
+  },
+  "vendors": {
+    "ess": {
+      "id": "ess",
+      "name": "Election Systems & Software",
+      "shortName": "ES&S",
+      "headquarters": "Omaha, Nebraska",
+      "website": "https://www.essvote.com",
+      "category": "voting",
+      "products": ["ExpressVote XL"],
+      "contractValue": 2880000,
+      "contractDate": "2019-05",
+      "units": 320,
+      "tags": ["air-gapped", "legacy", "critical"],
+      "color": "#ef4444",
+      "pages": {
+        "system": "../systems/ess-expressvote.html",
+        "contract": "../contracts/ess-voting.html",
+        "audit": "../elections/ess/index.html"
+      }
+    },
+    "tyler": {
+      "id": "tyler",
+      "name": "Tyler Technologies",
+      "shortName": "Tyler",
+      "headquarters": "Plano, Texas",
+      "website": "https://www.tylertech.com",
+      "stockSymbol": "NYSE: TYL",
+      "category": "erp",
+      "products": ["Munis ERP"],
+      "contractValue": "500000-1000000",
+      "contractType": "annual",
+      "tags": ["on-premise", "active"],
+      "color": "#3b82f6",
+      "pages": {
+        "system": "../systems/tyler-erp.html",
+        "contract": "../contracts/tyler-erp.html"
+      }
+    },
+    "esri": {
+      "id": "esri",
+      "name": "Environmental Systems Research Institute",
+      "shortName": "Esri",
+      "headquarters": "Redlands, California",
+      "website": "https://www.esri.com",
+      "category": "gis",
+      "products": ["ArcGIS Enterprise"],
+      "contractValue": "50000-100000",
+      "contractType": "annual",
+      "currentVersion": "10.81",
+      "tags": ["hybrid", "needs-update", "high"],
+      "color": "#22c55e",
+      "pages": {
+        "system": "../systems/esri-arcgis.html",
+        "contract": "../contracts/esri-gis.html"
+      },
+      "cves": ["CVE-2023-25830", "CVE-2024-25694", "CVE-2024-25696"]
+    },
+    "microsoft": {
+      "id": "microsoft",
+      "name": "Microsoft Corporation",
+      "shortName": "Microsoft",
+      "headquarters": "Redmond, Washington",
+      "website": "https://www.microsoft.com",
+      "stockSymbol": "NASDAQ: MSFT",
+      "category": "infrastructure",
+      "products": ["Windows Server", "Active Directory", "Microsoft 365"],
+      "contractValue": "200000-400000",
+      "contractType": "annual",
+      "currentVersion": "Server 2019",
+      "tags": ["on-premise", "active", "needs-update"],
+      "color": "#0078d4",
+      "pages": {
+        "system": "../systems/microsoft-ad.html",
+        "contract": "../contracts/microsoft.html"
+      },
+      "cves": ["CVE-2020-1472", "CVE-2021-42278"]
+    },
+    "cisco": {
+      "id": "cisco",
+      "name": "Cisco Systems, Inc.",
+      "shortName": "Cisco",
+      "headquarters": "San Jose, California",
+      "website": "https://www.cisco.com",
+      "stockSymbol": "NASDAQ: CSCO",
+      "category": "network",
+      "products": ["Catalyst 9300"],
+      "sites": 12,
+      "tags": ["on-premise", "active"],
+      "color": "#049fd9",
+      "pages": {
+        "system": "../systems/cisco-network.html",
+        "contract": "../contracts/cisco.html"
+      }
+    },
+    "fulton": {
+      "id": "fulton",
+      "name": "Fulton Financial Corporation",
+      "shortName": "Fulton Bank",
+      "headquarters": "Lancaster, Pennsylvania",
+      "website": "https://www.fultonbank.com",
+      "stockSymbol": "NASDAQ: FULT",
+      "category": "banking",
+      "products": ["Depository Services", "Tax Collection"],
+      "tags": ["active"],
+      "color": "#059669",
+      "pages": {
+        "contract": "../contracts/fulton-bank.html"
+      }
+    }
+  }
+}

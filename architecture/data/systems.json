@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-01-25",
+    "county": "Northampton County, PA",
+    "totalSystems": 8
+  },
+  "systems": {
+    "expressvote-xl": {
+      "id": "expressvote-xl",
+      "name": "ExpressVote XL",
+      "vendor": "ess",
+      "category": "voting",
+      "description": "Full-face universal voting system with 32\" touchscreen and integrated scanner",
+      "units": 320,
+      "unitCost": 8250,
+      "purchaseDate": "2019-05",
+      "version": "v2.4.0.0",
+      "eacCertified": true,
+      "layer": "L0",
+      "tags": ["air-gapped", "legacy", "critical"],
+      "specs": {
+        "display": "32\" touchscreen",
+        "printer": "4.25\" thermal",
+        "accessibility": "ATI controller, audio output"
+      },
+      "auditLayers": 7,
+      "sealPoints": 6
+    },
+    "munis-erp": {
+      "id": "munis-erp",
+      "name": "Tyler Munis ERP",
+      "vendor": "tyler",
+      "category": "erp",
+      "description": "Enterprise resource planning for financials, HR, payroll, and procurement",
+      "layer": "L4",
+      "tags": ["on-premise", "active"],
+      "modules": ["Financial Management", "Human Capital", "Payroll", "Procurement", "Property Tax"],
+      "integrations": ["MapLink GIS"]
+    },
+    "arcgis-enterprise": {
+      "id": "arcgis-enterprise",
+      "name": "ArcGIS Enterprise",
+      "vendor": "esri",
+      "category": "gis",
+      "description": "Geospatial platform for mapping, spatial analysis, and data management",
+      "version": "10.81",
+      "requiredVersion": "11.3",
+      "eolDate": "2026-05-31",
+      "layer": "L3",
+      "tags": ["hybrid", "needs-update", "high"],
+      "services": ["Tax Parcel Viewer", "Buffer Search", "REST Services"],
+      "dataLicenseFee": 6240
+    },
+    "active-directory": {
+      "id": "active-directory",
+      "name": "Microsoft Active Directory",
+      "vendor": "microsoft",
+      "category": "identity",
+      "description": "Enterprise directory service for identity, authentication, and policy",
+      "version": "Server 2019",
+      "domainControllers": 4,
+      "layer": "L4",
+      "tags": ["on-premise", "active", "needs-update"],
+      "features": ["Kerberos", "NTLM", "Group Policy"]
+    },
+    "catalyst-network": {
+      "id": "catalyst-network",
+      "name": "Cisco Catalyst 9300 Network",
+      "vendor": "cisco",
+      "category": "network",
+      "description": "Enterprise network infrastructure with SD-Access capabilities",
+      "sites": 12,
+      "layer": "L1",
+      "tags": ["on-premise", "active"],
+      "vlans": 8,
+      "topology": "3-tier"
+    }
+  },
+  "categories": {
+    "voting": { "label": "Voting Systems", "icon": "🗳️", "color": "#ef4444" },
+    "erp": { "label": "Enterprise Software", "icon": "💼", "color": "#3b82f6" },
+    "gis": { "label": "GIS / Mapping", "icon": "🗺️", "color": "#22c55e" },
+    "identity": { "label": "Identity & Access", "icon": "🔐", "color": "#0078d4" },
+    "network": { "label": "Network", "icon": "🌐", "color": "#049fd9" },
+    "banking": { "label": "Banking", "icon": "🏦", "color": "#059669" }
+  }
+}

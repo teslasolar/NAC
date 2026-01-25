@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-01-25",
+    "baseUrl": "/architecture"
+  },
+  "sections": {
+    "overview": {
+      "label": "Overview",
+      "pages": [
+        { "id": "erp-overview", "label": "ERP Overview", "path": "erp-overview.html", "icon": "📊" },
+        { "id": "current", "label": "Current Architecture", "path": "current-architecture.html", "icon": "🏛️" },
+        { "id": "proposed", "label": "Proposed Architecture", "path": "proposed-architecture.html", "icon": "🚀" },
+        { "id": "valuation", "label": "NAC Valuation", "path": "nac-valuation.html", "icon": "💰" }
+      ]
+    },
+    "systems": {
+      "label": "Systems",
+      "basePath": "systems/",
+      "pages": [
+        { "id": "catalog", "label": "System Catalog", "path": "systems/index.html", "icon": "📁" },
+        { "id": "status", "label": "Status Report", "path": "systems/status-2026.html", "icon": "📊" },
+        { "id": "tyler", "label": "Tyler ERP", "path": "systems/tyler-erp.html", "vendor": "tyler" },
+        { "id": "esri", "label": "ESRI ArcGIS", "path": "systems/esri-arcgis.html", "vendor": "esri" },
+        { "id": "ess", "label": "ES&S ExpressVote", "path": "systems/ess-expressvote.html", "vendor": "ess" },
+        { "id": "microsoft", "label": "Microsoft AD", "path": "systems/microsoft-ad.html", "vendor": "microsoft" },
+        { "id": "cisco", "label": "Cisco Network", "path": "systems/cisco-network.html", "vendor": "cisco" }
+      ]
+    },
+    "contracts": {
+      "label": "Contracts",
+      "basePath": "contracts/",
+      "pages": [
+        { "id": "contracts-index", "label": "All Contracts", "path": "contracts/index.html", "icon": "📝" },
+        { "id": "ess-contract", "label": "ES&S Contract", "path": "contracts/ess-voting.html", "vendor": "ess" },
+        { "id": "tyler-contract", "label": "Tyler Contract", "path": "contracts/tyler-erp.html", "vendor": "tyler" },
+        { "id": "esri-contract", "label": "ESRI Contract", "path": "contracts/esri-gis.html", "vendor": "esri" },
+        { "id": "microsoft-contract", "label": "Microsoft Contract", "path": "contracts/microsoft.html", "vendor": "microsoft" },
+        { "id": "cisco-contract", "label": "Cisco Contract", "path": "contracts/cisco.html", "vendor": "cisco" },
+        { "id": "fulton-contract", "label": "Fulton Bank", "path": "contracts/fulton-bank.html", "vendor": "fulton" }
+      ]
+    },
+    "elections": {
+      "label": "Election Audits",
+      "basePath": "elections/",
+      "pages": [
+        { "id": "elections-index", "label": "Audit Program", "path": "elections/index.html", "icon": "🗳️" },
+        { "id": "ess-audit", "label": "ES&S Audit", "path": "elections/ess/index.html", "vendor": "ess" },
+        { "id": "bios-checklist", "label": "BIOS Checklist", "path": "elections/checklists/bios-firmware.html" },
+        { "id": "hardware-checklist", "label": "Hardware Checklist", "path": "elections/checklists/hardware-physical.html" },
+        { "id": "custody-checklist", "label": "Chain of Custody", "path": "elections/checklists/chain-of-custody.html" }
+      ]
+    },
+    "data": {
+      "label": "Data Files",
+      "basePath": "data/",
+      "files": [
+        { "id": "tags", "label": "Tags", "path": "data/tags.json", "type": "json" },
+        { "id": "vendors", "label": "Vendors", "path": "data/vendors.json", "type": "json" },
+        { "id": "systems-data", "label": "Systems", "path": "data/systems.json", "type": "json" },
+        { "id": "audits", "label": "Audits", "path": "data/audits.json", "type": "json" },
+        { "id": "navigation", "label": "Navigation", "path": "data/navigation.json", "type": "json" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-01-25",
+    "framework": "Election Hardware Audit Program"
+  },
+  "elections": {
+    "vendor": "ess",
+    "system": "expressvote-xl",
+    "units": 320,
+    "auditLayers": [
+      {
+        "layer": 1,
+        "name": "BIOS/UEFI",
+        "checks": ["Secure Boot Status", "BIOS Version Match", "Boot Order Locked", "Setup Password Set"],
+        "checklistPage": "checklists/bios-firmware.html"
+      },
+      {
+        "layer": 2,
+        "name": "Firmware",
+        "checks": ["Firmware Hash Match", "Version EVS 6.1.1.0", "VSTL Certificate", "No Modifications"],
+        "checklistPage": "checklists/bios-firmware.html"
+      },
+      {
+        "layer": 3,
+        "name": "OS",
+        "checks": ["OS Hash Verification", "Allowlist Active", "No Unauthorized Apps", "Security Patches"],
+        "checklistPage": "checklists/software-os.html"
+      },
+      {
+        "layer": 4,
+        "name": "Hardware",
+        "checks": ["Serial Number Match", "Component Inventory", "Display Calibration", "Printer Function Test", "ATI Device Check", "Power Supply Test"],
+        "checklistPage": "checklists/hardware-physical.html"
+      },
+      {
+        "layer": 5,
+        "name": "Security",
+        "checks": ["Barrel Lock Secured", "Tamper Seals Intact", "USB Compartment Sealed", "Admin Panel Secured", "Seal Numbers Logged", "No Visible Tampering"],
+        "checklistPage": "checklists/hardware-physical.html"
+      },
+      {
+        "layer": 6,
+        "name": "Data",
+        "checks": ["Election Key Unique", "FIPS 140-2 Compliant", "Vote Data Signed", "Audit Log Enabled"],
+        "checklistPage": "checklists/chain-of-custody.html"
+      },
+      {
+        "layer": 7,
+        "name": "Audit Trail",
+        "checks": ["Event Log Complete", "Paper Ballot Quality", "Timestamps Accurate", "Access Log Review"],
+        "checklistPage": "checklists/post-election.html"
+      }
+    ],
+    "sealPoints": [
+      { "location": "USB Compartment", "purpose": "Election media access" },
+      { "location": "Admin Panel", "purpose": "Mode switch access" },
+      { "location": "Memory Module", "purpose": "Vote storage" },
+      { "location": "Ballot Box Door", "purpose": "Printed ballot storage" },
+      { "location": "Printer Access", "purpose": "Thermal printer door" },
+      { "location": "Back Panel", "purpose": "Rear cabinet access" }
+    ],
+    "custodyPhases": [
+      { "phase": 1, "name": "Storage", "action": "Release from Secure Storage" },
+      { "phase": 2, "name": "Deploy", "action": "Deployment to Precinct" },
+      { "phase": 3, "name": "Election", "action": "Election Day Operations" },
+      { "phase": 4, "name": "Close", "action": "Poll Close & Results" },
+      { "phase": 5, "name": "Return", "action": "Return to Secure Storage" }
+    ]
+  },
+  "certifications": {
+    "eac": {
+      "name": "EAC VVSG",
+      "versions": ["1.0", "2.0"],
+      "requirements": 1000,
+      "url": "https://www.eac.gov/voting-equipment/system-certification-process"
+    },
+    "pa-dos": {
+      "name": "PA Department of State",
+      "type": "State Certification",
+      "requires": "Federally accredited VSTL testing"
+    },
+    "fips": {
+      "name": "FIPS 140-2",
+      "type": "Cryptographic Modules",
+      "standard": "Federal Information Processing Standard"
+    }
+  }
+}

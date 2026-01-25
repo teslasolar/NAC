@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & Tags | NAC Architecture</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        header { padding: 40px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 32px; margin-bottom: 10px; }
+        header p { color: #888; }
+        .section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
+        .section-header { background: #252525; padding: 20px; }
+        .section-header h2 { font-size: 18px; }
+        .section-body { padding: 20px; }
+        .file-list { list-style: none; }
+        .file-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #252525; }
+        .file-item:last-child { border-bottom: none; }
+        .file-item:hover { background: #1f1f1f; }
+        .file-icon { width: 40px; height: 40px; background: rgba(59, 130, 246, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .file-info { flex: 1; }
+        .file-info h4 { font-size: 15px; margin-bottom: 4px; }
+        .file-info p { color: #888; font-size: 13px; }
+        .file-link a { color: #3b82f6; text-decoration: none; font-size: 13px; padding: 6px 12px; border: 1px solid #3b82f6; border-radius: 6px; }
+        .file-link a:hover { background: #3b82f6; color: white; }
+        .tag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .tag-category { background: #252525; border-radius: 8px; padding: 15px; }
+        .tag-category h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 12px; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../systems/index.html">← System Catalog</a>
+            <a href="../current-architecture.html">Architecture</a>
+            <a href="../../docs/index.html">Portal</a>
+        </nav>
+
+        <header>
+            <h1>📊 Data & Tags</h1>
+            <p>Structured JSON data files and tag taxonomy for NAC architecture documentation</p>
+        </header>
+
+        <div class="section">
+            <div class="section-header"><h2>JSON Data Files</h2></div>
+            <div class="section-body">
+                <ul class="file-list">
+                    <li class="file-item">
+                        <div class="file-icon">🏷️</div>
+                        <div class="file-info">
+                            <h4>tags.json</h4>
+                            <p>Tag taxonomy: status, deployment, security, ISA-95 layers, audit states</p>
+                        </div>
+                        <div class="file-link"><a href="tags.json" target="_blank">View JSON</a></div>
+                    </li>
+                    <li class="file-item">
+                        <div class="file-icon">🏢</div>
+                        <div class="file-info">
+                            <h4>vendors.json</h4>
+                            <p>Vendor profiles: ES&S, Tyler, ESRI, Microsoft, Cisco, Fulton Bank</p>
+                        </div>
+                        <div class="file-link"><a href="vendors.json" target="_blank">View JSON</a></div>
+                    </li>
+                    <li class="file-item">
+                        <div class="file-icon">💻</div>
+                        <div class="file-info">
+                            <h4>systems.json</h4>
+                            <p>System metadata: ExpressVote XL, Munis, ArcGIS, AD, Catalyst network</p>
+                        </div>
+                        <div class="file-link"><a href="systems.json" target="_blank">View JSON</a></div>
+                    </li>
+                    <li class="file-item">
+                        <div class="file-icon">🗳️</div>
+                        <div class="file-info">
+                            <h4>audits.json</h4>
+                            <p>Election audit framework: 7 layers, seal points, custody phases, certifications</p>
+                        </div>
+                        <div class="file-link"><a href="audits.json" target="_blank">View JSON</a></div>
+                    </li>
+                    <li class="file-item">
+                        <div class="file-icon">🧭</div>
+                        <div class="file-info">
+                            <h4>navigation.json</h4>
+                            <p>Site navigation structure: all pages, sections, and links</p>
+                        </div>
+                        <div class="file-link"><a href="navigation.json" target="_blank">View JSON</a></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>Tag Taxonomy</h2></div>
+            <div class="section-body">
+                <div class="tag-grid">
+                    <div class="tag-category">
+                        <h4>Status</h4>
+                        <div class="tag-list">
+                            <span class="tag" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">Active</span>
+                            <span class="tag" style="background: rgba(234, 179, 8, 0.2); color: #eab308;">Legacy</span>
+                            <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">Deprecated</span>
+                            <span class="tag" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">Proposed</span>
+                            <span class="tag" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">In Progress</span>
+                            <span class="tag" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">Needs Update</span>
+                        </div>
+                    </div>
+                    <div class="tag-category">
+                        <h4>Deployment</h4>
+                        <div class="tag-list">
+                            <span class="tag" style="background: rgba(99, 102, 241, 0.2); color: #6366f1;">On-Premise</span>
+                            <span class="tag" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;">Cloud</span>
+                            <span class="tag" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6;">Hybrid</span>
+                            <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">Air-Gapped</span>
+                            <span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">SaaS</span>
+                        </div>
+                    </div>
+                    <div class="tag-category">
+                        <h4>Security Risk</h4>
+                        <div class="tag-list">
+                            <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">Critical</span>
+                            <span class="tag" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">High</span>
+                            <span class="tag" style="background: rgba(234, 179, 8, 0.2); color: #eab308;">Medium</span>
+                            <span class="tag" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">Low</span>
+                        </div>
+                    </div>
+                    <div class="tag-category">
+                        <h4>ISA-95 Layer</h4>
+                        <div class="tag-list">
+                            <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">L0 - Field</span>
+                            <span class="tag" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">L1 - Control</span>
+                            <span class="tag" style="background: rgba(234, 179, 8, 0.2); color: #eab308;">L2 - Supervisory</span>
+                            <span class="tag" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">L3 - Operations</span>
+                            <span class="tag" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">L4 - Enterprise</span>
+                        </div>
+                    </div>
+                    <div class="tag-category">
+                        <h4>Audit Status</h4>
+                        <div class="tag-list">
+                            <span class="tag" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">Pass</span>
+                            <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">Fail</span>
+                            <span class="tag" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">Pending</span>
+                            <span class="tag" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">Exception</span>
+                            <span class="tag" style="background: rgba(136, 136, 136, 0.2); color: #888888;">N/A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>Usage</h2></div>
+            <div class="section-body">
+                <pre style="background: #252525; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'SF Mono', Monaco, monospace; font-size: 13px; color: #e5e5e5;">
+<span style="color:#888;">// Load tag definitions</span>
+<span style="color:#3b82f6;">const</span> tags = <span style="color:#3b82f6;">await</span> fetch(<span style="color:#22c55e;">'/architecture/data/tags.json'</span>).then(r => r.json());
+
+<span style="color:#888;">// Get tag style</span>
+<span style="color:#3b82f6;">const</span> activeTag = tags.categories.status.active;
+console.log(activeTag.label);  <span style="color:#888;">// "Active"</span>
+console.log(activeTag.color);  <span style="color:#888;">// "#22c55e"</span>
+
+<span style="color:#888;">// Load vendor data</span>
+<span style="color:#3b82f6;">const</span> vendors = <span style="color:#3b82f6;">await</span> fetch(<span style="color:#22c55e;">'/architecture/data/vendors.json'</span>).then(r => r.json());
+<span style="color:#3b82f6;">const</span> ess = vendors.vendors.ess;
+console.log(ess.contractValue);  <span style="color:#888;">// 2880000</span></pre>
+            </div>
+        </div>
+
+        <footer>
+            <p>NAC Data & Tags | <a href="https://thomasfrumkin.com" style="color:#3b82f6;text-decoration:none;">thomasfrumkin.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

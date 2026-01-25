@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Installed Architecture - Northampton County</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-left a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-left a:hover { color: var(--text-primary); }
+
+        .nav-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-tab.current {
+            background: var(--accent-green);
+            color: #000;
+        }
+
+        .nav-tab.proposed {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid var(--accent-purple);
+        }
+
+        .nav-tab.proposed:hover {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .status-badge {
+            background: var(--accent-green);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .system-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .system-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .system-vendor {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .system-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--accent-green);
+        }
+
+        .status-legacy {
+            background: rgba(234, 179, 8, 0.2);
+            color: var(--accent-yellow);
+        }
+
+        .status-critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .system-body {
+            padding: 20px;
+        }
+
+        .system-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .vulnerabilities {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .vuln-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .vuln-tag {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+
+        .infrastructure-map {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .infra-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .infra-layer {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .infra-layer h4 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+
+        .infra-layer.network h4 { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .infra-layer.servers h4 { border-color: var(--accent-green); color: var(--accent-green); }
+        .infra-layer.storage h4 { border-color: var(--accent-yellow); color: var(--accent-yellow); }
+        .infra-layer.security h4 { border-color: var(--accent-red); color: var(--accent-red); }
+
+        .infra-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .infra-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .integration-flow {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flow-node {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            min-width: 150px;
+            position: relative;
+        }
+
+        .flow-node.active {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .flow-arrow {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+        }
+
+        .data-sources {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .source-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .source-table th,
+        .source-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .source-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .source-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .refresh-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .refresh-realtime { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        .refresh-daily { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+        .refresh-manual { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); }
+
+        @media (max-width: 900px) {
+            .infra-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .systems-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="../docs/index.html">← Portal</a>
+            <span class="nav-title">Architecture Views</span>
+        </div>
+        <div class="nav-tabs">
+            <a href="current-architecture.html" class="nav-tab current">Current Installed</a>
+            <a href="proposed-architecture.html" class="nav-tab proposed">Proposed Enterprise</a>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>
+            Current Installed Architecture
+            <span class="status-badge">PRODUCTION</span>
+        </h1>
+        <p>Systems currently deployed and operational in Northampton County</p>
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Core Systems</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">62</div>
+                <div class="stat-label">Web Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">External Integrations</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Known CVEs</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 class="section-title">Core Enterprise Systems</h2>
+        <div class="systems-grid">
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">Tyler CountySuite ERP</div>
+                        <div class="system-vendor">Tyler Technologies</div>
+                    </div>
+                    <span class="system-status status-active">Active</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Version</div>
+                            <div class="detail-value">2023.2</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Deployment</div>
+                            <div class="detail-value">On-Premise</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Modules</div>
+                            <div class="detail-value">Finance, HR, Tax</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Users</div>
+                            <div class="detail-value">~200</div>
+                        </div>
+                    </div>
+                    <div class="vulnerabilities">
+                        <div class="detail-label">Known Vulnerabilities</div>
+                        <div class="vuln-list">
+                            <span class="vuln-tag">CVE-2019-6692</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">ESRI ArcGIS Enterprise</div>
+                        <div class="system-vendor">Esri Inc.</div>
+                    </div>
+                    <span class="system-status status-critical">Needs Update</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Version</div>
+                            <div class="detail-value">10.9.1</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Deployment</div>
+                            <div class="detail-value">Hybrid Cloud</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Layers</div>
+                            <div class="detail-value">45+ Map Services</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Parcels</div>
+                            <div class="detail-value">~120,000</div>
+                        </div>
+                    </div>
+                    <div class="vulnerabilities">
+                        <div class="detail-label">Known Vulnerabilities</div>
+                        <div class="vuln-list">
+                            <span class="vuln-tag">CVE-2025-2538</span>
+                            <span class="vuln-tag">CVE-2024-25693</span>
+                            <span class="vuln-tag">CVE-2024-25692</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">ES&S ExpressVote XL</div>
+                        <div class="system-vendor">Election Systems & Software</div>
+                    </div>
+                    <span class="system-status status-legacy">Legacy</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Version</div>
+                            <div class="detail-value">v1.0.0.2</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Deployment</div>
+                            <div class="detail-value">Air-Gapped</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Units</div>
+                            <div class="detail-value">500+</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Certified</div>
+                            <div class="detail-value">PA DoS</div>
+                        </div>
+                    </div>
+                    <div class="vulnerabilities">
+                        <div class="detail-label">Known Vulnerabilities</div>
+                        <div class="vuln-list">
+                            <span class="vuln-tag">Physical Access</span>
+                            <span class="vuln-tag">Supply Chain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">Microsoft Active Directory</div>
+                        <div class="system-vendor">Microsoft Corporation</div>
+                    </div>
+                    <span class="system-status status-active">Active</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Version</div>
+                            <div class="detail-value">Server 2019</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Domain</div>
+                            <div class="detail-value">NORCOPA</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">DCs</div>
+                            <div class="detail-value">4 Controllers</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Objects</div>
+                            <div class="detail-value">~3,000</div>
+                        </div>
+                    </div>
+                    <div class="vulnerabilities">
+                        <div class="detail-label">Known Vulnerabilities</div>
+                        <div class="vuln-list">
+                            <span class="vuln-tag">CVE-2020-1472</span>
+                            <span class="vuln-tag">CVE-2021-42278</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">Cisco Network Infrastructure</div>
+                        <div class="system-vendor">Cisco Systems</div>
+                    </div>
+                    <span class="system-status status-active">Active</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Switches</div>
+                            <div class="detail-value">Catalyst 9300</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Routers</div>
+                            <div class="detail-value">ISR 4000</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">VLANs</div>
+                            <div class="detail-value">25+</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Sites</div>
+                            <div class="detail-value">12 Locations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-card">
+                <div class="system-header">
+                    <div>
+                        <div class="system-name">NAC Digital Twin Portal</div>
+                        <div class="system-vendor">Custom Development</div>
+                    </div>
+                    <span class="system-status status-active">Active</span>
+                </div>
+                <div class="system-body">
+                    <div class="system-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Pages</div>
+                            <div class="detail-value">62 HTML</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">MCP Tools</div>
+                            <div class="detail-value">52 Tools</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Framework</div>
+                            <div class="detail-value">ISA-95</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Protocols</div>
+                            <div class="detail-value">MQTT, OPC-UA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Infrastructure Layers</h2>
+        <div class="infrastructure-map">
+            <div class="infra-grid">
+                <div class="infra-layer network">
+                    <h4>Network</h4>
+                    <div class="infra-items">
+                        <div class="infra-item">Cisco Catalyst 9300</div>
+                        <div class="infra-item">ISR 4000 Routers</div>
+                        <div class="infra-item">ASA 5500 Firewalls</div>
+                        <div class="infra-item">Meraki Wireless</div>
+                    </div>
+                </div>
+                <div class="infra-layer servers">
+                    <h4>Servers</h4>
+                    <div class="infra-items">
+                        <div class="infra-item">Dell PowerEdge R740</div>
+                        <div class="infra-item">VMware vSphere 7.0</div>
+                        <div class="infra-item">Windows Server 2019</div>
+                        <div class="infra-item">RHEL 8 (GIS)</div>
+                    </div>
+                </div>
+                <div class="infra-layer storage">
+                    <h4>Storage</h4>
+                    <div class="infra-items">
+                        <div class="infra-item">Dell EMC Unity</div>
+                        <div class="infra-item">Veeam Backup</div>
+                        <div class="infra-item">NetApp ONTAP</div>
+                        <div class="infra-item">AWS S3 (Archive)</div>
+                    </div>
+                </div>
+                <div class="infra-layer security">
+                    <h4>Security</h4>
+                    <div class="infra-items">
+                        <div class="infra-item">CrowdStrike EDR</div>
+                        <div class="infra-item">Cisco Umbrella</div>
+                        <div class="infra-item">Proofpoint Email</div>
+                        <div class="infra-item">Duo MFA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Data Flow Integration</h2>
+        <div class="integration-flow">
+            <div class="flow-diagram">
+                <div class="flow-node active">
+                    <strong>Citizens</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Web Portal</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-node active">
+                    <strong>NAC Portal</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">62 Pages</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-node">
+                    <strong>CountySuite</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">ERP Backend</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-node">
+                    <strong>SQL Server</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Data Store</div>
+                </div>
+            </div>
+            <div class="flow-diagram" style="margin-top: 20px;">
+                <div class="flow-node">
+                    <strong>GIS Portal</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">ArcGIS</div>
+                </div>
+                <span class="flow-arrow">↔</span>
+                <div class="flow-node active">
+                    <strong>Parcel Viewer</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Maps</div>
+                </div>
+                <span class="flow-arrow">↔</span>
+                <div class="flow-node">
+                    <strong>Recorder</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Deeds</div>
+                </div>
+                <span class="flow-arrow">↔</span>
+                <div class="flow-node">
+                    <strong>Assessment</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Tax Data</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">External Data Sources</h2>
+        <div class="data-sources">
+            <table class="source-table">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Type</th>
+                        <th>Integration</th>
+                        <th>Refresh</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PA Open Data Portal</td>
+                        <td>REST API</td>
+                        <td>Budget, Contracts</td>
+                        <td><span class="refresh-badge refresh-daily">Daily</span></td>
+                        <td><span class="system-status status-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>ESRI ArcGIS Online</td>
+                        <td>Map Services</td>
+                        <td>GIS, Parcels</td>
+                        <td><span class="refresh-badge refresh-realtime">Real-time</span></td>
+                        <td><span class="system-status status-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Stripe Payments</td>
+                        <td>Payment API</td>
+                        <td>Payment Portal</td>
+                        <td><span class="refresh-badge refresh-realtime">Real-time</span></td>
+                        <td><span class="system-status status-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Coinbase Commerce</td>
+                        <td>Crypto API</td>
+                        <td>Payment Portal</td>
+                        <td><span class="refresh-badge refresh-realtime">Real-time</span></td>
+                        <td><span class="system-status status-active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>NVD CVE Database</td>
+                        <td>Security Feed</td>
+                        <td>Security Scanner</td>
+                        <td><span class="refresh-badge refresh-manual">Manual</span></td>
+                        <td><span class="system-status status-active">Active</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+        <p>Last Updated: January 2026</p>
+        <p style="margin-top: 10px;">
+            <a href="erp-overview.html" style="color: var(--accent-blue);">View Full ISA-95 Diagram</a> |
+            <a href="proposed-architecture.html" style="color: var(--accent-purple);">View Proposed Architecture</a>
+        </p>
+    </div>
+</body>
+</html>

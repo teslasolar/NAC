@@ -328,28 +328,92 @@
             transform: rotate(180deg);
         }
 
-        .nav-link {
+        .nav-bar {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
             background: var(--bg-card);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-left a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .nav-left a:hover { color: var(--text-primary); }
+
+        .nav-title { font-weight: 600; }
+
+        .nav-views {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-view {
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .nav-link:hover {
-            background: #1e3a5f;
+        .nav-view.current {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .nav-view.current:hover {
+            background: #22c55e;
+            color: #000;
+        }
+
+        .nav-view.proposed {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            border: 1px solid #a855f7;
+        }
+
+        .nav-view.proposed:hover {
+            background: #a855f7;
+            color: #fff;
+        }
+
+        .nav-view.active {
+            background: #3498db;
+            color: #fff;
+        }
+
+        body {
+            padding-top: 80px;
         }
     </style>
 </head>
 <body>
-    <a href="../docs/index.html" class="nav-link">← Back to Portal</a>
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <a href="../docs/index.html">← Portal</a>
+            <span class="nav-title">Architecture Views</span>
+        </div>
+        <div class="nav-views">
+            <a href="current-architecture.html" class="nav-view current">Current Installed</a>
+            <a href="erp-overview.html" class="nav-view active">ISA-95 Layers</a>
+            <a href="proposed-architecture.html" class="nav-view proposed">Proposed Enterprise</a>
+        </div>
+    </nav>
 
     <div class="header">
         <h1>ERP Architecture Overview</h1>

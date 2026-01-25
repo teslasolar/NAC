@@ -440,9 +440,10 @@
     <div class="header">
         <h1>
             Current Installed Architecture
-            <span class="status-badge">PRODUCTION</span>
+            <span class="status-badge">COUNTY SYSTEMS</span>
         </h1>
-        <p>Systems currently deployed and operational in Northampton County</p>
+        <p>Systems deployed by Northampton County Government (norcopa.gov)</p>
+        <p style="color: #fbbf24; font-size: 0.9rem; margin-top: 10px;">⚠️ Note: This documents the county's actual infrastructure. For proposed improvements, see <a href="proposed-architecture.html" style="color: #a855f7;">Proposed Architecture</a>.</p>
         <div class="stats-row">
             <div class="stat">
                 <div class="stat-value">8</div>
@@ -649,13 +650,13 @@
                 </div>
             </a>
 
-            <div class="system-card" style="cursor: default;">
+            <a href="proposed-architecture.html" class="system-card" style="border: 2px dashed #a855f7;">
                 <div class="system-header">
                     <div>
                         <div class="system-name">NAC Digital Twin Portal</div>
-                        <div class="system-vendor">Custom Development</div>
+                        <div class="system-vendor">thomasfrumkin.com (Proposed)</div>
                     </div>
-                    <span class="system-status status-active">Active</span>
+                    <span class="system-status" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">PROPOSED</span>
                 </div>
                 <div class="system-body">
                     <div class="system-details">
@@ -676,8 +677,9 @@
                             <div class="detail-value">MQTT, OPC-UA</div>
                         </div>
                     </div>
+                    <p style="color: var(--accent-purple); font-size: 0.85rem; margin-top: 15px;">→ View Proposed Architecture</p>
                 </div>
-            </div>
+            </a>
         </div>
 
         <h2 class="section-title">Infrastructure Layers</h2>
@@ -796,17 +798,17 @@
                         <td><span class="system-status status-active">Active</span></td>
                     </tr>
                     <tr>
-                        <td>Stripe Payments</td>
-                        <td>Payment API</td>
-                        <td>Payment Portal</td>
+                        <td>County Payment Portal</td>
+                        <td>Web Form</td>
+                        <td>Tax Payments</td>
                         <td><span class="refresh-badge refresh-realtime">Real-time</span></td>
                         <td><span class="system-status status-active">Active</span></td>
                     </tr>
                     <tr>
-                        <td>Coinbase Commerce</td>
-                        <td>Crypto API</td>
-                        <td>Payment Portal</td>
-                        <td><span class="refresh-badge refresh-realtime">Real-time</span></td>
+                        <td>Fulton Bank Locations</td>
+                        <td>In-Person</td>
+                        <td>Tax Payments</td>
+                        <td><span class="refresh-badge refresh-manual">Manual</span></td>
                         <td><span class="system-status status-active">Active</span></td>
                     </tr>
                     <tr>

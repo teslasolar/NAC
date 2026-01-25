@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations - NAC</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #242424;
+            --border: #3a3a3a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+            --accent: #f59e0b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .nav { margin-bottom: 30px; }
+        .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: var(--text-primary); }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .header p { color: var(--text-secondary); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: block;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .card h3 { font-size: 1.1rem; }
+        .card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+        .back-link { text-align: center; margin-top: 40px; }
+        .back-link a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav class="nav"><a href="../index.html">← Back to Home</a></nav>
+
+    <div class="header">
+        <div class="header-icon">⚙️</div>
+        <h1>Operations</h1>
+        <p>Operational dashboards, performance metrics, and facility management</p>
+    </div>
+
+    <div class="grid">
+        <a href="../oee-dashboard.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📊</div>
+                <h3>OEE Dashboard</h3>
+            </div>
+            <p>Overall Equipment Effectiveness metrics for county operations.</p>
+        </a>
+
+        <a href="../gracedale.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">🏥</div>
+                <h3>Gracedale</h3>
+            </div>
+            <p>Gracedale nursing home operations and facility information.</p>
+        </a>
+
+        <a href="../gracedale-staffing.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">👥</div>
+                <h3>Gracedale Staffing</h3>
+            </div>
+            <p>Staff levels, scheduling, and workforce metrics for Gracedale.</p>
+        </a>
+
+        <a href="../emergency-metrics.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🚨</div>
+                <h3>Emergency Metrics</h3>
+            </div>
+            <p>911 response times, emergency services performance tracking.</p>
+        </a>
+
+        <a href="../vendor-scorecard.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">📋</div>
+                <h3>Vendor Scorecard</h3>
+            </div>
+            <p>Track vendor performance, contracts, and deliverables.</p>
+        </a>
+
+        <a href="../economic-scorecard.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">📈</div>
+                <h3>Economic Scorecard</h3>
+            </div>
+            <p>County economic indicators and development metrics.</p>
+        </a>
+
+        <a href="../county-comparison.html" class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">⚖️</div>
+                <h3>County Comparison</h3>
+            </div>
+            <p>Compare Northampton County metrics with other PA counties.</p>
+        </a>
+    </div>
+
+    <div class="back-link"><a href="../index.html">← Return to Main Portal</a></div>
+</body>
+</html>

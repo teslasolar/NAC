@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Categories - NAC</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #242424;
+            --border: #3a3a3a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .nav { margin-bottom: 30px; }
+        .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: var(--text-primary); }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { color: var(--text-secondary); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            display: block;
+            text-align: center;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+        .card .count {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav"><a href="../index.html">← Back to Home</a></nav>
+
+    <div class="header">
+        <h1>Browse by Category</h1>
+        <p>62 pages organized into 6 categories</p>
+    </div>
+
+    <div class="grid">
+        <a href="citizen-services.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">👥</div>
+            <h3>Citizen Services</h3>
+            <p>Payments, requests, civic engagement, and public tools</p>
+            <div class="count">6 pages</div>
+        </a>
+
+        <a href="financial.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">💰</div>
+            <h3>Financial</h3>
+            <p>Budget, spending, debt tracking, and fiscal transparency</p>
+            <div class="count">9 pages</div>
+        </a>
+
+        <a href="audits.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">🔍</div>
+            <h3>Audits & Compliance</h3>
+            <p>Audit reports, compliance tracking, and verification</p>
+            <div class="count">6 pages</div>
+        </a>
+
+        <a href="government.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">🏛️</div>
+            <h3>Government Info</h3>
+            <p>Structure, meetings, legal framework, and officials</p>
+            <div class="count">8 pages</div>
+        </a>
+
+        <a href="it-security.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🔒</div>
+            <h3>IT & Security</h3>
+            <p>Infrastructure, security scans, GIS, and architecture</p>
+            <div class="count">7 pages</div>
+        </a>
+
+        <a href="operations.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⚙️</div>
+            <h3>Operations</h3>
+            <p>Performance metrics, facilities, and vendor management</p>
+            <div class="count">7 pages</div>
+        </a>
+
+        <a href="tools.html" class="card">
+            <div class="card-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">🛠️</div>
+            <h3>Tools & Analysis</h3>
+            <p>MCP tools, AI analysis, simulation, and APIs</p>
+            <div class="count">8 pages</div>
+        </a>
+    </div>
+</body>
+</html>

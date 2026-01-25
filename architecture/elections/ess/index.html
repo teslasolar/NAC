@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES&S ExpressVote XL - Hardware Audit | Northampton County</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; padding: 8px 16px; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; }
+        .nav a:hover { background: #252525; color: #fff; }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+        .vendor-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .header-info h1 { font-size: 32px; margin-bottom: 8px; }
+        .header-info .subtitle { color: #888; font-size: 16px; }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .spec-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .spec-card .value { font-size: 28px; font-weight: 700; color: #ef4444; margin-bottom: 5px; }
+        .spec-card .label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+        .section h2 { font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section h2::after { content: ''; flex: 1; height: 1px; background: #333; }
+
+        .audit-layer {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #252525;
+        }
+        .audit-layer:last-child { border-bottom: none; }
+        .layer-num {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-align: center;
+            height: fit-content;
+        }
+        .layer-content h4 { font-size: 16px; margin-bottom: 10px; }
+        .layer-content p { color: #888; font-size: 14px; margin-bottom: 12px; }
+        .layer-checks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .layer-checks .check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            padding: 6px 10px;
+            background: #252525;
+            border-radius: 6px;
+        }
+        .layer-checks .check::before { content: '☐'; color: #ef4444; }
+
+        .component-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .component-table th {
+            background: #252525;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+        .component-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #252525;
+        }
+        .component-table tr:hover { background: #1f1f1f; }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .security-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background: #252525;
+            border-radius: 8px;
+        }
+        .security-feature .icon { font-size: 24px; }
+        .security-feature h5 { font-size: 14px; margin-bottom: 4px; }
+        .security-feature p { color: #888; font-size: 12px; }
+
+        .audit-pages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .audit-page {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        .audit-page:hover {
+            border-color: #ef4444;
+            background: #2a2a2a;
+        }
+        .audit-page h4 { font-size: 14px; margin-bottom: 5px; }
+        .audit-page p { color: #888; font-size: 12px; }
+
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px; }
+        footer a { color: #3b82f6; text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .specs-grid { grid-template-columns: repeat(2, 1fr); }
+            .audit-layer { grid-template-columns: 1fr; }
+            .layer-checks { grid-template-columns: 1fr; }
+            .security-features { grid-template-columns: 1fr; }
+            .audit-pages { grid-template-columns: 1fr; }
+            .header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../index.html">← Election Audits</a>
+            <a href="../../contracts/ess-voting.html">ES&S Contract</a>
+            <a href="../../systems/ess-expressvote.html">System Details</a>
+        </nav>
+
+        <div class="header">
+            <div class="vendor-logo">ES&S</div>
+            <div class="header-info">
+                <h1>ExpressVote XL</h1>
+                <p class="subtitle">Full-Face Universal Voting System | Hardware Audit Framework</p>
+            </div>
+        </div>
+
+        <div class="specs-grid">
+            <div class="spec-card">
+                <div class="value">320</div>
+                <div class="label">Units Deployed</div>
+            </div>
+            <div class="spec-card">
+                <div class="value">32"</div>
+                <div class="label">Touchscreen</div>
+            </div>
+            <div class="spec-card">
+                <div class="value">7</div>
+                <div class="label">Audit Layers</div>
+            </div>
+            <div class="spec-card">
+                <div class="value">EAC</div>
+                <div class="label">Certified</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>7-Layer Hardware Audit Stack</h2>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 1<br>BIOS</div>
+                <div class="layer-content">
+                    <h4>BIOS/UEFI Verification</h4>
+                    <p>Verify Secure Boot is enabled and only certified firmware can execute during boot sequence.</p>
+                    <div class="layer-checks">
+                        <div class="check">Secure Boot Status</div>
+                        <div class="check">BIOS Version Match</div>
+                        <div class="check">Boot Order Locked</div>
+                        <div class="check">Setup Password Set</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 2<br>Firmware</div>
+                <div class="layer-content">
+                    <h4>Firmware Hash Validation</h4>
+                    <p>Compare firmware hashes against EAC Trusted Build from Voting System Test Laboratory (VSTL).</p>
+                    <div class="layer-checks">
+                        <div class="check">Firmware Hash Match</div>
+                        <div class="check">Version EVS 6.1.1.0</div>
+                        <div class="check">VSTL Certificate</div>
+                        <div class="check">No Modifications</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 3<br>OS</div>
+                <div class="layer-content">
+                    <h4>Operating System Validation</h4>
+                    <p>Verify operating system integrity and application allowlisting configuration.</p>
+                    <div class="layer-checks">
+                        <div class="check">OS Hash Verification</div>
+                        <div class="check">Allowlist Active</div>
+                        <div class="check">No Unauthorized Apps</div>
+                        <div class="check">Security Patches</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 4<br>Hardware</div>
+                <div class="layer-content">
+                    <h4>Physical Component Audit</h4>
+                    <p>Inspect all physical components, serial numbers, and hardware integrity.</p>
+                    <div class="layer-checks">
+                        <div class="check">Serial Number Match</div>
+                        <div class="check">Component Inventory</div>
+                        <div class="check">Display Calibration</div>
+                        <div class="check">Printer Function Test</div>
+                        <div class="check">ATI Device Check</div>
+                        <div class="check">Power Supply Test</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 5<br>Security</div>
+                <div class="layer-content">
+                    <h4>Physical Security Verification</h4>
+                    <p>Verify all locks, tamper seals, and access control mechanisms.</p>
+                    <div class="layer-checks">
+                        <div class="check">Barrel Lock Secured</div>
+                        <div class="check">Tamper Seals Intact</div>
+                        <div class="check">USB Compartment Sealed</div>
+                        <div class="check">Admin Panel Secured</div>
+                        <div class="check">Seal Numbers Logged</div>
+                        <div class="check">No Visible Tampering</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 6<br>Data</div>
+                <div class="layer-content">
+                    <h4>Data & Cryptography</h4>
+                    <p>Verify encryption keys, digital signatures, and data protection mechanisms.</p>
+                    <div class="layer-checks">
+                        <div class="check">Election Key Unique</div>
+                        <div class="check">FIPS 140-2 Compliant</div>
+                        <div class="check">Vote Data Signed</div>
+                        <div class="check">Audit Log Enabled</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audit-layer">
+                <div class="layer-num">Layer 7<br>Audit</div>
+                <div class="layer-content">
+                    <h4>Audit Trail Verification</h4>
+                    <p>Review system logs, event records, and paper trail integrity.</p>
+                    <div class="layer-checks">
+                        <div class="check">Event Log Complete</div>
+                        <div class="check">Paper Ballot Quality</div>
+                        <div class="check">Timestamps Accurate</div>
+                        <div class="check">Access Log Review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Hardware Components</h2>
+            <table class="component-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Specification</th>
+                        <th>Audit Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Display</strong></td>
+                        <td>32" Full-face touchscreen</td>
+                        <td>Calibration test, response time, visibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thermal Printer</strong></td>
+                        <td>4.25" wide summary cards</td>
+                        <td>Print quality, alignment, paper feed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scanner</strong></td>
+                        <td>Integrated ballot scanner</td>
+                        <td>Read accuracy, calibration, cleaning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>USB Ports</strong></td>
+                        <td>Election media compartment</td>
+                        <td>Sealed, port security, authorized devices only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ATI Device</strong></td>
+                        <td>Audio-Tactile Interface controller</td>
+                        <td>Button response, audio output, headphone jack</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory Module</strong></td>
+                        <td>Vote storage media</td>
+                        <td>Hash verification, write protection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Admin Switch</strong></td>
+                        <td>Mode selection</td>
+                        <td>Proper function, lock verification</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Power Supply</strong></td>
+                        <td>Internal UPS / battery backup</td>
+                        <td>Battery level, failover test</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Security Features</h2>
+            <div class="security-features">
+                <div class="security-feature">
+                    <div class="icon">🔒</div>
+                    <div>
+                        <h5>Secure Boot</h5>
+                        <p>Only certified OS and firmware can execute during boot sequence</p>
+                    </div>
+                </div>
+                <div class="security-feature">
+                    <div class="icon">📋</div>
+                    <div>
+                        <h5>Application Allowlisting</h5>
+                        <p>Only approved applications can run on the system</p>
+                    </div>
+                </div>
+                <div class="security-feature">
+                    <div class="icon">🔑</div>
+                    <div>
+                        <h5>Unique Election Keys</h5>
+                        <p>Encryption keys unique to each election prevent cross-election tampering</p>
+                    </div>
+                </div>
+                <div class="security-feature">
+                    <div class="icon">✍️</div>
+                    <div>
+                        <h5>Digital Signatures</h5>
+                        <p>Vote data digitally signed as committed to memory</p>
+                    </div>
+                </div>
+                <div class="security-feature">
+                    <div class="icon">🏷️</div>
+                    <div>
+                        <h5>Tamper-Evident Seals</h5>
+                        <p>Multiple seal points for detection of unauthorized access</p>
+                    </div>
+                </div>
+                <div class="security-feature">
+                    <div class="icon">📊</div>
+                    <div>
+                        <h5>Detailed Audit Logs</h5>
+                        <p>Complete event logging of all actions and system events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Audit Documentation Pages</h2>
+            <div class="audit-pages">
+                <a href="bios-audit.html" class="audit-page">
+                    <h4>BIOS/UEFI Audit</h4>
+                    <p>Secure Boot verification, firmware hash, boot sequence</p>
+                </a>
+                <a href="hardware-inventory.html" class="audit-page">
+                    <h4>Hardware Inventory</h4>
+                    <p>Serial numbers, component list, condition assessment</p>
+                </a>
+                <a href="seal-tracking.html" class="audit-page">
+                    <h4>Seal Tracking</h4>
+                    <p>Tamper seal log, seal number database, integrity checks</p>
+                </a>
+                <a href="calibration.html" class="audit-page">
+                    <h4>Calibration Records</h4>
+                    <p>Touchscreen calibration, printer alignment, scanner test</p>
+                </a>
+                <a href="firmware-hashes.html" class="audit-page">
+                    <h4>Firmware Hashes</h4>
+                    <p>SHA-256 hashes for all firmware components</p>
+                </a>
+                <a href="maintenance-log.html" class="audit-page">
+                    <h4>Maintenance Log</h4>
+                    <p>Service history, repairs, component replacements</p>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>ES&S ExpressVote XL Audit Framework | <a href="https://thomasfrumkin.com">thomasfrumkin.com</a></p>
+            <p style="margin-top: 10px;">Based on EAC VVSG requirements and ES&S documentation</p>
+        </footer>
+    </div>
+</body>
+</html>

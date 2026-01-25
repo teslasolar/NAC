@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware & Physical Audit Checklist | Election Hardware Audit</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        header { padding: 40px; background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05)); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 16px; margin-bottom: 30px; }
+        header h1 { font-size: 28px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        header h1 .icon { font-size: 36px; }
+        header p { color: #888; }
+        .meta-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .meta-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center; }
+        .meta-item .label { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .meta-item .value { font-size: 18px; font-weight: 600; margin-top: 5px; }
+        .section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
+        .section-header { background: #252525; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .section-header h2 { font-size: 18px; }
+        .section-header .count { color: #888; font-size: 14px; }
+        .section-body { padding: 20px; }
+        .checklist { list-style: none; }
+        .checklist-item { display: grid; grid-template-columns: 40px 1fr 120px 150px; gap: 15px; align-items: center; padding: 15px; border-bottom: 1px solid #252525; }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-item:hover { background: #1f1f1f; }
+        .checkbox { width: 24px; height: 24px; border: 2px solid #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .checkbox:hover { border-color: #f97316; }
+        .checkbox.checked { background: #f97316; border-color: #f97316; }
+        .checkbox.checked::after { content: '✓'; color: white; font-size: 14px; }
+        .item-content .title { font-weight: 600; margin-bottom: 4px; }
+        .item-content .desc { color: #888; font-size: 13px; }
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .status-pass { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-fail { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .status-pending { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .item-input input { width: 100%; background: #252525; border: 1px solid #333; border-radius: 6px; padding: 8px 12px; color: #e5e5e5; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; }
+        .signature-box { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 25px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
+        .sig-field label { display: block; color: #888; font-size: 12px; margin-bottom: 8px; }
+        .sig-field .line { border-bottom: 1px solid #444; height: 30px; }
+        .diagram { background: #252525; border-radius: 12px; padding: 30px; text-align: center; margin: 20px 0; }
+        .diagram h4 { color: #888; margin-bottom: 15px; }
+        .seal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .seal-point { background: #1a1a1a; border: 2px dashed #f97316; border-radius: 8px; padding: 15px; text-align: center; }
+        .seal-point .location { font-weight: 600; margin-bottom: 5px; }
+        .seal-point input { width: 100%; background: #252525; border: 1px solid #333; padding: 6px; color: #e5e5e5; text-align: center; font-family: monospace; margin-top: 8px; }
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px; }
+        @media (max-width: 800px) { .checklist-item { grid-template-columns: 30px 1fr; } .meta-info, .seal-grid { grid-template-columns: repeat(2, 1fr); } .signature-box { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../index.html">← Election Audits</a>
+            <a href="bios-firmware.html">BIOS Checklist</a>
+            <a href="chain-of-custody.html">Chain of Custody</a>
+        </nav>
+
+        <header>
+            <h1><span class="icon">🔩</span> Hardware & Physical Audit Checklist</h1>
+            <p>Layer 4-5 verification: Component inventory, serial numbers, tamper seals, physical integrity</p>
+        </header>
+
+        <div class="meta-info">
+            <div class="meta-item"><div class="label">Audit Date</div><div class="value">__/__/____</div></div>
+            <div class="meta-item"><div class="label">Machine Serial</div><div class="value">___________</div></div>
+            <div class="meta-item"><div class="label">Asset Tag</div><div class="value">___________</div></div>
+            <div class="meta-item"><div class="label">Location</div><div class="value">___________</div></div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>1. External Visual Inspection</h2><div class="count">8 items</div></div>
+            <div class="section-body">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Cabinet Condition</div><div class="desc">No dents, scratches, or signs of forced entry</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Good/Damaged"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Screen Condition</div><div class="desc">32" display free of cracks, scratches, dead pixels</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Good/Damaged"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">All Doors Present</div><div class="desc">Ballot box, admin panel, printer access doors</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Yes/No"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Locks Functional</div><div class="desc">All barrel locks and keyed locks operational</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Yes/No"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Power Cord</div><div class="desc">Power cord present and undamaged</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Good/Damaged"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">ATI Controller Present</div><div class="desc">Audio-Tactile Interface device attached and cable intact</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Yes/No"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Headphone Jack</div><div class="desc">3.5mm audio jack accessible and clean</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Good/Damaged"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Serial Number Plate</div><div class="desc">Manufacturer serial number visible and matches inventory</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="S/N"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>2. Tamper Seal Verification</h2><div class="count">6 seal points</div></div>
+            <div class="section-body">
+                <div class="diagram">
+                    <h4>Seal Location Diagram - ExpressVote XL</h4>
+                    <div class="seal-grid">
+                        <div class="seal-point">
+                            <div class="location">USB Compartment</div>
+                            <div style="color:#888;font-size:12px;">Election media access</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                        <div class="seal-point">
+                            <div class="location">Admin Panel</div>
+                            <div style="color:#888;font-size:12px;">Mode switch access</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                        <div class="seal-point">
+                            <div class="location">Memory Module</div>
+                            <div style="color:#888;font-size:12px;">Vote storage</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                        <div class="seal-point">
+                            <div class="location">Ballot Box Door</div>
+                            <div style="color:#888;font-size:12px;">Printed ballot storage</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                        <div class="seal-point">
+                            <div class="location">Printer Access</div>
+                            <div style="color:#888;font-size:12px;">Thermal printer door</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                        <div class="seal-point">
+                            <div class="location">Back Panel</div>
+                            <div style="color:#888;font-size:12px;">Rear cabinet access</div>
+                            <input type="text" placeholder="Seal #">
+                            <div style="margin-top:8px;"><span class="status-badge status-pending">☐ Intact</span></div>
+                        </div>
+                    </div>
+                </div>
+                <p style="color:#f97316;font-size:13px;margin-top:15px;">⚠️ Document any broken or missing seals immediately. Photograph and escalate to Election Director.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>3. Component Functionality Test</h2><div class="count">7 items</div></div>
+            <div class="section-body">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Power On Test</div><div class="desc">Unit powers on, displays boot screen correctly</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Pass/Fail"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Touchscreen Calibration</div><div class="desc">Touch response accurate across all screen areas</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Pass/Fail"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Thermal Printer Test</div><div class="desc">Print test page, verify quality and alignment</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Pass/Fail"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Scanner Test</div><div class="desc">Scan test ballot, verify read accuracy</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Pass/Fail"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">ATI Controller Test</div><div class="desc">All buttons responsive, audio output functional</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Pass/Fail"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Battery Backup</div><div class="desc">UPS/battery level adequate, failover test</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="% Level"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">System Date/Time</div><div class="desc">Internal clock accurate</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Accurate/Off"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header"><h2>4. Consumables Check</h2><div class="count">3 items</div></div>
+            <div class="section-body">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Thermal Paper Roll</div><div class="desc">Adequate paper for expected voter volume</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="% Remaining"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Spare Paper Available</div><div class="desc">Backup rolls in precinct supplies</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Qty"></div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="item-content"><div class="title">Ballot Box Capacity</div><div class="desc">Ballot storage bin empty and ready</div></div>
+                        <div class="item-status"><span class="status-badge status-pending">Pending</span></div>
+                        <div class="item-input"><input type="text" placeholder="Empty/Partial"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="signature-box">
+            <div class="sig-field"><label>Auditor Signature</label><div class="line"></div></div>
+            <div class="sig-field"><label>Witness Signature</label><div class="line"></div></div>
+            <div class="sig-field"><label>Date / Time</label><div class="line"></div></div>
+        </div>
+
+        <footer>
+            <p>Hardware & Physical Audit Checklist | Election Hardware Audit Program</p>
+            <p style="margin-top: 5px;">ExpressVote XL - ES&S</p>
+        </footer>
+    </div>
+    <script>document.querySelectorAll('.checkbox').forEach(cb => cb.addEventListener('click', () => cb.classList.toggle('checked')));</script>
+</body>
+</html>

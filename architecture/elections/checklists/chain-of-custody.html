@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain of Custody Audit | Election Hardware Audit</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .nav { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav a { color: #888; text-decoration: none; font-size: 14px; }
+        .nav a:hover { color: #fff; }
+        header { padding: 40px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; margin-bottom: 30px; }
+        header h1 { font-size: 28px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        header h1 .icon { font-size: 36px; }
+        header p { color: #888; }
+        .timeline-section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; margin-bottom: 25px; overflow: hidden; }
+        .timeline-header { background: #252525; padding: 20px; }
+        .timeline-header h2 { font-size: 18px; }
+        .timeline-body { padding: 30px; }
+        .custody-timeline { position: relative; padding-left: 40px; }
+        .custody-timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #3b82f6, #22c55e, #f97316, #ef4444); }
+        .custody-event { position: relative; padding: 20px; margin-bottom: 25px; background: #252525; border-radius: 12px; margin-left: 20px; }
+        .custody-event:last-child { margin-bottom: 0; }
+        .custody-event::before { content: ''; position: absolute; left: -32px; top: 25px; width: 16px; height: 16px; border-radius: 50%; background: #3b82f6; border: 3px solid #0a0a0a; }
+        .custody-event:nth-child(2)::before { background: #22c55e; }
+        .custody-event:nth-child(3)::before { background: #f97316; }
+        .custody-event:nth-child(4)::before { background: #ef4444; }
+        .custody-event:nth-child(5)::before { background: #8b5cf6; }
+        .event-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .event-title { font-size: 16px; font-weight: 600; }
+        .event-phase { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .phase-storage { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .phase-deploy { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .phase-election { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .phase-return { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .phase-canvass { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .event-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .form-field label { display: block; color: #888; font-size: 12px; margin-bottom: 5px; }
+        .form-field input, .form-field select { width: 100%; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; padding: 10px 12px; color: #e5e5e5; font-size: 13px; }
+        .form-field.full { grid-column: 1 / -1; }
+        .seal-log { margin-top: 15px; padding-top: 15px; border-top: 1px solid #333; }
+        .seal-log h4 { color: #888; font-size: 13px; margin-bottom: 10px; }
+        .seal-row { display: grid; grid-template-columns: 1fr 1fr 1fr 80px; gap: 10px; margin-bottom: 10px; }
+        .seal-row input { background: #1a1a1a; border: 1px solid #333; padding: 8px; color: #e5e5e5; font-family: monospace; font-size: 12px; }
+        .seal-row select { background: #1a1a1a; border: 1px solid #333; padding: 8px; color: #e5e5e5; font-size: 12px; }
+        .verification-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .verification-table th { background: #252525; padding: 12px; text-align: left; font-size: 12px; text-transform: uppercase; color: #888; border-bottom: 1px solid #333; }
+        .verification-table td { padding: 12px; border-bottom: 1px solid #252525; }
+        .verification-table input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .signature-section { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 25px; margin-top: 30px; }
+        .signature-section h3 { font-size: 16px; margin-bottom: 20px; }
+        .sig-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .sig-block { background: #252525; border-radius: 8px; padding: 20px; }
+        .sig-block label { display: block; color: #888; font-size: 12px; margin-bottom: 8px; }
+        .sig-block .line { border-bottom: 1px solid #444; height: 40px; margin-bottom: 15px; }
+        .sig-block input { width: 100%; background: #1a1a1a; border: 1px solid #333; padding: 8px; color: #e5e5e5; font-size: 12px; }
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333; color: #666; font-size: 12px; }
+        @media (max-width: 800px) { .event-form, .seal-row, .sig-grid { grid-template-columns: 1fr; } }
+        @media print { body { background: white; color: black; } .nav { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../index.html">← Election Audits</a>
+            <a href="hardware-physical.html">Hardware Checklist</a>
+            <a href="post-election.html">Post-Election</a>
+        </nav>
+
+        <header>
+            <h1><span class="icon">🔗</span> Chain of Custody Audit</h1>
+            <p>Complete custody tracking from secure storage through election day and return. Seal verification at each transfer point.</p>
+        </header>
+
+        <div class="timeline-section">
+            <div class="timeline-header">
+                <h2>Machine: _____________ | Serial: _____________ | Election: _____________</h2>
+            </div>
+            <div class="timeline-body">
+                <div class="custody-timeline">
+
+                    <div class="custody-event">
+                        <div class="event-header">
+                            <div class="event-title">1. Release from Secure Storage</div>
+                            <span class="event-phase phase-storage">Storage</span>
+                        </div>
+                        <div class="event-form">
+                            <div class="form-field"><label>Date</label><input type="date"></div>
+                            <div class="form-field"><label>Time</label><input type="time"></div>
+                            <div class="form-field"><label>Released By</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Received By</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Storage Location</label><input type="text" placeholder="Warehouse / Room"></div>
+                            <div class="form-field"><label>Destination</label><input type="text" placeholder="Precinct / Location"></div>
+                        </div>
+                        <div class="seal-log">
+                            <h4>Seal Verification at Release</h4>
+                            <div class="seal-row">
+                                <input type="text" placeholder="Seal Location">
+                                <input type="text" placeholder="Seal Number">
+                                <select><option>Intact</option><option>Broken</option><option>Missing</option></select>
+                                <select><option>Pass</option><option>Fail</option></select>
+                            </div>
+                            <div class="seal-row">
+                                <input type="text" placeholder="Seal Location">
+                                <input type="text" placeholder="Seal Number">
+                                <select><option>Intact</option><option>Broken</option><option>Missing</option></select>
+                                <select><option>Pass</option><option>Fail</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custody-event">
+                        <div class="event-header">
+                            <div class="event-title">2. Deployment to Precinct</div>
+                            <span class="event-phase phase-deploy">Deploy</span>
+                        </div>
+                        <div class="event-form">
+                            <div class="form-field"><label>Arrival Date</label><input type="date"></div>
+                            <div class="form-field"><label>Arrival Time</label><input type="time"></div>
+                            <div class="form-field"><label>Transport Vehicle</label><input type="text" placeholder="Vehicle ID / License"></div>
+                            <div class="form-field"><label>Driver</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Precinct Location</label><input type="text" placeholder="Address"></div>
+                            <div class="form-field"><label>Received By (Poll Worker)</label><input type="text" placeholder="Name / ID"></div>
+                        </div>
+                        <div class="seal-log">
+                            <h4>Seal Verification at Delivery</h4>
+                            <div class="seal-row">
+                                <input type="text" placeholder="Seal Location">
+                                <input type="text" placeholder="Seal Number">
+                                <select><option>Intact</option><option>Broken</option><option>Missing</option></select>
+                                <select><option>Pass</option><option>Fail</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custody-event">
+                        <div class="event-header">
+                            <div class="event-title">3. Election Day Operations</div>
+                            <span class="event-phase phase-election">Election</span>
+                        </div>
+                        <div class="event-form">
+                            <div class="form-field"><label>Polls Open Time</label><input type="time"></div>
+                            <div class="form-field"><label>Polls Close Time</label><input type="time"></div>
+                            <div class="form-field"><label>Opening Zero Tape Printed</label><select><option>Yes</option><option>No</option></select></div>
+                            <div class="form-field"><label>Zero Tape Witnessed By</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field full"><label>Incidents / Notes</label><input type="text" placeholder="Document any issues during voting"></div>
+                        </div>
+                    </div>
+
+                    <div class="custody-event">
+                        <div class="event-header">
+                            <div class="event-title">4. Poll Close & Results</div>
+                            <span class="event-phase phase-return">Close</span>
+                        </div>
+                        <div class="event-form">
+                            <div class="form-field"><label>Results Tape Printed</label><input type="time"></div>
+                            <div class="form-field"><label>Total Ballots Cast</label><input type="number" placeholder="Count"></div>
+                            <div class="form-field"><label>Results Tape Signed By</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Witness</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Memory Module Removed</label><select><option>Yes</option><option>No - Remains in Machine</option></select></div>
+                            <div class="form-field"><label>Module Sealed In</label><input type="text" placeholder="Bag # / Container"></div>
+                        </div>
+                        <div class="seal-log">
+                            <h4>New Seals Applied at Close</h4>
+                            <div class="seal-row">
+                                <input type="text" placeholder="Seal Location">
+                                <input type="text" placeholder="New Seal Number">
+                                <input type="text" placeholder="Applied By">
+                                <select><option>Applied</option><option>N/A</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custody-event">
+                        <div class="event-header">
+                            <div class="event-title">5. Return to Secure Storage</div>
+                            <span class="event-phase phase-canvass">Canvass</span>
+                        </div>
+                        <div class="event-form">
+                            <div class="form-field"><label>Return Date</label><input type="date"></div>
+                            <div class="form-field"><label>Return Time</label><input type="time"></div>
+                            <div class="form-field"><label>Returned By</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Received By (Warehouse)</label><input type="text" placeholder="Name / ID"></div>
+                            <div class="form-field"><label>Storage Location</label><input type="text" placeholder="Warehouse / Bay"></div>
+                            <div class="form-field"><label>Condition on Return</label><select><option>Good</option><option>Damaged</option><option>Issues Noted</option></select></div>
+                        </div>
+                        <div class="seal-log">
+                            <h4>Seal Verification at Return</h4>
+                            <div class="seal-row">
+                                <input type="text" placeholder="Seal Location">
+                                <input type="text" placeholder="Seal Number">
+                                <select><option>Intact</option><option>Broken</option><option>Missing</option></select>
+                                <select><option>Pass</option><option>Fail</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <div class="timeline-header"><h2>Custody Transfer Verification</h2></div>
+            <div class="timeline-body">
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Check</th>
+                            <th>Requirement</th>
+                            <th>Verified</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Two-person rule maintained at all transfers</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>All seal numbers match chain of custody log</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>No unauthorized access to machine</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Transport vehicle secured during transit</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Machine never left unattended</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Audit log reviewed for anomalies</td>
+                            <td><input type="text" style="width:80px;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                            <td><input type="text" style="width:100%;background:#1a1a1a;border:1px solid #333;padding:5px;color:#e5e5e5;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <h3>Chain of Custody Certification</h3>
+            <div class="sig-grid">
+                <div class="sig-block">
+                    <label>Election Director / Designee</label>
+                    <div class="line"></div>
+                    <input type="text" placeholder="Print Name">
+                    <input type="date" style="margin-top:10px;">
+                </div>
+                <div class="sig-block">
+                    <label>Audit Board Member</label>
+                    <div class="line"></div>
+                    <input type="text" placeholder="Print Name">
+                    <input type="date" style="margin-top:10px;">
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Chain of Custody Audit | Election Hardware Audit Program</p>
+            <p style="margin-top: 5px;">Form must accompany machine throughout entire election cycle</p>
+        </footer>
+    </div>
+</body>
+</html>

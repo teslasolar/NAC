@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snow Emergency - January 2026 | Northampton County</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a1a;
+      color: #d4d4d4;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-medium: #242424;
+      --bg-light: #2e2e2e;
+      --border: #3a3a3a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --status-good: #4ade80;
+      --status-warn: #fbbf24;
+      --status-bad: #f87171;
+      --status-info: #60a5fa;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .alert-header {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .alert-header h1 {
+      font-size: 28px;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .alert-header .status {
+      display: inline-block;
+      background: #fbbf24;
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .alert-header p {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+
+    .alert-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .meta-card {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .meta-card .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .meta-card .value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .meta-card .value.warn { color: var(--status-warn); }
+    .meta-card .value.bad { color: var(--status-bad); }
+    .meta-card .value.info { color: var(--status-info); }
+
+    .section {
+      background: var(--bg-medium);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 16px 0 8px;
+    }
+    .section p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .section li {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      padding: 8px 12px;
+      background: var(--bg-light);
+      border-radius: 4px;
+      margin-bottom: 6px;
+      border-left: 3px solid var(--border);
+    }
+    .section li.closed { border-left-color: var(--status-bad); }
+    .section li.open { border-left-color: var(--status-good); }
+    .section li.delayed { border-left-color: var(--status-warn); }
+
+    .closure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .closure-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .closure-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .closure-card .badge {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge.closed { background: rgba(248, 113, 113, 0.2); color: var(--status-bad); }
+    .badge.open { background: rgba(74, 222, 128, 0.2); color: var(--status-good); }
+    .badge.delayed { background: rgba(251, 191, 36, 0.2); color: var(--status-warn); }
+    .closure-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 24px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      border: 2px solid var(--status-info);
+    }
+    .timeline-item.active::before { background: var(--status-info); }
+    .timeline-item .time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .timeline-item .event {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .safety-tips {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .tip {
+      background: var(--bg-light);
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+    }
+    .tip .icon { font-size: 24px; margin-bottom: 8px; }
+    .tip .text { font-size: 12px; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--status-info);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .source-link {
+      color: var(--status-info);
+      text-decoration: none;
+    }
+    .source-link:hover { text-decoration: underline; }
+
+    .update-time {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">&larr; Back to NAC Portal</a>
+
+    <div class="alert-header">
+      <span class="status">Active Emergency</span>
+      <h1>Winter Storm Emergency</h1>
+      <p>January 24-26, 2026 | Northampton County, PA</p>
+    </div>
+
+    <div class="alert-meta">
+      <div class="meta-card">
+        <div class="label">Snowfall Total</div>
+        <div class="value info">12-18"</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Wind Chill</div>
+        <div class="value bad">~0°F</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Storm Warning Until</div>
+        <div class="value warn">Mon 1PM</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">State Status</div>
+        <div class="value bad">Disaster Emergency</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Governor's Declaration</h2>
+      <p>On <strong>January 23, 2026</strong>, Governor Josh Shapiro signed a <strong>Proclamation of Disaster Emergency</strong> to prepare for the weekend winter storm. This allows the Commonwealth to quickly draw down funding and provide state agencies with resources needed to assist counties and municipalities with response efforts.</p>
+      <p>Source: <a href="https://www.pa.gov/agencies/ready/hazards/winter-storms/jan-24-storm" class="source-link" target="_blank">Ready PA - January 2026 Snowstorm</a></p>
+    </div>
+
+    <div class="section">
+      <h2>Northampton County Impact</h2>
+      <p>The National Weather Service (NWS) Mount Holly office predicted <strong>12 to 18 inches of snow</strong> for Carbon, Monroe, Lehigh, and Northampton counties, with potential light ice glazing. Actual totals in the Lehigh Valley reached <strong>10-14 inches</strong>.</p>
+
+      <h3>Tragic News</h3>
+      <p style="color: var(--status-bad);">The Lehigh County Coroner reported <strong>3 snow removal-related deaths</strong> in Lehigh County following Sunday's storm. Please use extreme caution when shoveling and take frequent breaks.</p>
+    </div>
+
+    <div class="section">
+      <h2>County & Regional Closures - Monday, Jan 26</h2>
+      <div class="closure-grid">
+        <div class="closure-card">
+          <h4>Lackawanna County <span class="badge closed">Closed</span></h4>
+          <p>All county and court offices closed Monday. Disaster emergency declared.</p>
+        </div>
+        <div class="closure-card">
+          <h4>Luzerne County <span class="badge closed">Closed</span></h4>
+          <p>All county buildings and courts closed to the public Monday.</p>
+        </div>
+        <div class="closure-card">
+          <h4>Monroe County <span class="badge closed">Closed</span></h4>
+          <p>County and court offices closed Monday.</p>
+        </div>
+        <div class="closure-card">
+          <h4>Cumberland County <span class="badge closed">Closed</span></h4>
+          <p>Courthouse and all county facilities closed Monday. Disaster emergency declared.</p>
+        </div>
+        <div class="closure-card">
+          <h4>Philadelphia <span class="badge closed">Emergency</span></h4>
+          <p>Snow emergency remains in effect. City offices and courts closed Tuesday.</p>
+        </div>
+        <div class="closure-card">
+          <h4>Northampton Township <span class="badge delayed">Snow Emergency</span></h4>
+          <p>Snow emergency effective 6:00 PM Saturday, 1/24/26.</p>
+        </div>
+      </div>
+      <p style="margin-top: 12px; font-style: italic;">For specific Northampton County government office status, please check the official county website or call (610) 559-3000.</p>
+    </div>
+
+    <div class="section">
+      <h2>School Closings - Monday, Jan 26</h2>
+      <ul>
+        <li class="closed"><strong>School District of Philadelphia</strong> - All schools CLOSED (Superintendent Watlington announced)</li>
+        <li class="closed"><strong>Dozens of Philadelphia region schools</strong> - CLOSED Monday</li>
+        <li class="delayed"><strong>Many Western PA schools</strong> - Closed or remote learning</li>
+      </ul>
+      <p>For complete Lehigh Valley school closings, check <a href="https://www.wfmz.com/weather/stormcenter/" class="source-link" target="_blank">WFMZ-TV Stormcenter</a>.</p>
+    </div>
+
+    <div class="section">
+      <h2>Travel Restrictions</h2>
+      <ul>
+        <li class="closed"><strong>PennDOT & PA Turnpike</strong> - Commercial vehicle restrictions on all PA Interstates and high-traffic roadways (as of 1/23)</li>
+        <li class="closed"><strong>Widespread road closures</strong> - NWS advises expecting significant delays on major interstates</li>
+        <li class="delayed"><strong>Vehicle restrictions</strong> - In place across Pennsylvania and New Jersey</li>
+      </ul>
+      <p style="margin-top: 12px; color: var(--status-warn);"><strong>Officials urge:</strong> Only travel if absolutely necessary. Roads remain dangerous.</p>
+    </div>
+
+    <div class="section">
+      <h2>Storm Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time">Thu, Jan 23 - Afternoon</div>
+          <div class="event">Governor Shapiro signs Disaster Emergency proclamation</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">Sat, Jan 24 - 6:00 PM</div>
+          <div class="event">Northampton Township declares snow emergency</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">Sat-Sun, Jan 24-25</div>
+          <div class="event">Heavy snowfall across region (largest Philadelphia snow since 2016)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">Sun, Jan 25 - 11PM to Mon 4AM</div>
+          <div class="event">Snow tapers off in NEPA region</div>
+        </div>
+        <div class="timeline-item active">
+          <div class="time">Mon, Jan 26 - Current</div>
+          <div class="event">Cleanup continues. Extreme cold with wind chills near 0°F. Gusts up to 25 mph.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">Mon, Jan 26 - 1:00 PM</div>
+          <div class="event">Winter Storm Warning expires for Northampton County</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Safety Tips</h2>
+      <div class="safety-tips">
+        <div class="tip">
+          <div class="icon">❄️</div>
+          <div class="text">Stay home if possible. Roads remain dangerous.</div>
+        </div>
+        <div class="tip">
+          <div class="icon">❤️</div>
+          <div class="text">Take breaks when shoveling. 3 deaths reported in Lehigh County.</div>
+        </div>
+        <div class="tip">
+          <div class="icon">🧥</div>
+          <div class="text">Dress in layers. Wind chills near 0°F.</div>
+        </div>
+        <div class="tip">
+          <div class="icon">🚗</div>
+          <div class="text">If you must drive, keep emergency supplies in your vehicle.</div>
+        </div>
+        <div class="tip">
+          <div class="icon">👴</div>
+          <div class="text">Check on elderly neighbors and those who live alone.</div>
+        </div>
+        <div class="tip">
+          <div class="icon">🔥</div>
+          <div class="text">Use space heaters safely. Keep away from flammable items.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Resources & Sources</h2>
+      <ul>
+        <li class="open"><a href="https://www.pa.gov/agencies/ready/hazards/winter-storms/jan-24-storm" class="source-link" target="_blank">Ready PA - January 2026 Snowstorm</a> - Official state emergency info</li>
+        <li class="open"><a href="https://www.wfmz.com/weather/stormcenter/" class="source-link" target="_blank">WFMZ Stormcenter</a> - Lehigh Valley school closings & delays</li>
+        <li class="open"><a href="https://6abc.com/live-updates/winter-storm-weekend-snowstorm-set-hit-philadelphia-region-potential-icy-mix-live-updates/18444689/" class="source-link" target="_blank">6ABC Philadelphia</a> - Live storm updates</li>
+        <li class="open"><a href="https://www.fox29.com/news/winter-storm-brings-heavy-snow-sleet-road-closures-across-philadelphia-region" class="source-link" target="_blank">FOX 29 Philadelphia</a> - Road closures</li>
+        <li class="open"><a href="https://whyy.org/articles/philadelphia-snow-storm-updates-latest-forecast-monday-snowfall-totals/" class="source-link" target="_blank">WHYY</a> - Snowfall totals & forecast</li>
+      </ul>
+    </div>
+
+    <div class="update-time">
+      Last updated: January 26, 2026 | Information compiled from official sources
+    </div>
+  </div>
+</body>
+</html>
